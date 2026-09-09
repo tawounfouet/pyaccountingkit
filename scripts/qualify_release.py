@@ -170,7 +170,7 @@ def main() -> int:
     parser.add_argument(
         "--skip-tests",
         action="store_true",
-        help="Skip pytest. Intended only before LOT-00.5 provides real bootstrap tests.",
+        help="Skip pytest for focused diagnostics; this never qualifies a full release.",
     )
     parser.add_argument(
         "--skip-package",
@@ -191,7 +191,7 @@ def main() -> int:
     print(f"Gates passed: {len(results)}")
     print(f"Aggregate gate time: {total:.2f}s")
     if args.skip_tests:
-        print("Tests: SKIPPED explicitly; full release qualification is not yet satisfied.")
+        print("Tests: SKIPPED explicitly; full release qualification is not satisfied.")
     return 0
 
 

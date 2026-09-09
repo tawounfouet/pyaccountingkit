@@ -1,0 +1,98 @@
+{
+  "registry_id": "accounting-core-concepts-v0",
+  "purpose": "Neutral semantic pivot for candidate generation; not a regulatory standard.",
+  "concepts": [
+    {
+      "concept_id": "concept:equity_capital",
+      "label": "Capital / dotation",
+      "definition": "Ressources stables propres issues d'apports ou de dotations.",
+      "concept_type": "equity",
+      "status": "seed"
+    },
+    {
+      "concept_id": "concept:reserves",
+      "label": "Réserves",
+      "definition": "Résultats ou ressources affectés durablement.",
+      "concept_type": "equity",
+      "status": "seed"
+    },
+    {
+      "concept_id": "concept:retained_earnings",
+      "label": "Report à nouveau",
+      "definition": "Résultats antérieurs reportés.",
+      "concept_type": "equity",
+      "status": "seed"
+    },
+    {
+      "concept_id": "concept:period_result",
+      "label": "Résultat de l'exercice",
+      "definition": "Résultat net, excédent ou déficit de la période.",
+      "concept_type": "performance",
+      "status": "seed"
+    },
+    {
+      "concept_id": "concept:provisions",
+      "label": "Provisions",
+      "definition": "Passifs ou ajustements fondés sur risques, charges ou dépréciations selon le référentiel.",
+      "concept_type": "measurement",
+      "status": "seed"
+    },
+    {
+      "concept_id": "concept:fixed_assets",
+      "label": "Immobilisations",
+      "definition": "Actifs destinés à servir durablement à l'activité.",
+      "concept_type": "asset",
+      "status": "seed"
+    },
+    {
+      "concept_id": "concept:inventory",
+      "label": "Stocks",
+      "definition": "Biens et éléments détenus dans le cycle d'exploitation.",
+      "concept_type": "asset",
+      "status": "seed"
+    },
+    {
+      "concept_id": "concept:trade_receivables",
+      "label": "Créances d'exploitation",
+      "definition": "Droits à recevoir issus des opérations avec des tiers.",
+      "concept_type": "asset",
+      "status": "seed"
+    },
+    {
+      "concept_id": "concept:trade_payables",
+      "label": "Dettes fournisseurs",
+      "definition": "Obligations envers fournisseurs et tiers d'exploitation.",
+      "concept_type": "liability",
+      "status": "seed"
+    },
+    {
+      "concept_id": "concept:cash",
+      "label": "Trésorerie / caisse",
+      "definition": "Disponibilités et instruments de trésorerie selon le référentiel.",
+      "concept_type": "asset",
+      "status": "seed"
+    },
+    {
+      "concept_id": "concept:operating_expense",
+      "label": "Charges d'exploitation",
+      "definition": "Consommations et charges rattachées à l'activité.",
+      "concept_type": "expense",
+      "status": "seed"
+    },
+    {
+      "concept_id": "concept:operating_revenue",
+      "label": "Produits d'exploitation",
+      "definition": "Produits et revenus rattachés à l'activité.",
+      "concept_type": "revenue",
+      "status": "seed"
+    }
+  ],
+  "bindings": [],
+  "binding_policy": {
+    "bindings_status": "deferred_until_complete_structures",
+    "human_review_required": true,
+    "auto_approval_allowed": false,
+    "code_equality_is_semantic_evidence": false,
+    "neutral_concept_is_not_accounting_rule": true
+  }
+}

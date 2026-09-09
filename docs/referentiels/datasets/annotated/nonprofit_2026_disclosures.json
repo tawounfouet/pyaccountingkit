@@ -1,0 +1,718 @@
+{
+  "dataset_layer": "disclosures",
+  "edition": "2026",
+  "requirements": [
+    {
+      "article_ref": "431-1",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:431-1:occ01",
+      "requirement_type": "general_annex",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre I – Dispositions générales"
+        ],
+        "page_end_pdf": 47,
+        "page_start_pdf": 47
+      },
+      "text_source": "L’annexe est établie conformément aux dispositions de la section 3 du chapitre III du titre VIII du règlement\nANC n° 2014-03 relatif au plan comptable général sous réserves des dispositions particulières qui suivent.",
+      "title_source": null
+    },
+    {
+      "article_ref": "431-2",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:431-2:occ01",
+      "requirement_type": "general_annex",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre I – Dispositions générales"
+        ],
+        "page_end_pdf": 47,
+        "page_start_pdf": 47
+      },
+      "text_source": "Avant les principes et méthodes figurant à l’article 831-1 du règlement ANC n° 2014-03 relatif au plan\ncomptable général, l'annexe comprend :\n•  une description de l’objet social de l’entité ;\n•  une description de la nature et du périmètre des activités ou missions sociales réalisées ;\n•  une description des moyens mis en œuvre.\nSont également mentionnés, les faits caractéristiques d’importance significative intervenus au cours de\nl’exercice ou de la clôture jusqu’à la date d’approbation des comptes par l’organe délibérant.",
+      "title_source": null
+    },
+    {
+      "article_ref": "431-3",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:431-3:occ01",
+      "requirement_type": "general_annex",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre I – Dispositions générales"
+        ],
+        "page_end_pdf": 47,
+        "page_start_pdf": 47
+      },
+      "text_source": "Pour l’ensemble des actifs incorporels, corporels et financiers inaliénables que l’entité détient, l’entité fournit\nles informations suivantes :\n•   nature de l’actif inaliénable ;\n•   date d’inscription à l’actif ;\n•   durée d’inaliénabilité ;\n•   valeur nette de l’immobilisation.",
+      "title_source": null
+    },
+    {
+      "article_ref": "431-4",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:431-4:occ01",
+      "requirement_type": "general_annex",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre I – Dispositions générales"
+        ],
+        "page_end_pdf": 48,
+        "page_start_pdf": 47
+      },
+      "text_source": "Pour l’ensemble des donations temporaires d’usufruit comptabilisées ou non à  l’actif, les informations\nsuivantes sont fournies :\n•   nature de l’actif sous-jacent ;\n•   date de signature de la donation temporaire ;\n•   durée de la donation temporaire d’usufruit.\nPour les donations temporaires d’usufruit comptabilisées à l’actif, les modalités de valorisation de  l’actif\nincorporel sont mentionnées.\n**IR3 - Dispositions transitoires**\nLes dispositions de première application du règlement permettent de ne pas comptabiliser les donations\ntemporaires d’usufruit conclues antérieurement à la première application du règlement mais n’exonèrent pas\nl’entité de fournir une information en annexe sur ces donations temporaires d’usufruit.\n\nVersion du 1er janvier 2026                                                              46\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF",
+      "title_source": null
+    },
+    {
+      "article_ref": "431-5",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:431-5:occ01",
+      "requirement_type": "general_annex",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre I – Dispositions générales"
+        ],
+        "page_end_pdf": 48,
+        "page_start_pdf": 48
+      },
+      "text_source": "1. Le tableau suivant se substitue à l’ensemble des informations demandées dans les articles 832-11 et 832-\n12 du règlement ANC n° 2014-03 relatif au plan comptable général :\n\nVARIATION DES                     AFFECTATION                    DIMINUTION OU    A LA                  A L’OUVERTURE                  AUGMENTATION FONDS PROPRES                  DU RESULTAT                 CONSOMMATION  CLOTURE\n\nFonds propres sans\ndroit de reprise\nFonds propres avec\ndroit de reprise\nEcarts de\nréévaluation\n\nRéserves\n\nReport à nouveau\n\nExcédent ou déficit\nde l’exercice\n\nSituation nette\n\nFonds propres\nconsomptibles\nSubventions\nd’investissement\nProvisions\nréglementées\n\nTOTAL\n\n2. L’entité fournit des informations sur la nature des autres fonds propres.\n**IR3 - Générosité du public**\nPour les entités entrant dans le champ d’application de l’article 432-1, le tableau de variation des fonds propres\nest remplacé par celui prévu à l’article 432-22.",
+      "title_source": null
+    },
+    {
+      "article_ref": "431-5-1",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:431-5-1:occ01",
+      "requirement_type": "general_annex",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre I – Dispositions générales"
+        ],
+        "page_end_pdf": 48,
+        "page_start_pdf": 48
+      },
+      "text_source": "L’entité fournit des informations sur les caractéristiques propres à chaque émission de titres associatifs (date\nd’émission, nombre de titre émis, valeur nominale des titres, modalités de rémunération et de remboursement).",
+      "title_source": null
+    },
+    {
+      "article_ref": "431-6",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:431-6:occ01",
+      "requirement_type": "general_annex",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre I – Dispositions générales"
+        ],
+        "page_end_pdf": 49,
+        "page_start_pdf": 48
+      },
+      "text_source": "Une information relative aux fonds dédiés est donnée dans l’annexe par projet ou catégorie de projet selon\nles rubriques figurant dans le tableau ci-après comportant les montants suivants :\n•  les sommes inscrites à l’ouverture et à la clôture de l’exercice en « fonds dédiés » ;\n•  les reports en fonds dédiés ;\n•  les fonds dédiés utilisés comprenant les remboursements aux tiers financeurs;\n•  les transferts entre fonds dédiés ;\n•  les fonds dédiés correspondant à des projets pour lesquels aucune dépense significative n’a été\ncomptabilisée au cours des deux derniers exercices.\n\nVersion du 1er janvier 2026                                                              47\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n\nA LA CLOTURE DE                                               UTILISATIONS                                                                                    L’EXERCICE\n\nVARIATION         A                                                                          Dont fonds\nDES FONDS    L’OUVERTURE                                                                           dédiés                           REPORTS                     TRANSFERTS  DEDIES ISSUS       DE                                                                            correspondant à                                                             Dont     DE         L’EXERCICE                 Montant                                 Montant   des projets sans                                                          rembourse                                                          global                                         global      dépense au                                                          ments                                                                                                         cours des deux\nderniers\nexercices\nSubventions\nd’exploitation (1)\n\nContributions\nfinancières\nd’autres\norganismes (1)\nRessources\nliées à la\ngénérosité du\npublic(1)\n\nTOTAL\n(1)  les lignes sont à ventiler par projet ou catégorie de projet",
+      "title_source": null
+    },
+    {
+      "article_ref": "431-7",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:431-7:occ01",
+      "requirement_type": "general_annex",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre I – Dispositions générales"
+        ],
+        "page_end_pdf": 49,
+        "page_start_pdf": 49
+      },
+      "text_source": "L’annexe comporte une information concernant le compte de passif « Fonds reportés liés aux legs ou\ndonations » :\n•  solde à l’ouverture de l’exercice ;\n•  variations de l’exercice (augmentation et diminution) ;\n•  solde à la clôture de l’exercice.",
+      "title_source": null
+    },
+    {
+      "article_ref": "431-8",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:431-8:occ01",
+      "requirement_type": "general_annex",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre I – Dispositions générales"
+        ],
+        "page_end_pdf": 50,
+        "page_start_pdf": 49
+      },
+      "text_source": "Le détail de la rubrique « Legs, donations et assurances-vie » figurant au compte de résultat est présenté sous\nforme du tableau suivant :\n\nPRODUITS                                       Montants\nMontant perçu au titre d’assurances-vie\nMontant de la rubrique de produits « Legs\nou donations » définie à l’article 213-9\nPrix de vente des biens reçus par legs ou\ndonations destinés à être cédés\nReprise des dépréciations d’actifs reçus par\nlegs ou donations destinés à être cédés\nUtilisation des fonds reportés liés aux legs\nou donations\n\nVersion du 1er janvier 2026                                                              48\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n\nCHARGES                                       Montants\nValeur nette comptable des biens reçus par\nlegs ou donations destinés à être cédés\nDotation aux dépréciations  d’actifs reçus\npar legs ou donations destinés à être cédés\nReport en fonds reportés liés aux legs ou\ndonations\nSOLDE DE LA RUBRIQUE",
+      "title_source": null
+    },
+    {
+      "article_ref": "431-9",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:431-9:occ01",
+      "requirement_type": "general_annex",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre I – Dispositions générales"
+        ],
+        "page_end_pdf": 50,
+        "page_start_pdf": 50
+      },
+      "text_source": "L’entité fournit une information sur les montants des concours publics et les subventions qui lui ont été octroyés\ndans l’exercice en distinguant :\n•   la nature du concours ou de la subvention octroyé : concours publics, subvention d’exploitation et\nsubvention d’investissement ;\n•   les  différentes  catégories  d’autorités  administratives   : Union  européenne,  Etat,  Collectivités\nterritoriales, Caisse d’allocations familiales, autres…",
+      "title_source": null
+    },
+    {
+      "article_ref": "431-10",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:431-10:occ01",
+      "requirement_type": "general_annex",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre I – Dispositions générales"
+        ],
+        "page_end_pdf": 51,
+        "page_start_pdf": 50
+      },
+      "text_source": "L’entité fournit des informations sur les contributions volontaires en nature dont elle bénéficie.\nSi l’entité décide de ne pas comptabiliser les contributions volontaires en nature, l’entité mentionne les motifs\nde cette décision et donne une information sur la nature et l’importance des contributions volontaires en nature.\nSi l’entité décide de comptabiliser les contributions volontaires en nature, les modalités de recensement, de\nquantification et de valorisation des contributions volontaires en nature sont explicitées dans l’annexe.\n**IR1 - Contexte**\nL’inscription en comptabilité des contributions volontaires en nature permet à l’entité de présenter l’ensemble\ndes activités et moyens mis en œuvre et notamment :\n\n•   connaître et rendre compte de l’intégralité des « ressources mises en œuvre » ;\n•   appréhender les coûts réels d’un projet de l’entité ;\n•   sensibiliser les utilisateurs de l’information financière (internes et externes) sur l’absence de pérennité\nde cette « ressource » ;\n•   mieux gérer la ressource en sachant la valoriser ;\n•    illustrer le caractère désintéressé de la gestion.\n**IR3 - Mode d’appréhension**\nPréalablement à toute démarche de valorisation, l’entité doit s’assurer que les bases sont vérifiables et fiables.\nCela suppose qu’un mode organisé de collecte de l’information soit mis en place, qui comprenne par exemple\ndes états de temps, des fiches de travaux, des bordereaux de suivi de mouvements de produits ou matière.\n\nVersion du 1er janvier 2026                                                              49\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n**IR3 - Pratiques de valorisation de l’apport en travail**\nLes pratiques de valorisation du bénévolat et d’enregistrement dans les comptes ont un caractère spécifique :\n\n•   choix spécifique d’unité (heure, opération,…) ;\n•   choix de méthode de valorisation (valeur de remplacement, SMIC et ses variantes – net, chargé,\nassorti de coefficients de pondération…).\n\nDès lors, ces pratiques doivent être transparentes et appliquées de façon constante.\n**IR3 - Pratiques de valorisation de l’apport en biens et services**\nLa valorisation des apports de biens ou autres services se fait par référence au coût réel comme par exemple\nla valeur locative des mises à disposition de locaux.",
+      "title_source": null
+    },
+    {
+      "article_ref": "431-11",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:431-11:occ01",
+      "requirement_type": "general_annex",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre I – Dispositions générales"
+        ],
+        "page_end_pdf": 51,
+        "page_start_pdf": 51
+      },
+      "text_source": "L’annexe de  l’entité prêteuse et l’annexe de  l’entité bénéficiaire comportent les informations suivantes\nconcernant les opérations de mises à disposition gratuite de biens :\n•   descriptif qualitatif : date de l’opération, durée, type de bien ;\n•   éléments permettant de valoriser la contribution volontaire en nature.\n**IR1 - Contexte**\nLa rubrique « Mises à disposition gratuite de biens » comprend les prêts à usage.",
+      "title_source": null
+    },
+    {
+      "article_ref": "431-12",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:431-12:occ01",
+      "requirement_type": "general_annex",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre I – Dispositions générales"
+        ],
+        "page_end_pdf": 51,
+        "page_start_pdf": 51
+      },
+      "text_source": "L’entité fournit des informations sur les transactions qu’elle a effectuées avec des personnes physiques ou\npersonnes morales, dénommées contrepartie :\n•   désignation de la contrepartie ;\n•   la nature de la relation avec la contrepartie ;\n•   le montant des transactions réalisées avec la contrepartie ;\n•   toute autre information sur les transactions nécessaire à l’appréciation de la situation financière de\nl’entité.\nCes dispositions ne s’appliquent pas aux transactions courantes conclues à des conditions normales.\n**IR3 - Définition d’une transaction figurant dans l’annexe**\nLes transactions figurant dans l’annexe remplissent la condition d’être non habituelles ou de ne pas être\nconclues à des conditions normales comme, par exemple une dotation à une fondation ou à un fonds de\ndotation, ou un apport en fonds propres à une autre entité.\n\nCes transactions ne sont pas limitées à certaines contreparties (parties liées ou conventions visées à l’article\nL. 612-5 du code de commerce).",
+      "title_source": null
+    },
+    {
+      "article_ref": "431-13",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:431-13:occ01",
+      "requirement_type": "general_annex",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre I – Dispositions générales"
+        ],
+        "page_end_pdf": 52,
+        "page_start_pdf": 51
+      },
+      "text_source": "Les associations mentionnées à l’article 20 de la loi n° 2006-586 du 23 mai 2006 remplacent les informations\ndemandées aux articles 835-1 et 835-12 du règlement ANC n° 2014-03 par les informations dont la publication\nest exigée par la loi précitée.\n\nVersion du 1er janvier 2026                                                              50\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n\nArticle 20 de la loi n° 2006-586 du 23 mai 2006 relative à l'engagement éducatif\n\nLes associations dont le budget annuel est supérieur à 150 000 Euros et recevant une ou plusieurs subventions de l'État\nou d'une collectivité territoriale dont le montant est supérieur à 50 000 Euros doivent publier chaque année dans le compte\nfinancier les rémunérations des trois plus hauts cadres dirigeants bénévoles et salariés ainsi que leurs avantages en\nnature.\n\nArticle L3111-2 du code du travail\n\n[…] Sont considérés comme ayant la qualité de cadre dirigeant les cadres auxquels sont confiées des responsabilités dont\nl'importance implique une grande indépendance dans l'organisation de leur emploi du temps, qui sont habilités à prendre\ndes décisions de façon largement autonome et qui perçoivent une rémunération se situant dans les niveaux les plus élevés\ndes systèmes de rémunération pratiqués dans leur entreprise ou établissement.\n\n#### Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public\n\n##### Section 1 – Champ d’application",
+      "title_source": null
+    },
+    {
+      "article_ref": "432-1",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:432-1:occ01",
+      "requirement_type": "public_generosity",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+          "Section 1 – Champ d’application"
+        ],
+        "page_end_pdf": 52,
+        "page_start_pdf": 52
+      },
+      "text_source": "Les associations et fondations relevant des articles 3 et 4 de la loi n° 91-772 du 7 août 1991 et les fonds de\ndotation qui font appel à la générosité du public relevant de §2 du VI de l’article 140 de la loi n° 2008-776 de\nmodernisation de l’économie incluent dans l’annexe de leurs comptes annuels une sous-section 4 qui\ncomporte les états suivants :\n•  un compte de résultat par origine et destination défini à l’article 432-2 ;\n•  un compte d’emploi annuel des ressources collectées auprès du public conformément à la loi n° 91-\n772 du 7 août 1991 défini à l’article 432-17 ;\n•   les informations nécessaires à leur bonne compréhension.\nPour ces entités, le tableau de variation des fonds propres défini à l’article 432-22 remplace le tableau portant\nsur les mêmes informations prévu à l’article 431-5 du présent titre.\n\nLoi n° 91-772 du 7 août 1991 relative au congé de représentation en faveur des associations et des mutuelles et\nau contrôle des comptes des organismes faisant appel à la générosité publique",
+      "title_source": null
+    },
+    {
+      "article_ref": "432-2",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:432-2:occ01",
+      "requirement_type": "public_generosity",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+          "Section 2 – Compte de résultat par origine et destination"
+        ],
+        "page_end_pdf": 55,
+        "page_start_pdf": 53
+      },
+      "text_source": "Le compte de résultat par origine et destination est établi selon le modèle présenté ci-dessous :\n\nVersion du 1er janvier 2026                                                              52\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n\nCOMPTE DE RESULTAT PAR ORIGINE ET DESTINATION\n\nEXERCICE N         EXERCICE N-1\nA - PRODUITS ET CHARGES PAR ORIGINE ET\nDESTINATION                               Dont                  Dont\nTOTAL    générosité   TOTAL    générosité\ndu public             du public\nPRODUITS PAR ORIGINE\n1  - PRODUITS LIES A LA GENEROSITE DU\nPUBLIC\n1.1 Cotisations sans contrepartie\n1.2 Dons, legs et mécénat\n- Dons manuels\n- Legs, donations et assurances-vie\n- Mécénat\n1.3 Autres produits liés à la générosité du public\n2 - PRODUITS NON LIES A LA GENEROSITE DU\nPUBLIC\n2.1 Cotisations avec contrepartie\n2.2 Parrainage des entreprises\n2.3 Contributions financières sans contrepartie\n2.4 Autres produits non liés à la générosité du public\n3   - SUBVENTIONS ET AUTRES CONCOURS\nPUBLICS\n4     -   REPRISES  SUR   PROVISIONS   ET\nDEPRECIATIONS\n5    -  UTILISATIONS  DES  FONDS  DEDIES\nANTERIEURS\nTOTAL\nCHARGES PAR DESTINATION\n1 - MISSIONS SOCIALES\n1.1 Réalisées en France\n- Actions réalisées par l'organisme\n- Versements à un organisme central ou à\nd’autres organismes agissant en France\n1.2 Réalisées à l’étranger\n- Actions réalisées par l'organisme\n- Versements à un organisme central ou à\nd’autres organismes agissant à l’étranger\n2 - FRAIS DE RECHERCHE DE FONDS\n2.1 Frais d’appel à la générosité du public\n2.2 Frais de recherche d'autres ressources\n3 - FRAIS DE FONCTIONNEMENT\n4 - DOTATIONS AUX PROVISIONS ET\nDEPRECIATIONS\n5 - IMPOT SUR LES BENEFICES\n6 - REPORTS EN FONDS DEDIES DE L'EXERCICE\nTOTAL\nEXCEDENT OU DEFICIT\n\nVersion du 1er janvier 2026                                                              53\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n\nEXERCICE N         EXERCICE N-1\nB - CONTRIBUTIONS VOLONTAIRES EN NATURE                Dont                  Dont\nTOTAL    générosité   TOTAL    générosité\ndu public             du public\nPRODUITS PAR ORIGINE\n1 - CONTRIBUTIONS VOLONTAIRES LIEES A LA\nGENEROSITE DU PUBLIC\nBénévolat\nPrestations en nature\nDons en nature\n2 - CONTRIBUTIONS VOLONTAIRES NON LIEES\nA LA GENEROSITE DU PUBLIC\n3 - CONCOURS PUBLICS EN NATURE\nPrestations en nature\nDons en nature\nTOTAL\nCHARGES PAR DESTINATION\n1 - CONTRIBUTIONS VOLONTAIRES AUX\nMISSIONS SOCIALES\nRéalisées en France\nRéalisées à l’étranger\n2 - CONTRIBUTIONS VOLONTAIRES A LA\nRECHERCHE DE FONDS\n3 - CONTRIBUTIONS VOLONTAIRES AU\nFONCTIONNEMENT\nTOTAL\n\n###### Sous-section 2 – Produits du compte de résultat par origine et destination",
+      "title_source": null
+    },
+    {
+      "article_ref": "432-3",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:432-3:occ01",
+      "requirement_type": "public_generosity",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+          "Section 2 – Compte de résultat par origine et destination"
+        ],
+        "page_end_pdf": 55,
+        "page_start_pdf": 55
+      },
+      "text_source": "Les cotisations avec ou sans contreparties sont ventilées selon les règles définies à l’article 142-1 du présent\nrèglement.",
+      "title_source": null
+    },
+    {
+      "article_ref": "432-4",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:432-4:occ01",
+      "requirement_type": "public_generosity",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+          "Section 2 – Compte de résultat par origine et destination"
+        ],
+        "page_end_pdf": 55,
+        "page_start_pdf": 55
+      },
+      "text_source": "La rubrique « Dons manuels » comprend les produits reçus des ventes de dons en nature.\n**IR2 - Dons en nature**\nLa vente de dons de marchandises en nature est la réalisation monétaire d’un don manuel en nature.",
+      "title_source": null
+    },
+    {
+      "article_ref": "432-5",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:432-5:occ01",
+      "requirement_type": "public_generosity",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+          "Section 2 – Compte de résultat par origine et destination"
+        ],
+        "page_end_pdf": 56,
+        "page_start_pdf": 55
+      },
+      "text_source": "La rubrique « Autres produits liés à la générosité du public » comprend :\n•   la quote-part de générosité reçue d’autres organismes ;\n•   les revenus générés par les actifs issus de la générosité du public :\no   les redevances d’actifs incorporels ;\no   les loyers ;\no   les produits financiers ;\n\nVersion du 1er janvier 2026                                                              54\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\no   les plus ou moins-values de cessions de ces actifs à l’exclusion des plus ou moins-values relatives\naux biens reçus par legs ou donation destinés à être cédés.\n**IR2 - Plus ou moins-values de cession**\nLes plus ou moins-values de cession relatives aux biens reçus par legs ou donation, destinés à être cédés\nsont exclues de cette rubrique car elles figurent dans la rubrique « Legs, donations et assurances-vie ».\n**IR2 - Actifs incorporels**\nLes actifs incorporels comprennent notamment les droits d’auteur et les brevets.\n**IR3 - Collecte redistribuée**\nLorsqu’une entité qui collecte auprès du public redistribue tout ou partie de cette collecte, trois situations se\nprésentent :\n\n•    si l’entité qui assure la collecte en son nom est libre du choix de l’organisme bénéficiaire auquel elle\nreverse tout ou partie de la collecte, l’opération constitue :\no  pour l’entité qui assure la collecte, une aide financière comptabilisée en charges ;\no  pour l’entité qui bénéficie du reversement, une contribution financière comptabilisée en produits.\n•    si l’entité qui assure la collecte en son nom est tenue par un accord ou une convention de reverser\ntout ou partie de la collecte à une entité désignée, l’opération constitue :\no  pour l’entité qui assure la collecte, une quote-part de générosité comptabilisée en charges ;\no  pour l’entité qui bénéficie du reversement, une quote-part de générosité comptabilisée en produits.\n•    si l’entité qui assure la collecte agit au nom de l’entité bénéficiaire, l’opération est comptabilisée\nconformément aux dispositions de l’article 621-11 du règlement ANC n° 2014-03 relatif au plan\ncomptable général.",
+      "title_source": null
+    },
+    {
+      "article_ref": "432-6",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:432-6:occ01",
+      "requirement_type": "public_generosity",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+          "Section 2 – Compte de résultat par origine et destination"
+        ],
+        "page_end_pdf": 56,
+        "page_start_pdf": 56
+      },
+      "text_source": "La rubrique « Contributions financières sans contrepartie » comprend :\n•   les contributions financières reçues d’autres entités ;\n•   les versements des fondateurs des fondations d’entreprise et assimilées ;\n•   la part de dotation consomptible virée au compte de résultat.",
+      "title_source": null
+    },
+    {
+      "article_ref": "432-7",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:432-7:occ01",
+      "requirement_type": "public_generosity",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+          "Section 2 – Compte de résultat par origine et destination"
+        ],
+        "page_end_pdf": 56,
+        "page_start_pdf": 56
+      },
+      "text_source": "La rubrique « Autres produits non liés à la générosité du public » comprend :\n•   les ventes de marchandises et de prestations de services ;\n•   les revenus des actifs non issus de la générosité du public :\no   les redevances d’actifs incorporels ;\no   les loyers ;\no   les produits financiers ;\no   les plus ou moins-values de cession d’actifs.\nElle ne comprend pas les subventions et autres concours publics.",
+      "title_source": null
+    },
+    {
+      "article_ref": "432-8",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:432-8:occ01",
+      "requirement_type": "public_generosity",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+          "Section 2 – Compte de résultat par origine et destination"
+        ],
+        "page_end_pdf": 57,
+        "page_start_pdf": 56
+      },
+      "text_source": "La rubrique « Subventions et autres concours publics » comprend :\n\nVersion du 1er janvier 2026                                                              55\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n•  au titre des subventions :\no   les subventions d’exploitation ;\no   la quote-part des subventions d’investissements réintégrée au cours de l’exercice au compte de\nrésultat.\n•   les concours publics définis à l’article 142-9.",
+      "title_source": null
+    },
+    {
+      "article_ref": "432-9",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:432-9:occ01",
+      "requirement_type": "public_generosity",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+          "Section 2 – Compte de résultat par origine et destination"
+        ],
+        "page_end_pdf": 57,
+        "page_start_pdf": 57
+      },
+      "text_source": "Pour les rubriques figurant dans les produits liés à la générosité du public, l’entité ventile en aval du compte\nde résultat par origine et destination les produits dédiés par le tiers financeur à un projet défini et les produits\nnon dédiés.\n**IR2 - Produits dédiés**\nL’entité peut également détailler les produits non liés à la générosité du public qui sont dédiés par le tiers\nfinanceur à un projet défini.\n\n###### Sous-section 3 – Charges du compte de résultat par origine et destination",
+      "title_source": null
+    },
+    {
+      "article_ref": "432-10",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:432-10:occ01",
+      "requirement_type": "public_generosity",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+          "Section 2 – Compte de résultat par origine et destination"
+        ],
+        "page_end_pdf": 57,
+        "page_start_pdf": 57
+      },
+      "text_source": "La définition des missions sociales et des moyens à mettre en œuvre relève d’une décision de gestion prise\npar l’organe habilité, en conformité avec l’objet de l’entité.\nLorsque l’information relative aux missions sociales dans le compte de résultat par origine et destination ne\npermet pas une bonne compréhension de l’activité, des informations détaillées par mission sociale sont\ndonnées dans l’annexe.\nLes rubriques relatives aux missions sociales comprennent les charges engagées par  l’entité pour la\nréalisation de ces missions et qui ont vocation à disparaitre si elle cesse.\nLes charges engagées pour la réalisation des missions sociales comprennent les coûts directement liés aux\nactivités et services rendus pour réaliser ces missions, tels que les frais de personnel directs, les fournitures\net services extérieurs engagés pour réaliser les missions.\nElles comprennent également les coûts indirects qui sont engagés pour réaliser les activités et services rendus\nau titre des missions sociales. Ces coûts sont ceux qui sont mis en œuvre spécifiquement pour la réalisation\nd’une ou plusieurs missions sociales. Ces coûts sont généralement fonction de l’ampleur des missions\nréalisées. Ces coûts peuvent faire l’objet de répartitions et doivent tenir compte de l’utilisation effective des\nmoyens concernés.",
+      "title_source": null
+    },
+    {
+      "article_ref": "432-11",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:432-11:occ01",
+      "requirement_type": "public_generosity",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+          "Section 2 – Compte de résultat par origine et destination"
+        ],
+        "page_end_pdf": 58,
+        "page_start_pdf": 57
+      },
+      "text_source": "La rubrique « Frais d’appel à la générosité du public » comprend les charges engagées par l’entité dans le but\nde recueillir auprès du public des moyens pour réaliser son action.\n**IR3 - Précisions relatives aux frais d’appel à la générosité du public**\nLes frais d’appel à la générosité du public correspondent aux frais de recherche et de traitement de dons et\nlibéralités. Ils comprennent à titre d’exemple :\n\n•   les frais d’appel à dons, quelle que soit la forme de ces dons (en nature, donations, legs, assurances-\nvie) auprès des entreprises et des particuliers. La publicité ou l’appel à dons peut se faire sous de\nmultiples formes : campagne publicitaire sur panneaux, par envoi postal, par médias sociaux, spots\npublicitaires, etc… ;\n\nVersion du 1er janvier 2026                                                              56\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n•   les frais de traitement des dons, legs, donations, assurance-vie ou mécénat ; les prestations de\nservices de collecte ou de traitement des dons, legs, donations, assurance-vie ou mécénat, les\ncharges des legs résultant de stipulations testamentaires ;\n\n•   les frais de tenue, de location ou d’acquisition de fichiers de donateurs ou mécènes ;\n\n•   les frais d’appel et de gestion de cotisations sans contrepartie ;\n\n•   les frais d’appel à bénévolat ;\n\n•   les frais de gestion des actifs issus de la générosité du public ou financés par la générosité du public ;\n\n•   les achats de marchandises et de prestations de services destinées à la vente qui, pour les entités\nfaisant appel à la générosité du public, sont vendus à un prix bien plus élevé que leur prix d’achat.",
+      "title_source": null
+    },
+    {
+      "article_ref": "432-12",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:432-12:occ01",
+      "requirement_type": "public_generosity",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+          "Section 2 – Compte de résultat par origine et destination"
+        ],
+        "page_end_pdf": 58,
+        "page_start_pdf": 58
+      },
+      "text_source": "La rubrique « Frais de recherche d’autres ressources » comprend les frais engagés par l’entité dans le but\nd’obtenir des ressources non liées à la générosité du public et des subventions ou autres concours publics.\n**IR3 - Précisions relatives aux frais de recherche d’autres ressources**\nLes frais de recherche d’autres ressources comprennent notamment :\n\n•   les  frais de recherche et de traitement de parrainage, de cotisations avec contrepartie ou de\ncontributions financières reçues d’autres organismes sans but lucratif pour remplir leurs missions\nsociales ;\n\n•   les frais liés à la recherche, aux demandes et aux traitements des subventions d’exploitation ou\nd’investissement ou de collecte de participations, contributions et taxes ;\n\n•   les frais de gestion des actifs qui ne sont pas issus de la générosité du public dont les fruits constituent\ndes produits de l’entité lui permettant de remplir ses missions sociales ;\n\n•   les charges d’un secteur marchand.",
+      "title_source": null
+    },
+    {
+      "article_ref": "432-13",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:432-13:occ01",
+      "requirement_type": "public_generosity",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+          "Section 2 – Compte de résultat par origine et destination"
+        ],
+        "page_end_pdf": 59,
+        "page_start_pdf": 58
+      },
+      "text_source": "La rubrique « Frais de fonctionnement » comprend les charges engagées pour la gestion et la gouvernance\nde l’entité.\nLes charges relatives aux fonctions relevant des frais de fonctionnement dont l’entité peut justifier l’affectation\nà la réalisation de missions sociales ou à des frais de recherche de fonds, sont affectées aux rubriques\n« Missions sociales » ou « Frais de recherche de fonds ».\n**IR3 - Précisions relatives aux frais de fonctionnement**\nLes frais de fonctionnement comprennent notamment les charges affectées aux activités suivantes :\n•   gouvernance ;\n•   communication ;\n•  Ressources humaines ;\n•   comptabilité  et  gestion  financière y compris  les  frais de gestion de  la  tarification pour  les\nétablissements et services sociaux et médico-sociaux et les établissements de santé ;\n•   juridique ;\n•  moyens généraux ;\n•   informatique.\n**IR3 - Charges financières**\n\nVersion du 1er janvier 2026                                                              57\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\nLes charges financières sont affectées aux rubriques « Missions sociales » ou « Frais de recherche de fonds »\nsi l’entité en justifie. A défaut, elles figurent dans les frais de fonctionnement.",
+      "title_source": null
+    },
+    {
+      "article_ref": "432-14",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:432-14:occ01",
+      "requirement_type": "public_generosity",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+          "Section 2 – Compte de résultat par origine et destination"
+        ],
+        "page_end_pdf": 59,
+        "page_start_pdf": 59
+      },
+      "text_source": "La part des dotations aux provisions et dépréciations relative à la générosité du public ainsi que le report en\nfonds dédiés figurent dans le compte de résultat par origine et destination.\n**IR3 - Dotations aux provisions et dépréciations**\nLes dotations aux provisions et déprécations concernent notamment les legs ou donations avec charges et\nles dépréciations des actifs acquis au moyen de la générosité du public.\n**IR3 - Dotations aux amortissements**\nContrairement aux dotations aux provisions et dépréciations qui seront reprises lors de la constatation de la\ncharge, objet de la provision ou de la dépréciation, ou si elles deviennent sans objet, les dotations aux\namortissements constituent des charges définitives qui sont ventilées dans les rubriques de missions sociales,\nfrais de recherche de fonds ou frais de fonctionnement.",
+      "title_source": null
+    },
+    {
+      "article_ref": "432-15",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:432-15:occ01",
+      "requirement_type": "public_generosity",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+          "Section 2 – Compte de résultat par origine et destination"
+        ],
+        "page_end_pdf": 60,
+        "page_start_pdf": 59
+      },
+      "text_source": "Pour  les charges  figurant dans  le compte de  résultat par  origine  et  destination, des  informations\ncomplémentaires sont données dans l’annexe si elles sont nécessaires à une bonne compréhension de la\nrubrique.\nLes modalités de répartition des charges figurant dans le compte de résultat entre les différentes rubriques du\ncompte de résultat par origine et destination ainsi que de leur quote-part relevant de la générosité du public\nsont explicitées en aval du compte de résultat par origine et destination.\nTout changement de modalité de répartition est justifié.\n**IR3 - Modalités de mise en œuvre – Informations complémentaires**\nA titre d’informations complémentaires, l’entité peut notamment détailler les charges rattachables à chaque\nmission sociale, la présentation géographique et opérationnelle du compte de résultat par origine et destination\npouvant ne pas être suffisante à une bonne compréhension de l’activité de l’entité.\n\nVersion du 1er janvier 2026                                                              58\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF",
+      "title_source": null
+    },
+    {
+      "article_ref": "432-16",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:432-16:occ01",
+      "requirement_type": "public_generosity",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+          "Section 2 – Compte de résultat par origine et destination"
+        ],
+        "page_end_pdf": 62,
+        "page_start_pdf": 60
+      },
+      "text_source": "Si l’entité décide de présenter un rapprochement entre les charges du compte de résultat et les rubriques du compte de résultat par origine et destination, elle\nle fait selon le modèle de tableau ci-dessous :\n\nFrais de recherche de                                                   Missions sociales                                                                                               fonds\nTABLEAU DE                                                                                                                                      Valeurs nettes comptables\nRAPPROCHEMENT ENTRE                                                                                                        Impôt sur  Reports  des éléments d’actifs cédés                                   Réalisées en France         Réalisées à l'étranger                                                                                                                                  en     figurant dans les rubriques :   TOTAL LES CHARGES DU COMPTE                                                                                                                         Frais de   Dotations aux      les                                                                                                                                                   fonds                     COMPTE                                                                                                                       fonctionn   DE RESULTAT               ET LES                                                                                                                                   provisions et   bénéfices                                                                                                      Autres                                                                                                                                                  dédiés     Autres        Autres      DE                                                                                                  ement    dépréciations RUBRIQUES          DU COMPTE                   DE                                                          Générosité                                                                                                                                        RESULTAT                                                                                                                                                                                         produits                                                                                                                                                           non                                                                                                                                                                            produits                                          Versement                                                                   Versements                                                                          à   du public   ressour RESULTAT         PAR ORIGINE ET                                     par                                                                 par                                                                                                ces                                                                                                                                                                                                                             liés à la                                                                                                                                                                                                           liés à la                                             s                                          à d'autres                                                                                    d'autres       DESTINATION                                   l'organisme                                                               l'organisme                                            organismes                organismes                                                                          générosité   générosité du\ndu public        public\n\nAchats de marchandises\n\nVariation de stock\n\nAutres achats et charges\nexternes\n\nAides financières\n\nImpôts, taxes et versement\nassimilés\n\nSalaires et traitements\n\nCharges sociales\n\nDotations aux amortissements\net dépréciations\n\nDotations aux provisions\n\nReports en fonds dédiés\n\nAutres charges\n\nCharges financières\n\nCharges exceptionnelles\n\nVersion du 1er janvier 2026                                                              59\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n\nParticipations des salariés aux\nrésultats\n\nImpôt sur les bénéfices\n\nTOTAL\n\nMissions sociales\n\nTABLEAU DE\nRAPPROCHEMENT ENTRE                                                                   TOTALLES CONTRIBUTIONS                                           Frais de        Frais de                                                            COMPTEVOLONTAIRES DU COMPTE                              recherche de     fonction-                               Réalisées en  Réalisées à                         DEDE RESULTAT ET DU                                         fonds        nement                                France       l'étranger                        RESULTATCOMPTE DE RESULTAT PAR\nORIGINE ET DESTINATION\n\nSecours en nature\n\nMises à disposition gratuite de\nbiens\n\nPrestations en nature\n\nPersonnel bénévole\n\nTOTAL\n\nVersion du 1er janvier 2026                                                              60\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n\n##### Section 3 – Compte d’emploi annuel des ressources collectées auprès du public conforme à la loi n° 91-772 du 7 août 1991",
+      "title_source": null
+    },
+    {
+      "article_ref": "432-17",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:432-17:occ01",
+      "requirement_type": "public_generosity",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+          "Section 3 – Compte d’emploi annuel des ressources collectées auprès du public conforme à la loi n° 91-772 du 7 août 1991"
+        ],
+        "page_end_pdf": 65,
+        "page_start_pdf": 62
+      },
+      "text_source": "Le compte d’emploi annuel des ressources collectées auprès du public conformément à la loi n° 91-772 du 7 août 1991 est établi selon le modèle ci-dessous.\nCe document est présenté après le compte de résultat par origine et destination et les commentaires y afférents, défini aux articles 432-2 à 432-16 du présent\nchapitre.\nCOMPTE D'EMPLOI ANNUEL DES RESSOURCES COLLECTEES AUPRES DU PUBLIC (LOI n° 91-772 DU 7 AOÛT 1991)\n\nEXERCICE                                                                    EXERCICE   EXERCICE                EMPLOIS PAR DESTINATION                            EXERCICE N-1               RESSOURCES PAR ORIGINE                                                    N                                                                   N           N-1\n\nEMPLOIS DE L'EXERCICE                                                     RESSOURCES DE L'EXERCICE\n1 – MISSIONS SOCIALES                                                                    1 – RESSOURCES LIEES A LA GENEROSITE DU PUBLIC\n1.1 Réalisées en France                                                                                     1.1 Cotisations sans contrepartie\n- Actions réalisées par l'organisme                                                                         1.2 Dons, legs et mécénats\n- Versements à un organisme central ou d’autres organismes                                                                                                                                                                - Dons manuels agissant en France\n1.2 Réalisées à l’étranger                                                                                                                       - Legs, donations et assurances-vie\n- Actions réalisées par l'organisme                                                                                                        - Mécénats\n- Versements à un organisme central ou d’autres organismes                                                                                                                  1.3 Autres ressources liées à la générosité du public agissant à l’étranger\n2 – FRAIS DE RECHERCHE DE FONDS\n2.1 Frais d’appel à la générosité du public\n2.2 Frais de recherche d'autres ressources\n3 – FRAIS DE FONCTIONNEMENT\n\nTOTAL DES EMPLOIS                                                     TOTAL DES RESSOURCES\n4 - DOTATIONS AUX PROVISIONS ET DEPRECIATIONS                                          2 - REPRISES SUR PROVISIONS ET DEPRECIATIONS\n\n5 - REPORTS EN FONDS DEDIES DE L'EXERCICE                                               3 - UTILISATIONS DES FONDS DEDIES ANTERIEURS\nEXCEDENT DE LA GENEROSITE DU PUBLIC DE L’EXERCICE                                     DEFICIT DE LA GENEROSITE DU PUBLIC DE L’EXERCICE\n\nTOTAL                                                                    TOTAL\n\nRESSOURCES REPORTEES LIEES A LA GENEROSITE DU\nPUBLIC EN DEBUT D'EXERCICE (HORS FONDS DEDIES)\n\nVersion du 1er janvier 2026                                                              61\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n\n(+) Excédent ou (-) insuffisance de la générosité du public\n(-) Investissements et (+) désinvestissements nets liés à la\ngénérosité du public de l'exercice\nRESSOURCES REPORTEES LIEES A LA GENEROSITE DU\nPUBLIC EN FIN D'EXERCICE (HORS FONDS DEDIES)\n\nEXERCICE  EXERCICE                                                EXERCICE  EXERCICE      CONTRIBUTIONS VOLONTAIRES EN NATURE                                             N          N-1                                                N         N-1\n\nEMPLOIS DE L'EXERCICE                                            RESSOURCES DE L'EXERCICE\n1 - CONTRIBUTIONS VOLONTAIRES AUX MISSIONS                                 1 - CONTRIBUTIONS VOLONTAIRES LIEES A LA\nSOCIALES                                                          GENEROSITE DU PUBLIC\nRéalisées en France                                                                     Bénévolat\nRéalisées à l’étranger                                                                          Prestations en nature\n2 - CONTRIBUTIONS VOLONTAIRES A LA RECHERCHE DE                                                                              Dons en natureFONDS\n3 - CONTRIBUTIONS VOLONTAIRES AU\nFONCTIONNEMENT\nTOTAL                                                           TOTAL\n\nVersion du 1er janvier 2026                                                              62\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n\nPour mémoire, rappel du tableau relatif aux fonds dédiés pour la partie relevant de la générosité du public :\nEXERCICE  EXERCICE    FONDS DEDIES LIES A LA GENEROSITE DU PUBLIC                                             N         N-1\nFONDS DEDIES LIES A LA GENEROSITE DU PUBLIC EN\nDEBUT D’EXERCICE\n(-) Utilisation\n\n(+) Report\n\nFONDS DEDIES LIES A LA GENEROSITE DU PUBLIC EN FIN\nD'EXERCICE\n\n**IR3 - Fonds dédiés liés à la générosité du public**\nCet élément de tableau reprend les montants cumulés des fonds dédiés liés à la générosité du public figurant dans le tableau décrit à l’article 431-6.\n\n**IR3 - Modalités de mise en œuvre lorsque l’association est tenue d’établir un compte d’emploi des ressources collectées à la suite d’un appel à la**\ngénérosité du public conformément aux articles 3 et 4 de la loi n° 91-772 du 7 août 1991 et un compte d’emploi des ressources collectées à la suite\nd’un appel à la générosité du public destiné à soutenir l’exercice du culte – se reporter à l’article 531-6\n\nVersion du 1er janvier 2026                                                              63\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF",
+      "title_source": null
+    },
+    {
+      "article_ref": "432-18",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:432-18:occ01",
+      "requirement_type": "public_generosity",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+          "Section 3 – Compte d’emploi annuel des ressources collectées auprès du public conforme à la loi n° 91-772 du 7 août 1991"
+        ],
+        "page_end_pdf": 65,
+        "page_start_pdf": 65
+      },
+      "text_source": "A l’exception des informations précisant les ressources reportées liées à la générosité du public non dédiées\net non utilisées, les informations figurant dans le compte d’emploi annuel des ressources collectées auprès\ndu public conformément à la loi n° 91-772 du 7 août 1991 correspondent strictement aux informations relevant\nde la générosité du public figurant dans le compte de résultat par origine et destination défini à l’article 432-2.\nLe compte d'emploi annuel des ressources collectées auprès du public est accompagné des informations\nrelatives à son élaboration et relatives aux principes qui ont présidés à l’affectation des coûts.",
+      "title_source": null
+    },
+    {
+      "article_ref": "432-19",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:432-19:occ01",
+      "requirement_type": "public_generosity",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+          "Section 3 – Compte d’emploi annuel des ressources collectées auprès du public conforme à la loi n° 91-772 du 7 août 1991"
+        ],
+        "page_end_pdf": 65,
+        "page_start_pdf": 65
+      },
+      "text_source": "Le montant des ressources reportées liées à la générosité du public hors fonds dédiés est égal au solde des\nfonds propres disponibles collectés auprès du public, sous déduction de la quote-part des valeurs nettes\ncomptables des immobilisations ou fractions d’immobilisations financées par ces ressources sur les exercices\nantérieurs.",
+      "title_source": null
+    },
+    {
+      "article_ref": "432-20",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:432-20:occ01",
+      "requirement_type": "public_generosity",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+          "Section 3 – Compte d’emploi annuel des ressources collectées auprès du public conforme à la loi n° 91-772 du 7 août 1991"
+        ],
+        "page_end_pdf": 65,
+        "page_start_pdf": 65
+      },
+      "text_source": "La rubrique « Investissements et désinvestissements nets liés à la générosité du public » comprend :\n•   pour les investissements :\no   le montant des immobilisations ou des quotes-parts d’immobilisations brutes acquises au cours\nde l’exercice au moyen de ressources issues de la générosité du public ;\no  diminué du montant des dotations aux amortissements des immobilisations ou des quotes-parts\nd’immobilisation acquises au moyen de ressources de la générosité du public et comptabilisées\nau cours de l’exercice ;\n•   pour les désinvestissements :\no   la valeur nette comptable des immobilisations ou des quotes-parts de valeur nette comptable\nd’immobilisations cédées, antérieurement acquises au moyen de ressources issues de  la\ngénérosité du public.",
+      "title_source": null
+    },
+    {
+      "article_ref": "432-21",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:432-21:occ01",
+      "requirement_type": "public_generosity",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+          "Section 3 – Compte d’emploi annuel des ressources collectées auprès du public conforme à la loi n° 91-772 du 7 août 1991"
+        ],
+        "page_end_pdf": 66,
+        "page_start_pdf": 65
+      },
+      "text_source": "L’entité peut ajouter une ou des rubriques complémentaires de variation des ressources reportées liées à la\ngénérosité du public hors fonds dédiés lors de la réalisation d’opérations spécifiques ayant un impact sur ces\nressources.\n**IR3 - Exemples d’opérations spécifiques :**\n•   le remboursement d’une fraction du capital d’un emprunt au cours de l’exercice au moyen de\nressources issues de la générosité du public ;\n\n•   l’affectation irrévocable à la dotation d’une fondation ou d’un fonds de dotation de tout ou partie de\nl’excédent de la générosité du public.\n\nVersion du 1er janvier 2026                                                              64\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n\n##### Section 4 – Tableau de variation des fonds propres",
+      "title_source": null
+    },
+    {
+      "article_ref": "432-22",
+      "provenance_type": "official_source",
+      "requirement_id": "fr-nonprofit:2026:disclosure:432-22:occ01",
+      "requirement_type": "public_generosity",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre IV : Modèles des comptes annuels",
+          "Titre III – Contenu de l’annexe",
+          "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+          "Section 4 – Tableau de variation des fonds propres"
+        ],
+        "page_end_pdf": 67,
+        "page_start_pdf": 66
+      },
+      "text_source": "Le tableau de variation des fonds propres figurant à l’article 431-5 du présent titre est remplacé par le tableau de variation des fonds propres suivant :\n\nA LA\nA L'OUVERTURE                                                            DIMINUTION OU       CLOTURE                                                         AFFECTATION DU RESULTAT      AUGMENTATION                                       DE L'EXERCICE                                                   CONSOMMATION         DE\nL’EXERCICE       VARIATION DES FONDS PROPRES\nDONT                 DONT                  DONT\nMONTANT     MONTANT   GENEROSITE  MONTANT   GENEROSITE   MONTANT   GENEROSITE   MONTANT\nDU PUBLIC             DU PUBLIC              DU PUBLIC\n\nFonds propres sans droit de reprise\nFonds propres avec droit de reprise\nEcarts de réévaluation\nRéserves\nReport à nouveau\nExcédent ou déficit de l'exercice\n\nDotations consomptibles\nSubventions d'investissement\nProvisions réglementées\n\nTOTAL\n\nSi l’entité est en capacité ou prend la décision d’identifier dans ses fonds propres la quote-part des fonds propres issus de la générosité du public, cette quote-\npart à l’ouverture et à la clôture de l’exercice est ventilée dans le tableau ci-dessus.\n\nVersion du 1er janvier 2026                                                              65\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n\n#### Chapitre III – Dispositions spécifiques relatives aux fondations et aux fonds de dotation",
+      "title_source": null
+    }
+  ],
+  "standard_id": "fr-nonprofit",
+  "statistics": {
+    "general_annex": 14,
+    "public_generosity": 22,
+    "requirements": 36
+  }
+}

@@ -1,0 +1,704 @@
+{
+  "conventions": [
+    {
+      "concept_id": "historical_cost",
+      "label_source": "Convention du coût historique",
+      "page_pdf": 52,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 52,
+        "section": "Conventions comptables"
+      }
+    },
+    {
+      "concept_id": "prudence",
+      "label_source": "Convention de prudence",
+      "page_pdf": 52,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 52,
+        "section": "Conventions comptables"
+      }
+    },
+    {
+      "concept_id": "regularity_sincerity",
+      "label_source": "Convention de régularité et sincérité",
+      "page_pdf": 52,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 52,
+        "section": "Conventions comptables"
+      }
+    },
+    {
+      "concept_id": "opening_balance_correspondence",
+      "label_source": "Convention de la correspondance bilan de clôture - bilan d'ouverture",
+      "page_pdf": 52,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 52,
+        "section": "Conventions comptables"
+      }
+    },
+    {
+      "concept_id": "materiality",
+      "label_source": "Convention de l'importance significative",
+      "page_pdf": 52,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 52,
+        "section": "Conventions comptables"
+      }
+    }
+  ],
+  "definitions": [
+    {
+      "page_pdf": 34,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 34,
+        "section": "Définitions"
+      },
+      "term_source": "Adhérents"
+    },
+    {
+      "page_pdf": 34,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 34,
+        "section": "Définitions"
+      },
+      "term_source": "Association"
+    },
+    {
+      "page_pdf": 34,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 34,
+        "section": "Définitions"
+      },
+      "term_source": "Bailleur de fonds"
+    },
+    {
+      "page_pdf": 34,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 34,
+        "section": "Définitions"
+      },
+      "term_source": "Bénévole"
+    },
+    {
+      "page_pdf": 34,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 34,
+        "section": "Définitions"
+      },
+      "term_source": "Commodat"
+    },
+    {
+      "page_pdf": 34,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 34,
+        "section": "Définitions"
+      },
+      "term_source": "Consomptible"
+    },
+    {
+      "page_pdf": 35,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 35,
+        "section": "Définitions"
+      },
+      "term_source": "Contributions"
+    },
+    {
+      "page_pdf": 35,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 35,
+        "section": "Définitions"
+      },
+      "term_source": "Contribution volontaire en nature"
+    },
+    {
+      "page_pdf": 35,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 35,
+        "section": "Définitions"
+      },
+      "term_source": "Cotisations"
+    },
+    {
+      "page_pdf": 35,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 35,
+        "section": "Définitions"
+      },
+      "term_source": "Déficit"
+    },
+    {
+      "page_pdf": 35,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 35,
+        "section": "Définitions"
+      },
+      "term_source": "Denier du culte"
+    },
+    {
+      "page_pdf": 35,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 35,
+        "section": "Définitions"
+      },
+      "term_source": "Dîme"
+    },
+    {
+      "page_pdf": 35,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 35,
+        "section": "Définitions"
+      },
+      "term_source": "Donation"
+    },
+    {
+      "page_pdf": 35,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 35,
+        "section": "Définitions"
+      },
+      "term_source": "Donation temporaire d'usufruit"
+    },
+    {
+      "page_pdf": 36,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 36,
+        "section": "Définitions"
+      },
+      "term_source": "Don manuel"
+    },
+    {
+      "page_pdf": 36,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 36,
+        "section": "Définitions"
+      },
+      "term_source": "Dotation consomptible"
+    },
+    {
+      "page_pdf": 36,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 36,
+        "section": "Définitions"
+      },
+      "term_source": "Dotation non consomptible"
+    },
+    {
+      "page_pdf": 36,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 36,
+        "section": "Définitions"
+      },
+      "term_source": "Droit d'entrée"
+    },
+    {
+      "page_pdf": 36,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 36,
+        "section": "Définitions"
+      },
+      "term_source": "EBNL"
+    },
+    {
+      "page_pdf": 36,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 36,
+        "section": "Définitions"
+      },
+      "term_source": "Excédent"
+    },
+    {
+      "page_pdf": 36,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 36,
+        "section": "Définitions"
+      },
+      "term_source": "Exercice"
+    },
+    {
+      "page_pdf": 36,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 36,
+        "section": "Définitions"
+      },
+      "term_source": "Fondateurs"
+    },
+    {
+      "page_pdf": 37,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 37,
+        "section": "Définitions"
+      },
+      "term_source": "Fondation"
+    },
+    {
+      "page_pdf": 37,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 37,
+        "section": "Définitions"
+      },
+      "term_source": "Fonds affectés"
+    },
+    {
+      "page_pdf": 37,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 37,
+        "section": "Définitions"
+      },
+      "term_source": "Fonds d'administration"
+    },
+    {
+      "page_pdf": 37,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 37,
+        "section": "Définitions"
+      },
+      "term_source": "Fonds de dotation"
+    },
+    {
+      "page_pdf": 37,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 37,
+        "section": "Définitions"
+      },
+      "term_source": "Fonds dédiés"
+    },
+    {
+      "page_pdf": 37,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 37,
+        "section": "Définitions"
+      },
+      "term_source": "Fonds propres provenant de legs et dons d'immobilisations"
+    },
+    {
+      "page_pdf": 37,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 37,
+        "section": "Définitions"
+      },
+      "term_source": "Fonds reportés"
+    },
+    {
+      "page_pdf": 38,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 38,
+        "section": "Définitions"
+      },
+      "term_source": "Générosité"
+    },
+    {
+      "page_pdf": 38,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 38,
+        "section": "Définitions"
+      },
+      "term_source": "Legs"
+    },
+    {
+      "page_pdf": 38,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 38,
+        "section": "Définitions"
+      },
+      "term_source": "Mécénat"
+    },
+    {
+      "page_pdf": 38,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 38,
+        "section": "Définitions"
+      },
+      "term_source": "Mutuelle"
+    },
+    {
+      "page_pdf": 39,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 39,
+        "section": "Définitions"
+      },
+      "term_source": "Ordre professionnel"
+    },
+    {
+      "page_pdf": 39,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 39,
+        "section": "Définitions"
+      },
+      "term_source": "Parrainage"
+    },
+    {
+      "page_pdf": 39,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 39,
+        "section": "Définitions"
+      },
+      "term_source": "Potentiel de service"
+    },
+    {
+      "page_pdf": 39,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 39,
+        "section": "Définitions"
+      },
+      "term_source": "Projet de développement"
+    },
+    {
+      "page_pdf": 39,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 39,
+        "section": "Définitions"
+      },
+      "term_source": "Projet de développement durable"
+    },
+    {
+      "page_pdf": 40,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 40,
+        "section": "Définitions"
+      },
+      "term_source": "Subvention d'équilibre"
+    },
+    {
+      "page_pdf": 40,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 40,
+        "section": "Définitions"
+      },
+      "term_source": "Subvention d'exploitation"
+    },
+    {
+      "page_pdf": 40,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 40,
+        "section": "Définitions"
+      },
+      "term_source": "Subventions d'investissement"
+    },
+    {
+      "page_pdf": 40,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 40,
+        "section": "Définitions"
+      },
+      "term_source": "Subventions versées"
+    },
+    {
+      "page_pdf": 40,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 40,
+        "section": "Définitions"
+      },
+      "term_source": "Tiers financeurs"
+    },
+    {
+      "page_pdf": 40,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 40,
+        "section": "Définitions"
+      },
+      "term_source": "Testateur"
+    },
+    {
+      "page_pdf": 40,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 40,
+        "section": "Définitions"
+      },
+      "term_source": "Usager"
+    },
+    {
+      "page_pdf": 40,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 40,
+        "section": "Définitions"
+      },
+      "term_source": "Waqf"
+    },
+    {
+      "page_pdf": 41,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 41,
+        "section": "Définitions"
+      },
+      "term_source": "Zakat"
+    }
+  ],
+  "document_id": "ohada-sycebnl-2023-full-act",
+  "edition": "2023",
+  "financial_statement_elements": [
+    {
+      "element": "actif",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 59,
+        "section": "Composantes des grandes masses du bilan"
+      }
+    },
+    {
+      "element": "passif",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 60,
+        "section": "Passif"
+      }
+    },
+    {
+      "element": "fonds propres",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 61,
+        "section": "Fonds propres"
+      }
+    },
+    {
+      "element": "charges",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 61,
+        "section": "Composantes des grandes masses du compte de résultat"
+      }
+    },
+    {
+      "element": "produits",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 61,
+        "section": "Composantes des grandes masses du compte de résultat"
+      }
+    }
+  ],
+  "measurement_sections": [
+    {
+      "page_range": [
+        62,
+        64
+      ],
+      "topic": "formes de valeur"
+    },
+    {
+      "page_range": [
+        64,
+        65
+      ],
+      "topic": "règles d'évaluation"
+    },
+    {
+      "page_range": [
+        65,
+        67
+      ],
+      "topic": "règles de comptabilisation"
+    },
+    {
+      "page_range": [
+        67,
+        67
+      ],
+      "topic": "règles de décomptabilisation"
+    }
+  ],
+  "part": "PARTIE 1 — DEFINITIONS ET CADRE CONCEPTUEL",
+  "postulates": [
+    {
+      "concept_id": "entity",
+      "label_source": "Postulat de l'entité",
+      "page_pdf": 46,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 46,
+        "section": "Postulats comptables"
+      }
+    },
+    {
+      "concept_id": "accrual",
+      "label_source": "Postulat de la comptabilité d'engagement ou d'exercice",
+      "page_pdf": 46,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 46,
+        "section": "Postulats comptables"
+      }
+    },
+    {
+      "concept_id": "period_specialization",
+      "label_source": "Postulat de la spécialisation des exercices",
+      "page_pdf": 46,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 46,
+        "section": "Postulats comptables"
+      }
+    },
+    {
+      "concept_id": "method_consistency",
+      "label_source": "Postulat de la permanence des méthodes",
+      "page_pdf": 46,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 46,
+        "section": "Postulats comptables"
+      }
+    },
+    {
+      "concept_id": "substance_over_form",
+      "label_source": "Postulat de la prééminence de la réalité économique sur l'apparence juridique",
+      "page_pdf": 46,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 46,
+        "section": "Postulats comptables"
+      }
+    }
+  ],
+  "qualitative_characteristics": [
+    {
+      "concept_id": "relevance",
+      "label_source": "Pertinence",
+      "page_pdf": 56,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 56,
+        "section": "Caractéristiques qualitatives"
+      }
+    },
+    {
+      "concept_id": "faithful_representation",
+      "label_source": "Représentation fidèle",
+      "page_pdf": 57,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 57,
+        "section": "Caractéristiques qualitatives"
+      }
+    },
+    {
+      "concept_id": "comparability",
+      "label_source": "Comparabilité",
+      "page_pdf": 58,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 58,
+        "section": "Caractéristiques qualitatives"
+      }
+    },
+    {
+      "concept_id": "verifiability",
+      "label_source": "Vérifiabilité",
+      "page_pdf": 58,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 58,
+        "section": "Caractéristiques qualitatives"
+      }
+    },
+    {
+      "concept_id": "timeliness",
+      "label_source": "Rapidité",
+      "page_pdf": 59,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 59,
+        "section": "Caractéristiques qualitatives"
+      }
+    },
+    {
+      "concept_id": "understandability",
+      "label_source": "Compréhensibilité",
+      "page_pdf": 59,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 59,
+        "section": "Caractéristiques qualitatives"
+      }
+    }
+  ],
+  "source_policy": {
+    "definitions_are_source_terms_not_model_redefinitions": true,
+    "semantic_inference": false
+  },
+  "source_range": [
+    31,
+    67
+  ],
+  "standard_id": "ohada-ebnl",
+  "statement_structure": {
+    "associations_and_professional_orders": [
+      "Bilan",
+      "Compte de résultat",
+      "Tableau de flux de trésorerie",
+      "Notes"
+    ],
+    "development_projects": [
+      "Tableau emplois-ressources",
+      "Tableau de suivi budgétaire",
+      "Tableau de réconciliations de trésorerie",
+      "Bilan",
+      "Compte d'exploitation",
+      "Notes"
+    ],
+    "source": {
+      "document_id": "ohada-sycebnl-2023-full-act",
+      "page_pdf": 62,
+      "section": "Structure des états financiers"
+    }
+  },
+  "statistics": {
+    "conventions": 5,
+    "definitions": 47,
+    "postulates": 5,
+    "qualitative_characteristics": 6
+  }
+}

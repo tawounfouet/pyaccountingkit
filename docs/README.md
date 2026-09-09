@@ -1,40 +1,56 @@
-# PyAccountingKit - Documentation
+# PyAccountingKit — Documentation
 
-Ce dossier contient la documentation d'architecture et d'implémentation de PyAccountingKit.
+Bienvenue dans le centre de documentation d'architecture et de conception de **PyAccountingKit**.
 
-## Architecture canonique
+---
 
-Les documents `00` à `23` constituent la baseline architecturale courante :
+## Structure du dossier `docs/`
 
-- `00_PYACCOUNTINGKIT_REQUIREMENTS_ANALYSIS.md`
-- `01_PYACCOUNTINGKIT_PROJECT_VISION_AND_ARCHITECTURE.md`
-- `02_PYACCOUNTINGKIT_DOMAIN_MODEL_AND_BOUNDED_CONTEXTS.md`
-- `03_PYACCOUNTINGKIT_ACCOUNTING_RULES_AND_INVARIANTS.md`
-- `04_PYACCOUNTINGKIT_ACCOUNTING_POLICIES_RECOGNITION_AND_MEASUREMENT_ARCHITECTURE.md`
-- `05_PYACCOUNTINGKIT_ACCOUNTING_REFERENCE_DATA_ARCHITECTURE.md`
-- `06_PYACCOUNTINGKIT_COMPANY_CHART_OF_ACCOUNTS_AND_NUMBERING_ARCHITECTURE.md`
-- `07_PYACCOUNTINGKIT_LEDGER_POSTING_AND_REVERSAL_ARCHITECTURE.md`
-- `08_PYACCOUNTINGKIT_CLOSING_ACCRUALS_PROVISIONS_AND_ADJUSTMENTS_ARCHITECTURE.md`
-- `09_PYACCOUNTINGKIT_CONTROLS_AUDIT_AND_TRACEABILITY_ARCHITECTURE.md`
-- `10_PYACCOUNTINGKIT_PERSISTENCE_CONCURRENCY_AND_ADAPTER_CONTRACTS.md`
-- `11_PYACCOUNTINGKIT_TESTING_AND_QUALITY_STRATEGY.md`
-- `12_PYACCOUNTINGKIT_ACCOUNTING_IMPORT_AND_FEC_ADAPTER_ARCHITECTURE.md`
-- `13_PYACCOUNTINGKIT_FINANCIAL_STATEMENTS_AND_REGULATORY_REPORTING_ARCHITECTURE.md`
-- `14_PYACCOUNTINGKIT_FINANCIAL_ANALYSIS_AND_INDICATORS_ARCHITECTURE.md`
-- `15_PYACCOUNTINGKIT_SUBLEDGERS_AND_OPERATIONAL_ACCOUNTING_ARCHITECTURE.md`
-- `16_PYACCOUNTINGKIT_PUBLIC_API_DESIGN.md`
-- `17_PYACCOUNTINGKIT_RELEASE_AND_VERSIONING_STRATEGY.md`
-- `18_PYACCOUNTINGKIT_CFA_FRA_EXTRACTION_AND_MIGRATION_MAP.md`
-- `19_PYACCOUNTINGKIT_REGULATORY_FRAMEWORK_INTEGRATION_MATRIX.md`
-- `20_PYACCOUNTINGKIT_ADR_REGISTER.md`
-- `21_PYACCOUNTINGKIT_CONSOLIDATION_ARCHITECTURE.md`
-- `22_PYACCOUNTINGKIT_RECONCILIATION_ARCHITECTURE.md`
-- `23_PYACCOUNTINGKIT_ADVANCED_FINANCIAL_ANALYSIS_BOUNDARIES.md`
+```text
+docs/
+├── specs/                   # Spécifications d'architecture canoniques (00 à 23)
+│   ├── README.md            # Vue d'ensemble des spécifications par domaine
+│   ├── INDEX.md             # Matrice d'ordonnancement par priorité (P0.1 à P2.3)
+│   ├── 00_cadrage/          # Cadrage initial, vision produit et modèle de domaine
+│   ├── 01_core-accounting/  # Invariants comptables, policies, référentiels et plans
+│   ├── 02_ledger-operations/# Grand livre, posting, clôtures, audit et réconciliation
+│   ├── 03_reporting-analytics/# États financiers, analyse financière et consolidation
+│   ├── 04_integration-infra/# Persistance, imports FEC, API publique et conformité
+│   └── 05_engineering-governance/# Stratégie de test, release et registre des 785 ADRs
+│
+├── plans/                   # Plans d'implémentation modulaires (PLAN-00 à PLAN-09)
+│   ├── README.md            # Index maître des plans, matrice des gates et chemin critique
+│   ├── PLAN-00_REPOSITORY_BOOTSTRAP_0.0.1.md
+│   ├── PLAN-01_ACCOUNTING_CORE_0.1.0.md
+│   ├── PLAN-02_REFERENCES_CHARTS_POLICIES_0.2.0.md
+│   ├── PLAN-03_IMPORTS_REPORTING_0.3.0.md
+│   ├── PLAN-04_SUBLEDGERS_FINANCIAL_ANALYSIS_0.4.0.md
+│   ├── PLAN-05_PUBLIC_API_ADAPTERS_0.5.0.md
+│   ├── PLAN-06_MIGRATION_CFA_FRA_HARDENING_1.0.0.md
+│   ├── PLAN-07_RECONCILIATION_1.1.0.md
+│   ├── PLAN-08_CONSOLIDATION_1.2.0.md
+│   └── PLAN-09_CORPORATE_FINANCE_BOUNDARIES.md
+│
+├── referentiels/            # Données sources réglementaires (PCG, SYSCOHADA) et schémas JSON
+│   ├── datasets/            # Datasets normalisés (concepts, crosswalk, reporting, raw)
+│   └── schemas/             # Schémas JSON de validation (accounting-concept, standard, etc.)
+│
+├── ROADMAP.md               # Feuille de route d'implémentation opérationnelle (lots P0/P1/P2)
+├── books/                   # Ouvrages et doctrine comptable de référence
+└── archive/                 # Versions historiques et pré-refresh archivées
+```
 
-## Roadmap d'implémentation
+---
 
-- `PYACCOUNTINGKIT_IMPLEMENTATION_ROADMAP.md`
+## Accès rapides
 
-## Archives
-
-Les versions intermédiaires et pré-refresh conservées à des fins de traçabilité sont rangées dans `docs/archive/`.
+- 📋 **[Spécifications fonctionnelles & techniques (`docs/specs/README.md`)](./specs/README.md)** : exploration par domaine métier et couches logicielles.
+- 🧭 **[Index priorisé des documents (`docs/specs/INDEX.md`)](./specs/INDEX.md)** : ordonnancement par priorité de conception (`P0.1` à `P2.3`) et justification doctrinale.
+- 🚀 **[Plans d'implémentation opérationnels (`docs/plans/README.md`)](./plans/README.md)** : découpage opérationnel de la roadmap par release milestone (`PLAN-00` à `PLAN-09`).
+- 🏛️ **[Référentiels & Schémas comptables (`docs/referentiels/`)](./referentiels/)** : datasets réglementaires officiels (PCG, SYSCOHADA) et schémas JSON de validation.
+- 🗺️ **[Feuille de route d'implémentation (`docs/ROADMAP.md`)](./ROADMAP.md)** : lots de livraison, jalons de versioning (`1.0.0`, `1.1`, `1.2`) et critères de recette.
+- 📚 **[Ouvrages de référence (`docs/books/`)](./books/)** : sources doctrinales et académiques (Richard & Collette, Dunod Maxi Fiches).
+- 📦 **[Actifs amont et codebases de référence (`resources/`)](../resources/)** :
+  - [`cfa_fra_django_mvp_sprint_7/`](../resources/cfa_fra_django_mvp_sprint_7/) : MVP Django historique (oracle comportemental de parité et golden fixtures).
+  - [`regulatory-accounting-data-framework/`](../resources/regulatory-accounting-data-framework/) : forge amont des données réglementaires et normatives officielles.
+- 🗄️ **[Archives historiques (`docs/archive/`)](./archive/)** : versions antérieures conservées à des fins de traçabilité.

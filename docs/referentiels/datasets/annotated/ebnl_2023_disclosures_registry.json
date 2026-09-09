@@ -1,0 +1,63 @@
+{
+  "document_id": "ohada-sycebnl-2023-full-act",
+  "edition": "2023",
+  "profiles": [
+    {
+      "field_level_requirements_exhaustively_transcribed": false,
+      "label_source": "Associations et ordres professionnels",
+      "notes_model_page_pdf": 349,
+      "profile_id": "association_professional_order",
+      "requirement_registry_status": "source_range_and_template_registry_implemented",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 349,
+        "section": "Notes annexes"
+      },
+      "source_range": [
+        349,
+        396
+      ]
+    },
+    {
+      "field_level_requirements_exhaustively_transcribed": false,
+      "label_source": "Projets de développement et assimilés",
+      "notes_model_page_pdf": 403,
+      "profile_id": "development_project",
+      "requirement_registry_status": "source_range_and_template_registry_implemented",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 403,
+        "section": "Notes annexes"
+      },
+      "source_range": [
+        403,
+        432
+      ]
+    },
+    {
+      "field_level_requirements_exhaustively_transcribed": false,
+      "label_source": "Système Minimal de Trésorerie",
+      "notes_model_page_pdf": 435,
+      "profile_id": "minimal_cash_system",
+      "requirement_registry_status": "source_range_and_template_registry_implemented",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 435,
+        "section": "Notes annexes"
+      },
+      "source_range": [
+        435,
+        438
+      ]
+    }
+  ],
+  "registry_type": "disclosure_source_registry",
+  "source_policy": {
+    "no_disclosure_requirement_invented": true,
+    "visual_template_remains_authority": true
+  },
+  "standard_id": "ohada-ebnl",
+  "statistics": {
+    "profiles": 3
+  }
+}

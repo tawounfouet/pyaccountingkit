@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "StandardRelation",
+  "type": "object",
+  "required": [
+    "relation_id",
+    "relation_type",
+    "subject_ref",
+    "target_ref",
+    "evidence"
+  ]
+}

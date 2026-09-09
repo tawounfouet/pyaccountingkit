@@ -1,0 +1,133 @@
+{
+  "chapters": [
+    {
+      "chapter_number": 1,
+      "executable_rules_generated": false,
+      "page_range": [
+        311,
+        318
+      ],
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 311,
+        "section": "Fonds propres des associations et ordres professionnels"
+      },
+      "title_source": "Fonds propres des associations et ordres professionnels",
+      "topic_tags": [
+        "fonds_propres",
+        "associations",
+        "ordres_professionnels"
+      ],
+      "treatment_extraction_status": "chapter_source_bound"
+    },
+    {
+      "chapter_number": 2,
+      "executable_rules_generated": false,
+      "page_range": [
+        319,
+        324
+      ],
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 319,
+        "section": "Fonds affectés et reportés des associations et ordres professionnels"
+      },
+      "title_source": "Fonds affectés et reportés des associations et ordres professionnels",
+      "topic_tags": [
+        "fonds_affectes",
+        "fonds_reportes"
+      ],
+      "treatment_extraction_status": "chapter_source_bound"
+    },
+    {
+      "chapter_number": 3,
+      "executable_rules_generated": false,
+      "page_range": [
+        325,
+        328
+      ],
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 325,
+        "section": "Fonds propres des projets de développement et assimilés"
+      },
+      "title_source": "Fonds propres des projets de développement et assimilés",
+      "topic_tags": [
+        "projets_de_developpement",
+        "fonds_propres"
+      ],
+      "treatment_extraction_status": "chapter_source_bound"
+    },
+    {
+      "chapter_number": 4,
+      "executable_rules_generated": false,
+      "page_range": [
+        329,
+        332
+      ],
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 329,
+        "section": "Dons"
+      },
+      "title_source": "Dons",
+      "topic_tags": [
+        "dons",
+        "legs",
+        "liberalites"
+      ],
+      "treatment_extraction_status": "chapter_source_bound"
+    },
+    {
+      "chapter_number": 5,
+      "executable_rules_generated": false,
+      "page_range": [
+        333,
+        334
+      ],
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 333,
+        "section": "Cotisations des membres et versements des fondateurs"
+      },
+      "title_source": "Cotisations des membres et versements des fondateurs",
+      "topic_tags": [
+        "cotisations",
+        "fondateurs"
+      ],
+      "treatment_extraction_status": "chapter_source_bound"
+    },
+    {
+      "chapter_number": 6,
+      "executable_rules_generated": false,
+      "page_range": [
+        335,
+        338
+      ],
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 335,
+        "section": "Autres opérations spécifiques"
+      },
+      "title_source": "Autres opérations spécifiques",
+      "topic_tags": [
+        "operations_specifiques"
+      ],
+      "treatment_extraction_status": "chapter_source_bound"
+    }
+  ],
+  "document_id": "ohada-sycebnl-2023-full-act",
+  "edition": "2023",
+  "part": "PARTIE 3 — OPERATIONS ET PROBLEMES SPECIFIQUES",
+  "source_policy": {
+    "no_treatment_invented_beyond_source": true
+  },
+  "source_range": [
+    309,
+    338
+  ],
+  "standard_id": "ohada-ebnl",
+  "statistics": {
+    "chapters": 6
+  }
+}

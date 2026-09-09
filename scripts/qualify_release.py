@@ -110,6 +110,12 @@ def qualify(*, skip_tests: bool, skip_package: bool) -> list[GateResult]:
     results.append(run_callable("Manifest coherence", validate_manifests))
     results.append(
         run_command(
+            [sys.executable, "scripts/validate_ci.py"],
+            label="CI workflow contract",
+        )
+    )
+    results.append(
+        run_command(
             [sys.executable, "-m", "ruff", "check", "src", "tests", "scripts"],
             label="Ruff lint",
         )

@@ -1,0 +1,9 @@
+entry_id,date,journal_code,account_number,label,debit,credit,currency
+1,2026-01-01,OD,512000,Apport initial capital,10000.00,0.00,EUR
+1,2026-01-01,OD,101000,Apport initial capital,0.00,10000.00,EUR
+2,2026-01-05,AC,607000,Achat marchandises lot 1,1500.00,0.00,EUR
+2,2026-01-05,AC,445660,TVA deductible 20%,300.00,0.00,EUR
+2,2026-01-05,AC,401000,Fournisseur Alpha,0.00,1800.00,EUR
+3,2026-01-10,VE,411000,Client Beta,3600.00,0.00,EUR
+3,2026-01-10,VE,707000,Vente marchandises,0.00,3000.00,EUR
+3,2026-01-10,VE,445710,TVA collectee 20%,0.00,600.00,EUR

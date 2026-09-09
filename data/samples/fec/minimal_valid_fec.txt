@@ -1,0 +1,6 @@
+JournalCode	JournalLib	EcritureNum	EcritureDate	CompteNum	CompteLib	CompAuxNum	CompAuxLib	PieceRef	PieceDate	EcritureLib	Debit	Credit	EcritureLet	DateLet	ValidDate	Montantdevise	Idevise
+OD	Operations Diverses	1	20260101	512000	Banque Principale				APPORT-01	20260101	Apport capital	10000,00	0,00			20260101		
+OD	Operations Diverses	1	20260101	101000	Capital Social				APPORT-01	20260101	Apport capital	0,00	10000,00			20260101		
+AC	Journal des Achats	2	20260105	607000	Achats marchandises				FAC-A01	20260105	Facture A01	1500,00	0,00			20260105		
+AC	Journal des Achats	2	20260105	445660	TVA deductible				FAC-A01	20260105	TVA sur achats	300,00	0,00			20260105		
+AC	Journal des Achats	2	20260105	401000	Fournisseurs	F001	Fournisseur Alpha	FAC-A01	20260105	Dette Fournisseur	0,00	1800,00			20260105		

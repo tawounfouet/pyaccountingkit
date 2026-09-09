@@ -12,7 +12,11 @@ SECURITY_WORKFLOW = ROOT / ".github" / "workflows" / "security.yml"
 
 
 def _missing_snippets(text: str, snippets: tuple[str, ...], *, label: str) -> list[str]:
-    return [f"{label}: missing required workflow contract: {snippet}" for snippet in snippets if snippet not in text]
+    return [
+        f"{label}: missing required workflow contract: {snippet}"
+        for snippet in snippets
+        if snippet not in text
+    ]
 
 
 def validate_ci_text(text: str) -> list[str]:
@@ -51,8 +55,11 @@ def validate_ci_text(text: str) -> list[str]:
         violations.append("CI: every pip cache must be keyed from pyproject.toml")
     if text.count("python scripts/verify_package.py") != 1:
         violations.append("CI: package verification must execute exactly once")
-    if text.count("python -m pytest tests/unit tests/property tests/contract -v --tb=short") != 1:
-        violations.append("CI: Bootstrap test command must be declared exactly once in the matrix job")
+    test_command = "python -m pytest tests/unit tests/property tests/contract -v --tb=short"
+    if text.count(test_command) != 1:
+        violations.append(
+            "CI: Bootstrap test command must be declared exactly once in the matrix job"
+        )
 
     forbidden = (
         "\n  lint:\n",
@@ -64,7 +71,10 @@ def validate_ci_text(text: str) -> list[str]:
     )
     for snippet in forbidden:
         if snippet in text:
-            violations.append(f"CI: forbidden legacy or redundant workflow construct: {snippet.strip()}")
+            violations.append(
+                "CI: forbidden legacy or redundant workflow construct: "
+                f"{snippet.strip()}"
+            )
 
     return violations
 

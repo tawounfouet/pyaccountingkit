@@ -43,12 +43,8 @@ def run_command(command: list[str], *, label: str) -> GateResult:
     duration = time.monotonic() - started
     if completed.returncode != 0:
         if completed.returncode == 5 and "pytest" in command:
-            raise QualificationError(
-                f"{label} failed: pytest collected no tests (exit code 5)"
-            )
-        raise QualificationError(
-            f"{label} failed with exit code {completed.returncode}"
-        )
+            raise QualificationError(f"{label} failed: pytest collected no tests (exit code 5)")
+        raise QualificationError(f"{label} failed with exit code {completed.returncode}")
     print(f"{label}: PASS ({duration:.2f}s)")
     return GateResult(label, duration)
 
@@ -79,9 +75,7 @@ def validate_manifests() -> GateResult:
         payload = data.get(payload_key)
         if not isinstance(payload, payload_type):
             expected = payload_type.__name__
-            raise QualificationError(
-                f"{filename}.{payload_key} must be {expected}"
-            )
+            raise QualificationError(f"{filename}.{payload_key} must be {expected}")
         if version == "0.0.1" and payload:
             raise QualificationError(
                 f"bootstrap manifest {filename}.{payload_key} must remain empty"
@@ -106,9 +100,7 @@ def run_callable(name: str, function: Callable[[], GateResult]) -> GateResult:
 def qualify(*, skip_tests: bool, skip_package: bool) -> list[GateResult]:
     """Execute the deterministic release qualification sequence."""
     results: list[GateResult] = []
-    results.append(
-        run_command(["bash", "scripts/check_hygiene.sh"], label="Repository hygiene")
-    )
+    results.append(run_command(["bash", "scripts/check_hygiene.sh"], label="Repository hygiene"))
     results.append(
         run_command(
             [sys.executable, "scripts/validate_architecture.py"],

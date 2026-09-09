@@ -1,0 +1,32 @@
+{
+  "standard_id": "PCG_MINIMAL_FIXTURE",
+  "name": "Plan Comptable Général Minimal Test",
+  "version": "2026.0-test",
+  "classes": [
+    {
+      "code": "1",
+      "label": "Comptes de capitaux",
+      "nature": "EQUITY",
+      "accounts": [
+        {"code": "101000", "label": "Capital social", "normal_balance": "CREDIT"}
+      ]
+    },
+    {
+      "code": "4",
+      "label": "Comptes de tiers",
+      "nature": "LIABILITY",
+      "accounts": [
+        {"code": "401000", "label": "Fournisseurs", "normal_balance": "CREDIT"},
+        {"code": "411000", "label": "Clients", "normal_balance": "DEBIT"}
+      ]
+    },
+    {
+      "code": "5",
+      "label": "Comptes financiers",
+      "nature": "ASSET",
+      "accounts": [
+        {"code": "512000", "label": "Banque", "normal_balance": "DEBIT"}
+      ]
+    }
+  ]
+}

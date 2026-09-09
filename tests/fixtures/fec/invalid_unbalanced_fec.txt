@@ -1,0 +1,3 @@
+JournalCode	JournalLib	EcritureNum	EcritureDate	CompteNum	CompteLib	CompAuxNum	CompAuxLib	PieceRef	PieceDate	EcritureLib	Debit	Credit	EcritureLet	DateLet	ValidDate	Montantdevise	Idevise
+HA	Achats	1	20260115	606000	Fournitures				FAC-101	20260115	Achat papeterie	150,00	0,00			20260115		
+HA	Achats	1	20260115	401000	Fournisseurs	F01	Papeterie Centrale	FAC-101	20260115	Facture 101	0,00	100,00			20260115		

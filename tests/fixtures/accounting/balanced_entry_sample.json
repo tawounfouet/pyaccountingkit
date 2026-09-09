@@ -1,0 +1,20 @@
+{
+  "entry_id": "entry-test-001",
+  "journal_id": "journal-od",
+  "date": "2026-01-01",
+  "label": "Souscription capital social",
+  "lines": [
+    {
+      "account_number": "512000",
+      "direction": "DEBIT",
+      "amount": "10000.00",
+      "currency": "EUR"
+    },
+    {
+      "account_number": "101000",
+      "direction": "CREDIT",
+      "amount": "10000.00",
+      "currency": "EUR"
+    }
+  ]
+}

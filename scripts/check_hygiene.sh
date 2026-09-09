@@ -34,7 +34,7 @@ fi
 
 provenance_hits="$({
   git grep -n -I -E 'filecite|turn[0-9]+file[0-9]+' -- \
-    README.md docs src tests examples scripts 2>/dev/null
+    README.md docs src tests examples 2>/dev/null
 } || true)"
 if [[ -n "$provenance_hits" ]]; then
   fail "ChatGPT/file-search provenance markers remain:\n$provenance_hits"

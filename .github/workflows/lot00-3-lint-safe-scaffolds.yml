@@ -1,0 +1,105 @@
+name: LOT-00.3 lint-safe scaffolds
+
+on:
+  push:
+    branches:
+      - chore/lot-00-3-scaffold-cleanup
+
+permissions:
+  contents: write
+
+jobs:
+  normalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chore/lot-00-3-scaffold-cleanup
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Configure Git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Make bootstrap scaffolds lint-safe
+        shell: bash
+        run: |
+          python - <<'PY'
+          from __future__ import annotations
+
+          import ast
+          import re
+          from pathlib import Path
+
+          root = Path.cwd()
+          package = root / "src" / "pyaccountingkit"
+          root_init = package / "__init__.py"
+
+          rewritten = 0
+          for path in sorted(package.rglob("*.py")):
+              if path == root_init or path.name == "__init__.py":
+                  continue
+
+              source = path.read_text(encoding="utf-8")
+              tree = ast.parse(source, filename=str(path))
+              doc = ast.get_docstring(tree, clean=False) or ""
+              plan_match = re.search(r"(PLAN-[A-Z0-9_.-]+\.md)", doc)
+
+              rel = path.relative_to(package).as_posix()
+              lines = [
+                  '"""Bootstrap scaffold for a future PyAccountingKit milestone.',
+                  "",
+                  f"Module: {rel}.",
+              ]
+              if plan_match:
+                  lines.append(f"Target: {plan_match.group(1)}.")
+              lines.extend(
+                  [
+                      "PyAccountingKit 0.0.1 exposes no business implementation from this module.",
+                      "The path is retained only to preserve the target architecture.",
+                      '"""',
+                      "",
+                  ]
+              )
+
+              if any(len(line) > 100 for line in lines):
+                  raise SystemExit(f"Generated scaffold line exceeds 100 chars: {rel}")
+
+              path.write_text("\n".join(lines), encoding="utf-8")
+              rewritten += 1
+
+          conftest = root / "tests" / "conftest.py"
+          text = conftest.read_text(encoding="utf-8")
+          text = text.replace(
+              "import json\nfrom pathlib import Path\nfrom typing import Any, Callable\n",
+              "import json\nfrom collections.abc import Callable\nfrom pathlib import Path\nfrom typing import Any\n",
+          )
+          conftest.write_text(text, encoding="utf-8")
+
+          # Repository-local proof that this lot no longer introduces line-length debt.
+          overlong: list[str] = []
+          for path in sorted(package.rglob("*.py")):
+              for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
+                  if len(line) > 100:
+                      overlong.append(
+                          f"{path.relative_to(root).as_posix()}:{number}:{len(line)}"
+                      )
+          if overlong:
+              raise SystemExit("Overlong source lines remain:\n" + "\n".join(overlong))
+
+          print(f"Lint-safe scaffold modules rewritten: {rewritten}")
+          print("tests/conftest.py Callable import normalized")
+          PY
+
+          python -m pip install --quiet "ruff>=0.5"
+          ruff check src/ tests/
+          ruff format --check src/ tests/
+      - name: Commit normalization and remove temporary workflow
+        run: |
+          rm -f .github/workflows/lot00-3-lint-safe-scaffolds.yml
+          git add -A
+          git status --short
+          git commit -m "chore(repo): keep bootstrap scaffolds lint-safe"
+          git push origin HEAD:chore/lot-00-3-scaffold-cleanup

@@ -5385,7 +5385,7 @@ When a critical source, mapping, policy or rate is ambiguous, consolidation fail
 
 ---
 
-## Couverture dans les plans d'implémentation
+## Plans d'implémentation principaux
 
 Ce document est couvert par les plans suivants :
 

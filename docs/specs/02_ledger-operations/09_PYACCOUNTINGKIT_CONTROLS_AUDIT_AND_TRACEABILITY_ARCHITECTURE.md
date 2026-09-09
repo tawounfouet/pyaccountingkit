@@ -6361,7 +6361,7 @@ Le P0.10 donne ainsi au framework une propriété essentielle pour une biblioth�
 
 ---
 
-## Couverture dans les plans d'implémentation
+## Plans d'implémentation principaux
 
 Ce document est couvert par les plans suivants :
 

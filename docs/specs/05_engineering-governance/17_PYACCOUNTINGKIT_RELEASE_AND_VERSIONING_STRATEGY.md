@@ -3353,7 +3353,7 @@ Le P1.6 fournit ainsi le cadre de gouvernance nécessaire pour faire évoluer Py
 
 ---
 
-## Couverture dans les plans d'implémentation
+## Plans d'implémentation principaux
 
 Ce document est couvert par les plans suivants :
 

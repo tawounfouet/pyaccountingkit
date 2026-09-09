@@ -4703,7 +4703,7 @@ When matching is ambiguous, PyAccountingKit fails closed.
 
 ---
 
-## Couverture dans les plans d'implémentation
+## Plans d'implémentation principaux
 
 Ce document est couvert par les plans suivants :
 

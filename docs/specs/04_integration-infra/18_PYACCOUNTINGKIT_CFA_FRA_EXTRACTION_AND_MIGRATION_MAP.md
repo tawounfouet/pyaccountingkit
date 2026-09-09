@@ -91,7 +91,7 @@ selectors
 views
 ```
 
-où les services portent les mutations métier et les selectors les lectures complexes. fileciteturn28file4L913-L985 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+où les services portent les mutations métier et les selectors les lectures complexes. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 ---
 
@@ -131,7 +131,7 @@ audit
 
 ## 3.2 Oracle de non-régression
 
-Le document de conception décrit explicitement le classeur Excel comme oracle de comparaison et liste des tests fondamentaux comme l'équilibre d'écriture, l'équilibre de balance, le bilan, le cash-flow, l'idempotence FEC, l'immutabilité des écritures postées et le blocage du posting sur période fermée. fileciteturn29file7L1627-L1659 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+Le document de conception décrit explicitement le classeur Excel comme oracle de comparaison et liste des tests fondamentaux comme l'équilibre d'écriture, l'équilibre de balance, le bilan, le cash-flow, l'idempotence FEC, l'immutabilité des écritures postées et le blocage du posting sur période fermée. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 PyAccountingKit doit prolonger cette idée :
 
@@ -318,7 +318,7 @@ JournalEntry
 JournalLine
 ```
 
-et le README affirme que grand livre, balance et états financiers sont des projections calculées, pas la source de vérité. fileciteturn29file5L1222-L1235 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+et le README affirme que grand livre, balance et états financiers sont des projections calculées, pas la source de vérité. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 ---
 
@@ -351,7 +351,7 @@ AccountingEntity
 
 pour ne pas imposer qu'une entité comptable soit nécessairement une organisation web/app.
 
-Le document CFA FRA impose déjà un scoping organisationnel de toutes les requêtes métier. fileciteturn29file6L1552-L1560 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+Le document CFA FRA impose déjà un scoping organisationnel de toutes les requêtes métier. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 La règle est conservée sous forme générique :
 
@@ -377,7 +377,7 @@ framework_account
 is_active
 ```
 
-avec unicité du code dans `(organization, chart)`. fileciteturn28file2L460-L504 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+avec unicité du code dans `(organization, chart)`. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 PyAccountingKit sépare ce modèle en :
 
@@ -412,7 +412,7 @@ CompanyAccount
 
 # 14. Justification du mapping réglementaire
 
-CFA FRA distingue déjà explicitement le plan réel de l'entreprise et le référentiel réglementaire. Il illustre par exemple plusieurs comptes fournisseurs entreprise convergeant vers une classe de référence. fileciteturn28file8L1952-L1984 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+CFA FRA distingue déjà explicitement le plan réel de l'entreprise et le référentiel réglementaire. Il illustre par exemple plusieurs comptes fournisseurs entreprise convergeant vers une classe de référence. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 La séparation conceptuelle est donc :
 
@@ -438,7 +438,7 @@ confidence
 validated_by
 ```
 
-et prévoit un chemin candidat -> validation humaine. fileciteturn28file8L1988-L2030 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+et prévoit un chemin candidat -> validation humaine. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Migration :
 
@@ -477,7 +477,7 @@ POSTED
 REVERSED
 ```
 
-et précise qu'une entrée `POSTED` est immuable. fileciteturn29file3L749-L775 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+et précise qu'une entrée `POSTED` est immuable. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -518,7 +518,7 @@ journal active
 total debit = total credit
 ```
 
-fileciteturn29file3L802-L822 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+ *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -567,7 +567,7 @@ def post_entry(...):
     create_audit_event(...)
 ```
 
-fileciteturn29file3L779-L798 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+ *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 ---
 
@@ -609,7 +609,7 @@ commit
 
 # 24. `transaction.atomic`
 
-CFA FRA exige que validation, posting et audit soient enregistrés ensemble dans une transaction. fileciteturn29file6L1530-L1548 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+CFA FRA exige que validation, posting et audit soient enregistrés ensemble dans une transaction. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Le besoin est extrait :
 
@@ -644,7 +644,7 @@ debit <-> credit
 reversal_of
 ```
 
-tout en conservant l'original inchangé. fileciteturn29file3L826-L866 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+tout en conservant l'original inchangé. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -692,7 +692,7 @@ ou configuration application.
 
 # 29. Ledger
 
-CFA FRA calcule les soldes cumulés via PostgreSQL `Window + Sum` et utilise un ordre stable de mouvements. fileciteturn29file1L197-L223 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+CFA FRA calcule les soldes cumulés via PostgreSQL `Window + Sum` et utilise un ordre stable de mouvements. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -712,7 +712,7 @@ CFA FRA utilise :
 signed_balance = debit - credit
 ```
 
-puis sépare solde débiteur/créditeur en présentation. fileciteturn29file1L225-L241 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+puis sépare solde débiteur/créditeur en présentation. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 PyAccountingKit conserve cette convention uniquement comme :
 
@@ -734,7 +734,7 @@ ADJUSTED
 POST_CLOSING
 ```
 
-avec des types d'écritures inclus/exclus distincts. fileciteturn29file1L243-L321 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+avec des types d'écritures inclus/exclus distincts. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -756,7 +756,7 @@ TrialBalanceVariant / StatementSourcePolicy
 
 # 33. Convention JOD
 
-CFA FRA indique qu'au MVP les écritures du journal `JOD` sont normalisées en `ADJUSTING`, tout en précisant que cette convention peut être trop large. fileciteturn29file1L243-L293 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+CFA FRA indique qu'au MVP les écritures du journal `JOD` sont normalisées en `ADJUSTING`, tout en précisant que cette convention peut être trop large. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -806,7 +806,7 @@ double-entry controls
 POSTED
 ```
 
-fileciteturn28file6L1516-L1552 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+ *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 ---
 
@@ -845,7 +845,7 @@ status
 imported_at
 ```
 
-fileciteturn28file6L1554-L1565 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+ *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Migration :
 
@@ -876,7 +876,7 @@ amounts
 raw_data
 ```
 
-fileciteturn28file6L1567-L1596 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+ *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Migration :
 
@@ -908,7 +908,7 @@ is_valid
 raw_data
 ```
 
-pour audit, debug, reprocessing et preuve d'origine. fileciteturn29file2L426-L459 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+pour audit, debug, reprocessing et preuve d'origine. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -920,7 +920,7 @@ EXTRACT strongly
 
 # 40. FEC field list
 
-Sprint 4 attend les 18 colonnes FEC standards et supporte TAB ainsi que plusieurs encodages. fileciteturn29file2L385-L422 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+Sprint 4 attend les 18 colonnes FEC standards et supporte TAB ainsi que plusieurs encodages. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -938,7 +938,7 @@ domain/imports generic core
 
 # 41. FEC controls
 
-Sprint 4 distingue contrôles bloquants et warnings, y compris `FEC_DUPLICATE_LINE` en warning. fileciteturn29file2L463-L507 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+Sprint 4 distingue contrôles bloquants et warnings, y compris `FEC_DUPLICATE_LINE` en warning. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -952,7 +952,7 @@ FEC control names -> adapter-specific
 
 # 42. Duplicate line hash
 
-Sprint 4 calcule un SHA-256 de ligne mais laisse le doublon comme warning car certaines répétitions sont légitimes. fileciteturn29file2L511-L523 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+Sprint 4 calcule un SHA-256 de ligne mais laisse le doublon comme warning car certaines répétitions sont légitimes. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -965,7 +965,7 @@ EXTRACT principle:
 
 # 43. FEC grouping
 
-Sprint 4 utilise différentes clés selon les journaux et prévoit un traitement spécial `JAN`. fileciteturn29file2L527-L571 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+Sprint 4 utilise différentes clés selon les journaux et prévoit un traitement spécial `JAN`. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -990,7 +990,7 @@ Chaque groupe normalisé et le fichier global doivent vérifier :
 SUM(Debit) = SUM(Credit)
 ```
 
-et toute anomalie bloque l'import. fileciteturn29file2L575-L593 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+et toute anomalie bloque l'import. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -1012,7 +1012,7 @@ fiscal_year
 SHA256
 ```
 
-et des clés complémentaires autour journal/entry/date/piece. fileciteturn28file6L1600-L1621 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+et des clés complémentaires autour journal/entry/date/piece. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Migration :
 
@@ -1028,7 +1028,7 @@ dans l'architecture PyAccountingKit.
 
 # 46. Import direct POSTED
 
-Sprint 4 précise que l'import final crée directement des écritures `POSTED` car le FEC représente une comptabilité déjà validée dans le système source. fileciteturn30file0L8-L26 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+Sprint 4 précise que l'import final crée directement des écritures `POSTED` car le FEC représente une comptabilité déjà validée dans le système source. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 ---
 
@@ -1081,7 +1081,7 @@ bulk JournalEntry / JournalLine
 rollback complete on error
 ```
 
-fileciteturn30file1L42-L71 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+ *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -1107,7 +1107,7 @@ General Ledger
 Trial Balance
 ```
 
-fileciteturn29file5L1356-L1365 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+ *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -1135,7 +1135,7 @@ both -> Financial Statements Engine
     -> Drill-down
 ```
 
-fileciteturn29file0L121-L149 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+ *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -1172,7 +1172,7 @@ unmapped
 coverage %
 ```
 
-et signale les comptes non mappés avec montant non nul pour éviter un état silencieusement incomplet. fileciteturn29file0L34-L47 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+et signale les comptes non mappés avec montant non nul pour éviter un état silencieusement incomplet. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -1207,7 +1207,7 @@ JournalEntry
 JournalLine source
 ```
 
-fileciteturn29file0L10-L30 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+ *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -1231,7 +1231,7 @@ CFO_TO_REVENUE
 ASSET_TURNOVER
 ```
 
-et les décrit comme analytiques, non réglementaires. fileciteturn30file3L145-L184 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+et les décrit comme analytiques, non réglementaires. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -1261,7 +1261,7 @@ versioned analytical formula
 
 # 57. Comparatifs N-1
 
-Sprint 6 calcule N / N-1 pour compte de résultat, bilan et cash-flow lorsqu'un exercice précédent est disponible. fileciteturn30file3L187-L203 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+Sprint 6 calcule N / N-1 pour compte de résultat, bilan et cash-flow lorsqu'un exercice précédent est disponible. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -1275,7 +1275,7 @@ mais PyAccountingKit ajoute le pinning des versions et la comparabilité sémant
 
 # 58. Frontière réglementaire du Sprint 6
 
-Sprint 6 affirme explicitement que son moteur d'états financiers reste distinct des formats réglementaires officiels et prévoit un mapping réglementaire séparé. fileciteturn30file2L82-L102 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+Sprint 6 affirme explicitement que son moteur d'états financiers reste distinct des formats réglementaires officiels et prévoit un mapping réglementaire séparé. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -1323,7 +1323,7 @@ Financing Cash Flow
 Closing Cash
 ```
 
-fileciteturn28file8L2034-L2064 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+ *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -1364,7 +1364,7 @@ CASHFLOW_RECONCILED
 TEMPORARY_ACCOUNTS_CLOSED
 ```
 
-fileciteturn28file6L1625-L1657 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+ *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -1431,7 +1431,7 @@ source_ip
 request_id
 ```
 
-fileciteturn28file6L1498-L1512 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+ *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -1493,7 +1493,7 @@ ACCOUNT_UPDATE
 PERIOD_CLOSE
 ```
 
-fileciteturn28file5L1368-L1398 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+ *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -1517,7 +1517,7 @@ CLOSING
 CLOSED
 ```
 
-et interdit le posting après fermeture. fileciteturn28file8L2068-L2099 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+et interdit le posting après fermeture. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -1543,7 +1543,7 @@ Post
 Close period
 ```
 
-fileciteturn28file5L1424-L1456 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+ *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -1564,7 +1564,7 @@ DRAFT entries remain
 blocking controls
 ```
 
-fileciteturn28file5L1460-L1472 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+ *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -1584,7 +1584,7 @@ transfer result
 generate opening balances
 ```
 
-fileciteturn28file8L2085-L2099 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+ *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Migration :
 
@@ -1606,7 +1606,7 @@ FrameworkVersion
 FrameworkAccount
 ```
 
-pour SYSCOHADA et IFRS. fileciteturn28file5L1184-L1238 *(→ source : [regulatory-accounting-data-framework](../../../resources/regulatory-accounting-data-framework/))*
+pour SYSCOHADA et IFRS. *(→ source : [regulatory-accounting-data-framework](../../../resources/regulatory-accounting-data-framework/))*
 
 Décision :
 
@@ -1682,7 +1682,7 @@ Cash
 Total Assets
 ```
 
-fileciteturn28file5L1275-L1313 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+ *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -1721,7 +1721,7 @@ Le projet CFA FRA affirme déjà :
 views = HTTP / permissions / forms / rendering / HTMX
 ```
 
-et interdit les calculs comptables dans les vues. fileciteturn28file4L969-L985 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+et interdit les calculs comptables dans les vues. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -1768,7 +1768,7 @@ AUDITOR
 READ_ONLY
 ```
 
-et une matrice d'actions. fileciteturn29file6L1564-L1573 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+et une matrice d'actions. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -1811,7 +1811,7 @@ Balance
 Financial Statements
 ```
 
-en formats CSV/XLSX et autres itérations. fileciteturn28file5L1476-L1488 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+en formats CSV/XLSX et autres itérations. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -1848,7 +1848,7 @@ materialized views
 row-level locking
 ```
 
-fileciteturn29file6L1470-L1505 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+ *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -1917,7 +1917,7 @@ OpenTelemetry
 structured logging
 ```
 
-fileciteturn29file7L1736-L1760 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+ *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Décision :
 
@@ -1929,7 +1929,7 @@ runtime adapters/integration
 
 # 93. Excel migration history
 
-Le plan CFA FRA indique que le développement doit être conduit par comparaison avec Excel et que les règles doivent être formalisées fonctionnalité par fonctionnalité. fileciteturn28file0L212-L220 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
+Le plan CFA FRA indique que le développement doit être conduit par comparaison avec Excel et que les règles doivent être formalisées fonctionnalité par fonctionnalité. *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Cette méthode devient le modèle de migration :
 
@@ -3945,7 +3945,7 @@ Use CFA FRA as a golden oracle, never as a runtime dependency
 
 ---
 
-## Couverture dans les plans d'implémentation
+## Plans d'implémentation principaux
 
 Ce document est couvert par les plans suivants :
 

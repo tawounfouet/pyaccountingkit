@@ -5680,7 +5680,7 @@ Le P1.3 fournit ainsi un moteur analytique suffisamment générique pour couvrir
 
 ---
 
-## Couverture dans les plans d'implémentation
+## Plans d'implémentation principaux
 
 Ce document est couvert par les plans suivants :
 

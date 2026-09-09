@@ -1,0 +1,225 @@
+name: LOT-00.3 scaffold cleanup
+
+on:
+  push:
+    branches:
+      - chore/lot-00-3-scaffold-cleanup
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chore/lot-00-3-scaffold-cleanup
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Configure Git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Normalize bootstrap scaffold
+        shell: bash
+        run: |
+          python - <<'PY'
+          from __future__ import annotations
+
+          import ast
+          from pathlib import Path
+
+          ROOT = Path.cwd()
+          SRC = ROOT / "src" / "pyaccountingkit"
+          TESTS = ROOT / "tests"
+          EXAMPLES = ROOT / "examples"
+
+          def is_docstring_expr(node: ast.stmt) -> bool:
+              return (
+                  isinstance(node, ast.Expr)
+                  and isinstance(node.value, ast.Constant)
+                  and isinstance(node.value.value, str)
+              )
+
+          def empty_class(node: ast.ClassDef) -> bool:
+              body = list(node.body)
+              if body and is_docstring_expr(body[0]):
+                  body = body[1:]
+              return all(
+                  isinstance(stmt, ast.Pass)
+                  or (
+                      isinstance(stmt, ast.Expr)
+                      and isinstance(stmt.value, ast.Constant)
+                      and stmt.value.value is Ellipsis
+                  )
+                  for stmt in body
+              )
+
+          rewritten_modules: list[str] = []
+          preserved_modules: list[str] = []
+
+          for path in sorted(SRC.rglob("*.py")):
+              rel = path.relative_to(ROOT).as_posix()
+              if path.name == "__init__.py":
+                  continue
+              source = path.read_text(encoding="utf-8")
+              tree = ast.parse(source, filename=rel)
+              statements = list(tree.body)
+              if statements and is_docstring_expr(statements[0]):
+                  statements = statements[1:]
+
+              classes: list[ast.ClassDef] = []
+              safe_scaffold = True
+              for stmt in statements:
+                  if isinstance(stmt, (ast.Import, ast.ImportFrom)):
+                      continue
+                  if isinstance(stmt, ast.ClassDef) and empty_class(stmt):
+                      classes.append(stmt)
+                      continue
+                  safe_scaffold = False
+                  break
+
+              if classes and safe_scaffold:
+                  names = ", ".join(cls.name for cls in classes)
+                  path.write_text(
+                      '"""Reserved bootstrap scaffold for a future PyAccountingKit milestone.\n\n'
+                      f'The previous placeholder symbols ({names}) intentionally expose no business API in '
+                      'PyAccountingKit 0.0.1. Their real contracts and behavior will be introduced by the '
+                      'milestone that owns this module.\n'
+                      '"""\n',
+                      encoding="utf-8",
+                  )
+                  rewritten_modules.append(rel)
+              elif statements:
+                  preserved_modules.append(rel)
+
+          removed_tests: list[str] = []
+          retained_tests: list[str] = []
+          for path in sorted(TESTS.rglob("test_*.py")):
+              rel = path.relative_to(ROOT).as_posix()
+              tree = ast.parse(path.read_text(encoding="utf-8"), filename=rel)
+              has_test = any(
+                  (isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and node.name.startswith("test_"))
+                  or (isinstance(node, ast.ClassDef) and node.name.startswith("Test"))
+                  for node in ast.walk(tree)
+              )
+              if has_test:
+                  retained_tests.append(rel)
+              else:
+                  path.unlink()
+                  removed_tests.append(rel)
+
+          example_dirs = sorted(path for path in EXAMPLES.iterdir() if path.is_dir()) if EXAMPLES.exists() else []
+          example_rows: list[str] = []
+          for directory in example_dirs:
+              readme = directory / "README.md"
+              title = directory.name.replace("_", " ").title()
+              readme.write_text(
+                  f"# {title}\n\n"
+                  "> **Status: future example scaffold.**\n\n"
+                  "PyAccountingKit `0.0.1` is the Repository Bootstrap milestone and does not yet expose "
+                  "the accounting-domain APIs required by this example. This directory is intentionally "
+                  "non-runnable until the milestone owning the corresponding feature implements and tests it.\n\n"
+                  "Do not use this directory as evidence that the feature is implemented.\n",
+                  encoding="utf-8",
+              )
+              example_rows.append(f"| `{directory.name}/` | Future scaffold | Non-runnable in `0.0.1` |")
+
+          EXAMPLES.mkdir(exist_ok=True)
+          (EXAMPLES / "README.md").write_text(
+              "# PyAccountingKit examples\n\n"
+              "> **Bootstrap status (`0.0.1`)**: the directories below are roadmap placeholders, not runnable "
+              "examples yet. Runnable examples will be activated only when their backing public APIs and tests "
+              "are implemented.\n\n"
+              "| Directory | Status | `0.0.1` behavior |\n"
+              "|---|---|---|\n"
+              + "\n".join(example_rows)
+              + "\n\nThis explicit classification prevents the repository scaffold from being mistaken for implemented functionality.\n",
+              encoding="utf-8",
+          )
+
+          # Bootstrap public surface: the root package must expose version metadata only.
+          root_init = SRC / "__init__.py"
+          root_tree = ast.parse(root_init.read_text(encoding="utf-8"), filename=str(root_init))
+          forbidden_exports: list[str] = []
+          for node in root_tree.body:
+              if isinstance(node, ast.ImportFrom) and node.module and node.module.startswith("pyaccountingkit"):
+                  forbidden_exports.extend(alias.name for alias in node.names)
+          if forbidden_exports:
+              raise SystemExit(f"Unexpected business exports from root package: {forbidden_exports}")
+
+          # Verify no remaining empty class symbol can masquerade as implemented behavior.
+          remaining_empty_classes: list[str] = []
+          for path in sorted(SRC.rglob("*.py")):
+              if path.name == "__init__.py":
+                  continue
+              rel = path.relative_to(ROOT).as_posix()
+              tree = ast.parse(path.read_text(encoding="utf-8"), filename=rel)
+              for node in tree.body:
+                  if isinstance(node, ast.ClassDef) and empty_class(node):
+                      remaining_empty_classes.append(f"{rel}:{node.name}")
+          if remaining_empty_classes:
+              raise SystemExit("Empty business classes remain:\n" + "\n".join(remaining_empty_classes))
+
+          remaining_fake_tests: list[str] = []
+          for path in sorted(TESTS.rglob("test_*.py")):
+              rel = path.relative_to(ROOT).as_posix()
+              tree = ast.parse(path.read_text(encoding="utf-8"), filename=rel)
+              if not any(
+                  (isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and node.name.startswith("test_"))
+                  or (isinstance(node, ast.ClassDef) and node.name.startswith("Test"))
+                  for node in ast.walk(tree)
+              ):
+                  remaining_fake_tests.append(rel)
+          if remaining_fake_tests:
+              raise SystemExit("Fake test modules remain:\n" + "\n".join(remaining_fake_tests))
+
+          audit_dir = ROOT / "docs" / "audits"
+          audit_dir.mkdir(parents=True, exist_ok=True)
+          report = audit_dir / "2026-09-09_LOT_00_3_PLACEHOLDER_INVENTORY.md"
+          report.write_text(
+              "# LOT-00.3 - Repository & Scaffold Cleanup Inventory\n\n"
+              "> Baseline: PyAccountingKit `0.0.1` Repository Bootstrap.\n\n"
+              "This inventory records the deterministic cleanup performed before real accounting-domain implementation.\n\n"
+              "## Policy\n\n"
+              "- Structural namespaces are retained.\n"
+              "- Empty business classes are removed from the executable surface and replaced by explicit module scaffolds.\n"
+              "- `test_*.py` files without a real test are removed rather than replaced by fake passing tests.\n"
+              "- Example directories are explicitly classified as non-runnable future scaffolds.\n"
+              "- No accounting behavior is introduced by LOT-00.3.\n\n"
+              f"## Empty business placeholder modules normalized ({len(rewritten_modules)})\n\n"
+              + ("\n".join(f"- `{item}`" for item in rewritten_modules) or "- None")
+              + "\n\n"
+              f"## Placeholder test modules removed ({len(removed_tests)})\n\n"
+              + ("\n".join(f"- `{item}`" for item in removed_tests) or "- None")
+              + "\n\n"
+              f"## Existing real test modules retained ({len(retained_tests)})\n\n"
+              + ("\n".join(f"- `{item}`" for item in retained_tests) or "- None at this milestone")
+              + "\n\n"
+              f"## Non-placeholder implementation modules preserved ({len(preserved_modules)})\n\n"
+              + ("\n".join(f"- `{item}`" for item in preserved_modules) or "- None")
+              + "\n\n"
+              "## Exit criteria\n\n"
+              "- Empty top-level business classes remaining: **0**\n"
+              "- Fake `test_*.py` modules remaining: **0**\n"
+              "- Root business exports added: **0**\n"
+              "- Accounting features implemented by this lot: **0**\n",
+              encoding="utf-8",
+          )
+
+          print(f"Normalized empty business modules: {len(rewritten_modules)}")
+          print(f"Removed fake test modules: {len(removed_tests)}")
+          print(f"Retained real test modules: {len(retained_tests)}")
+          print(f"Preserved non-placeholder src modules: {len(preserved_modules)}")
+          print(f"Classified example directories: {len(example_dirs)}")
+          PY
+      - name: Commit cleanup and remove temporary workflow
+        run: |
+          rm -f .github/workflows/lot00-3-scaffold-cleanup.yml
+          git add -A
+          git status --short
+          git commit -m "chore(repo): normalize bootstrap scaffold and public surface"
+          git push origin HEAD:chore/lot-00-3-scaffold-cleanup

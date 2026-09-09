@@ -1,0 +1,13 @@
+<div class="card shadow-sm"><div class="card-body p-0"><div class="table-responsive">
+<table class="table table-hover align-middle mb-0">
+<thead><tr><th>Date</th><th>N°</th><th>Journal</th><th>Description</th><th class="text-end">Débit</th><th class="text-end">Crédit</th><th>Statut</th><th></th></tr></thead>
+<tbody>
+{% for entry in entries %}
+<tr>
+  <td>{{ entry.posting_date }}</td><td class="fw-semibold">{{ entry.entry_number }}</td><td>{{ entry.journal.code }}</td>
+  <td>{{ entry.description|truncatechars:60 }}</td><td class="text-end">{{ entry.total_debit|floatformat:2 }}</td><td class="text-end">{{ entry.total_credit|floatformat:2 }}</td>
+  <td><span class="badge text-bg-light">{{ entry.get_status_display }}</span></td>
+  <td class="text-end"><a class="btn btn-sm btn-outline-primary" href="{% url 'accounting:entry-detail' entry.pk %}">Ouvrir</a></td>
+</tr>
+{% empty %}<tr><td colspan="8" class="text-muted p-4">Aucune écriture.</td></tr>{% endfor %}
+</tbody></table></div></div></div>

@@ -1,0 +1,43 @@
+<tr id="line-row-{{ line_index }}" class="journal-line-row">
+  <td>
+    {{ line_form.account }}
+    {% for error in line_form.account.errors %}
+      <div class="text-danger small">{{ error }}</div>
+    {% endfor %}
+  </td>
+  <td>{{ line_form.description }}</td>
+  <td>
+    {{ line_form.debit }}
+    {% for error in line_form.debit.errors %}
+      <div class="text-danger small">{{ error }}</div>
+    {% endfor %}
+  </td>
+  <td>
+    {{ line_form.credit }}
+    {% for error in line_form.credit.errors %}
+      <div class="text-danger small">{{ error }}</div>
+    {% endfor %}
+  </td>
+  <td>{{ line_form.counterparty }}</td>
+  <td>{{ line_form.cost_center }}</td>
+  <td>{{ line_form.cash_flow_tag }}</td>
+  <td class="text-end">
+    <input type="hidden"
+           name="{{ line_form.prefix }}-DELETE"
+           id="id_{{ line_form.prefix }}-DELETE"
+           value="">
+    <button type="button"
+            class="btn btn-sm btn-outline-danger"
+            hx-post="{% url 'accounting:entry-line-remove' line_index %}"
+            hx-target="closest tr"
+            hx-swap="outerHTML">
+      Retirer
+    </button>
+  </td>
+</tr>
+{% for error in line_form.non_field_errors %}
+<tr class="table-danger">
+  <td colspan="8"><div class="small">{{ error }}</div></td>
+</tr>
+{% endfor %}
+

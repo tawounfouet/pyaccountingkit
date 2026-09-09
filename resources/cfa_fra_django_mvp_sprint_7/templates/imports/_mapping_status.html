@@ -1,0 +1,30 @@
+<div id="mapping-status"
+     {% if oob %}hx-swap-oob="outerHTML"{% endif %}
+     class="card shadow-sm mb-4">
+  <div class="card-body">
+    <div class="row g-3 align-items-center">
+      <div class="col-md-3">
+        <div class="text-muted small">Statut</div>
+        <div class="fw-semibold">{{ import_batch.get_status_display }}</div>
+      </div>
+      <div class="col-md-3">
+        <div class="text-muted small">Comptes non mappés</div>
+        <div class="fw-semibold">{{ import_batch.unresolved_account_mapping_count }}</div>
+      </div>
+      <div class="col-md-3">
+        <div class="text-muted small">Journaux non mappés</div>
+        <div class="fw-semibold">{{ import_batch.unresolved_journal_mapping_count }}</div>
+      </div>
+      <div class="col-md-3">
+        <div class="text-muted small">Erreurs bloquantes</div>
+        <div class="fw-semibold">{{ import_batch.blocking_error_count }}</div>
+      </div>
+    </div>
+    {% if import_batch.can_import %}
+      <div class="alert alert-success mt-3 mb-0">
+        Tous les mappings sont complets et aucun contrôle bloquant ne subsiste.
+        Le FEC est prêt pour l'import transactionnel.
+      </div>
+    {% endif %}
+  </div>
+</div>

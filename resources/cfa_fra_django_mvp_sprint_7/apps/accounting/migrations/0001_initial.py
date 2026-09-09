@@ -1,0 +1,146 @@
+import decimal
+import uuid
+from django.conf import settings
+from django.db import migrations, models
+import django.db.models.deletion
+
+class Migration(migrations.Migration):
+    initial = True
+
+    dependencies = [
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ("organizations", "0001_initial"),
+    ]
+
+    operations = [
+        migrations.CreateModel(
+            name="ChartOfAccounts",
+            fields=[
+                ("id", models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("code", models.CharField(max_length=50)),
+                ("name", models.CharField(max_length=255)),
+                ("is_default", models.BooleanField(default=False)),
+                ("is_active", models.BooleanField(default=True)),
+                ("organization", models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name="charts_of_accounts", to="organizations.organization")),
+            ],
+        ),
+        migrations.CreateModel(
+            name="CostCenter",
+            fields=[
+                ("id", models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("code", models.CharField(max_length=100)),
+                ("name", models.CharField(max_length=255)),
+                ("is_active", models.BooleanField(default=True)),
+                ("organization", models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name="cost_centers", to="organizations.organization")),
+            ],
+        ),
+        migrations.CreateModel(
+            name="Counterparty",
+            fields=[
+                ("id", models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("code", models.CharField(max_length=100)),
+                ("name", models.CharField(max_length=255)),
+                ("kind", models.CharField(blank=True, max_length=50)),
+                ("tax_identifier", models.CharField(blank=True, max_length=100)),
+                ("is_active", models.BooleanField(default=True)),
+                ("organization", models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name="counterparties", to="organizations.organization")),
+            ],
+        ),
+        migrations.CreateModel(
+            name="Journal",
+            fields=[
+                ("id", models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("code", models.CharField(max_length=20)),
+                ("name", models.CharField(max_length=255)),
+                ("journal_type", models.CharField(choices=[("PURCHASE", "Achats"), ("SALES", "Ventes"), ("BANK", "Banque"), ("CASH", "Caisse"), ("PAYROLL", "Paie"), ("TAX", "Fiscal"), ("GENERAL", "Opérations diverses"), ("OPENING", "À-nouveaux")], default="GENERAL", max_length=20)),
+                ("is_active", models.BooleanField(default=True)),
+                ("organization", models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name="journals", to="organizations.organization")),
+            ],
+            options={"ordering": ["code"]},
+        ),
+        migrations.CreateModel(
+            name="Account",
+            fields=[
+                ("id", models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("code", models.CharField(max_length=32)),
+                ("name", models.CharField(max_length=255)),
+                ("account_type", models.CharField(choices=[("ASSET", "Actif"), ("LIABILITY", "Passif"), ("EQUITY", "Capitaux propres"), ("REVENUE", "Produit"), ("EXPENSE", "Charge"), ("OTHER", "Autre")], default="OTHER", max_length=20)),
+                ("normal_balance", models.CharField(choices=[("DEBIT", "Débit"), ("CREDIT", "Crédit")], default="DEBIT", max_length=10)),
+                ("current_noncurrent", models.CharField(blank=True, max_length=30)),
+                ("is_active", models.BooleanField(default=True)),
+                ("chart", models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name="accounts", to="accounting.chartofaccounts")),
+                ("organization", models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name="accounts", to="organizations.organization")),
+                ("parent", models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, related_name="children", to="accounting.account")),
+            ],
+            options={"ordering": ["code"]},
+        ),
+        migrations.CreateModel(
+            name="JournalEntry",
+            fields=[
+                ("id", models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("entry_number", models.CharField(max_length=150)),
+                ("posting_date", models.DateField()),
+                ("description", models.TextField()),
+                ("reference", models.CharField(blank=True, max_length=255)),
+                ("entry_type", models.CharField(choices=[("OPENING", "À-nouveaux"), ("NORMAL", "Normale"), ("ADJUSTING", "Ajustement"), ("CLOSING", "Clôture"), ("REVERSAL", "Extourne")], default="NORMAL", max_length=20)),
+                ("status", models.CharField(choices=[("DRAFT", "Brouillon"), ("VALIDATED", "Validée"), ("POSTED", "Postée"), ("REVERSED", "Extournée")], default="DRAFT", max_length=20)),
+                ("source", models.CharField(default="MANUAL", max_length=50)),
+                ("source_reference", models.CharField(blank=True, max_length=255)),
+                ("posted_at", models.DateTimeField(blank=True, null=True)),
+                ("validated_at", models.DateTimeField(blank=True, null=True)),
+                ("created_by", models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name="created_journal_entries", to=settings.AUTH_USER_MODEL)),
+                ("journal", models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name="entries", to="accounting.journal")),
+                ("organization", models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name="journal_entries", to="organizations.organization")),
+                ("period", models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name="journal_entries", to="organizations.accountingperiod")),
+                ("posted_by", models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, related_name="posted_journal_entries", to=settings.AUTH_USER_MODEL)),
+                ("reversal_of", models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, related_name="reversal_entry", to="accounting.journalentry")),
+                ("validated_by", models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, related_name="validated_journal_entries", to=settings.AUTH_USER_MODEL)),
+            ],
+            options={"ordering": ["posting_date", "entry_number"]},
+        ),
+        migrations.CreateModel(
+            name="JournalLine",
+            fields=[
+                ("id", models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("line_number", models.PositiveIntegerField()),
+                ("description", models.CharField(blank=True, max_length=500)),
+                ("debit", models.DecimalField(decimal_places=4, default=decimal.Decimal("0"), max_digits=24)),
+                ("credit", models.DecimalField(decimal_places=4, default=decimal.Decimal("0"), max_digits=24)),
+                ("cash_flow_tag", models.CharField(blank=True, choices=[("OPERATING", "Exploitation"), ("INVESTING", "Investissement"), ("FINANCING", "Financement"), ("TRANSFER", "Transfert"), ("OPENING", "Ouverture"), ("", "Non classé")], max_length=20)),
+                ("source_line_number", models.PositiveIntegerField(blank=True, null=True)),
+                ("metadata", models.JSONField(blank=True, default=dict)),
+                ("account", models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name="journal_lines", to="accounting.account")),
+                ("cost_center", models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name="journal_lines", to="accounting.costcenter")),
+                ("counterparty", models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name="journal_lines", to="accounting.counterparty")),
+                ("entry", models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name="lines", to="accounting.journalentry")),
+            ],
+            options={"ordering": ["entry", "line_number"]},
+        ),
+        migrations.AddConstraint(model_name="chartofaccounts", constraint=models.UniqueConstraint(fields=("organization", "code"), name="uniq_chart_org_code")),
+        migrations.AddConstraint(model_name="costcenter", constraint=models.UniqueConstraint(fields=("organization", "code"), name="uniq_cost_center_org_code")),
+        migrations.AddConstraint(model_name="counterparty", constraint=models.UniqueConstraint(fields=("organization", "code"), name="uniq_counterparty_org_code")),
+        migrations.AddConstraint(model_name="journal", constraint=models.UniqueConstraint(fields=("organization", "code"), name="uniq_journal_org_code")),
+        migrations.AddConstraint(model_name="account", constraint=models.UniqueConstraint(fields=("organization", "chart", "code"), name="uniq_account_org_chart_code")),
+        migrations.AddIndex(model_name="journalentry", index=models.Index(fields=["organization", "posting_date"], name="accounting__organiz_f37663_idx")),
+        migrations.AddIndex(model_name="journalentry", index=models.Index(fields=["organization", "status", "posting_date"], name="accounting__organiz_863e07_idx")),
+        migrations.AddConstraint(model_name="journalentry", constraint=models.UniqueConstraint(fields=("organization", "journal", "entry_number", "posting_date"), name="uniq_entry_org_journal_number_date")),
+        migrations.AddIndex(model_name="journalline", index=models.Index(fields=["account", "entry"], name="accounting__account_96ccbb_idx")),
+        migrations.AddConstraint(model_name="journalline", constraint=models.UniqueConstraint(fields=("entry", "line_number"), name="uniq_entry_line_number")),
+        migrations.AddConstraint(model_name="journalline", constraint=models.CheckConstraint(condition=models.Q(("credit__gte", 0), ("debit__gte", 0)), name="journal_line_nonnegative_amounts")),
+        migrations.AddConstraint(model_name="journalline", constraint=models.CheckConstraint(condition=models.Q(models.Q(("credit__gt", 0), ("debit__gt", 0)), _negated=True), name="journal_line_not_both_debit_credit")),
+        migrations.AddConstraint(model_name="journalline", constraint=models.CheckConstraint(condition=models.Q(("debit__gt", 0), ("credit__gt", 0), _connector="OR"), name="journal_line_one_side_positive")),
+    ]

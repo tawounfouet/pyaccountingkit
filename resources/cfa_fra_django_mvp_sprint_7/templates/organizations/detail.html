@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}{{ organization.name }} — CFA FRA{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-start mb-4">
+  <div>
+    <h1 class="h3 mb-1">{{ organization.name }}</h1>
+    <p class="text-muted mb-0">{{ organization.legal_name|default:"Organisation comptable" }}</p>
+  </div>
+  <a class="btn btn-primary"
+     href="{% url 'organizations:fiscal-year-create' organization.pk %}">
+     Nouvel exercice
+  </a>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-4">
+    <div class="card shadow-sm"><div class="card-body">
+      <div class="text-muted small">Devise</div>
+      <div class="fs-4 fw-semibold">{{ organization.base_currency }}</div>
+    </div></div>
+  </div>
+  <div class="col-md-4">
+    <div class="card shadow-sm"><div class="card-body">
+      <div class="text-muted small">Pays</div>
+      <div class="fs-4 fw-semibold">{{ organization.country_code }}</div>
+    </div></div>
+  </div>
+  <div class="col-md-4">
+    <div class="card shadow-sm"><div class="card-body">
+      <div class="text-muted small">Exercices</div>
+      <div class="fs-4 fw-semibold">{{ organization.fiscal_years.count }}</div>
+    </div></div>
+  </div>
+</div>
+
+{% for fiscal_year in organization.fiscal_years.all %}
+<div class="card shadow-sm mb-4">
+  <div class="card-header d-flex justify-content-between">
+    <strong>{{ fiscal_year.name }}</strong>
+    <span class="badge text-bg-secondary">{{ fiscal_year.get_status_display }}</span>
+  </div>
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover mb-0">
+        <thead>
+          <tr>
+            <th>#</th><th>Période</th><th>Début</th><th>Fin</th><th>Statut</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for period in fiscal_year.periods.all %}
+          <tr>
+            <td>{{ period.period_number }}</td>
+            <td>{{ period.name }}</td>
+            <td>{{ period.start_date }}</td>
+            <td>{{ period.end_date }}</td>
+            <td><span class="badge text-bg-light">{{ period.get_status_display }}</span></td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="5" class="text-muted">Aucune période.</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% empty %}
+<div class="alert alert-info">
+  Aucun exercice comptable. Créez-en un pour générer les périodes.
+</div>
+{% endfor %}
+{% endblock %}

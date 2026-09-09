@@ -1,0 +1,32 @@
+<tr id="journal-mapping-{{ mapping.pk }}">
+  <td class="fw-semibold">{{ mapping.source_journal_code }}</td>
+  <td>{{ mapping.source_journal_label|default:"—" }}</td>
+  <td>{{ mapping.occurrence_count }}</td>
+  <td>
+    <form method="post"
+          hx-post="{% url 'imports:fec-journal-mapping-update' import_batch.pk mapping.pk %}"
+          hx-target="#journal-mapping-{{ mapping.pk }}"
+          hx-swap="outerHTML">
+      {% csrf_token %}
+      {{ form.journal }}
+    </form>
+  </td>
+  <td>
+    {% if mapping.journal %}
+      {% if mapping.created_automatically %}
+        <span class="badge text-bg-info">Auto</span>
+      {% else %}
+        <span class="badge text-bg-success">Manuel</span>
+      {% endif %}
+    {% else %}
+      <span class="badge text-bg-warning">À mapper</span>
+    {% endif %}
+  </td>
+  <td class="text-end">
+    <button type="button"
+            class="btn btn-sm btn-outline-primary"
+            onclick="this.closest('tr').querySelector('form').requestSubmit()">
+      Enregistrer
+    </button>
+  </td>
+</tr>

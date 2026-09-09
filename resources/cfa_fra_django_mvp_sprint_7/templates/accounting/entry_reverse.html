@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Extourner {{ entry.entry_number }} — CFA FRA{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h1 class="h4 mb-2">Extourner {{ entry.entry_number }}</h1>
+        <p class="text-muted">
+          L'écriture originale restera dans l'historique et une écriture inverse
+          sera automatiquement créée, validée et postée.
+        </p>
+
+        <div class="alert alert-warning">
+          Montant : {{ entry.total_debit|floatformat:2 }} /
+          Journal : {{ entry.journal.code }} /
+          Date originale : {{ entry.posting_date }}
+        </div>
+
+        <form method="post">
+          {% csrf_token %}
+          {% include "components/form_fields.html" with form=form %}
+          <button class="btn btn-danger">Confirmer l'extourne</button>
+          <a class="btn btn-link"
+             href="{% url 'accounting:entry-detail' entry.pk %}">
+            Annuler
+          </a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

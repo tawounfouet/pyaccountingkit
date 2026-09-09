@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}Flux de trésorerie — CFA FRA{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-start mb-4">
+  <div>
+    <h1 class="h3 mb-1">Tableau des flux de trésorerie</h1>
+    <p class="text-muted mb-0">Classification explicite ou inférée des mouvements de trésorerie.</p>
+  </div>
+  <a class="btn btn-outline-secondary" href="{% url 'financial_statements:index' %}">États financiers</a>
+</div>
+
+{% include "financial_statements/_period_filter.html" %}
+
+{% if report %}
+<div class="row g-3 mb-4">
+  <div class="col-md-3">
+    <div class="card shadow-sm h-100"><div class="card-body">
+      <div class="text-muted small">Flux explicitement tagués</div>
+      <div class="fs-4 fw-semibold">{{ report.explicit_count }}</div>
+    </div></div>
+  </div>
+  <div class="col-md-3">
+    <div class="card shadow-sm h-100"><div class="card-body">
+      <div class="text-muted small">Flux inférés</div>
+      <div class="fs-4 fw-semibold">{{ report.inferred_count }}</div>
+    </div></div>
+  </div>
+  <div class="col-md-3">
+    <div class="card shadow-sm h-100"><div class="card-body">
+      <div class="text-muted small">Transferts internes</div>
+      <div class="fs-4 fw-semibold">{{ report.transfer_count }}</div>
+    </div></div>
+  </div>
+  <div class="col-md-3">
+    <div class="card shadow-sm h-100"><div class="card-body">
+      <div class="text-muted small">Préfixes trésorerie</div>
+      <div class="fw-semibold">{{ report.cash_account_prefixes|join:", " }}</div>
+    </div></div>
+  </div>
+</div>
+
+{% if report.unclassified_cash_flow %}
+<div class="alert alert-warning">
+  Des flux restent non classés pour {{ report.unclassified_cash_flow|floatformat:2 }}.
+</div>
+{% endif %}
+
+<div class="card shadow-sm">
+  <div class="card-header d-flex justify-content-between">
+    <strong>{{ report.definition.name }}</strong>
+    <span>{{ report.fiscal_year.name }}</span>
+  </div>
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Rubrique</th>
+            <th class="text-end">{{ report.fiscal_year.name }}</th>
+            {% if report.comparative_year %}
+              <th class="text-end">{{ report.comparative_year.name }}</th>
+            {% endif %}
+          </tr>
+        </thead>
+        <tbody>
+        {% for line in report.lines %}
+          <tr class="{% if line.is_total %}table-light fw-semibold{% endif %}">
+            <td class="{% if line.depth == 1 %}ps-4{% elif line.depth >= 2 %}ps-5{% endif %}">
+              {{ line.label }}
+            </td>
+            <td class="text-end">{{ line.amount|floatformat:2 }}</td>
+            {% if report.comparative_year %}
+              <td class="text-end">{{ line.comparative_amount|floatformat:2 }}</td>
+            {% endif %}
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

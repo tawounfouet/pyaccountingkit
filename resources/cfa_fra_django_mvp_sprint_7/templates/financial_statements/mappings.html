@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Mappings des états financiers — CFA FRA{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-start mb-4">
+  <div>
+    <h1 class="h3 mb-1">Mapping comptes → rubriques</h1>
+    <p class="text-muted mb-0">{{ organization.name }}</p>
+  </div>
+  <div class="d-flex gap-2">
+    <form method="post" action="{% url 'financial_statements:auto-map' %}">
+      {% csrf_token %}
+      <button class="btn btn-outline-primary"
+              onclick="return confirm('Recalculer les mappings automatiques ? Les mappings manuels seront conservés.');">
+        Auto-mapper
+      </button>
+    </form>
+    <a class="btn btn-outline-secondary"
+       href="{% url 'financial_statements:index' %}">
+      Retour
+    </a>
+  </div>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-4">
+    <div class="card shadow-sm"><div class="card-body">
+      <div class="text-muted small">Comptes</div>
+      <div class="fs-4 fw-semibold">{{ mapping_stats.total_accounts }}</div>
+    </div></div>
+  </div>
+  <div class="col-md-4">
+    <div class="card shadow-sm"><div class="card-body">
+      <div class="text-muted small">Mappés</div>
+      <div class="fs-4 fw-semibold">{{ mapping_stats.mapped_accounts }}</div>
+    </div></div>
+  </div>
+  <div class="col-md-4">
+    <div class="card shadow-sm"><div class="card-body">
+      <div class="text-muted small">Non mappés</div>
+      <div class="fs-4 fw-semibold">{{ mapping_stats.unmapped_accounts }}</div>
+    </div></div>
+  </div>
+</div>
+
+<div class="alert alert-warning">
+  L'auto-mapping utilise le type de compte, son solde normal, son caractère courant/non courant
+  et certains préfixes de classes comptables. Les résultats doivent être revus avant usage normatif.
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Compte</th>
+            <th>Libellé</th>
+            <th>Nature</th>
+            <th>Solde normal</th>
+            <th style="min-width: 360px;">Rubrique cible</th>
+            <th>Mapping</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for row in rows %}
+          {% include "financial_statements/_mapping_row.html" with account=row.account mapping=row.mapping form=row.form %}
+        {% empty %}
+          <tr><td colspan="7" class="p-4 text-muted">Aucun compte.</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

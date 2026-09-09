@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Ratios financiers — CFA FRA{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-start mb-4">
+  <div>
+    <h1 class="h3 mb-1">Ratios financiers</h1>
+    <p class="text-muted mb-0">Indicateurs calculés depuis les trois états financiers du moteur.</p>
+  </div>
+  <a class="btn btn-outline-secondary" href="{% url 'financial_statements:index' %}">États financiers</a>
+</div>
+
+{% include "financial_statements/_period_filter.html" %}
+
+{% if report %}
+<div class="row g-3">
+  {% for ratio in report.ratios %}
+    <div class="col-md-6 col-xl-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <div class="text-muted small">{{ ratio.label }}</div>
+          <div class="fs-3 fw-semibold mt-2">{{ ratio.display_value }}</div>
+          <div class="small text-muted mt-2"><code>{{ ratio.code }}</code></div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<div class="alert alert-secondary mt-4">
+  Ces ratios utilisent les valeurs du moteur MVP. Ils servent à l'analyse et au diagnostic ;
+  leur définition devra être verrouillée par référentiel métier avant usage réglementaire.
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}États financiers — CFA FRA{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-start mb-4">
+  <div>
+    <h1 class="h3 mb-1">Financial Statements Engine</h1>
+    <p class="text-muted mb-0">
+      {{ organization.name }} · {{ configuration.framework_version.framework.code }}
+      {{ configuration.framework_version.version }}
+    </p>
+  </div>
+  <div class="d-flex gap-2">
+    <a class="btn btn-outline-secondary"
+       href="{% url 'financial_statements:configuration' %}">
+      Configuration
+    </a>
+    <a class="btn btn-outline-primary"
+       href="{% url 'financial_statements:mappings' %}">
+      Mappings
+    </a>
+    <a class="btn btn-outline-success"
+       href="{% url 'financial_statements:regulatory-list' %}">
+      Réglementaire
+    </a>
+  </div>
+</div>
+
+<div class="alert alert-info">
+  Le modèle <strong>CFA_FRA_MVP</strong> est un moteur interne de présentation.
+  Il structure les données comptables issues du journal mais ne prétend pas remplacer
+  un format réglementaire SYSCOHADA ou IFRS.
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-3">
+    <div class="card shadow-sm h-100"><div class="card-body">
+      <div class="text-muted small">Comptes actifs</div>
+      <div class="fs-3 fw-semibold">{{ mapping_stats.total_accounts }}</div>
+    </div></div>
+  </div>
+  <div class="col-md-3">
+    <div class="card shadow-sm h-100"><div class="card-body">
+      <div class="text-muted small">Comptes mappés</div>
+      <div class="fs-3 fw-semibold">{{ mapping_stats.mapped_accounts }}</div>
+    </div></div>
+  </div>
+  <div class="col-md-3">
+    <div class="card shadow-sm h-100"><div class="card-body">
+      <div class="text-muted small">Non mappés</div>
+      <div class="fs-3 fw-semibold">{{ mapping_stats.unmapped_accounts }}</div>
+    </div></div>
+  </div>
+  <div class="col-md-3">
+    <div class="card shadow-sm h-100"><div class="card-body">
+      <div class="text-muted small">Couverture</div>
+      <div class="fs-3 fw-semibold">{{ mapping_stats.coverage|floatformat:2 }}</div>
+    </div></div>
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-md-6 col-xl-3">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <h2 class="h5">Compte de résultat</h2>
+        <p class="text-muted">Produits, charges et résultat net depuis les écritures ajustées.</p>
+        <a class="btn btn-primary"
+           href="{% url 'financial_statements:income-statement' %}">
+          Ouvrir
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-xl-3">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <h2 class="h5">Bilan</h2>
+        <p class="text-muted">Actifs, passifs, capitaux propres et résultat courant.</p>
+        <a class="btn btn-primary"
+           href="{% url 'financial_statements:balance-sheet' %}">
+          Ouvrir
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-xl-3">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <h2 class="h5">Flux de trésorerie</h2>
+        <p class="text-muted">CFO, CFI, CFF, trésorerie d'ouverture et rapprochement.</p>
+        <a class="btn btn-primary"
+           href="{% url 'financial_statements:cash-flow' %}">
+          Ouvrir
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-xl-3">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <h2 class="h5">Ratios</h2>
+        <p class="text-muted">Marge, liquidité, structure financière et cash conversion.</p>
+        <a class="btn btn-primary"
+           href="{% url 'financial_statements:ratios' %}">
+          Ouvrir
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

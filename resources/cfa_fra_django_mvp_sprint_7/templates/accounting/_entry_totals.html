@@ -1,0 +1,31 @@
+<div class="row g-3 align-items-stretch">
+  <div class="col-md-3">
+    <div class="border rounded p-3 h-100">
+      <div class="text-muted small">Lignes actives</div>
+      <div class="fs-5 fw-semibold">{{ active_count|default:0 }}</div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="border rounded p-3 h-100">
+      <div class="text-muted small">Total débit</div>
+      <div class="fs-5 fw-semibold">{{ total_debit|default:0|floatformat:2 }}</div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="border rounded p-3 h-100">
+      <div class="text-muted small">Total crédit</div>
+      <div class="fs-5 fw-semibold">{{ total_credit|default:0|floatformat:2 }}</div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="border rounded p-3 h-100">
+      <div class="text-muted small">Écart</div>
+      <div class="fs-5 fw-semibold">{{ difference|default:0|floatformat:2 }}</div>
+      {% if is_balanced %}
+        <span class="badge text-bg-success mt-1">ÉQUILIBRÉ</span>
+      {% else %}
+        <span class="badge text-bg-warning mt-1">À équilibrer</span>
+      {% endif %}
+    </div>
+  </div>
+</div>

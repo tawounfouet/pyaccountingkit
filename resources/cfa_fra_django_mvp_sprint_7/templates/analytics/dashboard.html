@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — CFA FRA{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="h3 mb-1">Dashboard</h1>
+    <p class="text-muted mb-0">Contexte actif : <strong>{{ organization.name }}</strong></p>
+  </div>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-3"><div class="card shadow-sm"><div class="card-body">
+    <div class="text-muted small">Comptes</div><div class="fs-3 fw-semibold">{{ core_counts.accounts }}</div>
+  </div></div></div>
+  <div class="col-md-3"><div class="card shadow-sm"><div class="card-body">
+    <div class="text-muted small">Journaux</div><div class="fs-3 fw-semibold">{{ core_counts.journals }}</div>
+  </div></div></div>
+  <div class="col-md-3"><div class="card shadow-sm"><div class="card-body">
+    <div class="text-muted small">Écritures</div><div class="fs-3 fw-semibold">{{ core_counts.entries }}</div>
+  </div></div></div>
+  <div class="col-md-3"><div class="card shadow-sm"><div class="card-body">
+    <div class="text-muted small">Événements d'audit</div><div class="fs-3 fw-semibold">{{ audit_count }}</div>
+  </div></div></div>
+</div>
+
+<div class="card shadow-sm mb-4">
+  <div class="card-header fw-semibold">Workflow des écritures</div>
+  <div class="card-body">
+    <div class="row g-3">
+      <div class="col-md-3"><div class="border rounded p-3">
+        <div class="text-muted small">DRAFT</div><div class="fs-4 fw-semibold">{{ workflow_counts.draft }}</div>
+      </div></div>
+      <div class="col-md-3"><div class="border rounded p-3">
+        <div class="text-muted small">VALIDATED</div><div class="fs-4 fw-semibold">{{ workflow_counts.validated }}</div>
+      </div></div>
+      <div class="col-md-3"><div class="border rounded p-3">
+        <div class="text-muted small">POSTED</div><div class="fs-4 fw-semibold">{{ workflow_counts.posted }}</div>
+      </div></div>
+      <div class="col-md-3"><div class="border rounded p-3">
+        <div class="text-muted small">REVERSED</div><div class="fs-4 fw-semibold">{{ workflow_counts.reversed }}</div>
+      </div></div>
+    </div>
+  </div>
+</div>
+
+<div class="card shadow-sm mb-4">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <strong>Pipeline FEC — Sprint 4</strong>
+    <a class="btn btn-sm btn-primary" href="{% url 'imports:fec-upload' %}">Importer un FEC</a>
+  </div>
+  <div class="card-body">
+    <div class="row g-3">
+      <div class="col"><div class="border rounded p-3">
+        <div class="text-muted small">Total</div><div class="fs-4 fw-semibold">{{ fec_counts.total }}</div>
+      </div></div>
+      <div class="col"><div class="border rounded p-3">
+        <div class="text-muted small">Mapping</div><div class="fs-4 fw-semibold">{{ fec_counts.mapping }}</div>
+      </div></div>
+      <div class="col"><div class="border rounded p-3">
+        <div class="text-muted small">Ready</div><div class="fs-4 fw-semibold">{{ fec_counts.ready }}</div>
+      </div></div>
+      <div class="col"><div class="border rounded p-3">
+        <div class="text-muted small">Imported</div><div class="fs-4 fw-semibold">{{ fec_counts.imported }}</div>
+      </div></div>
+      <div class="col"><div class="border rounded p-3">
+        <div class="text-muted small">Failed</div><div class="fs-4 fw-semibold">{{ fec_counts.failed }}</div>
+      </div></div>
+    </div>
+  </div>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <div class="d-flex flex-wrap gap-2">
+      <a class="btn btn-primary" href="{% url 'accounting:entry-create' %}">Nouvelle écriture</a>
+      <a class="btn btn-outline-primary" href="{% url 'imports:fec-list' %}">Imports FEC</a>
+      <a class="btn btn-outline-primary" href="{% url 'accounting:entries' %}">Écritures</a>
+      <a class="btn btn-outline-primary" href="{% url 'audit:list' %}">Audit trail</a>
+      <a class="btn btn-outline-primary" href="{% url 'financial_statements:index' %}">États financiers</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

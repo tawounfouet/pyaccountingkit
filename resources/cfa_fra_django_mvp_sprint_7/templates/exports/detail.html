@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Export {{ job.pk }} — CFA FRA{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-start mb-4">
+  <div>
+    <h1 class="h3 mb-1">Export {{ job.get_format_display }}</h1>
+    <p class="text-muted mb-0">{{ job.export_type }} · {{ job.created_at }}</p>
+  </div>
+  <div class="d-flex gap-2">
+    {% if job.status == "DONE" and job.file %}
+      <a class="btn btn-success" href="{% url 'exports:download' job.pk %}">Télécharger</a>
+    {% endif %}
+    <a class="btn btn-outline-secondary" href="{% url 'exports:list' %}">Exports</a>
+  </div>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-3"><div class="card shadow-sm h-100"><div class="card-body">
+    <div class="text-muted small">Statut</div>
+    <div class="fw-semibold">{{ job.get_status_display }}</div>
+  </div></div></div>
+  <div class="col-md-3"><div class="card shadow-sm h-100"><div class="card-body">
+    <div class="text-muted small">Format</div>
+    <div class="fw-semibold">{{ job.get_format_display }}</div>
+  </div></div></div>
+  <div class="col-md-3"><div class="card shadow-sm h-100"><div class="card-body">
+    <div class="text-muted small">MIME</div>
+    <div class="small">{{ job.mime_type|default:"—" }}</div>
+  </div></div></div>
+  <div class="col-md-3"><div class="card shadow-sm h-100"><div class="card-body">
+    <div class="text-muted small">Terminé le</div>
+    <div>{{ job.completed_at|default:"—" }}</div>
+  </div></div></div>
+</div>
+
+<div class="card shadow-sm mb-4">
+  <div class="card-header"><strong>Traçabilité</strong></div>
+  <div class="card-body">
+    <dl class="row mb-0">
+      <dt class="col-sm-3">SHA-256</dt>
+      <dd class="col-sm-9"><code>{{ job.content_sha256|default:"—" }}</code></dd>
+      <dt class="col-sm-3">Snapshot</dt>
+      <dd class="col-sm-9">{% if job.snapshot %}<code>{{ job.snapshot.pk }}</code>{% else %}—{% endif %}</dd>
+      <dt class="col-sm-3">Demandé par</dt>
+      <dd class="col-sm-9">{{ job.requested_by }}</dd>
+      <dt class="col-sm-3">Profil</dt>
+      <dd class="col-sm-9">
+        {% if job.regulatory_profile %}
+          <a href="{% url 'financial_statements:regulatory-detail' job.regulatory_profile.pk %}">
+            {{ job.regulatory_profile.name }}
+          </a>
+        {% else %}—{% endif %}
+      </dd>
+    </dl>
+  </div>
+</div>
+
+{% if job.error_message %}
+<div class="alert alert-danger">{{ job.error_message }}</div>
+{% endif %}
+
+<div class="card shadow-sm">
+  <div class="card-header"><strong>Paramètres</strong></div>
+  <div class="card-body">
+    <pre class="mb-0">{{ job.parameters }}</pre>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Bilan — CFA FRA{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-start mb-4">
+  <div>
+    <h1 class="h3 mb-1">Bilan</h1>
+    <p class="text-muted mb-0">Situation financière ajustée avant écritures de clôture.</p>
+  </div>
+  <a class="btn btn-outline-secondary" href="{% url 'financial_statements:index' %}">États financiers</a>
+</div>
+
+{% include "financial_statements/_period_filter.html" %}
+
+{% if report %}
+{% if report.unmapped_accounts %}
+<div class="alert alert-warning">
+  {{ report.unmapped_accounts|length }} compte(s) de bilan avec solde ne sont pas mappés.
+  <a href="{% url 'financial_statements:mappings' %}">Revoir les mappings</a>.
+</div>
+{% endif %}
+
+{% if report.is_balanced %}
+<div class="alert alert-success">
+  Bilan équilibré : total actif = total passif et capitaux propres.
+</div>
+{% else %}
+<div class="alert alert-danger">
+  Écart de bilan : {{ report.balance_gap|floatformat:2 }}.
+  Vérifiez les mappings et les comptes non classés.
+</div>
+{% endif %}
+
+<div class="card shadow-sm">
+  <div class="card-header d-flex justify-content-between">
+    <strong>{{ report.definition.name }}</strong>
+    <span>Au {{ report.as_of_date }}</span>
+  </div>
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Rubrique</th>
+            <th class="text-end">{{ report.fiscal_year.name }}</th>
+            {% if report.comparative_year %}
+              <th class="text-end">{{ report.comparative_year.name }}</th>
+            {% endif %}
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for line in report.lines %}
+          <tr class="{% if line.is_total %}table-light fw-semibold{% endif %}">
+            <td class="{% if line.depth == 1 %}ps-4{% elif line.depth >= 2 %}ps-5{% endif %}">
+              {{ line.label }}
+            </td>
+            <td class="text-end">{{ line.amount|floatformat:2 }}</td>
+            {% if report.comparative_year %}
+              <td class="text-end">{{ line.comparative_amount|floatformat:2 }}</td>
+            {% endif %}
+            <td class="text-end">
+              <a class="btn btn-sm btn-outline-primary"
+                 href="{% url 'financial_statements:line-detail' line.id %}?fiscal_year={{ report.fiscal_year.pk }}&end_date={{ report.as_of_date|date:'Y-m-d' }}">
+                Détail
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

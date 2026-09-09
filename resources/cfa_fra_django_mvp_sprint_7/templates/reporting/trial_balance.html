@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% block title %}Balance — CFA FRA{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-start mb-4">
+  <div>
+    <h1 class="h3 mb-1">Balance</h1>
+    <p class="text-muted mb-0">
+      Balance avant ajustements, ajustée ou post-clôture depuis les écritures comptables postées.
+    </p>
+  </div>
+</div>
+
+<form method="get" class="card card-body shadow-sm mb-4">
+  {% for error in form.non_field_errors %}
+    <div class="alert alert-danger">{{ error }}</div>
+  {% endfor %}
+  <div class="row g-3 align-items-end">
+    <div class="col-lg-2">
+      <label class="form-label">{{ form.fiscal_year.label }}</label>{{ form.fiscal_year }}
+    </div>
+    <div class="col-lg-2">
+      <label class="form-label">{{ form.as_of_date.label }}</label>{{ form.as_of_date }}
+      {% for error in form.as_of_date.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+    </div>
+    <div class="col-lg-3">
+      <label class="form-label">{{ form.variant.label }}</label>{{ form.variant }}
+    </div>
+    <div class="col-lg-3">
+      <label class="form-label">{{ form.query.label }}</label>{{ form.query }}
+    </div>
+    <div class="col-lg-2">
+      <div class="form-check mb-2">
+        {{ form.include_zero }}
+        <label class="form-check-label" for="{{ form.include_zero.id_for_label }}">
+          {{ form.include_zero.label }}
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="mt-3">
+    <button class="btn btn-primary">Calculer la balance</button>
+    <a class="btn btn-link" href="{% url 'reporting:trial-balance' %}">Réinitialiser</a>
+  </div>
+</form>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-3">
+    <div class="card shadow-sm h-100"><div class="card-body">
+      <div class="text-muted small">Mouvements débit</div>
+      <div class="fs-5 fw-semibold">{{ totals.movement_debit|floatformat:2 }}</div>
+    </div></div>
+  </div>
+  <div class="col-md-3">
+    <div class="card shadow-sm h-100"><div class="card-body">
+      <div class="text-muted small">Mouvements crédit</div>
+      <div class="fs-5 fw-semibold">{{ totals.movement_credit|floatformat:2 }}</div>
+    </div></div>
+  </div>
+  <div class="col-md-3">
+    <div class="card shadow-sm h-100"><div class="card-body">
+      <div class="text-muted small">Soldes débiteurs</div>
+      <div class="fs-5 fw-semibold">{{ totals.balance_debit|floatformat:2 }}</div>
+    </div></div>
+  </div>
+  <div class="col-md-3">
+    <div class="card shadow-sm h-100"><div class="card-body">
+      <div class="text-muted small">Soldes créditeurs</div>
+      <div class="fs-5 fw-semibold">{{ totals.balance_credit|floatformat:2 }}</div>
+    </div></div>
+  </div>
+</div>
+
+{% if is_balanced %}
+<div class="alert alert-success">
+  Balance équilibrée : total des soldes débiteurs = total des soldes créditeurs.
+</div>
+{% else %}
+<div class="alert alert-danger">
+  Écart de balance : {{ difference|floatformat:2 }}.
+</div>
+{% endif %}
+
+<div class="card shadow-sm">
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-sm table-hover align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Compte</th>
+            <th>Libellé</th>
+            <th>Nature</th>
+            <th class="text-end">Mouv. débit</th>
+            <th class="text-end">Mouv. crédit</th>
+            <th class="text-end">Solde débiteur</th>
+            <th class="text-end">Solde créditeur</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for row in rows %}
+          <tr>
+            <td class="fw-semibold">{{ row.code }}</td>
+            <td>{{ row.name }}</td>
+            <td>{{ row.get_account_type_display }}</td>
+            <td class="text-end">{{ row.total_debit|floatformat:2 }}</td>
+            <td class="text-end">{{ row.total_credit|floatformat:2 }}</td>
+            <td class="text-end">{{ row.debit_balance|floatformat:2 }}</td>
+            <td class="text-end">{{ row.credit_balance|floatformat:2 }}</td>
+            <td class="text-end">
+              <a class="btn btn-sm btn-outline-primary"
+                 href="{% url 'reporting:general-ledger' %}?fiscal_year={{ form.fiscal_year.value }}&account={{ row.pk }}&start_date={{ form.cleaned_data.fiscal_year.start_date|date:'Y-m-d' }}&end_date={{ form.as_of_date.value }}&variant={{ form.variant.value }}">
+                Grand livre
+              </a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="8" class="p-4 text-muted">Aucun compte avec solde pour ce périmètre.</td></tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr class="fw-semibold">
+            <td colspan="3">Totaux</td>
+            <td class="text-end">{{ totals.movement_debit|floatformat:2 }}</td>
+            <td class="text-end">{{ totals.movement_credit|floatformat:2 }}</td>
+            <td class="text-end">{{ totals.balance_debit|floatformat:2 }}</td>
+            <td class="text-end">{{ totals.balance_credit|floatformat:2 }}</td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% if page_obj and page_obj.paginator.num_pages > 1 %}
+<nav class="mt-3">
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link"
+           href="?page={{ page_obj.previous_page_number }}&fiscal_year={{ form.fiscal_year.value }}&as_of_date={{ form.as_of_date.value }}&variant={{ form.variant.value }}&query={{ form.query.value|urlencode }}{% if form.include_zero.value %}&include_zero=on{% endif %}">
+          Précédent
+        </a>
+      </li>
+    {% endif %}
+    <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span></li>
+    {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link"
+           href="?page={{ page_obj.next_page_number }}&fiscal_year={{ form.fiscal_year.value }}&as_of_date={{ form.as_of_date.value }}&variant={{ form.variant.value }}&query={{ form.query.value|urlencode }}{% if form.include_zero.value %}&include_zero=on{% endif %}">
+          Suivant
+        </a>
+      </li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}
+{% endblock %}

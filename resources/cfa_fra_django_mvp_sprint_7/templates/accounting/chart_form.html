@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Nouveau plan comptable — CFA FRA{% endblock %}
+{% block content %}
+<div class="row justify-content-center"><div class="col-lg-8">
+<div class="card shadow-sm"><div class="card-body">
+<h1 class="h4 mb-4">Créer un plan comptable</h1>
+<form method="post">
+  {% csrf_token %}
+  {% include "components/form_fields.html" with form=form %}
+  <button class="btn btn-primary">Enregistrer</button>
+  <a class="btn btn-link" href="{% url 'accounting:charts' %}">Annuler</a>
+</form>
+</div></div>
+</div></div>
+{% endblock %}

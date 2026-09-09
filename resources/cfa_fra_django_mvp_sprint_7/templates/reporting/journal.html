@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% block title %}Journal comptable — CFA FRA{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-start mb-4">
+  <div>
+    <h1 class="h3 mb-1">Journal comptable</h1>
+    <p class="text-muted mb-0">
+      Lignes issues uniquement des écritures POSTED / REVERSED de {{ organization.name }}.
+    </p>
+  </div>
+</div>
+
+<form method="get" class="card card-body shadow-sm mb-4">
+  {% for error in form.non_field_errors %}
+    <div class="alert alert-danger">{{ error }}</div>
+  {% endfor %}
+  <div class="row g-3">
+    <div class="col-lg-2">
+      <label class="form-label">{{ form.fiscal_year.label }}</label>
+      {{ form.fiscal_year }}
+      {% for error in form.fiscal_year.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+    </div>
+    <div class="col-lg-2">
+      <label class="form-label">{{ form.start_date.label }}</label>
+      {{ form.start_date }}
+      {% for error in form.start_date.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+    </div>
+    <div class="col-lg-2">
+      <label class="form-label">{{ form.end_date.label }}</label>
+      {{ form.end_date }}
+      {% for error in form.end_date.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+    </div>
+    <div class="col-lg-2">
+      <label class="form-label">{{ form.journal.label }}</label>
+      {{ form.journal }}
+    </div>
+    <div class="col-lg-2">
+      <label class="form-label">{{ form.entry_type.label }}</label>
+      {{ form.entry_type }}
+    </div>
+    <div class="col-lg-2">
+      <label class="form-label">{{ form.query.label }}</label>
+      {{ form.query }}
+    </div>
+  </div>
+  <div class="mt-3">
+    <button class="btn btn-primary">Appliquer</button>
+    <a class="btn btn-link" href="{% url 'reporting:journal' %}">Réinitialiser</a>
+  </div>
+</form>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100"><div class="card-body">
+      <div class="text-muted small">Total débit</div>
+      <div class="fs-4 fw-semibold">{{ totals.total_debit|floatformat:2 }}</div>
+    </div></div>
+  </div>
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100"><div class="card-body">
+      <div class="text-muted small">Total crédit</div>
+      <div class="fs-4 fw-semibold">{{ totals.total_credit|floatformat:2 }}</div>
+    </div></div>
+  </div>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-sm table-hover align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Journal</th>
+            <th>N° écriture</th>
+            <th>Type</th>
+            <th>Compte</th>
+            <th>Libellé</th>
+            <th>Référence</th>
+            <th class="text-end">Débit</th>
+            <th class="text-end">Crédit</th>
+            <th>Source</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for line in rows %}
+          <tr>
+            <td>{{ line.entry.posting_date }}</td>
+            <td>{{ line.entry.journal.code }}</td>
+            <td class="fw-semibold">{{ line.entry.entry_number }}</td>
+            <td>{{ line.entry.get_entry_type_display }}</td>
+            <td>{{ line.account.code }} — {{ line.account.name|truncatechars:28 }}</td>
+            <td>{{ line.description|default:line.entry.description|truncatechars:42 }}</td>
+            <td>{{ line.entry.reference|default:"—"|truncatechars:24 }}</td>
+            <td class="text-end">{{ line.debit|floatformat:2 }}</td>
+            <td class="text-end">{{ line.credit|floatformat:2 }}</td>
+            <td><span class="badge text-bg-light">{{ line.entry.source }}</span></td>
+            <td class="text-end">
+              <a class="btn btn-sm btn-outline-primary"
+                 href="{% url 'accounting:entry-detail' line.entry.pk %}">
+                Source
+              </a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="11" class="p-4 text-muted">Aucune ligne comptable pour ces filtres.</td></tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr class="fw-semibold">
+            <td colspan="7">Totaux</td>
+            <td class="text-end">{{ totals.total_debit|floatformat:2 }}</td>
+            <td class="text-end">{{ totals.total_credit|floatformat:2 }}</td>
+            <td colspan="2"></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% if page_obj and page_obj.paginator.num_pages > 1 %}
+<nav class="mt-3">
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link"
+           href="?page={{ page_obj.previous_page_number }}&fiscal_year={{ form.fiscal_year.value }}&start_date={{ form.start_date.value|default:'' }}&end_date={{ form.end_date.value|default:'' }}&journal={{ form.journal.value|default:'' }}&entry_type={{ form.entry_type.value|default:'' }}&query={{ form.query.value|urlencode }}">
+          Précédent
+        </a>
+      </li>
+    {% endif %}
+    <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span></li>
+    {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link"
+           href="?page={{ page_obj.next_page_number }}&fiscal_year={{ form.fiscal_year.value }}&start_date={{ form.start_date.value|default:'' }}&end_date={{ form.end_date.value|default:'' }}&journal={{ form.journal.value|default:'' }}&entry_type={{ form.entry_type.value|default:'' }}&query={{ form.query.value|urlencode }}">
+          Suivant
+        </a>
+      </li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}
+{% endblock %}

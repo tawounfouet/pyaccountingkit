@@ -1,0 +1,23 @@
+<div class="list-group list-group-flush">
+    <a class="list-group-item list-group-item-action" href="{% url 'analytics:dashboard' %}">Dashboard</a>
+    <a class="list-group-item list-group-item-action" href="{% url 'organizations:list' %}">Organisations</a>
+
+    <div class="px-3 pt-3 pb-1 small text-uppercase text-muted fw-semibold">Comptabilité</div>
+    <a class="list-group-item list-group-item-action" href="{% url 'accounting:charts' %}">Plans comptables</a>
+    <a class="list-group-item list-group-item-action" href="{% url 'accounting:accounts' %}">Comptes</a>
+    <a class="list-group-item list-group-item-action" href="{% url 'accounting:journals' %}">Journaux</a>
+    <a class="list-group-item list-group-item-action" href="{% url 'accounting:entries' %}">Écritures</a>
+
+    <div class="px-3 pt-3 pb-1 small text-uppercase text-muted fw-semibold">Traitements</div>
+    <a class="list-group-item list-group-item-action" href="{% url 'imports:fec-list' %}">Import FEC</a>
+    <a class="list-group-item list-group-item-action" href="{% url 'reporting:journal' %}">Journal</a>
+    <a class="list-group-item list-group-item-action" href="{% url 'reporting:general-ledger' %}">Grand livre</a>
+    <a class="list-group-item list-group-item-action" href="{% url 'reporting:trial-balance' %}">Balance</a>
+    <a class="list-group-item list-group-item-action" href="{% url 'financial_statements:index' %}">États financiers</a>
+    <a class="list-group-item list-group-item-action" href="{% url 'financial_statements:regulatory-list' %}">Mapping réglementaire</a>
+    <a class="list-group-item list-group-item-action" href="{% url 'exports:list' %}">Exports</a>
+    <a class="list-group-item list-group-item-action" href="{% url 'controls:index' %}">Contrôles</a>
+    <a class="list-group-item list-group-item-action" href="{% url 'referentials:accounts' %}">Référentiels</a>
+    <a class="list-group-item list-group-item-action" href="{% url 'closing:index' %}">Clôture</a>
+    <a class="list-group-item list-group-item-action" href="{% url 'audit:list' %}">Audit</a>
+</div>

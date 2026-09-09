@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Mapping réglementaire — CFA FRA{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-start mb-4">
+  <div>
+    <h1 class="h3 mb-1">Mapping réglementaire</h1>
+    <p class="text-muted mb-0">
+      {{ profile.name }} ·
+      {{ profile.target_version.framework.code }}
+      {{ profile.target_version.version }}
+    </p>
+  </div>
+  <div class="d-flex gap-2">
+    <form method="post"
+          action="{% url 'financial_statements:regulatory-auto-map' profile.pk %}">
+      {% csrf_token %}
+      <button class="btn btn-outline-primary"
+              onclick="return confirm('Recalculer les mappings automatiques ? Les mappings manuels seront conservés.');">
+        Auto-mapper
+      </button>
+    </form>
+    <a class="btn btn-outline-secondary"
+       href="{% url 'financial_statements:regulatory-detail' profile.pk %}">
+      Aperçu
+    </a>
+  </div>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-3">
+    <div class="card shadow-sm"><div class="card-body">
+      <div class="text-muted small">Lignes source</div>
+      <div class="fs-4 fw-semibold">{{ metrics.source_line_count }}</div>
+    </div></div>
+  </div>
+  <div class="col-md-3">
+    <div class="card shadow-sm"><div class="card-body">
+      <div class="text-muted small">Mappées</div>
+      <div class="fs-4 fw-semibold">{{ metrics.mapped_source_count }}</div>
+    </div></div>
+  </div>
+  <div class="col-md-3">
+    <div class="card shadow-sm"><div class="card-body">
+      <div class="text-muted small">Couverture</div>
+      <div class="fs-4 fw-semibold">{{ metrics.source_coverage|floatformat:2 }} %</div>
+    </div></div>
+  </div>
+  <div class="col-md-3">
+    <div class="card shadow-sm"><div class="card-body">
+      <div class="text-muted small">Cibles obligatoires non mappées</div>
+      <div class="fs-4 fw-semibold">{{ metrics.unmapped_required_target_count }}</div>
+    </div></div>
+  </div>
+</div>
+
+<div class="alert alert-secondary">
+  Auto-mapping : priorité au code exact, puis à <code>metadata.source_code</code>,
+  <code>metadata.source_codes</code>, <code>metadata.role</code>, puis au libellé normalisé exact.
+  Aucune correspondance floue n'est imposée silencieusement.
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Rubrique source</th>
+            <th>État</th>
+            <th style="min-width: 390px;">Ligne réglementaire cible</th>
+            <th>Multiplicateur</th>
+            <th>Mapping</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for row in rows %}
+          {% include "financial_statements/regulatory/_mapping_row.html" with profile=profile source_line=row.source_line mapping=row.mapping form=row.form %}
+        {% empty %}
+          <tr><td colspan="6" class="p-4 text-muted">Aucune ligne source.</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

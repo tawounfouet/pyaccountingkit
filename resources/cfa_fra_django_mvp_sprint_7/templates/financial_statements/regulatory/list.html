@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Profils réglementaires — CFA FRA{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-start mb-4">
+  <div>
+    <h1 class="h3 mb-1">Profils réglementaires</h1>
+    <p class="text-muted mb-0">
+      Mapping du moteur CFA_FRA_MVP vers des présentations réglementaires chargées dans les référentiels.
+    </p>
+  </div>
+  <a class="btn btn-primary"
+     href="{% url 'financial_statements:regulatory-create' %}">
+    Nouveau profil
+  </a>
+</div>
+
+<div class="alert alert-info">
+  Un profil cible une <strong>FrameworkVersion</strong> contenant des
+  <strong>StatementDefinition / StatementLine</strong> réglementaires validées.
+  Le Sprint 7 ne fabrique pas de nomenclature officielle IFRS/SYSCOHADA :
+  celle-ci doit être chargée depuis votre source réglementaire validée.
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Profil</th>
+            <th>Framework cible</th>
+            <th>Version</th>
+            <th>Couverture source</th>
+            <th>Obligatoires non mappées</th>
+            <th>Statut</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for profile in profiles %}
+          <tr>
+            <td class="fw-semibold">{{ profile.name }}</td>
+            <td>{{ profile.target_version.framework.code }}</td>
+            <td>{{ profile.target_version.version }}</td>
+            <td>{{ profile.sprint7_metrics.source_coverage|floatformat:2 }} %</td>
+            <td>{{ profile.sprint7_metrics.unmapped_required_target_count }}</td>
+            <td>
+              {% if profile.sprint7_metrics.is_ready %}
+                <span class="badge text-bg-success">READY</span>
+              {% else %}
+                <span class="badge text-bg-warning">MAPPING</span>
+              {% endif %}
+            </td>
+            <td class="text-end">
+              <a class="btn btn-sm btn-outline-primary"
+                 href="{% url 'financial_statements:regulatory-detail' profile.pk %}">
+                Ouvrir
+              </a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="7" class="p-4 text-muted">
+              Aucun profil réglementaire. Chargez d'abord les définitions d'états
+              SYSCOHADA / IFRS puis créez un profil.
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

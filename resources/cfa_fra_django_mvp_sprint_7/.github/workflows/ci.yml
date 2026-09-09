@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_DB: cfa_fra
+          POSTGRES_USER: cfa_fra
+          POSTGRES_PASSWORD: cfa_fra
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U cfa_fra"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      DJANGO_SETTINGS_MODULE: config.settings.test
+      DJANGO_SECRET_KEY: ci-secret
+      DATABASE_URL: postgresql://cfa_fra:cfa_fra@localhost:5432/cfa_fra
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - run: pip install --upgrade pip
+      - run: pip install ".[dev]"
+
+      - run: ruff check .
+      - run: python manage.py makemigrations --check --dry-run
+      - run: python manage.py check
+      - run: pytest --cov=apps --cov-report=term-missing

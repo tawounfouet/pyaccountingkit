@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}{% if mode == "create" %}Nouvelle écriture{% else %}Modifier {{ entry.entry_number }}{% endif %} — CFA FRA{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-start mb-4">
+  <div>
+    <h1 class="h3 mb-1">
+      {% if mode == "create" %}Nouvelle écriture{% else %}Modifier {{ entry.entry_number }}{% endif %}
+    </h1>
+    <p class="text-muted mb-0">
+      Saisie dynamique HTMX — ajoutez/retirez des lignes et contrôlez l'équilibre en temps réel.
+    </p>
+  </div>
+</div>
+
+<form method="post"
+      id="entry-form"
+      hx-post="{% url 'accounting:entry-totals' %}"
+      hx-trigger="input changed delay:250ms from:.amount-input, entryLineChanged from:body"
+      hx-target="#entry-totals"
+      hx-swap="innerHTML"
+      hx-sync="this:replace">
+  {% csrf_token %}
+
+  <div class="card shadow-sm mb-4">
+    <div class="card-header fw-semibold">Entête</div>
+    <div class="card-body">
+      {% include "components/form_fields.html" with form=form %}
+    </div>
+  </div>
+
+  <div class="card shadow-sm mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <span class="fw-semibold">Lignes comptables</span>
+      <button type="button"
+              class="btn btn-sm btn-outline-primary"
+              hx-get="{% url 'accounting:entry-line-form' %}"
+              hx-include="#id_lines-TOTAL_FORMS"
+              hx-target="#entry-lines"
+              hx-swap="beforeend"
+              hx-on::after-request="let total=document.getElementById('id_lines-TOTAL_FORMS'); total.value=parseInt(total.value,10)+1; htmx.trigger(document.body,'entryLineChanged')">
+        + Ajouter une ligne
+      </button>
+    </div>
+    <div class="card-body p-0">
+      {{ line_formset.management_form }}
+      {% for error in line_formset.non_form_errors %}
+        <div class="alert alert-danger m-3">{{ error }}</div>
+      {% endfor %}
+
+      <div class="table-responsive">
+        <table class="table align-middle mb-0">
+          <thead>
+            <tr>
+              <th style="min-width: 230px;">Compte</th>
+              <th style="min-width: 220px;">Description</th>
+              <th style="min-width: 130px;">Débit</th>
+              <th style="min-width: 130px;">Crédit</th>
+              <th style="min-width: 170px;">Tiers</th>
+              <th style="min-width: 170px;">Centre de coûts</th>
+              <th style="min-width: 180px;">Flux de trésorerie</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="entry-lines">
+          {% for line_form in line_formset %}
+            {% include "accounting/_entry_line_row.html" with line_form=line_form line_index=forloop.counter0 %}
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow-sm mb-4">
+    <div class="card-header fw-semibold">Contrôle temps réel</div>
+    <div class="card-body" id="entry-totals">
+      {% if entry %}
+        {% include "accounting/_entry_totals.html" with total_debit=entry.total_debit total_credit=entry.total_credit difference=entry.difference is_balanced=entry.is_balanced active_count=entry.lines.count %}
+      {% else %}
+        {% include "accounting/_entry_totals.html" with total_debit=0 total_credit=0 difference=0 is_balanced=False active_count=0 %}
+      {% endif %}
+    </div>
+  </div>
+
+  <button class="btn btn-primary" type="submit">Enregistrer en brouillon</button>
+  <a class="btn btn-link" href="{% url 'accounting:entries' %}">Annuler</a>
+</form>
+{% endblock %}

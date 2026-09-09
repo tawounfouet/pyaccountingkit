@@ -1,0 +1,33 @@
+<tr id="statement-mapping-{{ account.pk }}">
+  <td class="fw-semibold">{{ account.code }}</td>
+  <td>{{ account.name }}</td>
+  <td>{{ account.get_account_type_display }}</td>
+  <td>{{ account.get_normal_balance_display }}</td>
+  <td>
+    <form method="post"
+          hx-post="{% url 'financial_statements:mapping-update' account.pk %}"
+          hx-target="#statement-mapping-{{ account.pk }}"
+          hx-swap="outerHTML">
+      {% csrf_token %}
+      {{ form.statement_line }}
+    </form>
+  </td>
+  <td>
+    {% if mapping %}
+      {% if mapping.mapping_type == "MANUAL" %}
+        <span class="badge text-bg-success">Manuel</span>
+      {% else %}
+        <span class="badge text-bg-info">Règle</span>
+      {% endif %}
+    {% else %}
+      <span class="badge text-bg-warning">Non mappé</span>
+    {% endif %}
+  </td>
+  <td class="text-end">
+    <button type="button"
+            class="btn btn-sm btn-outline-primary"
+            onclick="this.closest('tr').querySelector('form').requestSubmit()">
+      Enregistrer
+    </button>
+  </td>
+</tr>

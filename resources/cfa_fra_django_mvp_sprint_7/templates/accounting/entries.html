@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Écritures — CFA FRA{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="h3 mb-1">Écritures comptables</h1>
+    <p class="text-muted mb-0">Sprint 2 : création et modification de brouillons. Posting au Sprint 3.</p>
+  </div>
+  <a class="btn btn-primary" href="{% url 'accounting:entry-create' %}">Nouvelle écriture</a>
+</div>
+
+<form class="card card-body shadow-sm mb-3"
+      hx-get="{% url 'accounting:entries' %}" hx-target="#entries-results"
+      hx-trigger="keyup changed delay:350ms from:input, change from:select" hx-push-url="true">
+  <div class="row g-2">
+    <div class="col-md-5"><input class="form-control" type="search" name="q" value="{{ request.GET.q }}" placeholder="Numéro, description ou référence"></div>
+    <div class="col-md-4"><select class="form-select" name="journal"><option value="">Tous les journaux</option>
+      {% for journal in journals %}<option value="{{ journal.id }}" {% if request.GET.journal == journal.id|stringformat:"s" %}selected{% endif %}>{{ journal.code }} — {{ journal.name }}</option>{% endfor %}
+    </select></div>
+    <div class="col-md-3"><select class="form-select" name="status"><option value="">Tous les statuts</option>
+      {% for value,label in statuses %}<option value="{{ value }}" {% if request.GET.status == value %}selected{% endif %}>{{ label }}</option>{% endfor %}
+    </select></div>
+  </div>
+</form>
+
+<div id="entries-results">{% include "accounting/_entries_table.html" %}</div>
+{% endblock %}

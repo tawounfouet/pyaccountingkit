@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Comptes — CFA FRA{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div><h1 class="h3 mb-1">Comptes</h1><p class="text-muted mb-0">{{ organization.name }}</p></div>
+  <div class="d-flex gap-2">
+    <a class="btn btn-outline-primary" href="{% url 'accounting:charts' %}">Plans</a>
+    <a class="btn btn-primary" href="{% url 'accounting:account-create' %}">Nouveau compte</a>
+  </div>
+</div>
+<form class="card card-body shadow-sm mb-3"
+      hx-get="{% url 'accounting:accounts' %}" hx-target="#accounts-results"
+      hx-trigger="keyup changed delay:350ms from:input, change from:select" hx-push-url="true">
+<div class="row g-2">
+  <div class="col-md-4"><input class="form-control" type="search" name="q" value="{{ request.GET.q }}" placeholder="Code ou libellé"></div>
+  <div class="col-md-3"><select class="form-select" name="chart"><option value="">Tous les plans</option>
+    {% for chart in charts %}<option value="{{ chart.id }}" {% if request.GET.chart == chart.id|stringformat:"s" %}selected{% endif %}>{{ chart.code }} — {{ chart.name }}</option>{% endfor %}
+  </select></div>
+  <div class="col-md-3"><select class="form-select" name="type"><option value="">Toutes les natures</option>
+    {% for value,label in account_types %}<option value="{{ value }}" {% if request.GET.type == value %}selected{% endif %}>{{ label }}</option>{% endfor %}
+  </select></div>
+  <div class="col-md-2"><select class="form-select" name="active"><option value="">Tous</option>
+    <option value="1" {% if request.GET.active == "1" %}selected{% endif %}>Actifs</option>
+    <option value="0" {% if request.GET.active == "0" %}selected{% endif %}>Inactifs</option>
+  </select></div>
+</div>
+</form>
+<div id="accounts-results">{% include "accounting/_accounts_table.html" %}</div>
+{% endblock %}

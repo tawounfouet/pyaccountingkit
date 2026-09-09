@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}Mappings FEC — CFA FRA{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-start mb-4">
+  <div>
+    <h1 class="h3 mb-1">Mappings FEC</h1>
+    <p class="text-muted mb-0">{{ import_batch.original_filename }}</p>
+  </div>
+  <div class="d-flex gap-2">
+    <form method="post"
+          action="{% url 'imports:fec-auto-mapping' import_batch.pk %}">
+      {% csrf_token %}
+      <button class="btn btn-outline-primary">
+        Créer automatiquement les références manquantes
+      </button>
+    </form>
+    <a class="btn btn-outline-secondary"
+       href="{% url 'imports:fec-detail' import_batch.pk %}">
+      Retour à l'import
+    </a>
+  </div>
+</div>
+
+{% include "imports/_mapping_status.html" with import_batch=import_batch %}
+
+<div class="alert alert-info">
+  Les correspondances exactes existantes sont proposées automatiquement.
+  Le bouton d'auto-création crée les comptes manquants dans le plan comptable par défaut
+  et les journaux manquants dans l'organisation. Les classifications de comptes créées
+  automatiquement restent une première inférence métier à revoir avant reporting normatif.
+</div>
+
+<div class="card shadow-sm mb-4">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <strong>Comptes du FEC</strong>
+    <span class="badge text-bg-light">{{ account_rows|length }}</span>
+  </div>
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Compte source</th>
+            <th>Libellé FEC</th>
+            <th>Occurrences</th>
+            <th style="min-width: 360px;">Compte cible</th>
+            <th>Mapping</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for row in account_rows %}
+          {% include "imports/_account_mapping_row.html" with import_batch=import_batch mapping=row.mapping form=row.form %}
+        {% empty %}
+          <tr><td colspan="6" class="p-4 text-muted">Aucun compte source.</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <strong>Journaux du FEC</strong>
+    <span class="badge text-bg-light">{{ journal_rows|length }}</span>
+  </div>
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Journal source</th>
+            <th>Libellé FEC</th>
+            <th>Occurrences</th>
+            <th style="min-width: 320px;">Journal cible</th>
+            <th>Mapping</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for row in journal_rows %}
+          {% include "imports/_journal_mapping_row.html" with import_batch=import_batch mapping=row.mapping form=row.form %}
+        {% empty %}
+          <tr><td colspan="6" class="p-4 text-muted">Aucun journal source.</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

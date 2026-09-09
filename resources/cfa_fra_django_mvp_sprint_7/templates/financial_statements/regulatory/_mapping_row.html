@@ -1,0 +1,46 @@
+<tr id="regulatory-mapping-{{ source_line.pk }}">
+  <td>
+    <div class="fw-semibold">{{ source_line.code }}</div>
+    <div class="small text-muted">{{ source_line.label }}</div>
+  </td>
+  <td>{{ source_line.definition.get_statement_type_display }}</td>
+  <td>
+    <form method="post"
+          hx-post="{% url 'financial_statements:regulatory-mapping-update' profile.pk source_line.pk %}"
+          hx-target="#regulatory-mapping-{{ source_line.pk }}"
+          hx-swap="outerHTML">
+      {% csrf_token %}
+      {{ form.target_line }}
+      {% for error in form.target_line.errors %}
+        <div class="text-danger small">{{ error }}</div>
+      {% endfor %}
+    </form>
+  </td>
+  <td style="width: 150px;">
+    {{ form.multiplier }}
+    {% for error in form.multiplier.errors %}
+      <div class="text-danger small">{{ error }}</div>
+    {% endfor %}
+  </td>
+  <td>
+    {% if mapping %}
+      {% if mapping.mapping_type == "MANUAL" %}
+        <span class="badge text-bg-success">Manuel</span>
+      {% else %}
+        <span class="badge text-bg-info">Auto</span>
+      {% endif %}
+      {% if mapping.confidence %}
+        <div class="small text-muted">{{ mapping.confidence|floatformat:2 }}</div>
+      {% endif %}
+    {% else %}
+      <span class="badge text-bg-warning">Non mappé</span>
+    {% endif %}
+  </td>
+  <td class="text-end">
+    <button type="button"
+            class="btn btn-sm btn-outline-primary"
+            onclick="this.closest('tr').querySelector('form').requestSubmit()">
+      Enregistrer
+    </button>
+  </td>
+</tr>

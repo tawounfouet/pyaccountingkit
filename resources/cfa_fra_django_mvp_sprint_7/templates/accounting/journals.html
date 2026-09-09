@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Journaux — CFA FRA{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+<div><h1 class="h3 mb-1">Journaux comptables</h1><p class="text-muted mb-0">{{ organization.name }}</p></div>
+<a class="btn btn-primary" href="{% url 'accounting:journal-create' %}">Nouveau journal</a>
+</div>
+<form class="card card-body shadow-sm mb-3" hx-get="{% url 'accounting:journals' %}" hx-target="#journals-results"
+hx-trigger="keyup changed delay:350ms from:input, change from:select" hx-push-url="true">
+<div class="row g-2">
+<div class="col-md-6"><input class="form-control" type="search" name="q" value="{{ request.GET.q }}" placeholder="Code ou libellé"></div>
+<div class="col-md-4"><select class="form-select" name="type"><option value="">Tous les types</option>
+{% for value,label in journal_types %}<option value="{{ value }}" {% if request.GET.type == value %}selected{% endif %}>{{ label }}</option>{% endfor %}
+</select></div>
+<div class="col-md-2"><select class="form-select" name="active"><option value="">Tous</option>
+<option value="1" {% if request.GET.active == "1" %}selected{% endif %}>Actifs</option><option value="0" {% if request.GET.active == "0" %}selected{% endif %}>Inactifs</option>
+</select></div>
+</div></form>
+<div id="journals-results">{% include "accounting/_journals_table.html" %}</div>
+{% endblock %}

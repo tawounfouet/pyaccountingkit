@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+{% block title %}{{ import_batch.original_filename }} — CFA FRA{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-start mb-4">
+  <div>
+    <h1 class="h3 mb-1">{{ import_batch.original_filename }}</h1>
+    <p class="text-muted mb-0">
+      Exercice {{ import_batch.fiscal_year.name }} ·
+      encodage {{ import_batch.encoding }} ·
+      SHA-256 <code>{{ import_batch.sha256|truncatechars:22 }}</code>
+    </p>
+  </div>
+  <div class="d-flex gap-2 flex-wrap justify-content-end">
+    {% if import_batch.status != "IMPORTED" %}
+      <form method="post" action="{% url 'imports:fec-parse' import_batch.pk %}">
+        {% csrf_token %}
+        <button class="btn btn-outline-secondary">Reparser</button>
+      </form>
+      <a class="btn btn-outline-primary"
+         href="{% url 'imports:fec-mappings' import_batch.pk %}">
+        Mappings
+      </a>
+    {% endif %}
+
+    {% if import_batch.status == "READY" and can_review %}
+      <form method="post"
+            action="{% url 'imports:fec-execute' import_batch.pk %}"
+            onsubmit="return confirm('Créer et poster les écritures de ce FEC ?');">
+        {% csrf_token %}
+        <button class="btn btn-success">Exécuter l'import</button>
+      </form>
+    {% endif %}
+
+    <span class="badge fs-6 text-bg-light align-self-center">
+      {{ import_batch.get_status_display }}
+    </span>
+  </div>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-3">
+    <div class="card shadow-sm h-100"><div class="card-body">
+      <div class="text-muted small">Lignes FEC</div>
+      <div class="fs-4 fw-semibold">{{ import_batch.summary.line_count|default:0 }}</div>
+    </div></div>
+  </div>
+  <div class="col-md-3">
+    <div class="card shadow-sm h-100"><div class="card-body">
+      <div class="text-muted small">Écritures normalisées</div>
+      <div class="fs-4 fw-semibold">
+        {% if import_batch.status == "IMPORTED" %}
+          {{ import_batch.summary.imported_entry_count|default:0 }}
+        {% else %}
+          {{ import_batch.summary.entry_group_count|default:0 }}
+        {% endif %}
+      </div>
+    </div></div>
+  </div>
+  <div class="col-md-3">
+    <div class="card shadow-sm h-100"><div class="card-body">
+      <div class="text-muted small">Comptes / Journaux</div>
+      <div class="fs-4 fw-semibold">
+        {{ import_batch.summary.account_count|default:0 }}
+        /
+        {{ import_batch.summary.journal_count|default:0 }}
+      </div>
+    </div></div>
+  </div>
+  <div class="col-md-3">
+    <div class="card shadow-sm h-100"><div class="card-body">
+      <div class="text-muted small">Écart Débit-Crédit</div>
+      <div class="fs-4 fw-semibold">{{ import_batch.summary.balance_gap|default:"0" }}</div>
+    </div></div>
+  </div>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100"><div class="card-body">
+      <div class="text-muted small">Total débit</div>
+      <div class="fs-5 fw-semibold">{{ import_batch.summary.total_debit|default:"0" }}</div>
+    </div></div>
+  </div>
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100"><div class="card-body">
+      <div class="text-muted small">Total crédit</div>
+      <div class="fs-5 fw-semibold">{{ import_batch.summary.total_credit|default:"0" }}</div>
+    </div></div>
+  </div>
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100"><div class="card-body">
+      <div class="text-muted small">Contrôles</div>
+      <div>
+        <span class="badge text-bg-danger">
+          {{ import_batch.summary.blocking_error_count|default:0 }} bloquant(s)
+        </span>
+        <span class="badge text-bg-warning">
+          {{ import_batch.summary.warning_count|default:0 }} warning(s)
+        </span>
+      </div>
+    </div></div>
+  </div>
+</div>
+
+{% if import_batch.status == "MAPPING" %}
+<div class="alert alert-warning">
+  Mapping incomplet :
+  {{ import_batch.summary.unmapped_account_count|default:0 }} compte(s) et
+  {{ import_batch.summary.unmapped_journal_count|default:0 }} journal(aux) restent à mapper.
+  <a href="{% url 'imports:fec-mappings' import_batch.pk %}">Ouvrir les mappings</a>.
+</div>
+{% endif %}
+
+{% if import_batch.status == "IMPORTED" %}
+<div class="alert alert-success">
+  Import terminé :
+  {{ import_batch.summary.imported_entry_count|default:0 }} écritures et
+  {{ import_batch.summary.imported_line_count|default:0 }} lignes comptables créées.
+</div>
+{% endif %}
+
+<div class="card shadow-sm mb-4">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <strong>Contrôles / anomalies</strong>
+    <span class="badge text-bg-light">{{ error_count }}</span>
+  </div>
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead>
+          <tr><th>Sévérité</th><th>Code</th><th>Ligne</th><th>Message</th></tr>
+        </thead>
+        <tbody>
+        {% for error in errors %}
+          <tr>
+            <td>
+              {% if error.severity == "BLOCKING" %}
+                <span class="badge text-bg-danger">Bloquant</span>
+              {% elif error.severity == "WARNING" %}
+                <span class="badge text-bg-warning">Warning</span>
+              {% else %}
+                <span class="badge text-bg-secondary">{{ error.severity }}</span>
+              {% endif %}
+            </td>
+            <td><code>{{ error.code }}</code></td>
+            <td>{% if error.raw_line %}{{ error.raw_line.line_number }}{% else %}—{% endif %}</td>
+            <td>{{ error.message }}</td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="4" class="p-4 text-muted">Aucune anomalie détectée.</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-header">
+    <strong>Aperçu des 100 premières lignes brutes</strong>
+  </div>
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-sm table-hover align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Ligne</th><th>Journal</th><th>Écriture</th><th>Date</th>
+            <th>Compte</th><th>Libellé</th><th>Pièce</th>
+            <th class="text-end">Débit</th><th class="text-end">Crédit</th><th>Validité</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for line in raw_lines %}
+          <tr>
+            <td>{{ line.line_number }}</td>
+            <td>{{ line.journal_code }}</td>
+            <td>{{ line.entry_number }}</td>
+            <td>{{ line.entry_date|default:"—" }}</td>
+            <td>{{ line.account_number }}</td>
+            <td>{{ line.account_label|truncatechars:35 }}</td>
+            <td>{{ line.piece_reference|default:"—"|truncatechars:24 }}</td>
+            <td class="text-end">{{ line.debit|floatformat:2 }}</td>
+            <td class="text-end">{{ line.credit|floatformat:2 }}</td>
+            <td>
+              {% if line.is_valid %}
+                <span class="badge text-bg-success">OK</span>
+              {% else %}
+                <span class="badge text-bg-danger">Erreur</span>
+              {% endif %}
+            </td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="10" class="p-4 text-muted">Aucune ligne brute disponible.</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Plans comptables — CFA FRA{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div><h1 class="h3 mb-1">Plans comptables</h1><p class="text-muted mb-0">{{ organization.name }}</p></div>
+  <a class="btn btn-primary" href="{% url 'accounting:chart-create' %}">Nouveau plan</a>
+</div>
+<div class="row g-3">
+{% for chart in charts %}
+  <div class="col-md-6 col-xl-4">
+    <div class="card shadow-sm h-100"><div class="card-body">
+      <div class="d-flex justify-content-between">
+        <h2 class="h5">{{ chart.code }}</h2>
+        {% if chart.is_default %}<span class="badge text-bg-primary">Par défaut</span>{% endif %}
+      </div>
+      <p>{{ chart.name }}</p>
+      <div class="text-muted small mb-3">{{ chart.account_count }} compte{{ chart.account_count|pluralize }}</div>
+      <a class="btn btn-outline-primary btn-sm" href="{% url 'accounting:chart-detail' chart.pk %}">Ouvrir</a>
+    </div></div>
+  </div>
+{% empty %}
+  <div class="col-12"><div class="alert alert-info">Aucun plan comptable.</div></div>
+{% endfor %}
+</div>
+{% endblock %}

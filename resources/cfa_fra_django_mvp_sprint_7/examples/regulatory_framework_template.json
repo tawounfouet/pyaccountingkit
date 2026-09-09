@@ -1,0 +1,59 @@
+{
+  "framework": {
+    "code": "REG_DEMO",
+    "name": "Regulatory Demo — NON OFFICIEL",
+    "version": "2026",
+    "description": "Exemple technique Sprint 7. Ne pas utiliser comme référentiel réglementaire.",
+    "source_url": "",
+    "is_current": true
+  },
+  "accounts": [],
+  "statements": [
+    {
+      "code": "REG_DEMO_IS",
+      "name": "Compte de résultat — exemple technique",
+      "statement_type": "INCOME_STATEMENT",
+      "lines": [
+        {
+          "code": "REG_DEMO_NET",
+          "label": "Résultat net",
+          "order": 100,
+          "sign": 1,
+          "is_total": true,
+          "is_required": false,
+          "metadata": {
+            "role": "net_income"
+          }
+        },
+        {
+          "code": "REG_DEMO_REVENUE",
+          "label": "Produits",
+          "parent_code": "REG_DEMO_NET",
+          "order": 10,
+          "sign": 1,
+          "is_required": true,
+          "metadata": {
+            "role": "revenue",
+            "source_codes": [
+              "IS_REVENUE"
+            ]
+          }
+        },
+        {
+          "code": "REG_DEMO_EXPENSES",
+          "label": "Charges externes",
+          "parent_code": "REG_DEMO_NET",
+          "order": 20,
+          "sign": -1,
+          "is_required": true,
+          "metadata": {
+            "role": "external_services",
+            "source_codes": [
+              "IS_EXTERNAL_SERVICES"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

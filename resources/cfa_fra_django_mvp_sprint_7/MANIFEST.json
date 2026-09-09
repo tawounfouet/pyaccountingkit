@@ -1,0 +1,65 @@
+{
+  "project": "cfa_fra_django_mvp_sprint_7",
+  "version": "0.8.0",
+  "implemented_sprints": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "sprint_7": {
+    "name": "Regulatory Statement Mapping & Exports",
+    "features": [
+      "regulatory statement profiles",
+      "source StatementLine -> target StatementLine mapping",
+      "manual and deterministic auto-mapping",
+      "regulatory StatementLine metadata/is_required/standard_reference",
+      "rich regulatory JSON seeding",
+      "backward-compatible SYSCOHADA/IFRS seeders",
+      "regulatory preview",
+      "required-line and non-zero unmapped-data controls",
+      "balance equation control",
+      "cash reconciliation control",
+      "ReportSnapshot regulatory package",
+      "XLSX export",
+      "PDF export",
+      "CSV export",
+      "JSON export",
+      "SHA-256 export integrity",
+      "organization-scoped export download",
+      "audit trail integration"
+    ],
+    "routes": [
+      "/statements/regulatory/",
+      "/statements/regulatory/new/",
+      "/statements/regulatory/<uuid>/",
+      "/statements/regulatory/<uuid>/mappings/",
+      "/exports/",
+      "/exports/<uuid>/",
+      "/exports/<uuid>/download/"
+    ],
+    "audit_events": [
+      "REGULATORY_PROFILE_CREATE",
+      "REGULATORY_AUTO_MAPPING",
+      "REGULATORY_MAPPING_UPDATE",
+      "REGULATORY_EXPORT_CREATE"
+    ],
+    "export_formats": [
+      "XLSX",
+      "PDF",
+      "CSV",
+      "JSON"
+    ]
+  },
+  "validation": {
+    "structural_validator_exit_code": 0,
+    "structural_validator": "Structure Sprint 7 OK — 179 Python files parsed; 19 semantic checks passed.",
+    "python_ast_parse_ok": true,
+    "python_files_parsed": 179,
+    "runtime_note": "The packaging runtime does not provide the project's full Django runtime. Full migrate/check/pytest execution remains configured for Docker/CI. Sprint 7 declares XlsxWriter and reportlab as runtime dependencies."
+  }
+}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Nouveau profil réglementaire — CFA FRA{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h1 class="h4 mb-2">Créer un profil réglementaire</h1>
+        <p class="text-muted">
+          Sélectionnez une version de référentiel qui contient déjà ses
+          définitions et lignes d'états financiers.
+        </p>
+        <form method="post">
+          {% csrf_token %}
+          {% include "components/form_fields.html" with form=form %}
+          <button class="btn btn-primary">Créer le profil</button>
+          <a class="btn btn-link"
+             href="{% url 'financial_statements:regulatory-list' %}">
+            Annuler
+          </a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Détail {{ line.label }} — CFA FRA{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-start mb-4">
+  <div>
+    <h1 class="h3 mb-1">{{ line.label }}</h1>
+    <p class="text-muted mb-0">
+      {{ line.definition.name }} · <code>{{ line.code }}</code>
+    </p>
+  </div>
+</div>
+
+{% include "financial_statements/_period_filter.html" %}
+
+<div class="card shadow-sm">
+  <div class="card-header">
+    <strong>Comptes contribuant à cette rubrique</strong>
+  </div>
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Compte</th>
+            <th>Libellé</th>
+            <th>Rubrique de mapping</th>
+            <th>Multiplicateur</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for mapping in mappings %}
+          <tr>
+            <td class="fw-semibold">{{ mapping.account.code }}</td>
+            <td>{{ mapping.account.name }}</td>
+            <td>{{ mapping.statement_line.label }}</td>
+            <td>{{ mapping.balance_multiplier }}</td>
+            <td class="text-end">
+              <a class="btn btn-sm btn-outline-primary"
+                 href="{% url 'reporting:general-ledger' %}?fiscal_year={{ form.fiscal_year.value }}&account={{ mapping.account.pk }}&start_date={{ form.cleaned_data.fiscal_year.start_date|date:'Y-m-d' }}&end_date={{ form.end_date.value }}&variant=ADJUSTED">
+                Grand livre
+              </a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="5" class="p-4 text-muted">
+              Aucune correspondance directe. Cette rubrique peut être calculée comme total
+              ou comme valeur synthétique (résultat courant / flux de trésorerie).
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

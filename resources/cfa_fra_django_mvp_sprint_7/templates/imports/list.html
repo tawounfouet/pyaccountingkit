@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block title %}Imports FEC — CFA FRA{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="h3 mb-1">Imports FEC</h1>
+    <p class="text-muted mb-0">{{ organization.name }}</p>
+  </div>
+  <a class="btn btn-primary" href="{% url 'imports:fec-upload' %}">
+    Importer un FEC
+  </a>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Fichier</th>
+            <th>Exercice</th>
+            <th>Statut</th>
+            <th>Lignes</th>
+            <th>Écritures</th>
+            <th>Écart</th>
+            <th>Importé le</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for item in imports %}
+          <tr>
+            <td>
+              <div class="fw-semibold">{{ item.original_filename }}</div>
+              <div class="small text-muted"><code>{{ item.sha256|truncatechars:18 }}</code></div>
+            </td>
+            <td>{{ item.fiscal_year.name }}</td>
+            <td>
+              {% if item.status == "IMPORTED" %}
+                <span class="badge text-bg-success">{{ item.get_status_display }}</span>
+              {% elif item.status == "READY" %}
+                <span class="badge text-bg-primary">{{ item.get_status_display }}</span>
+              {% elif item.status == "FAILED" %}
+                <span class="badge text-bg-danger">{{ item.get_status_display }}</span>
+              {% elif item.status == "MAPPING" %}
+                <span class="badge text-bg-warning">{{ item.get_status_display }}</span>
+              {% else %}
+                <span class="badge text-bg-secondary">{{ item.get_status_display }}</span>
+              {% endif %}
+            </td>
+            <td>{{ item.summary.line_count|default:0 }}</td>
+            <td>
+              {% if item.status == "IMPORTED" %}
+                {{ item.summary.imported_entry_count|default:0 }}
+              {% else %}
+                {{ item.summary.entry_group_count|default:0 }}
+              {% endif %}
+            </td>
+            <td>{{ item.summary.balance_gap|default:"0" }}</td>
+            <td>{{ item.imported_at|default:"—" }}</td>
+            <td class="text-end">
+              <a class="btn btn-sm btn-outline-primary"
+                 href="{% url 'imports:fec-detail' item.pk %}">
+                Ouvrir
+              </a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="8" class="p-4 text-muted">
+              Aucun FEC importé pour cette organisation.
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% if is_paginated %}
+<nav class="mt-3">
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Précédent</a>
+      </li>
+    {% endif %}
+    <li class="page-item disabled">
+      <span class="page-link">Page {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+    </li>
+    {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Suivant</a>
+      </li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}
+{% endblock %}

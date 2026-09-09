@@ -67,7 +67,8 @@ def test_bootstrap_gate_detects_executable_business_scaffold(
     monkeypatch.setattr(module, "project_version", lambda: "0.0.1")
 
     violations = module.bootstrap_scaffold_violations()
-    assert any("domain/money.py: executable bootstrap nodes present: ClassDef" in item for item in violations)
+    expected = "domain/money.py: executable bootstrap nodes present: ClassDef"
+    assert any(expected in item for item in violations)
 
 
 def test_root_surface_gate_detects_premature_business_symbol(
@@ -77,7 +78,8 @@ def test_root_surface_gate_detects_premature_business_symbol(
     """A business function at package root must be rejected during bootstrap."""
     module = _load_architecture_module()
     package_root = _bootstrap_package(tmp_path)
-    (package_root / "__init__.py").write_text("def post_entry():\n    return None\n", encoding="utf-8")
+    root_init = package_root / "__init__.py"
+    root_init.write_text("def post_entry():\n    return None\n", encoding="utf-8")
     monkeypatch.setattr(module, "PACKAGE_ROOT", package_root)
     monkeypatch.setattr(module, "project_version", lambda: "0.0.1")
 

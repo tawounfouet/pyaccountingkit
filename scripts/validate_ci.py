@@ -69,12 +69,10 @@ def validate_ci_text(text: str) -> list[str]:
         "actions/checkout@v4",
         "actions/setup-python@v5",
     )
+    message = "CI: forbidden legacy or redundant workflow construct"
     for snippet in forbidden:
         if snippet in text:
-            violations.append(
-                "CI: forbidden legacy or redundant workflow construct: "
-                f"{snippet.strip()}"
-            )
+            violations.append(f"{message}: {snippet.strip()}")
 
     return violations
 

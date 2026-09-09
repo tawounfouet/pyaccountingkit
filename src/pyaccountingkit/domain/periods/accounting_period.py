@@ -1,5 +1,4 @@
-"""Accounting period value object."""
+"""Reserved bootstrap scaffold for a future PyAccountingKit milestone.
 
-
-class AccountingPeriod:
-    """An open or closed accounting period."""
+The previous placeholder symbols (AccountingPeriod) intentionally expose no business API in PyAccountingKit 0.0.1. Their real contracts and behavior will be introduced by the milestone that owns this module.
+"""

@@ -1,5 +1,4 @@
-"""Base entity with identity and revision tracking."""
+"""Reserved bootstrap scaffold for a future PyAccountingKit milestone.
 
-
-class Entity:
-    """Base class for all domain entities."""
+The previous placeholder symbols (Entity) intentionally expose no business API in PyAccountingKit 0.0.1. Their real contracts and behavior will be introduced by the milestone that owns this module.
+"""

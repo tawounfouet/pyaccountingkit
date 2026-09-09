@@ -1,5 +1,4 @@
-"""Money value object using scaled integer arithmetic."""
+"""Reserved bootstrap scaffold for a future PyAccountingKit milestone.
 
-
-class Money:
-    """An immutable amount of money in a given currency."""
+The previous placeholder symbols (Money) intentionally expose no business API in PyAccountingKit 0.0.1. Their real contracts and behavior will be introduced by the milestone that owns this module.
+"""

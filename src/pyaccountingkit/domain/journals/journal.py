@@ -1,5 +1,4 @@
-"""Journal aggregate root."""
+"""Reserved bootstrap scaffold for a future PyAccountingKit milestone.
 
-
-class Journal:
-    """A named journal (e.g. general, sales, purchases)."""
+The previous placeholder symbols (Journal) intentionally expose no business API in PyAccountingKit 0.0.1. Their real contracts and behavior will be introduced by the milestone that owns this module.
+"""

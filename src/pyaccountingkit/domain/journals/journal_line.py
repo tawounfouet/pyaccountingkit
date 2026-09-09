@@ -1,5 +1,4 @@
-"""Journal line value object."""
+"""Reserved bootstrap scaffold for a future PyAccountingKit milestone.
 
-
-class JournalLine:
-    """A single debit or credit line in a journal entry."""
+The previous placeholder symbols (JournalLine) intentionally expose no business API in PyAccountingKit 0.0.1. Their real contracts and behavior will be introduced by the milestone that owns this module.
+"""

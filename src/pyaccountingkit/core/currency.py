@@ -1,5 +1,4 @@
-"""Currency value object and ISO 4217 support."""
+"""Reserved bootstrap scaffold for a future PyAccountingKit milestone.
 
-
-class Currency:
-    """A currency with an ISO 4217 code and decimal precision."""
+The previous placeholder symbols (Currency) intentionally expose no business API in PyAccountingKit 0.0.1. Their real contracts and behavior will be introduced by the milestone that owns this module.
+"""

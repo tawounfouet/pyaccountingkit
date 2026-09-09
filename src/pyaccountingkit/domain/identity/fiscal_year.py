@@ -1,5 +1,4 @@
-"""Fiscal year definition for accounting periods."""
+"""Reserved bootstrap scaffold for a future PyAccountingKit milestone.
 
-
-class FiscalYear:
-    """Represents a company's fiscal year."""
+The previous placeholder symbols (FiscalYear) intentionally expose no business API in PyAccountingKit 0.0.1. Their real contracts and behavior will be introduced by the milestone that owns this module.
+"""

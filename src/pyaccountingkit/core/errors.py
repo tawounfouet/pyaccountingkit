@@ -1,5 +1,4 @@
-"""Project-specific exception hierarchy with structured error codes."""
+"""Reserved bootstrap scaffold for a future PyAccountingKit milestone.
 
-
-class PyAccountingKitError(Exception):
-    """Base exception for the pyaccountingkit library."""
+The previous placeholder symbols (PyAccountingKitError) intentionally expose no business API in PyAccountingKit 0.0.1. Their real contracts and behavior will be introduced by the milestone that owns this module.
+"""

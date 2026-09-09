@@ -1,5 +1,4 @@
-"""Company chart of accounts aggregate."""
+"""Reserved bootstrap scaffold for a future PyAccountingKit milestone.
 
-
-class CompanyChart:
-    """The chart of accounts owned by a company."""
+The previous placeholder symbols (CompanyChart) intentionally expose no business API in PyAccountingKit 0.0.1. Their real contracts and behavior will be introduced by the milestone that owns this module.
+"""

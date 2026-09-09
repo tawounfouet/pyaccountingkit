@@ -1,5 +1,4 @@
-"""Identifier generation for entities and domain objects."""
+"""Reserved bootstrap scaffold for a future PyAccountingKit milestone.
 
-
-class Identifier:
-    """A stable unique identifier."""
+The previous placeholder symbols (Identifier) intentionally expose no business API in PyAccountingKit 0.0.1. Their real contracts and behavior will be introduced by the milestone that owns this module.
+"""

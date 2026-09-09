@@ -3733,3 +3733,20 @@ When regulatory authority is ambiguous, PyAccountingKit fails closed
 ```text
 20_PYACCOUNTINGKIT_ADR_REGISTER.md
 ```
+
+
+---
+
+## Sources et références documentaires du projet
+
+- 📂 [Référentiels réglementaires — Datasets](../../referentiels/datasets/)
+- 📐 [Référentiels réglementaires — Schémas](../../referentiels/schemas/)
+- 📦 [regulatory-accounting-data-framework](../../../resources/regulatory-accounting-data-framework/)
+
+---
+
+## Couverture dans les plans d'implémentation
+
+Ce document est couvert par les plans suivants :
+
+- [PLAN-02 — References, Charts & Policies (0.2.0)](../../plans/PLAN-02_REFERENCES_CHARTS_POLICIES_0.2.0.md)

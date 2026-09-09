@@ -64,7 +64,7 @@ méthode de valorisation des stocks
 
 ne doivent pas être codés comme des constantes universelles du Posting Engine.
 
-L'ouvrage de comptabilité étudié présente explicitement plusieurs principes comme des choix ou oppositions de modèles : séparation/unicité des périodes, coûts/valeurs, rattachement/non-rattachement, prudence/imprudence, coût historique/coût réévalué, continuité/non-continuité et permanence/non-permanence. fileciteturn14file1L346-L376
+L'ouvrage de comptabilité étudié présente explicitement plusieurs principes comme des choix ou oppositions de modèles : séparation/unicité des périodes, coûts/valeurs, rattachement/non-rattachement, prudence/imprudence, coût historique/coût réévalué, continuité/non-continuité et permanence/non-permanence. fileciteturn14file1L346-L376 *(→ source : [Comptabilité Générale — Système français et normes IFRS](../../books/Comptabilite_Generale_Systeme_Francais_et_Normes_IFRS.md))*
 
 PyAccountingKit doit donc protéger les **invariants du moteur** tout en rendant les **méthodes comptables configurables, versionnées et explicables**.
 
@@ -90,9 +90,9 @@ audit
 clôture
 ```
 
-Le MVP définit notamment `JournalEntry + JournalLine + Account + AccountingPeriod` comme données canoniques et traite grand livre, balances et états financiers comme projections calculées. fileciteturn13file0L75-L101
+Le MVP définit notamment `JournalEntry + JournalLine + Account + AccountingPeriod` comme données canoniques et traite grand livre, balances et états financiers comme projections calculées. fileciteturn13file0L75-L101 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
-Il impose également l'immutabilité des écritures postées et la correction par reversal puis nouvelle écriture. fileciteturn13file0L105-L131
+Il impose également l'immutabilité des écritures postées et la correction par reversal puis nouvelle écriture. fileciteturn13file0L105-L131 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 ---
 
@@ -117,7 +117,7 @@ Ce projet reste la source de vérité réglementaire structurée.
 
 Il fournit notamment les standards, éditions, relations, plans effectifs et mappings qualifiés.
 
-Une comparaison structurelle EBNL/SYSCOHADA indique explicitement qu'un code identique n'est pas une preuve d'équivalence sémantique, que l'approbation automatique d'un crosswalk est désactivée et qu'une revue humaine peut être requise. fileciteturn15file7L1795-L1812
+Une comparaison structurelle EBNL/SYSCOHADA indique explicitement qu'un code identique n'est pas une preuve d'équivalence sémantique, que l'approbation automatique d'un crosswalk est désactivée et qu'une revue humaine peut être requise. fileciteturn15file7L1795-L1812 *(→ source : [regulatory-accounting-data-framework](../../../resources/regulatory-accounting-data-framework/))*
 
 ---
 
@@ -230,7 +230,7 @@ Toute écriture qui atteint l'état `VALIDATED` ou `POSTED` doit respecter :
 SUM(debit) = SUM(credit)
 ```
 
-CFA FRA pose explicitement cette règle comme condition de validité d'une écriture. fileciteturn13file2L436-L452
+CFA FRA pose explicitement cette règle comme condition de validité d'une écriture. fileciteturn13file2L436-L452 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 ### Classification
 
@@ -266,7 +266,7 @@ credit >= 0
 NOT (debit > 0 AND credit > 0)
 ```
 
-fileciteturn13file2L426-L432
+fileciteturn13file2L426-L432 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 PyAccountingKit généralise ces règles.
 
@@ -359,7 +359,7 @@ Les règles de multi-devise détaillées seront spécifiées séparément.
 
 # 8. Nombre minimal de lignes
 
-CFA FRA contrôle explicitement qu'une écriture possède au moins deux lignes avant validation. fileciteturn14file5L1337-L1357
+CFA FRA contrôle explicitement qu'une écriture possède au moins deux lignes avant validation. fileciteturn14file5L1337-L1357 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 ## INV-ENTRY-002
 
@@ -410,7 +410,7 @@ POSTED
 REVERSED
 ```
 
-CFA FRA distingue `DRAFT`, `VALIDATED`, `POSTED` et `REVERSED`. fileciteturn13file1L271-L299
+CFA FRA distingue `DRAFT`, `VALIDATED`, `POSTED` et `REVERSED`. fileciteturn13file1L271-L299 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 ---
 
@@ -474,7 +474,7 @@ au plus une reversal définitive active
 
 # 10. Immutabilité des écritures postées
 
-CFA FRA impose qu'une écriture `POSTED` soit immuable. fileciteturn13file5L1304-L1310
+CFA FRA impose qu'une écriture `POSTED` soit immuable. fileciteturn13file5L1304-L1310 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 ## INV-IMM-001
 
@@ -518,7 +518,7 @@ Elles ne font pas partie de l'écriture comptable elle-même.
 
 # 11. Règle de correction - reversal + replacement
 
-CFA FRA exige que l'écriture originale demeure inchangée, qu'une écriture de contre-passation soit créée et que l'opération soit auditée. fileciteturn14file5L1361-L1400
+CFA FRA exige que l'écriture originale demeure inchangée, qu'une écriture de contre-passation soit créée et que l'opération soit auditée. fileciteturn14file5L1361-L1400 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 ## INV-REV-001 - Original inchangé
 
@@ -619,7 +619,7 @@ DOMAIN_POLICY
 
 ## INV-PER-002 - Période ouverte pour posting normal
 
-CFA FRA considère qu'une période fermée doit bloquer le posting. fileciteturn14file2L574-L584
+CFA FRA considère qu'une période fermée doit bloquer le posting. fileciteturn14file2L574-L584 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Par défaut :
 
@@ -666,7 +666,7 @@ dans le modèle multi-entités de PyAccountingKit
 
 # 14. Séparation des exercices
 
-L'ouvrage doctrinal distingue explicitement le principe de séparation des périodes/exercices et relie la comptabilité périodique au rattachement des charges et produits à la période concernée. fileciteturn14file9L1725-L1740
+L'ouvrage doctrinal distingue explicitement le principe de séparation des périodes/exercices et relie la comptabilité périodique au rattachement des charges et produits à la période concernée. fileciteturn14file9L1725-L1740 *(→ source : [Comptabilité Générale — Système français et normes IFRS](../../books/Comptabilite_Generale_Systeme_Francais_et_Normes_IFRS.md))*
 
 PyAccountingKit ne doit toutefois pas encoder cela comme une règle structurelle unique applicable à tous les modèles possibles.
 
@@ -700,7 +700,7 @@ period-end adjustments
 
 # 15. Rattachement des charges et produits
 
-Le rattachement est traité dans le corpus doctrinal comme un principe de modèle comptable et non comme une propriété mathématique de la partie double. fileciteturn14file1L346-L376
+Le rattachement est traité dans le corpus doctrinal comme un principe de modèle comptable et non comme une propriété mathématique de la partie double. fileciteturn14file1L346-L376 *(→ source : [Comptabilité Générale — Système français et normes IFRS](../../books/Comptabilite_Generale_Systeme_Francais_et_Normes_IFRS.md))*
 
 ## POL-ACC-001 - Accrual / Matching Policy
 
@@ -731,7 +731,7 @@ codé directement dans le Posting Engine.
 
 # 16. Prudence
 
-L'ouvrage situe la prudence parmi les principes qui caractérisent un type de comptabilité et l'oppose conceptuellement à une logique d'imprudence. fileciteturn14file1L346-L376
+L'ouvrage situe la prudence parmi les principes qui caractérisent un type de comptabilité et l'oppose conceptuellement à une logique d'imprudence. fileciteturn14file1L346-L376 *(→ source : [Comptabilité Générale — Système français et normes IFRS](../../books/Comptabilite_Generale_Systeme_Francais_et_Normes_IFRS.md))*
 
 ## Décision PyAccountingKit
 
@@ -766,7 +766,7 @@ if prudence:
 
 # 17. Continuité d'exploitation
 
-Le corpus doctrinal présente la continuité comme une hypothèse importante mais souligne qu'elle ne détermine pas à elle seule toutes les méthodes d'évaluation. fileciteturn14file8L1685-L1702
+Le corpus doctrinal présente la continuité comme une hypothèse importante mais souligne qu'elle ne détermine pas à elle seule toutes les méthodes d'évaluation. fileciteturn14file8L1685-L1702 *(→ source : [Comptabilité Générale — Système français et normes IFRS](../../books/Comptabilite_Generale_Systeme_Francais_et_Normes_IFRS.md))*
 
 ## POL-GC-001 - Going Concern Context
 
@@ -795,7 +795,7 @@ Les `MeasurementPolicy` déterminent les conséquences effectives.
 
 # 18. Permanence des méthodes
 
-Le corpus doctrinal explique que la permanence favorise la comparabilité dans le temps, tout en indiquant que ce principe n'est pas absolu et peut céder lors d'un changement justifié de système, de type ou de méthode. fileciteturn14file8L1703-L1715
+Le corpus doctrinal explique que la permanence favorise la comparabilité dans le temps, tout en indiquant que ce principe n'est pas absolu et peut céder lors d'un changement justifié de système, de type ou de méthode. fileciteturn14file8L1703-L1715 *(→ source : [Comptabilité Générale — Système français et normes IFRS](../../books/Comptabilite_Generale_Systeme_Francais_et_Normes_IFRS.md))*
 
 ## POL-CONS-001 - Consistency Policy
 
@@ -829,7 +829,7 @@ traçable
 
 # 19. Coût, valeur et bases de mesure
 
-Le corpus doctrinal distingue les systèmes orientés coût et valeur et souligne l'existence de plusieurs concepts de coût. fileciteturn14file9L1750-L1760
+Le corpus doctrinal distingue les systèmes orientés coût et valeur et souligne l'existence de plusieurs concepts de coût. fileciteturn14file9L1750-L1760 *(→ source : [Comptabilité Générale — Système français et normes IFRS](../../books/Comptabilite_Generale_Systeme_Francais_et_Normes_IFRS.md))*
 
 ## POL-MEAS-001 - Measurement Basis
 
@@ -904,7 +904,7 @@ Toute ligne validée doit référencer un `CompanyAccount` connu.
 
 ## INV-ACC-002 - Compte actif
 
-CFA FRA exige un compte actif lors de la validation. fileciteturn14file5L1337-L1357
+CFA FRA exige un compte actif lors de la validation. fileciteturn14file5L1337-L1357 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Classification :
 
@@ -950,7 +950,7 @@ UNIVERSAL_ACCOUNTING_INVARIANT
 
 ## INV-JRN-001 - Journal existant et actif
 
-CFA FRA inclut le journal actif parmi les contrôles de validation. fileciteturn14file5L1337-L1357
+CFA FRA inclut le journal actif parmi les contrôles de validation. fileciteturn14file5L1337-L1357 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Classification :
 
@@ -1045,7 +1045,7 @@ Répond à :
 Cette écriture validée peut-elle devenir définitive maintenant ?
 ```
 
-CFA FRA exécute validation de période puis validation d'écriture avant passage à `POSTED`. fileciteturn14file5L1314-L1333
+CFA FRA exécute validation de période puis validation d'écriture avant passage à `POSTED`. fileciteturn14file5L1314-L1333 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 ---
 
@@ -1215,7 +1215,7 @@ JournalEntryLine
 
 comme source transactionnelle de restitution.
 
-CFA FRA précise que grand livre, balances et états financiers doivent être calculés depuis la source canonique plutôt que stockés comme copies indépendantes. fileciteturn13file0L75-L91
+CFA FRA précise que grand livre, balances et états financiers doivent être calculés depuis la source canonique plutôt que stockés comme copies indépendantes. fileciteturn13file0L75-L91 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 ---
 
@@ -1239,7 +1239,7 @@ CFA FRA utilise :
 signed_balance = debit - credit
 ```
 
-pour son moteur interne de grand livre. fileciteturn14file10L1799-L1815
+pour son moteur interne de grand livre. fileciteturn14file10L1799-L1815 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 PyAccountingKit peut conserver cette convention **interne** comme policy de projection :
 
@@ -1267,7 +1267,7 @@ SUM(soldes débiteurs)
 SUM(soldes créditeurs)
 ```
 
-dans la balance. fileciteturn14file10L1917-L1933
+dans la balance. fileciteturn14file10L1917-L1933 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Classification :
 
@@ -1300,7 +1300,7 @@ ADJUSTED
 POST_CLOSING
 ```
 
-avec des types d'écritures inclus différents. fileciteturn14file10L1817-L1887
+avec des types d'écritures inclus différents. fileciteturn14file10L1817-L1887 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Classification :
 
@@ -1322,7 +1322,7 @@ TrialBalanceVariantPolicy
 
 # 34. Règles de clôture
 
-CFA FRA définit un workflow de clôture où les contrôles sont revus, les écritures de clôture générées, validées puis postées avant fermeture de la période. fileciteturn15file6L1721-L1753
+CFA FRA définit un workflow de clôture où les contrôles sont revus, les écritures de clôture générées, validées puis postées avant fermeture de la période. fileciteturn15file6L1721-L1753 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 La clôture ne doit donc pas être :
 
@@ -1369,7 +1369,7 @@ cash-flow non réconcilié
 contrôles bloquants
 ```
 
-fileciteturn15file6L1757-L1769
+fileciteturn15file6L1757-L1769 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 PyAccountingKit doit distinguer ce qui est générique de ce qui est configurable.
 
@@ -1394,7 +1394,7 @@ specific regulatory controls
 
 # 36. Après clôture
 
-CFA FRA interdit le posting après fermeture. fileciteturn15file4L1045-L1076
+CFA FRA interdit le posting après fermeture. fileciteturn15file4L1045-L1076 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 ## INV-CLOSE-001
 
@@ -1567,7 +1567,7 @@ et non par :
 policy can never change
 ```
 
-Le corpus doctrinal souligne d'ailleurs que la permanence n'est pas absolue. fileciteturn14file8L1703-L1715
+Le corpus doctrinal souligne d'ailleurs que la permanence n'est pas absolue. fileciteturn14file8L1703-L1715 *(→ source : [Comptabilité Générale — Système français et normes IFRS](../../books/Comptabilite_Generale_Systeme_Francais_et_Normes_IFRS.md))*
 
 ---
 
@@ -1587,7 +1587,7 @@ dataset_version
 
 ## INV-REF-002 - Pas d'équivalence par code seul
 
-Le dataset de comparaison OHADA étudié désactive l'équivalence sémantique automatique fondée sur le code seul. fileciteturn15file7L1795-L1804
+Le dataset de comparaison OHADA étudié désactive l'équivalence sémantique automatique fondée sur le code seul. fileciteturn15file7L1795-L1804 *(→ source : [regulatory-accounting-data-framework](../../../resources/regulatory-accounting-data-framework/))*
 
 Classification :
 
@@ -1607,7 +1607,7 @@ SUGGESTED / CANDIDATE
 VALIDATED / EXECUTABLE
 ```
 
-CFA FRA prévoit d'ailleurs une chaîne candidate -> suggestion -> validation humaine pour le mapping. fileciteturn15file4L988-L1007
+CFA FRA prévoit d'ailleurs une chaîne candidate -> suggestion -> validation humaine pour le mapping. fileciteturn15file4L988-L1007 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 ---
 
@@ -1629,7 +1629,7 @@ RULE
 SUGGESTED
 ```
 
-CFA FRA distingue ces types et conserve la validation. fileciteturn15file0L124-L163
+CFA FRA distingue ces types et conserve la validation. fileciteturn15file0L124-L163 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 ---
 
@@ -1712,7 +1712,7 @@ PERIOD_CLOSED
 PERIOD_REOPENED
 ```
 
-fileciteturn13file5L966-L998
+fileciteturn13file5L966-L998 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 PyAccountingKit doit auditer toute transition irréversible ou sensible.
 
@@ -1768,7 +1768,7 @@ reference snapshot
 
 # 52. Decimal obligatoire
 
-CFA FRA impose l'usage de `Decimal` pour éviter les erreurs financières liées aux floats. fileciteturn13file6L1251-L1259
+CFA FRA impose l'usage de `Decimal` pour éviter les erreurs financières liées aux floats. fileciteturn13file6L1251-L1259 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 ## INV-MONEY-001
 
@@ -1831,7 +1831,7 @@ sans `ExchangeRate`.
 
 Les imports ne peuvent contourner les invariants.
 
-CFA FRA importe le FEC après parsing, contrôles, mapping et normalisation, puis crée des écritures postées. fileciteturn15file8L1910-L1938
+CFA FRA importe le FEC après parsing, contrôles, mapping et normalisation, puis crée des écritures postées. fileciteturn15file8L1910-L1938 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 PyAccountingKit doit imposer conceptuellement :
 
@@ -1863,7 +1863,7 @@ fiscal_year
 sha256
 ```
 
-comme clé fonctionnelle d'idempotence. fileciteturn15file8L1963-L1987
+comme clé fonctionnelle d'idempotence. fileciteturn15file8L1963-L1987 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 PyAccountingKit généralise :
 
@@ -2245,7 +2245,7 @@ for any trial balance built from balanced posted entries:
 
 Les comportements CFA FRA doivent devenir des scénarios de parité.
 
-Le plan MVP demande notamment qu'une écriture déséquilibrée ne puisse pas être postée, qu'une écriture postée ne puisse pas être modifiée, qu'une extourne puisse être générée et qu'une période fermée bloque le posting. fileciteturn14file2L574-L600
+Le plan MVP demande notamment qu'une écriture déséquilibrée ne puisse pas être postée, qu'une écriture postée ne puisse pas être modifiée, qu'une extourne puisse être générée et qu'une période fermée bloque le posting. fileciteturn14file2L574-L600 *(→ source : [CFA FRA — Conception et MVP](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md))*
 
 Ces quatre comportements constituent des golden tests P0.
 
@@ -2663,3 +2663,23 @@ Analytical Definition
 ```text
 04_PYACCOUNTINGKIT_ACCOUNTING_POLICIES_RECOGNITION_AND_MEASUREMENT_ARCHITECTURE.md
 ```
+
+
+---
+
+## Sources et références documentaires du projet
+
+- 📕 [Comptabilité Générale — Système français et normes IFRS](../../books/Comptabilite_Generale_Systeme_Francais_et_Normes_IFRS.md)
+- 📂 [Référentiels réglementaires — Datasets](../../referentiels/datasets/)
+- 📐 [Référentiels réglementaires — Schémas](../../referentiels/schemas/)
+- 🏗️ [CFA FRA Django MVP Sprint 7 — Référence fonctionnelle](../../../resources/cfa_fra_django_mvp_sprint_7/)
+- 📄 [CFA FRA — Document de conception](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md)
+- 📦 [regulatory-accounting-data-framework](../../../resources/regulatory-accounting-data-framework/)
+
+---
+
+## Couverture dans les plans d'implémentation
+
+Ce document est couvert par les plans suivants :
+
+- [PLAN-01 — Accounting Core (0.1.0)](../../plans/PLAN-01_ACCOUNTING_CORE_0.1.0.md)

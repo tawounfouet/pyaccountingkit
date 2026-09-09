@@ -2641,3 +2641,15 @@ MAJ 01_PYACCOUNTINGKIT_PROJECT_VISION_AND_ARCHITECTURE.md
 ```
 
 afin d'aligner la macro-architecture avec `Accounting Policies & Measurement` et `Financial Analysis`.
+
+---
+
+## Sources et références documentaires du projet
+
+- 📕 [Comptabilité Générale — Système français et normes IFRS](../../books/Comptabilite_Generale_Systeme_Francais_et_Normes_IFRS.md)
+- 📗 [Maxi fiches de Gestion financière de l'entreprise](../../books/Maxi_fiches_de_Gestion_financiere_de_l_entreprise.md)
+- 📂 [Référentiels réglementaires — Datasets](../../referentiels/datasets/)
+- 📐 [Référentiels réglementaires — Schémas](../../referentiels/schemas/)
+- 🏗️ [CFA FRA Django MVP Sprint 7 — Référence fonctionnelle](../../../resources/cfa_fra_django_mvp_sprint_7/)
+- 📄 [CFA FRA — Document de conception](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md)
+- 📦 [regulatory-accounting-data-framework](../../../resources/regulatory-accounting-data-framework/)

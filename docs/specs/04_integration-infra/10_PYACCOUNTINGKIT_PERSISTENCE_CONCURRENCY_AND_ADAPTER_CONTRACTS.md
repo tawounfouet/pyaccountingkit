@@ -7537,3 +7537,20 @@ Le P0.11 ferme ainsi la spécification de l'infrastructure de persistence néces
 ```text
 11_PYACCOUNTINGKIT_TESTING_AND_QUALITY_STRATEGY.md
 ```
+
+
+---
+
+## Sources et références documentaires du projet
+
+- 🏗️ [CFA FRA Django MVP Sprint 7 — Référence fonctionnelle](../../../resources/cfa_fra_django_mvp_sprint_7/)
+- 📄 [CFA FRA — Document de conception](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md)
+
+---
+
+## Couverture dans les plans d'implémentation
+
+Ce document est couvert par les plans suivants :
+
+- [PLAN-00 — Repository Bootstrap (0.0.1)](../../plans/PLAN-00_REPOSITORY_BOOTSTRAP_0.0.1.md)
+- [PLAN-01 — Accounting Core (0.1.0)](../../plans/PLAN-01_ACCOUNTING_CORE_0.1.0.md)

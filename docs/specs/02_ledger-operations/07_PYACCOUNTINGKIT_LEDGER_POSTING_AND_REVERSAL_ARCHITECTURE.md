@@ -4543,3 +4543,23 @@ Le P0.8 ferme ainsi la spécification du **noyau transactionnel minimal** néces
 ```text
 08_PYACCOUNTINGKIT_CLOSING_ACCRUALS_PROVISIONS_AND_ADJUSTMENTS_ARCHITECTURE.md
 ```
+
+
+---
+
+## Sources et références documentaires du projet
+
+- 📕 [Comptabilité Générale — Système français et normes IFRS](../../books/Comptabilite_Generale_Systeme_Francais_et_Normes_IFRS.md)
+- 📂 [Référentiels réglementaires — Datasets](../../referentiels/datasets/)
+- 📐 [Référentiels réglementaires — Schémas](../../referentiels/schemas/)
+- 🏗️ [CFA FRA Django MVP Sprint 7 — Référence fonctionnelle](../../../resources/cfa_fra_django_mvp_sprint_7/)
+- 📄 [CFA FRA — Document de conception](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md)
+
+---
+
+## Couverture dans les plans d'implémentation
+
+Ce document est couvert par les plans suivants :
+
+- [PLAN-01 — Accounting Core (0.1.0)](../../plans/PLAN-01_ACCOUNTING_CORE_0.1.0.md)
+- [PLAN-03 — Imports & Reporting (0.3.0)](../../plans/PLAN-03_IMPORTS_REPORTING_0.3.0.md)

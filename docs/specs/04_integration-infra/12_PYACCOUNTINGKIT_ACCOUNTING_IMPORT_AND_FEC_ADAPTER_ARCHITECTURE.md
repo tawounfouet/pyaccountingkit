@@ -6218,3 +6218,20 @@ Le P1.1 fournit ainsi une architecture capable d'ingérer le FEC sans enfermer P
 ```text
 13_PYACCOUNTINGKIT_FINANCIAL_STATEMENTS_AND_REGULATORY_REPORTING_ARCHITECTURE.md
 ```
+
+
+---
+
+## Sources et références documentaires du projet
+
+- 🏗️ [CFA FRA Django MVP Sprint 7 — Référence fonctionnelle](../../../resources/cfa_fra_django_mvp_sprint_7/)
+- 📄 [CFA FRA — Document de conception](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md)
+- 📦 [regulatory-accounting-data-framework](../../../resources/regulatory-accounting-data-framework/)
+
+---
+
+## Couverture dans les plans d'implémentation
+
+Ce document est couvert par les plans suivants :
+
+- [PLAN-03 — Imports & Reporting (0.3.0)](../../plans/PLAN-03_IMPORTS_REPORTING_0.3.0.md)

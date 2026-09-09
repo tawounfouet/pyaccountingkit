@@ -1894,3 +1894,19 @@ produisent les mêmes semantics comptables sur la contract suite et les golden s
 ```text
 12_PYACCOUNTINGKIT_ACCOUNTING_IMPORT_AND_FEC_ADAPTER_ARCHITECTURE.md
 ```
+
+
+---
+
+## Sources et références documentaires du projet
+
+- 🏗️ [CFA FRA Django MVP Sprint 7 — Référence fonctionnelle](../../../resources/cfa_fra_django_mvp_sprint_7/)
+- 📄 [CFA FRA — Document de conception](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md)
+
+---
+
+## Couverture dans les plans d'implémentation
+
+Ce document est couvert par les plans suivants :
+
+- [PLAN-00 — Repository Bootstrap (0.0.1)](../../plans/PLAN-00_REPOSITORY_BOOTSTRAP_0.0.1.md)

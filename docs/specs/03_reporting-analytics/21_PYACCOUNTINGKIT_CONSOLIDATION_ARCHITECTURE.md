@@ -5372,3 +5372,21 @@ When a critical source, mapping, policy or rate is ambiguous, consolidation fail
 ```text
 22_PYACCOUNTINGKIT_RECONCILIATION_ARCHITECTURE.md
 ```
+
+
+---
+
+## Sources et références documentaires du projet
+
+- 📕 [Comptabilité Générale — Système français et normes IFRS](../../books/Comptabilite_Generale_Systeme_Francais_et_Normes_IFRS.md)
+- 📂 [Référentiels réglementaires — Datasets](../../referentiels/datasets/)
+- 📐 [Référentiels réglementaires — Schémas](../../referentiels/schemas/)
+- 📦 [regulatory-accounting-data-framework](../../../resources/regulatory-accounting-data-framework/)
+
+---
+
+## Couverture dans les plans d'implémentation
+
+Ce document est couvert par les plans suivants :
+
+- [PLAN-08 — Consolidation (1.2.0)](../../plans/PLAN-08_CONSOLIDATION_1.2.0.md)

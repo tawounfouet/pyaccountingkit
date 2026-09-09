@@ -5670,3 +5670,18 @@ Le P1.3 fournit ainsi un moteur analytique suffisamment générique pour couvrir
 ```text
 15_PYACCOUNTINGKIT_SUBLEDGERS_AND_OPERATIONAL_ACCOUNTING_ARCHITECTURE.md
 ```
+
+
+---
+
+## Sources et références documentaires du projet
+
+- 📗 [Maxi fiches de Gestion financière de l'entreprise](../../books/Maxi_fiches_de_Gestion_financiere_de_l_entreprise.md)
+
+---
+
+## Couverture dans les plans d'implémentation
+
+Ce document est couvert par les plans suivants :
+
+- [PLAN-04 — Subledgers & Financial Analysis (0.4.0)](../../plans/PLAN-04_SUBLEDGERS_FINANCIAL_ANALYSIS_0.4.0.md)

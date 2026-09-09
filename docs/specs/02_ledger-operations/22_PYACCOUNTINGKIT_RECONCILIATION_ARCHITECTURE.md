@@ -4693,3 +4693,18 @@ When matching is ambiguous, PyAccountingKit fails closed.
 ```text
 23_PYACCOUNTINGKIT_ADVANCED_FINANCIAL_ANALYSIS_BOUNDARIES.md
 ```
+
+
+---
+
+## Sources et références documentaires du projet
+
+- 📕 [Comptabilité Générale — Système français et normes IFRS](../../books/Comptabilite_Generale_Systeme_Francais_et_Normes_IFRS.md)
+
+---
+
+## Couverture dans les plans d'implémentation
+
+Ce document est couvert par les plans suivants :
+
+- [PLAN-07 — Reconciliation (1.1.0)](../../plans/PLAN-07_RECONCILIATION_1.1.0.md)

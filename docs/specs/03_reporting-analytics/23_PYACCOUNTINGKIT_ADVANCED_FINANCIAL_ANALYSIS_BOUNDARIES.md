@@ -4285,3 +4285,18 @@ Forward-looking financial decisions and valuation
 ---
 
 **P2.3 clôt la roadmap architecturale optionnelle définie jusqu'au document 23.**
+
+
+---
+
+## Sources et références documentaires du projet
+
+- 📗 [Maxi fiches de Gestion financière de l'entreprise](../../books/Maxi_fiches_de_Gestion_financiere_de_l_entreprise.md)
+
+---
+
+## Couverture dans les plans d'implémentation
+
+Ce document est couvert par les plans suivants :
+
+- [PLAN-09 — Corporate Finance Boundaries](../../plans/PLAN-09_CORPORATE_FINANCE_BOUNDARIES.md)

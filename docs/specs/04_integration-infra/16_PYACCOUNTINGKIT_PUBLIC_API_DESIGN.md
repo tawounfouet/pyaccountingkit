@@ -4072,3 +4072,19 @@ Le P1.5 définit ainsi une API Python cohérente, ergonomique et durable, capabl
 ```text
 17_PYACCOUNTINGKIT_RELEASE_AND_VERSIONING_STRATEGY.md
 ```
+
+
+---
+
+## Sources et références documentaires du projet
+
+- 🏗️ [CFA FRA Django MVP Sprint 7 — Référence fonctionnelle](../../../resources/cfa_fra_django_mvp_sprint_7/)
+- 📄 [CFA FRA — Document de conception](../../../resources/cfa_fra_django_mvp_sprint_7/docs/CFA_FRA_DJANGO_DOCUMENT_CONCEPTION_TECHNICO_FONCTIONNELLE.md)
+
+---
+
+## Couverture dans les plans d'implémentation
+
+Ce document est couvert par les plans suivants :
+
+- [PLAN-05 — Public API & Adapters (0.5.0)](../../plans/PLAN-05_PUBLIC_API_ADAPTERS_0.5.0.md)

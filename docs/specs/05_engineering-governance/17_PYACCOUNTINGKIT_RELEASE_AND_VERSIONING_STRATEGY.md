@@ -3350,3 +3350,11 @@ Le P1.6 fournit ainsi le cadre de gouvernance nécessaire pour faire évoluer Py
 ```text
 18_PYACCOUNTINGKIT_CFA_FRA_EXTRACTION_AND_MIGRATION_MAP.md
 ```
+
+---
+
+## Couverture dans les plans d'implémentation
+
+Ce document est couvert par les plans suivants :
+
+- [PLAN-06 — Migration CFA FRA & Hardening (1.0.0)](../../plans/PLAN-06_MIGRATION_CFA_FRA_HARDENING_1.0.0.md)

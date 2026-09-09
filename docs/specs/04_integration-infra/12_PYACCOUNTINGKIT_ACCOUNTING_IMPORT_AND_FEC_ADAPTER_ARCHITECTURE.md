@@ -6230,7 +6230,7 @@ Le P1.1 fournit ainsi une architecture capable d'ingérer le FEC sans enfermer P
 
 ---
 
-## Couverture dans les plans d'implémentation
+## Plans d'implémentation principaux
 
 Ce document est couvert par les plans suivants :
 

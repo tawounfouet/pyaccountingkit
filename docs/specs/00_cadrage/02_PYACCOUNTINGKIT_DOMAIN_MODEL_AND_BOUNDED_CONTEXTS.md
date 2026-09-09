@@ -4958,7 +4958,7 @@ afin d'éviter de transformer une méthode ou une convention particulière en in
 
 ---
 
-## Couverture dans les plans d'implémentation
+## Plans d'implémentation principaux
 
 Ce document est couvert par les plans suivants :
 

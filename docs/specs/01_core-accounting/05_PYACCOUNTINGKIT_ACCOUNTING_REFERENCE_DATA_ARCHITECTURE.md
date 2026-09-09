@@ -3127,7 +3127,7 @@ Cette architecture permet d'ajouter de nouveaux référentiels sans modifier le 
 
 ---
 
-## Couverture dans les plans d'implémentation
+## Plans d'implémentation principaux
 
 Ce document est couvert par les plans suivants :
 

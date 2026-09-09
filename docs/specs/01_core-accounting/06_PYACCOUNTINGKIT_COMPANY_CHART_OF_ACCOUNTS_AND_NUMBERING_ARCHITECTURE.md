@@ -3815,7 +3815,7 @@ Le framework peut ainsi représenter les usages de plans comptables très normé
 
 ---
 
-## Couverture dans les plans d'implémentation
+## Plans d'implémentation principaux
 
 Ce document est couvert par les plans suivants :
 

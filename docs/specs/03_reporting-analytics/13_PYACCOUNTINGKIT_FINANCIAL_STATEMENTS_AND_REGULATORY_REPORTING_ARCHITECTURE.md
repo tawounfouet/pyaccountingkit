@@ -5992,7 +5992,7 @@ Le P1.2 fournit ainsi le socle nécessaire pour produire des états financiers f
 
 ---
 
-## Couverture dans les plans d'implémentation
+## Plans d'implémentation principaux
 
 Ce document est couvert par les plans suivants :
 

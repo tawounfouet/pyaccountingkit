@@ -1905,7 +1905,7 @@ produisent les mêmes semantics comptables sur la contract suite et les golden s
 
 ---
 
-## Couverture dans les plans d'implémentation
+## Plans d'implémentation principaux
 
 Ce document est couvert par les plans suivants :
 

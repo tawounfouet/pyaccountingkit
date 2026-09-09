@@ -7548,7 +7548,7 @@ Le P0.11 ferme ainsi la spécification de l'infrastructure de persistence néces
 
 ---
 
-## Couverture dans les plans d'implémentation
+## Plans d'implémentation principaux
 
 Ce document est couvert par les plans suivants :
 

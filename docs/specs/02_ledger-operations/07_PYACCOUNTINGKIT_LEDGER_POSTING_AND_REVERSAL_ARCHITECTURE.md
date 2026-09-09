@@ -4557,7 +4557,7 @@ Le P0.8 ferme ainsi la spécification du **noyau transactionnel minimal** néces
 
 ---
 
-## Couverture dans les plans d'implémentation
+## Plans d'implémentation principaux
 
 Ce document est couvert par les plans suivants :
 

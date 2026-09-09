@@ -1562,7 +1562,7 @@ Every effect remains traceable to its operational source
 
 ---
 
-## Couverture dans les plans d'implémentation
+## Plans d'implémentation principaux
 
 Ce document est couvert par les plans suivants :
 

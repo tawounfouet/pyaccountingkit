@@ -2977,7 +2977,7 @@ sans rendre le coeur transactionnel dépendant d'un référentiel ou d'une méth
 
 ---
 
-## Couverture dans les plans d'implémentation
+## Plans d'implémentation principaux
 
 Ce document est couvert par les plans suivants :
 

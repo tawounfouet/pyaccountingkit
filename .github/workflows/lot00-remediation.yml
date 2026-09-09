@@ -1,0 +1,130 @@
+name: LOT-00.1 and LOT-00.2 remediation
+
+on:
+  push:
+    branches:
+      - chore/lot-00-1-00-2-cleanup-version
+
+permissions:
+  contents: write
+
+jobs:
+  remediate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chore/lot-00-1-00-2-cleanup-version
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Configure Git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: LOT-00.1 - Clean documentation traceability
+        shell: bash
+        run: |
+          python - <<'PY'
+          from __future__ import annotations
+
+          import re
+          from pathlib import Path
+
+          filecite_re = re.compile(r"[ \t]*filecite[^\n]+")
+          heading_old = "## Couverture dans les plans d'implémentation"
+          heading_new = "## Plans d'implémentation principaux"
+
+          docs = Path("docs")
+          before = 0
+          after = 0
+          changed_files: list[str] = []
+
+          for path in sorted(docs.rglob("*.md")):
+              text = path.read_text(encoding="utf-8")
+              before += text.count("filecite")
+              cleaned = filecite_re.sub("", text)
+              if path.is_relative_to(Path("docs/specs")):
+                  cleaned = cleaned.replace(heading_old, heading_new)
+              after += cleaned.count("filecite")
+              if cleaned != text:
+                  path.write_text(cleaned, encoding="utf-8")
+                  changed_files.append(str(path))
+
+          print(f"filecite before={before} after={after}")
+          print(f"changed markdown files={len(changed_files)}")
+          for changed in changed_files:
+              print(changed)
+
+          if before != 87:
+              raise SystemExit(f"Expected exactly 87 filecite markers from audited baseline, found {before}")
+          if after != 0:
+              raise SystemExit(f"filecite cleanup incomplete: {after} marker(s) remain")
+          PY
+
+          git add docs
+          git diff --cached --check
+          git commit -m "docs(specs): finalize source traceability cleanup"
+
+      - name: LOT-00.2 - Align version and current metadata to 0.0.1
+        shell: bash
+        run: |
+          python - <<'PY'
+          from __future__ import annotations
+
+          import json
+          from pathlib import Path
+
+          pyproject = Path("pyproject.toml")
+          text = pyproject.read_text(encoding="utf-8")
+          old = 'version = "0.1.0"'
+          new = 'version = "0.0.1"'
+          if text.count(old) != 1:
+              raise SystemExit(f"Expected exactly one current project version declaration, found {text.count(old)}")
+          pyproject.write_text(text.replace(old, new, 1), encoding="utf-8")
+
+          init_file = Path("src/pyaccountingkit/__init__.py")
+          init_file.write_text(
+              '"""pyaccountingkit: a Python toolkit for double-entry accounting."""\n\n'
+              'from importlib.metadata import version\n\n'
+              '__version__ = version("pyaccountingkit")\n',
+              encoding="utf-8",
+          )
+
+          manifests = [
+              Path("PUBLIC_API_MANIFEST.json"),
+              Path("PUBLIC_ERROR_CODES.json"),
+              Path("ADAPTER_CONTRACT_MANIFEST.json"),
+              Path("REGULATORY_COMPATIBILITY_MATRIX.json"),
+          ]
+          for path in manifests:
+              payload = json.loads(path.read_text(encoding="utf-8"))
+              if payload.get("version") != "0.1.0":
+                  raise SystemExit(f"Unexpected baseline version in {path}: {payload.get('version')!r}")
+              payload["version"] = "0.0.1"
+              path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+          targets = [pyproject, init_file, *manifests]
+          for path in targets:
+              current = path.read_text(encoding="utf-8")
+              if '"version": "0.1.0"' in current or 'version = "0.1.0"' in current or '__version__ = "0.1.0"' in current:
+                  raise SystemExit(f"Stale current-version marker remains in {path}")
+          PY
+
+          git add pyproject.toml src/pyaccountingkit/__init__.py \
+            PUBLIC_API_MANIFEST.json PUBLIC_ERROR_CODES.json \
+            ADAPTER_CONTRACT_MANIFEST.json REGULATORY_COMPATIBILITY_MATRIX.json
+          git diff --cached --check
+          git commit -m "chore(version): align repository bootstrap to 0.0.1"
+
+      - name: Remove temporary remediation workflow and push commits
+        shell: bash
+        run: |
+          git rm .github/workflows/lot00-remediation.yml
+          git commit -m "chore: remove temporary LOT-00 remediation workflow"
+          git push origin HEAD:chore/lot-00-1-00-2-cleanup-version

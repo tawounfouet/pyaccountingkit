@@ -1,0 +1,18 @@
+family_id: ohada-accounting
+family_name: OHADA / CEMAC Accounting Family
+description: Famille de référentiels comptables liés au cadre OHADA et à ses spécialisations
+  sectorielles/régionales. L'appartenance à la famille n'implique jamais un héritage
+  réglementaire entre éditions.
+jurisdiction_scopes:
+- OHADA
+- CEMAC
+member_standard_refs:
+- ohada-syscohada:2017
+- ohada-ebnl:2023
+- cemac-pcemf:2010
+relation_policy:
+  membership_does_not_imply_inheritance: true
+  crosswalk_requires_human_review: true
+  code_equality_is_not_semantic_evidence: true
+  later_standard_cannot_be_parent_of_earlier_standard_without_explicit_source: true
+  neutral_concepts_are_semantic_pivots_not_accounting_rules: true

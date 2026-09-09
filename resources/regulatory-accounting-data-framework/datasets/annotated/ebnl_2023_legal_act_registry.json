@@ -1,0 +1,356 @@
+{
+  "articles": [
+    {
+      "article_number": 1,
+      "chapter": "Dispositions générales",
+      "page_pdf": 15,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 15,
+        "section": "Dispositions générales"
+      },
+      "text_transcription_status": "visual_source_not_retranscribed_in_dataset"
+    },
+    {
+      "article_number": 2,
+      "chapter": "Dispositions générales",
+      "page_pdf": 15,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 15,
+        "section": "Dispositions générales"
+      },
+      "text_transcription_status": "visual_source_not_retranscribed_in_dataset"
+    },
+    {
+      "article_number": 3,
+      "chapter": "Dispositions générales",
+      "page_pdf": 16,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 16,
+        "section": "Dispositions générales"
+      },
+      "text_transcription_status": "visual_source_not_retranscribed_in_dataset"
+    },
+    {
+      "article_number": 4,
+      "chapter": "Etats financiers annuels",
+      "page_pdf": 16,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 16,
+        "section": "Etats financiers annuels"
+      },
+      "structured_facts": {
+        "association_order_complete_set": [
+          "Bilan",
+          "Compte de résultat",
+          "Tableau des flux de trésorerie",
+          "Notes annexes"
+        ],
+        "development_project_complete_set": [
+          "Tableau emplois-ressources",
+          "Tableau d'exécution budgétaire",
+          "Tableau de réconciliation de trésorerie",
+          "Bilan",
+          "Compte d'exploitation",
+          "Notes annexes"
+        ]
+      },
+      "text_transcription_status": "visual_source_not_retranscribed_in_dataset"
+    },
+    {
+      "article_number": 5,
+      "chapter": "Etats financiers annuels",
+      "page_pdf": 16,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 16,
+        "section": "Etats financiers annuels"
+      },
+      "text_transcription_status": "visual_source_not_retranscribed_in_dataset"
+    },
+    {
+      "article_number": 6,
+      "chapter": "Etats financiers annuels",
+      "page_pdf": 17,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 17,
+        "section": "Etats financiers annuels"
+      },
+      "structured_facts": {
+        "currency": "XAF",
+        "rule_note": "The official article contains category-specific annual-resource thresholds; no additional eligibility inference is generated.",
+        "sm_treasury_threshold_value": 30000000,
+        "threshold_categories": [
+          "subventions reçues",
+          "cotisations et autres revenus",
+          "dons reçus",
+          "ressources des projets de développement",
+          "autres ressources annuelles"
+        ]
+      },
+      "text_transcription_status": "visual_source_not_retranscribed_in_dataset"
+    },
+    {
+      "article_number": 7,
+      "chapter": "Etats financiers annuels",
+      "page_pdf": 17,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 17,
+        "section": "Etats financiers annuels"
+      },
+      "text_transcription_status": "visual_source_not_retranscribed_in_dataset"
+    },
+    {
+      "article_number": 8,
+      "chapter": "Etats financiers annuels",
+      "page_pdf": 18,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 18,
+        "section": "Etats financiers annuels"
+      },
+      "text_transcription_status": "visual_source_not_retranscribed_in_dataset"
+    },
+    {
+      "article_number": 9,
+      "chapter": "Etats financiers annuels",
+      "page_pdf": 18,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 18,
+        "section": "Etats financiers annuels"
+      },
+      "text_transcription_status": "visual_source_not_retranscribed_in_dataset"
+    },
+    {
+      "article_number": 10,
+      "chapter": "Etats financiers annuels",
+      "page_pdf": 19,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 19,
+        "section": "Etats financiers annuels"
+      },
+      "text_transcription_status": "visual_source_not_retranscribed_in_dataset"
+    },
+    {
+      "article_number": 11,
+      "chapter": "Etats financiers annuels",
+      "page_pdf": 19,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 19,
+        "section": "Etats financiers annuels"
+      },
+      "text_transcription_status": "visual_source_not_retranscribed_in_dataset"
+    },
+    {
+      "article_number": 12,
+      "chapter": "Etats financiers annuels",
+      "page_pdf": 19,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 19,
+        "section": "Etats financiers annuels"
+      },
+      "text_transcription_status": "visual_source_not_retranscribed_in_dataset"
+    },
+    {
+      "article_number": 13,
+      "chapter": "Etats financiers annuels",
+      "page_pdf": 19,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 19,
+        "section": "Etats financiers annuels"
+      },
+      "text_transcription_status": "visual_source_not_retranscribed_in_dataset"
+    },
+    {
+      "article_number": 14,
+      "chapter": "Etats financiers annuels",
+      "page_pdf": 19,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 19,
+        "section": "Etats financiers annuels"
+      },
+      "text_transcription_status": "visual_source_not_retranscribed_in_dataset"
+    },
+    {
+      "article_number": 15,
+      "chapter": "Etats financiers annuels",
+      "page_pdf": 19,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 19,
+        "section": "Etats financiers annuels"
+      },
+      "text_transcription_status": "visual_source_not_retranscribed_in_dataset"
+    },
+    {
+      "article_number": 16,
+      "chapter": "Etats financiers annuels",
+      "page_pdf": 20,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 20,
+        "section": "Etats financiers annuels"
+      },
+      "text_transcription_status": "visual_source_not_retranscribed_in_dataset"
+    },
+    {
+      "article_number": 17,
+      "chapter": "Moyens de contrôle",
+      "page_pdf": 21,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 21,
+        "section": "Moyens de contrôle"
+      },
+      "text_transcription_status": "visual_source_not_retranscribed_in_dataset"
+    },
+    {
+      "article_number": 18,
+      "chapter": "Moyens de contrôle",
+      "page_pdf": 22,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 22,
+        "section": "Moyens de contrôle"
+      },
+      "text_transcription_status": "visual_source_not_retranscribed_in_dataset"
+    },
+    {
+      "article_number": 19,
+      "chapter": "Moyens de contrôle",
+      "page_pdf": 22,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 22,
+        "section": "Moyens de contrôle"
+      },
+      "text_transcription_status": "visual_source_not_retranscribed_in_dataset"
+    },
+    {
+      "article_number": 20,
+      "chapter": "Moyens de contrôle",
+      "page_pdf": 23,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 23,
+        "section": "Moyens de contrôle"
+      },
+      "text_transcription_status": "visual_source_not_retranscribed_in_dataset"
+    },
+    {
+      "article_number": 21,
+      "chapter": "Moyens de contrôle",
+      "page_pdf": 23,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 23,
+        "section": "Moyens de contrôle"
+      },
+      "text_transcription_status": "visual_source_not_retranscribed_in_dataset"
+    },
+    {
+      "article_number": 22,
+      "chapter": "Moyens de contrôle",
+      "page_pdf": 23,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 23,
+        "section": "Moyens de contrôle"
+      },
+      "text_transcription_status": "visual_source_not_retranscribed_in_dataset"
+    },
+    {
+      "article_number": 23,
+      "chapter": "Moyens de contrôle",
+      "page_pdf": 24,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 24,
+        "section": "Moyens de contrôle"
+      },
+      "text_transcription_status": "visual_source_not_retranscribed_in_dataset"
+    },
+    {
+      "article_number": 24,
+      "chapter": "Dispositions pénales",
+      "page_pdf": 24,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 24,
+        "section": "Dispositions pénales"
+      },
+      "text_transcription_status": "visual_source_not_retranscribed_in_dataset"
+    },
+    {
+      "article_number": 25,
+      "chapter": "Dispositions pénales",
+      "page_pdf": 24,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 24,
+        "section": "Dispositions pénales"
+      },
+      "text_transcription_status": "visual_source_not_retranscribed_in_dataset"
+    },
+    {
+      "article_number": 26,
+      "chapter": "Dispositions pénales",
+      "page_pdf": 24,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 24,
+        "section": "Dispositions pénales"
+      },
+      "text_transcription_status": "visual_source_not_retranscribed_in_dataset"
+    },
+    {
+      "article_number": 27,
+      "chapter": "Dispositions pénales",
+      "page_pdf": 24,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 24,
+        "section": "Dispositions pénales"
+      },
+      "text_transcription_status": "visual_source_not_retranscribed_in_dataset"
+    },
+    {
+      "article_number": 28,
+      "chapter": "Dispositions finales",
+      "page_pdf": 25,
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 25,
+        "section": "Dispositions finales"
+      },
+      "structured_facts": {
+        "effective_from": "2024-01-01"
+      },
+      "text_transcription_status": "visual_source_not_retranscribed_in_dataset"
+    }
+  ],
+  "document_id": "ohada-sycebnl-2023-full-act",
+  "edition": "2023",
+  "registry_type": "legal_act_article_registry",
+  "source_policy": {
+    "invented_legal_rules_allowed": false,
+    "official_pdf_is_authority": true
+  },
+  "standard_id": "ohada-ebnl",
+  "statistics": {
+    "articles": 28,
+    "first_article": 1,
+    "last_article": 28
+  }
+}

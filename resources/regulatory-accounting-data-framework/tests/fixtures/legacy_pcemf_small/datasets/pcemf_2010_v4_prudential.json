@@ -1,0 +1,27 @@
+{
+  "rules": [
+    {
+      "regulation_reference": "R1",
+      "components": [
+        {
+          "id": "c1",
+          "account_selectors": [
+            {
+              "account_prefix": "57"
+            }
+          ]
+        }
+      ],
+      "formulas": [
+        {
+          "id": "f1"
+        }
+      ],
+      "thresholds": [
+        {
+          "id": "t1"
+        }
+      ]
+    }
+  ]
+}

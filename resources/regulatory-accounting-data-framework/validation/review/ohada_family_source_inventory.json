@@ -1,0 +1,209 @@
+{
+  "family_id": "ohada-accounting",
+  "documents": [
+    {
+      "standard_ref": "ohada-syscohada:2017",
+      "document_id": "syscohada-plan-2017",
+      "role": "official_chart_of_accounts",
+      "media_type": "application/pdf",
+      "authority_level": "official_or_official_republication",
+      "quality_status": "source_ready",
+      "canonical_eligibility": true,
+      "relative_path": "sources/OHADA-Plan-comptable-2017.pdf",
+      "sha256": "5005363b17ec09a1df1c9bdf4b5da848ba5abeb27d2faeac4643b89a0433497c",
+      "sha256_verified": true,
+      "bytes": 414109,
+      "derived_from": []
+    },
+    {
+      "standard_ref": "ohada-syscohada:2017",
+      "document_id": "syscohada-plan-2017-md",
+      "role": "derived_transcription",
+      "media_type": "text/markdown",
+      "authority_level": "derived",
+      "quality_status": "text_layer_extraction",
+      "canonical_eligibility": true,
+      "relative_path": "sources/OHADA-Plan-comptable-2017.md",
+      "sha256": "1a1e9e055001c66e99ec7a42278d5aaa8d0f07f26685d5e67ff9a58a9536d8bb",
+      "sha256_verified": true,
+      "bytes": 68011,
+      "derived_from": [
+        "syscohada-plan-2017"
+      ]
+    },
+    {
+      "standard_ref": "ohada-syscohada:2017",
+      "document_id": "syscohada-guide-2017",
+      "role": "official_application_guide",
+      "media_type": "application/pdf",
+      "authority_level": "official_guidance",
+      "quality_status": "source_ready",
+      "canonical_eligibility": true,
+      "relative_path": "sources/Guide-d-application-du-SYSCOHADA.pdf",
+      "sha256": "25c24c8b00be0eb53d7bdd7dce53c18ef9d46adbe2dbf16619996c0a75d4df0b",
+      "sha256_verified": true,
+      "bytes": 29887336,
+      "derived_from": []
+    },
+    {
+      "standard_ref": "ohada-syscohada:2017",
+      "document_id": "syscohada-guide-2017-md",
+      "role": "derived_application_guide_transcription",
+      "media_type": "text/markdown",
+      "authority_level": "derived",
+      "quality_status": "text_layer_extraction",
+      "canonical_eligibility": true,
+      "relative_path": "sources/Guide-d-application-du-SYSCOHADA.md",
+      "sha256": "7c6d9cc3e1e3324979dbcd65ef3938d7e58fca3bf42e2eda1e1b965b8412141f",
+      "sha256_verified": true,
+      "bytes": 649549,
+      "derived_from": [
+        "syscohada-guide-2017"
+      ]
+    },
+    {
+      "standard_ref": "ohada-ebnl:2023",
+      "document_id": "ohada-sycebnl-2023-full-act",
+      "role": "official_primary_normative_source",
+      "media_type": "application/pdf",
+      "authority_level": "official_primary_normative_source",
+      "quality_status": "official_complete_image_based_source",
+      "canonical_eligibility": true,
+      "relative_path": "sources/SYSCEBNL_Acte_Uniforme_2023.pdf",
+      "sha256": "ea818231ba98d81785f33966176c15d43934f5a2697a196b38456ec737a0457a",
+      "sha256_verified": true,
+      "bytes": 33732462,
+      "derived_from": []
+    },
+    {
+      "standard_ref": "ohada-ebnl:2023",
+      "document_id": "ohada-ebnl-plan-2023",
+      "role": "official_chart_extract_secondary_validation",
+      "media_type": "application/pdf",
+      "authority_level": "official_visual_extract",
+      "quality_status": "image_only_scan",
+      "canonical_eligibility": true,
+      "relative_path": "sources/PC-EBNL_Liste des comptes.pdf",
+      "sha256": "0ccacf4dc9e3badc0010731fc680b4b988c6c1cb9a6458e6268fbed2a1e394d7",
+      "sha256_verified": true,
+      "bytes": 5691910,
+      "derived_from": [
+        "ohada-sycebnl-2023-full-act"
+      ]
+    },
+    {
+      "standard_ref": "ohada-ebnl:2023",
+      "document_id": "ohada-ebnl-plan-2023-md",
+      "role": "ocr_transcription_secondary",
+      "media_type": "text/markdown",
+      "authority_level": "derived",
+      "quality_status": "ocr_needs_human_review",
+      "canonical_eligibility": false,
+      "relative_path": "sources/PC-EBNL_Liste des comptes.md",
+      "sha256": "91db517c560c2e2993ad6815cbe8c8bd46b640395be41f29fc14be0e7669d98e",
+      "sha256_verified": true,
+      "bytes": 68128,
+      "derived_from": [
+        "ohada-ebnl-plan-2023"
+      ]
+    },
+    {
+      "standard_ref": "cemac-pcemf:2010",
+      "document_id": "pcemf-2010",
+      "role": "official_sector_regulation_and_chart",
+      "media_type": "application/pdf",
+      "authority_level": "official_sector_authority",
+      "quality_status": "source_ready",
+      "canonical_eligibility": true,
+      "relative_path": "sources/COBAC – Plan Comptable des EMF – janvier 2010.pdf",
+      "sha256": "f4c0def0619cd0971c4c7a98de8b9d112be5231b432bc337e69d45f3de898f0e",
+      "sha256_verified": true,
+      "bytes": 1093119,
+      "derived_from": []
+    },
+    {
+      "standard_ref": "cemac-pcemf:2010",
+      "document_id": "pcemf-2010-md",
+      "role": "derived_transcription",
+      "media_type": "text/markdown",
+      "authority_level": "derived",
+      "quality_status": "text_layer_extraction",
+      "canonical_eligibility": true,
+      "relative_path": "sources/COBAC – Plan Comptable des EMF – janvier 2010.md",
+      "sha256": "629ac620ecf50878bd52df225018e01c418cef67f4f8d468c47ec8d7b779cf60",
+      "sha256_verified": true,
+      "bytes": 386333,
+      "derived_from": [
+        "pcemf-2010"
+      ]
+    },
+    {
+      "standard_ref": "cemac-pcemf:2010",
+      "document_id": "pcemf-list-2010",
+      "role": "official_visual_account_list_reference",
+      "media_type": "application/pdf",
+      "authority_level": "official_visual_source",
+      "quality_status": "image_only_scan",
+      "canonical_eligibility": true,
+      "relative_path": "sources/PC-EMF_Liste des comptes EMF.pdf",
+      "sha256": "4ffb1f8b83315ce01d16eef4163f0b64a49d33c375e7dee5290087e06e783a67",
+      "sha256_verified": true,
+      "bytes": 18730042,
+      "derived_from": []
+    },
+    {
+      "standard_ref": "cemac-pcemf:2010",
+      "document_id": "pcemf-list-2010-md",
+      "role": "page_aligned_reconstructed_transcription",
+      "media_type": "text/markdown",
+      "authority_level": "derived",
+      "quality_status": "reconstructed_from_identical_full_document_section",
+      "canonical_eligibility": false,
+      "relative_path": "sources/PC-EMF_Liste des comptes EMF.md",
+      "sha256": "1ed5778ce5cd2a64e3450506fc5d8425904b777d2316e1e0556a6bf1cdd3563a",
+      "sha256_verified": true,
+      "bytes": 90827,
+      "derived_from": [
+        "pcemf-2010",
+        "pcemf-list-2010"
+      ]
+    },
+    {
+      "standard_ref": "cemac-pcemf:2010",
+      "document_id": "pcemf-annexes-2010",
+      "role": "official_reporting_prudential_annex",
+      "media_type": "application/pdf",
+      "authority_level": "official_sector_authority",
+      "quality_status": "source_ready",
+      "canonical_eligibility": true,
+      "relative_path": "sources/Annexes-aux-textes-additifs-au-plan-comptable-des-établissements-de-microfinance.pdf",
+      "sha256": "5a4a6ddbe9d8a0bcb8529a9bf960283426c4400eaaab76e3acd04edfe727ca78",
+      "sha256_verified": true,
+      "bytes": 830480,
+      "derived_from": []
+    },
+    {
+      "standard_ref": "cemac-pcemf:2010",
+      "document_id": "pcemf-annexes-2010-md",
+      "role": "derived_reporting_prudential_transcription",
+      "media_type": "text/markdown",
+      "authority_level": "derived",
+      "quality_status": "text_layer_extraction",
+      "canonical_eligibility": true,
+      "relative_path": "sources/Annexes-aux-textes-additifs-au-plan-comptable-des-établissements-de-microfinance.md",
+      "sha256": "fef9dc619d226af2d4d3d89902ecc2f731b7c344fc1efc622f9dfe6ee8543ec4",
+      "sha256_verified": true,
+      "bytes": 140793,
+      "derived_from": [
+        "pcemf-annexes-2010"
+      ]
+    }
+  ],
+  "statistics": {
+    "documents": 13,
+    "standards": 3,
+    "canonical_eligible": 11,
+    "canonical_blocked": 2,
+    "hash_verified": 13
+  }
+}

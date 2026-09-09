@@ -1,0 +1,88 @@
+{
+  "edition": "2017",
+  "outputs": {
+    "applications": "datasets/annotated/syscohada_2017_applications.json",
+    "consolidation": "datasets/annotated/syscohada_2017_consolidation_registry.json",
+    "guide_registry": "datasets/annotated/syscohada_2017_guide_registry.json",
+    "rag": "rag/indexes/syscohada-guide-2017-v2.json",
+    "v0": "datasets/raw/syscohada_2017_v0_raw.json",
+    "v1": "datasets/structured/syscohada_2017_v1_structure.json",
+    "v2": "datasets/annotated/syscohada_2017_v2_accounting_knowledge.json",
+    "v3": "datasets/reporting/syscohada_2017_v3_reporting.json"
+  },
+  "standard_id": "ohada-syscohada",
+  "statistics": {
+    "applications": {
+      "account_mentions": 2236,
+      "applications": 142,
+      "heading_observations": 3,
+      "local_subdivision_mentions": 392,
+      "part_distribution": {
+        "DEUXIEME": 102,
+        "PREMIERE": 24,
+        "QUATRIEME": 15,
+        "TROISIEME": 1
+      },
+      "resolved_accounts_reverse_indexed": 553
+    },
+    "consolidation": {
+      "applications": 15,
+      "first_application": 128,
+      "last_application": 142
+    },
+    "guide": {
+      "applications": 142,
+      "chapters": 56,
+      "parts": 4,
+      "sections": 33
+    },
+    "rag": {
+      "average_tokens": 107.41,
+      "chunks": 621,
+      "pages_with_chunks": 437,
+      "terms": 5686
+    },
+    "v0": {
+      "classes": 9,
+      "groups": 85,
+      "main_accounts": 432,
+      "source_entries": 1403,
+      "sub_accounts": 886,
+      "unique_codes": 1403
+    },
+    "v1": {
+      "account_nodes": 1403,
+      "class_nodes": 9,
+      "depth_distribution": {
+        "1": 85,
+        "2": 432,
+        "3": 886
+      },
+      "graph_nodes": 1412,
+      "group_nodes": 85,
+      "leaf_nodes": 1108,
+      "unique_atomic_codes": 1403
+    },
+    "v2": {
+      "accounts_reverse_indexed": 553,
+      "applications": 142,
+      "chapters": 56,
+      "consolidation_applications": 15,
+      "current_operation_applications": 24,
+      "financial_statement_applications": 1,
+      "sections": 33,
+      "specific_operation_applications": 102,
+      "topics": 89
+    },
+    "v3": {
+      "balance_model_lines": 48,
+      "cashflow_model_lines": 23,
+      "income_model_lines": 34,
+      "narrative_rules": 10,
+      "notes": 46,
+      "source_observations": 2,
+      "statement_types": 4
+    }
+  },
+  "status": "built"
+}

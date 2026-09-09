@@ -1,0 +1,4602 @@
+{
+  "document_id": "ohada-sycebnl-2023-full-act",
+  "edition": "2023",
+  "extraction_policy": {
+    "full_verbatim_ocr_claimed": false,
+    "pdf_visual_source_is_authority": true,
+    "reason": "The official PDF is image-heavy; the release binds structured datasets to source pages rather than silently inventing or normalizing unread text.",
+    "router_is_metadata_not_normative_text": true
+  },
+  "page_count": 438,
+  "pages": [
+    {
+      "image_objects": 21,
+      "native_text_chars": 397,
+      "native_text_quality": "substantive",
+      "page_pdf": 1,
+      "section_id": "front_matter",
+      "section_label": "Journal officiel / sommaires",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 0,
+      "native_text_chars": 0,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 2,
+      "section_id": "front_matter",
+      "section_label": "Journal officiel / sommaires",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 0,
+      "native_text_chars": 0,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 3,
+      "section_id": "front_matter",
+      "section_label": "Journal officiel / sommaires",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 0,
+      "native_text_chars": 0,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 4,
+      "section_id": "front_matter",
+      "section_label": "Journal officiel / sommaires",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 0,
+      "native_text_chars": 2392,
+      "native_text_quality": "substantive",
+      "page_pdf": 5,
+      "section_id": "front_matter",
+      "section_label": "Journal officiel / sommaires",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 0,
+      "native_text_chars": 611,
+      "native_text_quality": "substantive",
+      "page_pdf": 6,
+      "section_id": "front_matter",
+      "section_label": "Journal officiel / sommaires",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 0,
+      "native_text_chars": 728,
+      "native_text_quality": "substantive",
+      "page_pdf": 7,
+      "section_id": "front_matter",
+      "section_label": "Journal officiel / sommaires",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 0,
+      "native_text_chars": 0,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 8,
+      "section_id": "front_matter",
+      "section_label": "Journal officiel / sommaires",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 0,
+      "native_text_chars": 84,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 9,
+      "section_id": "front_matter",
+      "section_label": "Journal officiel / sommaires",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 0,
+      "native_text_chars": 85,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 10,
+      "section_id": "front_matter",
+      "section_label": "Journal officiel / sommaires",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 86,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 11,
+      "section_id": "front_matter",
+      "section_label": "Journal officiel / sommaires",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 0,
+      "native_text_chars": 83,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 12,
+      "section_id": "front_matter",
+      "section_label": "Journal officiel / sommaires",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 86,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 13,
+      "section_id": "front_matter",
+      "section_label": "Journal officiel / sommaires",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 0,
+      "native_text_chars": 83,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 14,
+      "section_id": "front_matter",
+      "section_label": "Journal officiel / sommaires",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 129,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 15,
+      "section_id": "acte_uniforme",
+      "section_label": "Acte uniforme",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 16,
+      "section_id": "acte_uniforme",
+      "section_label": "Acte uniforme",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 2,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 17,
+      "section_id": "acte_uniforme",
+      "section_label": "Acte uniforme",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 2,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 18,
+      "section_id": "acte_uniforme",
+      "section_label": "Acte uniforme",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 19,
+      "section_id": "acte_uniforme",
+      "section_label": "Acte uniforme",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 3,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 20,
+      "section_id": "acte_uniforme",
+      "section_label": "Acte uniforme",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 2,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 21,
+      "section_id": "acte_uniforme",
+      "section_label": "Acte uniforme",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 2,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 22,
+      "section_id": "acte_uniforme",
+      "section_label": "Acte uniforme",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 2,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 23,
+      "section_id": "acte_uniforme",
+      "section_label": "Acte uniforme",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 3,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 24,
+      "section_id": "acte_uniforme",
+      "section_label": "Acte uniforme",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 25,
+      "section_id": "acte_uniforme",
+      "section_label": "Acte uniforme",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 26,
+      "section_id": "acte_uniforme",
+      "section_label": "Acte uniforme",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 2,
+      "native_text_chars": 137,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 27,
+      "section_id": "annex_front_matter",
+      "section_label": "Annexe SYCEBNL",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 0,
+      "native_text_chars": 83,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 28,
+      "section_id": "annex_front_matter",
+      "section_label": "Annexe SYCEBNL",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 129,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 29,
+      "section_id": "annex_front_matter",
+      "section_label": "Annexe SYCEBNL",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 0,
+      "native_text_chars": 83,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 30,
+      "section_id": "annex_front_matter",
+      "section_label": "Annexe SYCEBNL",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 129,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 31,
+      "section_id": "part1_definitions",
+      "section_label": "PARTIE 1 — Définitions",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 0,
+      "native_text_chars": 83,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 32,
+      "section_id": "part1_definitions",
+      "section_label": "PARTIE 1 — Définitions",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 129,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 33,
+      "section_id": "part1_definitions",
+      "section_label": "PARTIE 1 — Définitions",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 34,
+      "section_id": "part1_definitions",
+      "section_label": "PARTIE 1 — Définitions",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 129,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 35,
+      "section_id": "part1_definitions",
+      "section_label": "PARTIE 1 — Définitions",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 36,
+      "section_id": "part1_definitions",
+      "section_label": "PARTIE 1 — Définitions",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 129,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 37,
+      "section_id": "part1_definitions",
+      "section_label": "PARTIE 1 — Définitions",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 38,
+      "section_id": "part1_definitions",
+      "section_label": "PARTIE 1 — Définitions",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 129,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 39,
+      "section_id": "part1_definitions",
+      "section_label": "PARTIE 1 — Définitions",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 40,
+      "section_id": "part1_definitions",
+      "section_label": "PARTIE 1 — Définitions",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 129,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 41,
+      "section_id": "part1_definitions",
+      "section_label": "PARTIE 1 — Définitions",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 0,
+      "native_text_chars": 83,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 42,
+      "section_id": "part1_definitions",
+      "section_label": "PARTIE 1 — Définitions",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 129,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 43,
+      "section_id": "part1_conceptual_framework",
+      "section_label": "PARTIE 1 — Cadre conceptuel",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 44,
+      "section_id": "part1_conceptual_framework",
+      "section_label": "PARTIE 1 — Cadre conceptuel",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 129,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 45,
+      "section_id": "part1_conceptual_framework",
+      "section_label": "PARTIE 1 — Cadre conceptuel",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 46,
+      "section_id": "part1_conceptual_framework",
+      "section_label": "PARTIE 1 — Cadre conceptuel",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 129,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 47,
+      "section_id": "part1_conceptual_framework",
+      "section_label": "PARTIE 1 — Cadre conceptuel",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 48,
+      "section_id": "part1_conceptual_framework",
+      "section_label": "PARTIE 1 — Cadre conceptuel",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 129,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 49,
+      "section_id": "part1_conceptual_framework",
+      "section_label": "PARTIE 1 — Cadre conceptuel",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 50,
+      "section_id": "part1_conceptual_framework",
+      "section_label": "PARTIE 1 — Cadre conceptuel",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 129,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 51,
+      "section_id": "part1_conceptual_framework",
+      "section_label": "PARTIE 1 — Cadre conceptuel",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 52,
+      "section_id": "part1_conceptual_framework",
+      "section_label": "PARTIE 1 — Cadre conceptuel",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 129,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 53,
+      "section_id": "part1_conceptual_framework",
+      "section_label": "PARTIE 1 — Cadre conceptuel",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 54,
+      "section_id": "part1_conceptual_framework",
+      "section_label": "PARTIE 1 — Cadre conceptuel",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 129,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 55,
+      "section_id": "part1_conceptual_framework",
+      "section_label": "PARTIE 1 — Cadre conceptuel",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 56,
+      "section_id": "part1_conceptual_framework",
+      "section_label": "PARTIE 1 — Cadre conceptuel",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 129,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 57,
+      "section_id": "part1_conceptual_framework",
+      "section_label": "PARTIE 1 — Cadre conceptuel",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 58,
+      "section_id": "part1_conceptual_framework",
+      "section_label": "PARTIE 1 — Cadre conceptuel",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 129,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 59,
+      "section_id": "part1_conceptual_framework",
+      "section_label": "PARTIE 1 — Cadre conceptuel",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 60,
+      "section_id": "part1_conceptual_framework",
+      "section_label": "PARTIE 1 — Cadre conceptuel",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 129,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 61,
+      "section_id": "part1_conceptual_framework",
+      "section_label": "PARTIE 1 — Cadre conceptuel",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 62,
+      "section_id": "part1_conceptual_framework",
+      "section_label": "PARTIE 1 — Cadre conceptuel",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 129,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 63,
+      "section_id": "part1_conceptual_framework",
+      "section_label": "PARTIE 1 — Cadre conceptuel",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 64,
+      "section_id": "part1_conceptual_framework",
+      "section_label": "PARTIE 1 — Cadre conceptuel",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 129,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 65,
+      "section_id": "part1_conceptual_framework",
+      "section_label": "PARTIE 1 — Cadre conceptuel",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 66,
+      "section_id": "part1_conceptual_framework",
+      "section_label": "PARTIE 1 — Cadre conceptuel",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 129,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 67,
+      "section_id": "part1_conceptual_framework",
+      "section_label": "PARTIE 1 — Cadre conceptuel",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 0,
+      "native_text_chars": 83,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 68,
+      "section_id": "part1_conceptual_framework",
+      "section_label": "PARTIE 1 — Cadre conceptuel",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 146,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 69,
+      "section_id": "part2_accounting_framework",
+      "section_label": "PARTIE 2 — Cadre comptable",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 0,
+      "native_text_chars": 83,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 70,
+      "section_id": "part2_accounting_framework",
+      "section_label": "PARTIE 2 — Cadre comptable",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 146,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 71,
+      "section_id": "part2_accounting_framework",
+      "section_label": "PARTIE 2 — Cadre comptable",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 72,
+      "section_id": "part2_accounting_framework",
+      "section_label": "PARTIE 2 — Cadre comptable",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 146,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 73,
+      "section_id": "part2_accounting_framework",
+      "section_label": "PARTIE 2 — Cadre comptable",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 0,
+      "native_text_chars": 83,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 74,
+      "section_id": "part2_accounting_framework",
+      "section_label": "PARTIE 2 — Cadre comptable",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 2,
+      "native_text_chars": 146,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 75,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 76,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 146,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 77,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 78,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 146,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 79,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 80,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 146,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 81,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 82,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 146,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 83,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 2,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 84,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 146,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 85,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 86,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 146,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 87,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 88,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 146,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 89,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 90,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 146,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 91,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 92,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 146,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 93,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 94,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 146,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 95,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 96,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 146,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 97,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 161,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 98,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 146,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 99,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 163,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 100,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 157,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 101,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 102,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 2,
+      "native_text_chars": 150,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 103,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 3,
+      "native_text_chars": 165,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 104,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 150,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 105,
+      "section_id": "part2_chart",
+      "section_label": "PARTIE 2 — Structure du plan de comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 165,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 106,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 107,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 10 — : DOTATION"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 108,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 109,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 110,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 11 — RESERVES"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 111,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 112,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 12 — REPORT A NOUVEAU"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 113,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 114,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 13 — RESULTAT NET DE L’EXERCICE"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 115,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 116,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 14 — SUBVENTIONS D’INVESTISSEMENT"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 117,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 118,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 15 — PROVISIONS REGLEMENTEES ET FONDS ASSIMILES"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 119,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 120,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 16 — FONDS AFFECTES"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 121,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 122,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 123,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 124,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 17 — FONDS REPORTES"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 125,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 126,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 127,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 18 — EMPRUNTS ET DETTES ASSIMILEES"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 128,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 129,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 130,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 19 — PROVISIONS POUR RISQUES ET CHARGES ="
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 131,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 2,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 132,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 133,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 2,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 134,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 135,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 136,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 20 — IMMOBILISATIONS DESTINEES A LA VENTE PROVENANT DE DONS ET"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 137,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 138,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 21 — IMMOBILISATIONS INCORPORELLES"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 139,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 140,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 141,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 22 — TERRAINS"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 142,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 143,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 144,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 23 — BATIMENTS, INSTALLATIONS TECHNIQUES ET AGENCEMENTS"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 145,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 146,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 147,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 148,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 24 — MATERIEL, MOBILIER ET ACTIFS BIOLOGIQUES"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 149,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 150,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 151,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 25 — AVANCES ET ACOMPTES VERSES SUR IMMOBILISATIONS"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 152,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 153,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 26 — TITRES DE PARTICIPATION"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 154,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 155,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 27 — AUTRES IMMOBLISATIONS FINANCIERES"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 156,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 157,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 158,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 28 — AMORTISSEMENTS"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 159,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 160,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 161,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 29 — DEPRECIATIONS DES IMMOBILISATIONS"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 162,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 163,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 2,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 164,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 165,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 2,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 166,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 167,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 2,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 168,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 31 — BIENS LIES A L’ACTIVITE"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 169,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 2,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 170,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 32 — MARCHANDISES, MATIERES PREMIERES ET FOURNITURES LIEES"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 171,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 172,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 173,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 33 — AUTRES APPROVISIONNEMENTS"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 174,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 175,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 34 — DONS EN NATURE"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 2,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 176,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 177,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 35 — PRODUITS ET SERVICES EN COURS"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 178,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 36 — PRODUITS FINIS, PRODUITS INTERMEDIAIRE ET RESIDUELS"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 179,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 180,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 181,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 37 — STOCKS EN COURS DE ROUTE , EN CONSIGNATION, OU EN DEPOT"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 182,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 183,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 184,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 38 — DONS EN NATURE HAO"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 185,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 186,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 39 — DEPRECIATIONS DES STOCKS ET DES PRODUCTIONS EN COURS"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 187,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 188,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 189,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 40 — FOURNISSEURS ET COMPTES RATTACHES"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 2,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 190,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 191,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 192,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 193,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 41 — ADHERENTS, CLIENTS-USAGERS ET COMPTES RATTACHES"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 2,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 194,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 195,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 196,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 197,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 198,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 199,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 42 — PERSONNEL"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 200,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 201,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 43 — ORGANISMES SOCIAUX"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 202,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 203,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 44 — ETAT ET COLLECTIVITES PUBLIQUES"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 204,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 205,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 45 — FONDATEURS, APPORTEURS ET COMPTES COURANTS"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 206,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 207,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 46 — BAILLEURS, FONDS D’ADMINISTRATION"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 2,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 208,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 209,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 210,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 47 — DEBITEURS ET CREDITEURS DIVERS"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 211,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 212,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 48 — CREANCES ET DETTES DONS HORS ACTIVITES ORDINAIRES (H.A.O.)"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 213,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 2,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 214,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 215,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 216,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 49 — DEPRECIATIONS ET PROVISIONS POUR RISQUES A COURT TERME"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 217,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 218,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 50 — TITRES DE PLACEMENT"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 219,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 220,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 51 — VALEURS A ENCAISSER"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 221,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 222,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 52 — BANQUES"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 223,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 224,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 53 — ETABLISSEMENTS FINANCIERS ET ASSIMILES"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 225,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 226,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 55 — INSTRUMENTS DE MONNAIE ELECTRONIQUE"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 227,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 228,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 56 — BANQUES, CREDITS DE TRESORERIE ET D’ESCOMPTE"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 229,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 230,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 57 — CAISSE"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 231,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 232,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 58 — VIREMENTS INTERNES"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 233,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 234,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 235,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 59 — DEPRECIATIONS ET PROVISIONS POUR RISQUES A COURT TERME"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 236,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 237,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 238,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 60 — ACHATS ET VARIATIONS DE STOCKS"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 239,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 240,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 241,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 61 — TRANSPORTS"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 242,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 243,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 62 — SERVICES EXTERIEURS",
+        "Compte 63 — AUTRES SERVICES EXTERIEURS"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 244,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 245,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 246,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 247,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 64 — IMPOTS ET TAXES"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 248,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 249,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 2,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 250,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 65 — AUTRES CHARGES"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 251,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 252,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 253,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 254,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 66 — CHARGES DE PERSONNEL"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 255,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 256,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 257,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 258,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 67 — FRAIS FINANCIERS ET CHARGES ASSIMILEES"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 259,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 260,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 261,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 68 — DOTATIONS AUX AMORTISSEMENTS"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 262,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 263,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 69 — DOTATIONS AUX PROVISIONS ET AUX DEPRECIATIONS"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 2,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 264,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 265,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 266,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 70 — REVENUS"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 267,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 268,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 71 — SUBVENTIONS D’EXPLOITATION"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 269,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 270,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 72 — PRODUCTION IMMOBILISEE"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 271,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 272,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 73 — VARIATIONS DES STOCKS DE BIENS PRODUITS"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 273,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 274,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 275,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 75 — AUTRES PRODUITS"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 276,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 277,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 278,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 279,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 77 — REVENUS FINANCIERS ET PRODUITS ASSIMILES"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 280,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 281,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 78 — TRANSFERTS DE CHARGES"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 282,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 283,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 79 — REPRISES DE PROVISIONS, DE DEPRECIATIONS ET AUTRES"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 284,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 285,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 2,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 286,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 287,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 2,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 288,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 81 — VALEURS COMPTABLES DES CESSIONS D’IMMOBILISATIONS"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 289,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 290,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 82 — PRODUITS DES CESSIONS D’IMMOBILISATIONS"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 291,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 292,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 83 — CHARGES HORS ACTIVITES ORDINAIRES"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 293,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 294,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 295,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 84 — REVENUS HORS ACTIVITES ORDINAIRES"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 296,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 297,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 85 — DOTATIONS HORS ACTIVITES ORDINAIRES"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 2,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 298,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 299,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 86 — REPRISES D'AMORTISSEMENTS, PROVISIONS ET DEPRECIATIONS HAO."
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 300,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 301,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 87 — VARIATIONS DE STOCKS DE DONS EN NATURE HAO"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 302,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 303,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 88 — SUBVENTIONS D’EQUILIBRE"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 2,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 304,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 305,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 306,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 90 — EMPLOIS DES CONTRIBUTIONS VOLONTAIRES EN NATURE",
+        "Compte 91 — CONTRIBUTIONS VOLONTAIRES EN NATURE"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 141,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 307,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 308,
+      "section_id": "part2_account_functioning",
+      "section_label": "PARTIE 2 — Contenu et fonctionnement des comptes",
+      "title_bindings": [
+        "Compte 92 — COMPTES REFLECHIS",
+        "Compte 93 — COMPTES DE RECLASSEMENTS",
+        "Compte 94 — COMPTES DE COOTS",
+        "Compte 95 — COMPTES DE STOCKS",
+        "Compte 96 — COMPTES D'ECARTS SUR COUTS PREETABLIS",
+        "Compte 97 — COMPTES DE DIFFERENCES DE TRAITEMENT COMPTABLE",
+        "Compte 98 — COMPTES DE RESULTATS",
+        "Compte 99 — COMPTES DE LIAISONS INTERNES"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 127,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 309,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 0,
+      "native_text_chars": 77,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 310,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 127,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 311,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [
+        "Chapitre 1 — Fonds propres des associations et ordres professionnels"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 312,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 127,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 313,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 314,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 127,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 315,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 316,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 127,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 317,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 0,
+      "native_text_chars": 77,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 318,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 127,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 319,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [
+        "Chapitre 2 — Fonds affectés et reportés des associations et ordres professionnels"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 320,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 127,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 321,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 322,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 127,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 323,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 2,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 324,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 127,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 325,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [
+        "Chapitre 3 — Fonds propres des projets de développement et assimilés"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 326,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 127,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 327,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 81,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 328,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 127,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 329,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [
+        "Chapitre 4 — Dons"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 330,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 127,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 331,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 0,
+      "native_text_chars": 80,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 332,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 127,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 333,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [
+        "Chapitre 5 — Cotisations des membres et versements des fondateurs"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 334,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 127,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 335,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [
+        "Chapitre 6 — Autres opérations spécifiques"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 336,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 127,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 337,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 0,
+      "native_text_chars": 77,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 338,
+      "section_id": "part3_specific_operations",
+      "section_label": "PARTIE 3 — Opérations et problèmes spécifiques",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 339,
+      "section_id": "part4_reporting_principles",
+      "section_label": "PARTIE 4 — Principes généraux",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 0,
+      "native_text_chars": 77,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 340,
+      "section_id": "part4_reporting_principles",
+      "section_label": "PARTIE 4 — Principes généraux",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 341,
+      "section_id": "part4_reporting_principles",
+      "section_label": "PARTIE 4 — Principes généraux",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 342,
+      "section_id": "part4_reporting_principles",
+      "section_label": "PARTIE 4 — Principes généraux",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 343,
+      "section_id": "part4_reporting_principles",
+      "section_label": "PARTIE 4 — Principes généraux",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 344,
+      "section_id": "part4_reporting_principles",
+      "section_label": "PARTIE 4 — Principes généraux",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 345,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [
+        "Associations et ordres professionnels"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 346,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [
+        "Bilan"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 347,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [
+        "Compte de résultat"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 348,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [
+        "Tableau des flux de trésorerie"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 349,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [
+        "Notes annexes"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 350,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 351,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 352,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 353,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 354,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 355,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 356,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 357,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 358,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 359,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 360,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 361,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 362,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 363,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 364,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 365,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 366,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 367,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 368,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 369,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 370,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 371,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 372,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 373,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 374,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 375,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 376,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 377,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 378,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 379,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 380,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 381,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 382,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 383,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 384,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 385,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 386,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 387,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 388,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 389,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 390,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 391,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 392,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 393,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 394,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 395,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 396,
+      "section_id": "part4_association_reporting",
+      "section_label": "PARTIE 4 — Associations et ordres professionnels",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 397,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [
+        "Projets de développement et assimilés"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 398,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [
+        "Tableau emplois-ressources"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 399,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [
+        "Tableau d'exécution budgétaire"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 400,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [
+        "Tableau de réconciliation de trésorerie"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 401,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [
+        "Bilan"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 402,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [
+        "Compte d'exploitation"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 403,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [
+        "Notes annexes"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 404,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 405,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 406,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 407,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 408,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 409,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 410,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 411,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 412,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 413,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 414,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 415,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 416,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 417,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 418,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 419,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 420,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 421,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 422,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 423,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 424,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 425,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 426,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 427,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 428,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 429,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 430,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 431,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 0,
+      "native_text_chars": 79,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 432,
+      "section_id": "part4_project_reporting",
+      "section_label": "PARTIE 4 — Projets de développement et assimilés",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 433,
+      "section_id": "part4_smt_reporting",
+      "section_label": "PARTIE 4 — Système Minimal de Trésorerie",
+      "title_bindings": [
+        "Système Minimal de Trésorerie"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 434,
+      "section_id": "part4_smt_reporting",
+      "section_label": "PARTIE 4 — Système Minimal de Trésorerie",
+      "title_bindings": [
+        "Bilan"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 435,
+      "section_id": "part4_smt_reporting",
+      "section_label": "PARTIE 4 — Système Minimal de Trésorerie",
+      "title_bindings": [
+        "Compte de résultat",
+        "Notes annexes"
+      ],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 2,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 436,
+      "section_id": "part4_smt_reporting",
+      "section_label": "PARTIE 4 — Système Minimal de Trésorerie",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 125,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 437,
+      "section_id": "part4_smt_reporting",
+      "section_label": "PARTIE 4 — Système Minimal de Trésorerie",
+      "title_bindings": [],
+      "visual_source_authority": true
+    },
+    {
+      "image_objects": 1,
+      "native_text_chars": 156,
+      "native_text_quality": "sparse_or_header_only",
+      "page_pdf": 438,
+      "section_id": "part4_smt_reporting",
+      "section_label": "PARTIE 4 — Système Minimal de Trésorerie",
+      "title_bindings": [],
+      "visual_source_authority": true
+    }
+  ],
+  "standard_id": "ohada-ebnl",
+  "statistics": {
+    "pages": 438,
+    "pages_sparse_or_header_only": 434,
+    "pages_with_substantive_native_text": 4,
+    "pages_with_title_bindings": 96
+  }
+}

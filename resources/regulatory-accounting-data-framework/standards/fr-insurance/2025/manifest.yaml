@@ -1,0 +1,28 @@
+standard_id: fr-insurance
+standard_name: Recueil ANC - entreprises du secteur de l'assurance
+authority: ANC
+jurisdiction: FR
+language: fr
+edition: '2025'
+effective_from: null
+effective_to: null
+base_standard: fr-pcg:2025
+extension_type: sector_adaptation
+source_documents:
+- document_id: fr-insurance-recueil-2025
+  relative_path: sources/ANC-Assurance-Recueil-2025.pdf
+  media_type: application/pdf
+  role: sector_regulation
+  sha256: null
+  derived_from: []
+capabilities:
+  chart_of_accounts: true
+  structure: true
+  posting_guidance: true
+  financial_reporting: true
+  prudential: true
+  disclosures: true
+  consolidation: false
+  sector_adaptations: true
+  crosswalk: true
+  business_enrichment: false

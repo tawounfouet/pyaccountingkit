@@ -1,0 +1,51 @@
+{
+  "capabilities": {
+    "conceptual_framework": {
+      "source": "ohada-sycebnl-2023-full-act",
+      "status": "implemented_source_registry"
+    },
+    "disclosures": {
+      "field_level_exhaustive_transcription": false,
+      "source": "ohada-sycebnl-2023-full-act",
+      "status": "implemented_source_registry"
+    },
+    "full_verbatim_ocr": {
+      "reason": "image-heavy official source; page router + visual authority retained",
+      "status": "not_claimed"
+    },
+    "legal_act_registry": {
+      "source": "ohada-sycebnl-2023-full-act",
+      "status": "implemented"
+    },
+    "specific_operations": {
+      "executable_rules_generated": false,
+      "source": "ohada-sycebnl-2023-full-act",
+      "status": "implemented_source_registry"
+    },
+    "v0_chart": {
+      "source": "official chart extract + reviewed structure",
+      "status": "implemented"
+    },
+    "v1_structure": {
+      "source": "official chart extract + structural visual review ledger",
+      "status": "implemented"
+    },
+    "v2_account_functioning": {
+      "executable_rules_generated": false,
+      "invented_rules_allowed": false,
+      "source": "ohada-sycebnl-2023-full-act",
+      "status": "implemented_source_registry"
+    },
+    "v3_reporting": {
+      "automatic_template_generation": false,
+      "invented_templates_allowed": false,
+      "source": "ohada-sycebnl-2023-full-act",
+      "status": "implemented_reporting_profiles_and_visual_template_registry"
+    }
+  },
+  "edition": "2023",
+  "normative_source_gap_closed": true,
+  "remaining_engineering_gap": "Line-level transcription of image-based detailed functioning/reporting templates remains a separate extraction layer; it is not required to establish normative source completeness.",
+  "source_bundle_scope": "complete_official_act_438_pages",
+  "standard_id": "ohada-ebnl"
+}

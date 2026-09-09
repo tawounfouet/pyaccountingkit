@@ -1,0 +1,15 @@
+{
+  "annotations": [
+    {
+      "annotation_id": "a57",
+      "source_account_codes": [
+        "57"
+      ],
+      "fields": {
+        "est_debite": {
+          "mode": "normal"
+        }
+      }
+    }
+  ]
+}

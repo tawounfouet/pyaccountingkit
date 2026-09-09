@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "regulatory-accounting-data"
+version = "0.7.1"
+description = "Framework multi-référentiels pour transformer des sources comptables réglementaires en données structurées, traçables et auditables."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "pydantic>=2.7,<3",
+  "PyYAML>=6.0,<7",
+  "typer>=0.12,<1",
+]
+
+[project.optional-dependencies]
+pdf = ["PyMuPDF>=1.24,<2"]
+dev = ["pytest>=8,<10"]
+
+[project.scripts]
+regdata = "regacct.cli:app"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

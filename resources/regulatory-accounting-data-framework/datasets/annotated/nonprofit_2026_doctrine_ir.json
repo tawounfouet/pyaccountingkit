@@ -1,0 +1,1969 @@
+{
+  "blocks": [
+    {
+      "article_ref": null,
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "TOME  I : Règlement ANC n° 2018-06  relatif aux"
+      ],
+      "heading_source": "Eléments de contexte",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR1:0001",
+      "ir_type": "IR1",
+      "page_end_pdf": 9,
+      "page_start_pdf": 9,
+      "source_line_md": 371,
+      "text_source": "Les personnes morales de droit privé non commerçantes à but non lucratif, tenues d’établir des comptes\nannuels, appliquent les dispositions du règlement n° 2014-03 de l’Autorité des normes comptables relatif au\nplan comptable général sous réserve des dispositions spécifiques prévues au règlement n° 2018-06 de\nl’Autorité des normes comptables relatif aux comptes annuels des personnes morales de droit privé à but non\nlucratif, comme indiqué aux articles 111-1 et 111-2 de ce dernier règlement.\n## Livre I : Principes généraux applicables aux différents\npostes des documents de synthèse\n\n### Titre I – Objet et principes de la comptabilité\n\n#### Chapitre I – Champ et modalités d’application"
+    },
+    {
+      "article_ref": "111-1",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre I : Principes généraux applicables aux différents",
+        "Titre I – Objet et principes de la comptabilité",
+        "Chapitre I – Champ et modalités d’application"
+      ],
+      "heading_source": "Entités entrant dans le champ d’application",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR2:0001",
+      "ir_type": "IR2",
+      "page_end_pdf": 10,
+      "page_start_pdf": 9,
+      "source_line_md": 392,
+      "text_source": "Les dispositions du présent règlement s’appliquent notamment :\n\n•   aux associations relevant de la  loi du  1er  juillet 1901 relative au contrat d’association et aux\nassociations des départements du Bas-Rhin, du Haut-Rhin et de la Moselle relevant du code civil local\nqui sont soumises à des obligations législatives ou réglementaires d’établissement de comptes\nannuels dont :\no   les associations entrant dans le champ d’application de l’article L. 612-1 du code de commerce ;\no   les associations entrant dans le champ d’application de l’article L. 612-4 du code de commerce ;\no   les associations entrant dans le champ d’application de l’article L. 213-15 du code monétaire et\nfinancier ;\n\nVersion du 1er janvier 2026                                                               8\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\no   les associations faisant appel à la générosité du public visées par l’article 3 de la loi n° 91-772 du\n7 août 1991 ;\no   les associations mentionnées au deuxième alinéa de l’article 4 de la  loi du 2 janvier 1907\nconcernant l’exercice public des cultes ;\no   les associations des départements du Bas-Rhin, du Haut-Rhin et de la Moselle qui ont pour objet,\nexclusif ou non, l’exercice public d’un culte ;\n\n•   aux associations et unions mentionnées au premier alinéa de l’article 21 de la loi du 9 décembre 1905\nconcernant la séparation des Eglises et de l’Etat ;\n\n•   aux fondations reconnues d’utilité publique et aux fondations d’entreprise relevant de la loi n° 87-571\ndu 23 juillet 1987 modifiée par la loi n° 90-559 du 4 juillet 1990 ;\n\n•   aux fondations de coopération scientifique relevant de la loi de programme n° 2006-450 du 18 avril\n2006 pour la recherche ;\n\n•   aux fondations partenariales relevant de la loi n° 2007-1199 du 10 août 2007 relative aux libertés et\nresponsabilités des universités ;\n\n•   aux fondations hospitalières relevant des articles L. 6141-7-3 et R. 6141-53 à R. 6141-66 du code de\nla santé publique ;\n\n•   aux fonds de dotation relevant de l’article 140 de la loi n° 2008-776 du 4 août 2008 de modernisation\nde l’économie ;\n\n•   aux groupements de coopération sanitaire de droit privé et aux groupements de coopération sociale\net médico-sociale de droit privé régis par le chapitre III du titre III du livre I du code de la santé publique.\n\nLe présent règlement est également applicable aux entités suivantes n’ayant pas la personnalité morale :\n\n•   aux fondations abritées relevant de  l’article 20 de  la  loi n° 87-571 du 23  juillet 1987 sur  le\ndéveloppement du mécénat ;\n\n•   aux fondations universitaires relevant de la loi n° 2007-1199 du 10 août 2007 relative aux libertés et\nresponsabilités des universités."
+    },
+    {
+      "article_ref": "111-1",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre I : Principes généraux applicables aux différents",
+        "Titre I – Objet et principes de la comptabilité",
+        "Chapitre I – Champ et modalités d’application"
+      ],
+      "heading_source": "Entités bénéficiant par un règlement de l’ANC de dispositions particulières",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR2:0002",
+      "ir_type": "IR2",
+      "page_end_pdf": 11,
+      "page_start_pdf": 10,
+      "source_line_md": 444,
+      "text_source": "Pour les entités suivantes, un règlement établi par l’Autorité des normes comptables prévoit des dispositions\nspécifiques avec des renvois au présent règlement :\n\n•   les syndicats professionnels et à leurs unions mentionnés aux articles L. 2131-2, L. 2133-1 et\nL. 2133-2 du code du travail avec le règlement CRC n° 2009-10 ;\n\n•   les comités sociaux et économiques tenus d’établir des comptes annuels avec le règlement ANC\nn° 2021-05 ;\n\n•   les organismes paritaires de la formation professionnelle  - qui s’entendent des opérateurs de\ncompétences, en application des dispositions de  l’article L. 6332-1 du code du travail, et des\ncommissions paritaires interprofessionnelles régionales, en application des dispositions de l’article\nL. 6323-17-6 du code du travail - avec le règlement ANC n° 2019-03 ;\n\n•    l’institution nationale publique France Compétences visée par l’article L. 6123-5 du code du travail\navec le règlement ANC n° 2019-03 ;\n\n•   les mutuelles n’assumant pas un risque d’assurance relevant du livre III du code de la mutualité avec\nle règlement CRC n° 2002-07 ;\n\nVersion du 1er janvier 2026                                                               9\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n•   les institutions de prévoyance régies par le titre III du livre IX du code de la sécurité sociale et par le II\nde l’article L. 727-2 du code rural et de la pêche maritime et les mutuelles et unions relevant du livre\nII du code de la mutualité et assumant un risque d’assurance avec le règlement ANC n° 2015-11 ;\n\n•   les banques mutualistes ou coopératives au sens de l’article L. 511-9 du code monétaire et financier,\navec le règlement ANC n° 2014-07."
+    },
+    {
+      "article_ref": "121-2",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre I : Principes généraux applicables aux différents",
+        "Titre II – L’actif",
+        "Chapitre I – Définition et évaluation à la date d’entrée dans le patrimoine",
+        "Section 2 – Evaluation des actifs à leur date d’entrée dans le patrimoine"
+      ],
+      "heading_source": "Valeur vénale",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0001",
+      "ir_type": "IR3",
+      "page_end_pdf": 11,
+      "page_start_pdf": 11,
+      "source_line_md": 505,
+      "text_source": "Voir l’article 214-6 du règlement ANC n° 2014-03 relatif au plan comptable général et les commentaires y\nafférents."
+    },
+    {
+      "article_ref": "121-2",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre I : Principes généraux applicables aux différents",
+        "Titre II – L’actif",
+        "Chapitre I – Définition et évaluation à la date d’entrée dans le patrimoine",
+        "Section 2 – Evaluation des actifs à leur date d’entrée dans le patrimoine"
+      ],
+      "heading_source": "Opérations entrant dans le champ d’application",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR2:0003",
+      "ir_type": "IR2",
+      "page_end_pdf": 11,
+      "page_start_pdf": 11,
+      "source_line_md": 508,
+      "text_source": "Ces dispositions sont notamment applicables aux biens reçus par legs ou donations.\n\n#### Chapitre II – Réévaluation des immobilisations"
+    },
+    {
+      "article_ref": "122-1",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre I : Principes généraux applicables aux différents",
+        "Titre II – L’actif",
+        "Chapitre II – Réévaluation des immobilisations"
+      ],
+      "heading_source": "Modalités d’application",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0002",
+      "ir_type": "IR3",
+      "page_end_pdf": 12,
+      "page_start_pdf": 12,
+      "source_line_md": 528,
+      "text_source": "La réévaluation doit porter sur l’ensemble des immobilisations corporelles et financières. Les immobilisations\nincorporelles et l’actif circulant ne peuvent pas faire l’objet d’une réévaluation.\n\n### Titre III – Le passif\n\n#### Chapitre I – Fonds propres"
+    },
+    {
+      "article_ref": "131-2",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre I : Principes généraux applicables aux différents",
+        "Titre III – Le passif",
+        "Chapitre I – Fonds propres"
+      ],
+      "heading_source": "Définition des fonds propres",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0003",
+      "ir_type": "IR3",
+      "page_end_pdf": 13,
+      "page_start_pdf": 12,
+      "source_line_md": 568,
+      "text_source": "Version du 1er janvier 2026                                                              11\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\nLes fonds propres sont constitués par des apports des membres ou des affectations de fondateurs, de\npersonnes physiques, de personnes morales, d’autorités administratives et, au fur et à mesure de la vie de\nl’entité, par les résultats de l’entité.\n\nLes fonds propres permettent d’assurer la pérennité des activités et le développement de nouveaux projets.\n\nCe patrimoine n’appartient ni aux membres ni aux fondateurs (sauf en cas d’exercice du droit de reprise)\npuisqu’en cas de liquidation non judiciaire de l’entité,  il sera dévolu à une autre personne morale d’intérêt\ngénéral et non aux membres ou aux fondateurs (exception faite des entités situées dans les départements du\nBas-Rhin, du Haut-Rhin et de la Moselle relevant des articles 21 à 79 du code civil local)."
+    },
+    {
+      "article_ref": "131-2",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre I : Principes généraux applicables aux différents",
+        "Titre III – Le passif",
+        "Chapitre I – Fonds propres"
+      ],
+      "heading_source": "Modalités de mise en œuvre",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0004",
+      "ir_type": "IR3",
+      "page_end_pdf": 13,
+      "page_start_pdf": 13,
+      "source_line_md": 585,
+      "text_source": "Les fonds propres sans droit de reprise sont la contrepartie de biens ou de fonds qui ne peuvent être repris ni\npar leurs apporteurs, ni par les membres de l’entité. Ce n'est qu'à la liquidation de l'entité qu'ils feront l'objet\nd'un traitement spécifique (l'apport à une autre entité ayant le même objet le plus fréquemment).\n\nS’agissant de fonds propres avec droit de reprise, la convention d’apport fixe les conditions (évènement dont\nla survenance justifie la reprise du bien ou des fonds apportés tel que, par exemple, la dissolution de l’entité)\net les modalités de reprise du bien (bien repris en l’état, bien repris en valeur à neuf...).\n\nEn fonction des modalités de reprise, l’entité enregistre le cas échéant, les charges et provisions lui permettant\nde remplir ses obligations découlant de cette convention."
+    },
+    {
+      "article_ref": "131-3",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre I : Principes généraux applicables aux différents",
+        "Titre III – Le passif",
+        "Chapitre I – Fonds propres"
+      ],
+      "heading_source": "Cas particulier",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0005",
+      "ir_type": "IR3",
+      "page_end_pdf": 13,
+      "page_start_pdf": 13,
+      "source_line_md": 600,
+      "text_source": "Le résultat ne peut être attribué aux membres ou aux fondateurs, qui n’ont aucun droit individuel sur celui-ci\nsauf pour les associations situées dans l’un des départements du Bas-Rhin, du Haut-Rhin et de la Moselle.\n\n#### Chapitre II – Fonds dédiés"
+    },
+    {
+      "article_ref": "132-1",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre I : Principes généraux applicables aux différents",
+        "Titre III – Le passif",
+        "Chapitre II – Fonds dédiés"
+      ],
+      "heading_source": "Notion de projet défini",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR2:0004",
+      "ir_type": "IR2",
+      "page_end_pdf": 13,
+      "page_start_pdf": 13,
+      "source_line_md": 610,
+      "text_source": "Le projet défini répond aux deux conditions suivantes :\n•   participer à la réalisation d’une partie spécifique de l’objet de l’entité ou d’une cause particulière entrant\ndans le champ de l’objet social de l’entité ;\n•   être clairement identifiable, les charges imputables au projet étant individualisables."
+    },
+    {
+      "article_ref": "132-1",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre I : Principes généraux applicables aux différents",
+        "Titre III – Le passif",
+        "Chapitre II – Fonds dédiés"
+      ],
+      "heading_source": "Modalités de mise en œuvre",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0006",
+      "ir_type": "IR3",
+      "page_end_pdf": 14,
+      "page_start_pdf": 13,
+      "source_line_md": 615,
+      "text_source": "Pour apprécier si le tiers qui apporte les ressources les consacre à un projet défini, plusieurs situations peuvent\nse présenter :\n1) Si le projet a été précisé dès l’appel à la générosité du public et préalablement à l’acte de générosité et si\nle projet correspond aux critères d’un projet défini, le schéma comptable des fonds dédiés est utilisé.\n2) Les fonds qui proviennent d’une collecte dont l’objectif annoncé se confond avec l’objet social ou ne\nprésente pas des caractéristiques d’autonomie suffisantes, ne peuvent pas faire l’objet d’une imputation en\n\nVersion du 1er janvier 2026                                                              12\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\nfonds dédiés en fin d’exercice. A des fins de transparence vis-à-vis des donateurs, l’information portant sur un\nengagement de l’entité d’une utilisation particulière des fonds ainsi collectés est donnée dans l’annexe."
+    },
+    {
+      "article_ref": "132-1",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre I : Principes généraux applicables aux différents",
+        "Titre III – Le passif",
+        "Chapitre II – Fonds dédiés"
+      ],
+      "heading_source": "Définition des tiers financeurs",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0007",
+      "ir_type": "IR3",
+      "page_end_pdf": 14,
+      "page_start_pdf": 14,
+      "source_line_md": 630,
+      "text_source": "Au sens du présent article, les tiers financeurs sont les autorités administratives, les donateurs, les testateurs,\nles mécènes, les personnes morales de droit privé à but non lucratif.\n\nLoi n° 2000-321 du 12 avril 2000 relative aux droits des citoyens dans leurs relations avec des administrations"
+    },
+    {
+      "article_ref": "132-2",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre I : Principes généraux applicables aux différents",
+        "Titre III – Le passif",
+        "Chapitre II – Fonds dédiés"
+      ],
+      "heading_source": "Principe de comptabilisation des subventions d’exploitation",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0008",
+      "ir_type": "IR3",
+      "page_end_pdf": 14,
+      "page_start_pdf": 14,
+      "source_line_md": 649,
+      "text_source": "Les sommes inscrites en fonds dédiés correspondent soit à la part non consommée s’il s’agit d’une convention\nannuelle dont le financeur ne réclame pas la restitution, soit à la part non consommée de la partie rattachée à\nl’exercice s’il s’agit d’une convention pluriannuelle."
+    },
+    {
+      "article_ref": "132-3",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre I : Principes généraux applicables aux différents",
+        "Titre III – Le passif",
+        "Chapitre II – Fonds dédiés"
+      ],
+      "heading_source": "Utilisation des fonds dédiés pour l’acquisition ou la production d’une immobilisation non",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0009",
+      "ir_type": "IR3",
+      "page_end_pdf": 14,
+      "page_start_pdf": 14,
+      "source_line_md": 668,
+      "text_source": "amortissable\nSi les sommes inscrites en fonds dédiés servent à acquérir ou produire une immobilisation non amortissable,\nces montants sont comptabilisés au crédit du compte « Utilisations de fonds dédiés » lors de l’acquisition ou\nde la production de l’immobilisation."
+    },
+    {
+      "article_ref": "141-3",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre I : Principes généraux applicables aux différents",
+        "Titre IV – Charges et produits",
+        "Chapitre I – Charges"
+      ],
+      "heading_source": "Définition",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0010",
+      "ir_type": "IR3",
+      "page_end_pdf": 15,
+      "page_start_pdf": 15,
+      "source_line_md": 704,
+      "text_source": "Les apports ou affectations sont soit en numéraire soit en nature. Les apports en nature correspondent à\nl’apport de tout bien qu’il soit matériel ou immatériel autre que l’argent."
+    },
+    {
+      "article_ref": "141-3",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre I : Principes généraux applicables aux différents",
+        "Titre IV – Charges et produits",
+        "Chapitre I – Charges"
+      ],
+      "heading_source": "Précisions sur le champ d’application",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR2:0005",
+      "ir_type": "IR2",
+      "page_end_pdf": 15,
+      "page_start_pdf": 15,
+      "source_line_md": 707,
+      "text_source": "Ces dispositions ne s’appliquent pas aux opérations d’apports partiels d’actifs prévues à l’article 9 bis de la loi\ndu 1er juillet 1901 relative au contrat d’association et à l’article 20-1 de la loi n° 87-571 du 23 juillet 1987 sur le\ndéveloppement du mécénat."
+    },
+    {
+      "article_ref": "141-4",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre I : Principes généraux applicables aux différents",
+        "Titre IV – Charges et produits",
+        "Chapitre I – Charges"
+      ],
+      "heading_source": "Contexte réglementaire",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR1:0002",
+      "ir_type": "IR1",
+      "page_end_pdf": 16,
+      "page_start_pdf": 15,
+      "source_line_md": 716,
+      "text_source": "En application du 2° de l’article 200 du code général des impôts, le bénévole, personne physique, ne peut\nbénéficier de la réduction d’impôt prévue à cet article que si ses frais de déplacements, missions et réceptions\nont été comptabilisés dans les comptes de l’entité :\n\nVersion du 1er janvier 2026                                                              14\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n•  en charges en contrepartie de la constatation d’une dette vis-à-vis du bénévole ;\n•   puis en produits par abandon par le bénévole de sa créance."
+    },
+    {
+      "article_ref": "141-4",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre I : Principes généraux applicables aux différents",
+        "Titre IV – Charges et produits",
+        "Chapitre I – Charges"
+      ],
+      "heading_source": "Schémas comptables",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR5:0001",
+      "ir_type": "IR5",
+      "page_end_pdf": 16,
+      "page_start_pdf": 16,
+      "source_line_md": 729,
+      "text_source": "1) Comptabilisation des frais des bénévoles\n\nD       C\n6251Voyagesetdéplacements                             100\n6256Missions                                    50\n6257Réceptions                                   25\n4681-Fraisdesbénévoles                175\n2) Abandon des frais par les bénévoles\n\nD       C\n4681-Fraisdesbénévoles                                     175\n75412 - Abandons de frais par les bénévoles              175\n\n#### Chapitre II – Produits"
+    },
+    {
+      "article_ref": "142-5",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre I : Principes généraux applicables aux différents",
+        "Titre IV – Charges et produits",
+        "Chapitre II – Produits"
+      ],
+      "heading_source": "Parrainage",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0011",
+      "ir_type": "IR3",
+      "page_end_pdf": 17,
+      "page_start_pdf": 17,
+      "source_line_md": 786,
+      "text_source": "Il n’existe pas de définition juridique du parrainage, seulement une définition terminologique. Le parrainage\nest un soutien financier apporté à l’entité par une personne physique ou morale comportant une contrepartie\ndirecte (en général publicitaire) pour le partenaire. Les opérations de parrainage sont destinées à promouvoir\nl’image du partenaire. (Répertoire terminologique établi par la Commission générale de terminologie et de\nnéologie, publié au JO du 22 septembre 2000)."
+    },
+    {
+      "article_ref": "142-6",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre I : Principes généraux applicables aux différents",
+        "Titre IV – Charges et produits",
+        "Chapitre II – Produits"
+      ],
+      "heading_source": "Mécénat",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0012",
+      "ir_type": "IR3",
+      "page_end_pdf": 17,
+      "page_start_pdf": 17,
+      "source_line_md": 797,
+      "text_source": "Il n’existe pas de définition juridique du mécénat, seulement une définition terminologique. Le mécénat est un\nsoutien financier ou matériel apporté, sans contrepartie directe de la part du bénéficiaire, par une personne\nmorale ou une personne physique à une action ou une activité d’intérêt général (Répertoire terminologique\nétabli par la Commission générale de terminologie et de néologie, publié au JO du 22 septembre 2000)."
+    },
+    {
+      "article_ref": "142-7",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre I : Principes généraux applicables aux différents",
+        "Titre IV – Charges et produits",
+        "Chapitre II – Produits"
+      ],
+      "heading_source": "Produit-partage",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0013",
+      "ir_type": "IR3",
+      "page_end_pdf": 17,
+      "page_start_pdf": 17,
+      "source_line_md": 808,
+      "text_source": "Une convention de produit-partage consiste par exemple en un reversement d’une part du prix de vente d’un\narticle ou d’un service à une entité bénéficiaire."
+    },
+    {
+      "article_ref": "9-1",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre I : Principes généraux applicables aux différents",
+        "Titre IV – Charges et produits",
+        "Chapitre II – Produits"
+      ],
+      "heading_source": "Subvention d’exploitation",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0014",
+      "ir_type": "IR3",
+      "page_end_pdf": 18,
+      "page_start_pdf": 18,
+      "source_line_md": 836,
+      "text_source": "Une subvention d’exploitation est octroyée à l’entité pour lui permettre de compenser l’insuffisance de certains\nproduits d’exploitation ou de faire face à certaines charges d’exploitation."
+    },
+    {
+      "article_ref": "9-1",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre I : Principes généraux applicables aux différents",
+        "Titre IV – Charges et produits",
+        "Chapitre II – Produits"
+      ],
+      "heading_source": "Contrepartie en fonds dédiés",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0015",
+      "ir_type": "IR3",
+      "page_end_pdf": 18,
+      "page_start_pdf": 18,
+      "source_line_md": 839,
+      "text_source": "La fraction de subvention dédiée à un projet défini tel que défini à l’article 132-1 qui n’a pu être utilisée\nconformément à son objet au cours de l’exercice est comptabilisée dans le compte de charges « Reports en\nfonds dédiés sur subventions d’exploitation » en contrepartie du passif « Fonds dédiés sur subventions\nd’exploitation »."
+    },
+    {
+      "article_ref": "142-9",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre I : Principes généraux applicables aux différents",
+        "Titre IV – Charges et produits",
+        "Chapitre II – Produits"
+      ],
+      "heading_source": "Définition",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0016",
+      "ir_type": "IR3",
+      "page_end_pdf": 18,
+      "page_start_pdf": 18,
+      "source_line_md": 849,
+      "text_source": "Un concours public est une contribution financière apportée par une autorité administrative en application d’un\ndispositif législatif ou réglementaire (par opposition à la subvention, attribuée de façon facultative et objet d’une\ndécision particulière).\n\nPar exemple, peuvent être qualifiés de concours publics les ressources publiques des établissements\nsanitaires de droit privé relevant du code de la santé publique, les aides financières versées par la Caisse\nd’allocations familiales.\n\nLe cas particulier des contributions financières apportées par les autorités administratives aux établissements\net services sociaux et médico-sociaux relevant du code de l’action sociale et des familles fait l’objet de règles\nspécifiques prévues par le règlement ANC n° 2019-04 du 08 novembre 2019 relatif aux activités sociales et\nmédico-sociales gérées par des personnes morales de droit privé à but non lucratif."
+    },
+    {
+      "article_ref": "142-9",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre I : Principes généraux applicables aux différents",
+        "Titre IV – Charges et produits",
+        "Chapitre II – Produits"
+      ],
+      "heading_source": "Précisions sur les modalités d’application des règles sur les produits - Traitement comptable des",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0017",
+      "ir_type": "IR3",
+      "page_end_pdf": 19,
+      "page_start_pdf": 18,
+      "source_line_md": 862,
+      "text_source": "montants reçus au titre du solde de la taxe d’apprentissage\nLa loi du 5 septembre 2018 pour la liberté de choisir son avenir professionnel a modifié le système de collecte\net de répartition du solde de la taxe d’apprentissage.\n\nLes employeurs assujettis à la taxe d'apprentissage peuvent s’acquitter du solde de la taxe d’apprentissage,\nau choix, alternativement ou cumulativement :\n\n•   par un versement annuel unique destiné à financer le développement des formations  initiales\ntechnologiques et professionnelles, hors apprentissage, et l'insertion professionnelle dans l'une des\ncatégories d’organismes ou établissements habilités mentionnées à l'article L. 6241-5 du code du\ntravail ;\n•   par des subventions versées sous forme d’équipements ou de matériels aux centres de formation\nd’apprentis conformes aux besoins des formations dispensées.\n\nLe solde de la taxe d'apprentissage dû au titre d'une année N, qui fait l'objet d'un versement annuel unique\n(déduction faite, le cas échéant, des subventions versées sous forme d’équipements ou de matériels aux\ncentres de formation d’apprentis et de la créance de contribution supplémentaire à l’apprentissage), est\nrecouvré par les Urssaf et les caisses de la sécurité sociale agricole concomitamment aux cotisations et\ncontributions de sécurité sociale du mois d'avril N+1. Les fonds sont centralisés à la Caisse des dépôts et\nconsignations chargée de les affecter aux organismes et établissements bénéficiaires, définis à l’article\nL.6241-5 du code du travail, que chaque employeur aura désigné.\n\nVersion du 1er janvier 2026                                                              17\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\nLes personnes morales de droit privé à but non lucratif comptabilisent les montants reçus au titre du solde de\nla taxe d’apprentissage, en numéraire ou sous forme d’équipements ou de matériels, conformément aux\ndispositions des articles 614-1 et 614-2 du règlement ANC n° 2014-03 relatif au plan comptable général."
+    },
+    {
+      "article_ref": "142-9",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre I : Principes généraux applicables aux différents",
+        "Titre IV – Charges et produits",
+        "Chapitre II – Produits"
+      ],
+      "heading_source": "Précisions sur les modalités d’application des règles sur les produits - Traitement comptable",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0018",
+      "ir_type": "IR3",
+      "page_end_pdf": 21,
+      "page_start_pdf": 19,
+      "source_line_md": 893,
+      "text_source": "des financements de l’apprentissage reçus par les organismes de formation à but non lucratif\nLa loi du 5 septembre 2018 pour la liberté de choisir son avenir professionnel a réformé le financement de\nl’apprentissage. Le traitement comptable par les organismes de formation à but non lucratif des différentes\ncomposantes de ce financement est le suivant, en application des textes comptables applicables à ces entités\n(règlements ANC n° 2014-03 et n° 2018-06).\n•   Prise en charge financière des contrats d’apprentissage par les opérateurs de compétences\nLa loi du 5 septembre 2018 pour la liberté de choisir son avenir professionnel pose le principe d’un financement\ndes contrats d’apprentissage par les opérateurs de compétences (OPCO) selon des niveaux de prise en\ncharge fixés par les branches professionnelles. A défaut de détermination du niveau de prise en charge en\nfonction du diplôme ou titre relevant du champ des branches professionnelles, ou si ces dernières n’ont pas\nsuivi les recommandations émises par France compétences, le niveau de prise en charge est fixé par arrêté\ndu ministère chargé de la formation professionnelle. (C. travail art. L. 6332-14).\n\nLa prise en charge financière est attachée au contrat d’apprentissage et le système de financement est basé\nsur la durée d’exécution du contrat.\n\nEn sus du niveau de prise en charge, les opérateurs de compétences prennent en charge, s’ils sont financés\npar le centre de formation d’apprentis (CFA), les frais annexes à la formation constitués par les dépenses\nd’hébergement, de  restauration, de premier équipement pédagogique  et de  mobilité européenne  et\ninternationale des apprentis.\n\nLa convention de formation entre le CFA et l’entreprise distingue le prix de la prestation de formation par\napprentissage, le montant de prise en charge par l’OPCO, le reste à charge éventuel de l’entreprise, les\ndifférents types de frais annexes ainsi que les modalités de règlement.\n\nLe CFA s’engage, en vertu de la convention de formation, à fournir une formation par apprentissage sur une\ncertaine durée. En contrepartie de cette prestation, le CFA reçoit un montant de prise en charge par l’OPCO\nen fonction du diplôme ou titre préparé et le cas échéant, une participation financière de l’entreprise (pour le\nreste à charge éventuel). Le niveau de prise en charge par l’OPCO rémunère, en totalité ou pour partie, le prix\nde la prestation de formation défini par le CFA.\n\nLe niveau de prise en charge par l’OPCO est comptabilisé en produits, de manière linéaire sur la durée du\ncontrat d’apprentissage, dans une subdivision du compte 706 (Prestations de services). La prise en charge\ndes frais annexes à la formation des apprentis par l’OPCO est également à comptabiliser dans une subdivision\ndu compte 706.\n•  Financement par les opérateurs de compétences d’équipements nécessaires à la réalisation des\nformations par apprentissage\nLes OPCO peuvent prendre en charge des dépenses d’investissement visant à financer les équipements\nnécessaires à la réalisation des formations d’apprentissage (C. travail art. L. 6332-14).\n\nLes financements reçus des OPCO et affectés par ces derniers au financement d’équipements nécessaires à\nla réalisation des formations par apprentissage constituent des contributions financières au sens de l’article\n142-3 du règlement ANC n° 2018-06.\n\nSi les conditions de constitution des fonds dédiés définies à l’article 132-1 du règlement ANC n°2018-06 sont\nrespectées, le CFA a la possibilité de comptabiliser à la clôture de l’exercice, dans les comptes de fonds\ndédiés, les montants non utilisés et affectés au financement de l’acquisition de ces investissements.\n\nVersion du 1er janvier 2026                                                              18\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n•   Soutiens financiers des régions pour les formations par apprentissage\nLes régions peuvent octroyer des financements aux CFA en soutien au fonctionnement, notamment par des\npossibilités de majoration de la prise en charge des contrats d’apprentissage assurée par les OPCO, et en\nsoutien à l’investissement, par des possibilités de subventions (C. travail art. L. 6211-3).\n\nLes financements reçus des régions en soutien au fonctionnement du CFA sont comptabilisés en subventions\nd’exploitation en application des dispositions de l’article 142-8 du règlement ANC n°2018-06. Ils ne peuvent\npas faire l’objet d’une imputation en fonds dédiés en fin d’exercice.\n\nLes financements reçus des régions et affectés par ces dernières au financement d’équipements nécessaires\nà  la  réalisation des formations par apprentissage sont enregistrés conformément aux modalités de\ncomptabilisation des subventions d’investissement retenues par le CFA.\n\nVersion du 1er janvier 2026                                                              19\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n## Livre  II : Modalités  particulières  d’application des\nprincipes généraux\n\n### Titre I – Dispositions et opérations de nature spécifique\n\n#### Chapitre I – Contributions volontaires en nature"
+    },
+    {
+      "article_ref": "211-1",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre I – Contributions volontaires en nature"
+      ],
+      "heading_source": "Définition des contributions volontaires en nature",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0019",
+      "ir_type": "IR3",
+      "page_end_pdf": 21,
+      "page_start_pdf": 21,
+      "source_line_md": 986,
+      "text_source": "Une contribution est une participation, sous quelque forme que ce soit, à la réalisation d’une œuvre commune.\n\nLe bénévole est une personne qui s'engage librement pour mener une action non salariée en direction d'autrui,\nen dehors de son temps professionnel et familial (Avis du Conseil économique et social du 24 février 1993) et\nselon l’objet et les règles de l’entité auprès de laquelle le bénévole s’engage.\n\nLe bénévolat informel (aide aux voisins, coups de main) est à distinguer du bénévolat formel qui s’exerce au\nsein d’une structure organisée."
+    },
+    {
+      "article_ref": "211-1",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre I – Contributions volontaires en nature"
+      ],
+      "heading_source": "Prêt à usage (commodat)",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0020",
+      "ir_type": "IR3",
+      "page_end_pdf": 21,
+      "page_start_pdf": 21,
+      "source_line_md": 995,
+      "text_source": "Un prêt à usage permet d’utiliser un bien sans en avoir le contrôle et sans pouvoir bénéficier des fruits. Le prêt\nà usage ne satisfait pas aux conditions de reconnaissance d’un actif au sens des articles 211-1 et suivants du\nrèglement ANC n° 2014-03 relatif au plan comptable général. Le prêt à usage est comptabilisé en tant que\ncontribution volontaire en nature conformément aux dispositions des articles 211-2 à 211-4."
+    },
+    {
+      "article_ref": "211-3",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre I – Contributions volontaires en nature"
+      ],
+      "heading_source": "Plan de comptes",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0021",
+      "ir_type": "IR3",
+      "page_end_pdf": 22,
+      "page_start_pdf": 22,
+      "source_line_md": 1023,
+      "text_source": "Les contributions volontaires en nature peuvent concerner toutes les natures de charges. Les entités peuvent\ncréer des sous-comptes spécifiques des comptes de la classe 8 pour retracer la valorisation des contributions\nvolontaires en nature détaillée par nature de charges."
+    },
+    {
+      "article_ref": "211-4",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre I – Contributions volontaires en nature"
+      ],
+      "heading_source": "Mentions dans l’annexe",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0022",
+      "ir_type": "IR3",
+      "page_end_pdf": 22,
+      "page_start_pdf": 22,
+      "source_line_md": 1033,
+      "text_source": "L‘entité mentionne dans l’annexe les informations suivantes :\n\n•   Si elle a décidé de ne pas comptabiliser les contributions volontaires en nature :\no   les motifs de sa décision ;\no   la nature et l’importance des contributions volontaires en nature par exemple le nombre de\nbénévoles qui lui apportent un soutien.\n\n•   Si elle a décidé de comptabiliser les contributions volontaires en nature :\no   la nature de ces contributions ;\no   les modalités qui lui ont permis de les quantifier ;\no   les méthodes de valorisation.\n\n#### Chapitre II – Classification des ressources"
+    },
+    {
+      "article_ref": "212-1",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre II – Classification des ressources"
+      ],
+      "heading_source": "Contexte",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR1:0003",
+      "ir_type": "IR1",
+      "page_end_pdf": 23,
+      "page_start_pdf": 22,
+      "source_line_md": 1055,
+      "text_source": "Le financement public ou privé d’un organisme sans but lucratif correspond à un transfert sans contrepartie\ncar le tiers financeur ne reçoit rien en échange de son financement. Toutefois, le tiers financeur peut imposer\ndes restrictions quant à l’utilisation du financement qu’il effectue. Celles-ci, par exemple, peuvent limiter\nl’utilisation d’une ressource aux fins d’un projet défini ou à l’achat d’une immobilisation, ou encore exiger que\ncette ressource ne soit pas utilisée directement dans les missions sociales mais investie en fonds propres.\n\nVersion du 1er janvier 2026                                                              21\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\nOn peut donc distinguer trois types de financement :\n\n1.  un financement grevé d’une condition stipulée par le tiers financeur pour la réalisation d’un projet défini\nde l’entité ;\n2.  un financement grevé d’une condition stipulée par le tiers financeur en vertu de laquelle l’organisme\nest tenu de maintenir en fonds propres les ressources qui lui sont attribuées ;\n3.  un financement que l’organisme est libre d’utiliser conformément à son objet."
+    },
+    {
+      "article_ref": "212-1",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre II – Classification des ressources"
+      ],
+      "heading_source": "Définition des tiers financeurs",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0023",
+      "ir_type": "IR3",
+      "page_end_pdf": 23,
+      "page_start_pdf": 23,
+      "source_line_md": 1074,
+      "text_source": "Au sens du présent article, les tiers financeurs sont les autorités administratives, les donateurs, les testateurs,\nles mécènes, les personnes morales de droit privé à but non lucratif.\n\n#### Chapitre III – Ressources liées à la générosité du public\n\n##### Section 1 – Donations temporaires d’usufruit reçues"
+    },
+    {
+      "article_ref": "213-1",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre III – Ressources liées à la générosité du public",
+        "Section 1 – Donations temporaires d’usufruit reçues"
+      ],
+      "heading_source": "Nature de la contrepartie",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR1:0004",
+      "ir_type": "IR1",
+      "page_end_pdf": 23,
+      "page_start_pdf": 23,
+      "source_line_md": 1087,
+      "text_source": "La contrepartie du droit relatif à l’usufruit constitue un fonds reporté pour les raisons suivantes :\n•   ce droit permettra à l’entité de recevoir les revenus provenant du ou des biens, objets de la donation\ntemporaire ;\n•   les revenus relatifs à ce droit ne sont pas disponibles à la date de signature de l’acte authentique ;\n•   ce droit s’amortira au fur et à mesure du temps car les effets bénéfiques de cet actif sur l’activité de\nl’entité prennent fin nécessairement à une date déterminée ;\n•   l’estimation du droit peut être différente du montant des revenus futurs qui seront effectivement\nencaissés (dividendes par exemple)."
+    },
+    {
+      "article_ref": "213-1",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre III – Ressources liées à la générosité du public",
+        "Section 1 – Donations temporaires d’usufruit reçues"
+      ],
+      "heading_source": "Evaluation d’une donation temporaire d’usufruit",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0024",
+      "ir_type": "IR3",
+      "page_end_pdf": 23,
+      "page_start_pdf": 23,
+      "source_line_md": 1096,
+      "text_source": "S’agissant d’un droit reçu à titre gratuit, il est évalué à sa valeur vénale conformément à l’article L. 123-18 du\ncode de commerce. Dans le cas particulier des donations temporaires d’usufruit, la valeur des revenus\ngénérés par le bien sur la durée de la donation temporaire d’usufruit correspond généralement à l’estimation\nde la valeur vénale."
+    },
+    {
+      "article_ref": "213-2",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre III – Ressources liées à la générosité du public",
+        "Section 1 – Donations temporaires d’usufruit reçues"
+      ],
+      "heading_source": "Contexte",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR1:0005",
+      "ir_type": "IR1",
+      "page_end_pdf": 23,
+      "page_start_pdf": 23,
+      "source_line_md": 1107,
+      "text_source": "La règle prévue au présent article permet d’inscrire uniquement dans le compte de résultat l’intégralité des\nproduits perçus, qu’ils soient différents ou pas des produits estimés. L’entité donne une information dans\nl’annexe relative à la nature et aux montants des produits perçus dans le cadre de la donation temporaire\nd’usufruit."
+    },
+    {
+      "article_ref": "213-2",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre III – Ressources liées à la générosité du public",
+        "Section 1 – Donations temporaires d’usufruit reçues"
+      ],
+      "heading_source": "Modalités de mise en œuvre",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0025",
+      "ir_type": "IR3",
+      "page_end_pdf": 24,
+      "page_start_pdf": 23,
+      "source_line_md": 1112,
+      "text_source": "Version du 1er janvier 2026                                                              22\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\nLe compte « Fonds reportés liés aux legs ou donations » est débité avec pour contrepartie le compte\nd’amortissements « Donations temporaires d’usufruit ». Aucune écriture n’est comptabilisée en compte de\nrésultat.\n\n##### Section 2 – Les legs, donations entre vifs et assurances-vie\n\nArticle 893 du code civil\n\nLa libéralité est l'acte par lequel une personne dispose à titre gratuit de tout ou partie de ses biens ou de ses droits au\nprofit d'une autre personne. Il ne peut être fait de libéralité que par donation entre vifs ou par testament.\n\nArticle 894 du code civil\n\nLa donation entre vifs est un acte irrévocable par lequel le donateur se dépouille actuellement et irrévocablement de la\nchose donnée, en faveur du donataire qui l’accepte.\n\nArticle 895 du code civil\n\nLe testament est un acte par lequel le testateur dispose, pour le temps où il n'existera plus, de tout ou partie de ses biens\nou de ses droits et qu'il peut révoquer.\n\nArticle 931 du code civil\n\nTous actes portant donation entre vifs seront passés devant notaires dans la forme ordinaire des contrats ; et il en restera\nminute, sous peine de nullité.\n\nArticle 967 du code civil\n\nToute personne pourra disposer par testament soit sous le titre d'institution d'héritier, soit sous le titre de legs, soit sous\ntoute autre dénomination propre à manifester sa volonté.\n\n###### Sous-section 1 – La date d’entrée en comptabilité et évaluation"
+    },
+    {
+      "article_ref": "213-4",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre III – Ressources liées à la générosité du public",
+        "Section 2 – Les legs, donations entre vifs et assurances-vie"
+      ],
+      "heading_source": "Modalités d’application",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR2:0006",
+      "ir_type": "IR2",
+      "page_end_pdf": 24,
+      "page_start_pdf": 24,
+      "source_line_md": 1164,
+      "text_source": "Les biens visés au présent article correspondent aux définitions des biens mentionnées aux articles 516 à 536\ndu code civil.\n\nIl peut s’agir de biens meubles ou immeubles, de biens corporels ou incorporels (tels que des droits : droits\nd’auteur, etc.)."
+    },
+    {
+      "article_ref": "213-5",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre III – Ressources liées à la générosité du public",
+        "Section 2 – Les legs, donations entre vifs et assurances-vie"
+      ],
+      "heading_source": "Définitions",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR1:0006",
+      "ir_type": "IR1",
+      "page_end_pdf": 25,
+      "page_start_pdf": 25,
+      "source_line_md": 1186,
+      "text_source": "Il existe trois catégories de legs :\n\n•   le legs universel : le bénéficiaire (le légataire universel) reçoit l’ensemble des biens, droits et actions\nque le testateur laisse à son décès (cf. articles 1003 au 1009 du code civil) ;\n•   le legs à titre universel : le bénéficiaire (le légataire à titre universel) reçoit une fraction ou une partie\ndu patrimoine du testateur (cf. articles 1010 au 1013 du code civil) ;\n•   le legs particulier : le bénéficiaire (le légataire particulier) reçoit un ou plusieurs biens déterminés ou\ndéterminables (cf. articles 1014 au 1024 du code civil)."
+    },
+    {
+      "article_ref": "213-5",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre III – Ressources liées à la générosité du public",
+        "Section 2 – Les legs, donations entre vifs et assurances-vie"
+      ],
+      "heading_source": "Options successorales",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0026",
+      "ir_type": "IR3",
+      "page_end_pdf": 25,
+      "page_start_pdf": 25,
+      "source_line_md": 1195,
+      "text_source": "L’entité peut exercer une des trois options successorales suivantes lorsqu’un legs est porté à sa connaissance\nsans conséquence comptable sauf en cas de renonciation :\n\n•   l’acceptation pure et simple : l’héritier ou le légataire devient propriétaire des biens du défunt pour la\npart dont il hérite et il doit également payer toutes les dettes du défunt dans la même proportion et si\nbesoin avec son patrimoine personnel ;\n•   l’acceptation à concurrence de l’actif net : dans ce cas les dettes ne seront à payer que dans la limite\ndes biens du défunt ;\n•   la renonciation : l’héritier renonçant est censé n’avoir jamais été héritier. Il ne reçoit aucun bien.\n\nCe choix est généralement irrévocable."
+    },
+    {
+      "article_ref": "213-5",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre III – Ressources liées à la générosité du public",
+        "Section 2 – Les legs, donations entre vifs et assurances-vie"
+      ],
+      "heading_source": "Définition du fait générateur",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0027",
+      "ir_type": "IR3",
+      "page_end_pdf": 26,
+      "page_start_pdf": 25,
+      "source_line_md": 1207,
+      "text_source": "La délivrance d’un legs diffère en fonction de chaque catégorie de legs, ce qui a pour conséquence des dates\nd’entrée en jouissance et d’entrée en possession différentes :\n\nAvec héritiers réservataires               Sans héritiers réservataires\n(le légataire doit faire une demande de délivrance)    (le légataire est saisi de plein droit)\n\nRétroactivement, à la date de décès du testateur        Rétroactivement, à la date de décès du\nLegs                                                               testateur            sauf si la demande de délivrance n’a pas été faite dans\nuniversel             l’année suivant le décès, alors date de demande de\ndélivrance\n\nLe légataire à titre universel et le légataire particulier ne sont jamais saisis de plein droit. Ils doivent faire vérifier\nleur titre et demander la délivrance de leurs legs :\n\n•   aux héritiers réservataires ;\n•  à défaut, au légataire universel ;\n•  à défaut aux héritiers légaux.\n\nConcernant le legs à titre universel, tant qu’il n’y a pas eu délivrance, l’entité n’est pas propriétaire mais la\ndélivrance rétroagit à la date du décès du testateur.\n\nConcernant le legs particulier, l’entité a droit aux fruits du bien légué :\n\n•  au jour du décès lorsque le testateur l’aura expressément prévu dans son testament ;\n\nVersion du 1er janvier 2026                                                              24\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n•  à la date à laquelle la délivrance aura volontairement été consentie ;\n•  au jour de sa demande de délivrance."
+    },
+    {
+      "article_ref": "213-5",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre III – Ressources liées à la générosité du public",
+        "Section 2 – Les legs, donations entre vifs et assurances-vie"
+      ],
+      "heading_source": "Effets de la délivrance des legs",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0028",
+      "ir_type": "IR3",
+      "page_end_pdf": 26,
+      "page_start_pdf": 26,
+      "source_line_md": 1240,
+      "text_source": "La délivrance permet au légataire :\n\n•   d’appréhender son legs ;\n•   d’avoir droit aux fruits ;\n•  de s’en prévaloir."
+    },
+    {
+      "article_ref": "213-5",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre III – Ressources liées à la générosité du public",
+        "Section 2 – Les legs, donations entre vifs et assurances-vie"
+      ],
+      "heading_source": "Modalités de mise en œuvre",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0029",
+      "ir_type": "IR3",
+      "page_end_pdf": 26,
+      "page_start_pdf": 26,
+      "source_line_md": 1246,
+      "text_source": "L’opposition du préfet à l’acceptation d’une libéralité pour les associations ou fondations qui ne sont pas\nreconnues d’utilité publique (cf. article 910, II, al.3 du code civil) est traitée comme une procédure conduisant\nà une résolution du legs donc à une décomptabilisation de celui-ci."
+    },
+    {
+      "article_ref": "213-6",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre III – Ressources liées à la générosité du public",
+        "Section 2 – Les legs, donations entre vifs et assurances-vie"
+      ],
+      "heading_source": "Exemples",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0030",
+      "ir_type": "IR3",
+      "page_end_pdf": 26,
+      "page_start_pdf": 26,
+      "source_line_md": 1256,
+      "text_source": "Les cas suivants constituent des engagements reçus :\n\n•   acceptation du legs par l’organe habilité mais le legs n’est pas comptabilisé en raison d’une condition\nsuspensive non levée ;\n•   acceptation par l’organe habilité peu après la clôture alors que l’évaluation des actifs et passifs était\nconnue à la clôture."
+    },
+    {
+      "article_ref": "213-6-1",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre III – Ressources liées à la générosité du public",
+        "Section 2 – Les legs, donations entre vifs et assurances-vie"
+      ],
+      "heading_source": "Exemples",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR4:0001",
+      "ir_type": "IR4",
+      "page_end_pdf": 26,
+      "page_start_pdf": 26,
+      "source_line_md": 1268,
+      "text_source": "Il s’agit par exemple :\n\n•   des frais de procédures liés à l’exécution des dispositions testamentaires engagés par l’entité avant\nd’accepter un legs, notamment dans le cadre d’une contestation ou interprétation testamentaire ;\n•   des frais relatifs à des mesures de sécurité ou des mesures de préservation des actifs reçus par legs\nengagés par l’entité avant d’accepter le legs.\n\n###### Sous-section 2 – Règles de comptabilisation des legs ou donations à la date d’acceptation"
+    },
+    {
+      "article_ref": "213-6-1",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre III – Ressources liées à la générosité du public",
+        "Section 2 – Les legs, donations entre vifs et assurances-vie"
+      ],
+      "heading_source": "Définition de l’actif net successoral",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0031",
+      "ir_type": "IR3",
+      "page_end_pdf": 26,
+      "page_start_pdf": 26,
+      "source_line_md": 1277,
+      "text_source": "A la date d’acceptation, l’actif net successoral correspond à l’ensemble des biens et des créances appartenant\nau défunt après déduction du passif de la succession.\n\nPour les donations entre vifs, l’actif net s’entend par l’actif brut donné diminué éventuellement des dettes\ngrevant le bien transférées au bénéficiaire de la donation."
+    },
+    {
+      "article_ref": "213-7",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre III – Ressources liées à la générosité du public",
+        "Section 2 – Les legs, donations entre vifs et assurances-vie"
+      ],
+      "heading_source": "Modalités de mise en œuvre",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0032",
+      "ir_type": "IR3",
+      "page_end_pdf": 27,
+      "page_start_pdf": 27,
+      "source_line_md": 1301,
+      "text_source": "Les actifs bancaires incluent notamment les comptes de dépôt et les produits d’épargne au sens des articles\nL. 221-1 et suivants du code monétaire et financier."
+    },
+    {
+      "article_ref": "213-7",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre III – Ressources liées à la générosité du public",
+        "Section 2 – Les legs, donations entre vifs et assurances-vie"
+      ],
+      "heading_source": "Modalités de mise en œuvre",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0033",
+      "ir_type": "IR3",
+      "page_end_pdf": 27,
+      "page_start_pdf": 27,
+      "source_line_md": 1304,
+      "text_source": "L’intention du testateur ou du donateur de renforcer les fonds propres peut résulter :\n\n•   soit d’une stipulation expresse en ce sens ;\n•   soit d’une stipulation relative à la durée de détention du bien par l’entité ;\n•   soit d’une stipulation exigeant que seuls les fruits du bien peuvent être utilisés par l’entité pour réaliser\nsa mission sociale."
+    },
+    {
+      "article_ref": "213-8",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre III – Ressources liées à la générosité du public",
+        "Section 2 – Les legs, donations entre vifs et assurances-vie"
+      ],
+      "heading_source": "Modalités de mise en œuvre",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0034",
+      "ir_type": "IR3",
+      "page_end_pdf": 27,
+      "page_start_pdf": 27,
+      "source_line_md": 1322,
+      "text_source": "Les dettes dont le défunt ne s’est pas libéré au jour de son décès sont par exemple:\n\n•   les impôts du testateur ;\n•   les primes d’assurances :\n•   les charges de copropriété ;\n•   les frais d’hôpital ;\n•   les frais de maison de retraite ;\n•   les salaires et soldes de tout compte du personnel employé par le testateur.\n\nLes frais funéraires sont aussi inclus dans ces dettes."
+    },
+    {
+      "article_ref": "213-8",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre III – Ressources liées à la générosité du public",
+        "Section 2 – Les legs, donations entre vifs et assurances-vie"
+      ],
+      "heading_source": "Modalités d’application",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0035",
+      "ir_type": "IR3",
+      "page_end_pdf": 27,
+      "page_start_pdf": 27,
+      "source_line_md": 1333,
+      "text_source": "L’entité constate une provision relative à une charge afférente à un legs si celle-ci constitue un passif au sens\nde l’article 321-1 du règlement ANC n° 2014-03 relatif au plan comptable général."
+    },
+    {
+      "article_ref": "213-8",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre III – Ressources liées à la générosité du public",
+        "Section 2 – Les legs, donations entre vifs et assurances-vie"
+      ],
+      "heading_source": "Définition d’une charge afférente à un legs ou une donation",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0036",
+      "ir_type": "IR3",
+      "page_end_pdf": 28,
+      "page_start_pdf": 27,
+      "source_line_md": 1336,
+      "text_source": "Un legs ou une donation avec charge est un legs ou une donation dans le cadre duquel le légataire ou\ndonataire exécute une obligation en contrepartie de l’acceptation du legs ou de la donation. Par exemple, le\ntestateur peut souhaiter que l’entité prenne en charge l’entretien de sa tombe ou le versement d’une rente\nviagère.\n\nVersion du 1er janvier 2026                                                              26\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF"
+    },
+    {
+      "article_ref": "213-12",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre III – Ressources liées à la générosité du public",
+        "Section 2 – Les legs, donations entre vifs et assurances-vie"
+      ],
+      "heading_source": "Modalités de mise en œuvre",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0037",
+      "ir_type": "IR3",
+      "page_end_pdf": 28,
+      "page_start_pdf": 28,
+      "source_line_md": 1377,
+      "text_source": "Les entités bénéficiaires d'un legs ou d’une donation sans stipulation de renforcement des fonds propres de\nla part du testateur ou du donateur peuvent décider lors de son acceptation de l’affectation de chaque bien\nprovenant du legs ou de la donation entre :\n\n•   les biens destinés à être cédés (avec, dans ce cas, le dispositif des fonds reportés) ;\n•   et les biens conservés.\n\nA la date d’acceptation, l’entité procède à l’affectation des passifs provenant du legs ou de la donation aux\ndifférents biens auxquels ils se rapportent ou, le cas échéant, par toute autre méthode justifiée et documentée\npar l’entité. Ainsi, les montants inscrits en fonds reportés au titre des biens destinés à être cédés, des fonds\nnon encore reçus ou des titres non encore transférés à la clôture de l’exercice d’acceptation du legs ou de la\ndonation sont fonction de cette décision de l’entité."
+    },
+    {
+      "article_ref": "213-12",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre III – Ressources liées à la générosité du public",
+        "Section 2 – Les legs, donations entre vifs et assurances-vie"
+      ],
+      "heading_source": "Informations obtenues postérieurement à la date d’acceptation du legs ou de la donation",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0038",
+      "ir_type": "IR3",
+      "page_end_pdf": 29,
+      "page_start_pdf": 28,
+      "source_line_md": 1390,
+      "text_source": "L’entité peut être amenée à corriger les valeurs des actifs et des passifs provenant du legs ou de la donation,\nidentifiés à la date d’acceptation, sur la base des informations nouvelles obtenues postérieurement à la date\nd’acceptation, et, le cas échéant, les montants inscrits en fonds reportés au titre du legs ou de la donation.\n\nA l’inverse, les éléments non identifiés à la date d’acception et connus postérieurement ne donnent pas lieu à\nune modification de l’actif net représentatif du legs ou de la donation comptabilisé à la date d’acceptation.\n\nVersion du 1er janvier 2026                                                              27\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF"
+    },
+    {
+      "article_ref": "213-13",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre III – Ressources liées à la générosité du public",
+        "Section 2 – Les legs, donations entre vifs et assurances-vie"
+      ],
+      "heading_source": "Modalités de mise en œuvre",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0039",
+      "ir_type": "IR3",
+      "page_end_pdf": 29,
+      "page_start_pdf": 29,
+      "source_line_md": 1408,
+      "text_source": "Les fonds reportés sont rapportés au compte de résultat au cours des exercices suivants au fur et à mesure\nde la réception des fonds ou du transfert des titres, et de la vente des biens reçus par legs ou donations\ndestinés à être cédés.\n\nLe compte « Fonds reportés liés aux legs ou donations » ne peut pas présenter un solde débiteur."
+    },
+    {
+      "article_ref": "213-13",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre III – Ressources liées à la générosité du public",
+        "Section 2 – Les legs, donations entre vifs et assurances-vie"
+      ],
+      "heading_source": "Variation des fonds reportés",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0040",
+      "ir_type": "IR3",
+      "page_end_pdf": 29,
+      "page_start_pdf": 29,
+      "source_line_md": 1414,
+      "text_source": "Les opérations suivantes entrainent une variation des fonds reportés :\n1) Report (Augmentation) :\n•   comptabilisation en produit d’un actif net représentatif d’un legs ou d’une donation accepté dans\nl’exercice et non encore disponible, c’est-à-dire non encore encaissé ou transféré à la clôture de\nl’exercice.\n\nLe paiement d’une dette sur legs ou donations (ou la reprise d’une provision pour charges sur legs ou\ndonations), dont le montant est pris en compte dans la valeur de l’actif net représentatif du legs ou de la\ndonation non encore disponible, est sans incidence sur la somme initialement inscrite en fonds reportés.\n\n2) Utilisation (Diminution) :\n•   vente d’un bien reçu par legs ou donations destiné à être cédé ;\n•   dotation d’une dépréciation portant sur un bien reçu par legs ou donations destiné à être cédé ;\n•   réception des fonds ou transfert des titres d’une créance reçue par legs ou donations.\n\n###### Sous-section 4 – Produits et charges afférents aux biens destinés à être cédés"
+    },
+    {
+      "article_ref": "213-14",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre III – Ressources liées à la générosité du public",
+        "Section 2 – Les legs, donations entre vifs et assurances-vie"
+      ],
+      "heading_source": "Modalités de mise en œuvre",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0041",
+      "ir_type": "IR3",
+      "page_end_pdf": 30,
+      "page_start_pdf": 29,
+      "source_line_md": 1438,
+      "text_source": "Sont inclues dans les charges à comptabiliser par nature :\n•   les charges relatives à la mise en vente des biens par exemple, expertise et diagnostic des biens\nimmobiliers, nettoyage, facture de géomètre, honoraires de commissaire-priseur, frais d’enlèvement\nde véhicules ;\n•   les charges engagées jusqu’à la cession des biens et dont l’entité est redevable telles que les impôts\nfonciers, les primes d’assurances relatives aux biens, les charges de copropriété et l’entretien courant.\nSont inclus dans les produits à comptabiliser par nature :\n•   les loyers des biens destinés à être cédés ;\n•   les produits financiers des créances reçues par legs ou donations ou des actifs financiers destinés à\nêtre cédés.\n\nVersion du 1er janvier 2026                                                              28\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n###### Sous-section 5 – Présentation au compte de résultat"
+    },
+    {
+      "article_ref": "213-15",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre III – Ressources liées à la générosité du public",
+        "Section 2 – Les legs, donations entre vifs et assurances-vie"
+      ],
+      "heading_source": "Exemple illustratif",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR4:0002",
+      "ir_type": "IR4",
+      "page_end_pdf": 34,
+      "page_start_pdf": 31,
+      "source_line_md": 1479,
+      "text_source": "Le 5 novembre N l’entité accepte l'actif net successoral d'un legs qui se décompose comme suit :\n- Immeuble que l'entité décide de conserver : 800\n- Mobilier que l'entité décide de céder : 200\n- Compte banque (créances reçues par legs ou donations dans l'attente de la mise à disposition des fonds) : 100\n- Dettes successorales: 50 (dont 45 afférentes à l’immeuble et 5 afférentes au mobilier)\n\n- Obligation d'entretenir la tombe du testateur pendant 25 ans. Le coût estimé est de 55.\n\nPar hypothèse, dans cet exemple, à la date d’acceptation du legs, l’entité procède à l’affectation des passifs aux différents actifs auxquels ils se rapportent et décide\nd’affecter le coût relatif à l’obligation d’entretenir la tombe du testateur à l’immeuble qu’elle a décidé de conserver.\nAucune autre opération sur le legs n'a été constatée jusqu'à la clôture de l'exercice N.\nAinsi, les montants inscrits en fonds reportés à la clôture de l’exercice N s’élèvent à 295, dont 100 au titre des actifs bancaires non encore transférés et 195 au titre du\nmobilier non encore vendu.\n\nLe 15 janvier N+1, l’entité encaisse les actifs bancaires et paie les dettes successorales.\nLe 20 février N+1, l'entité vend le mobilier pour un prix de cession de 250.\nAu 05/11/N\nCompte de résultat\nComptabilisation de l'acceptation du legs     Débit    Crédit                               Bilan\nConstructions                                  800           Immobilisations             800  Excédent               995\nBiens reçus par legs ou\ndonations destinés à être\ncédés                     200\n\nBiens reçus par legs ou donations destinés à                      Créances reçues par legs                                                                 Legs, donations et                                                                                                                                                            995\nêtre cédés                                     200         ou donations               100  Provisions pour charges    55                          assurances-vie\nDettes des legs ou Créances reçues par legs ou donations (actifs        100                                                              50                                                                                                     donations bancaires non encaissés)\nDettes des legs ou donations                              50\nProvisions pour charges sur legs ou donations                55\n995\nProduits \"Legs, donations et assurances-vie\"                995  Total                    1100  Total                  1100                            Total\n\nVersion du 1er janvier 2026                                                              30\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n\nAu 31/12/N\nCompte de résultat\nComptabilisation des fonds reportés     Débit    Crédit                                Bilan\nImmobilisations          800                                                            Legs, donations et       700\nReports en fonds reportés                    295                                      Excédent                    700                       assurances-vie\nBiens reçus par\nlegs ou donations\ndestinés à être\nFonds reportés liés aux legs ou donations               295  cédés                 200\n\nCréances reçues                                                                                Fonds reportés liés aux legs     295                                                             par legs ou                                                                                ou donations                                                             donations              100\nProvisions pour charges          55\nDettes des legs ou donations      50\n700\nTotal                 1100  Total                       1100                         Total\nAu 15/01/N+1\n\nEncaissement des actifs bancaires et                                                                                                                Compte de résultat\npaiement des dettes successorales      Débit    Crédit                                Bilan\nImmobilisations          800                                                      Legs donations et        100\nBanque                                   100                                        Report à nouveau              700                       assurances-vie\nBiens reçus par\nlegs ou donations\ndestinés à être\nCréances reçues par legs ou donations                 100  cédés                 200  Excédent                    100\n\nCréances reçues             Fonds reportés liés aux legs                                                                                                            195                                                             par legs ou                  ou donations\ndonations                0\nDettes des legs ou donations                   50                                           Provisions pour charges          55\nBanque                                           50                                Dettes des legs ou donations       0\nFonds reportés liés aux legs ou donations       100            Disponibilités             50\n100\nUtilisations de fonds reportés                         100  Total                 1050  Total                       1050                         Total\n\nVersion du 1er janvier 2026                                                              31\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n\nAu 20/02/N+1\nCompte de résultat\nComptabilisation de la vente du mobilier   Débit    Crédit                                Bilan\nLegs donations et      345                                                                Immobilisations      800Banque                                   250                                    Report à nouveau                  700                         assurances-vie\nBiens reçus par\nlegs ou donations\ndestinés à être\nCréances sur cessions d’immobilisations                250  cédés               0  Excédent                        345\n\nCréances reçues                                                                            Fonds reportés liés aux legs ou         0                                                             par legs ou                                                                                       donationsValeurs comptables des actifs cédés            200           donations            0\n\nBiens reçus par legs ou donations destinés                                                  Provisions pour charges              55\nà être cédés                                      200\nCréances sur cessions d’immobilisations        250\nProduits des cessions des immobilisations               250                            Dettes des legs ou donations           0\nFonds reportés liés aux legs ou donations       195            Disponibilités        300\n345\nUtilisations de fonds reportés                         195  Total             1100  Total                           1100                           Total\n\nVersion du 1er janvier 2026                                                              32\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n\n##### Section 3 – Dons en nature destinés à être cédés"
+    },
+    {
+      "article_ref": "213-16",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre III – Ressources liées à la générosité du public",
+        "Section 3 – Dons en nature destinés à être cédés"
+      ],
+      "heading_source": "Définition réglementaire",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR1:0007",
+      "ir_type": "IR1",
+      "page_end_pdf": 34,
+      "page_start_pdf": 34,
+      "source_line_md": 1591,
+      "text_source": "Le don manuel consiste en une simple remise matérielle d’un bien meuble quelconque (un objet, une somme\nd’argent, un chèque, voire des valeurs mobilières ou des titres), ce qui exclut les immeubles, pour lesquels un\nacte notarié est obligatoire conformément à l’article 757 du code général des impôts."
+    },
+    {
+      "article_ref": "213-16",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre III – Ressources liées à la générosité du public",
+        "Section 3 – Dons en nature destinés à être cédés"
+      ],
+      "heading_source": "Opérations concernées",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR2:0007",
+      "ir_type": "IR2",
+      "page_end_pdf": 34,
+      "page_start_pdf": 34,
+      "source_line_md": 1595,
+      "text_source": "Seuls les dons en nature qui représentent une valeur significative et qu’il est possible d’inventorier et de\nvaloriser sans entraîner des coûts de gestion trop importants font l’objet de cette information.\n\n##### Section 4 – Reversement de collecte de la générosité du public"
+    },
+    {
+      "article_ref": "213-17",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre III – Ressources liées à la générosité du public",
+        "Section 4 – Reversement de collecte de la générosité du public"
+      ],
+      "heading_source": "Mandat",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0042",
+      "ir_type": "IR3",
+      "page_end_pdf": 34,
+      "page_start_pdf": 34,
+      "source_line_md": 1606,
+      "text_source": "Si l’organisme collecteur agit au nom de l’organisme bénéficiaire, l’opération est comptabilisée conformément\naux dispositions de l’article 621-11 du règlement ANC n° 2014-03 relatif au plan comptable général.\n\n#### Chapitre IV – Fondations et fonds de dotation"
+    },
+    {
+      "article_ref": "214-1",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre IV – Fondations et fonds de dotation"
+      ],
+      "heading_source": "Informations dans l’annexe",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0043",
+      "ir_type": "IR3",
+      "page_end_pdf": 34,
+      "page_start_pdf": 34,
+      "source_line_md": 1619,
+      "text_source": "Les fondations et les fonds de dotation fournissent dans l’annexe les éléments permettant de suivre\nl’affectation des actifs constitutifs de la dotation et une information sur la politique suivie en matière de gestion\ndes dotations non consomptibles ou consomptibles.\n\nLoi n° 87-571 du 23 juillet 1987 sur le développement du mécénat"
+    },
+    {
+      "article_ref": "214-2",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre IV – Fondations et fonds de dotation"
+      ],
+      "heading_source": "Modalités de mise en œuvre",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0044",
+      "ir_type": "IR3",
+      "page_end_pdf": 35,
+      "page_start_pdf": 35,
+      "source_line_md": 1657,
+      "text_source": "Le suivi de la réalisation du plan pluriannuel de consommation ou du budget de consommation arrêté par\nl’organe habilité est fourni dans l’annexe."
+    },
+    {
+      "article_ref": "214-3",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  II : Modalités  particulières  d’application des",
+        "Titre I – Dispositions et opérations de nature spécifique",
+        "Chapitre IV – Fondations et fonds de dotation"
+      ],
+      "heading_source": "Informations dans l’annexe",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0045",
+      "ir_type": "IR3",
+      "page_end_pdf": 36,
+      "page_start_pdf": 35,
+      "source_line_md": 1665,
+      "text_source": "Les fondations assimilées à une fondation d’entreprise fournissent dans l’annexe une information concernant\nles engagements reçus des donateurs.\n\nVersion du 1er janvier 2026                                                              34\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n## Livre  III : Tenue, structure  et fonctionnement des\ncomptes\n\n### Titre I – Organisation de la comptabilité"
+    },
+    {
+      "article_ref": "331-1",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  III : Tenue, structure  et fonctionnement des",
+        "Titre III – Fonctionnement des comptes",
+        "Chapitre I – Comptes de fonds propres, emprunts et fonds dédiés"
+      ],
+      "heading_source": "Contexte",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0046",
+      "ir_type": "IR3",
+      "page_end_pdf": 40,
+      "page_start_pdf": 40,
+      "source_line_md": 1843,
+      "text_source": "Dans les départements du Bas-Rhin, du Haut-Rhin et de la Moselle, les associations sont soumises au régime\njuridique des articles 21 à 79-XII du code civil local qui prévoit dans son article 45 que le patrimoine lors de la\ndissolution de l’association est dévolu aux personnes désignées dans les statuts."
+    },
+    {
+      "article_ref": "331-2",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  III : Tenue, structure  et fonctionnement des",
+        "Titre III – Fonctionnement des comptes",
+        "Chapitre I – Comptes de fonds propres, emprunts et fonds dédiés"
+      ],
+      "heading_source": "Eléments contextuels",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0047",
+      "ir_type": "IR3",
+      "page_end_pdf": 40,
+      "page_start_pdf": 40,
+      "source_line_md": 1852,
+      "text_source": "Ce compte est la contrepartie de l’actif et du passif pour l’établissement du bilan d’ouverture des premiers\ncomptes annuels établis par l’entité en application du règlement."
+    },
+    {
+      "article_ref": "331-3",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  III : Tenue, structure  et fonctionnement des",
+        "Titre III – Fonctionnement des comptes",
+        "Chapitre I – Comptes de fonds propres, emprunts et fonds dédiés"
+      ],
+      "heading_source": "Projet de l’entité",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0048",
+      "ir_type": "IR3",
+      "page_end_pdf": 40,
+      "page_start_pdf": 40,
+      "source_line_md": 1860,
+      "text_source": "Le projet de l’entité est constitué des différents objectifs fixés par les organes statutairement compétents de\nl’entité pour réaliser l’objet social."
+    },
+    {
+      "article_ref": "331-4",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  III : Tenue, structure  et fonctionnement des",
+        "Titre III – Fonctionnement des comptes",
+        "Chapitre I – Comptes de fonds propres, emprunts et fonds dédiés"
+      ],
+      "heading_source": "Présentation et information dans l’annexe",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0049",
+      "ir_type": "IR3",
+      "page_end_pdf": 41,
+      "page_start_pdf": 40,
+      "source_line_md": 1868,
+      "text_source": "Les titres associatifs sont présentés en fonds non remboursables dans la rubrique des autres fonds propres\nlorsque l’entité analyse au vu des conditions de leur émission qu’ils présentent les mêmes caractéristiques de\nremboursement que les titres participatifs, à savoir en particulier s’ils sont uniquement remboursables à\nl’initiative de l’émetteur.\n\nL’entité donne une information dans l’annexe relative aux caractéristiques propres à chaque émission de titres\nassociatifs.\n\nArticle L. 213-8 du code monétaire et financier\n\nLes associations régies par la loi du 1er juillet 1901 relative au contrat d'association ou par les articles 21 à 79 du code civil\nlocal applicable dans les départements du Bas-Rhin, du Haut-Rhin et de la Moselle peuvent, lorsqu'elles exercent,\nexclusivement ou non, une activité économique effective depuis au moins deux années, émettre des obligations dans les\nconditions prévues à la présente sous-section. […]\n\nVersion du 1er janvier 2026                                                              39\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n\nArticle L. 213-9 du code monétaire et financier\n\nLes contrats d'émission d'obligations mentionnées à l’article L. 213-8 peuvent prévoir que celles-ci ne sont remboursables\nqu'à l'initiative de l'émetteur ou à une échéance conditionnée à la constitution, depuis la date de l'émission, d'excédents\ndépassant le montant nominal de l'émission, nets des éventuels déficits constitués durant la même période.\n\nCes obligations constituent alors des créances de dernier rang, émises sous forme nominative, et ne sont remboursables\nqu'à l'issue d'un délai minimal de sept ans. Elles prennent la dénomination de titres associatifs.\n\nSi plusieurs émissions de titres associatifs coexistent, l'application de la condition relative à la constitution d'excédents\nsuffisants mentionnée au premier alinéa se fait suivant leur ordre chronologique.\n\nLes excédents nets non affectés au remboursement d'un titre associatif sont reportables aux titres associatifs non encore\nremboursés.\n\nArticle L. 213-21-1-A du code monétaire et financier\n\nLa sous-section 3, à l'exception de l'article L. 213-20-1 et du dernier alinéa de l'article L. 213-10, s'applique aux fondations\ndotées de la personnalité morale, sous réserve des dispositions qui suivent.\n\nA l'article L. 213-18, la référence à la loi du 1er juillet 1901 relative au contrat d'association et au code civil local applicable\ndans les départements du Bas-Rhin, du Haut-Rhin et de la Moselle est remplacée par la référence à la loi n° 87-571 du\n23 juillet 1987 sur le développement du mécénat.\n\nLes dispositions relatives aux conseils d'administration, assemblée générale, directoire ou gérants de société s'appliquent\naux personnes ou organes chargés de l'administration de la fondation conformément à ses statuts.\n\nCelles relatives au conseil de surveillance d'une société ou à ses membres s'appliquent, s'il existe, à l'organe de contrôle\nde la fondation et aux personnes qui le composent.\n\n#### Chapitre II – Comptes d’immobilisations"
+    },
+    {
+      "article_ref": "332-1",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  III : Tenue, structure  et fonctionnement des",
+        "Titre III – Fonctionnement des comptes",
+        "Chapitre II – Comptes d’immobilisations"
+      ],
+      "heading_source": "Définition",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0050",
+      "ir_type": "IR3",
+      "page_end_pdf": 41,
+      "page_start_pdf": 41,
+      "source_line_md": 1926,
+      "text_source": "Les partenaires sont les confédérations, fédérations, unions ou associations affiliées de l’entité.\n\n#### Chapitre III – Comptes de tiers et de régularisation"
+    },
+    {
+      "article_ref": "333-2",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre  III : Tenue, structure  et fonctionnement des",
+        "Titre III – Fonctionnement des comptes",
+        "Chapitre III – Comptes de tiers et de régularisation"
+      ],
+      "heading_source": "Définition",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0051",
+      "ir_type": "IR3",
+      "page_end_pdf": 42,
+      "page_start_pdf": 41,
+      "source_line_md": 1939,
+      "text_source": "Les partenaires sont les confédérations, fédérations, unions ou associations affiliées de l’entité.\n\nVersion du 1er janvier 2026                                                              40\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n## Livre IV : Modèles des comptes annuels\n\n### Titre I – Règles d’établissement et de présentation des comptes annuels"
+    },
+    {
+      "article_ref": "421-1",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre IV : Modèles des comptes annuels",
+        "Titre II – Modèles des comptes annuels",
+        "Chapitre I – Modèle de bilan"
+      ],
+      "heading_source": "Présentation",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0052",
+      "ir_type": "IR3",
+      "page_end_pdf": 44,
+      "page_start_pdf": 44,
+      "source_line_md": 2072,
+      "text_source": "Les postes et rubriques en italiques sont spécifiques aux entités appliquant ce règlement. Les autres rubriques\net postes sont celles du système de base du plan comptable général.\n\nLe bilan est présenté selon les dispositions du plan comptable général sauf en ce qui concernent les opérations\nspécifiques qui suivent :\n\n•   donations temporaires d’usufruit ;\n•   biens reçus par legs ou donations destinés à être cédés ;\n•   créances reçues par legs ou donations ;\n•   fonds propres ;\n•   fonds dédiés et fonds reportés ;\n•   dettes des legs ou donations.\n\n#### Chapitre II – Modèle de compte de résultat"
+    },
+    {
+      "article_ref": "422-1",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre IV : Modèles des comptes annuels",
+        "Titre II – Modèles des comptes annuels",
+        "Chapitre II – Modèle de compte de résultat"
+      ],
+      "heading_source": "Présentation",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0053",
+      "ir_type": "IR3",
+      "page_end_pdf": 47,
+      "page_start_pdf": 45,
+      "source_line_md": 2172,
+      "text_source": "Les postes et rubriques en italiques sont spécifiques des entités appliquant ce règlement. Les autres rubriques\net postes sont celles du système de base du plan comptable général.\nLe compte de résultat est présenté selon les dispositions du plan comptable général sauf en ce qui concernent\nles opérations spécifiques qui suivent :\n\n•   présentation des produits d’exploitation (cotisations, produits de tiers financeurs) ;\n\nVersion du 1er janvier 2026                                                              44\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n•   reports et utilisation des fonds dédiés ;\n•   contributions volontaires en nature et charges des contributions volontaires en nature.\n\nVersion du 1er janvier 2026                                                              45\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n### Titre III – Contenu de l’annexe\n\n#### Chapitre I – Dispositions générales"
+    },
+    {
+      "article_ref": "431-4",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre IV : Modèles des comptes annuels",
+        "Titre III – Contenu de l’annexe",
+        "Chapitre I – Dispositions générales"
+      ],
+      "heading_source": "Dispositions transitoires",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0054",
+      "ir_type": "IR3",
+      "page_end_pdf": 48,
+      "page_start_pdf": 47,
+      "source_line_md": 2230,
+      "text_source": "Les dispositions de première application du règlement permettent de ne pas comptabiliser les donations\ntemporaires d’usufruit conclues antérieurement à la première application du règlement mais n’exonèrent pas\nl’entité de fournir une information en annexe sur ces donations temporaires d’usufruit.\n\nVersion du 1er janvier 2026                                                              46\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF"
+    },
+    {
+      "article_ref": "431-5",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre IV : Modèles des comptes annuels",
+        "Titre III – Contenu de l’annexe",
+        "Chapitre I – Dispositions générales"
+      ],
+      "heading_source": "Générosité du public",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0055",
+      "ir_type": "IR3",
+      "page_end_pdf": 48,
+      "page_start_pdf": 48,
+      "source_line_md": 2273,
+      "text_source": "Pour les entités entrant dans le champ d’application de l’article 432-1, le tableau de variation des fonds propres\nest remplacé par celui prévu à l’article 432-22."
+    },
+    {
+      "article_ref": "431-10",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre IV : Modèles des comptes annuels",
+        "Titre III – Contenu de l’annexe",
+        "Chapitre I – Dispositions générales"
+      ],
+      "heading_source": "Contexte",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR1:0008",
+      "ir_type": "IR1",
+      "page_end_pdf": 50,
+      "page_start_pdf": 50,
+      "source_line_md": 2375,
+      "text_source": "L’inscription en comptabilité des contributions volontaires en nature permet à l’entité de présenter l’ensemble\ndes activités et moyens mis en œuvre et notamment :\n\n•   connaître et rendre compte de l’intégralité des « ressources mises en œuvre » ;\n•   appréhender les coûts réels d’un projet de l’entité ;\n•   sensibiliser les utilisateurs de l’information financière (internes et externes) sur l’absence de pérennité\nde cette « ressource » ;\n•   mieux gérer la ressource en sachant la valoriser ;\n•    illustrer le caractère désintéressé de la gestion."
+    },
+    {
+      "article_ref": "431-10",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre IV : Modèles des comptes annuels",
+        "Titre III – Contenu de l’annexe",
+        "Chapitre I – Dispositions générales"
+      ],
+      "heading_source": "Mode d’appréhension",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0056",
+      "ir_type": "IR3",
+      "page_end_pdf": 51,
+      "page_start_pdf": 50,
+      "source_line_md": 2385,
+      "text_source": "Préalablement à toute démarche de valorisation, l’entité doit s’assurer que les bases sont vérifiables et fiables.\nCela suppose qu’un mode organisé de collecte de l’information soit mis en place, qui comprenne par exemple\ndes états de temps, des fiches de travaux, des bordereaux de suivi de mouvements de produits ou matière.\n\nVersion du 1er janvier 2026                                                              49\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF"
+    },
+    {
+      "article_ref": "431-10",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre IV : Modèles des comptes annuels",
+        "Titre III – Contenu de l’annexe",
+        "Chapitre I – Dispositions générales"
+      ],
+      "heading_source": "Pratiques de valorisation de l’apport en travail",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0057",
+      "ir_type": "IR3",
+      "page_end_pdf": 51,
+      "page_start_pdf": 51,
+      "source_line_md": 2395,
+      "text_source": "Les pratiques de valorisation du bénévolat et d’enregistrement dans les comptes ont un caractère spécifique :\n\n•   choix spécifique d’unité (heure, opération,…) ;\n•   choix de méthode de valorisation (valeur de remplacement, SMIC et ses variantes – net, chargé,\nassorti de coefficients de pondération…).\n\nDès lors, ces pratiques doivent être transparentes et appliquées de façon constante."
+    },
+    {
+      "article_ref": "431-10",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre IV : Modèles des comptes annuels",
+        "Titre III – Contenu de l’annexe",
+        "Chapitre I – Dispositions générales"
+      ],
+      "heading_source": "Pratiques de valorisation de l’apport en biens et services",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0058",
+      "ir_type": "IR3",
+      "page_end_pdf": 51,
+      "page_start_pdf": 51,
+      "source_line_md": 2403,
+      "text_source": "La valorisation des apports de biens ou autres services se fait par référence au coût réel comme par exemple\nla valeur locative des mises à disposition de locaux."
+    },
+    {
+      "article_ref": "431-11",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre IV : Modèles des comptes annuels",
+        "Titre III – Contenu de l’annexe",
+        "Chapitre I – Dispositions générales"
+      ],
+      "heading_source": "Contexte",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR1:0009",
+      "ir_type": "IR1",
+      "page_end_pdf": 51,
+      "page_start_pdf": 51,
+      "source_line_md": 2413,
+      "text_source": "La rubrique « Mises à disposition gratuite de biens » comprend les prêts à usage."
+    },
+    {
+      "article_ref": "431-12",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre IV : Modèles des comptes annuels",
+        "Titre III – Contenu de l’annexe",
+        "Chapitre I – Dispositions générales"
+      ],
+      "heading_source": "Définition d’une transaction figurant dans l’annexe",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0059",
+      "ir_type": "IR3",
+      "page_end_pdf": 51,
+      "page_start_pdf": 51,
+      "source_line_md": 2426,
+      "text_source": "Les transactions figurant dans l’annexe remplissent la condition d’être non habituelles ou de ne pas être\nconclues à des conditions normales comme, par exemple une dotation à une fondation ou à un fonds de\ndotation, ou un apport en fonds propres à une autre entité.\n\nCes transactions ne sont pas limitées à certaines contreparties (parties liées ou conventions visées à l’article\nL. 612-5 du code de commerce)."
+    },
+    {
+      "article_ref": "432-4",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre IV : Modèles des comptes annuels",
+        "Titre III – Contenu de l’annexe",
+        "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+        "Section 2 – Compte de résultat par origine et destination"
+      ],
+      "heading_source": "Dons en nature",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR2:0008",
+      "ir_type": "IR2",
+      "page_end_pdf": 55,
+      "page_start_pdf": 55,
+      "source_line_md": 2640,
+      "text_source": "La vente de dons de marchandises en nature est la réalisation monétaire d’un don manuel en nature."
+    },
+    {
+      "article_ref": "432-5",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre IV : Modèles des comptes annuels",
+        "Titre III – Contenu de l’annexe",
+        "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+        "Section 2 – Compte de résultat par origine et destination"
+      ],
+      "heading_source": "Plus ou moins-values de cession",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR2:0009",
+      "ir_type": "IR2",
+      "page_end_pdf": 56,
+      "page_start_pdf": 56,
+      "source_line_md": 2659,
+      "text_source": "Les plus ou moins-values de cession relatives aux biens reçus par legs ou donation, destinés à être cédés\nsont exclues de cette rubrique car elles figurent dans la rubrique « Legs, donations et assurances-vie »."
+    },
+    {
+      "article_ref": "432-5",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre IV : Modèles des comptes annuels",
+        "Titre III – Contenu de l’annexe",
+        "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+        "Section 2 – Compte de résultat par origine et destination"
+      ],
+      "heading_source": "Actifs incorporels",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR2:0010",
+      "ir_type": "IR2",
+      "page_end_pdf": 56,
+      "page_start_pdf": 56,
+      "source_line_md": 2662,
+      "text_source": "Les actifs incorporels comprennent notamment les droits d’auteur et les brevets."
+    },
+    {
+      "article_ref": "432-5",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre IV : Modèles des comptes annuels",
+        "Titre III – Contenu de l’annexe",
+        "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+        "Section 2 – Compte de résultat par origine et destination"
+      ],
+      "heading_source": "Collecte redistribuée",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0060",
+      "ir_type": "IR3",
+      "page_end_pdf": 56,
+      "page_start_pdf": 56,
+      "source_line_md": 2664,
+      "text_source": "Lorsqu’une entité qui collecte auprès du public redistribue tout ou partie de cette collecte, trois situations se\nprésentent :\n\n•    si l’entité qui assure la collecte en son nom est libre du choix de l’organisme bénéficiaire auquel elle\nreverse tout ou partie de la collecte, l’opération constitue :\no  pour l’entité qui assure la collecte, une aide financière comptabilisée en charges ;\no  pour l’entité qui bénéficie du reversement, une contribution financière comptabilisée en produits.\n•    si l’entité qui assure la collecte en son nom est tenue par un accord ou une convention de reverser\ntout ou partie de la collecte à une entité désignée, l’opération constitue :\no  pour l’entité qui assure la collecte, une quote-part de générosité comptabilisée en charges ;\no  pour l’entité qui bénéficie du reversement, une quote-part de générosité comptabilisée en produits.\n•    si l’entité qui assure la collecte agit au nom de l’entité bénéficiaire, l’opération est comptabilisée\nconformément aux dispositions de l’article 621-11 du règlement ANC n° 2014-03 relatif au plan\ncomptable général."
+    },
+    {
+      "article_ref": "432-9",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre IV : Modèles des comptes annuels",
+        "Titre III – Contenu de l’annexe",
+        "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+        "Section 2 – Compte de résultat par origine et destination"
+      ],
+      "heading_source": "Produits dédiés",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR2:0011",
+      "ir_type": "IR2",
+      "page_end_pdf": 57,
+      "page_start_pdf": 57,
+      "source_line_md": 2718,
+      "text_source": "L’entité peut également détailler les produits non liés à la générosité du public qui sont dédiés par le tiers\nfinanceur à un projet défini.\n\n###### Sous-section 3 – Charges du compte de résultat par origine et destination"
+    },
+    {
+      "article_ref": "432-11",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre IV : Modèles des comptes annuels",
+        "Titre III – Contenu de l’annexe",
+        "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+        "Section 2 – Compte de résultat par origine et destination"
+      ],
+      "heading_source": "Précisions relatives aux frais d’appel à la générosité du public",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0061",
+      "ir_type": "IR3",
+      "page_end_pdf": 58,
+      "page_start_pdf": 57,
+      "source_line_md": 2746,
+      "text_source": "Les frais d’appel à la générosité du public correspondent aux frais de recherche et de traitement de dons et\nlibéralités. Ils comprennent à titre d’exemple :\n\n•   les frais d’appel à dons, quelle que soit la forme de ces dons (en nature, donations, legs, assurances-\nvie) auprès des entreprises et des particuliers. La publicité ou l’appel à dons peut se faire sous de\nmultiples formes : campagne publicitaire sur panneaux, par envoi postal, par médias sociaux, spots\npublicitaires, etc… ;\n\nVersion du 1er janvier 2026                                                              56\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n•   les frais de traitement des dons, legs, donations, assurance-vie ou mécénat ; les prestations de\nservices de collecte ou de traitement des dons, legs, donations, assurance-vie ou mécénat, les\ncharges des legs résultant de stipulations testamentaires ;\n\n•   les frais de tenue, de location ou d’acquisition de fichiers de donateurs ou mécènes ;\n\n•   les frais d’appel et de gestion de cotisations sans contrepartie ;\n\n•   les frais d’appel à bénévolat ;\n\n•   les frais de gestion des actifs issus de la générosité du public ou financés par la générosité du public ;\n\n•   les achats de marchandises et de prestations de services destinées à la vente qui, pour les entités\nfaisant appel à la générosité du public, sont vendus à un prix bien plus élevé que leur prix d’achat."
+    },
+    {
+      "article_ref": "432-12",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre IV : Modèles des comptes annuels",
+        "Titre III – Contenu de l’annexe",
+        "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+        "Section 2 – Compte de résultat par origine et destination"
+      ],
+      "heading_source": "Précisions relatives aux frais de recherche d’autres ressources",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0062",
+      "ir_type": "IR3",
+      "page_end_pdf": 58,
+      "page_start_pdf": 58,
+      "source_line_md": 2779,
+      "text_source": "Les frais de recherche d’autres ressources comprennent notamment :\n\n•   les  frais de recherche et de traitement de parrainage, de cotisations avec contrepartie ou de\ncontributions financières reçues d’autres organismes sans but lucratif pour remplir leurs missions\nsociales ;\n\n•   les frais liés à la recherche, aux demandes et aux traitements des subventions d’exploitation ou\nd’investissement ou de collecte de participations, contributions et taxes ;\n\n•   les frais de gestion des actifs qui ne sont pas issus de la générosité du public dont les fruits constituent\ndes produits de l’entité lui permettant de remplir ses missions sociales ;\n\n•   les charges d’un secteur marchand."
+    },
+    {
+      "article_ref": "432-13",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre IV : Modèles des comptes annuels",
+        "Titre III – Contenu de l’annexe",
+        "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+        "Section 2 – Compte de résultat par origine et destination"
+      ],
+      "heading_source": "Précisions relatives aux frais de fonctionnement",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0063",
+      "ir_type": "IR3",
+      "page_end_pdf": 58,
+      "page_start_pdf": 58,
+      "source_line_md": 2801,
+      "text_source": "Les frais de fonctionnement comprennent notamment les charges affectées aux activités suivantes :\n•   gouvernance ;\n•   communication ;\n•  Ressources humaines ;\n•   comptabilité  et  gestion  financière y compris  les  frais de gestion de  la  tarification pour  les\nétablissements et services sociaux et médico-sociaux et les établissements de santé ;\n•   juridique ;\n•  moyens généraux ;\n•   informatique."
+    },
+    {
+      "article_ref": "432-13",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre IV : Modèles des comptes annuels",
+        "Titre III – Contenu de l’annexe",
+        "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+        "Section 2 – Compte de résultat par origine et destination"
+      ],
+      "heading_source": "Charges financières",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0064",
+      "ir_type": "IR3",
+      "page_end_pdf": 59,
+      "page_start_pdf": 58,
+      "source_line_md": 2811,
+      "text_source": "Version du 1er janvier 2026                                                              57\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\nLes charges financières sont affectées aux rubriques « Missions sociales » ou « Frais de recherche de fonds »\nsi l’entité en justifie. A défaut, elles figurent dans les frais de fonctionnement."
+    },
+    {
+      "article_ref": "432-14",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre IV : Modèles des comptes annuels",
+        "Titre III – Contenu de l’annexe",
+        "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+        "Section 2 – Compte de résultat par origine et destination"
+      ],
+      "heading_source": "Dotations aux provisions et dépréciations",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0065",
+      "ir_type": "IR3",
+      "page_end_pdf": 59,
+      "page_start_pdf": 59,
+      "source_line_md": 2825,
+      "text_source": "Les dotations aux provisions et déprécations concernent notamment les legs ou donations avec charges et\nles dépréciations des actifs acquis au moyen de la générosité du public."
+    },
+    {
+      "article_ref": "432-14",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre IV : Modèles des comptes annuels",
+        "Titre III – Contenu de l’annexe",
+        "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+        "Section 2 – Compte de résultat par origine et destination"
+      ],
+      "heading_source": "Dotations aux amortissements",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0066",
+      "ir_type": "IR3",
+      "page_end_pdf": 59,
+      "page_start_pdf": 59,
+      "source_line_md": 2828,
+      "text_source": "Contrairement aux dotations aux provisions et dépréciations qui seront reprises lors de la constatation de la\ncharge, objet de la provision ou de la dépréciation, ou si elles deviennent sans objet, les dotations aux\namortissements constituent des charges définitives qui sont ventilées dans les rubriques de missions sociales,\nfrais de recherche de fonds ou frais de fonctionnement."
+    },
+    {
+      "article_ref": "432-15",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre IV : Modèles des comptes annuels",
+        "Titre III – Contenu de l’annexe",
+        "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+        "Section 2 – Compte de résultat par origine et destination"
+      ],
+      "heading_source": "Modalités de mise en œuvre – Informations complémentaires",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0067",
+      "ir_type": "IR3",
+      "page_end_pdf": 60,
+      "page_start_pdf": 59,
+      "source_line_md": 2843,
+      "text_source": "A titre d’informations complémentaires, l’entité peut notamment détailler les charges rattachables à chaque\nmission sociale, la présentation géographique et opérationnelle du compte de résultat par origine et destination\npouvant ne pas être suffisante à une bonne compréhension de l’activité de l’entité.\n\nVersion du 1er janvier 2026                                                              58\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF"
+    },
+    {
+      "article_ref": "432-17",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre IV : Modèles des comptes annuels",
+        "Titre III – Contenu de l’annexe",
+        "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+        "Section 3 – Compte d’emploi annuel des ressources collectées auprès du public conforme à la loi n° 91-772 du 7 août 1991"
+      ],
+      "heading_source": "Fonds dédiés liés à la générosité du public",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0068",
+      "ir_type": "IR3",
+      "page_end_pdf": 64,
+      "page_start_pdf": 64,
+      "source_line_md": 3005,
+      "text_source": "Cet élément de tableau reprend les montants cumulés des fonds dédiés liés à la générosité du public figurant dans le tableau décrit à l’article 431-6."
+    },
+    {
+      "article_ref": "432-17",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre IV : Modèles des comptes annuels",
+        "Titre III – Contenu de l’annexe",
+        "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+        "Section 3 – Compte d’emploi annuel des ressources collectées auprès du public conforme à la loi n° 91-772 du 7 août 1991"
+      ],
+      "heading_source": "Modalités de mise en œuvre lorsque l’association est tenue d’établir un compte d’emploi des ressources collectées à la suite d’un appel à la",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0069",
+      "ir_type": "IR3",
+      "page_end_pdf": 65,
+      "page_start_pdf": 64,
+      "source_line_md": 3008,
+      "text_source": "générosité du public conformément aux articles 3 et 4 de la loi n° 91-772 du 7 août 1991 et un compte d’emploi des ressources collectées à la suite\nd’un appel à la générosité du public destiné à soutenir l’exercice du culte – se reporter à l’article 531-6\n\nVersion du 1er janvier 2026                                                              63\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF"
+    },
+    {
+      "article_ref": "432-21",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre IV : Modèles des comptes annuels",
+        "Titre III – Contenu de l’annexe",
+        "Chapitre II – Dispositions spécifiques relatives aux entités faisant appel à la générosité du public",
+        "Section 3 – Compte d’emploi annuel des ressources collectées auprès du public conforme à la loi n° 91-772 du 7 août 1991"
+      ],
+      "heading_source": "Exemples d’opérations spécifiques :",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0070",
+      "ir_type": "IR3",
+      "page_end_pdf": 66,
+      "page_start_pdf": 65,
+      "source_line_md": 3053,
+      "text_source": "•   le remboursement d’une fraction du capital d’un emprunt au cours de l’exercice au moyen de\nressources issues de la générosité du public ;\n\n•   l’affectation irrévocable à la dotation d’une fondation ou d’un fonds de dotation de tout ou partie de\nl’excédent de la générosité du public.\n\nVersion du 1er janvier 2026                                                              64\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n\n##### Section 4 – Tableau de variation des fonds propres"
+    },
+    {
+      "article_ref": "433-1",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre IV : Modèles des comptes annuels",
+        "Titre III – Contenu de l’annexe",
+        "Chapitre III – Dispositions spécifiques relatives aux fondations et aux fonds de dotation"
+      ],
+      "heading_source": "Fondations reconnues d’utilité publique",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR2:0012",
+      "ir_type": "IR2",
+      "page_end_pdf": 67,
+      "page_start_pdf": 67,
+      "source_line_md": 3118,
+      "text_source": "Une fondation reconnue d’utilité publique a une dotation statutaire non consomptible d’un montant minimum\nfixé par décret pris en Conseil d’Etat. Les fondateurs peuvent effectuer des versements complémentaires qu’ils\npeuvent librement affecter à une dotation consomptible ou non."
+    },
+    {
+      "article_ref": "5",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre IV : Modèles des comptes annuels",
+        "Titre III – Contenu de l’annexe",
+        "Chapitre IV – Dispositions spécifiques relatives à la tenue d’un état séparé des avantages et des"
+      ],
+      "heading_source": "Eléments de contexte",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR1:0010",
+      "ir_type": "IR1",
+      "page_end_pdf": 72,
+      "page_start_pdf": 72,
+      "source_line_md": 3428,
+      "text_source": "La loi n° 2021-1109 du 24 août 2021 confortant le respect des principes de la République, à ses articles 21,\n22, 73 et 75, impose la tenue d’un état séparé des avantages et des ressources provenant de l’étranger dans\nl’annexe des comptes annuels des entités suivantes :\n\n•   les associations et les unions mentionnées au premier alinéa de l’article 21 de la loi du 9 décembre\n1905 concernant la séparation des Eglises et de l'Etat ;\n•   les associations mentionnées au deuxième alinéa de l'article 4 de la loi du 2 janvier 1907 concernant\nl'exercice public des cultes ;\n•   les associations mentionnées au second alinéa de l'article 4-1 de la loi n° 87-571 du 23 juillet 1987\nsur le développement du mécénat ;\n•   les fonds de dotation mentionnés au  I de l'article 140 de la loi n° 2008-776 du 4 août 2008 de\nmodernisation de l’économie.\n\nLe décret n° 2021-1812 du 24 décembre 2021 relatif à la tenue par certains organismes d'un état séparé des\navantages et ressources provenant de l'étranger est pris en application des articles 21, 22, 73 et 75 de la loi\nprécitée. Ce décret, à son article 4, précise les mentions à faire figurer dans l’état séparé des avantages et\ndes ressources provenant de l’étranger.\n\nLes dispositions prévues au présent chapitre sont relatives à l’état séparé des avantages et des ressources\nprovenant de l’étranger, à présenter sous la forme d’un tableau, dans l’annexe des comptes annuels des\nentités concernées.\n\n##### Section 1 – Champ d’application"
+    },
+    {
+      "article_ref": "434-1",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre IV : Modèles des comptes annuels",
+        "Titre III – Contenu de l’annexe",
+        "Chapitre IV – Dispositions spécifiques relatives à la tenue d’un état séparé des avantages et des",
+        "Section 1 – Champ d’application"
+      ],
+      "heading_source": "Articulation avec les dispositions relatives aux contributions volontaires en nature",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0071",
+      "ir_type": "IR3",
+      "page_end_pdf": 73,
+      "page_start_pdf": 73,
+      "source_line_md": 3472,
+      "text_source": "L’obligation de produire un état séparé des avantages et de ressources provenant de l’étranger dans l’annexe\ndes comptes annuels s’applique indépendamment du fait que l’entité concernée comptabilise ou non les\ncontributions volontaires en nature en application des dispositions des articles 211-2 et 211-4 du présent\nrèglement."
+    },
+    {
+      "article_ref": "434-3",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre IV : Modèles des comptes annuels",
+        "Titre III – Contenu de l’annexe",
+        "Chapitre IV – Dispositions spécifiques relatives à la tenue d’un état séparé des avantages et des",
+        "Section 2 – Modèle de l’état séparé des avantages et des ressources provenant de l’étranger"
+      ],
+      "heading_source": "Caractère direct ou indirect de l’avantage ou de la ressource",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0072",
+      "ir_type": "IR3",
+      "page_end_pdf": 74,
+      "page_start_pdf": 74,
+      "source_line_md": 3527,
+      "text_source": "Loi n° 87-571 du 23 juillet 1987 sur le développement du mécénat"
+    },
+    {
+      "article_ref": "511-2",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre V : Adaptations des dispositions générales",
+        "Titre I – Les adaptations relatives à des associations, fondations ou fonds",
+        "Chapitre I – Fondations abritantes"
+      ],
+      "heading_source": "Fonds propres",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR2:0013",
+      "ir_type": "IR2",
+      "page_end_pdf": 77,
+      "page_start_pdf": 77,
+      "source_line_md": 3640,
+      "text_source": "Les fonds propres concernés sont les fonds propres sans droit de reprise (fonds statutaires et fonds\ncomplémentaires), les écarts de réévaluation, les réserves, le report à nouveau et les fonds propres\nconsomptibles."
+    },
+    {
+      "article_ref": "511-4",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre V : Adaptations des dispositions générales",
+        "Titre I – Les adaptations relatives à des associations, fondations ou fonds",
+        "Chapitre II – Associations souscriptrices d’un contrat d’assurance collectif"
+      ],
+      "heading_source": "Eléments de contexte",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR1:0011",
+      "ir_type": "IR1",
+      "page_end_pdf": 80,
+      "page_start_pdf": 80,
+      "source_line_md": 3779,
+      "text_source": "Un contrat collectif d'assurance comprend ainsi un double rapport contractuel.\n\nLe premier, le contrat cadre, existe entre l'association souscriptrice et l'assureur. Ce contrat comprend des\ndispositions qui concernent les deux partenaires ayant conclu le contrat, le souscripteur et l'assureur (date\nd'effet, résiliation, prélèvement des primes, communication d'information, résiliation...), outre les règles qui\ns'appliqueront aux futurs adhérents.\n\nSe superpose à cette convention un deuxième rapport d'obligations, l'adhésion individuelle elle-même\ndécoulant d'une stipulation pour autrui de contrat."
+    },
+    {
+      "article_ref": "511-4",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre V : Adaptations des dispositions générales",
+        "Titre I – Les adaptations relatives à des associations, fondations ou fonds",
+        "Chapitre II – Associations souscriptrices d’un contrat d’assurance collectif"
+      ],
+      "heading_source": "Rôle de l’association souscriptrice",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR1:0012",
+      "ir_type": "IR1",
+      "page_end_pdf": 80,
+      "page_start_pdf": 80,
+      "source_line_md": 3789,
+      "text_source": "Le rôle de l’association souscriptrice est défini à l’article L 141-4 du code des assurances. Elle a pour objet de\nreprésenter et défendre les intérêts de ses adhérents. Lors de la souscription d’un contrat collectif, elle est\nchargée de la négociation, de la mise en place et de la souscription de la police, donc des adhésions, dans\nl'intérêt futur des adhérents relevant du périmètre de la police de groupe."
+    },
+    {
+      "article_ref": "512-1",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre V : Adaptations des dispositions générales",
+        "Titre I – Les adaptations relatives à des associations, fondations ou fonds",
+        "Chapitre II – Associations souscriptrices d’un contrat d’assurance collectif"
+      ],
+      "heading_source": "Modalités d’application",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0073",
+      "ir_type": "IR3",
+      "page_end_pdf": 80,
+      "page_start_pdf": 80,
+      "source_line_md": 3804,
+      "text_source": "Il s’agit essentiellement des opérations au titre de l’encaissement de primes ou cotisations d’assurance ou du\nrèglement de prestations d’assurance.  Ainsi, lorsque  l’association procède à une retenue directe de\nprélèvements qui reviennent à l’assureur, il s’agit d’une opération de trésorerie, effectuée pour le compte de\nl’assureur, qui est enregistrée en comptes de tiers et ne donne pas lieu à constatation de charges et de produits\npar l’association."
+    },
+    {
+      "article_ref": "512-5",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre V : Adaptations des dispositions générales",
+        "Titre I – Les adaptations relatives à des associations, fondations ou fonds",
+        "Chapitre II – Associations souscriptrices d’un contrat d’assurance collectif"
+      ],
+      "heading_source": "Modalités d’application",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0074",
+      "ir_type": "IR3",
+      "page_end_pdf": 84,
+      "page_start_pdf": 81,
+      "source_line_md": 3857,
+      "text_source": "Tel serait notamment le cas de versements en vue de la prise en charge de coûts généraux de l’association\npar une telle entité, ou bien encore de la souscription par l’association auprès du même assureur de contrats\nautres que les contrats collectifs d’assurance, objets de mandats de gestion et/ou de participation aux\nbénéfices.\n\nVersion du 1er janvier 2026                                                              80\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n#### Chapitre III – Associations ayant le statut de groupement d’épargne retraite populaire (GERP)\n\nCode des assurances : Plan d'épargne retraite populaire\nArticle L. 144-2\nI.- Le plan d'épargne retraite populaire est un contrat régi par l'article L. 141-1 dont l'exécution est liée à la cessation\nd'activité professionnelle et qui est souscrit par une association relevant de l'article L. 141-7dénommée groupement\nd'épargne retraite populaire.\nLe contrat mentionné au premier alinéa a pour objet l'acquisition et la jouissance de droits viagers personnels payables à\nl'adhérent à compter au plus tôt de la date de liquidation de sa pension dans un régime obligatoire d'assurance vieillesse\nou de l'âge fixé en application de l'article L. 351-1 du code de la sécurité sociale. Le contrat peut également prévoir le\npaiement d'un capital à cette même date, à condition que la valeur de rachat de cette garantie n'excède pas 20 % de la\nvaleur de rachat du contrat.\nLe contrat peut prévoir des garanties complémentaires en cas de décès de l'adhérent avant ou après la date de mise en\nservice de la rente viagère acquise dans le cadre du plan. Les prestations servies au titre de ces garanties consistent en\nune rente viagère versée à un ou plusieurs bénéficiaires expressément désignés par l'adhérent ou, à défaut, à son conjoint\nou en une rente temporaire d'éducation versée à des enfants mineurs. Ces garanties complémentaires ne peuvent avoir\npour effet de transmettre des droits qui excéderaient ceux auxquels l'adhérent aurait pu prétendre en cas de vie. Le contrat\npeut également prévoir, en cas d'invalidité de l'adhérent survenue après son adhésion, le versement d'une rente d'invalidité\nà son bénéfice exclusif, sans que cette prestation puisse avoir pour effet de lui ouvrir des droits qui excéderaient ceux\nauxquels il aurait pu prétendre sans invalidité.\nNonobstant les dispositions du deuxième alinéa du présent I, un adhérent peut demander le rachat d'un contrat à une\nentreprise d'assurances agréée en application de l'article L. 321-1 du présent code, ainsi qu'aux organismes d'assurance\nmentionnés à l'article L. 144-4, s'il satisfait aux conditions suivantes :\n1° La valeur de transfert du contrat est inférieure à 2 000 € ;\n2° Pour les contrats ne prévoyant pas de versements réguliers, aucun versement de cotisation n'a été réalisé au cours\ndes quatre années précédant le rachat ; pour les contrats prévoyant des versements réguliers, l'adhésion au contrat est\nintervenue au moins quatre années révolues avant la demande de rachat ;\n3° Le revenu de son foyer fiscal de l'année précédant celle du rachat est inférieur à la somme, majorée le cas échéant au\ntitre des demi-parts supplémentaires retenues pour le calcul de l'impôt sur le revenu afférent audit revenu, prévue au II de\nl'article 1417 du code général des impôts.\nLe plan d'épargne retraite populaire a également pour objet la constitution d'une épargne affectée à l'acquisition de la\nrésidence principale de l'adhérent en accession à la première propriété mentionnée au premier alinéa du I de l'article 244\nquater J du code général des impôts, à compter de la date de liquidation de sa pension dans un régime obligatoire\nd'assurance vieillesse ou de l'âge fixé en application de l'article L. 351-1 du code de la sécurité sociale, payable, à cette\néchéance, par un versement en capital.\nLes règles propres aux formes juridiques sous lesquelles sont constitués le plan d'épargne retraite populaire, le\ngroupement d'épargne retraite populaire et l'entreprise d'assurance s'appliquent sous réserve des dispositions du présent\narticle.\nII.-  Il est institué, pour chaque plan, un comité de surveillance chargé de veiller à la bonne exécution du contrat par\nl'entreprise d'assurance et à la représentation des intérêts des adhérents, selon des modalités définies par décret en\nConseil d'Etat.\nIl suit les règles applicables au conseil d'administration du groupement définies à l'article L. 141-7.\nLorsque le groupement mentionné au  I du présent article souscrit un unique plan, le conseil d'administration de\nl'association peut valablement être le comité de surveillance dudit plan.\nLe comité de surveillance peut demander, à tout moment, aux commissaires aux comptes et aux dirigeants de l'entreprise\nd'assurance tout renseignement sur la situation financière et l'équilibre actuariel de ce même plan. Les commissaires aux\ncomptes sont alors déliés, à son égard, de l'obligation de secret professionnel.\nLe comité de surveillance diligente les expertises nécessaires à sa mission et peut, à cette fin, mandater un expert\nindépendant pour effectuer tout contrôle sur pièces et sur place de la gestion administrative, technique et financière du\nplan.\n\nVersion du 1er janvier 2026                                                              81\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n\nL'entreprise d'assurance informe, chaque année, le comité de surveillance du montant affecté à la participation aux\nbénéfices techniques et financiers et le consulte sur les modalités de sa répartition entre les adhérents.\nLes membres du comité de surveillance sont tenus au secret professionnel à l'égard des informations présentant un\ncaractère confidentiel et données comme telles par les experts et les personnes consultées par lui dans les conditions et\nsous les peines prévues aux articles 226-13 et 226-14 du code pénal. Les experts et les personnes consultées par le\ncomité de surveillance sont tenus au secret professionnel dans les mêmes conditions et sous les mêmes peines.\nIII.- L'entreprise d'assurance informe au moins une fois chaque trimestre le comité de surveillance du plan et lui remet,\ndans les six mois qui suivent la clôture de l'exercice précédent, un rapport annuel sur l'équilibre actuariel et la gestion\nadministrative, technique et financière du plan. Ce rapport est transmis à l'autorité de contrôle instituée à l'article L. 612-1\ndu code monétaire et financier accompagné de l'avis du comité de surveillance.\nIV.- La gestion administrative du plan, comprenant notamment la tenue des comptes enregistrant les droits des adhérents\nainsi que l'information de chaque adhérent sur ses droits, est effectuée par l'entreprise d'assurance ou par un tiers auquel\nl'entreprise d'assurance délègue cette gestion sous sa responsabilité.\nV.- Les conditions d'exercice de la gestion financière du plan d'épargne retraite populaire par l'entreprise d'assurance et\nnotamment le recours à la réassurance ou à la gestion déléguée sont déterminées par décret en Conseil d'Etat.\nVI.- L'entreprise d'assurance exerce les droits de vote dans le seul intérêt des droits individuels des adhérents au titre du\nplan.\nVII.- Nonobstant les dispositions du code de commerce relatives aux comptes sociaux, l'entreprise d'assurance établit,\npour  les opérations relevant du présent  article, une comptabilité  auxiliaire  d'affectation. Ces procédures  et cet\nenregistrement sont contrôlés et certifiés par le ou les commissaires aux comptes de l'entreprise d'assurance.\nL'article L. 134-4 s'applique aux biens et droits résultant de l'enregistrement comptable établi en vertu du premier alinéa\ndu présent VII.\nLes  actifs du plan d'épargne  retraite populaire sont conservés par un dépositaire unique  distinct de l'entreprise\nd'assurance, qui exerce à titre principal le service mentionné au 1 de l'article L. 321-2 du code monétaire et financier et\nqui est agréé en France, dans un autre Etat membre de la Communauté européenne ou dans un autre Etat partie à l'accord\nsur l'Espace économique européen.\nVIII.- En cas d'insuffisance de représentation des engagements d'un plan d'épargne retraite populaire, l'article L. 143-5 du\nprésent code s'applique à la comptabilité auxiliaire d'affectation mentionnée au VII du présent article.\nIX.- Les VII et  VIII s'appliquent individuellement à chaque plan d'épargne retraite populaire géré par l'entreprise\nd'assurance et vérifiant des conditions de seuils.  Ils s'appliquent collectivement à l'ensemble des plans gérés par\nl'entreprise d'assurance qui ne vérifient pas ces conditions de seuils. Si, pour un plan, ces conditions ne sont pas vérifiées\npendant huit années consécutives, les cotisations versées sur un contrat ne comptant plus un nombre minimum\nd'adhérents ne sont plus considérées comme des cotisations à un plan d'épargne retraite populaire.\nUn décret en Conseil d'Etat détermine les seuils visés au premier alinéa du présent IX et les règles s'appliquant lors de\nleur franchissement.\nX.- Le groupement d'épargne retraite populaire dépose ses statuts auprès de l'autorité instituée à l'article L. 612-1 du code\nmonétaire et financier et est inscrit sur un registre tenu par cette même autorité. Il ne peut être dissous que dans des cas\net des conditions définis par décret en Conseil d'Etat.\nL'objet de ce groupement est d'assurer la représentation des intérêts des adhérents dans la mise en place et la surveillance\nde la gestion de ce ou ces plans. Il ne peut pas participer directement à la présentation de ce ou ces mêmes plans.\nXI.- Le contrat prévoit les modalités de financement du groupement d'épargne retraite populaire. Le groupement ne perçoit\naucune cotisation de ses membres, à l'exception éventuelle d'un droit d'entrée.\nXII.- L'assemblée générale décide, sur proposition du comité de surveillance, des modifications à apporter aux dispositions\nessentielles du plan souscrit par le groupement d'épargne retraite populaire.\nSauf en cas de faute grave, le changement de l'entreprise d'assurance ne peut intervenir qu'à l'issue d'un préavis d'au\nmoins douze mois et dans les conditions stipulées au plan. Le choix de la nouvelle entreprise d'assurance fait l'objet d'une\nmise en concurrence et est soumis à l'assemblée générale au plan.  Il emporte le transfert à la nouvelle entreprise\nd'assurance gestionnaire de l'ensemble des engagements et des actifs attachés au plan.\nLe comité de surveillance examine l'opportunité, à son échéance, de reconduire le contrat souscrit auprès de l'entreprise\nd'assurance ou bien de le remettre en concurrence. La décision de reconduire le contrat souscrit auprès de l'entreprise\n\nVersion du 1er janvier 2026                                                              82\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n\nd'assurance est soumise à l'approbation de l'assemblée générale. En cas de remise en concurrence, l'entreprise\nd'assurance sortante ne peut être exclue de la procédure de mise en concurrence.\nArticle R. 144-4\nLes activités d'une association visée au I de l'article L. 144-2 résultant de ses missions au titre d'un plan d'épargne retraite\npopulaire sont exercées distinctement de celles qui résultent des éventuels autres plans de même nature souscrits par\nl'association ainsi que, le cas échéant, de ses autres activités.\nArticle R. 144-9\nL'assemblée générale de l'association nomme un commissaire aux comptes titulaire et un suppléant choisis sur la liste\nmentionnée au I de l'article L. 822-1 du code de commerce et qui exercent leurs fonctions dans les conditions prévues par\nl'article L. 612-1 de ce code. Les comptes annuels de l'association, arrêtés par le conseil d'administration, certifiés par le\ncommissaire aux comptes et établis selon des règles fixées par un règlement de l'Autorité des normes comptables, sont\napprouvés par l'assemblée générale sur le rapport de ce même commissaire aux comptes.\nPour les opérations afférentes à chaque plan et réalisées par l'association,  il est établi une comptabilité auxiliaire\nd'affectation.\nArticle R. 144-11\nL'association établit un budget annuel qui inclut notamment le budget annuel de chaque plan élaboré conformément au 1°\nde l'article R. 144-14.\nChaque plan d'épargne retraite populaire prévoit que le financement des activités de l'association relatives au plan est\nassuré, outre par les éventuels droits d'entrée versés à l'association par les adhérents au plan, par des prélèvements\neffectués par l'entreprise d'assurance sur les actifs du plan. Ces sommes sont déterminées en fonction du budget du plan\napprouvé en fin d'exercice pour l'exercice suivant. Le contrat prévoit que l'entreprise d'assurance gestionnaire du plan\nverse directement ces sommes sur les comptes affectés au plan mentionnés à l'article R. 144-10. Le contrat prévoit\négalement que l'entreprise d'assurance verse dans les mêmes conditions les sommes correspondant à des dépenses\nconduisant à un dépassement du montant de dépenses prévu par le budget du plan sous réserve du respect des conditions\net limites prévues dans ce même budget en application du 1° de l'article R. 144-14."
+    },
+    {
+      "article_ref": "512-5",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre V : Adaptations des dispositions générales",
+        "Titre I – Les adaptations relatives à des associations, fondations ou fonds",
+        "Chapitre III – Associations ayant le statut de groupement d’épargne retraite populaire (GERP)"
+      ],
+      "heading_source": "Elément de contexte",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR1:0013",
+      "ir_type": "IR1",
+      "page_end_pdf": 84,
+      "page_start_pdf": 84,
+      "source_line_md": 4008,
+      "text_source": "Un Groupement d'épargne retraite populaire (GERP) est une association, à but non lucratif, souscriptrice,\nauprès d'un organisme d'assurance, d'un plan d'épargne retraite populaire (PERP).\nUn même GERP peut proposer plusieurs PERP."
+    },
+    {
+      "article_ref": "513-1",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre V : Adaptations des dispositions générales",
+        "Titre I – Les adaptations relatives à des associations, fondations ou fonds",
+        "Chapitre III – Associations ayant le statut de groupement d’épargne retraite populaire (GERP)"
+      ],
+      "heading_source": "Modalités d’application",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0075",
+      "ir_type": "IR3",
+      "page_end_pdf": 85,
+      "page_start_pdf": 85,
+      "source_line_md": 4037,
+      "text_source": "•  Les droits d’entrée contractuels attachés aux adhésions aux PERP (compte 75633) constituent un produit\nd’exploitation inscrit dans la comptabilité propre au PERP souscrit. Ce droit d’entrée issu de dispositions\ncontractuelles propres à un PERP ne peut être confondu avec,  s’il en existe, les droits d’entrée ou\nd’adhésion statutaires de l’association qui sont de la compétence de la seule assemblée générale de\nl’association.\n•   Lorsqu’un adhérent transfère ses droits d’un plan à un autre,  il est  fait application des stipulations\ncontractuelles propres à une éventuelle acquisition partagée entre les deux associations souscriptrices de\nchacun de ces deux plans. Les annulations de ressources sont inscrites au débit d’un compte 75639\n« annulation de ressources du PERP suite à transfert ».\n•  La répartition des charges communes est effectuée de la façon suivante :\no  dans la comptabilité de l’activité générale par le crédit d’un compte 792 de transfert interne de charges,\navec débit en contrepartie d’un compte de liaison ;\no  dans la comptabilité auxiliaire d’affectation propre au PERP concerné par le débit d’un compte de\ncharge par nature 656 « charges imputées par transfert interne de charges générales », ce compte\nétant subdivisé en sous comptes par nature de charges selon la nomenclature principale de classe 6\ndu présent règlement, avec crédit d’un compte de liaison en contrepartie."
+    },
+    {
+      "article_ref": "523-3",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre V : Adaptations des dispositions générales",
+        "Titre I – Les adaptations relatives à des associations, fondations ou fonds",
+        "Chapitre IV – Associations ayant des activités en relation avec l’exercice public d’un culte"
+      ],
+      "heading_source": "Eléments de contexte",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR1:0014",
+      "ir_type": "IR1",
+      "page_end_pdf": 87,
+      "page_start_pdf": 87,
+      "source_line_md": 4101,
+      "text_source": "La loi n° 2021-1109 du 24 août 2021 confortant le respect des principes de la République, à son article 73,\nimpose aux associations mentionnées au deuxième alinéa de l'article 4 de la loi du 2 janvier 1907 concernant\nl'exercice public des cultes :\n\n•   d’ouvrir un compte dans un établissement mentionné à l’article L. 521-1 du code monétaire et financier\ndédié à l’ensemble des transactions financières liées aux activités en relation avec l’exercice public\nd’un culte ;\n•   d’établir des comptes annuels (sans condition d’atteinte de critères ou de seuils) et « de sorte que\nleurs activités en relation avec l’exercice public d’un culte constituent une unité fonctionnelle présentée\nséparément » ;\n•  de produire dans l’annexe des comptes annuels :\n•  un état séparé des avantages et des ressources provenant de l’étranger ;\n•  un compte d’emploi annuel des ressources collectées auprès du public lorsqu’elles ont fait appel à la\ngénérosité du public afin de soutenir l’exercice du culte et que le montant des ressources collectées\nest supérieur à 50 000 euros (article 3 du décret n° 2021-1789 du 23 décembre 2021).\n\nLes associations susmentionnées établissent des comptes annuels comprenant un bilan, un compte de\nrésultat et une annexe conformément aux dispositions du présent règlement, auxquelles s’ajoutent les\ndispositions prévues au présent chapitre.\n\n##### Section 1 – Champ d’application"
+    },
+    {
+      "article_ref": "531-2",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre V : Adaptations des dispositions générales",
+        "Titre I – Les adaptations relatives à des associations, fondations ou fonds",
+        "Chapitre IV – Associations ayant des activités en relation avec l’exercice public d’un culte",
+        "Section 2 – Présentation du compte de résultat et du bilan faisant apparaître le résultat des activités"
+      ],
+      "heading_source": "Modalités de mise en œuvre",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0076",
+      "ir_type": "IR3",
+      "page_end_pdf": 88,
+      "page_start_pdf": 87,
+      "source_line_md": 4141,
+      "text_source": "Le bilan (actif) est présenté en conformité avec le modèle figurant à l’article 421-1 du présent règlement.\n\nLe bilan (passif) est présenté selon le modèle figurant à l’article 421-1 du présent règlement, avec une\nprésentation distincte au niveau des fonds propres, des réserves, du report à nouveau et de l’excédent (ou\ndéficit) de l’exercice au titre des activités en relation avec l’exercice public d’un culte par des subdivisions\nspécifiques des postes concernés.\n\nVersion du 1er janvier 2026                                                              86\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\nLe compte de résultat est présenté selon le modèle figurant à l’article 422-1 du présent règlement avec une\nprésentation dans une colonne distincte des produits, des charges et du résultat des activités en relation avec\nl’exercice public d’un culte, pour le dernier exercice clos (N) et l'exercice précédent (N-1).\n\nLe plan de comptes est aménagé de façon à enregistrer les produits, les charges, le résultat, le report à\nnouveau et les réserves des activités en relation avec l’exercice public d’un culte. A ce titre, il est rappelé que\nles associations visées à l’article 531-1 doivent ouvrir un compte dans un établissement mentionné à l’article\nL. 521-1 du code monétaire et financier dédié à l’ensemble des transactions financières liées aux activités en\nrelation avec l’exercice public d’un culte."
+    },
+    {
+      "article_ref": "531-2",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre V : Adaptations des dispositions générales",
+        "Titre I – Les adaptations relatives à des associations, fondations ou fonds",
+        "Chapitre IV – Associations ayant des activités en relation avec l’exercice public d’un culte",
+        "Section 2 – Présentation du compte de résultat et du bilan faisant apparaître le résultat des activités"
+      ],
+      "heading_source": "Exemple de présentation du bilan (passif)",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR4:0003",
+      "ir_type": "IR4",
+      "page_end_pdf": 89,
+      "page_start_pdf": 88,
+      "source_line_md": 4163,
+      "text_source": "PASSIF                                                                                         Exercice N  Exercice N-1\nFONDS PROPRES *\nFonds propres sans droit de reprise\nFonds propres statutaires\nFonds propres complémentaires\nFonds propres avec droit de reprise\nFonds propres statutaires\nFonds propres complémentaires\nEcarts de réévaluation\nRéserves\nRéserves statutaires ou contractuelles\ndont réserves des activités en relation avec l’exercice public d’un culte\nRéserves pour projet de l’entité\ndont réserves des activités en relation avec l’exercice public d’un culte\nAutres\ndont réserves des activités en relation avec l’exercice public d’un culte\nReport à nouveau\ndont report à nouveau des activités en relation avec l’exercice public d’un culte\nExcédent ou déficit de l’exercice\ndont résultat des activités en relation avec l’exercice public d’un culte\nSituation nette (sous total)\nFonds propres consomptibles\nSubventions d'investissement\nProvisions réglementées\nTotal I                                                                              X         X\nAUTRES FONDS PROPRES\nFonds non remboursables\nAvances conditionnées\nDroits du concédant\nTotal II                                                                              X         X\nFONDS REPORTES ET DEDIES\nFonds reportés liés aux legs ou donations\nFonds dédiés\nTotal III\nPROVISIONS\nProvisions pour risques\nProvisions pour charges\nTotal IV                                                                        X         X\nDETTES\nEmprunts obligataires et assimilés\nEmprunts et dettes auprès des établissements de crédit\nEmprunts et dettes financières diverses\nInstruments financiers à terme\ndettes fournisseurs et comptes rattachés\nDettes des legs ou donations\nDettes fiscales et sociales\nDettes sur immobilisations et comptes rattachés\nAutres dettes\nProduits constatés d’avance\nTotal V                                                                              X         X\nEcarts de conversion et différences d’évaluation Passif (VI)                                                                              X         X\nTOTAL GENERAL (I + II + III + IV + V + VI)                                                                              X         X\n\nVersion du 1er janvier 2026                                                              87\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n\n* Pour l’application des dispositions de l’article 315-1 du règlement n° 2014-03 du 5 juin 2014 modifié relatif au plan\ncomptable général, la rubrique « Fonds propres » du présent règlement est considérée équivalente à celle des capitaux\npropres."
+    },
+    {
+      "article_ref": "531-2",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre V : Adaptations des dispositions générales",
+        "Titre I – Les adaptations relatives à des associations, fondations ou fonds",
+        "Chapitre IV – Associations ayant des activités en relation avec l’exercice public d’un culte",
+        "Section 2 – Présentation du compte de résultat et du bilan faisant apparaître le résultat des activités"
+      ],
+      "heading_source": "Exemple de présentation du compte de résultat",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR4:0004",
+      "ir_type": "IR4",
+      "page_end_pdf": 90,
+      "page_start_pdf": 89,
+      "source_line_md": 4226,
+      "text_source": "Exercice N           Exercice N-1\nCOMPTE DE RESULTAT                           Total  dont activités en  Total  dont activités en\nrelation avec              relation avec\nl’exercice public           l’exercice public\nd’un culte               d’un culte\nPRODUITS D'EXPLOITATION\nCotisations\nVentes de biens et services\nVentes de biens\ndont ventes de dons en nature\nVentes de prestations de service\ndont parrainages\nProduits de tiers financeurs\nConcours publics et subventions d'exploitation\nVersements des fondateurs ou consommations de la dotation consomptible\nRessources liées à la générosité du public\nDons manuels\nMécénats\nLegs, donations et assurances-vie\nContributions financières\nReprises sur amortissements, dépréciations et provisions\nProduits des cessions d’immobilisations incorporelles et corporelles\nUtilisations des fonds dédiés\nAutres produits\nTotal I                                                      X        X        X         X\nCHARGES D'EXPLOITATION\nAchats de marchandises\nVariation de stock\nAutres achats et charges externes\nAides financières\nImpôts, taxes et versements assimilés\nSalaires\nCotisations sociales\nDotations aux amortissements et aux dépréciations\nDotations aux provisions\nValeurs comptables des immobilisations incorporelles et corporelles cédées\nReports en fonds dédiés\nAutres charges\nTotal II                                                     X        X        X         X\n1. RESULTAT D'EXPLOITATION (I - II)\nPRODUITS FINANCIERS :\nDe participation\nD'autres valeurs mobilières et créances de l'actif immobilisé\nAutres intérêts et produits assimilés\n\nVersion du 1er janvier 2026                                                              88\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n\nExercice N           Exercice N-1\nCOMPTE DE RESULTAT                           Total  dont activités en  Total  dont activités en\nrelation avec              relation avec\nl’exercice public           l’exercice public\nd’un culte               d’un culte\nReprises sur dépréciations et provisions\nDifférences positives de change\nProduits des immobilisations financières cédées\nProduits nets sur cessions de valeurs mobilières de placement et d’instruments\nde trésorerie\nTotal III                                                     X        X        X         X\nCHARGES FINANCIERES :\nDotations aux amortissements, aux dépréciations et aux provisions\nIntérêts et charges assimilées\nDifférences négatives de change\nValeurs comptables des immobilisations financières cédées\nCharges nettes sur cessions de valeurs mobilières de placement et d’instruments\nde trésorerie\nTotal IV                                                     X        X        X         X\n2. RESULTAT FINANCIER (III - IV)\n3. RESULTAT COURANT avant impôts (I - II + III - IV)\nPRODUITS EXCEPTIONNELS (V)\nCHARGES EXCEPTIONNELLES (VI)\n4. RESULTAT EXCEPTIONNEL (V - VI)\nParticipation des salariés aux résultats (VII)\nImpôts sur les bénéfices (VIII)\nTotal des produits (I + III + V)                                      X        X        X         X\nTotal des charges (II + IV + VI + VII + VIII)                              X        X        X         X\nEXCEDENT OU DEFICIT                                         X        X        X         X\n\nCONTRIBUTIONS VOLONTAIRES EN NATURE\nDons en nature\nPrestations en nature\nBénévolat\nTOTAL\nCHARGES DES CONTRIBUTIONS VOLONTAIRES EN NATURE\nSecours en nature\nMises à disposition gratuite de biens\nPrestations en nature\nPersonnel bénévole\nTOTAL\n\n##### Section 3 – Informations complémentaires dans l’annexe sur les activités en relation avec l’exercice\npublic d’un culte"
+    },
+    {
+      "article_ref": "531-2",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre V : Adaptations des dispositions générales",
+        "Titre I – Les adaptations relatives à des associations, fondations ou fonds",
+        "Chapitre IV – Associations ayant des activités en relation avec l’exercice public d’un culte",
+        "Section 3 – Informations complémentaires dans l’annexe sur les activités en relation avec l’exercice"
+      ],
+      "heading_source": "Eléments de contexte",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR1:0015",
+      "ir_type": "IR1",
+      "page_end_pdf": 91,
+      "page_start_pdf": 90,
+      "source_line_md": 4322,
+      "text_source": "Les associations visées à  l’article 531-1 établissent l’annexe des comptes annuels conformément aux\ndispositions du règlement ANC n° 2014-03 relatif au plan comptable général, sous réserve des dispositions\nfigurant aux chapitres  I,  II et IV du  titre  III du livre IV du présent règlement auxquelles s’ajoutent des\n\nVersion du 1er janvier 2026                                                              89\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\ninformations complémentaires sur les activités en relation avec l’exercice public d’un culte.\n\nIl est rappelé que ces associations doivent notamment produire dans l’annexe un état séparé des avantages\net des ressources provenant de l’étranger dont les modalités sont précisées aux articles 434-1 à 434-4."
+    },
+    {
+      "article_ref": "531-6",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre V : Adaptations des dispositions générales",
+        "Titre I – Les adaptations relatives à des associations, fondations ou fonds",
+        "Chapitre IV – Associations ayant des activités en relation avec l’exercice public d’un culte",
+        "Section 3 – Informations complémentaires dans l’annexe sur les activités en relation avec l’exercice"
+      ],
+      "heading_source": "Eléments de contexte",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR1:0016",
+      "ir_type": "IR1",
+      "page_end_pdf": 92,
+      "page_start_pdf": 91,
+      "source_line_md": 4368,
+      "text_source": "Il est rappelé que lorsque les associations visées à l’article 531-1 font appel à la générosité du public\nconformément aux articles 3 et 4 de la loi n° 91-772 du 7 août 1991 et que le montant des ressources collectées\nauprès du public est supérieur à 153 000 euros (article 1 du décret n° 2019-504 du 22 mai 2019), elles\nappliquent les dispositions figurant au chapitre II du titre III du livre IV du présent règlement et incluent dans\nl’annexe des comptes annuels :\n\n•  un compte de résultat par origine et destination ;\n•  un compte d’emploi annuel des ressources collectées auprès du public ;\n•   les informations nécessaires à leur bonne compréhension.\n\nL’exercice du culte ne fait pas partie des causes visées à l’article 3 par la loi n° 91-772 du 7 août 1991 pour\nlesquelles un appel à la générosité du public est soumis à déclaration auprès du représentant de l'Etat dans\nle département.\n\nNéanmoins, l’article 4-1 de la loi du 2 janvier 1907 concernant l’exercice public des cultes prévoit que les\nassociations qui collectent des ressources suite à un appel à la générosité du public afin de soutenir l'exercice\ndu culte établissent un compte d’emploi annuel des ressources lorsque le montant des ressources collectées\nest supérieur à 50 000 euros (article 3 du décret n° 2021-1789 du 23 décembre 2021). Ce compte d’emploi\nannuel des ressources doit figurer dans l’annexe des comptes annuels.\n\nVersion du 1er janvier 2026                                                              90\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF"
+    },
+    {
+      "article_ref": "531-6",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre V : Adaptations des dispositions générales",
+        "Titre I – Les adaptations relatives à des associations, fondations ou fonds",
+        "Chapitre IV – Associations ayant des activités en relation avec l’exercice public d’un culte",
+        "Section 3 – Informations complémentaires dans l’annexe sur les activités en relation avec l’exercice"
+      ],
+      "heading_source": "Modalités de mise en œuvre",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0077",
+      "ir_type": "IR3",
+      "page_end_pdf": 92,
+      "page_start_pdf": 92,
+      "source_line_md": 4394,
+      "text_source": "Le compte de résultat par origine et par destination est établi selon le modèle défini à l’article 432-2 et\nconformément aux dispositions de la section 2 du chapitre II du titre III du livre IV.\n\nLe compte d’emploi annuel des ressources collectées auprès du public à la suite d’un appel à la générosité\ndu public destiné à soutenir l’exercice du culte est établi selon  le modèle défini à  l’article 432-17 et\nconformément aux dispositions de la section 3 du chapitre II du titre III du livre IV."
+    },
+    {
+      "article_ref": "531-6",
+      "document_id": "fr-nonprofit-recueil-2026-md",
+      "heading_path": [
+        "Partie I – Règlements applicables pour l’établissement",
+        "Livre V : Adaptations des dispositions générales",
+        "Titre I – Les adaptations relatives à des associations, fondations ou fonds",
+        "Chapitre IV – Associations ayant des activités en relation avec l’exercice public d’un culte",
+        "Section 3 – Informations complémentaires dans l’annexe sur les activités en relation avec l’exercice"
+      ],
+      "heading_source": "Modalités de mise en œuvre lorsque l’association est tenue d’établir un compte d’emploi des",
+      "ir_id": "fr-nonprofit-recueil-2026-md:IR3:0078",
+      "ir_type": "IR3",
+      "page_end_pdf": 95,
+      "page_start_pdf": 92,
+      "source_line_md": 4401,
+      "text_source": "ressources collectées à la suite d’un appel à la générosité du public destiné à soutenir l’exercice du\nculte et un compte d’emploi des ressources collectées à la suite d’un appel à la générosité du public\nconformément aux articles 3 et 4 de la loi n° 91-772 du 7 août 1991\nLorsque l’association est tenue d’établir un compte d’emploi des ressources collectées à la suite d’un appel à\nla générosité du public destiné à soutenir l’exercice du culte (le montant des ressources collectées est\nsupérieur à 50 000 euros) et un compte d’emploi des ressources collectées à la suite d’un appel à la générosité\ndu public conformément aux articles 3 et 4 de la loi n° 91-772 du 7 août 1991 (le montant des ressources\ncollectées est supérieur à 153 000 euros), elle peut :\n\n•   soit présenter d’une part, le compte d’emploi des ressources collectées à la suite d’un appel à la\ngénérosité du public destiné à soutenir l’exercice du culte et d’autre part, le compte d’emploi des\nressources collectées à la suite d’un appel à la générosité du public conformément aux articles 3 et 4\nde la loi n° 91-772 du 7 août 1991, tous deux établis selon le modèle prescrit par le présent règlement,\n\n•   soit présenter un compte d’emploi des ressources collectées auprès du public selon le modèle prescrit\npar le présent règlement et adapté pour distinguer, pour chaque rubrique figurant au compte d’emploi\ndes ressources collectées auprès du public, le montant total, le montant relatif aux activités autres que\ncelles en relation avec l’exercice public d’un culte et le montant relatif aux activités en relation avec\nl’exercice public d’un culte. Un exemple de modèle du compte d’emploi des ressources collectées\nauprès du public ainsi adapté est présenté ci-après.\n\nVersion du 1er janvier 2026                                                              91\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n\nCOMPTE D'EMPLOI ANNUEL DES RESSOURCES COLLECTEES AUPRES DU PUBLIC\n(Loi n°91-772 du 7 août 1991 et article 4-1 de la loi du 2 janvier 1907 concernant l’exercice public des cultes)\n\nEMPLOIS PAR DESTINATION                 EXERCICE N                 EXERCICE N-1                 RESSOURCES PAR ORIGINE                    EXERCICE N                  EXERCICE N-1\n\ndont activités     dont             dont activités     dont                                                                   dont activités                       dont activités     dont                                                                                                                                                                                                    dont                                                          autres que    activités             autres que    activités en                                                                  autres que                          autres que     activités                                                                                                                                                                                                                              activités en                                                                celles en   en relation             celles en       relation                                                                           celles en                              celles en    en relation                                                                                                                                                                                                                             relation avec                                                     Total   relation avec    avec      Total    relation avec     avec                                                                 Total    relation avec                  Total    relation avec     avec                                                                                                                                                                                                                             l’exercice                                                                 l’exercice    l’exercice              l’exercice      l’exercice                                                                            l’exercice                              l’exercice     l’exercice                                                                                                                                                                                                                       public d’un                                                               public d’un   public d’un             public d’un    public d’un                                                                        public d’un                            public d’un    public d’un                                                                                                                                                                                                                            culte                                                                   culte         culte                   culte          culte                                                                                culte                                   culte          culte\n\nEMPLOIS DE L'EXERCICE                                                                   RESSOURCES DE L'EXERCICE\n1 – RESSOURCES LIEES A LA GENEROSITE DU 1 – MISSIONS SOCIALES                                                                                                    PUBLIC\n1.1 Réalisées en France                                                                                                          1.1 Cotisations sans contrepartie\n- Actions réalisées par l'organisme                                                                                               1.2 Dons, legs et mécénats\n- Versements à un organisme central ou\n- Dons manuels\nd’autres organismes agissant en France\n1.2 Réalisées à l’étranger                                                                                                                                                    - Legs, donations et assurances-vie\n- Actions réalisées par l'organisme                                                                                                                                      - Mécénats\n- Versements à un organisme central ou\n1.3 Autres ressources liées à la générosité du public\nd’autres organismes agissant à l’étranger\n2 – FRAIS DE RECHERCHE DE FONDS\n2.1 Frais d’appel à la générosité du public\n2.2 Frais de recherche d'autres ressources\n3 – FRAIS DE FONCTIONNEMENT\nTOTAL DES EMPLOIS                                                                             TOTAL DES RESSOURCES\n4 - DOTATIONS AUX PROVISIONS ET                                                                                                              2 - REPRISES SUR PROVISIONS ET DEPRECIATIONS DEPRECIATIONS\n5 - REPORTS EN FONDS DEDIES DE                                                                                                              3 - UTILISATIONS DES FONDS DEDIES ANTERIEURS L'EXERCICE\nEXCEDENT DE LA GENEROSITE DU PUBLIC DE                                                                    DEFICIT DE LA GENEROSITE DU PUBLIC DE\nL’EXERCICE                                                                                          L’EXERCICE\nTOTAL                                                                                           TOTAL\nRESSOURCES REPORTEES LIEES A LA GENEROSITE\nDU PUBLIC EN DEBUT D'EXERCICE (HORS FONDS\nDEDIES)\n\n(+) Excédent ou (-) insuffisance de la générosité du public\n(-) Investissements et (+) désinvestissements nets liés à la\ngénérosité du public de l'exercice\nRESSOURCES REPORTEES LIEES A LA GENEROSITE\nDU PUBLIC EN FIN D'EXERCICE (HORS FONDS\nDEDIES)\n\nVersion du 1er janvier 2026                                                              92\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n\nEXERCICE N                 EXERCICE N-1                                                             EXERCICE N                  EXERCICE N-1\n\ndont activités     dont             dont activités     dont                                                                   dont activités                       dont activités     dont                                                                                                                                                                                                    dont                                                          autres que    activités             autres que    activités en                                                                  autres que                          autres que     activités\nCONTRIBUTIONS VOLONTAIRES EN NATURE               celles en   en relation             celles en       relation                                                                           celles en     activités en             celles en    en relation                                                                                                                                                                                                                             relation avec                                                     Total   relation avec    avec      Total    relation avec     avec                                                                 Total    relation avec                  Total    relation avec     avec                                                                                                                                                                                                                             l’exercice                                                                 l’exercice    l’exercice              l’exercice      l’exercice                                                                            l’exercice                              l’exercice     l’exercice                                                                                                                                                                                                                       public d’un                                                               public d’un   public d’un             public d’un    public d’un                                                                        public d’un                            public d’un    public d’un                                                                                                                                                                                                                            culte                                                                   culte         culte                   culte          culte                                                                                culte                                   culte          culte\nEMPLOIS DE L'EXERCICE                                                                   RESSOURCES DE L'EXERCICE\n1 - CONTRIBUTIONS VOLONTAIRES AUX                                                                         1 - CONTRIBUTIONS VOLONTAIRES LIEES A LA\nMISSIONS SOCIALES                                                                             GENEROSITE DU PUBLIC\nRéalisées en France                                                                                                   Bénévolat\nRéalisées à l’étranger                                                                                                             Prestations en nature\n2 - CONTRIBUTIONS VOLONTAIRES A LA                                                                                                      Dons en nature\nRECHERCHE DE FONDS\n3 - CONTRIBUTIONS VOLONTAIRES AU\nFONCTIONNEMENT\nTOTAL                                                                                           TOTAL\n\nFONDS DEDIES LIES A LA GENEROSITE DU                                              EXERCICE N                 EXERCICE N-1\nPUBLIC\n\ndont activités     dont             dont activités     dont\nautres que    activités             autres que    activités en\ncelles en   en relation             celles en       relation\nTotal   relation avec    avec      Total    relation avec     avec\nl’exercice    l’exercice              l’exercice      l’exercice\npublic d’un   public d’un             public d’un    public d’un\nculte         culte                   culte          culte\n\nFONDS DEDIES LIES A LA GENEROSITE DU\nPUBLIC EN DEBUT D’EXERCICE\n(-) Utilisation\n(+) Report\nFONDS DEDIES LIES A LA GENEROSITE DU\nPUBLIC EN FIN D'EXERCICE\n\nVersion du 1er janvier 2026                                                              93\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF"
+    }
+  ],
+  "document_id": "fr-nonprofit-recueil-2026-md",
+  "statistics": {
+    "IR1": 16,
+    "IR2": 13,
+    "IR3": 78,
+    "IR4": 4,
+    "IR5": 1,
+    "linked_to_article": 111,
+    "total": 112
+  }
+}

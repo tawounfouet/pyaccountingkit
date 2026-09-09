@@ -1,0 +1,108 @@
+{
+  "blocked_capabilities": [],
+  "edition": "2023",
+  "non_claims": [
+    "No executable posting rule is inferred from narrative source guidance.",
+    "No perfect verbatim OCR is claimed for image-heavy pages.",
+    "Reporting template line items are source-page bound, not silently reconstructed when visual extraction is uncertain."
+  ],
+  "outputs": {
+    "capability_status": "validation/review/ebnl_2023_capability_status.json",
+    "chart_ocr_rag": "rag/indexes/ebnl-plan-2023-ocr-v1.json",
+    "conceptual_framework": "datasets/annotated/ebnl_2023_conceptual_framework.json",
+    "disclosures": "datasets/annotated/ebnl_2023_disclosures_registry.json",
+    "full_source_router_rag": "rag/indexes/ebnl-sycebnl-2023-source-router-v2.json",
+    "legal_registry": "datasets/annotated/ebnl_2023_legal_act_registry.json",
+    "review_ledger": "validation/review/ebnl_2023_visual_review_ledger.json",
+    "source_page_registry": "datasets/annotated/ebnl_2023_source_page_registry.json",
+    "specific_operations": "datasets/annotated/ebnl_2023_specific_operations.json",
+    "syscohada_delta": "datasets/crosswalk/ebnl_2023_vs_syscohada_2017_structural_delta.json",
+    "v0": "datasets/raw/ebnl_2023_v0_reviewed_structure.json",
+    "v1": "datasets/structured/ebnl_2023_v1_structure.json",
+    "v2": "datasets/annotated/ebnl_2023_v2_account_functioning.json",
+    "v3": "datasets/reporting/ebnl_2023_v3_reporting.json"
+  },
+  "release": "0.7.1",
+  "standard_id": "ohada-ebnl",
+  "statistics": {
+    "conceptual": {
+      "conventions": 5,
+      "definitions": 47,
+      "postulates": 5,
+      "qualitative_characteristics": 6
+    },
+    "disclosures": {
+      "profiles": 3
+    },
+    "full_source_router_rag": {
+      "average_tokens": 22.48,
+      "chunks": 439,
+      "pages_with_chunks": 438,
+      "terms": 558
+    },
+    "legal": {
+      "articles": 28,
+      "first_article": 1,
+      "last_article": 28
+    },
+    "source_pages": {
+      "pages": 438,
+      "pages_sparse_or_header_only": 434,
+      "pages_with_substantive_native_text": 4,
+      "pages_with_title_bindings": 96
+    },
+    "specific_operations": {
+      "chapters": 6
+    },
+    "syscohada_delta": {
+      "ambiguous_ebnl_source_code": 1,
+      "ebnl_only_code": 165,
+      "same_code_label_variation": 338,
+      "same_code_same_normalized_label": 545,
+      "syscohada_only_code": 520
+    },
+    "v0": {
+      "account_occurrences": 1050,
+      "account_occurrences_by_class": {
+        "1": 76,
+        "2": 269,
+        "3": 40,
+        "4": 214,
+        "5": 66,
+        "6": 252,
+        "7": 88,
+        "8": 38,
+        "9": 7
+      },
+      "class_scopes": 2,
+      "classes": 9,
+      "duplicate_source_codes": 1,
+      "groups": 84,
+      "unique_account_codes": 1049,
+      "visual_line_corrections": 23
+    },
+    "v1": {
+      "account_occurrence_nodes": 1050,
+      "ambiguous_account_occurrence_nodes": 2,
+      "class_nodes": 9,
+      "class_scope_nodes": 2,
+      "graph_nodes": 1145,
+      "group_nodes": 84,
+      "leaf_nodes": 880,
+      "non_prefix_source_parent_nodes": 7,
+      "unique_account_codes": 1049
+    },
+    "v2": {
+      "extra_title_page_codes": [],
+      "group_bindings": 84,
+      "missing_group_title_pages": [],
+      "visual_title_pages_bound": 84
+    },
+    "v3": {
+      "profiles": 3,
+      "sm_treasury_threshold_rules": 5,
+      "statement_models": 13
+    }
+  },
+  "status": "complete_official_normative_source_structured"
+}

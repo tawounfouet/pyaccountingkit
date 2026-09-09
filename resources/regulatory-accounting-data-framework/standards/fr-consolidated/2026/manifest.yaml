@@ -1,0 +1,28 @@
+standard_id: fr-consolidated
+standard_name: Règlement ANC 2020-01 - comptes consolidés
+authority: ANC
+jurisdiction: FR
+language: fr
+edition: '2026'
+effective_from: null
+effective_to: null
+base_standard: fr-pcg:2026
+extension_type: consolidation_standard
+source_documents:
+- document_id: fr-consolidated-recueil-2026
+  relative_path: sources/ANC-REGLT-2020-01-Comptes-Consolides-2026.pdf
+  media_type: application/pdf
+  role: consolidation_regulation
+  sha256: null
+  derived_from: []
+capabilities:
+  chart_of_accounts: false
+  structure: false
+  posting_guidance: true
+  financial_reporting: true
+  prudential: false
+  disclosures: true
+  consolidation: true
+  sector_adaptations: false
+  crosswalk: true
+  business_enrichment: false

@@ -1,0 +1,309 @@
+{
+  "project": "regulatory-accounting-data-framework",
+  "version": "0.7.1",
+  "principles": [
+    "source-first",
+    "no silent inference",
+    "no silent correction",
+    "no padded regulatory code as identity",
+    "human review for crosswalk and executable posting"
+  ],
+  "release_focus": "OHADA EBNL 2023 complete official normative source: legal/conceptual registry, V2 source bindings, specific operations, V3 reporting profiles and disclosures",
+  "new_capabilities": [
+    "complete 438-page official SYCEBNL source bundle",
+    "28-article legal registry",
+    "EBNL conceptual framework registry",
+    "V2 account-functioning source registry for 84 groups",
+    "six specific-operation chapter bindings",
+    "three EBNL reporting profiles and 13 official model bindings",
+    "disclosure source registry",
+    "438-page source-router RAG",
+    "explicit non-invention and non-perfect-OCR safeguards"
+  ],
+  "pcg_2026": {
+    "articles": {
+      "articles": 572,
+      "unique_article_refs": 531
+    },
+    "doctrine": {
+      "IR1": 41,
+      "IR2": 35,
+      "IR3": 199,
+      "IR4": 40,
+      "IR5": 3,
+      "linked_to_article": 318,
+      "total": 318
+    },
+    "rag": {
+      "average_tokens": 110.62,
+      "chunks": 1797,
+      "pages_with_chunks": 665,
+      "terms": 9273
+    },
+    "reporting": {
+      "accounts_reverse_indexed": 765,
+      "mapping_components": 190,
+      "observations": 0,
+      "statement_lines": 158,
+      "statement_templates": 4
+    },
+    "v0": {
+      "account_ranges": 1,
+      "accounts": 768,
+      "classes": 7,
+      "group_bundles": 1,
+      "groups": 61,
+      "minimum_plan_account_entries": 366,
+      "optional_account_entries": 403,
+      "records_total": 837
+    },
+    "v1": {
+      "account_nodes": 768,
+      "class_nodes": 7,
+      "graph_nodes": 837,
+      "group_bundle_nodes": 1,
+      "group_nodes": 61,
+      "minimum_account_or_group_nodes": 427,
+      "optional_account_nodes": 402,
+      "range_nodes": 1
+    },
+    "v2": {
+      "annotations": 58,
+      "debit_credit_evidence_fragments": 188,
+      "with_account_family_scope": 53,
+      "with_class_scope": 5
+    }
+  },
+  "fr_nonprofit_2026": {
+    "articles": {
+      "articles": 142,
+      "unique_article_refs": 137
+    },
+    "disclosures": {
+      "general_annex": 14,
+      "public_generosity": 22,
+      "requirements": 36
+    },
+    "doctrine": {
+      "IR1": 16,
+      "IR2": 13,
+      "IR3": 78,
+      "IR4": 4,
+      "IR5": 1,
+      "linked_to_article": 111,
+      "total": 112
+    },
+    "effective_plan": {
+      "effective_accounts_or_groups": 901,
+      "extension_additions": 73,
+      "extension_overrides": 43,
+      "inherited": 785
+    },
+    "functioning": {
+      "account_refs_covered": 7,
+      "annotations": 7
+    },
+    "orcom": {
+      "occurrences": 855,
+      "unique_codes": 853
+    },
+    "orcom_comparison": {
+      "duplicate_code_meaning_in_practitioner_reference": 2,
+      "label_match": 683,
+      "label_variation": 142,
+      "missing_from_practitioner_reference": 74,
+      "practitioner_extra_not_in_canonical_effective_plan": 26
+    },
+    "overlay": {
+      "label_or_semantic_override": 26,
+      "same_semantics_label": 17,
+      "specific_addition": 73
+    },
+    "rag": {
+      "average_tokens": 111.07,
+      "chunks": 559,
+      "pages_with_chunks": 236,
+      "terms": 4319
+    },
+    "reporting": {
+      "lines_with_account_hints": 33,
+      "statement_lines": 160,
+      "statement_templates": 4
+    },
+    "specific_accounts": {
+      "entries": 116,
+      "unique_codes": 116
+    }
+  },
+  "ohada_family": {
+    "family_id": "ohada-accounting",
+    "members": [
+      "ohada-syscohada:2017",
+      "ohada-ebnl:2023",
+      "cemac-pcemf:2010"
+    ],
+    "source_documents": 13,
+    "relations": 4,
+    "neutral_concepts": 12,
+    "concept_bindings": 0
+  },
+  "syscohada_2017": {
+    "applications": {
+      "account_mentions": 2236,
+      "applications": 142,
+      "heading_observations": 3,
+      "local_subdivision_mentions": 392,
+      "part_distribution": {
+        "DEUXIEME": 102,
+        "PREMIERE": 24,
+        "QUATRIEME": 15,
+        "TROISIEME": 1
+      },
+      "resolved_accounts_reverse_indexed": 553
+    },
+    "consolidation": {
+      "applications": 15,
+      "first_application": 128,
+      "last_application": 142
+    },
+    "guide": {
+      "applications": 142,
+      "chapters": 56,
+      "parts": 4,
+      "sections": 33
+    },
+    "rag": {
+      "average_tokens": 107.41,
+      "chunks": 621,
+      "pages_with_chunks": 437,
+      "terms": 5686
+    },
+    "v0": {
+      "classes": 9,
+      "groups": 85,
+      "main_accounts": 432,
+      "source_entries": 1403,
+      "sub_accounts": 886,
+      "unique_codes": 1403
+    },
+    "v1": {
+      "account_nodes": 1403,
+      "class_nodes": 9,
+      "depth_distribution": {
+        "1": 85,
+        "2": 432,
+        "3": 886
+      },
+      "graph_nodes": 1412,
+      "group_nodes": 85,
+      "leaf_nodes": 1108,
+      "unique_atomic_codes": 1403
+    },
+    "v2": {
+      "accounts_reverse_indexed": 553,
+      "applications": 142,
+      "chapters": 56,
+      "consolidation_applications": 15,
+      "current_operation_applications": 24,
+      "financial_statement_applications": 1,
+      "sections": 33,
+      "specific_operation_applications": 102,
+      "topics": 89
+    },
+    "v3": {
+      "balance_model_lines": 48,
+      "cashflow_model_lines": 23,
+      "income_model_lines": 34,
+      "narrative_rules": 10,
+      "notes": 46,
+      "source_observations": 2,
+      "statement_types": 4
+    }
+  },
+  "ohada_ebnl_2023": {
+    "conceptual": {
+      "conventions": 5,
+      "definitions": 47,
+      "postulates": 5,
+      "qualitative_characteristics": 6
+    },
+    "disclosures": {
+      "profiles": 3
+    },
+    "full_source_router_rag": {
+      "average_tokens": 22.48,
+      "chunks": 439,
+      "pages_with_chunks": 438,
+      "terms": 558
+    },
+    "legal": {
+      "articles": 28,
+      "first_article": 1,
+      "last_article": 28
+    },
+    "source_pages": {
+      "pages": 438,
+      "pages_sparse_or_header_only": 434,
+      "pages_with_substantive_native_text": 4,
+      "pages_with_title_bindings": 96
+    },
+    "specific_operations": {
+      "chapters": 6
+    },
+    "syscohada_delta": {
+      "ambiguous_ebnl_source_code": 1,
+      "ebnl_only_code": 165,
+      "same_code_label_variation": 338,
+      "same_code_same_normalized_label": 545,
+      "syscohada_only_code": 520
+    },
+    "v0": {
+      "account_occurrences": 1050,
+      "account_occurrences_by_class": {
+        "1": 76,
+        "2": 269,
+        "3": 40,
+        "4": 214,
+        "5": 66,
+        "6": 252,
+        "7": 88,
+        "8": 38,
+        "9": 7
+      },
+      "class_scopes": 2,
+      "classes": 9,
+      "duplicate_source_codes": 1,
+      "groups": 84,
+      "unique_account_codes": 1049,
+      "visual_line_corrections": 23
+    },
+    "v1": {
+      "account_occurrence_nodes": 1050,
+      "ambiguous_account_occurrence_nodes": 2,
+      "class_nodes": 9,
+      "class_scope_nodes": 2,
+      "graph_nodes": 1145,
+      "group_nodes": 84,
+      "leaf_nodes": 880,
+      "non_prefix_source_parent_nodes": 7,
+      "unique_account_codes": 1049
+    },
+    "v2": {
+      "extra_title_page_codes": [],
+      "group_bindings": 84,
+      "missing_group_title_pages": [],
+      "visual_title_pages_bound": 84
+    },
+    "v3": {
+      "profiles": 3,
+      "sm_treasury_threshold_rules": 5,
+      "statement_models": 13
+    },
+    "capability_status": {
+      "normative_source_gap_closed": true,
+      "full_verbatim_ocr_claimed": false,
+      "executable_posting_rules_generated": false,
+      "automatic_filing_generation": false
+    }
+  }
+}

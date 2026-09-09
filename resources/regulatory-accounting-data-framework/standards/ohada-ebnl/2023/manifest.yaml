@@ -1,0 +1,64 @@
+standard_id: ohada-ebnl
+standard_name: Système comptable des entités à but non lucratif (SYCEBNL)
+authority: OHADA
+jurisdiction: OHADA
+language: fr
+edition: '2023'
+effective_from: '2024-01-01'
+effective_to: null
+base_standard: null
+extension_type: null
+family_ids:
+- ohada-accounting
+standard_role: nonprofit_specialized_standard
+edition_basis: Journal officiel OHADA, numéro spécial du 22 février 2023 — Acte uniforme et annexe SYCEBNL complète
+canonical_status: complete_official_normative_source_structured_v0_v3
+capabilities:
+  chart_of_accounts: true
+  structure: true
+  posting_guidance: true
+  financial_reporting: true
+  prudential: false
+  disclosures: true
+  consolidation: false
+  sector_adaptations: true
+  crosswalk: true
+  business_enrichment: false
+source_documents:
+- document_id: ohada-sycebnl-2023-full-act
+  relative_path: sources/SYSCEBNL_Acte_Uniforme_2023.pdf
+  media_type: application/pdf
+  role: official_primary_normative_source
+  sha256: ea818231ba98d81785f33966176c15d43934f5a2697a196b38456ec737a0457a
+  derived_from: []
+  authority_level: official_primary_normative_source
+  quality_status: official_complete_image_based_source
+  canonical_eligibility: true
+  notes: 438-page official Journal officiel OHADA source. Visual page remains normative authority; effective from
+    2024-01-01 per Article 28.
+- document_id: ohada-ebnl-plan-2023
+  relative_path: sources/PC-EBNL_Liste des comptes.pdf
+  media_type: application/pdf
+  role: official_chart_extract_secondary_validation
+  sha256: 0ccacf4dc9e3badc0010731fc680b4b988c6c1cb9a6458e6268fbed2a1e394d7
+  derived_from:
+  - ohada-sycebnl-2023-full-act
+  authority_level: official_visual_extract
+  quality_status: image_only_scan
+  canonical_eligibility: true
+  notes: 29-page chart extract retained for V0/V1 visual review continuity.
+- document_id: ohada-ebnl-plan-2023-md
+  relative_path: sources/PC-EBNL_Liste des comptes.md
+  media_type: text/markdown
+  role: ocr_transcription_secondary
+  sha256: 91db517c560c2e2993ad6815cbe8c8bd46b640395be41f29fc14be0e7669d98e
+  derived_from:
+  - ohada-ebnl-plan-2023
+  authority_level: derived
+  quality_status: ocr_needs_human_review
+  canonical_eligibility: false
+  notes: Used only with the visual review ledger for chart extraction; OCR wording remains non-authoritative and
+    requires visual checking.
+notes: Release 0.7.1 closes the normative-source gap by bundling the complete 438-page official SYCEBNL Act. V2,
+  specific operations, V3 reporting profiles and disclosure source registries are page-bound to the official visual
+  source. No executable posting rule or perfect OCR is inferred or claimed.

@@ -1,0 +1,269 @@
+{
+  "standard_ref": "ohada-ebnl:2023",
+  "source_pdf": "PC-EBNL_Liste des comptes.pdf",
+  "source_markdown": "PC-EBNL_Liste des comptes.md",
+  "review_scope": {
+    "code_and_heading_structure": "visually reviewed for detected OCR anomalies",
+    "all_labels_character_by_character": false,
+    "policy": "Only corrections directly verified against the PDF scan are promoted into the structural parser. Other labels remain OCR-derived and are never silently rewritten."
+  },
+  "class_headings_verified": [
+    {
+      "class": "1",
+      "page_pdf": 1,
+      "label": "COMPTES DE RESSOURCES DURABLES"
+    },
+    {
+      "class": "2",
+      "page_pdf": 3,
+      "label": "COMPTES D’ACTIF IMMOBILISE"
+    },
+    {
+      "class": "3",
+      "page_pdf": 9,
+      "label": "COMPTES DES STOCKS"
+    },
+    {
+      "class": "4",
+      "page_pdf": 11,
+      "label": "COMPTES DE TIERS"
+    },
+    {
+      "class": "5",
+      "page_pdf": 16,
+      "label": "COMPTES DE TRESORERIE"
+    },
+    {
+      "class": "6",
+      "page_pdf": 18,
+      "label": "COMPTES DE CHARGES DES ACTIVITES ORDINAIRES"
+    },
+    {
+      "class": "7",
+      "page_pdf": 24,
+      "label": "COMPTES DE PRODUITS DES ACTIVITES ORDINAIRES"
+    },
+    {
+      "class": "8",
+      "page_pdf": 27,
+      "label": "COMPTES DES AUTRES CHARGES ET DES AUTRES PRODUITS"
+    },
+    {
+      "class": "9",
+      "page_pdf": 29,
+      "label": "COMPTE DES CONTRIBUTIONS VOLONTAIRES EN NATURE",
+      "scope_id": "voluntary_contributions"
+    },
+    {
+      "class": "9",
+      "page_pdf": 29,
+      "label": "COMPTE DE LA COMPTABILITE ANALYTIQUE DE GESTION",
+      "scope_id": "management_accounting"
+    }
+  ],
+  "line_corrections": [
+    {
+      "source_line_md": 18,
+      "page_pdf": 1,
+      "kind": "group_heading",
+      "ocr": "il RESERVES",
+      "reviewed_code": "11",
+      "reviewed_label": "RESERVES"
+    },
+    {
+      "source_line_md": 52,
+      "page_pdf": 1,
+      "kind": "group_heading",
+      "ocr": "13. RESULTAT NET DE L’EXERCICE “)",
+      "reviewed_code": "13",
+      "reviewed_label": "RESULTAT NET DE L’EXERCICE"
+    },
+    {
+      "source_line_md": 88,
+      "page_pdf": 2,
+      "kind": "group_heading",
+      "ocr": "t | ss FONDS REPORTES",
+      "reviewed_code": "17",
+      "reviewed_label": "FONDS REPORTES"
+    },
+    {
+      "source_line_md": 641,
+      "page_pdf": 12,
+      "kind": "account_code",
+      "ocr": "442) Impéts et taxes d’ Etat",
+      "reviewed_code": "4421",
+      "reviewed_label": "Impôts et taxes d’Etat"
+    },
+    {
+      "source_line_md": 694,
+      "page_pdf": 13,
+      "kind": "account_code",
+      "ocr": "457) Mécénes et assimilés",
+      "reviewed_code": "4571",
+      "reviewed_label": "Mécènes et assimilés"
+    },
+    {
+      "source_line_md": 736,
+      "page_pdf": 14,
+      "kind": "account_code",
+      "ocr": "478) Diminution des créances d’exploitation et HAO",
+      "reviewed_code": "4781",
+      "reviewed_label": "Diminution des créances d’exploitation et HAO"
+    },
+    {
+      "source_line_md": 804,
+      "page_pdf": 15,
+      "kind": "account_code",
+      "ocr": "499) Provisions pour risques sur opérations d’exploitation",
+      "reviewed_code": "4991",
+      "reviewed_label": "Provisions pour risques sur opérations d’exploitation"
+    },
+    {
+      "source_line_md": 817,
+      "page_pdf": 16,
+      "kind": "group_heading",
+      "ocr": "§2 BANQUES",
+      "reviewed_code": "52",
+      "reviewed_label": "BANQUES"
+    },
+    {
+      "source_line_md": 833,
+      "page_pdf": 16,
+      "kind": "account_code",
+      "ocr": "$023 Actions non cotées",
+      "reviewed_code": "5023",
+      "reviewed_label": "Actions non cotées"
+    },
+    {
+      "source_line_md": 834,
+      "page_pdf": 16,
+      "kind": "account_code",
+      "ocr": "* $025 = Autres actions *",
+      "reviewed_code": "5025",
+      "reviewed_label": "Autres actions"
+    },
+    {
+      "source_line_md": 837,
+      "page_pdf": 16,
+      "kind": "account_code",
+      "ocr": "$032 Obligations cotées",
+      "reviewed_code": "5032",
+      "reviewed_label": "Obligations cotées"
+    },
+    {
+      "source_line_md": 868,
+      "page_pdf": 17,
+      "kind": "account_code",
+      "ocr": "$22 Banques autres Etats Région",
+      "reviewed_code": "522",
+      "reviewed_label": "Banques autres Etats Région"
+    },
+    {
+      "source_line_md": 871,
+      "page_pdf": 17,
+      "kind": "account_code",
+      "ocr": "$25 Banques dépét a terme et opérations assimilées",
+      "reviewed_code": "525",
+      "reviewed_label": "Banques dépôt à terme et opérations assimilées"
+    },
+    {
+      "source_line_md": 893,
+      "page_pdf": 17,
+      "kind": "group_heading",
+      "ocr": "### 37 - CAISSE",
+      "reviewed_code": "57",
+      "reviewed_label": "CAISSE"
+    },
+    {
+      "source_line_md": 895,
+      "page_pdf": 17,
+      "kind": "account_code",
+      "ocr": "$72 Caisse en devises",
+      "reviewed_code": "572",
+      "reviewed_label": "Caisse en devises"
+    },
+    {
+      "source_line_md": 902,
+      "page_pdf": 17,
+      "kind": "account_code",
+      "ocr": "$92 Dépréciations des comptes banques",
+      "reviewed_code": "592",
+      "reviewed_label": "Dépréciations des comptes banques"
+    },
+    {
+      "source_line_md": 1236,
+      "page_pdf": 24,
+      "kind": "group_heading",
+      "ocr": "val SUBVENTIONS D’ EXPLOITATION",
+      "reviewed_code": "71",
+      "reviewed_label": "SUBVENTIONS D’EXPLOITATION"
+    },
+    {
+      "source_line_md": 1317,
+      "page_pdf": 25,
+      "kind": "account_code",
+      "ocr": "- **7717** - Gains sur cessions de titres de placement",
+      "reviewed_code": "777",
+      "reviewed_label": "Gains sur cessions de titres de placement"
+    },
+    {
+      "source_line_md": 1330,
+      "page_pdf": 25,
+      "kind": "group_heading",
+      "ocr": "- **719** - REPRISES DE PROVISIONS, DE DEPRECIATIONS ET AUTRES",
+      "reviewed_code": "79",
+      "reviewed_label": "REPRISES DE PROVISIONS, DE DEPRECIATIONS ET AUTRES"
+    },
+    {
+      "source_line_md": 1377,
+      "page_pdf": 27,
+      "kind": "account_code",
+      "ocr": "sil Valeurs comptables des cessions d’immobilisations incorporelles",
+      "reviewed_code": "811",
+      "reviewed_label": "Valeurs comptables des cessions d’immobilisations incorporelles"
+    },
+    {
+      "source_line_md": 1388,
+      "page_pdf": 27,
+      "kind": "group_heading",
+      "ocr": "” 83 CHARGES HORS ACTIVITES ORDINAIRES -",
+      "reviewed_code": "83",
+      "reviewed_label": "CHARGES HORS ACTIVITES ORDINAIRES"
+    },
+    {
+      "source_line_md": 1427,
+      "page_pdf": 28,
+      "kind": "group_heading",
+      "ocr": "” 88 SUBVENTIONS D’EQUILIBRE -",
+      "reviewed_code": "88",
+      "reviewed_label": "SUBVENTIONS D’EQUILIBRE"
+    },
+    {
+      "source_line_md": 1456,
+      "page_pdf": 29,
+      "kind": "group_heading",
+      "ocr": "” 97 COMPTES DE DIFFERENCES DE TRAITEMENT COMPTABLE -",
+      "reviewed_code": "97",
+      "reviewed_label": "COMPTES DE DIFFERENCES DE TRAITEMENT COMPTABLE"
+    }
+  ],
+  "source_anomalies_verified": [
+    {
+      "anomaly_id": "ebnl2023:duplicate-4555",
+      "page_pdf": 13,
+      "type": "duplicate_code_with_distinct_meanings",
+      "code": "4555",
+      "occurrences": [
+        {
+          "source_context_group": "452",
+          "label": "Fondateurs, dirigeants, comptes courants"
+        },
+        {
+          "source_context_group": "455",
+          "label": "Adhérents, dirigeants, comptes courants"
+        }
+      ],
+      "policy": "preserve_both_occurrences_no_silent_correction"
+    }
+  ]
+}

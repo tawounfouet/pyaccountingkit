@@ -1,0 +1,1970 @@
+{
+  "applications": [
+    {
+      "application_id": "syscohada2017:application:001",
+      "application_number": 1,
+      "chapter_number": 2,
+      "page_start_printed_toc": 19,
+      "part_key": "PREMIERE",
+      "section_number": 1,
+      "title_toc": "Acquisition de matériels et de fournitures de bureau"
+    },
+    {
+      "application_id": "syscohada2017:application:002",
+      "application_number": 2,
+      "chapter_number": 2,
+      "page_start_printed_toc": 22,
+      "part_key": "PREMIERE",
+      "section_number": 1,
+      "title_toc": "Ventes de marchandises et de produits finis"
+    },
+    {
+      "application_id": "syscohada2017:application:003",
+      "application_number": 3,
+      "chapter_number": 2,
+      "page_start_printed_toc": 23,
+      "part_key": "PREMIERE",
+      "section_number": 2,
+      "title_toc": "Inventaire intermittent - régularisation de stock de marchandises"
+    },
+    {
+      "application_id": "syscohada2017:application:004",
+      "application_number": 4,
+      "chapter_number": 2,
+      "page_start_printed_toc": 23,
+      "part_key": "PREMIERE",
+      "section_number": 2,
+      "title_toc": "Inventaire intermittent - régularisation de stock de produits finis"
+    },
+    {
+      "application_id": "syscohada2017:application:005",
+      "application_number": 5,
+      "chapter_number": 2,
+      "page_start_printed_toc": 25,
+      "part_key": "PREMIERE",
+      "section_number": 2,
+      "title_toc": "Achat de fournitures de bureau – régularisation en fin d’exercice"
+    },
+    {
+      "application_id": "syscohada2017:application:006",
+      "application_number": 6,
+      "chapter_number": 2,
+      "page_start_printed_toc": 28,
+      "part_key": "PREMIERE",
+      "section_number": 3,
+      "title_toc": "Remise et retour de marchandises"
+    },
+    {
+      "application_id": "syscohada2017:application:007",
+      "application_number": 7,
+      "chapter_number": 3,
+      "page_start_printed_toc": 36,
+      "part_key": "PREMIERE",
+      "section_number": 2,
+      "title_toc": "Centralisation de la T.V.A"
+    },
+    {
+      "application_id": "syscohada2017:application:008",
+      "application_number": 8,
+      "chapter_number": 3,
+      "page_start_printed_toc": 37,
+      "part_key": "PREMIERE",
+      "section_number": 2,
+      "title_toc": "Impôt sur le bénéfice"
+    },
+    {
+      "application_id": "syscohada2017:application:009",
+      "application_number": 9,
+      "chapter_number": 3,
+      "page_start_printed_toc": 39,
+      "part_key": "PREMIERE",
+      "section_number": 3,
+      "title_toc": "Produits liés aux subventions d’exploitation et d’équilibre"
+    },
+    {
+      "application_id": "syscohada2017:application:010",
+      "application_number": 10,
+      "chapter_number": 3,
+      "page_start_printed_toc": 42,
+      "part_key": "PREMIERE",
+      "section_number": 4,
+      "title_toc": "Charges de personnel"
+    },
+    {
+      "application_id": "syscohada2017:application:011",
+      "application_number": 11,
+      "chapter_number": 4,
+      "page_start_printed_toc": 55,
+      "part_key": "PREMIERE",
+      "section_number": 5,
+      "title_toc": "Chèques impayés"
+    },
+    {
+      "application_id": "syscohada2017:application:012",
+      "application_number": 12,
+      "chapter_number": 4,
+      "page_start_printed_toc": 57,
+      "part_key": "PREMIERE",
+      "section_number": 6,
+      "title_toc": "Synthèse sur les instruments de règlement"
+    },
+    {
+      "application_id": "syscohada2017:application:013",
+      "application_number": 13,
+      "chapter_number": 5,
+      "page_start_printed_toc": 66,
+      "part_key": "PREMIERE",
+      "section_number": 3,
+      "title_toc": "Amortissement dégressif à taux décroissant"
+    },
+    {
+      "application_id": "syscohada2017:application:014",
+      "application_number": 14,
+      "chapter_number": 5,
+      "page_start_printed_toc": 67,
+      "part_key": "PREMIERE",
+      "section_number": 3,
+      "title_toc": "Amortissement par unités d’œuvre"
+    },
+    {
+      "application_id": "syscohada2017:application:015",
+      "application_number": 15,
+      "chapter_number": 5,
+      "page_start_printed_toc": 73,
+      "part_key": "PREMIERE",
+      "section_number": 4,
+      "title_toc": "Décomptabilisation d’un matériel informatique"
+    },
+    {
+      "application_id": "syscohada2017:application:016",
+      "application_number": 16,
+      "chapter_number": 5,
+      "page_start_printed_toc": 73,
+      "part_key": "PREMIERE",
+      "section_number": 4,
+      "title_toc": "Plus-value à réinvestir"
+    },
+    {
+      "application_id": "syscohada2017:application:017",
+      "application_number": 17,
+      "chapter_number": 6,
+      "page_start_printed_toc": 78,
+      "part_key": "PREMIERE",
+      "section_number": 2,
+      "title_toc": "Dotations aux amortissements"
+    },
+    {
+      "application_id": "syscohada2017:application:018",
+      "application_number": 18,
+      "chapter_number": 6,
+      "page_start_printed_toc": 79,
+      "part_key": "PREMIERE",
+      "section_number": 2,
+      "title_toc": "Amortissements dérogatoires"
+    },
+    {
+      "application_id": "syscohada2017:application:019",
+      "application_number": 19,
+      "chapter_number": 6,
+      "page_start_printed_toc": 83,
+      "part_key": "PREMIERE",
+      "section_number": 3,
+      "title_toc": "Dépréciations"
+    },
+    {
+      "application_id": "syscohada2017:application:020",
+      "application_number": 20,
+      "chapter_number": 6,
+      "page_start_printed_toc": 86,
+      "part_key": "PREMIERE",
+      "section_number": 4,
+      "title_toc": "Provisions"
+    },
+    {
+      "application_id": "syscohada2017:application:021",
+      "application_number": 21,
+      "chapter_number": 6,
+      "page_start_printed_toc": 88,
+      "part_key": "PREMIERE",
+      "section_number": 5,
+      "title_toc": "Charges constatées d’avance"
+    },
+    {
+      "application_id": "syscohada2017:application:022",
+      "application_number": 22,
+      "chapter_number": 6,
+      "page_start_printed_toc": 90,
+      "part_key": "PREMIERE",
+      "section_number": 5,
+      "title_toc": "Charges à payer"
+    },
+    {
+      "application_id": "syscohada2017:application:023",
+      "application_number": 23,
+      "chapter_number": 6,
+      "page_start_printed_toc": 93,
+      "part_key": "PREMIERE",
+      "section_number": 6,
+      "title_toc": "Produits constatés d’avance"
+    },
+    {
+      "application_id": "syscohada2017:application:024",
+      "application_number": 24,
+      "chapter_number": 6,
+      "page_start_printed_toc": 94,
+      "part_key": "PREMIERE",
+      "section_number": 6,
+      "title_toc": "Produits à recevoir"
+    },
+    {
+      "application_id": "syscohada2017:application:025",
+      "application_number": 25,
+      "chapter_number": 1,
+      "page_start_printed_toc": 98,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Frais de recherche et de développement"
+    },
+    {
+      "application_id": "syscohada2017:application:026",
+      "application_number": 26,
+      "chapter_number": 2,
+      "page_start_printed_toc": 100,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Brevets acquis réglés au moyen de redevances périodiques"
+    },
+    {
+      "application_id": "syscohada2017:application:027",
+      "application_number": 27,
+      "chapter_number": 2,
+      "page_start_printed_toc": 103,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Marques"
+    },
+    {
+      "application_id": "syscohada2017:application:028",
+      "application_number": 28,
+      "chapter_number": 2,
+      "page_start_printed_toc": 105,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Logiciels"
+    },
+    {
+      "application_id": "syscohada2017:application:029",
+      "application_number": 29,
+      "chapter_number": 2,
+      "page_start_printed_toc": 107,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Sites internet"
+    },
+    {
+      "application_id": "syscohada2017:application:030",
+      "application_number": 30,
+      "chapter_number": 2,
+      "page_start_printed_toc": 108,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Coût d’obtention du contrat"
+    },
+    {
+      "application_id": "syscohada2017:application:031",
+      "application_number": 31,
+      "chapter_number": 2,
+      "page_start_printed_toc": 110,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Fonds commercial"
+    },
+    {
+      "application_id": "syscohada2017:application:032",
+      "application_number": 32,
+      "chapter_number": 3,
+      "page_start_printed_toc": 111,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Frais de prospection et d’exploitation des ressources minérales"
+    },
+    {
+      "application_id": "syscohada2017:application:033",
+      "application_number": 33,
+      "chapter_number": 4,
+      "page_start_printed_toc": 113,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Approche par composants"
+    },
+    {
+      "application_id": "syscohada2017:application:034",
+      "application_number": 34,
+      "chapter_number": 5,
+      "page_start_printed_toc": 115,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Frais d’inspections ou de révisions majeures, dépenses de sécurité et de mise en conformité"
+    },
+    {
+      "application_id": "syscohada2017:application:035",
+      "application_number": 35,
+      "chapter_number": 6,
+      "page_start_printed_toc": 116,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Coût de démantèlement, d’enlèvement et de remise en état du site"
+    },
+    {
+      "application_id": "syscohada2017:application:036",
+      "application_number": 36,
+      "chapter_number": 7,
+      "page_start_printed_toc": 120,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Coût d’emprunts"
+    },
+    {
+      "application_id": "syscohada2017:application:037",
+      "application_number": 37,
+      "chapter_number": 8,
+      "page_start_printed_toc": 121,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Contrat de location (location acquisition)"
+    },
+    {
+      "application_id": "syscohada2017:application:038",
+      "application_number": 38,
+      "chapter_number": 8,
+      "page_start_printed_toc": 126,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Contrat de location chez le bailleur (location financement)"
+    },
+    {
+      "application_id": "syscohada2017:application:039",
+      "application_number": 39,
+      "chapter_number": 9,
+      "page_start_printed_toc": 128,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Réserve de propriété - acheteur"
+    },
+    {
+      "application_id": "syscohada2017:application:040",
+      "application_number": 40,
+      "chapter_number": 9,
+      "page_start_printed_toc": 129,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Réserve de propriété - vendeur"
+    },
+    {
+      "application_id": "syscohada2017:application:041",
+      "application_number": 41,
+      "chapter_number": 10,
+      "page_start_printed_toc": 133,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Immeubles de placement"
+    },
+    {
+      "application_id": "syscohada2017:application:042",
+      "application_number": 42,
+      "chapter_number": 11,
+      "page_start_printed_toc": 134,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Construction sur sol d’autrui"
+    },
+    {
+      "application_id": "syscohada2017:application:043",
+      "application_number": 43,
+      "chapter_number": 11,
+      "page_start_printed_toc": 136,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Rentes viagères"
+    },
+    {
+      "application_id": "syscohada2017:application:044",
+      "application_number": 44,
+      "chapter_number": 12,
+      "page_start_printed_toc": 138,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Dépréciation des immobilisations – évaluation ultérieure"
+    },
+    {
+      "application_id": "syscohada2017:application:045",
+      "application_number": 45,
+      "chapter_number": 12,
+      "page_start_printed_toc": 140,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Dépréciation d’un groupe d’actifs immobilisés"
+    },
+    {
+      "application_id": "syscohada2017:application:046",
+      "application_number": 46,
+      "chapter_number": 12,
+      "page_start_printed_toc": 141,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Pertes de valeur suite à une réévaluation"
+    },
+    {
+      "application_id": "syscohada2017:application:047",
+      "application_number": 47,
+      "chapter_number": 12,
+      "page_start_printed_toc": 141,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Dépréciations d’immobilisations subventionnées"
+    },
+    {
+      "application_id": "syscohada2017:application:048",
+      "application_number": 48,
+      "chapter_number": 13,
+      "page_start_printed_toc": 143,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Acquisition de titres"
+    },
+    {
+      "application_id": "syscohada2017:application:049",
+      "application_number": 49,
+      "chapter_number": 13,
+      "page_start_printed_toc": 144,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Versement restant à effectuer sur titres non libérés"
+    },
+    {
+      "application_id": "syscohada2017:application:050",
+      "application_number": 50,
+      "chapter_number": 13,
+      "page_start_printed_toc": 145,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Cession de titres de participation"
+    },
+    {
+      "application_id": "syscohada2017:application:051",
+      "application_number": 51,
+      "chapter_number": 13,
+      "page_start_printed_toc": 146,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Cession de titres de placement"
+    },
+    {
+      "application_id": "syscohada2017:application:052",
+      "application_number": 52,
+      "chapter_number": 14,
+      "page_start_printed_toc": 150,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Valorisation de stocks"
+    },
+    {
+      "application_id": "syscohada2017:application:053",
+      "application_number": 53,
+      "chapter_number": 14,
+      "page_start_printed_toc": 149,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Stocks de marchandises"
+    },
+    {
+      "application_id": "syscohada2017:application:054",
+      "application_number": 54,
+      "chapter_number": 14,
+      "page_start_printed_toc": 151,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Stocks de matières premières"
+    },
+    {
+      "application_id": "syscohada2017:application:055",
+      "application_number": 55,
+      "chapter_number": 15,
+      "page_start_printed_toc": 153,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Abandons de créances"
+    },
+    {
+      "application_id": "syscohada2017:application:056",
+      "application_number": 56,
+      "chapter_number": 15,
+      "page_start_printed_toc": 155,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Opérations d’affacturage"
+    },
+    {
+      "application_id": "syscohada2017:application:057",
+      "application_number": 57,
+      "chapter_number": 15,
+      "page_start_printed_toc": 156,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Opérations de titrisation"
+    },
+    {
+      "application_id": "syscohada2017:application:058",
+      "application_number": 58,
+      "chapter_number": 16,
+      "page_start_printed_toc": 158,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Libération intégrale des apports"
+    },
+    {
+      "application_id": "syscohada2017:application:059",
+      "application_number": 59,
+      "chapter_number": 16,
+      "page_start_printed_toc": 160,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Libération fractionnée du capital"
+    },
+    {
+      "application_id": "syscohada2017:application:060",
+      "application_number": 60,
+      "chapter_number": 16,
+      "page_start_printed_toc": 163,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Augmentation de capital en numéraire"
+    },
+    {
+      "application_id": "syscohada2017:application:061",
+      "application_number": 61,
+      "chapter_number": 16,
+      "page_start_printed_toc": 164,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Augmentation par incorporation de réserves"
+    },
+    {
+      "application_id": "syscohada2017:application:062",
+      "application_number": 62,
+      "chapter_number": 16,
+      "page_start_printed_toc": 164,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Réduction de capital par imputation des pertes"
+    },
+    {
+      "application_id": "syscohada2017:application:063",
+      "application_number": 63,
+      "chapter_number": 16,
+      "page_start_printed_toc": 164,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Réduction de capital par remboursement"
+    },
+    {
+      "application_id": "syscohada2017:application:064",
+      "application_number": 64,
+      "chapter_number": 16,
+      "page_start_printed_toc": 164,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Amortissement de capital"
+    },
+    {
+      "application_id": "syscohada2017:application:065",
+      "application_number": 65,
+      "chapter_number": 16,
+      "page_start_printed_toc": 166,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Affectation du résultat"
+    },
+    {
+      "application_id": "syscohada2017:application:066",
+      "application_number": 66,
+      "chapter_number": 17,
+      "page_start_printed_toc": 167,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Subventions d’investissement"
+    },
+    {
+      "application_id": "syscohada2017:application:067",
+      "application_number": 67,
+      "chapter_number": 17,
+      "page_start_printed_toc": 171,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Subventions d’exploitation"
+    },
+    {
+      "application_id": "syscohada2017:application:068",
+      "application_number": 68,
+      "chapter_number": 17,
+      "page_start_printed_toc": 171,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Subvention d’équilibre"
+    },
+    {
+      "application_id": "syscohada2017:application:069",
+      "application_number": 69,
+      "chapter_number": 17,
+      "page_start_printed_toc": 172,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Avances"
+    },
+    {
+      "application_id": "syscohada2017:application:070",
+      "application_number": 70,
+      "chapter_number": 17,
+      "page_start_printed_toc": 174,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Dépréciations d’immobilisations subventionnées"
+    },
+    {
+      "application_id": "syscohada2017:application:071",
+      "application_number": 71,
+      "chapter_number": 18,
+      "page_start_printed_toc": 176,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Constitution d’une provision"
+    },
+    {
+      "application_id": "syscohada2017:application:072",
+      "application_number": 72,
+      "chapter_number": 18,
+      "page_start_printed_toc": 177,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Estimation d’une provision"
+    },
+    {
+      "application_id": "syscohada2017:application:073",
+      "application_number": 73,
+      "chapter_number": 18,
+      "page_start_printed_toc": 177,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Provision pour restructuration"
+    },
+    {
+      "application_id": "syscohada2017:application:074",
+      "application_number": 74,
+      "chapter_number": 18,
+      "page_start_printed_toc": 178,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Provision pour garanties données aux clients"
+    },
+    {
+      "application_id": "syscohada2017:application:075",
+      "application_number": 75,
+      "chapter_number": 18,
+      "page_start_printed_toc": 179,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Provision pour litiges"
+    },
+    {
+      "application_id": "syscohada2017:application:076",
+      "application_number": 76,
+      "chapter_number": 19,
+      "page_start_printed_toc": 181,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Attribution d’actions gratuites par rachat de ses propres actions"
+    },
+    {
+      "application_id": "syscohada2017:application:077",
+      "application_number": 77,
+      "chapter_number": 19,
+      "page_start_printed_toc": 181,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Attribution gratuite d’actions par prélèvement sur le résultat"
+    },
+    {
+      "application_id": "syscohada2017:application:078",
+      "application_number": 78,
+      "chapter_number": 20,
+      "page_start_printed_toc": 183,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Emprunt obligataire avec prime de remboursement (remboursement par amortissement constant)"
+    },
+    {
+      "application_id": "syscohada2017:application:079",
+      "application_number": 79,
+      "chapter_number": 20,
+      "page_start_printed_toc": 186,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Emprunt obligataire avec prime de remboursement (remboursement in fine)"
+    },
+    {
+      "application_id": "syscohada2017:application:080",
+      "application_number": 80,
+      "chapter_number": 20,
+      "page_start_printed_toc": 188,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Emprunt obligataire convertible en actions"
+    },
+    {
+      "application_id": "syscohada2017:application:081",
+      "application_number": 81,
+      "chapter_number": 21,
+      "page_start_printed_toc": 191,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Engagements de retraite et autres avantages assimilés"
+    },
+    {
+      "application_id": "syscohada2017:application:082",
+      "application_number": 82,
+      "chapter_number": 21,
+      "page_start_printed_toc": 193,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Ecart actuariel"
+    },
+    {
+      "application_id": "syscohada2017:application:083",
+      "application_number": 83,
+      "chapter_number": 21,
+      "page_start_printed_toc": 194,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Régimes couverts par des actifs"
+    },
+    {
+      "application_id": "syscohada2017:application:084",
+      "application_number": 84,
+      "chapter_number": 22,
+      "page_start_printed_toc": 199,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Créances commerciales en devises"
+    },
+    {
+      "application_id": "syscohada2017:application:085",
+      "application_number": 85,
+      "chapter_number": 22,
+      "page_start_printed_toc": 201,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Avances et acomptes versés sur commande d’immobilisation, libellés en devise"
+    },
+    {
+      "application_id": "syscohada2017:application:086",
+      "application_number": 86,
+      "chapter_number": 22,
+      "page_start_printed_toc": 203,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Disponibilités en devises"
+    },
+    {
+      "application_id": "syscohada2017:application:087",
+      "application_number": 87,
+      "chapter_number": 22,
+      "page_start_printed_toc": 203,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Emprunts affectant plusieurs exercices"
+    },
+    {
+      "application_id": "syscohada2017:application:088",
+      "application_number": 88,
+      "chapter_number": 22,
+      "page_start_printed_toc": 207,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Position globale de change"
+    },
+    {
+      "application_id": "syscohada2017:application:089",
+      "application_number": 89,
+      "chapter_number": 22,
+      "page_start_printed_toc": 208,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Couverture de change fixant définitivement le cours à l’échéance"
+    },
+    {
+      "application_id": "syscohada2017:application:090",
+      "application_number": 90,
+      "chapter_number": 22,
+      "page_start_printed_toc": 209,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Couverture de change-opération symétrique"
+    },
+    {
+      "application_id": "syscohada2017:application:091",
+      "application_number": 91,
+      "chapter_number": 22,
+      "page_start_printed_toc": 211,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Couverture de change-couverture de transactions futures"
+    },
+    {
+      "application_id": "syscohada2017:application:092",
+      "application_number": 92,
+      "chapter_number": 23,
+      "page_start_printed_toc": 217,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Contrat bénéficiaire"
+    },
+    {
+      "application_id": "syscohada2017:application:093",
+      "application_number": 93,
+      "chapter_number": 23,
+      "page_start_printed_toc": 221,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Contrat déficitaire"
+    },
+    {
+      "application_id": "syscohada2017:application:094",
+      "application_number": 94,
+      "chapter_number": 24,
+      "page_start_printed_toc": 224,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Abonnement des charges et produits"
+    },
+    {
+      "application_id": "syscohada2017:application:095",
+      "application_number": 95,
+      "chapter_number": 25,
+      "page_start_printed_toc": 226,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Contrat de concession de service public"
+    },
+    {
+      "application_id": "syscohada2017:application:096",
+      "application_number": 96,
+      "chapter_number": 26,
+      "page_start_printed_toc": 231,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Comptabilisation de la participation aux résultats de GIE"
+    },
+    {
+      "application_id": "syscohada2017:application:097",
+      "application_number": 97,
+      "chapter_number": 26,
+      "page_start_printed_toc": 232,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Participation financière au GIE"
+    },
+    {
+      "application_id": "syscohada2017:application:098",
+      "application_number": 98,
+      "chapter_number": 27,
+      "page_start_printed_toc": 234,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Personnel intérimaire"
+    },
+    {
+      "application_id": "syscohada2017:application:099",
+      "application_number": 99,
+      "chapter_number": 28,
+      "page_start_printed_toc": 236,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Réévaluation légale"
+    },
+    {
+      "application_id": "syscohada2017:application:100",
+      "application_number": 100,
+      "chapter_number": 28,
+      "page_start_printed_toc": 238,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Réévaluation libre"
+    },
+    {
+      "application_id": "syscohada2017:application:101",
+      "application_number": 101,
+      "chapter_number": 29,
+      "page_start_printed_toc": 241,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Inventaire permanent en comptabilité financière"
+    },
+    {
+      "application_id": "syscohada2017:application:102",
+      "application_number": 102,
+      "chapter_number": 30,
+      "page_start_printed_toc": 246,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Engagements financiers et passifs éventuels"
+    },
+    {
+      "application_id": "syscohada2017:application:103",
+      "application_number": 103,
+      "chapter_number": 31,
+      "page_start_printed_toc": 248,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Evènements postérieurs à la clôture de l’exercice"
+    },
+    {
+      "application_id": "syscohada2017:application:104",
+      "application_number": 104,
+      "chapter_number": 32,
+      "page_start_printed_toc": 250,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Opération en qualité de commissionnaire"
+    },
+    {
+      "application_id": "syscohada2017:application:105",
+      "application_number": 105,
+      "chapter_number": 32,
+      "page_start_printed_toc": 251,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Opération en qualité de mandataire"
+    },
+    {
+      "application_id": "syscohada2017:application:106",
+      "application_number": 106,
+      "chapter_number": 33,
+      "page_start_printed_toc": 254,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Tenue d’une comptabilité autonome de la participation"
+    },
+    {
+      "application_id": "syscohada2017:application:107",
+      "application_number": 107,
+      "chapter_number": 33,
+      "page_start_printed_toc": 259,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Tenue d’une comptabilité de la participation intégrée à la comptabilité du gérant"
+    },
+    {
+      "application_id": "syscohada2017:application:108",
+      "application_number": 108,
+      "chapter_number": 34,
+      "page_start_printed_toc": 262,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Fonctionnement du compte 185"
+    },
+    {
+      "application_id": "syscohada2017:application:109",
+      "application_number": 109,
+      "chapter_number": 34,
+      "page_start_printed_toc": 263,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Fonctionnement du compte 184"
+    },
+    {
+      "application_id": "syscohada2017:application:110",
+      "application_number": 110,
+      "chapter_number": 34,
+      "page_start_printed_toc": 264,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Opérations de cessions"
+    },
+    {
+      "application_id": "syscohada2017:application:111",
+      "application_number": 111,
+      "chapter_number": 34,
+      "page_start_printed_toc": 268,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Intégration des comptes des établissements dans la comptabilité de l’entité"
+    },
+    {
+      "application_id": "syscohada2017:application:112",
+      "application_number": 112,
+      "chapter_number": 35,
+      "page_start_printed_toc": 270,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Contrat de franchise"
+    },
+    {
+      "application_id": "syscohada2017:application:113",
+      "application_number": 113,
+      "chapter_number": 36,
+      "page_start_printed_toc": 274,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Méthode de l’intégration directe et méthode de l’intégration différée"
+    },
+    {
+      "application_id": "syscohada2017:application:114",
+      "application_number": 114,
+      "chapter_number": 36,
+      "page_start_printed_toc": 280,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Méthode de l’intégration mixte"
+    },
+    {
+      "application_id": "syscohada2017:application:115",
+      "application_number": 115,
+      "chapter_number": 37,
+      "page_start_printed_toc": 283,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Opérations spécifiques des entités agricoles"
+    },
+    {
+      "application_id": "syscohada2017:application:116",
+      "application_number": 116,
+      "chapter_number": 38,
+      "page_start_printed_toc": 285,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Fusion simple"
+    },
+    {
+      "application_id": "syscohada2017:application:117",
+      "application_number": 117,
+      "chapter_number": 38,
+      "page_start_printed_toc": 291,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Participation de l’absorbante dans l’absorbée"
+    },
+    {
+      "application_id": "syscohada2017:application:118",
+      "application_number": 118,
+      "chapter_number": 38,
+      "page_start_printed_toc": 295,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Participation de l’absorbée dans l’absorbante"
+    },
+    {
+      "application_id": "syscohada2017:application:119",
+      "application_number": 119,
+      "chapter_number": 38,
+      "page_start_printed_toc": 298,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Participations réciproques"
+    },
+    {
+      "application_id": "syscohada2017:application:120",
+      "application_number": 120,
+      "chapter_number": 38,
+      "page_start_printed_toc": 303,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Apport partiel d’actif"
+    },
+    {
+      "application_id": "syscohada2017:application:121",
+      "application_number": 121,
+      "chapter_number": 39,
+      "page_start_printed_toc": 305,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Période comparative"
+    },
+    {
+      "application_id": "syscohada2017:application:122",
+      "application_number": 122,
+      "chapter_number": 40,
+      "page_start_printed_toc": 307,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Liquidation"
+    },
+    {
+      "application_id": "syscohada2017:application:123",
+      "application_number": 123,
+      "chapter_number": 41,
+      "page_start_printed_toc": 314,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Frais d’établissement et primes de remboursement"
+    },
+    {
+      "application_id": "syscohada2017:application:124",
+      "application_number": 124,
+      "chapter_number": 41,
+      "page_start_printed_toc": 319,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Approche par composants"
+    },
+    {
+      "application_id": "syscohada2017:application:125",
+      "application_number": 125,
+      "chapter_number": 41,
+      "page_start_printed_toc": 321,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Engagement de retraite"
+    },
+    {
+      "application_id": "syscohada2017:application:126",
+      "application_number": 126,
+      "chapter_number": 41,
+      "page_start_printed_toc": 323,
+      "part_key": "DEUXIEME",
+      "section_number": null,
+      "title_toc": "Changement de méthode comptable et contrat à long terme"
+    },
+    {
+      "application_id": "syscohada2017:application:127",
+      "application_number": 127,
+      "chapter_number": 2,
+      "page_start_printed_toc": 343,
+      "part_key": "TROISIEME",
+      "section_number": null,
+      "title_toc": "Modèle type d’un jeu complet d’états financiers"
+    },
+    {
+      "application_id": "syscohada2017:application:128",
+      "application_number": 128,
+      "chapter_number": 1,
+      "page_start_printed_toc": 398,
+      "part_key": "QUATRIEME",
+      "section_number": null,
+      "title_toc": "Organigramme du groupe, pourcentages de contrôle, pourcentages d’intérêts et méthodes de"
+    },
+    {
+      "application_id": "syscohada2017:application:129",
+      "application_number": 129,
+      "chapter_number": 1,
+      "page_start_printed_toc": 401,
+      "part_key": "QUATRIEME",
+      "section_number": null,
+      "title_toc": "Périmètre de consolidation et méthodes de consolidation"
+    },
+    {
+      "application_id": "syscohada2017:application:130",
+      "application_number": 130,
+      "chapter_number": 1,
+      "page_start_printed_toc": 403,
+      "part_key": "QUATRIEME",
+      "section_number": null,
+      "title_toc": "Participations circulaires"
+    },
+    {
+      "application_id": "syscohada2017:application:131",
+      "application_number": 131,
+      "chapter_number": 1,
+      "page_start_printed_toc": 405,
+      "part_key": "QUATRIEME",
+      "section_number": null,
+      "title_toc": "Appréciation du contrôle d’une entité ad hoc"
+    },
+    {
+      "application_id": "syscohada2017:application:132",
+      "application_number": 132,
+      "chapter_number": 2,
+      "page_start_printed_toc": 406,
+      "part_key": "QUATRIEME",
+      "section_number": null,
+      "title_toc": "Consolidation par intégration globale"
+    },
+    {
+      "application_id": "syscohada2017:application:133",
+      "application_number": 133,
+      "chapter_number": 2,
+      "page_start_printed_toc": 409,
+      "part_key": "QUATRIEME",
+      "section_number": null,
+      "title_toc": "Consolidation par intégration proportionnelle"
+    },
+    {
+      "application_id": "syscohada2017:application:134",
+      "application_number": 134,
+      "chapter_number": 2,
+      "page_start_printed_toc": 412,
+      "part_key": "QUATRIEME",
+      "section_number": null,
+      "title_toc": "Mise en équivalence"
+    },
+    {
+      "application_id": "syscohada2017:application:135",
+      "application_number": 135,
+      "chapter_number": 3,
+      "page_start_printed_toc": 415,
+      "part_key": "QUATRIEME",
+      "section_number": null,
+      "title_toc": "Ecart d’évaluation et d’acquisition positif (intégration globale)"
+    },
+    {
+      "application_id": "syscohada2017:application:136",
+      "application_number": 136,
+      "chapter_number": 3,
+      "page_start_printed_toc": 420,
+      "part_key": "QUATRIEME",
+      "section_number": null,
+      "title_toc": "Ecart d’acquisition positif (entité mise en équivalence)"
+    },
+    {
+      "application_id": "syscohada2017:application:137",
+      "application_number": 137,
+      "chapter_number": 3,
+      "page_start_printed_toc": 422,
+      "part_key": "QUATRIEME",
+      "section_number": null,
+      "title_toc": "Ecart d’acquisition négatif (badwill)"
+    },
+    {
+      "application_id": "syscohada2017:application:138",
+      "application_number": 138,
+      "chapter_number": 4,
+      "page_start_printed_toc": 424,
+      "part_key": "QUATRIEME",
+      "section_number": null,
+      "title_toc": "Conversion en unités monétaires locales des états financiers établis en devises étrangères"
+    },
+    {
+      "application_id": "syscohada2017:application:139",
+      "application_number": 139,
+      "chapter_number": 5,
+      "page_start_printed_toc": 428,
+      "part_key": "QUATRIEME",
+      "section_number": null,
+      "title_toc": "Opérations de retraitements"
+    },
+    {
+      "application_id": "syscohada2017:application:140",
+      "application_number": 140,
+      "chapter_number": 5,
+      "page_start_printed_toc": 431,
+      "part_key": "QUATRIEME",
+      "section_number": null,
+      "title_toc": "Elimination des comptes réciproques et des résultats intra-groupe"
+    },
+    {
+      "application_id": "syscohada2017:application:141",
+      "application_number": 141,
+      "chapter_number": 6,
+      "page_start_printed_toc": 433,
+      "part_key": "QUATRIEME",
+      "section_number": null,
+      "title_toc": "Variation du pourcentage d'intérêt et de contrôle"
+    },
+    {
+      "application_id": "syscohada2017:application:142",
+      "application_number": 142,
+      "chapter_number": 7,
+      "page_start_printed_toc": 437,
+      "part_key": "QUATRIEME",
+      "section_number": null,
+      "title_toc": "Comptes combinés"
+    }
+  ],
+  "chapters": [
+    {
+      "chapter_id": "syscohada-guide:premiere:chapter:1",
+      "chapter_number": 1,
+      "page_start_printed": 11,
+      "part_key": "PREMIERE",
+      "title": "Plan de comptes - subdivisions"
+    },
+    {
+      "chapter_id": "syscohada-guide:premiere:chapter:2",
+      "chapter_number": 2,
+      "page_start_printed": 18,
+      "part_key": "PREMIERE",
+      "title": "Achats et ventes de biens et de services"
+    },
+    {
+      "chapter_id": "syscohada-guide:premiere:chapter:3",
+      "chapter_number": 3,
+      "page_start_printed": 33,
+      "part_key": "PREMIERE",
+      "title": "Autres opérations d’exploitation"
+    },
+    {
+      "chapter_id": "syscohada-guide:premiere:chapter:4",
+      "chapter_number": 4,
+      "page_start_printed": 45,
+      "part_key": "PREMIERE",
+      "title": "Opérations de trésorerie"
+    },
+    {
+      "chapter_id": "syscohada-guide:premiere:chapter:5",
+      "chapter_number": 5,
+      "page_start_printed": 59,
+      "part_key": "PREMIERE",
+      "title": "Opérations d’investissement et de désinvestissement"
+    },
+    {
+      "chapter_id": "syscohada-guide:premiere:chapter:6",
+      "chapter_number": 6,
+      "page_start_printed": 75,
+      "part_key": "PREMIERE",
+      "title": "Régularisations périodiques"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:1",
+      "chapter_number": 1,
+      "page_start_printed": 98,
+      "part_key": "DEUXIEME",
+      "title": "Frais de recherche et de développement"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:2",
+      "chapter_number": 2,
+      "page_start_printed": 100,
+      "part_key": "DEUXIEME",
+      "title": "Brevets, marques, logiciels, sites internet, coût d’obtention du contrat, fonds commercial"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:3",
+      "chapter_number": 3,
+      "page_start_printed": 111,
+      "part_key": "DEUXIEME",
+      "title": "Frais de prospection et d’exploitation des ressources minérales"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:4",
+      "chapter_number": 4,
+      "page_start_printed": 113,
+      "part_key": "DEUXIEME",
+      "title": "Approche par composants"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:5",
+      "chapter_number": 5,
+      "page_start_printed": 115,
+      "part_key": "DEUXIEME",
+      "title": "Frais d’inspections ou de révisions majeures, dépenses de sécurité et de mise en conformité"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:6",
+      "chapter_number": 6,
+      "page_start_printed": 116,
+      "part_key": "DEUXIEME",
+      "title": "Coût de démantèlement, d’enlèvement et de remise en état du site"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:7",
+      "chapter_number": 7,
+      "page_start_printed": 120,
+      "part_key": "DEUXIEME",
+      "title": "Coût d'emprunts"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:8",
+      "chapter_number": 8,
+      "page_start_printed": 121,
+      "part_key": "DEUXIEME",
+      "title": "Contrat de location"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:9",
+      "chapter_number": 9,
+      "page_start_printed": 128,
+      "part_key": "DEUXIEME",
+      "title": "Réserve de propriété"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:10",
+      "chapter_number": 10,
+      "page_start_printed": 133,
+      "part_key": "DEUXIEME",
+      "title": "Immeubles de placement"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:11",
+      "chapter_number": 11,
+      "page_start_printed": 134,
+      "part_key": "DEUXIEME",
+      "title": "Constructions sur sol d’autrui et contrat de rentes viagères"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:12",
+      "chapter_number": 12,
+      "page_start_printed": 138,
+      "part_key": "DEUXIEME",
+      "title": "Dépréciation des immobilisations"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:13",
+      "chapter_number": 13,
+      "page_start_printed": 143,
+      "part_key": "DEUXIEME",
+      "title": "Portefeuille titres"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:14",
+      "chapter_number": 14,
+      "page_start_printed": 149,
+      "part_key": "DEUXIEME",
+      "title": "Stocks et en-cours de production"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:15",
+      "chapter_number": 15,
+      "page_start_printed": 153,
+      "part_key": "DEUXIEME",
+      "title": "Abandons de créances, opérations d’affacturage et de titrisation"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:16",
+      "chapter_number": 16,
+      "page_start_printed": 158,
+      "part_key": "DEUXIEME",
+      "title": "Capitaux propres et autres fonds propres"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:17",
+      "chapter_number": 17,
+      "page_start_printed": 167,
+      "part_key": "DEUXIEME",
+      "title": "Subventions et aides publiques"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:18",
+      "chapter_number": 18,
+      "page_start_printed": 176,
+      "part_key": "DEUXIEME",
+      "title": "Provisions, passifs éventuels et actifs éventuels"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:19",
+      "chapter_number": 19,
+      "page_start_printed": 181,
+      "part_key": "DEUXIEME",
+      "title": "Attribution gratuite d’actions au personnel salarié et aux dirigeants de la société"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:20",
+      "chapter_number": 20,
+      "page_start_printed": 183,
+      "part_key": "DEUXIEME",
+      "title": "Emprunt obligataire"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:21",
+      "chapter_number": 21,
+      "page_start_printed": 191,
+      "part_key": "DEUXIEME",
+      "title": "Engagements de retraite et autres avantages assimilés"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:22",
+      "chapter_number": 22,
+      "page_start_printed": 199,
+      "part_key": "DEUXIEME",
+      "title": "Opérations en devises et contrats de couverture sur marchés financiers"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:23",
+      "chapter_number": 23,
+      "page_start_printed": 217,
+      "part_key": "DEUXIEME",
+      "title": "Contrats pluri-exercices"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:24",
+      "chapter_number": 24,
+      "page_start_printed": 224,
+      "part_key": "DEUXIEME",
+      "title": "Abonnement des charges et produits"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:25",
+      "chapter_number": 25,
+      "page_start_printed": 226,
+      "part_key": "DEUXIEME",
+      "title": "Contrat de concessions de service public"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:26",
+      "chapter_number": 26,
+      "page_start_printed": 231,
+      "part_key": "DEUXIEME",
+      "title": "Groupement d'intérêt économique"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:27",
+      "chapter_number": 27,
+      "page_start_printed": 234,
+      "part_key": "DEUXIEME",
+      "title": "Personnel intérimaire"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:28",
+      "chapter_number": 28,
+      "page_start_printed": 236,
+      "part_key": "DEUXIEME",
+      "title": "Réévaluation des bilans"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:29",
+      "chapter_number": 29,
+      "page_start_printed": 241,
+      "part_key": "DEUXIEME",
+      "title": "Inventaire permanent en comptabilité financière"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:30",
+      "chapter_number": 30,
+      "page_start_printed": 246,
+      "part_key": "DEUXIEME",
+      "title": "Engagements financiers et passifs éventuels"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:31",
+      "chapter_number": 31,
+      "page_start_printed": 248,
+      "part_key": "DEUXIEME",
+      "title": "Evènements postérieurs à la clôture de l'exercice"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:32",
+      "chapter_number": 32,
+      "page_start_printed": 250,
+      "part_key": "DEUXIEME",
+      "title": "Opérations faites pour le compte de tiers"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:33",
+      "chapter_number": 33,
+      "page_start_printed": 254,
+      "part_key": "DEUXIEME",
+      "title": "Opérations faites en commun"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:34",
+      "chapter_number": 34,
+      "page_start_printed": 262,
+      "part_key": "DEUXIEME",
+      "title": "Comptabilité autonome par établissement"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:35",
+      "chapter_number": 35,
+      "page_start_printed": 270,
+      "part_key": "DEUXIEME",
+      "title": "Contrat de franchise"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:36",
+      "chapter_number": 36,
+      "page_start_printed": 274,
+      "part_key": "DEUXIEME",
+      "title": "Comptabilité pluri monétaire"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:37",
+      "chapter_number": 37,
+      "page_start_printed": 283,
+      "part_key": "DEUXIEME",
+      "title": "Opérations spécifiques des entités agricoles"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:38",
+      "chapter_number": 38,
+      "page_start_printed": 285,
+      "part_key": "DEUXIEME",
+      "title": "Fusions et opérations assimilées"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:39",
+      "chapter_number": 39,
+      "page_start_printed": 305,
+      "part_key": "DEUXIEME",
+      "title": "Comptes intermédiaires"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:40",
+      "chapter_number": 40,
+      "page_start_printed": 307,
+      "part_key": "DEUXIEME",
+      "title": "Liquidation"
+    },
+    {
+      "chapter_id": "syscohada-guide:deuxieme:chapter:41",
+      "chapter_number": 41,
+      "page_start_printed": 314,
+      "part_key": "DEUXIEME",
+      "title": "Première application du SYSCOHADA révisé"
+    },
+    {
+      "chapter_id": "syscohada-guide:troisieme:chapter:1",
+      "chapter_number": 1,
+      "page_start_printed": 328,
+      "part_key": "TROISIEME",
+      "title": "Préparation des états financiers"
+    },
+    {
+      "chapter_id": "syscohada-guide:troisieme:chapter:2",
+      "chapter_number": 2,
+      "page_start_printed": 343,
+      "part_key": "TROISIEME",
+      "title": "Modèle type d’un jeu complet d’états financiers"
+    },
+    {
+      "chapter_id": "syscohada-guide:quatrieme:chapter:1",
+      "chapter_number": 1,
+      "page_start_printed": 398,
+      "part_key": "QUATRIEME",
+      "title": "Périmètre et méthodes de consolidation"
+    },
+    {
+      "chapter_id": "syscohada-guide:quatrieme:chapter:2",
+      "chapter_number": 2,
+      "page_start_printed": 406,
+      "part_key": "QUATRIEME",
+      "title": "Mise en œuvre des méthodes de consolidation"
+    },
+    {
+      "chapter_id": "syscohada-guide:quatrieme:chapter:3",
+      "chapter_number": 3,
+      "page_start_printed": 415,
+      "part_key": "QUATRIEME",
+      "title": "Ecart de consolidation"
+    },
+    {
+      "chapter_id": "syscohada-guide:quatrieme:chapter:4",
+      "chapter_number": 4,
+      "page_start_printed": 424,
+      "part_key": "QUATRIEME",
+      "title": "Conversion en unités monétaires locales des états financiers établis en devises étrangères"
+    },
+    {
+      "chapter_id": "syscohada-guide:quatrieme:chapter:5",
+      "chapter_number": 5,
+      "page_start_printed": 428,
+      "part_key": "QUATRIEME",
+      "title": "Retraitement et élimination des opérations intergroupes"
+    },
+    {
+      "chapter_id": "syscohada-guide:quatrieme:chapter:6",
+      "chapter_number": 6,
+      "page_start_printed": 433,
+      "part_key": "QUATRIEME",
+      "title": "Variations du périmètre de consolidation"
+    },
+    {
+      "chapter_id": "syscohada-guide:quatrieme:chapter:7",
+      "chapter_number": 7,
+      "page_start_printed": 437,
+      "part_key": "QUATRIEME",
+      "title": "Comptes combinés"
+    }
+  ],
+  "parts": [
+    {
+      "part_id": "syscohada-guide:part:premiere",
+      "part_key": "PREMIERE",
+      "title": "OPERATIONS COURANTES"
+    },
+    {
+      "part_id": "syscohada-guide:part:deuxieme",
+      "part_key": "DEUXIEME",
+      "title": "OPERATIONS ET PROBLEMES SPECIFIQUES"
+    },
+    {
+      "part_id": "syscohada-guide:part:troisieme",
+      "part_key": "TROISIEME",
+      "title": "PRESENTATION DES ETATS FINANCIERS"
+    },
+    {
+      "part_id": "syscohada-guide:part:quatrieme",
+      "part_key": "QUATRIEME",
+      "title": "COMPTES CONSOLIDES ET COMBINES"
+    }
+  ],
+  "sections": [
+    {
+      "chapter_number": 1,
+      "page_start_printed": 12,
+      "part_key": "PREMIERE",
+      "section_id": "syscohada-guide:premiere:chapter:1:section:1",
+      "section_number": 1,
+      "title": "Plan de comptes"
+    },
+    {
+      "chapter_number": 1,
+      "page_start_printed": 16,
+      "part_key": "PREMIERE",
+      "section_id": "syscohada-guide:premiere:chapter:1:section:2",
+      "section_number": 2,
+      "title": "Subdivision en sous-comptes"
+    },
+    {
+      "chapter_number": 2,
+      "page_start_printed": 18,
+      "part_key": "PREMIERE",
+      "section_id": "syscohada-guide:premiere:chapter:2:section:1",
+      "section_number": 1,
+      "title": "Opérations brutes"
+    },
+    {
+      "chapter_number": 2,
+      "page_start_printed": 22,
+      "part_key": "PREMIERE",
+      "section_id": "syscohada-guide:premiere:chapter:2:section:2",
+      "section_number": 2,
+      "title": "Stocks"
+    },
+    {
+      "chapter_number": 2,
+      "page_start_printed": 26,
+      "part_key": "PREMIERE",
+      "section_id": "syscohada-guide:premiere:chapter:2:section:3",
+      "section_number": 3,
+      "title": "Eléments soustractifs de la facture"
+    },
+    {
+      "chapter_number": 2,
+      "page_start_printed": 29,
+      "part_key": "PREMIERE",
+      "section_id": "syscohada-guide:premiere:chapter:2:section:4",
+      "section_number": 4,
+      "title": "Eléments additifs de la facture"
+    },
+    {
+      "chapter_number": 3,
+      "page_start_printed": 33,
+      "part_key": "PREMIERE",
+      "section_id": "syscohada-guide:premiere:chapter:3:section:1",
+      "section_number": 1,
+      "title": "Conception et terminologie"
+    },
+    {
+      "chapter_number": 3,
+      "page_start_printed": 35,
+      "part_key": "PREMIERE",
+      "section_id": "syscohada-guide:premiere:chapter:3:section:2",
+      "section_number": 2,
+      "title": "Impôts et taxes"
+    },
+    {
+      "chapter_number": 3,
+      "page_start_printed": 38,
+      "part_key": "PREMIERE",
+      "section_id": "syscohada-guide:premiere:chapter:3:section:3",
+      "section_number": 3,
+      "title": "Subventions d’exploitation et subventions d’équilibre"
+    },
+    {
+      "chapter_number": 3,
+      "page_start_printed": 40,
+      "part_key": "PREMIERE",
+      "section_id": "syscohada-guide:premiere:chapter:3:section:4",
+      "section_number": 4,
+      "title": "Charges de personnel"
+    },
+    {
+      "chapter_number": 3,
+      "page_start_printed": 43,
+      "part_key": "PREMIERE",
+      "section_id": "syscohada-guide:premiere:chapter:3:section:5",
+      "section_number": 5,
+      "title": "Frais financiers et charges assimilées"
+    },
+    {
+      "chapter_number": 3,
+      "page_start_printed": 44,
+      "part_key": "PREMIERE",
+      "section_id": "syscohada-guide:premiere:chapter:3:section:6",
+      "section_number": 6,
+      "title": "Revenus financiers et produits assimilés"
+    },
+    {
+      "chapter_number": 4,
+      "page_start_printed": 45,
+      "part_key": "PREMIERE",
+      "section_id": "syscohada-guide:premiere:chapter:4:section:1",
+      "section_number": 1,
+      "title": "Conception et terminologie"
+    },
+    {
+      "chapter_number": 4,
+      "page_start_printed": 46,
+      "part_key": "PREMIERE",
+      "section_id": "syscohada-guide:premiere:chapter:4:section:2",
+      "section_number": 2,
+      "title": "Modes de règlement autres que par effets"
+    },
+    {
+      "chapter_number": 4,
+      "page_start_printed": 48,
+      "part_key": "PREMIERE",
+      "section_id": "syscohada-guide:premiere:chapter:4:section:3",
+      "section_number": 3,
+      "title": "Règlement par effets de commerce"
+    },
+    {
+      "chapter_number": 4,
+      "page_start_printed": 52,
+      "part_key": "PREMIERE",
+      "section_id": "syscohada-guide:premiere:chapter:4:section:4",
+      "section_number": 4,
+      "title": "Instruments de monnaie électronique"
+    },
+    {
+      "chapter_number": 4,
+      "page_start_printed": 53,
+      "part_key": "PREMIERE",
+      "section_id": "syscohada-guide:premiere:chapter:4:section:5",
+      "section_number": 5,
+      "title": "Délais de règlement"
+    },
+    {
+      "chapter_number": 4,
+      "page_start_printed": 57,
+      "part_key": "PREMIERE",
+      "section_id": "syscohada-guide:premiere:chapter:4:section:6",
+      "section_number": 6,
+      "title": "Exemple de synthèse"
+    },
+    {
+      "chapter_number": 5,
+      "page_start_printed": 59,
+      "part_key": "PREMIERE",
+      "section_id": "syscohada-guide:premiere:chapter:5:section:1",
+      "section_number": 1,
+      "title": "Conception et terminologie"
+    },
+    {
+      "chapter_number": 5,
+      "page_start_printed": 60,
+      "part_key": "PREMIERE",
+      "section_id": "syscohada-guide:premiere:chapter:5:section:2",
+      "section_number": 2,
+      "title": "Entrée de l’immobilisation"
+    },
+    {
+      "chapter_number": 5,
+      "page_start_printed": 64,
+      "part_key": "PREMIERE",
+      "section_id": "syscohada-guide:premiere:chapter:5:section:3",
+      "section_number": 3,
+      "title": "Immobilisation en service"
+    },
+    {
+      "chapter_number": 5,
+      "page_start_printed": 69,
+      "part_key": "PREMIERE",
+      "section_id": "syscohada-guide:premiere:chapter:5:section:4",
+      "section_number": 4,
+      "title": "Décomptabilisation de l’immobilisation"
+    },
+    {
+      "chapter_number": 6,
+      "page_start_printed": 75,
+      "part_key": "PREMIERE",
+      "section_id": "syscohada-guide:premiere:chapter:6:section:1",
+      "section_number": 1,
+      "title": "Régularisation des stocks"
+    },
+    {
+      "chapter_number": 6,
+      "page_start_printed": 77,
+      "part_key": "PREMIERE",
+      "section_id": "syscohada-guide:premiere:chapter:6:section:2",
+      "section_number": 2,
+      "title": "Amortissements"
+    },
+    {
+      "chapter_number": 6,
+      "page_start_printed": 80,
+      "part_key": "PREMIERE",
+      "section_id": "syscohada-guide:premiere:chapter:6:section:3",
+      "section_number": 3,
+      "title": "Dépréciations"
+    },
+    {
+      "chapter_number": 6,
+      "page_start_printed": 84,
+      "part_key": "PREMIERE",
+      "section_id": "syscohada-guide:premiere:chapter:6:section:4",
+      "section_number": 4,
+      "title": "Provisions pour risques et charges"
+    },
+    {
+      "chapter_number": 6,
+      "page_start_printed": 87,
+      "part_key": "PREMIERE",
+      "section_id": "syscohada-guide:premiere:chapter:6:section:5",
+      "section_number": 5,
+      "title": "Autres régularisations de charges"
+    },
+    {
+      "chapter_number": 6,
+      "page_start_printed": 92,
+      "part_key": "PREMIERE",
+      "section_id": "syscohada-guide:premiere:chapter:6:section:6",
+      "section_number": 6,
+      "title": "Autres régularisations de produits"
+    },
+    {
+      "chapter_number": 1,
+      "page_start_printed": 328,
+      "part_key": "TROISIEME",
+      "section_id": "syscohada-guide:troisieme:chapter:1:section:1",
+      "section_number": 1,
+      "title": "Principe"
+    },
+    {
+      "chapter_number": 1,
+      "page_start_printed": 330,
+      "part_key": "TROISIEME",
+      "section_id": "syscohada-guide:troisieme:chapter:1:section:2",
+      "section_number": 2,
+      "title": "Bilan"
+    },
+    {
+      "chapter_number": 1,
+      "page_start_printed": 332,
+      "part_key": "TROISIEME",
+      "section_id": "syscohada-guide:troisieme:chapter:1:section:3",
+      "section_number": 3,
+      "title": "Compte de résultat"
+    },
+    {
+      "chapter_number": 1,
+      "page_start_printed": 334,
+      "part_key": "TROISIEME",
+      "section_id": "syscohada-guide:troisieme:chapter:1:section:4",
+      "section_number": 4,
+      "title": "Tableau des flux de trésorerie"
+    },
+    {
+      "chapter_number": 1,
+      "page_start_printed": 341,
+      "part_key": "TROISIEME",
+      "section_id": "syscohada-guide:troisieme:chapter:1:section:5",
+      "section_number": 5,
+      "title": "Notes annexes"
+    }
+  ],
+  "statistics": {
+    "applications": 142,
+    "chapters": 56,
+    "parts": 4,
+    "sections": 33
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ReviewDecision",
+  "type": "object",
+  "required": [
+    "decision_id",
+    "source_node_id",
+    "target_node_id",
+    "decision",
+    "mapping_type",
+    "reviewer",
+    "reviewed_at",
+    "justification",
+    "evidence_refs"
+  ]
+}

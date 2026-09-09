@@ -1,0 +1,86 @@
+standard_id: cemac-pcemf
+standard_name: Plan comptable des établissements de microfinance
+authority: COBAC
+jurisdiction: CEMAC
+language: fr
+edition: '2010'
+effective_from: null
+effective_to: null
+base_standard: null
+extension_type: null
+family_ids:
+- ohada-accounting
+standard_role: microfinance_sectoral_standard
+edition_basis: Edition janvier 2010
+canonical_status: source_bundle_ready
+capabilities:
+  chart_of_accounts: true
+  structure: true
+  posting_guidance: true
+  financial_reporting: true
+  prudential: true
+  disclosures: true
+  consolidation: true
+  sector_adaptations: true
+  crosswalk: true
+  business_enrichment: true
+source_documents:
+- document_id: pcemf-2010
+  relative_path: sources/COBAC – Plan Comptable des EMF – janvier 2010.pdf
+  media_type: application/pdf
+  role: official_sector_regulation_and_chart
+  sha256: f4c0def0619cd0971c4c7a98de8b9d112be5231b432bc337e69d45f3de898f0e
+  derived_from: []
+  authority_level: official_sector_authority
+  quality_status: source_ready
+  canonical_eligibility: true
+- document_id: pcemf-2010-md
+  relative_path: sources/COBAC – Plan Comptable des EMF – janvier 2010.md
+  media_type: text/markdown
+  role: derived_transcription
+  sha256: 629ac620ecf50878bd52df225018e01c418cef67f4f8d468c47ec8d7b779cf60
+  derived_from:
+  - pcemf-2010
+  authority_level: derived
+  quality_status: text_layer_extraction
+  canonical_eligibility: true
+- document_id: pcemf-list-2010
+  relative_path: sources/PC-EMF_Liste des comptes EMF.pdf
+  media_type: application/pdf
+  role: official_visual_account_list_reference
+  sha256: 4ffb1f8b83315ce01d16eef4163f0b64a49d33c375e7dee5290087e06e783a67
+  derived_from: []
+  authority_level: official_visual_source
+  quality_status: image_only_scan
+  canonical_eligibility: true
+- document_id: pcemf-list-2010-md
+  relative_path: sources/PC-EMF_Liste des comptes EMF.md
+  media_type: text/markdown
+  role: page_aligned_reconstructed_transcription
+  sha256: 1ed5778ce5cd2a64e3450506fc5d8425904b777d2316e1e0556a6bf1cdd3563a
+  derived_from:
+  - pcemf-2010
+  - pcemf-list-2010
+  authority_level: derived
+  quality_status: reconstructed_from_identical_full_document_section
+  canonical_eligibility: false
+  notes: Cross-validation only.
+- document_id: pcemf-annexes-2010
+  relative_path: sources/Annexes-aux-textes-additifs-au-plan-comptable-des-établissements-de-microfinance.pdf
+  media_type: application/pdf
+  role: official_reporting_prudential_annex
+  sha256: 5a4a6ddbe9d8a0bcb8529a9bf960283426c4400eaaab76e3acd04edfe727ca78
+  derived_from: []
+  authority_level: official_sector_authority
+  quality_status: source_ready
+  canonical_eligibility: true
+- document_id: pcemf-annexes-2010-md
+  relative_path: sources/Annexes-aux-textes-additifs-au-plan-comptable-des-établissements-de-microfinance.md
+  media_type: text/markdown
+  role: derived_reporting_prudential_transcription
+  sha256: fef9dc619d226af2d4d3d89902ecc2f731b7c344fc1efc622f9dfe6ee8543ec4
+  derived_from:
+  - pcemf-annexes-2010
+  authority_level: derived
+  quality_status: text_layer_extraction
+  canonical_eligibility: true

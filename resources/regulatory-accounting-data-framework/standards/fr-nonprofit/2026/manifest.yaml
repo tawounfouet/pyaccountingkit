@@ -1,0 +1,47 @@
+standard_id: fr-nonprofit
+standard_name: Comptes annuels des personnes morales de droit privé à but non lucratif
+authority: ANC
+jurisdiction: FR
+language: fr
+edition: '2026'
+effective_from: '2026-01-01'
+base_standard: fr-pcg:2026
+extension_type: sector_overlay
+capabilities:
+  chart_of_accounts: true
+  structure: true
+  posting_guidance: true
+  financial_reporting: true
+  prudential: false
+  disclosures: true
+  consolidation: false
+  sector_adaptations: true
+  crosswalk: true
+  business_enrichment: false
+source_documents:
+- document_id: fr-nonprofit-recueil-2026
+  relative_path: sources/ANC_Recueil-non-lucratif_ONG_Associations_2026.pdf
+  media_type: application/pdf
+  role: official_regulatory_source
+  sha256: 77063be0015cb2332f4d3db6f9fd717f4e0a853576425804fba3ebf8c11d0e6b
+  derived_from: []
+- document_id: fr-nonprofit-recueil-2026-md
+  relative_path: sources/ANC_Recueil-non-lucratif_ONG_Associations_2026.md
+  media_type: text/markdown
+  role: derived_transcription
+  sha256: 95feebbc76b30e303a389abc9a950751e7d3a0b5449271d4c4898ca9e68dad3e
+  derived_from:
+  - fr-nonprofit-recueil-2026
+- document_id: orcom-associations-plan-2025
+  relative_path: sources/PCA_plan-comptable-associations_orcom_2025.pdf
+  media_type: application/pdf
+  role: external_practitioner_reference
+  sha256: 16ed82bab94d2b4f99fd2dd532c455f08ba5ddcccff71d0dbe192df55e5ccde2
+  derived_from: []
+- document_id: orcom-associations-plan-2025-md
+  relative_path: sources/PCA_plan-comptable-associations_orcom_2025.md
+  media_type: text/markdown
+  role: derived_practitioner_transcription
+  sha256: fa6fdd3668d1eab3d40862e6a82bb9720204ff060131f9e3cf4a9b6cf7a8c6de
+  derived_from:
+  - orcom-associations-plan-2025

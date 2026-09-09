@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ConceptBinding",
+  "type": "object",
+  "required": [
+    "binding_id",
+    "concept_id",
+    "standard_ref",
+    "account_ref",
+    "mapping_type",
+    "review_status"
+  ],
+  "properties": {
+    "auto_approval_allowed": {
+      "const": false
+    },
+    "code_equality_used_as_evidence": {
+      "const": false
+    }
+  }
+}

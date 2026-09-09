@@ -1,0 +1,67 @@
+standard_id: ohada-syscohada
+standard_name: SYSCOHADA révisé
+authority: OHADA
+jurisdiction: OHADA
+language: fr
+edition: '2017'
+effective_from: null
+effective_to: null
+base_standard: null
+extension_type: null
+family_ids:
+- ohada-accounting
+standard_role: general_accounting_standard
+edition_basis: Acte uniforme relatif au droit comptable et à l'information financière
+  adopté le 26 janvier 2017
+canonical_status: source_bundle_ready
+capabilities:
+  chart_of_accounts: true
+  structure: true
+  posting_guidance: true
+  financial_reporting: true
+  prudential: false
+  disclosures: true
+  consolidation: true
+  sector_adaptations: false
+  crosswalk: true
+  business_enrichment: false
+source_documents:
+- document_id: syscohada-plan-2017
+  relative_path: sources/OHADA-Plan-comptable-2017.pdf
+  media_type: application/pdf
+  role: official_chart_of_accounts
+  sha256: 5005363b17ec09a1df1c9bdf4b5da848ba5abeb27d2faeac4643b89a0433497c
+  derived_from: []
+  authority_level: official_or_official_republication
+  quality_status: source_ready
+  canonical_eligibility: true
+  notes: Annexe de l'Acte uniforme adopté le 26 janvier 2017.
+- document_id: syscohada-plan-2017-md
+  relative_path: sources/OHADA-Plan-comptable-2017.md
+  media_type: text/markdown
+  role: derived_transcription
+  sha256: 1a1e9e055001c66e99ec7a42278d5aaa8d0f07f26685d5e67ff9a58a9536d8bb
+  derived_from:
+  - syscohada-plan-2017
+  authority_level: derived
+  quality_status: text_layer_extraction
+  canonical_eligibility: true
+- document_id: syscohada-guide-2017
+  relative_path: sources/Guide-d-application-du-SYSCOHADA.pdf
+  media_type: application/pdf
+  role: official_application_guide
+  sha256: 25c24c8b00be0eb53d7bdd7dce53c18ef9d46adbe2dbf16619996c0a75d4df0b
+  derived_from: []
+  authority_level: official_guidance
+  quality_status: source_ready
+  canonical_eligibility: true
+- document_id: syscohada-guide-2017-md
+  relative_path: sources/Guide-d-application-du-SYSCOHADA.md
+  media_type: text/markdown
+  role: derived_application_guide_transcription
+  sha256: 7c6d9cc3e1e3324979dbcd65ef3938d7e58fca3bf42e2eda1e1b965b8412141f
+  derived_from:
+  - syscohada-guide-2017
+  authority_level: derived
+  quality_status: text_layer_extraction
+  canonical_eligibility: true

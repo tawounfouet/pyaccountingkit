@@ -1,0 +1,1207 @@
+{
+  "dataset_layer": "v3_reporting",
+  "edition": "2017",
+  "model_example": {
+    "balance": {
+      "lines": [
+        {
+          "label_source": "IMMOBILISATIONS INCORPORELLES",
+          "line_id": "balance:asset:001",
+          "side": "asset",
+          "source_ref_code": "AD"
+        },
+        {
+          "label_source": "Brevets, licences, logiciels et droits similaires",
+          "line_id": "balance:asset:002",
+          "side": "asset",
+          "source_ref_code": "AF"
+        },
+        {
+          "label_source": "Fonds commercial et droit au bail",
+          "line_id": "balance:asset:003",
+          "side": "asset",
+          "source_ref_code": "AG"
+        },
+        {
+          "label_source": "IMMOBILISATIONS CORPORELLES",
+          "line_id": "balance:asset:004",
+          "side": "asset",
+          "source_ref_code": "AI"
+        },
+        {
+          "label_source": "Terrains",
+          "line_id": "balance:asset:005",
+          "side": "asset",
+          "source_ref_code": "AJ"
+        },
+        {
+          "label_source": "Bâtiments",
+          "line_id": "balance:asset:006",
+          "side": "asset",
+          "source_ref_code": "AK"
+        },
+        {
+          "label_source": "Aménagements, agencements et installations",
+          "line_id": "balance:asset:007",
+          "side": "asset",
+          "source_ref_code": "AL"
+        },
+        {
+          "label_source": "Matériel, mobilier et actifs biologiques",
+          "line_id": "balance:asset:008",
+          "side": "asset",
+          "source_ref_code": "AM"
+        },
+        {
+          "label_source": "Matériel de transport",
+          "line_id": "balance:asset:009",
+          "side": "asset",
+          "source_ref_code": "AN"
+        },
+        {
+          "label_source": "AVANCES ET ACOMPTES VERSES SUR IMMOBILISATIONS",
+          "line_id": "balance:asset:010",
+          "side": "asset",
+          "source_ref_code": "AP"
+        },
+        {
+          "label_source": "IMMOBILISATIONS FINANCIERES",
+          "line_id": "balance:asset:011",
+          "side": "asset",
+          "source_ref_code": "AQ"
+        },
+        {
+          "label_source": "Autres immobilisations financières",
+          "line_id": "balance:asset:012",
+          "side": "asset",
+          "source_ref_code": "AS"
+        },
+        {
+          "label_source": "TOTAL ACTIF IMMOBILISE",
+          "line_id": "balance:asset:013",
+          "side": "asset",
+          "source_ref_code": "AZ"
+        },
+        {
+          "label_source": "ACTIF CIRCULANT HAO",
+          "line_id": "balance:asset:014",
+          "side": "asset",
+          "source_ref_code": "BA"
+        },
+        {
+          "label_source": "STOCKS ET ENCOURS",
+          "line_id": "balance:asset:015",
+          "side": "asset",
+          "source_ref_code": "BB"
+        },
+        {
+          "label_source": "CREANCES ET EMPLOIS ASSIMILES",
+          "line_id": "balance:asset:016",
+          "side": "asset",
+          "source_ref_code": "BG"
+        },
+        {
+          "label_source": "Fournisseurs avances versées",
+          "line_id": "balance:asset:017",
+          "side": "asset",
+          "source_ref_code": "BH"
+        },
+        {
+          "label_source": "Clients",
+          "line_id": "balance:asset:018",
+          "side": "asset",
+          "source_ref_code": "BI"
+        },
+        {
+          "label_source": "Autres créances",
+          "line_id": "balance:asset:019",
+          "side": "asset",
+          "source_ref_code": "BJ"
+        },
+        {
+          "label_source": "TOTAL ACTIF CIRCULANT",
+          "line_id": "balance:asset:020",
+          "side": "asset",
+          "source_ref_code": "BK"
+        },
+        {
+          "label_source": "Banques, chèques postaux, caisse et assimilés",
+          "line_id": "balance:asset:021",
+          "side": "asset",
+          "source_ref_code": "BS"
+        },
+        {
+          "label_source": "TOTAL TRESORERIE ACTIF",
+          "line_id": "balance:asset:022",
+          "side": "asset",
+          "source_ref_code": "BT"
+        },
+        {
+          "label_source": "Ecart de conversion-Actif",
+          "line_id": "balance:asset:023",
+          "side": "asset",
+          "source_ref_code": "BU"
+        },
+        {
+          "label_source": "TOTAL GENERAL",
+          "line_id": "balance:asset:024",
+          "side": "asset",
+          "source_ref_code": "BZ"
+        },
+        {
+          "label_source": "Capital",
+          "line_id": "balance:liability:001",
+          "side": "liability",
+          "source_ref_code": "CA"
+        },
+        {
+          "label_source": "Apporteurs capital non appelé (-)",
+          "line_id": "balance:liability:002",
+          "side": "liability",
+          "source_ref_code": "CB"
+        },
+        {
+          "label_source": "Ecarts de réévaluation",
+          "line_id": "balance:liability:003",
+          "side": "liability",
+          "source_ref_code": "CD"
+        },
+        {
+          "label_source": "Réserves indisponibles",
+          "line_id": "balance:liability:004",
+          "side": "liability",
+          "source_ref_code": "CE"
+        },
+        {
+          "label_source": "Report à nouveau (+ ou -)",
+          "line_id": "balance:liability:005",
+          "side": "liability",
+          "source_ref_code": "CF"
+        },
+        {
+          "label_source": "Résultat net de l'exercice (bénéfice + ou perte -)",
+          "line_id": "balance:liability:006",
+          "side": "liability",
+          "source_ref_code": "CG"
+        },
+        {
+          "label_source": "Subventions d'investissement",
+          "line_id": "balance:liability:007",
+          "side": "liability",
+          "source_ref_code": "CH"
+        },
+        {
+          "label_source": "Provisions réglementées",
+          "line_id": "balance:liability:008",
+          "side": "liability",
+          "source_ref_code": "CJ"
+        },
+        {
+          "label_source": "TOTAL CAPITAUX PROPRES ET RESSOURCES ASSIMILEES",
+          "line_id": "balance:liability:009",
+          "side": "liability",
+          "source_ref_code": "CP"
+        },
+        {
+          "label_source": "Emprunts et dettes financières diverses",
+          "line_id": "balance:liability:010",
+          "side": "liability",
+          "source_ref_code": "DA"
+        },
+        {
+          "label_source": "Provisions pour risques et charges",
+          "line_id": "balance:liability:011",
+          "side": "liability",
+          "source_ref_code": "DC"
+        },
+        {
+          "label_source": "TOTAL DETTES FINANCIERES ET RESSOURCES ASSIMILEES",
+          "line_id": "balance:liability:012",
+          "side": "liability",
+          "source_ref_code": "DD"
+        },
+        {
+          "label_source": "TOTAL RESSOURCES STABLES",
+          "line_id": "balance:liability:013",
+          "side": "liability",
+          "source_ref_code": "DF"
+        },
+        {
+          "label_source": "Dettes circulantes HAO",
+          "line_id": "balance:liability:014",
+          "side": "liability",
+          "source_ref_code": "DH"
+        },
+        {
+          "label_source": "Clients, avances reçues",
+          "line_id": "balance:liability:015",
+          "side": "liability",
+          "source_ref_code": "DI"
+        },
+        {
+          "label_source": "Fournisseurs d'exploitation",
+          "line_id": "balance:liability:016",
+          "side": "liability",
+          "source_ref_code": "DJ"
+        },
+        {
+          "label_source": "Dettes fiscales et sociales",
+          "line_id": "balance:liability:017",
+          "side": "liability",
+          "source_ref_code": "DK"
+        },
+        {
+          "label_source": "Autres dettes",
+          "line_id": "balance:liability:018",
+          "side": "liability",
+          "source_ref_code": "DM"
+        },
+        {
+          "label_source": "Provisions pour risques a court terme",
+          "line_id": "balance:liability:019",
+          "side": "liability",
+          "source_ref_code": "DN"
+        },
+        {
+          "label_source": "TOTAL PASSIF CIRCULANT",
+          "line_id": "balance:liability:020",
+          "side": "liability",
+          "source_ref_code": "DP"
+        },
+        {
+          "label_source": "Banques, établissements financiers et crédits de trésorerie",
+          "line_id": "balance:liability:021",
+          "side": "liability",
+          "source_ref_code": "DR"
+        },
+        {
+          "label_source": "TOTAL TRESORERIE PASSIF",
+          "line_id": "balance:liability:022",
+          "side": "liability",
+          "source_ref_code": "DT"
+        },
+        {
+          "label_source": "Ecart de conversion-Passif",
+          "line_id": "balance:liability:023",
+          "side": "liability",
+          "source_ref_code": "DV"
+        },
+        {
+          "label_source": "TOTAL GENERAL",
+          "line_id": "balance:liability:024",
+          "side": "liability",
+          "source_ref_code": "DZ"
+        }
+      ],
+      "name": "Bilan - modèle Application 127",
+      "source": {
+        "document_id": "syscohada-guide-2017-md",
+        "page_pdf": 356,
+        "section": "BILAN AU 31 DECEMBRE N"
+      },
+      "source_kind": "Application 127 model example",
+      "statement_id": "syscohada2017:statement:balance-model"
+    },
+    "cashflow": {
+      "lines": [
+        {
+          "label_source": "Trésorerie nette au 1er janvier",
+          "line_id": "syscohada2017:statement:cashflow-model:line:001",
+          "side": null,
+          "source_ref_code": "ZA"
+        },
+        {
+          "label_source": "Capacité d'Autofinancement Globale (CAFG)",
+          "line_id": "syscohada2017:statement:cashflow-model:line:002",
+          "side": null,
+          "source_ref_code": "FA"
+        },
+        {
+          "label_source": "Variations de l'actif circulant HAO",
+          "line_id": "syscohada2017:statement:cashflow-model:line:003",
+          "side": null,
+          "source_ref_code": "FB"
+        },
+        {
+          "label_source": "Variation des stocks",
+          "line_id": "syscohada2017:statement:cashflow-model:line:004",
+          "side": null,
+          "source_ref_code": "FC"
+        },
+        {
+          "label_source": "Variation des créances et emplois assimilés",
+          "line_id": "syscohada2017:statement:cashflow-model:line:005",
+          "side": null,
+          "source_ref_code": "FD"
+        },
+        {
+          "label_source": "Variation du passif circulant",
+          "line_id": "syscohada2017:statement:cashflow-model:line:006",
+          "side": null,
+          "source_ref_code": "FE"
+        },
+        {
+          "label_source": "Flux de trésorerie provenant des activités opérationnelles",
+          "line_id": "syscohada2017:statement:cashflow-model:line:007",
+          "side": null,
+          "source_ref_code": "ZB"
+        },
+        {
+          "label_source": "Décaissements liés aux acquisitions d'immobilisations incorporelles",
+          "line_id": "syscohada2017:statement:cashflow-model:line:008",
+          "side": null,
+          "source_ref_code": "FF"
+        },
+        {
+          "label_source": "Décaissements liés aux acquisitions d'immobilisations corporelles",
+          "line_id": "syscohada2017:statement:cashflow-model:line:009",
+          "side": null,
+          "source_ref_code": "FG"
+        },
+        {
+          "label_source": "Décaissements liés aux acquisitions d'immobilisations financières",
+          "line_id": "syscohada2017:statement:cashflow-model:line:010",
+          "side": null,
+          "source_ref_code": "FH"
+        },
+        {
+          "label_source": "Encaissements liés aux cessions d’immobilisations incorporelles et corporelles",
+          "line_id": "syscohada2017:statement:cashflow-model:line:011",
+          "side": null,
+          "source_ref_code": "FI"
+        },
+        {
+          "label_source": "Encaissements liés aux cessions d’immobilisations financières",
+          "line_id": "syscohada2017:statement:cashflow-model:line:012",
+          "side": null,
+          "source_ref_code": "FJ"
+        },
+        {
+          "label_source": "Flux de trésorerie provenant des opérations d’investissement",
+          "line_id": "syscohada2017:statement:cashflow-model:line:013",
+          "side": null,
+          "source_ref_code": "ZC"
+        },
+        {
+          "label_source": "Augmentations de capital par apports nouveaux",
+          "line_id": "syscohada2017:statement:cashflow-model:line:014",
+          "side": null,
+          "source_ref_code": "FK"
+        },
+        {
+          "label_source": "Subventions d'investissement",
+          "line_id": "syscohada2017:statement:cashflow-model:line:015",
+          "side": null,
+          "source_ref_code": "FL"
+        },
+        {
+          "label_source": "Distribution de dividendes",
+          "line_id": "syscohada2017:statement:cashflow-model:line:016",
+          "side": null,
+          "source_ref_code": "FN"
+        },
+        {
+          "label_source": "Flux de trésorerie provenant des capitaux propres",
+          "line_id": "syscohada2017:statement:cashflow-model:line:017",
+          "side": null,
+          "source_ref_code": "ZD"
+        },
+        {
+          "label_source": "Emprunts",
+          "line_id": "syscohada2017:statement:cashflow-model:line:018",
+          "side": null,
+          "source_ref_code": "FO"
+        },
+        {
+          "label_source": "Remboursements des emprunts et autres dettes financières",
+          "line_id": "syscohada2017:statement:cashflow-model:line:019",
+          "side": null,
+          "source_ref_code": "FQ"
+        },
+        {
+          "label_source": "Flux de Trésorerie provenant des capitaux étrangers",
+          "line_id": "syscohada2017:statement:cashflow-model:line:020",
+          "side": null,
+          "source_ref_code": "ZE"
+        },
+        {
+          "label_source": "Flux de trésorerie provenant des activités de financement",
+          "line_id": "syscohada2017:statement:cashflow-model:line:021",
+          "side": null,
+          "source_ref_code": "ZF"
+        },
+        {
+          "label_source": "VARIATION DE LA TRÉSORERIE NETTE DE LA PÉRIODE",
+          "line_id": "syscohada2017:statement:cashflow-model:line:022",
+          "side": null,
+          "source_ref_code": "ZF"
+        },
+        {
+          "label_source": "Trésorerie nette au 31 Décembre",
+          "line_id": "syscohada2017:statement:cashflow-model:line:023",
+          "side": null,
+          "source_ref_code": "ZH"
+        }
+      ],
+      "name": "Tableau des flux de trésorerie - modèle Application 127",
+      "source": {
+        "document_id": "syscohada-guide-2017-md",
+        "page_pdf": 358,
+        "section": "APPLICATION 127"
+      },
+      "source_kind": "Application 127 model example",
+      "statement_id": "syscohada2017:statement:cashflow-model"
+    },
+    "income": {
+      "lines": [
+        {
+          "label_source": "Ventes de marchandises",
+          "line_id": "syscohada2017:statement:income-model:line:001",
+          "side": null,
+          "source_ref_code": "TA"
+        },
+        {
+          "label_source": "Achats de marchandises",
+          "line_id": "syscohada2017:statement:income-model:line:002",
+          "side": null,
+          "source_ref_code": "RA"
+        },
+        {
+          "label_source": "Variation de stocks de marchandises",
+          "line_id": "syscohada2017:statement:income-model:line:003",
+          "side": null,
+          "source_ref_code": "RB"
+        },
+        {
+          "label_source": "MARGE COMMERCIALE",
+          "line_id": "syscohada2017:statement:income-model:line:004",
+          "side": null,
+          "source_ref_code": "XA"
+        },
+        {
+          "label_source": "Ventes de produits fabriqués",
+          "line_id": "syscohada2017:statement:income-model:line:005",
+          "side": null,
+          "source_ref_code": "TB"
+        },
+        {
+          "label_source": "Travaux, services vendus",
+          "line_id": "syscohada2017:statement:income-model:line:006",
+          "side": null,
+          "source_ref_code": "TC"
+        },
+        {
+          "label_source": "Produits accessoires",
+          "line_id": "syscohada2017:statement:income-model:line:007",
+          "side": null,
+          "source_ref_code": "TD"
+        },
+        {
+          "label_source": "CHIFFRE D'AFFAIRES",
+          "line_id": "syscohada2017:statement:income-model:line:008",
+          "side": null,
+          "source_ref_code": "XB"
+        },
+        {
+          "label_source": "Production immobilisée",
+          "line_id": "syscohada2017:statement:income-model:line:009",
+          "side": null,
+          "source_ref_code": "TF"
+        },
+        {
+          "label_source": "Autres produits",
+          "line_id": "syscohada2017:statement:income-model:line:010",
+          "side": null,
+          "source_ref_code": "TH"
+        },
+        {
+          "label_source": "Transferts de charges d'exploitation",
+          "line_id": "syscohada2017:statement:income-model:line:011",
+          "side": null,
+          "source_ref_code": "TI"
+        },
+        {
+          "label_source": "Achats de matières premières et fournitures liées",
+          "line_id": "syscohada2017:statement:income-model:line:012",
+          "side": null,
+          "source_ref_code": "RC"
+        },
+        {
+          "label_source": "Variation de stocks de matières premières et fournitures liées",
+          "line_id": "syscohada2017:statement:income-model:line:013",
+          "side": null,
+          "source_ref_code": "RD"
+        },
+        {
+          "label_source": "Autres achats",
+          "line_id": "syscohada2017:statement:income-model:line:014",
+          "side": null,
+          "source_ref_code": "RE"
+        },
+        {
+          "label_source": "Variation de stocks d’autres approvisionnements",
+          "line_id": "syscohada2017:statement:income-model:line:015",
+          "side": null,
+          "source_ref_code": "RF"
+        },
+        {
+          "label_source": "Transports",
+          "line_id": "syscohada2017:statement:income-model:line:016",
+          "side": null,
+          "source_ref_code": "RG"
+        },
+        {
+          "label_source": "Services extérieurs",
+          "line_id": "syscohada2017:statement:income-model:line:017",
+          "side": null,
+          "source_ref_code": "RH"
+        },
+        {
+          "label_source": "Impôts et taxes",
+          "line_id": "syscohada2017:statement:income-model:line:018",
+          "side": null,
+          "source_ref_code": "RI"
+        },
+        {
+          "label_source": "Autres charges",
+          "line_id": "syscohada2017:statement:income-model:line:019",
+          "side": null,
+          "source_ref_code": "RJ"
+        },
+        {
+          "label_source": "VALEUR AJOUTEE",
+          "line_id": "syscohada2017:statement:income-model:line:020",
+          "side": null,
+          "source_ref_code": "XC"
+        },
+        {
+          "label_source": "Charges de personnel",
+          "line_id": "syscohada2017:statement:income-model:line:021",
+          "side": null,
+          "source_ref_code": "RK"
+        },
+        {
+          "label_source": "EXCEDENT BRUT D'EXPLOITATION",
+          "line_id": "syscohada2017:statement:income-model:line:022",
+          "side": null,
+          "source_ref_code": "XD"
+        },
+        {
+          "label_source": "Dotations aux amortissements aux provisions et dépréciations",
+          "line_id": "syscohada2017:statement:income-model:line:023",
+          "side": null,
+          "source_ref_code": "RL"
+        },
+        {
+          "label_source": "RESULTAT D'EXPLOITATION",
+          "line_id": "syscohada2017:statement:income-model:line:024",
+          "side": null,
+          "source_ref_code": "XE"
+        },
+        {
+          "label_source": "Revenus financiers et assimilés",
+          "line_id": "syscohada2017:statement:income-model:line:025",
+          "side": null,
+          "source_ref_code": "TK"
+        },
+        {
+          "label_source": "Frais financiers et charges assimilés",
+          "line_id": "syscohada2017:statement:income-model:line:026",
+          "side": null,
+          "source_ref_code": "RM"
+        },
+        {
+          "label_source": "RESULTAT FINANCIER",
+          "line_id": "syscohada2017:statement:income-model:line:027",
+          "side": null,
+          "source_ref_code": "XF"
+        },
+        {
+          "label_source": "RESULTAT DES ACTIVITES ORDINAIRES",
+          "line_id": "syscohada2017:statement:income-model:line:028",
+          "side": null,
+          "source_ref_code": "XG"
+        },
+        {
+          "label_source": "Produits des cessions d'immobilisations",
+          "line_id": "syscohada2017:statement:income-model:line:029",
+          "side": null,
+          "source_ref_code": "TN"
+        },
+        {
+          "label_source": "Autres Produits HAO",
+          "line_id": "syscohada2017:statement:income-model:line:030",
+          "side": null,
+          "source_ref_code": "TO"
+        },
+        {
+          "label_source": "Valeurs comptables des cessions d'immobilisations",
+          "line_id": "syscohada2017:statement:income-model:line:031",
+          "side": null,
+          "source_ref_code": "RO"
+        },
+        {
+          "label_source": "RESULTAT HORS ACTIVITES ORDINAIRES",
+          "line_id": "syscohada2017:statement:income-model:line:032",
+          "side": null,
+          "source_ref_code": "XH"
+        },
+        {
+          "label_source": "Impôts sur le résultat",
+          "line_id": "syscohada2017:statement:income-model:line:033",
+          "side": null,
+          "source_ref_code": "RS"
+        },
+        {
+          "label_source": "RESULTAT NET",
+          "line_id": "syscohada2017:statement:income-model:line:034",
+          "side": null,
+          "source_ref_code": "XI"
+        }
+      ],
+      "name": "Compte de résultat - modèle Application 127",
+      "source": {
+        "document_id": "syscohada-guide-2017-md",
+        "page_pdf": 357,
+        "section": "APPLICATION 127"
+      },
+      "source_kind": "Application 127 model example",
+      "statement_id": "syscohada2017:statement:income-model"
+    },
+    "notes": [
+      {
+        "label_source": "DETTES GARANTIES PAR DES SURETES REELLES",
+        "note_id": "syscohada2017:note:01",
+        "reference": "NOTE 1",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "INFORMATIONS OBLIGATOIRES",
+        "note_id": "syscohada2017:note:02",
+        "reference": "NOTE 2",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "IMMOBILISATION BRUTE",
+        "note_id": "syscohada2017:note:03",
+        "reference": "NOTE 3A",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "BIENS PRIS EN LOCATION ACQUISITION",
+        "note_id": "syscohada2017:note:04",
+        "reference": "NOTE 3B",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "IMMOBILISATIONS : AMORTISSEMENTS",
+        "note_id": "syscohada2017:note:05",
+        "reference": "NOTE 3C",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "IMMOBILISATIONS : PLUS-VALUES ET MOINS VALUE DE CESSION",
+        "note_id": "syscohada2017:note:06",
+        "reference": "NOTE 3D",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "INFORMATIONS SUR LES REEVALUATIONS EFFECTUEES PAR L'ENTITE",
+        "note_id": "syscohada2017:note:07",
+        "reference": "NOTE 3E",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "TABLEAU D'ETALEMENT DES CHARGES IMMOBILISEES",
+        "note_id": "syscohada2017:note:08",
+        "reference": "NOTE 3F",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "IMMOBILISATIONS FINANCIERES",
+        "note_id": "syscohada2017:note:09",
+        "reference": "NOTE 4",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "ACTIF CIRCULANT ET DETTES CIRCULANTES HAO",
+        "note_id": "syscohada2017:note:10",
+        "reference": "NOTE 5",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "STOCKS ET ENCOURS",
+        "note_id": "syscohada2017:note:11",
+        "reference": "NOTE 6",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "CLIENTS",
+        "note_id": "syscohada2017:note:12",
+        "reference": "NOTE 7",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "AUTRES CREANCES",
+        "note_id": "syscohada2017:note:13",
+        "reference": "NOTE 8",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "TITRES DE PLACEMENT",
+        "note_id": "syscohada2017:note:14",
+        "reference": "NOTE 9",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "VALEURS A ENCAISSER",
+        "note_id": "syscohada2017:note:15",
+        "reference": "NOTE 10",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "DISPONIBILITES",
+        "note_id": "syscohada2017:note:16",
+        "reference": "NOTE 11",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "ECARTS DE CONVERSION ET TRANSFERTS DE CHARGES",
+        "note_id": "syscohada2017:note:17",
+        "reference": "NOTE 12",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "CAPITAL : VALEUR NOMINALE DES ACTIONS OU PARTS",
+        "note_id": "syscohada2017:note:18",
+        "reference": "NOTE 13",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "PRIMES ET RESERVES",
+        "note_id": "syscohada2017:note:19",
+        "reference": "NOTE 14",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "SUBVENTIONS ET PROVISIONS REGLEMENTEES",
+        "note_id": "syscohada2017:note:20",
+        "reference": "NOTE 15A",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "AUTRES FONDS PROPRES",
+        "note_id": "syscohada2017:note:21",
+        "reference": "NOTE 15B",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "DETTES FINANCIERES ET RESSOURCES ASSIMILEES",
+        "note_id": "syscohada2017:note:22",
+        "reference": "NOTE 16A",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "ENGAGEMENTS DE RETRAITE ET AVANTAGES ASSIMILES (METHODE ACTUARIELLE)",
+        "note_id": "syscohada2017:note:23",
+        "reference": "NOTE 16B",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "ENGAGEMENTS DE RETRAITE ET AVANTAGES ASSIMILES (METHODE ACTUARIELLE)",
+        "note_id": "syscohada2017:note:24",
+        "reference": "NOTE 16B bis",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "ACTIFS ET PASSIFS EVENTUELS",
+        "note_id": "syscohada2017:note:25",
+        "reference": "NOTE 16C",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "FOURNISSEURS D'EXPLOITATION",
+        "note_id": "syscohada2017:note:26",
+        "reference": "NOTE 17",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "DETTES FISCALES ET SOCIALES",
+        "note_id": "syscohada2017:note:27",
+        "reference": "NOTE 18",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "AUTRES DETTES ET PROVISIONS POUR RISQUES A COURT TERME",
+        "note_id": "syscohada2017:note:28",
+        "reference": "NOTE 19",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "BANQUES, CREDIT D'ESCOMPTE ET DE TRESORERIE",
+        "note_id": "syscohada2017:note:29",
+        "reference": "NOTE 20",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "CHIFFRE D'AFFAIRES ET AUTRES PRODUITS",
+        "note_id": "syscohada2017:note:30",
+        "reference": "NOTE 21",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "ACHATS",
+        "note_id": "syscohada2017:note:31",
+        "reference": "NOTE 22",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "TRANSPORTS",
+        "note_id": "syscohada2017:note:32",
+        "reference": "NOTE 23",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "SERVICES EXTERIEURS",
+        "note_id": "syscohada2017:note:33",
+        "reference": "NOTE 24",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "IMPOTS ET TAXES",
+        "note_id": "syscohada2017:note:34",
+        "reference": "NOTE 25",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "AUTRES CHARGES",
+        "note_id": "syscohada2017:note:35",
+        "reference": "NOTE 26",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "CHARGES DE PERSONNEL",
+        "note_id": "syscohada2017:note:36",
+        "reference": "NOTE 27A",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "EFFECTIFS, MASSE SALARIALE ET PERSONNEL EXTERIEUR",
+        "note_id": "syscohada2017:note:37",
+        "reference": "NOTE 27B",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "PROVISIONS ET DEPRECIATIONS INSCRITES AU BILAN",
+        "note_id": "syscohada2017:note:38",
+        "reference": "NOTE 28",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "CHARGES ET REVENUS FINANCIERS",
+        "note_id": "syscohada2017:note:39",
+        "reference": "NOTE 29",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "AUTRES CHARGES ET PRODUITS HAO",
+        "note_id": "syscohada2017:note:40",
+        "reference": "NOTE 30",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "REPARTITION DU RESULTAT ET AUTRES ELEMENTS CARACTERISTIQUES DES CINQ DERNIERS EXERCICES",
+        "note_id": "syscohada2017:note:41",
+        "reference": "NOTE 31",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "PRODUCTION DE L'EXERCICE",
+        "note_id": "syscohada2017:note:42",
+        "reference": "NOTE 32",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "ACHATS DESTINES A LA PRODUCTION",
+        "note_id": "syscohada2017:note:43",
+        "reference": "NOTE 33",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "FICHE DE SYNTHESE DES PRINCIPAUX INDICATEURS FINANCIERS",
+        "note_id": "syscohada2017:note:44",
+        "reference": "NOTE 34",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "LISTE DES INFORMATIONS SOCIALES, ENVIRONNEMENTALES ET SOCIETALES A FOURNIR",
+        "note_id": "syscohada2017:note:45",
+        "reference": "NOTE 35",
+        "source_page_pdf": 355
+      },
+      {
+        "label_source": "TABLES DES CODES",
+        "note_id": "syscohada2017:note:46",
+        "reference": "NOTE 36",
+        "source_page_pdf": 355
+      }
+    ]
+  },
+  "observations": [
+    {
+      "source_page_pdf": 358,
+      "source_ref_codes": [
+        "ZF"
+      ],
+      "statement": "cashflow",
+      "status": "preserved_source_conflict",
+      "type": "duplicate_source_ref_code"
+    },
+    {
+      "status": "source_scope_gap",
+      "type": "missing_official_correspondence_table"
+    }
+  ],
+  "source_scope": {
+    "application_127_is_example": true,
+    "guide_states_zero_or_nonapplicable_rows_may_be_removed": true,
+    "missing_source": "Plan comptable général OHADA Titre IX chapitre 7 - tables Postes/Comptes",
+    "official_exhaustive_post_account_correspondence_table_available_in_bundle": false
+  },
+  "source_supported_narrative_rules": [
+    {
+      "rule_id": "syscohada-reporting:bilan:classes",
+      "selectors": {
+        "asset_immobilized": [
+          "2"
+        ],
+        "cash_asset_debit": [
+          "5"
+        ],
+        "cash_liability_credit": [
+          "5"
+        ],
+        "current_asset_debit": [
+          "3",
+          "4"
+        ],
+        "current_liability_credit": [
+          "4"
+        ],
+        "equity_and_financial_debt": [
+          "1"
+        ]
+      },
+      "source_page_pdf": 329,
+      "source_text": "Classe 2 à l'actif immobilisé; classe 1 au passif stable; soldes débiteurs classes 3/4 et 5 à l'actif; soldes créditeurs classes 4 et 5 au passif.",
+      "statement": "balance"
+    },
+    {
+      "rule_id": "syscohada-reporting:bilan:contra",
+      "selectors": {
+        "contra_asset_prefixes": [
+          "28",
+          "29",
+          "39",
+          "49",
+          "59"
+        ]
+      },
+      "source_page_pdf": 329,
+      "source_text": "Les amortissements 28 et dépréciations 29 à 59 figurent à l'actif en soustraction.",
+      "statement": "balance"
+    },
+    {
+      "post_mappings": {
+        "RA": [
+          "601"
+        ],
+        "RB": [
+          "6031"
+        ],
+        "TA": [
+          "701"
+        ]
+      },
+      "rule_id": "syscohada-reporting:income:margin",
+      "source_page_pdf": 331,
+      "source_text": "Marge commerciale: TA (701), RA (601), RB (6031).",
+      "statement": "income"
+    },
+    {
+      "post_mappings": {
+        "TA_TD": [
+          "70"
+        ]
+      },
+      "rule_id": "syscohada-reporting:income:turnover",
+      "source_page_pdf": 331,
+      "source_text": "Chiffre d'affaires: postes TA à TD, comptes 70 ventes.",
+      "statement": "income"
+    },
+    {
+      "post_mappings": {
+        "intermediate_consumption": [
+          "61",
+          "62",
+          "63",
+          "64",
+          "65"
+        ],
+        "products": [
+          "73",
+          "72",
+          "71",
+          "75",
+          "781"
+        ],
+        "purchases": [
+          "601",
+          "602",
+          "603",
+          "604",
+          "605",
+          "608"
+        ]
+      },
+      "rule_id": "syscohada-reporting:income:value-added",
+      "source_page_pdf": 331,
+      "source_text": "Valeur ajoutée: 73,72,71,75,781; achats 601 à 608; variations 603; consommations 61 à 65.",
+      "statement": "income"
+    },
+    {
+      "post_mappings": {
+        "RK": [
+          "66"
+        ]
+      },
+      "rule_id": "syscohada-reporting:income:ebe",
+      "source_page_pdf": 331,
+      "source_text": "EBE après RK compte 66.",
+      "statement": "income"
+    },
+    {
+      "post_mappings": {
+        "RL": [
+          "681",
+          "691"
+        ],
+        "TJ": [
+          "791",
+          "798",
+          "799"
+        ]
+      },
+      "rule_id": "syscohada-reporting:income:operating-result",
+      "source_page_pdf": 331,
+      "source_text": "TJ comptes 791,798,799 et RL comptes 681,691.",
+      "statement": "income"
+    },
+    {
+      "post_mappings": {
+        "RM_RN": [
+          "67",
+          "697"
+        ],
+        "TK_TM": [
+          "77",
+          "797",
+          "787"
+        ]
+      },
+      "rule_id": "syscohada-reporting:income:financial-result",
+      "source_page_pdf": 331,
+      "source_text": "TK à TM: 77,797,787; RM/RN:67,697.",
+      "statement": "income"
+    },
+    {
+      "evaluation_status": "blocked_source_conflict",
+      "post_mappings": {
+        "TN_TO": [
+          "82",
+          "84",
+          "86",
+          "88"
+        ],
+        "charge_accounts": [
+          "81",
+          "83",
+          "85"
+        ],
+        "source_named_charge_posts": [
+          "RM",
+          "RN"
+        ]
+      },
+      "rule_id": "syscohada-reporting:income:hao-source-conflict",
+      "source_page_pdf": 331,
+      "source_text": "Le narratif nomme TN/TO pour 82,84,86,88 et RM/RN pour 81,83,85, tandis que le modèle utilise RO notamment.",
+      "statement": "income"
+    },
+    {
+      "post_groups": {
+        "closing": [
+          "ZH"
+        ],
+        "debt_financing": [
+          "FO",
+          "FQ"
+        ],
+        "equity_financing": [
+          "FK",
+          "FL",
+          "FN"
+        ],
+        "investing": [
+          "FF",
+          "FG",
+          "FH",
+          "FI",
+          "FJ"
+        ],
+        "opening": [
+          "ZA"
+        ],
+        "operating": [
+          "FA",
+          "FB",
+          "FC",
+          "FD",
+          "FE"
+        ]
+      },
+      "rule_id": "syscohada-reporting:tft:components",
+      "source_page_pdf": 333,
+      "source_text": "ZA début; FA-FE opérationnel; FF-FJ investissement; FK-FN capitaux propres; FO-FQ capitaux étrangers; ZH fin.",
+      "statement": "cashflow"
+    }
+  ],
+  "standard_id": "ohada-syscohada",
+  "statement_types": [
+    {
+      "source_post_range": "AD à DZ",
+      "type": "balance"
+    },
+    {
+      "source_post_range": "RA à TO et XA à XI",
+      "type": "income"
+    },
+    {
+      "source_post_range": "FA à FQ et ZA à ZH",
+      "type": "cashflow"
+    },
+    {
+      "source_post_range": "non lettrés",
+      "type": "notes"
+    }
+  ],
+  "statistics": {
+    "balance_model_lines": 48,
+    "cashflow_model_lines": 23,
+    "income_model_lines": 34,
+    "narrative_rules": 10,
+    "notes": 46,
+    "source_observations": 2,
+    "statement_types": 4
+  }
+}

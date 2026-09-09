@@ -1,0 +1,21 @@
+{
+  "nodes": [
+    {
+      "node_id": "class5",
+      "node_type": "class",
+      "depth": 0,
+      "children_node_ids": [
+        "n57"
+      ],
+      "parent_node_id": null
+    },
+    {
+      "node_id": "n57",
+      "node_type": "account",
+      "ref_code": "57",
+      "depth": 1,
+      "children_node_ids": [],
+      "parent_node_id": "class5"
+    }
+  ]
+}

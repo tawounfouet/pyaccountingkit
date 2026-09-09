@@ -1,0 +1,26 @@
+{
+  "statements": [
+    {
+      "statement_id": "s1",
+      "mode": "trial_balance",
+      "lines": [
+        {
+          "line_code": "EG46",
+          "direct_mapping": true,
+          "mapping_components": [
+            {
+              "mapping": {
+                "parse_status": "parsed"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "account_to_statement_lines": {
+    "5710": [
+      "EG46"
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "candidate_groups": [
+    {
+      "source_node_id": "n57",
+      "candidates": [
+        {
+          "candidate_id": "c",
+          "source_node_id": "n57",
+          "target_node_id": "o57",
+          "code_equality_used_in_score": false,
+          "auto_approval_allowed": false
+        }
+      ]
+    }
+  ]
+}

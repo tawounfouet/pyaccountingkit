@@ -1,0 +1,261 @@
+{
+  "dataset_version": "v3_reporting_profiles_0.7.1",
+  "document_id": "ohada-sycebnl-2023-full-act",
+  "edition": "2023",
+  "execution_policy": {
+    "automatic_filing_generation": false,
+    "template_visual_verification_required": true
+  },
+  "general_principles_range": [
+    341,
+    344
+  ],
+  "part": "PARTIE 4 — PRESENTATION DES ETATS FINANCIERS",
+  "profiles": [
+    {
+      "chapter_page": 345,
+      "label_source": "Associations et ordres professionnels",
+      "legal_basis": {
+        "article": 4,
+        "page_pdf": 16
+      },
+      "profile_id": "association_professional_order",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 345,
+        "section": "Associations et ordres professionnels"
+      },
+      "statements": [
+        {
+          "label_source": "Bilan",
+          "line_level_extraction_status": "visual_template_bound_not_exhaustively_transcribed",
+          "model_page_pdf": 346,
+          "source": {
+            "document_id": "ohada-sycebnl-2023-full-act",
+            "page_pdf": 346,
+            "section": "Bilan"
+          },
+          "statement_id": "balance_sheet"
+        },
+        {
+          "label_source": "Compte de résultat",
+          "line_level_extraction_status": "visual_template_bound_not_exhaustively_transcribed",
+          "model_page_pdf": 347,
+          "source": {
+            "document_id": "ohada-sycebnl-2023-full-act",
+            "page_pdf": 347,
+            "section": "Compte de résultat"
+          },
+          "statement_id": "income_statement"
+        },
+        {
+          "label_source": "Tableau des flux de trésorerie",
+          "line_level_extraction_status": "visual_template_bound_not_exhaustively_transcribed",
+          "model_page_pdf": 348,
+          "source": {
+            "document_id": "ohada-sycebnl-2023-full-act",
+            "page_pdf": 348,
+            "section": "Tableau des flux de trésorerie"
+          },
+          "statement_id": "cash_flow_statement"
+        },
+        {
+          "label_source": "Notes annexes",
+          "line_level_extraction_status": "visual_template_bound_not_exhaustively_transcribed",
+          "model_page_pdf": 349,
+          "source": {
+            "document_id": "ohada-sycebnl-2023-full-act",
+            "page_pdf": 349,
+            "section": "Notes annexes"
+          },
+          "source_range": [
+            349,
+            396
+          ],
+          "statement_id": "notes"
+        }
+      ]
+    },
+    {
+      "chapter_page": 397,
+      "label_source": "Projets de développement et assimilés",
+      "legal_basis": {
+        "article": 4,
+        "page_pdf": 16
+      },
+      "profile_id": "development_project",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 397,
+        "section": "Projets de développement et assimilés"
+      },
+      "statements": [
+        {
+          "label_source": "Tableau emplois-ressources",
+          "line_level_extraction_status": "visual_template_bound_not_exhaustively_transcribed",
+          "model_page_pdf": 398,
+          "source": {
+            "document_id": "ohada-sycebnl-2023-full-act",
+            "page_pdf": 398,
+            "section": "Tableau emplois-ressources"
+          },
+          "statement_id": "uses_resources"
+        },
+        {
+          "label_source": "Tableau d'exécution budgétaire",
+          "line_level_extraction_status": "visual_template_bound_not_exhaustively_transcribed",
+          "model_page_pdf": 399,
+          "source": {
+            "document_id": "ohada-sycebnl-2023-full-act",
+            "page_pdf": 399,
+            "section": "Tableau d'exécution budgétaire"
+          },
+          "statement_id": "budget_execution"
+        },
+        {
+          "label_source": "Tableau de réconciliation de trésorerie",
+          "line_level_extraction_status": "visual_template_bound_not_exhaustively_transcribed",
+          "model_page_pdf": 400,
+          "source": {
+            "document_id": "ohada-sycebnl-2023-full-act",
+            "page_pdf": 400,
+            "section": "Tableau de réconciliation de trésorerie"
+          },
+          "statement_id": "treasury_reconciliation"
+        },
+        {
+          "label_source": "Bilan",
+          "line_level_extraction_status": "visual_template_bound_not_exhaustively_transcribed",
+          "model_page_pdf": 401,
+          "source": {
+            "document_id": "ohada-sycebnl-2023-full-act",
+            "page_pdf": 401,
+            "section": "Bilan"
+          },
+          "statement_id": "balance_sheet"
+        },
+        {
+          "label_source": "Compte d'exploitation",
+          "line_level_extraction_status": "visual_template_bound_not_exhaustively_transcribed",
+          "model_page_pdf": 402,
+          "source": {
+            "document_id": "ohada-sycebnl-2023-full-act",
+            "page_pdf": 402,
+            "section": "Compte d'exploitation"
+          },
+          "statement_id": "operating_statement"
+        },
+        {
+          "label_source": "Notes annexes",
+          "line_level_extraction_status": "visual_template_bound_not_exhaustively_transcribed",
+          "model_page_pdf": 403,
+          "source": {
+            "document_id": "ohada-sycebnl-2023-full-act",
+            "page_pdf": 403,
+            "section": "Notes annexes"
+          },
+          "source_range": [
+            403,
+            432
+          ],
+          "statement_id": "notes"
+        }
+      ]
+    },
+    {
+      "chapter_page": 433,
+      "eligibility_thresholds": [
+        {
+          "category": "subventions reçues",
+          "comparator": "<",
+          "currency": "XAF",
+          "value": 30000000
+        },
+        {
+          "category": "cotisations et autres revenus",
+          "comparator": "<",
+          "currency": "XAF",
+          "value": 30000000
+        },
+        {
+          "category": "dons reçus",
+          "comparator": "<",
+          "currency": "XAF",
+          "value": 30000000
+        },
+        {
+          "category": "ressources des projets de développement",
+          "comparator": "<",
+          "currency": "XAF",
+          "value": 30000000
+        },
+        {
+          "category": "autres ressources annuelles",
+          "comparator": "<",
+          "currency": "XAF",
+          "value": 30000000
+        }
+      ],
+      "label_source": "Système Minimal de Trésorerie",
+      "legal_basis": {
+        "article": 6,
+        "page_pdf": 17
+      },
+      "profile_id": "minimal_cash_system",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 433,
+        "section": "Système Minimal de Trésorerie"
+      },
+      "statements": [
+        {
+          "label_source": "Bilan",
+          "line_level_extraction_status": "visual_template_bound_not_exhaustively_transcribed",
+          "model_page_pdf": 434,
+          "source": {
+            "document_id": "ohada-sycebnl-2023-full-act",
+            "page_pdf": 434,
+            "section": "Bilan"
+          },
+          "statement_id": "balance_sheet"
+        },
+        {
+          "label_source": "Compte de résultat",
+          "line_level_extraction_status": "visual_template_bound_not_exhaustively_transcribed",
+          "model_page_pdf": 435,
+          "source": {
+            "document_id": "ohada-sycebnl-2023-full-act",
+            "page_pdf": 435,
+            "section": "Compte de résultat"
+          },
+          "statement_id": "income_statement"
+        },
+        {
+          "label_source": "Notes annexes",
+          "line_level_extraction_status": "visual_template_bound_not_exhaustively_transcribed",
+          "model_page_pdf": 435,
+          "source": {
+            "document_id": "ohada-sycebnl-2023-full-act",
+            "page_pdf": 435,
+            "section": "Notes annexes"
+          },
+          "source_range": [
+            435,
+            438
+          ],
+          "statement_id": "notes"
+        }
+      ]
+    }
+  ],
+  "source_range": [
+    339,
+    438
+  ],
+  "standard_id": "ohada-ebnl",
+  "statistics": {
+    "profiles": 3,
+    "sm_treasury_threshold_rules": 5,
+    "statement_models": 13
+  }
+}

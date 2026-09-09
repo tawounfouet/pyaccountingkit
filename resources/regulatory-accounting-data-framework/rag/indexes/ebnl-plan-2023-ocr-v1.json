@@ -1,0 +1,8024 @@
+{
+  "chunks": [
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p000:c0001",
+      "heading_path": [
+        "OHADA - PC-EBNL - Liste des comptes"
+      ],
+      "page_pdf": null,
+      "text_source": "# OHADA - PC-EBNL - Liste des comptes\n\n> Source PDF : `PC-EBNL_Liste des comptes.pdf`  \n> Pages PDF : 29  \n> Méthode de conversion : OCR from rendered scan pages (Tesseract eng, PSM 6)  \n> Politique : source-first ; aucune correction sémantique silencieuse.  \n> **Attention :** PDF image-only ; l'OCR doit être validé contre le scan avant toute ingestion canonique.\n\n---",
+      "token_count": 45
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p001:c0002",
+      "heading_path": [
+        "Plan des comptes détaillé",
+        "CLASSE 1 - COMPTES DE RESSOURCES DURABLES",
+        "10 - : DOTATION"
+      ],
+      "page_pdf": 1,
+      "text_source": "_| | Journal officiel OHADA 2023 AE 15/03/2023 v21.qxp_OHADA 16/03/2023 17:06@age 77 | |\n# PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES\n# Plan des comptes détaillé\n## CLASSE 1 - COMPTES DE RESSOURCES DURABLES\n### 10 - DOTATION\nil RESERVES\n### 12 - REPORT A NOUVEAU\n### 13 - RESULTAT NET DE L'EXERCICE\n### 14 - SUBVENTIONS D’ INVESTISSEMENT\n### 15 - PROVISIONS REGLEMENT | S ET FONDS ASSIMILES\n### 16 - FONDS AFFECTES ET PROVENANT DE DONS OU LEGS D’IMMOBILISATIONS\n### 17 - FONDS REPORTES\n### 18 - EMPRUNTS ET DETTES ASSIMILEES\n### 19 - PROVISIONS POUR RISQUES ET CHARGES\n### 10 - : DOTATION\n- **101** - Dotation non consomptible sans droit de reprise\n- **1011** - en numéraire\n- **1015** - en nature\n- **102** - Dotation non consomptible avec droit de reprise\n- **1021** - en numéraire\n- **1025** - en nature\n- **103** - Droit d’entrée\n- **104** - Dotation consomptible\n* 1041 Dotation consomptible *\n- **1049** - Dotation consomptible inscrite au compte de résultat\n- **106** - Ecarts de réévaluation\n- **1061** - Ecarts de réévaluation sur des biens sans droit de reprise\n- **10611** - Ecarts de réévaluation sur des biens sans droit de reprise-immobilisations corporelles\n- **10612** - Ecarts de réévaluation sur des biens sans droit de reprise-immobilisations financiéres\n- **1062** - Ecarts de réévaluation sur des biens avec droit de reprise\n- **10621** - Ecarts de réévaluation sur des biens avec droit de reprise-immobilisations corporelles\n- **10622** - Ecarts de réévaluation sur des biens avec droit de reprise-immobilisations financiéres",
+      "token_count": 155
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p001:c0003",
+      "heading_path": [
+        "Plan des comptes détaillé",
+        "CLASSE 1 - COMPTES DE RESSOURCES DURABLES",
+        "14 - SUBVENTIONS D’INVESTISSEMENT"
+      ],
+      "page_pdf": 1,
+      "text_source": "### 11 - RESERVES :\n- **112** - Réserves statutaires ou contractuelles\n- **118** - Autres réserves\n### 12 - REPORT A NOUVEAU\n- **121** - Report 4 nouveau des excédents\n- **128** - Résultat net en instance d’affectation\n- **129** - Report 4 nouveau des déficits\n13. RESULTAT NET DE L’EXERCICE “)\n- **131** - Excédent de l’exercice\n- **139** - Déficit de l'exercice\n### 14 - SUBVENTIONS D’INVESTISSEMENT\n- **141** - Subventions d’équipement\n- **1411** - Etat\n- **1412** - Régions\n- **1413** - Départements\n- **1414** - Communes et collectivités publiques décentralisées\n- **1415** - Entités publiques ou mixtes\n(1) ou solde des opérations de lexercice pour les projets de développement\nCB camscanner",
+      "token_count": 63
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p002:c0004",
+      "heading_path": [
+        "Plan des comptes détaillé",
+        "CLASSE 1 - COMPTES DE RESSOURCES DURABLES",
+        "16 - FONDS AFFECTES"
+      ],
+      "page_pdf": 2,
+      "text_source": "_| | Journal officiel OHADA 2023 AE 15/03/2023 v21.qxp_OHADA 16/03/2023 17:06@age 78 | |\nACTE UNIFORME RELATIF AU SYSTEME COMPTABLE DES ENTITES A BUT NON LUCRATIF\n- **1416** - Entités et organismes privés\n- **1417** - Organismes internationaux\n- **1418** - Autres\n- **148** - Autres subventions d’investissement\n### 15 - PROVISIONS REGLEMENTEES ET FONDS ASSIMILES\n- **154** - Provisions spéciales de réévaluation\n- **158** - Autres provisions réglementées et fonds assimilés\n### 16 - FONDS AFFECTES\n- **161** - Fonds projet de développement — avances de fonds 4 justifier\n- **162** - Fonds affectés aux investissements du projet de développement - bailleurs de fonds\n- **163** - Fonds affectés aux investissements du projet de développement - Etat\n- **164** - Fonds affectés aux investissements des autres organismes de financement assimilés\n- **165** - Fonds affectés 4 un projet spécifique\n- **167** - Fonds provenant de dons et legs d’immobilisations\n- **1671** - affectés\n- **1672** - non affectés\n- **1679** - Engagements auprés donateur\n- **168** - Autres fonds affectés\n- **169** - Fonds affectés 4 recevoir\nt | ss FONDS REPORTES\n- **171** - Donation temporaire d’usufruit\n- **172** - Donations et legs non encore recus d’immobilisations destinées 4 la vente\n- **178** - Autres fonds reportés",
+      "token_count": 130
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p002:c0005",
+      "heading_path": [
+        "Plan des comptes détaillé",
+        "CLASSE 1 - COMPTES DE RESSOURCES DURABLES",
+        "18 - EMPRUNTS ET DETTES ASSIMILEES"
+      ],
+      "page_pdf": 2,
+      "text_source": "### 18 - EMPRUNTS ET DETTES ASSIMILEES\n- **181** - Emprunts obligataires\n- **182** - Emprunts et dettes auprés des établissements de crédit\n* 183 Avances recues de I’Etat *\n- **185** - Dépots et cautionnements recus\n- **1851** - Dépéts\n- **1852** - Cautionnements\n- **186** - Intéréts courus\n- **1861** - sur emprunts obligataires\n- **1862** - sur emprunts et dettes auprés des établissements de crédit\n- **1863** - sur avances recues de I\"Etat\n- **1865** - sur dépdts et cautionnements regus\n- **1868** - sur autres emprunts et dettes\n- **187** - Dettes de location-acquisition\n- **1871** - Dettes de location-acquisition/ crédit-bail immobilier\n- **1872** - Dettes de location-acquisition/ crédit-bail mobilier\n- **1873** - Dettes de location-acquisition /location-vente\n- **1876** - Intéréts courus\n- **188** - Autres emprunts et dettes",
+      "token_count": 86
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p002:c0006",
+      "heading_path": [
+        "Plan des comptes détaillé",
+        "CLASSE 1 - COMPTES DE RESSOURCES DURABLES",
+        "19 - PROVISIONS POUR RISQUES ET CHARGES ="
+      ],
+      "page_pdf": 2,
+      "text_source": "### 19 - PROVISIONS POUR RISQUES ET CHARGES =\n- **191** - Provisions pour litiges\n- **192** - Provisions pour charges sur donations et legs\n- **194** - Provisions pour pertes de change\n- **196** - Provisions pour pensions et obligations similaires\n- **198** - Autres provisions pour risques et charges\n- **1981** - Provisions pour amendes et pénalités\n- **1984** - Provisions pour démantélement et remise en état\n- **1988** - Provisions pour divers risques et charges\naa —e- |\nCB camscanner",
+      "token_count": 50
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p003:c0007",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "CLASSE 2 - COMPTES D’ACTIF IMMOBILISE",
+        "20 - IMMOBILISATIONS DESTINEES A LA VENTE PROVENANT DE DONS ET"
+      ],
+      "page_pdf": 3,
+      "text_source": "_| | Journal officiel OHADA 2023 AE 15/03/2023 v21.qxp_OHADA 16/03/2023 17:06(@age 79 | |\n# PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES\n## CLASSE 2 - COMPTES D’ACTIF IMMOBILISE\n### 20 - IMMOBILISATIONS DESTINEES A LA VENTE PROVENANT DE DONS ET\nLEGS NON ENCORE RECUS ET USUFRUIT TEMPORAIRE\n### 21 - IMMOBILISATIONS INCORPORELLES\n### 22 - TERRAINS\n### 23 - BATIMENTS, INSTALLATIONS TECHNIQUES ET AGENCEMENTS\n### 24 - MATERIEL, MOBILIER ET ACTIFS BIOLOGIQUES\n### 25 - AVANCES ET ACOMPTES VERSES SUR IMMOBILISATIONS\n### 26 - TITRES DE PARTICIPATION\n### 27 - AUTRES IMMOBLISATIONS FINANCIERES\n### 28 - AMORTISSEMENTS\n### 29 - DEPRECIATIONS DES IMMOBILISATIONS\n### 20 - IMMOBILISATIONS DESTINEES A LA VENTE PROVENANT DE DONS ET\nLEGS NON ENCORE RECUS ET USUFRUIT TEMPORAIRE\n- **201** - Immobilisations incorporelles\n- **2011** - Usufruit temporaire\n- **2012** - —_ Brevets, licences, concessions et droits similaires\n- **2013** - Logiciels et sites internet\n2014. Marques\n* 2017 Autres *\n- **202** - Terrains\n- **203** - Batiments\n- **204** - Matériels\n- **205** - Titres de participations",
+      "token_count": 96
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p003:c0008",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "CLASSE 2 - COMPTES D’ACTIF IMMOBILISE",
+        "22 - TERRAINS"
+      ],
+      "page_pdf": 3,
+      "text_source": "### 21 - IMMOBILISATIONS INCORPORELLES\n- **212** - Brevets, licences, concessions et droits similaires\n- **2121** - ~—_ Brevets\n- **2122** - Licences\n- **2123** - Concessions de service public\n- **2128** - Autres concessions et droits similaires\n- **213** - Logiciels et sites internet\n- **2131** - Logiciels\n- **2132** - Sites internet\n- **214** - Marques\n- **218** - Autres droits et valeurs incorporels\n- **2181** - — Indemnités de transfert aux joueurs\n- **219** - Immobilisations incorporelles en cours\n- **2193** - Logiciels et sites internet\n- **2198** - Autres droits et valeurs incorporels\n### 22 - TERRAINS\n- **221** - Terrains agricoles et forestiers\n- **2211** - Terrains d’exploitation agricole\n- **2212** - Terrains d’exploitation forestiére\n- **2218** - Autres terrains\n- **222** - Terrains nus\n- **2221** - Terrains a batir\nCB camscanner",
+      "token_count": 78
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p004:c0009",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "CLASSE 2 - COMPTES D’ACTIF IMMOBILISE",
+        "22 - TERRAINS"
+      ],
+      "page_pdf": 4,
+      "text_source": "_| | Journal officiel OHADA 2023 AE 15/03/2023 v21.qxp_OHADA 16/03/2023 17:06@age 80 | |\nACTE UNIFORME RELATIF AU SYSTEME COMPTABLE DES ENTITES A BUT NON LUCRATIF\n- **2228** - = Autres terrains nus\n- **223** - Terrains batis\n- **2231** - pour batiments industriels et agricoles\n- **2232** - pour batiments administratifs et commerciaux\n- **2234** - pour batiments affectés aux autres opérations professionnelles\n- **2235** - pour batiments affectés aux autres opérations non professionnelles\n- **2238** - Autres terrains batis\n- **224** - Travaux de mise en valeur des terrains\n- **2241** - Plantation d’arbres et d’arbustes\n- **2245** - Améliorations du fonds\n- **2248** - = Autres travaux\n- **226** - Terrains aménagés\n- **2261** - ~~ Parkings\n- **228** - Autres terrains\n- **2281** - ‘Terrains - immeubles de placement\n- **2285** - ‘Terrains des logements affectés au personnel\n- **2286** - Terrains de location - acquisition\n- **2288** - Divers terrains\n- **229** - Aménagements de terrains en cours\n- **2291** - Terrains agricoles et forestiers\n- **2292** - ~=—- Terrains nus\n- **2298** - = Autres terrains",
+      "token_count": 113
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p004:c0010",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "CLASSE 2 - COMPTES D’ACTIF IMMOBILISE",
+        "23 - BATIMENTS, INSTALLATIONS TECHNIQUES ET AGENCEMENTS"
+      ],
+      "page_pdf": 4,
+      "text_source": "### 23 - BATIMENTS, INSTALLATIONS TECHNIQUES ET AGENCEMENTS\n- **231** - Batiments industriels, agricoles, administratifs, commerciaux, religieux et autres\nsur sol propre\n- **2311** - Batiments industriels\n* 2312 —_Batiments agricoles *\n- **2313** - Batiments administratifs et commerciaux\n- **2314** - Batiments affectés au logement du personnel\n- **2315** - Batiments - immeubles de placement\n- **2316** - Batiments de location - acquisition\n- **2317** - — Edifices religieux et assimilés\n- **2318** - Autres batiments sur sol propre\n- **232** - Batiments industriels, agricoles, administratifs, commerciaux, religieux et autres\nsur sol d’autrui\n- **2321** - Batiments industriels\n- **2322** - Batiments agricoles\n- **2323** - ~—_ Batiments administratifs et commerciaux\n- **2324** - —Batiments affectés au logement du personnel\n- **2325** - Batiments - immeubles de placement\n- **2326** - Batiments de location - acquisition\n- **2327** - Edifices religieux et assimilés\n- **2328** - Autres batiments sur sol d’autrui\n- **233** - Ouvrages d’ infrastructure\n- **2331** - = Voies de terre\n- **2332** - ~=—- Voies de fer\n- **2333** - = Voies d’eau\n- **2334** - ~—_ Barrages, digues\n- **2335** - Pistes d’aérodrome\n- **2337** - = Stades et autres infrastructures sportives\n- **2338** - Autres ouvrages d’ infrastructures\n- **234** - Aménagements, agencements et installations techniques\n- **2341** - Installations complexes spécialisées sur sol propre\n\\ '\nan eo | [\nCB camscanner",
+      "token_count": 132
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p005:c0011",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES"
+      ],
+      "page_pdf": 5,
+      "text_source": "_| | Journal officiel OHADA 2023 AE 15/03/2023 v21.qxp_OHADA 16/03/2023 17:07@age 81 | |\n# PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES\n- **2342** - Installations complexes spécialisées sur sol d’autrui\n- **2343** - Installations a caractére spécifique sur sol propre\n- **2344** - Installations 4 caractére spécifique sur sol d’autrui\n- **2345** - Aménagements et agencements des batiments\n- **235** - Aménagements de bureaux et assimilés\n- **2351** - Installations générales\n- **2358** - Autres aménagements de bureaux\n- **238** - Autres installations et agencements\n- **2381** - Autres installations et agencements des édifices religieux et assimilés\n- **2382** - Autres installations et agencements des stades et autres infrastructures sportives\n- **239** - Batiments, aménagements, agencements et installations en cours\n- **2391** - ~—Batiments sur sol propre en cours\n- **2392** - Batiments sur sol d’autrui en cours\n- **2393** - Ouvrages d’ infrastructure en cours\n- **2394** - Aménagements, agencements et installations techniques en cours\n- **2395** - Aménagements de bureaux en cours\n- **2396** - Batiments en cours-immeubles de placement\n- **2398** - Autres installations et agencements en cours",
+      "token_count": 116
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p005:c0012",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "24 - MATERIEL, MOBILIER ET ACTIFS BIOLOGIQUES"
+      ],
+      "page_pdf": 5,
+      "text_source": "### 24 - MATERIEL, MOBILIER ET ACTIFS BIOLOGIQUES\n- **241** - Matériel et outillage industriel et commercial\n- **2411** - ~~ Matériel industriel\n- **2412** - Outillage industriel\n- **2413** - Matériel commercial\n- **2414** - ~Outillage commercial\n- **2416** - = Matériel et outillage industriel et commercial de location — acquisition\n- **242** - Matériel et outillage agricole\n- **2421** - = Matériel agricole\n- **2422** - Outillage agricole\n- **2426** - =Matériel et outillage agricole de location-acquisition\n- **243** - Matériel d'emballage récupérable et identifiable\n- **244** - Matériel et mobilier\n- **2441** - Matériel et mobilier de bureau\n- **2442** - = Matériel informatique et bureautique\n2443. Matériel et mobilier religieux\n- **2444** - Matériel et mobilier sportifs\n- **2445** - Matériel et mobilier - immeubles de placement\n- **2446** - = Matériel et mobilier de location - acquisition\n- **2447** - = Matériel et mobilier des logements du personnel\n- **245** - Matériel de transport\n- **2451** - Matériel automobile\n- **2452** - = Materiel ferroviaire\n- **2453** - Matériel fluvial, lagunaire\n- **2454** - = Matériel naval\n- **2455** - Matériel aérien\n- **2456** - = Matériel de transport de location - acquisition\n- **2457** - Matériel hippomobile\n- **2458** - Autres matériels de transport\n- **246** - Actifs biologiques\n- **2461** - Cheptel, animaux de trait\n- **2462** - —Cheptel, animaux reproducteurs\n- **2463** - Animaux de garde\n- **2465** - — Plantations agricoles\n- **2468** - = Autres actifs biologiques\ndd ee | To\nCB camscanner",
+      "token_count": 137
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p006:c0013",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "24 - MATERIEL, MOBILIER ET ACTIFS BIOLOGIQUES"
+      ],
+      "page_pdf": 6,
+      "text_source": "_| | Journal officiel OHADA 2023 AE 15/03/2023 v21.qxp_OHADA 16/03/2023 17:07@age 82 | |\nACTE UNIFORME RELATIF AU SYSTEME COMPTABLE DES ENTITES A BUT NON LUCRATIF\n- **247** - Agencements, aménagements du matériel et des actifs biologiques\n- **2471** - Agencements et aménagements du matériel\n- **2472** - Agencements et aménagements des actifs biologiques\n- **2478** - Autres agencements, aménagements du matériel et des actifs biologiques\n- **248** - Autres matériels et mobiliers\n- **2481** - Collections et ceuvres d'art\n- **2488** - Divers matériels et mobiliers\n- **249** - Matériels et actifs biologiques en cours\n- **2491** - = Matériel et outillage industriel et commercial\n- **2492** - = Matériel et outillage agricole\n- **2493** - Matériel d°emballage récupérable et identifiable\n- **2494** - Matériel et mobilier de bureau\n- **2495** - Matériel de transport\n- **2496** - Actifs biologiques\n- **2497** - Agencements et aménagements du matériel et des actifs biologiques\n- **2498** - Autres matériels et actifs biologiques",
+      "token_count": 98
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p006:c0014",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "24 - MATERIEL, MOBILIER ET ACTIFS BIOLOGIQUES",
+        "27 - AUTRES IMMOBLISATIONS FINANCIERES"
+      ],
+      "page_pdf": 6,
+      "text_source": "### 25 - AVANCES ET ACOMPTES VERSES SUR IMMOBILISATIONS\n- **251** - Avances et acomptes versés sur immobilisations incorporelles\n- **252** - Avances et acomptes versés sur immobilisations corporelles\n### 26 - TITRES DE PARTICIPATION\n- **261** - Titres de participation\n- **265** - Participations dans des organismes professionnels\n- **266** - Parts dans des groupements d’intérét économique (G.LE.)\n- **268** - Autres titres de participation\n### 27 - AUTRES IMMOBLISATIONS FINANCIERES\n- **271** - Préts et créances\n* 2711 Préts participatifs *\n- **2713** - Billets de fonds\n- **2715** - Titres prétés\n- **2718** - Autres préts et créances\n- **272** - Préts au personnel\n- **2721** - Préts immobiliers\n- **2722** - Préts mobiliers et d°installation\n- **2728** - Autres préts au personnel\n- **273** - Créances sur l’Etat\n- **2731** - Retenues de garantie\n- **2733** - ‘Fonds réglementé\n- **2738** - Autres créances sur |’ Etat\n- **274** - Titres immobilisés\n- **2741** - Titres immobilisés de l’activité de portefeuille (T.1.A.P.)\n- **2742** - Titres participatifs\n- **2743** - Certificats d’investissement\n- **2744** - Parts de fonds commun de plac 1 ent (F.C.P.)\n- **2745** - Obligations\n- **2748** - = Autres titres immobilisés\n- **275** - Dépots et cautionnements versés\n- **2751** - Dépéts pour loyers d’avance\n- **2752** - Dépéts pour I’électricité\n- **2753** - Dépéts pour I’eau\n- **2754** - Dépéts pour le gaz\n- **2755** - Dépéts pour le téléphone, la télécopie\n- **2758** - Autres dépéts et cautionnement\n- **276** - Intéréts courus\nan eo | [\nCB camscanner",
+      "token_count": 149
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p007:c0015",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "28 - AMORTISSEMENTS"
+      ],
+      "page_pdf": 7,
+      "text_source": "_| | Journal officiel OHADA 2023 AE 15/03/2023 v21.qxp_OHADA 16/03/2023 17:07@age 83 | |\n# PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES\n- **2761** - Préts et créances\n- **2762** - Préts au personnel\n- **2763** - Créances sur |’ Etat\n- **2764** - Titres immobilisés\n- **2765** - Dépéts et cautionnements versés\n- **2768** - Immobilisations financiéres diverses\n- **278** - Immobilisations financiéres diverses\n- **2781** - Créances diverses\n- **2784** - Banques dépdts a terme et operations assimilées\n- **2785** - Or et métaux précieux'!)\n- **2788** - Autres immobilisations financiéres\n### 28 - AMORTISSEMENTS\n- **280** - Amortissements d’usufruit temporaire\n- **281** - Amortissements des immobilisations incorporelles\n- **2812** - Amortissements des brevets, licences, concessions et droits similaires\n- **2813** - Amortissements des logiciels et sites internet\n- **2814** - Amortissements des marques\n- **2817** - Amortissements des Indemnités de transfert aux joueurs\n- **2818** - Amortissements des autres droits et valeurs incorporels\n- **282** - Amortissements des terrains\n- **2824** - Amortissements des travaux de mise en valeur des terrains\n- **283** - Amortissements des batiments, installations techniques et agencements\n- **2831** - Amortissements des batiments industriels, agricoles, administratifs, commerciaux,\nreligieux et autres sur sol propre\n- **2832** - Amortissements des batiments industriels, agricoles, administratifs, commerciaux,\n* religieux et autres sur sol d’autrui *\n- **2833** - Amortissements des ouvrages d’infrastructure",
+      "token_count": 149
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p007:c0016",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "28 - AMORTISSEMENTS",
+        "29 - DEPRECIATIONS DES IMMOBILISATIONS"
+      ],
+      "page_pdf": 7,
+      "text_source": "- **2834** - Amortissements des aménagements, agencements et installations techniques\n- **2835** - Amortissements des aménagements de bureaux\n- **2838** - Amortissements des autres installations et agencements\n- **284** - Amortissements du matériel\n- **2841** - Amortissements du matériel et de l'outillage industriel et commercial\n- **2842** - Amortissements du matériel et de |'outillage agricole\n- **2843** - Amortissements du matériel d°emballage récupérable et identifiable\n- **2844** - Amortissements du matériel et du mobilier\n- **2845** - Amortissements du matériel de transport\n- **2846** - Amortissements des actifs biologiques\n- **2847** - Amortissements des agencements et aménagements du matériel et des actifs biologiques\n- **2848** - Amortissements des autres matériels\n### 29 - DEPRECIATIONS DES IMMOBILISATIONS\n- **290** - Dépréciations des immobilisations destinées a la vente provenant de dons et legs\nnon encore recus et d’usufruit temporaire\n- **2901** - Dépréciations d’usufruit temporaire\n- **2902** - Dépréciations des immobilisations destinées 4 la vente provenant de dons et legs non\nencore regus\n- **291** - Dépréciations des immobilisations incorporelles\n- **2912** - —Dépréciations des brevets, licences, concessions et droits similaires\n- **2913** - Dépréciations des logiciels et sites internet\n1) Piéces, barres, lingots, louis d'or et autres métaux précieux (argent, diamant...) acquis et que lentité a I'intention de\nsonserver de maniére durable.\ndd ee | To\nCB camscanner",
+      "token_count": 134
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p008:c0017",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "28 - AMORTISSEMENTS",
+        "29 - DEPRECIATIONS DES IMMOBILISATIONS"
+      ],
+      "page_pdf": 8,
+      "text_source": "_| | Journal officiel OHADA 2023 AE 15/03/2023 v21.qxp_OHADA 16/03/2023 17:07@age 84 | |\nACTE UNIFORME RELATIF AU SYSTEME COMPTABLE DES ENTITES A BUT NON LUCRATIF\n- **2914** - ~~ Dépréciations des marques\n- **2918** - Dépréciations des autres droits et valeurs incorporels\n- **2919** - — Dépréciations des immobilisations incorporelles en cours\n- **292** - Dépréciations des terrains\n- **2921** - Dépréciations des terrains agricoles et forestiers\n- **2922** - Dépréciations des terrains nus\n- **2923** - Dépréciations des terrains batis\n- **2924** - Dépréciations des travaux de mise en valeur des terrains\n- **2926** - Dépréciations des terrains aménagés\n- **2928** - Dépréciations des autres terrains\n- **2929** - —_Dépréciations des aménagements de terrains en cours\n- **293** - Dépréciations des batiments, installations techniques et agencements\n- **2931** - Dépréciations des batiments industriels. agricoles, administratifs, commerciaux,\nreligieux et autres sur sol propre\n- **2932** - Dépréciations des batiments industriels, agricoles, administratifs, commerciaux.\nreligieux et autres sur sol d’autrui\n- **2933** - Dépréciations des ouvrages d’infrastructures\n- **2934** - Dépréciations des aménagements, agencements et installations techniques\n- **2935** - Dépréciations des aménagements de bureaux\n- **2938** - Dépréciations des autres installations et agencements\n- **2939** - Dépréciations des batiments et installations en cours\n- **294** - Dépréciations de matériel, du mobilier et de l’actif biologique",
+      "token_count": 149
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p008:c0018",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "28 - AMORTISSEMENTS",
+        "29 - DEPRECIATIONS DES IMMOBILISATIONS"
+      ],
+      "page_pdf": 8,
+      "text_source": "- **2941** - Dépréciations du matériel et de |'outillage industriel et commercial\n- **2942** - Dépréciations du matériel et de l'outillage agricole\n* 2943 Dépréciations du matériel d’emballage récupérable et identifiable *\n- **2944** - —Dépréciations du matériel et du mobilier\n- **2945** - —_ Dépréciations du matériel de trersport\n- **2946** - Dépréciations des actifs biolog | es\n- **2947** - —_ Dépréciations des aménagements et agencements du matériel et des actifs biologiques\n- **2948** - Dépréciations des autres matériels\n- **2949** - —_ Dépréciations de matériel en cours\n- **295** - Dépréciations des avances et acomptes versés sur immobilisations\n- **2951** - Dépréciations des avances et acomptes versés sur immobilisations incorporelles\n- **2952** - Dépréciations des avances et acomptes versés sur immobilisations corporelles\n- **296** - Dépréciations des titres de participation\n- **2961** - Dépréciations des titres de participation\n- **2965** - — Dépréciations des participations dans des organismes professionnels\n- **2966** - —Dépréciations des parts dans des GIE\n- **2968** - — Dépréciations des autres titres de participation\n- **297** - Dépréciations des autres immobilisations financiéres\n- **2971** - — Dépréciations des préts et créances\n- **2972** - —Dépréciations des préts au personnel\n- **2973** - Dépréciations des créances sur I’ Etat\n- **2974** - Dépréciations des titres immobilisés\n- **2975** - — Dépréciations des dépéts et cautionnements versés\n- **2977** - —Dépréciations des créances rattachées 4 des participations et avances a des GIE",
+      "token_count": 148
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p008:c0019",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "28 - AMORTISSEMENTS",
+        "29 - DEPRECIATIONS DES IMMOBILISATIONS"
+      ],
+      "page_pdf": 8,
+      "text_source": "- **2978** - — Dépréciations des créances financiéres diverses\naa ee | To\nCB camscanner",
+      "token_count": 7
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p009:c0020",
+      "heading_path": [
+        "PARTIE 2: STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "31 - BIENS LIES A L’ACTIVITE",
+        "33 - AUTRES APPROVISIONNEMENTS"
+      ],
+      "page_pdf": 9,
+      "text_source": "_| | Journal officiel OHADA 2023 AE 15/03/2023 v21.qxp_OHADA 16/03/2023 17:07@age 85 | |\n# PARTIE 2: STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES\n### 31 - BIENS LIES A L’ACTIVITE\n### 32 - MARCHANDISES, MATIERES PREMIERES ET FOURNITURES LIEES\n### 33 - AUTRES APPROVISIONNEMENTS\n### 34 - DONS EN NATURE\n### 36 - PRODUITS FINIS\n### 38 - DONS EN NATURE HAO\n### 39 - DEPRECIATIONS DES STOCKS ET DES PRODUCTIONS EN COURS\n### 31 - BIENS LIES A L’ACTIVITE\n- **311** - Biens liés a Vactivité A\n- **312** - Biens liés 4 Vactivité B\n### 32 - MARCHANDISES, MATIERES PREMIERES ET FOURNITURES LIEES\n- **321** - Marchandises A\n- **322** - Marchandises B\n- **323** - Matiéres A\n- **324** - Matiéres B\n- **325** - Fournitures liées (A, B)\n### 33 - AUTRES APPROVISIONNEMENTS\n- **331** - Matiéres consommables\n- **333** - Fournitures de magasin\n- **334** - Fournitures de bureau\n* 335 Emballages *\n- **3351** - Emballages perdus\n- **3352** - Emballages récupérables non identifiables\n- **3353** - Emballages a usage mixte\n- **3358** - Autres emballages\n- **338** - Autres matiéres",
+      "token_count": 97
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p009:c0021",
+      "heading_path": [
+        "PARTIE 2: STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "31 - BIENS LIES A L’ACTIVITE",
+        "37 - STOCKS EN COURS DE ROUTE , EN CONSIGNATION, OU EN DEPOT"
+      ],
+      "page_pdf": 9,
+      "text_source": "### 34 - DONS EN NATURE\n- **341** - Dons en nature non affectés\n- **345** - Dons en nature affectés\n### 35 - PRODUITS ET SERVICES EN COURS\n### 36 - PRODUITS FINIS, PRODUITS INTERMEDIAIRE ET RESIDUELS\n- **361** - Produits finis A\n- **362** - Produits finis B\n- **363** - Actifs biologiques\n- **3631** - Animaux\n- **3632** - =©Végétaux\n- **3638** - Autres stocks (activités annexes)\n- **367** - Produits intermédiaires et résiduels\n### 37 - STOCKS EN COURS DE ROUTE , EN CONSIGNATION, OU EN DEPOT\n- **371** - Biens liés 4 activité en cours de route\n- **372** - Marchandises, matiéres premiéres et fournitures liés en cours de route\n- **373** - Autres approvisionnements en cours de route\n- **376** - Produits finis en cours de route\n- **377** - Stocks en consignation ou en dépét\n- **3771** - Stock en consignation\n- **3772** - Stock en dépét\n- **378** - Stock provenant d’immobilisations mises hors services ou au rebut\ndl —6- I\nCB camscanner",
+      "token_count": 89
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p010:c0022",
+      "heading_path": [
+        "PARTIE 2: STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "31 - BIENS LIES A L’ACTIVITE",
+        "39 - DEPRECIATIONS DES STOCKS ET DES PRODUCTIONS EN COURS"
+      ],
+      "page_pdf": 10,
+      "text_source": "_| | Journal officiel OHADA 2023 AE 15/03/2023 v21.qxp_OHADA 16/03/2023 17:07@age 86 | |\nACTE UNIFORME RELATIF AU SYSTEME COMPTABLE DES ENTITES A BUT NON LUCRATIF\n### 38 - DONS EN NATURE HAO\n- **381** - non affectés\n- **385** - affectés\n### 39 - DEPRECIATIONS DES STOCKS ET DES PRODUCTIONS EN COURS\n- **391** - Dépréciations des stocks de biens liés 4 Pactivité\n- **392** - Dépréciations des stocks de marchandises, et matiéres premiéres et fournitures\nliées\n- **393** - Dépréciations des stocks d'autres approvisionnements\n- **396** - Dépréciations des stocks de produits finis, produits intermédiaires et résiduels\n- **397** - Dépréciations des stocks en cours de route, en consignation ou en dépét\nCB camscanner",
+      "token_count": 74
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p011:c0023",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "40 - FOURNISSEURS ET COMPTES RATTACHES",
+        "40 - FOURNISSEURS ET COMPTES RATTACHES"
+      ],
+      "page_pdf": 11,
+      "text_source": "_| | Journal officiel OHADA 2023 AE 15/03/2023 v21.qxp_OHADA 16/03/2023 17:07@age 87 | |\n# PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES\n### 40 - FOURNISSEURS ET COMPTES RATTACHES\n### 41 - ADHERENTS, CLIENTS-USAGERS ET COMPTES RATTACHES\n### 42 - PERSONNEL\n### 43 - ORGANISMES SOCIAUX\n### 44 - ETAT ET COLLECTIVITES PUBLIQUES\n### 45 - FONDATEURS, APPORTEURS ET COMPTES COURANTS\n### 46 - BAILLEURS, ETAT ET AUTRES ORGANISMES, FONDS\nD’ADMINISTRATION\n### 47 - DEBITEURS ET CREDITEURS DIVERS\n### 48 - CREANCES ET DETTES DONS HORS ACTIVITES ORDINAIRES (H.A.O.)\n### 49 - DEPRECIATIONS ET PROVISIONS POUR RISQUES ET CHARGES A\nCOURT TERME (TIERS)\n### 40 - FOURNISSEURS ET COMPTES RATTACHES\n- **401** - Fournisseurs, dettes en compte\n- **4011** - Fournisseurs\n- **4013** - Fournisseurs sous-traitants\n- **4016** - Fournisseurs, réserve de propriété\n- **4017** - Fournisseurs, retenues de garantie\n- **402** - Fournisseurs, effets 4 payer\n- **4021** - Fournisseurs, effets 4 payer\n- **4023** - Fournisseurs sous-traitants, effets 4 payer\n- **408** - Fournisseurs, factures non parvenues\n- **4081** - Fournisseurs\n- **4083** - Fournisseurs sous-traitants\n- **4086** - Fournisseurs, intéréts courus\n- **409** - Fournisseurs débiteurs\n- **4091** - Fournisseurs avances et acomptes versés\n- **4093** - Fournisseurs sous-traitants avances et acomptes versés\n- **4094** - Fournisseurs créances pour emballages et matériels 4 rendre\n- **4098** - Fournisseurs, rabais, remises, ristournes et autres avoirs 4 obtenir",
+      "token_count": 137
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p011:c0024",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "40 - FOURNISSEURS ET COMPTES RATTACHES",
+        "41 - ADHERENTS, CLIENTS-USAGERS ET COMPTES RATTACHES"
+      ],
+      "page_pdf": 11,
+      "text_source": "### 41 - ADHERENTS, CLIENTS-USAGERS ET COMPTES RATTACHES\n- **411** - Adhérents\n- **412** - Clients-usagers\n- **413** - Adhérents, Clients-usagers, chéques, effets et autres valeurs impayés\n- **4131** - Adhérents, chéques impayés\n- **4132** - Clients-usagers, chéques impayés\n- **4133** - Adhérents, Autres valeurs impayées\n- **4138** - Clients-usagers, autres valeurs impayées\n- **416** - Créances, adhérents, clients-usagers litigieuses ou douteuses\n- **4161** - Adhérents cotisations litigieuses ou douteuses\n- **4162** - Créances litigieuses ou douteuses\n- **418** - Adhérents, clients-usagers produits 4 recevoir\n- **4181** - Adheérents, appels de fonds a établir\n- **4182** - Clients- usagers, factures a établir\nCB camscanner",
+      "token_count": 72
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p012:c0025",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "40 - FOURNISSEURS ET COMPTES RATTACHES",
+        "42 - PERSONNEL"
+      ],
+      "page_pdf": 12,
+      "text_source": "_| | Journal officiel OHADA 2023 AE 15/03/2023 v21.qxp_OHADA 16/03/2023 17:07@age 88 | |\nACTE UNIFORME RELATIF AU SYSTEME COMPTABLE DES ENTITES A BUT NON LUCRATIF\n- **4186** - Adherents, Clients-usagers, intéréts courus\n- **419** - Adhérents, Clients-usagers créditeurs\n- **4191** - Adhérents, avances regues\n- **4192** - Clients-usagers, avances et acomptes regus\n- **4194** - Clients-usagers, dettes pour emballages et matériels consignés\n- **4198** - Clients-usagers, rabais, remises, ristournes et autres avoirs 4 accorder\n### 42 - PERSONNEL\n- **421** - Personnel, avances et acomptes\n- **4211** - Personnel, avances\n- **4212** - Personnel, acomptes\n- **4213** - Frais avancés et fournitures au personnel\n- **422** - Personnel, rémunérations dues\n- **423** - Personnel, oppositions, saisies arréts\n- **4231** - Personnel, oppositions\n- **4232** - Personnel, saisies arréts\n- **4233** - Personnel, avis a tiers détenteur\n- **424** - Personnel, ceuyres sociales internes\n- **4241** - Assistance médicale\n- **4242** - Allocations familiales\n- **4245** - Organismes sociaux rattachés a |\"entité\n- **4248** - Autres ceuvres sociales internes\n- **425** - Représentants du personnel\n- **4251** - Délégués du personnel\n- **4252** - Syndicats et assimilés\n- **4258** - Autres représentants du personnel\n- **427** - Personnel — dépéts\n* 428 Personnel, charges 4 payer et produits a recevoir *\n- **4281** - Personnel congés a payer\n- **4286** - Autres Charges a payer\n- **4287** - Produits 4 recevoir",
+      "token_count": 149
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p012:c0026",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "40 - FOURNISSEURS ET COMPTES RATTACHES",
+        "44 - ETAT ET COLLECTIVITES PUBLIQUES"
+      ],
+      "page_pdf": 12,
+      "text_source": "### 43 - ORGANISMES SOCIAUX\n- **431** - Sécurité sociale\n- **4311** - Prestations familiales\n- **4312** - Accidents de travail\n- **4318** - Autres cotisations sociales\n- **432** - Caisses de retraite\n- **4321** - Caisse de retraite obligatoire\n- **4322** - Caisse de retraite complémentaire\n- **4328** - Autres caisses de retraites\n- **433** - Autres organismes sociaux\n- **4331** - Mutuelle de santé\n- **4332** - Assurances retraite\n- **4333** - Assurances et organismes de santé\n- **438** - Organismes sociaux, charges 4 payer et produits 4 recevoir\n- **4381** - Charges sociales sur gratifications 4 payer\n- **4382** - Charges sociales sur congés a payer\n- **4386** - Autres charges 4 payer\n- **4387** - Produits a recevoir\n### 44 - ETAT ET COLLECTIVITES PUBLIQUES\n- **442** - Etat, autres impdts et taxes\n442) Impéts et taxes d’ Etat\n- **4422** - Impé6ts et taxes pour les collectivités publiques\n- **4423** - Impdts et taxes recouvrables sur des obligataires\nan eo | [\nCB camscanner",
+      "token_count": 97
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p013:c0027",
+      "heading_path": [
+        "PARTIE 2: STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES"
+      ],
+      "page_pdf": 13,
+      "text_source": "_| | Journal officiel OHADA 2023 AE 15/03/2023 v21.qxp_OHADA 16/03/2023 17:07@age 89 | |\n# PARTIE 2: STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES\n- **4424** - Impéts et taxes recouvrables sur des adhérents et autres\n- **4426** - Droits de douane\n- **4428** - Autres impéts et taxes\n- **443** - Etat, T.V.A. Facturée\n- **444** - Etat, T.V.A. due ou crédit de T.V.A.\n- **445** - Etat, T.V.A. Récupérable\n- **446** - Etat, autres taxes sur le chiffre d’affaires\n- **447** - Etat, impéts retenus a la source\n- **4471** - Impét général sur le revenu\n- **4472** - Impéts sur salaires\n- **4473** - Contribution nationale\n- **4474** - Contribution nationale de solidarité\n- **4478** - Autres impéts et contributions\n- **448** - Etat, charges a payer et produits 4 recevoir\n- **4486** - Charges a payer\n- **4487** - Produits 4 recevoir\n- **449** - Etat, créances et dettes diverses\n- **4491** - Etat, Subvention a recevoir",
+      "token_count": 94
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p013:c0028",
+      "heading_path": [
+        "PARTIE 2: STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "45 - FONDATEURS, APPORTEURS ET COMPTES COURANTS"
+      ],
+      "page_pdf": 13,
+      "text_source": "### 45 - FONDATEURS, APPORTEURS ET COMPTES COURANTS\n- **451** - Associations et assimilées\n- **4511** - Apporteurs en nature\n- **4512** - Apporteurs en numéraire\n- **4515** - Adhérents, dirigeants, comptes courants\n- **452** - Fondations et assimilées\n- **4521** - Apporteurs en nature\n- **4522** - Apporteurs en numéraire\n- **4555** - Fondateurs, dirigeants, comptes courants\n* 453 Ordres professionnels *\n- **4531** - Apporteurs en nature\n- **4532** - Apporteurs en numeéraire\n- **4535** - Membres, dirigeants, comptes courants\n- **454** - Organisations politiques\n- **4541** - Apporteurs en nature\n- **4542** - Apporteurs en numéraire\n- **4545** - Adhérents, dirigeants, comptes courants\n- **455** - Organisations syndicales\n- **4551** - Apporteurs en nature\n- **4552** - Apporteurs en numéraire\n- **4555** - Adhérents, dirigeants, comptes courants\n- **456** - Organisations religieuses, apporteurs\n- **4561** - Congrégations religieuses et assimilées\n- **4562** - Wagdf et assimilés\n- **457** - Mécénes, bénévoles et assimilés\n457) Mécénes et assimilés\n- **4572** - Bénévoles et assimilés\n- **458** - Autres fondateurs et apporteurs",
+      "token_count": 99
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p013:c0029",
+      "heading_path": [
+        "PARTIE 2: STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "45 - FONDATEURS, APPORTEURS ET COMPTES COURANTS",
+        "46 - BAILLEURS, FONDS D’ADMINISTRATION"
+      ],
+      "page_pdf": 13,
+      "text_source": "### 46 - BAILLEURS, FONDS D’ADMINISTRATION\n- **462** - Bailleurs - projet de développement, Fonds d’administration\n- **463** - Etat - projet de développement, Fonds d’administration\n- **464** - Autres tiers ou organismes de financement assimilés - projet de développement, Fonds\nd’administration\n- **469** - Fonds d’administration 4 recevoir\n- **4692** - Bailleurs -Fonds d’administration a receyoir\n- **4693** - Etat -Fonds d’administration a recevoir\n- **4694** - Autres tiers ou organismes de financement assimilés-Fonds d’administration 4 recevoir\ndd ee | To\nCB camscanner",
+      "token_count": 49
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p014:c0030",
+      "heading_path": [
+        "PARTIE 2: STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "45 - FONDATEURS, APPORTEURS ET COMPTES COURANTS",
+        "47 - DEBITEURS ET CREDITEURS DIVERS"
+      ],
+      "page_pdf": 14,
+      "text_source": "_| | Journal officiel OHADA 2023 AE 15/03/2023 v21.qxp_OHADA 16/03/2023 17:08@age 90 | |\nACTE UNIFORME RELATIF AU SYSTEME COMPTABLE DES ENTITES A BUT NON LUCRATIF\n### 47 - DEBITEURS ET CREDITEURS DIVERS\n- **471** - Débiteurs et créditeurs divers\n- **4711** - Débiteurs divers\n- **4712** - Créditeurs divers\n- **4713** - Créditeurs, dons en nature courants non consommeés\n- **4717** - Débiteurs divers - retenues de garantie\n- **4719** - Bons de souscription d’actions et d’obligations\n- **472** - Créances et dettes sur titres de placement\n- **4721** - Créances sur cessions de titres de placement\n- **4726** - Versements restant a effectuer sur titres de placement non libérés\n- **473** - Organismes nationaux et internationaux — subventions 4 recevoir\n- **4731** - Subventions d’investissement a recevoir\n- **4732** - Subventions d’exploitation a recevoir\n- **4733** - Subventions d’équilibre a recevoir\n- **4738** - Autres subventions a recevoir\n- **4739** - Subventions 4 reverser\n- **474** - Compte de répartition périodique des charges et des produits\n- **4746** - Compte de répartition périodique des charges\n- **4747** - Compte de répartition périodique des produits\n- **475** - Générosités financiéres 4 recevoir\n- **476** - Charges constatées d’avance\n- **477** - Produits constatés d’avance\n- **478** - Ecarts de conversion - actif\n478) Diminution des créances d’exploitation et HAO\n- **47811** - Diminution des créances d’exploitation\n- **47818** - Diminution des créances HAO\n* 4782 Diminution des créances financiéres *\n- **4783** - Augmentation des dettes d’exploitation et HAO",
+      "token_count": 159
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p014:c0031",
+      "heading_path": [
+        "PARTIE 2: STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "45 - FONDATEURS, APPORTEURS ET COMPTES COURANTS",
+        "47 - DEBITEURS ET CREDITEURS DIVERS"
+      ],
+      "page_pdf": 14,
+      "text_source": "- **47831** - Augmentation des dettes d’exploitation\n- **47838** - Augmentation des dettes HAO\n- **4784** - Augmentation des dettes financiéres\n- **4786** - Différences d’évaluation sur instruments de trésorerie\n- **4788** - Différences compensées par couverture de change\n- **479** - Ecarts de conversion — passif\n- **4791** - Augmentation des créances d’exploitation et HAO\n- **47911** - Augmentation des créances d’exploitation\n- **47918** - Augmentation des créances HAO\n- **4792** - Augmentation des créances financiéres\n- **4793** - Diminution des dettes d’exploitation et HAO\n- **47931** - Diminution des dettes d’exploitation\n- **47938** - Diminution des dettes HAO\n- **4794** - Diminution des dettes financiéres\n- **4797** - Différences d°évaluation sur instruments de trésorerie\n- **4798** - Différences compensées par couverture de change",
+      "token_count": 85
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p014:c0032",
+      "heading_path": [
+        "PARTIE 2: STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "45 - FONDATEURS, APPORTEURS ET COMPTES COURANTS",
+        "48 - CREANCES ET DETTES DONS HORS ACTIVITES ORDINAIRES (H.A.O.)"
+      ],
+      "page_pdf": 14,
+      "text_source": "### 48 - CREANCES ET DETTES DONS HORS ACTIVITES ORDINAIRES (H.A.O.)\n- **481** - Fournisseurs d’investissements\n- **4811** - Fournisseurs, immobilisations incorporelles\n- **4812** - Fournisseurs, immobilisations corporelles\n- **4813** - Versements restant a effectuer sur titres de participation et titres immobilisés non libérés\n- **4816** - Fournisseurs, réserve de propriété - immobilisations\n- **48161** - Fournisseurs, réserve de propriété — immobilisations incorporelles\n- **48162** - Fournisseurs, réserve de propriété — immobilisations corporelles\naa —6- |\nCB camscanner",
+      "token_count": 46
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p015:c0033",
+      "heading_path": [
+        "PARTIE 2: STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES"
+      ],
+      "page_pdf": 15,
+      "text_source": "_| | Journal officiel OHADA 2023 AE 15/03/2023 v21.qxp_OHADA 16/03/2023 17:08@age 91 | |\n# PARTIE 2: STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES\n- **4817** - Fournisseurs, retenues de garantie- immobilisations\n- **48171** - Fournisseurs, retenues de garantie — immobilisations incorporelles\n- **48172** - Fournisseurs, retenues de garantie — immobilisations corporelles\n- **4818** - Fournisseurs, factures non parvenues - immobilisations\n- **48181** - Fournisseurs, factures non parvenues — immobilisations incorporelles\n- **48182** - Fournisseurs, factures non parvenues — immobilisations corporelles\n- **484** - Autres dettes hors activités ordinaires (H.A.O.)\n- **485** - Créances sur cessions d’immobilisations\n- **4851** - Créances, en compte, immobilisations incorporelles\n- **4852** - Créances, en compte, immobilisations corporelles\n- **4856** - Créances, immobilisations financiéres\n- **4857** - Créances, Retenues de garantie sur cession immobilisations\n- **4858** - Créances sur cession d’immobilisations, factures a établir\n- **486** - Dettes et créances des legs et dons d’immobilisations\n- **4861** - Dettes des dons et legs d’immobilisations\n- **4865** - Créances regues sur dons et legs d’immobilisations\n- **488** - Autres créances hors activités ordinaires (H.A.O.)\n- **4881** - Créditeurs, dons en nature HAO non consommeés",
+      "token_count": 125
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p015:c0034",
+      "heading_path": [
+        "PARTIE 2: STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "49 - DEPRECIATIONS ET PROVISIONS POUR RISQUES A COURT TERME"
+      ],
+      "page_pdf": 15,
+      "text_source": "### 49 - DEPRECIATIONS ET PROVISIONS POUR RISQUES A COURT TERME\n(TIERS)\n- **490** - Dépréciations des comptes fournisseurs\n- **491** - Dépréciations des comptes adhérents et clients-usagers\n- **4911** - Dépréciations des créances litigieuses\n- **4912** - Dépréciations des créances douteuses\n- **492** - Dépréciations des comptes personnel\n- **493** - Dépréciations des comptes organismes sociaux\n- **494** - Dépréciations des comptes Etat et Collectivités publiques\n- **497** - Dépréciations des comptes débiteurs divers\n- **498** - Dépréciations des comptes de créances H.A,O.\n- **4985** - Dépréciations des créances sur cessions d’immobilisations\n- **4988** - Dépréciations des autres créances H.A.O.\n- **499** - Provisions pour risques et charges 4 court terme\n499) Provisions pour risques sur opérations d’exploitation\n- **4998** - Provisions pour risques sur opérations H.A.O.\na/ @\ndd ee | To\nCB camscanner",
+      "token_count": 91
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p016:c0035",
+      "heading_path": [
+        "PARTIE 2: STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "CLASSE 5 - COMPTES DE TRESORERIE",
+        "50 - TITRES DE PLACEMENT"
+      ],
+      "page_pdf": 16,
+      "text_source": "_| | Journal officiel OHADA 2023 AE 15/03/2023 v21.qxp_OHADA 16/03/2023 17:08@age 92 | |\nACTE UNIFORME RELATIF AU SYSTEME COMPTABLE DES ENTITES A BUT NON LUCRATIF\n## CLASSE 5 - COMPTES DE TRESORERIE\n### 50 - TITRES DE PLACEMENT\n### 51 - VALEURS A ENCAISSER\n§2 BANQUES\n### 53 - ETABLISSEMENTS FINANCIERS ET ASSIMILES\n### 55 - INSTRUMENTS DE MONNAIE ELECTRONIQUE\n### 56 - BANQUES, CREDITS DE TRESORERIE\n### 57 - CAISSE\n### 58 - VIREMENTS INTERNES\n### 59 - DEPRECIATIONS ET PROVISIONS POUR RISQUES ET CHARGES A\nCOURT TERME\n### 50 - TITRES DE PLACEMENT\n- **501** - Titres du trésor et bons de caisse a court terme\n- **5011** - Titres du Trésor a court terme\n- **5012** - Titres d’organismes financiers\n- **5013** - Bons de caisse a court terme\n- **5016** - — Frais d°acquisition des titres de trésor et bons de caisse\n- **502** - Actions\n5022. = Actions cotées\n$023 Actions non cotées\n* $025 = Autres actions *\n- **5026** - ‘Frais d’acquisition des actions\n- **503** - Obligations\n$032 Obligations cotées\n- **5033** - Obligations non cotées\n- **5035** - Autres obligations\n- **5036** - Frais d’acquisition des obligations\n- **504** - Bons de souscription\n- **5042** - Bons de souscription d’actions\n- **5043** - Bons de souscription d’obligations\n- **505** - Titres négociables hors Région\n- **506** - Intéréts courus\n- **5061** - Titres du Trésor et bons de caisse a court terme\n- **5062** - Actions\n- **5063** - = Obligations\n- **508** - Autres titres de placement et créances assimilées",
+      "token_count": 148
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p016:c0036",
+      "heading_path": [
+        "PARTIE 2: STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "CLASSE 5 - COMPTES DE TRESORERIE",
+        "52 - BANQUES"
+      ],
+      "page_pdf": 16,
+      "text_source": "### 51 - VALEURS A ENCAISSER\n- **513** - Chéques a encaisser\n- **514** - Cheques a l’encaissement\n- **515** - Cartes de crédit a encaisser\n- **518** - Autres valeurs 4 encaissement\n- **5185** - Chéques de voyage\n- **5186** - Coupons échus\n- **5187** - Intéréts échus des obligations\n### 52 - BANQUES\n- **521** - Banques locales\n- **5211** - Banques en monnaie nationale\nCB camscanner",
+      "token_count": 36
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p017:c0037",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "53 - ETABLISSEMENTS FINANCIERS ET ASSIMILES"
+      ],
+      "page_pdf": 17,
+      "text_source": "_| | Journal officiel OHADA 2023 AE 15/03/2023 v21.qxp_OHADA 16/03/2023 17:08@age 93 | |\n# PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES\n- **5215** - Banques en devises\n$22 Banques autres Etats Région\n- **523** - Banques autres Etats zone monétaire\n- **524** - Banques hors zone monétaire\n$25 Banques dépét a terme et opérations assimilées\n- **526** - Banques, intéréts courus\n- **5261** - Banque, intéréts courus charges 4 payer\n- **5267** - Banque, intéréts courus produits a recevoir\n### 53 - ETABLISSEMENTS FINANCIERS ET ASSIMILES\n- **531** - Banques postales\n- **532** - Trésor\n- **533** - Sociétés de gestion et d’intermédiation (S.G.L)\n- **536** - Etablissements financiers, intéréts courus\n- **5361** - — Etablissements financiers, intéréts courus charges 4 payer\n- **5367** - — Etablissements financiers, intéréts courus produits 4 recevoir\n- **538** - Autres organismes financiers",
+      "token_count": 90
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p017:c0038",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "53 - ETABLISSEMENTS FINANCIERS ET ASSIMILES",
+        "59 - DEPRECIATIONS ET PROVISIONS POUR RISQUES A COURT TERME"
+      ],
+      "page_pdf": 17,
+      "text_source": "### 55 - INSTRUMENTS DE MONNAIE ELECTRONIQUE\n- **551** - Monnaie électronique - carte carburant\n- **552** - Monnaie électronique - téléphone portable\n- **553** - Monnaie électronique - carte péage\n- **554** - Porte-monnaie électronique\n- **558** - Autres instruments de monnaie électronique\n### 56 - BANQUES, CREDITS DE TRESORERIE ET D’ESCOMPTE\n- **561** - Crédits de trésorerie\n- **565** - Escompte de crédits ordinaires\n* 566 Banques, crédits de trésorerie, intéréts courus *\n### 37 - CAISSE\n- **571** - Caisse en monnaie nationale\n$72 Caisse en devises\n### 58 - VIREMENTS INTERNES\n- **585** - Virements de fonds\n- **588** - Autres virements internes\n### 59 - DEPRECIATIONS ET PROVISIONS POUR RISQUES A COURT TERME\n- **590** - Dépréciations des titres de placement\n- **591** - Dépréciations des titres et valeurs 4 encaisser\n$92 Dépréciations des comptes banques\n- **593** - Dépréciations des comptes établissements financiers et assimilés\n- **595** - Dépréciations des comptes d’instruments de monnaie électronique\n- **599** - Provisions pour risque et charges 4 court terme 4 caractére financier\ndd ee | To\nCB camscanner",
+      "token_count": 105
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p018:c0039",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "53 - ETABLISSEMENTS FINANCIERS ET ASSIMILES",
+        "60 - ACHATS ET VARIATIONS DE STOCKS"
+      ],
+      "page_pdf": 18,
+      "text_source": "_| | Journal officiel OHADA 2023 AE 15/03/2023 v21.qxp_OHADA 16/03/2023 17:08@age 94 | |\nACTE UNIFORME RELATIF AU SYSTEME COMPTABLE DES ENTITES A BUT NON LUCRATIF\n### 60 - ACHATS ET VARIATIONS DE STOCKS\n### 61 - TRANSPORTS\n### 62 - SERVICES EXTERIEURS\n### 63 - AUTRES SERVICES EXTERIEURS\n### 64 - IMPOTS ET TAXES\n### 65 - AUTRES CHARGES\n### 66 - CHARGES DE PERSONNEL\n### 67 - FRAIS FINANCIERS ET CHARGES ASSIMILEES\n### 68 - DOTATIONS AUX AMORTISSEMENTS\n### 69 - DOTATIONS AUX PROVISIONS ET AUX DEPRECIATIONS\n### 60 - ACHATS ET VARIATIONS DE STOCKS\n- **601** - Achats de biens et services liés 4 l’activité\n- **6011** - Achats de biens et services liés 4 activité dans I'Etat partie\n- **6012** - Achats de biens et services liés a l’activité dans la Région\n- **6013** - Achats de biens et services liés 4 l'activité hors Région\n- **6015** - frais sur achats ) de biens et services liés 4 activité\n- **6019** - = Rabais, Remises et Ristournes obtenus (non ventilés)\n- **602** - Achats de marchandises, de matiéres premiéres et fournitures liées\n* 6021 Achats de marchandises et matiéres premiéres dans |'Etat partie *\n- **6022** - Achats de marchandises et matiéres premiéres dans la Région\n- **6023** - Achats de marchandises et matiéres premiéres hors Région\n- **6025** - frais sur achats de marchandises et matiéres ‘)\n- **6029** - Rabais, Remises et Ristournes obtenus (non ventilés)\n- **603** - Variations des stocks de biens achetés et recus en dons en nature a distribuer\n- **6031** - Variations des stocks de biens et services liés 4 activité\n- **6032** - Variations des stocks de marchandises",
+      "token_count": 161
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p018:c0040",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "53 - ETABLISSEMENTS FINANCIERS ET ASSIMILES",
+        "60 - ACHATS ET VARIATIONS DE STOCKS"
+      ],
+      "page_pdf": 18,
+      "text_source": "- **6033** - = Variations des stocks de matiéres premiéres et fournitures liées\n- **6034** - Variations des stocks d’autres approvisionnements\n- **6035** - Variations de stocks de dons en nature a distribuer\n- **604** - Achats stockés de matiéres et fournitures consommables\n- **6041** - — Matiéres consommables\n- **6042** - = Matiéres combustibles\n- **6043** - Produits d’entretien\n- **6045** - Frais sur achats °) matiéres et fournitures consommables\n- **6046** - ~~ Fournitures de magasin\n- **6047** - — Fournitures de bureau\n- **6049** - —_ Rabais, Remises et Ristournes obtenus (non ventilés)\n- **605** - Autres achats\n- **6051** - — Fournitures non stockables -Eau\n- **6052** - Fournitures non stockables - Electricité\n- **6053** - Fournitures non stockables — Autres énergies\n) 1 tentité peut créer des sous comptes pour les frais accessoires: douanes, fret, assurances sur achats, commissions,\ncourlages sur achats, frais de transit, et autres frais accessoires.\nCB camscanner",
+      "token_count": 99
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p019:c0041",
+      "heading_path": [
+        "PARTIE 2: STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES"
+      ],
+      "page_pdf": 19,
+      "text_source": "_| | Journal officiel OHADA 2023 AE 15/03/2023 v21.qxp_OHADA 16/03/2023 17:08@age 95 | |\n# PARTIE 2: STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES\n- **6054** - — Fournitures d’entretien non stockables\n- **6055** - — Fournitures de bureau non stockables\n- **6056** - = Achats de petit matériel et outillage\n- **6057** - Achats d’études et prestations de services\n- **6058** - —Achats de travaux, matériels et équipements\n- **6059** - —_ Rabais, Remises et Ristournes obtenus (non ventilés)\n- **606** - Achats autres activités\n- **6061** - Billetteries\n- **6062** - Tombola et autres jeux\n- **6063** - —_ Bons d’achats\n- **6064** - Voyages et sorties\n- **6068** - = Autres activités\n- **608** - Achats d’emballages\n- **6081** - = Emballages perdus\n- **6082** - Emballages récupérables non id: «| ‘lables\n- **6083** - + Emballages 4 usage mixte\n- **6085** - Frais sur achats ?)d’emballages\n- **6089** - —_ Rabais, Remises et Ristournes obtenus (non ventilés)",
+      "token_count": 94
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p019:c0042",
+      "heading_path": [
+        "PARTIE 2: STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "61 - TRANSPORTS"
+      ],
+      "page_pdf": 19,
+      "text_source": "### 61 - TRANSPORTS\n- **612** - Transports sur ventes\n- **613** - Transports pour le compte de tiers\n- **614** - Transports du personnel\n- **616** - Transports de plis\n- **618** - Autres frais de transport\n- **6181** - Voyages et déplacements\n- **6183** - Transports administratifs\n- **619** - Rabais, Remises et Ristournes Obtenus (non ventilés)\n* 62 SERVICES EXTERIEURS *\n- **621** - Sous-traitance générale\n- **622** - Locations, charges locatives\n- **6221** - Locations de terrains\n- **6222** - Locations de batiments\n- **6223** - —_ Locations de matériels et outillages\n- **6224** - — Malis sur emballages\n- **6225** - Locations d’emballages\n- **6226** - —_‘ Fermages et loyers du foncier\n- **6228** - Locations et charges locatives diverses\n- **623** - Redevances de location-acquisition\n- **6232** - Crédit-bail immobilier\n- **6233** - — Crédit-bail mobilier\n- **6234** - —_ Location-vente\n- **6238** - = Autres contrats de location-acquisition\n- **624** - Entretien, réparation, remise en état et maintenance\n- **6241** - —_ Entretien et réparation des biens immobiliers\n- **6242** - Entretien et réparation des biens mobiliers\n6243. Maintenance\n- **6244** - — Charges de démantélement et remise en état\n- **6248** - Autres entretiens et réparation\n- **625** - Primes d’assurance\n- **6251** - Assurances multirisques\n- **6252** - Assurances matériel de transport\n- **6253** - Assurances risques d’exploitation\n() Ltentité peut créer des sous comptes pour les frais accessoires: douanes, fret, assurances sur achats, commissions,",
+      "token_count": 148
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p019:c0043",
+      "heading_path": [
+        "PARTIE 2: STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "61 - TRANSPORTS"
+      ],
+      "page_pdf": 19,
+      "text_source": "courlages sur achats, frais de transit, et autres frais accessoires.\n|| —e- | t\nCB camscanner",
+      "token_count": 9
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p020:c0044",
+      "heading_path": [
+        "PARTIE 2: STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "61 - TRANSPORTS"
+      ],
+      "page_pdf": 20,
+      "text_source": "_| | Journal officiel OHADA 2023 AE 15/03/2023 v21.qxp_OHADA 16/03/2023 17:08@age 96 | |\nACTE UNIFORME RELATIF AU SYSTEME COMPTABLE DES ENTITES A BUT NON LUCRATIF\n- **6258** - Autres primes d’assurances\n- **626** - Etudes, recherches et documentation\n- **6261** - — Etudes et recherches\n- **6265** - Documentation générale\n- **6266** - Documentation technique\n- **627** - Publicité, publications, relations publiques\n- **6271** - Annonces, insertions\n- **6272** - Catalogues, imprimés publicitaires\n- **6273** - Congrés, universités et assimilés\n- **6274** - Manifestations\n- **6275** - Publications\n- **6277** - Frais de colloques, séminaires, conférences\n- **6278** - Autres charges de publicité et relations publiques\n- **628** - Frais de télécommunications\n- **6281** - Frais de téléphone\n- **6283** - Frais de télécopie\n- **6284** - Frais d'internet\n- **6288** - Autres frais de télécommunications",
+      "token_count": 84
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p020:c0045",
+      "heading_path": [
+        "PARTIE 2: STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "61 - TRANSPORTS",
+        "63 - AUTRES SERVICES EXTERIEURS"
+      ],
+      "page_pdf": 20,
+      "text_source": "### 63 - AUTRES SERVICES EXTERIEURS\n- **631** - Frais bancaires\n- **6311** - — Frais sur titres (vente, garde)\n- **6312** - Frais sur effets\n- **6313** - Location de coffres\n- **6315** - Commissions sur cartes de crédit\n- **6316** - Frais d’émission d°emprunts\n- **6317** - Frais sur instruments de monnaie électronique\n* 6318 Autres frais bancaires *\n- **632** - Rémunérations d’intermédiaires et de conseils\n- **6322** - Commissions\n- **6324** - Honoraires des professions reglementées\n- **6325** - Frais d’actes et de contentieux\n- **6327** - Rémuneérations des autres prestataires de services\n- **6328** - Divers frais\n- **633** - Frais de formation\n- **634** - Redevances pour brevets, licences, logiciels, sites internet, concessions et droits et valeurs\nsimilaires\n- **6342** - Redevances pour brevets, licences\n- **6343** - Redevances pour logiciels\n- **6345** - Redevances pour sites internet\n- **6346** - —_Redevances pour concessions, droits et valeurs similaires\n- **6348** - Autres redevances\n- **635** - Cotisations\n- **6351** - Cotisations\n- **6358** - Concours divers\n- **636** - Frais de recherche de fonds\n- **637** - Rémunérations de personnel extérieur a l’entité\n- **6371** - Personnel intérimaire\n- **6372** - Personnel détaché ou prété a l’entité\n- **638** - Autres charges externes\n- **6381** - — Frais de recrutement du personnel\n- **6382** - Frais de déménagement\n- **6383** - —_ Réceptions\n- **6384** - Missions\n'\n| | —e- | [\nCB camscanner",
+      "token_count": 141
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p021:c0046",
+      "heading_path": [
+        "PARTIE 2: STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "64 - IMPOTS ET TAXES"
+      ],
+      "page_pdf": 21,
+      "text_source": "_| | Journal officiel OHADA 2023 AE 15/03/2023 v21.qxp_OHADA 16/03/2023 17:08@age 97 | |\n# PARTIE 2: STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES\n- **6385** - Charges de copropriété\n- **6388** - Charges externes diverses\n### 64 - IMPOTS ET TAXES\n- **641** - Impéts et taxes directs\n- **6411** - —Impéts fonciers et taxes annexes\n- **6412** - Licences et taxes annexes\n- **6413** - Taxes sur appointements et salaires\n- **6414** - Taxes d’apprentissage\n- **6415** - Formation professionnelle continue\n- **6416** - — Patente ou contribution économique locale\n- **6418** - Autres impéts et taxes directs\n- **645** - Imp6ts et taxes indirects\n- **646** - Droits d’enregistrement\n- **6461** - —_ Droits de mutation\n- **6462** - Droits de timbre\n- **6464** - ~——- Vignettes\n- **6468** - Autres droits d'enregistrement\n- **647** - Pénalités, amendes fiscales\n- **6471** - —_ Pénalités d’assiette, impéts directs\n- **6472** - Pénalités d’assiette, impdéts indirects\n- **6473** - — Pénalités de recouvrement, impots directs\n- **6474** - — Pénalités de recouvrement, imp6ts indirects\n- **6478** - Autres pénalités et amendes fiscales\n- **648** - Autres impots et taxes\n- **649** - Dégrévements et annulations des impdts et taxes",
+      "token_count": 118
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p021:c0047",
+      "heading_path": [
+        "PARTIE 2: STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "64 - IMPOTS ET TAXES",
+        "66 - CHARGES DE PERSONNEL"
+      ],
+      "page_pdf": 21,
+      "text_source": "### 65 - AUTRES CHARGES\n* 651 Pertes sur créances adhérents clients, et autres débiteurs *\n- **6511** - — Clients-usagers\n- **6512** - Adhérents\n- **6515** - Autres débiteurs\n- **652** - Subventions accordées par l’entité\n- **654** - Dons en nature courants 4 distribuer\n- **6541** - Dons en nature courants a distribuer non affectés\n- **6545** - Dons en nature courants a distribuer affectés\n- **657** - Pénalités et amendes pénales\n- **658** - Charges diverses\n- **659** - Charges pour dépréciations et provisions pour risques 4 court terme d’exploitation\n- **6591** - Provisions sur risques a court terme\n- **6593** - Charges pour dépréciations sur stocks\n- **6594** - Charges pour dépréciations sur créances\n- **6598** - Autres charges pour dépréciations et provisions pour risques 4 court terme\n### 66 - CHARGES DE PERSONNEL\n- **661** - Rémunérations directes versées au personne! national\n- **6611** - Appointements salaires et commissions\n- **6612** - Primes et gratifications\n- **6613** - Congés payés\n- **6614** - — Indemnités de préavis et de licenciement\n- **6615** - —Indemnités de maladie versées aux travailleurs\n- **6616** - Supplément familial\n- **6617** - Avantages en nature\n- **6618** - Autres rémunérations directes\n- **662** - Rémunérations directes versées au personnel non national\n- **6621** - Appointements salaires et commissions\ndl —6- I\nCB camscanner",
+      "token_count": 136
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p022:c0048",
+      "heading_path": [
+        "PARTIE 2: STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "64 - IMPOTS ET TAXES",
+        "66 - CHARGES DE PERSONNEL"
+      ],
+      "page_pdf": 22,
+      "text_source": "_| | Journal officiel OHADA 2023 AE 15/03/2023 v21.qxp_OHADA 16/03/2023 17:08@age 98 | |\nACTE UNIFORME RELATIF AU SYSTEME COMPTABLE DES ENTITES A BUT NON LUCRATIF\n- **6622** - Primes et gratifications\n- **6623** - Congés payés\n- **6624** - —_Indemnités de préavis et de licenciement\n- **6625** - Indemnités de maladie versées aux travailleurs\n- **6626** - Supplément familial\n- **6627** - Avantages en nature\n- **6628** - Autres rémunérations directes\n- **663** - Indemnités forfaitaires versées au personnel\n- **6631** - —Indemnités de logement\n- **6632** - —Indemnités de représentation\n- **6633** - — Indemnités d’expatriation\n- **6634** - = Indemnités de transport\n- **6638** - Autres indemnités et avantages divers\n- **664** - Charges sociales\n- **6641** - Charges sociales sur rémunération du personnel national\n- **6642** - Charges sociales sur rémunération du personnel non national\n- **665** - Habillement et équipement du personnel\n- **667** - Rémunération transférée de personnel extérieur\n- **6671** - Personnel intérimaire\n- **6672** - Personnel détaché ou prété a l\"entité\n- **668** - Autres charges sociales\n- **6681** - Versements aux syndicats et assimilés\n- **6682** - Versements aux comités d’hygiéne et de sécurité\n- **6683** - Versements et contributions aux autres ceuvres sociales\n- **6684** - Médecine du travail et pharmacie\n- **6685** - Assurances et organismes de santé\n* 6686 Assurances retraite et fonds de pensions *\n- **6687** - = Maijorations et pénalités sociales\n- **6688** - Charges sociales diverses\n- **669** - Dégrévements et annulations des charges sociales",
+      "token_count": 152
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p022:c0049",
+      "heading_path": [
+        "PARTIE 2: STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "64 - IMPOTS ET TAXES",
+        "67 - FRAIS FINANCIERS ET CHARGES ASSIMILEES"
+      ],
+      "page_pdf": 22,
+      "text_source": "### 67 - FRAIS FINANCIERS ET CHARGES ASSIMILEES\n- **671** - Intéréts des emprunts\n- **6711** - Emprunts obligataires\n- **6712** - Emprunts auprés des établissements de crédit\n- **6713** - Primes de remboursement des obligations\n- **672** - Intéréts dans loyers de location-acquisition\n- **6721** - — Intéréts dans loyers de location-acquisition/crédit-bail immobilier\n- **6722** - Intéréts dans loyers de location-acquisition/crédit-bail mobilier\n- **6723** - Intéréts dans loyers de location-acquisition/location-vente\n- **6724** - — Intéréts dans loyers des autres locations-acquisition\n- **673** - Escomptes accordés\n- **674** - Autres intéréts\n- **6741** - —Avances regues et dépots créditeurs\n- **6742** - Comptes courants bloqués\n- **6744** - Intéréts sur dettes commerciales\n- **6745** - Intéréts bancaires et sur opérations de financement (escompte...)\n- **6748** - — Intéréts sur dettes diverses\n- **676** - Pertes de change financiéres\n- **677** - Pertes sur titres de placement\n- **6771** - Pertes sur cessions de titres de placement\n- **678** - Pertes et charges sur risques financiers\n- **6781** - sur rentes viagéres\n- **6782** - sur opérations financiéres\naa ee | To\nCB camscanner",
+      "token_count": 124
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p023:c0050",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "68 - DOTATIONS AUX AMORTISSEMENTS",
+        "69 - DOTATIONS AUX PROVISIONS ET AUX DEPRECIATIONS"
+      ],
+      "page_pdf": 23,
+      "text_source": "_| | Journal officiel OHADA 2023 AE 15/03/2023 v21.qxp_OHADA 16/03/2023 17:08@age 99 | |\n# PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES\n- **679** - Charges pour dépréciations et provisions pour risques a court terme financiéres\n- **6791** - sur risques financiers\n- **6795** - sur titres de placement\n- **6798** - Autres charges pour dépréciations et provisions pour risques a court terme financiéres\n### 68 - DOTATIONS AUX AMORTISSEMENTS\n- **680** - Dotations aux amortissements d’usufruit temporaire\n- **681** - Dotations aux amortissements d’exploitation\n- **6812** - Dotations aux amortissements des immobilisations incorporelles\n- **6813** - Dotations aux amortissements des immobilisations corporelles\n### 69 - DOTATIONS AUX PROVISIONS ET AUX DEPRECIATIONS\n- **691** - Dotations aux provisions et aux dépréciations d’exploitation\n- **6911** - — Dotations aux provisions pour risques et charges\n- **6913** - Dotations aux dépréciations des immobilisations incorporelles\n- **6914** - — Dotations aux dépréciations des immobilisations corporelles\n- **695** - Dotations aux dépréciations d’immobilisations destinées 4 la vente provenant des\ndons et legs non encore recues et d’usufruit temporaire\n- **6951** - Dotations aux dépréciations d’usufruit temporaire\n- **6952** - Dotations aux dépréciations d’immobilisations destinées a la vente provenant des dons et\nlegs non encore regus\n- **697** - Dotations aux provisions et aux dépréciations financiéres\n- **6971** - — Dotations aux provisions pour risques et charges",
+      "token_count": 156
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p023:c0051",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "68 - DOTATIONS AUX AMORTISSEMENTS",
+        "69 - DOTATIONS AUX PROVISIONS ET AUX DEPRECIATIONS"
+      ],
+      "page_pdf": 23,
+      "text_source": "- **6972** - Dotations aux dépréciations des immobilisations financiéres\n|\ndd ee | To\nCB camscanner",
+      "token_count": 8
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p024:c0052",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "CLASSE 7 - COMPTES DE PRODUITS DES ACTIVITES ORDINAIRES",
+        "70 - REVENUS"
+      ],
+      "page_pdf": 24,
+      "text_source": "_| | Journal officiel OHADA 2023 AE 15/03/2023 v21.qxp_OHADA 16/03/2023 17:08@age 100 | |\nACTE UNIFORME RELATIF AU SYSTEME COMPTABLE DES ENTITES A BUT NON LUCRATIF\n## CLASSE 7 - COMPTES DE PRODUITS DES ACTIVITES ORDINAIRES\n### 70 - REVENUS\nval SUBVENTIONS D’ EXPLOITATION\n### 72 - PRODUCTION IMMOBILISEE\n### 73 - VARIATIONS DES STOCKS DE BIENS PRODUITS\n### 75 - AUTRES PRODUITS\n### 77 - REVENUS FINANCIERS ET PRODUITS ASSIMILES\n### 78 - TRANSFERTS DE CHARGES\n### 79 - REPRISES DE PROVISIONS, DE DEPRECIATIONS ET AUTRES\n### 70 - REVENUS\n- **701** - Cotisations des adhérents\n- **702** - Quote-part de fonds d’administration transférés\n- **703** - Quote-part de dotation consomptible transférée\n- **704** - Revenus liés a la générosité\n- **7041** - Dons\n- **7042** - ~— Legs\n- **7043** - ~—- Deniers du culte\n- **7044** - = Zakat, Dime, quéte et assimilées\n- **7045** - —Célébrations\n- **7046** - =Mécénats\n- **7047** - ~~ Parrainage\n- **7048** - = Autres revenus liés a la générosité\n- **705** - Ventes marchandises, services et produits finis\n- **7051** - Ventes marchandises\n- **7052** - = Services vendus\n- **7053** - ~~“ Ventes de produits finis\n- **7054** - ~=—- Ventes de produits intermédiaires\n- **7055** - =‘ Ventes de produits résiduels\n- **706** - Revenus des manifestations\n- **707** - Produits accessoires\n- **708** - Autres revenus\n- **7081** - ~=Ventes de dons en nature\n- **7082** - Revenus d’usufruit",
+      "token_count": 135
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p024:c0053",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "CLASSE 7 - COMPTES DE PRODUITS DES ACTIVITES ORDINAIRES",
+        "73 - VARIATIONS DES STOCKS DE BIENS PRODUITS"
+      ],
+      "page_pdf": 24,
+      "text_source": "### 71 - SUBVENTIONS D’EXPLOITATION\n- **711** - Subventions d’exploitation versées par |’ Etat et les Collectivités publiques\n- **713** - Subventions d’exploitation versées par les organismes nationaux et internationaux\n- **718** - Autres subventions d’exploitation\n### 72 - PRODUCTION IMMOBILISEE\n- **721** - Production immobilisée, immobilisations incorporelles\n- **722** - Production immobilisée, immobilisations corporelles\n- **724** - Production auto-consommée\n- **726** - Production immobilisée, imn_9 pilisations financiéres\")\n### 73 - VARIATIONS DES STOCKS DE BIENS PRODUITS\n- **735** - Variations des stocks de produits finis et services en cours\n- **736** - Variations des stocks de produits finis, produits intermédiaires et résiduels.\n() En cas d’oftre publique d’échange (OPE) ou d’achat (OPA) notamment\n© *\nCB camscanner",
+      "token_count": 77
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p025:c0054",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "75 - AUTRES PRODUITS"
+      ],
+      "page_pdf": 25,
+      "text_source": "— | Journal officiel OHADA 2023 PP101-450x.qxp_OHADA 20/03/2023 17:48 Pageg@t— | |\n# PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES\n### 75 - AUTRES PRODUITS\n- **751** - Profits sur créances Adhérents, clients-usagers, et autres débiteurs\n- **752** - Contribution du fondateur\n- **754** - Dons en nature courants\n- **7542** - Dons en nature courants regus 4 distribuer\n- **758** - Produits divers\n- **7582** - Indemnités d’assurances recues\n- **7583** - Abandons de frais par les bénévoles\n- **7588** - Autres produits divers\n- **759** - Reprises de charges pour dépréciations et provisions pour risques 4 court terme\nd’exploitation ;\n- **7591** - Reprises provisions sur risques 4 court terme\n- **7593** - Reprises de charges pour dépréciations sur stocks\n- **7594** - Reprises de charges pour dépréciations sur créances ‘\n- **7598** - Autres reprises de charges pour dépréciations et provisions pour risques a court terme ,\nd’ exploitation :",
+      "token_count": 101
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p025:c0055",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "75 - AUTRES PRODUITS",
+        "77 - REVENUS FINANCIERS ET PRODUITS ASSIMILES"
+      ],
+      "page_pdf": 25,
+      "text_source": "### 77 - REVENUS FINANCIERS ET PRODUITS ASSIMILES\n- **771** - Intéréts de préts et créances diverses\n- **7712** - = Intéréts de préts \\\n- **7713** - Intéréts sur créances diverses i\n- **772** - Revenus de participations et autres titres immobilisés ;\n- **7721** - ~~ Revenus des titres de participation\n- **7722** - ~~ Revenus autres titres immobilisés\n- **773** - Escomptes obtenus\n- **774** - Revenus de placement\n* 7745 —Revenus des obligations *\n- **7746** - ~—Revenus des titres de placement\n- **7747** - — Revenus des dépéts a terme et opérations assimilées\n- **7748** - ~=Autres revenus de placement\n- **776** - Gains de change financiers\n- **7717** - Gains sur cessions de titres de placement\n- **778** - Gains sur risques financiers\n- **7781** - Gains sur rentes viagéres\n- **7782** - Gains sur opérations financiéres\n- **779** - Reprises de charges pour dépréciations et provisions pour risques 4 court terme\nfinanciéres\n- **7791** - Reprises de provisions sur risques financiers\n- **7795** - Reprises de charges pour dépréciations sur titres de placement\n- **7798** - Autre reprises de charges pour dépréciations et provisions pour risques 4 court terme\nfinanciéres",
+      "token_count": 121
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p025:c0056",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "75 - AUTRES PRODUITS",
+        "78 - TRANSFERTS DE CHARGES"
+      ],
+      "page_pdf": 25,
+      "text_source": "### 78 - TRANSFERTS DE CHARGES\n- **781** - Transferts de charges d’exploitation\n- **787** - Transferts de charges financiéres\n- **719** - REPRISES DE PROVISIONS, DE DEPRECIATIONS ET AUTRES\n- **791** - Reprises de provisions et dépréciations d’ exploitation\n- **7911** - Reprises de provisions pour risques et charges\n- **7913** - Reprises de dépréciations des immobilisations incorporelles\n- **7914** - Reprises de dépréciations des immobilisations corporelles\n- **792** - Reprises de fonds affectés et provenant des dons et legs d’immobilisations\n- **7923** - Reprises de fonds affectés provenant de dons et legs d’immobilisations\n- **7925** - Reprises de fonds affectés 4 un projet spécifique\n- **7928** - Autres reprises de fonds affectés\n| —e- |\nCB camscanner",
+      "token_count": 67
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p026:c0057",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "75 - AUTRES PRODUITS",
+        "78 - TRANSFERTS DE CHARGES"
+      ],
+      "page_pdf": 26,
+      "text_source": "— | Journal officiel OHADA 2023 PP101-450x.qxp_OHADA 20/03/2023 17:48 Page g@2— | |\nACTE UNIFORME RELATIF AU SYSTEME COMPTABLE DES ENTITES A BUT NON LUCRATIF\n- **795** - Reprises des dépréciations d’immobilisations regues _destinées a la vente provenant des\ndons et legs et d’usufruit temporaire\n- **7951** - Reprises des dépréciations d’usufruit temporaire\n- **7952** - Reprises des dépréciations d’immobilisations regues destinées a la vente provenant des\ndons et legs\n- **796** - Reprises des fonds reportés\n- **7961** - — Reprises de fonds reportés provenant de la donation temporaire d’usufruit\n- **7962** - Reprises de fonds reportés provenant de dons et legs d’immobilisations regues destinées\na la vente\n- **7968** - Autres reprises de fonds reportés\n- **797** - Reprises de provisions et dépréciations financiéres\n- **7971** - Reprises de provisions pour risques et charges\n- **7972** - Reprises de dépréciations des immobilisations financiéres\n- **798** - Reprises d’amortissements\n- **799** - Reprises de subventions d’investissement\n| —e- |\nCB camscanner",
+      "token_count": 106
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p027:c0058",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "81 - VALEURS COMPTABLES DES CESSIONS D’ IMMOBILISATIONS",
+        "81 - VALEURS COMPTABLES DES CESSIONS D’IMMOBILISATIONS"
+      ],
+      "page_pdf": 27,
+      "text_source": "| Journal officiel OHADA 2023 AE 15/03/2023 V2020.qxp_OHADA 28/03/2023 428 Page 103 |\n# PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES\n### 81 - VALEURS COMPTABLES DES CESSIONS D’ IMMOBILISATIONS\n### 82 - PRODUITS DES CESSIONS D’IMMOBILISATIONS\n### 83 - CHARGES HORS ACTIVITES ORDINAIRES\n### 84 - REVENUS HORS ACTIVITES ORDINAIRES\n### 85 - DOTATIONS HORS ACTIVITES ORDINAIRES\n### 86 - REPRISES D'AMORTISSEMENTS, PROVISIONS ET DEPRECIATIONS HAO.\n### 87 - VARIATIONS DE STOCKS DE DONS EN NATURE HAO\n### 88 - SUBVENTIONS D’EQUILIBRE\n### 81 - VALEURS COMPTABLES DES CESSIONS D’IMMOBILISATIONS\nsil Valeurs comptables des cessions d’immobilisations incorporelles\n- **812** - Valeurs comptables des cessions d’immobilisations corporelles\n- **816** - Valeurs comptables des cessions d’immobilisations financiéres\n- **818** - Valeurs comptables des cessions d’immobilisations regues destinées a la vente\nprovenant de dons et legs",
+      "token_count": 89
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p027:c0059",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "81 - VALEURS COMPTABLES DES CESSIONS D’ IMMOBILISATIONS",
+        "82 - PRODUITS DES CESSIONS D’IMMOBILISATIONS"
+      ],
+      "page_pdf": 27,
+      "text_source": "### 82 - PRODUITS DES CESSIONS D’IMMOBILISATIONS\n- **821** - Produits des cessions d’immobilisations incorporelles\n- **822** - Produits des cessions d’immobilisations corporelles\n- **826** - Produits des cessions d’immobilisations financiéres\n- **828** - Produits des cessions d’immobilisations regues destinées 4 la vente provenant de\ndons et legs\n” 83 CHARGES HORS ACTIVITES ORDINAIRES -\n- **831** - Charges H.A.O. constatées\n- **832** - Dons en nature H.A.O. a distribuer\n- **8311** - Dons en nature H.A.O. non affectés\n- **8315** - Dons en nature H.A.O. affectés\n- **834** - Pertes sur créances H.A.O,\n- **836** - Abandons de créances consentis\n- **838** - Transferts de charges H.A.O.\n- **839** - Charges pour dépréciations et provisions pour risques 4 court terme H.A.O.\nCB camscanner",
+      "token_count": 74
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p028:c0060",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "81 - VALEURS COMPTABLES DES CESSIONS D’ IMMOBILISATIONS",
+        "85 - DOTATIONS HORS ACTIVITES ORDINAIRES"
+      ],
+      "page_pdf": 28,
+      "text_source": "| Journal officiel OHADA 2023 AE 15/03/2023 V2020.qxp_OHADA 28/03/2023 “ae Page 104 |\nACTE UNIFORME RELATIF AU SYSTEME COMPTABLE DES ENTITES A BUT NON LUCRATIF\n### 84 - REVENUS HORS ACTIVITES ORDINAIRES\n- **841** - Produits H.A.O. constatés\n- **842** - Contributions volontaires en nature\n- **8411** - Dons en nature HAO vendus\n- **8412** - Prestations de services en nature HAO\n- **8415** - Dons en nature HAO 4 distribuer\n- **843** - Contributions volontaires en numéraire\n- **846** - Abandons de créances obtenus\n- **848** - Transferts de produits H.A.O\n- **849** - Reprises de charges pour dépréciations et provisions pour risques 4 court terme\nH.A.O.\n### 85 - DOTATIONS HORS ACTIVITES ORDINAIRES\n- **851** - Dotations aux provisions réglementées\n- **852** - Dotations aux amortissements H.A.O,\n- **853** - Dotations aux dépréciations H.A.O.\n- **854** - Dotations aux provisions pour risques et charges H.A.O.\n- **858** - Autres dotations H.A.O",
+      "token_count": 95
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p028:c0061",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "81 - VALEURS COMPTABLES DES CESSIONS D’ IMMOBILISATIONS",
+        "87 - VARIATIONS DE STOCKS DE DONS EN NATURE HAO"
+      ],
+      "page_pdf": 28,
+      "text_source": "### 86 - REPRISES D'AMORTISSEMENTS, PROVISIONS ET DEPRECIATIONS HAO.\n- **861** - Reprises de provisions réglementées\n- **862** - Reprises d’amortissements H.A.O.\n- **863** - Reprises de dépréciations H.A.O.\n- **864** - Reprises de provisions pour risques et charges H.A.O.\n- **868** - Autres reprises H.A.O.\n### 87 - VARIATIONS DE STOCKS DE DONS EN NATURE HAO\n” 88 SUBVENTIONS D’EQUILIBRE -\n- **881** - Subyentions d’équilibre, Etat\n- **884** - Subventions d’équilibre, Collectivités publiques\n- **888** - Autres subventions d’équilibre\n| $ |\nCB camscanner",
+      "token_count": 45
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p029:c0062",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "CLASSE 9 — COMPTE DE LA COMPTABILITE ANALYTIQUE DE GESTION",
+        "95 - COMPTES DE STOCKS"
+      ],
+      "page_pdf": 29,
+      "text_source": "| Journal officiel OHADA 2023 AE 15/03/2023 V2020.qxp_OHADA 28/03/2023 “a Page 105 |\n# PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES\n## CLASSE 9 —- COMPTE DES CONTRIBUTIONS VOLONTAIRES EN NATURE\n### 90 - EMPLOIS DES CONTRIBUTIONS VOLONTAIRES EN NATURE\n### 91 - CONTRIBUTIONS VOLONTAIRES EN NATURE\n### 90 - EMPLOIS DES CONTRIBUTIONS VOLONTAIRES EN NATURE\n- **900** - Secours en nature\n- **901** - Mises a disposition gratuite de biens\n- **902** - Prestations en nature\n- **904** - Personnel bénévole\n### 91 - CONTRIBUTIONS VOLONTAIRES EN NATURE\n- **910** - Dons en nature\n- **911** - Prestations en nature\n- **914** - Bénévolat\n## CLASSE 9 — COMPTE DE LA COMPTABILITE ANALYTIQUE DE GESTION\n### 92 - COMPTES REFLECHIS\n### 93 - COMPTES DE RECLASSEMENTS\n### 94 - COMPTES DE COOTS\n### 95 - COMPTES DE STOCKS",
+      "token_count": 74
+    },
+    {
+      "chunk_id": "ohada-ebnl-plan-2023-md:p029:c0063",
+      "heading_path": [
+        "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+        "CLASSE 9 — COMPTE DE LA COMPTABILITE ANALYTIQUE DE GESTION",
+        "99 - COMPTES DE LIAISONS INTERNES"
+      ],
+      "page_pdf": 29,
+      "text_source": "### 96 - COMPTES D'ECARTS SUR COUTS PREETABLIS\n” 97 COMPTES DE DIFFERENCES DE TRAITEMENT COMPTABLE -\n### 98 - COMPTES DE RESULTATS\n### 99 - COMPTES DE LIAISONS INTERNES\n| ° |\nCB camscanner",
+      "token_count": 15
+    }
+  ],
+  "document_id": "ohada-ebnl-plan-2023-md",
+  "index_version": "deterministic_bm25_lexical_v1",
+  "source_quality_notice": {
+    "pdf_is_visual_authority": true,
+    "quality_status": "ocr_review_required",
+    "role": "secondary_chart_extract_index",
+    "use_for_authoritative_quote_without_pdf_check": false
+  },
+  "statistics": {
+    "average_tokens": 100.1,
+    "chunks": 63,
+    "pages_with_chunks": 29,
+    "terms": 1802
+  },
+  "terms": {
+    "023": [
+      34
+    ],
+    "025": [
+      34
+    ],
+    "032": [
+      34
+    ],
+    "100": [
+      51
+    ],
+    "101": [
+      1
+    ],
+    "1011": [
+      1
+    ],
+    "1015": [
+      1
+    ],
+    "102": [
+      1
+    ],
+    "1021": [
+      1
+    ],
+    "1025": [
+      1
+    ],
+    "103": [
+      1,
+      57
+    ],
+    "104": [
+      1,
+      59
+    ],
+    "1041": [
+      1
+    ],
+    "1049": [
+      1
+    ],
+    "105": [
+      61
+    ],
+    "106": [
+      1
+    ],
+    "1061": [
+      1
+    ],
+    "10611": [
+      1
+    ],
+    "10612": [
+      1
+    ],
+    "1062": [
+      1
+    ],
+    "10621": [
+      1
+    ],
+    "10622": [
+      1
+    ],
+    "112": [
+      2
+    ],
+    "118": [
+      2
+    ],
+    "121": [
+      2
+    ],
+    "128": [
+      2
+    ],
+    "129": [
+      2
+    ],
+    "131": [
+      2
+    ],
+    "139": [
+      2
+    ],
+    "141": [
+      2
+    ],
+    "1411": [
+      2
+    ],
+    "1412": [
+      2
+    ],
+    "1413": [
+      2
+    ],
+    "1414": [
+      2
+    ],
+    "1415": [
+      2
+    ],
+    "1416": [
+      3
+    ],
+    "1417": [
+      3
+    ],
+    "1418": [
+      3
+    ],
+    "148": [
+      3
+    ],
+    "154": [
+      3
+    ],
+    "158": [
+      3
+    ],
+    "161": [
+      3
+    ],
+    "162": [
+      3
+    ],
+    "163": [
+      3
+    ],
+    "164": [
+      3
+    ],
+    "165": [
+      3
+    ],
+    "167": [
+      3
+    ],
+    "1671": [
+      3
+    ],
+    "1672": [
+      3
+    ],
+    "1679": [
+      3
+    ],
+    "168": [
+      3
+    ],
+    "169": [
+      3
+    ],
+    "171": [
+      3
+    ],
+    "172": [
+      3
+    ],
+    "178": [
+      3
+    ],
+    "181": [
+      4
+    ],
+    "182": [
+      4
+    ],
+    "183": [
+      4
+    ],
+    "185": [
+      4
+    ],
+    "1851": [
+      4
+    ],
+    "1852": [
+      4
+    ],
+    "186": [
+      4
+    ],
+    "1861": [
+      4
+    ],
+    "1862": [
+      4
+    ],
+    "1863": [
+      4
+    ],
+    "1865": [
+      4
+    ],
+    "1868": [
+      4
+    ],
+    "187": [
+      4
+    ],
+    "1871": [
+      4
+    ],
+    "1872": [
+      4
+    ],
+    "1873": [
+      4
+    ],
+    "1876": [
+      4
+    ],
+    "188": [
+      4
+    ],
+    "191": [
+      5
+    ],
+    "192": [
+      5
+    ],
+    "194": [
+      5
+    ],
+    "196": [
+      5
+    ],
+    "198": [
+      5
+    ],
+    "1981": [
+      5
+    ],
+    "1984": [
+      5
+    ],
+    "1988": [
+      5
+    ],
+    "201": [
+      6
+    ],
+    "2011": [
+      6
+    ],
+    "2012": [
+      6
+    ],
+    "2013": [
+      6
+    ],
+    "2014": [
+      6
+    ],
+    "2017": [
+      6
+    ],
+    "202": [
+      6
+    ],
+    "2023": [
+      1,
+      3,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      19,
+      21,
+      22,
+      24,
+      26,
+      29,
+      32,
+      34,
+      36,
+      38,
+      40,
+      43,
+      45,
+      47,
+      49,
+      51,
+      53,
+      56,
+      57,
+      59,
+      61
+    ],
+    "203": [
+      6
+    ],
+    "204": [
+      6
+    ],
+    "205": [
+      6
+    ],
+    "212": [
+      7
+    ],
+    "2121": [
+      7
+    ],
+    "2122": [
+      7
+    ],
+    "2123": [
+      7
+    ],
+    "2128": [
+      7
+    ],
+    "213": [
+      7
+    ],
+    "2131": [
+      7
+    ],
+    "2132": [
+      7
+    ],
+    "214": [
+      7
+    ],
+    "218": [
+      7
+    ],
+    "2181": [
+      7
+    ],
+    "219": [
+      7
+    ],
+    "2193": [
+      7
+    ],
+    "2198": [
+      7
+    ],
+    "221": [
+      7
+    ],
+    "2211": [
+      7
+    ],
+    "2212": [
+      7
+    ],
+    "2218": [
+      7
+    ],
+    "222": [
+      7
+    ],
+    "2221": [
+      7
+    ],
+    "2228": [
+      8
+    ],
+    "223": [
+      8
+    ],
+    "2231": [
+      8
+    ],
+    "2232": [
+      8
+    ],
+    "2234": [
+      8
+    ],
+    "2235": [
+      8
+    ],
+    "2238": [
+      8
+    ],
+    "224": [
+      8
+    ],
+    "2241": [
+      8
+    ],
+    "2245": [
+      8
+    ],
+    "2248": [
+      8
+    ],
+    "226": [
+      8
+    ],
+    "2261": [
+      8
+    ],
+    "228": [
+      8
+    ],
+    "2281": [
+      8
+    ],
+    "2285": [
+      8
+    ],
+    "2286": [
+      8
+    ],
+    "2288": [
+      8
+    ],
+    "229": [
+      8
+    ],
+    "2291": [
+      8
+    ],
+    "2292": [
+      8
+    ],
+    "2298": [
+      8
+    ],
+    "231": [
+      9
+    ],
+    "2311": [
+      9
+    ],
+    "2312": [
+      9
+    ],
+    "2313": [
+      9
+    ],
+    "2314": [
+      9
+    ],
+    "2315": [
+      9
+    ],
+    "2316": [
+      9
+    ],
+    "2317": [
+      9
+    ],
+    "2318": [
+      9
+    ],
+    "232": [
+      9
+    ],
+    "2321": [
+      9
+    ],
+    "2322": [
+      9
+    ],
+    "2323": [
+      9
+    ],
+    "2324": [
+      9
+    ],
+    "2325": [
+      9
+    ],
+    "2326": [
+      9
+    ],
+    "2327": [
+      9
+    ],
+    "2328": [
+      9
+    ],
+    "233": [
+      9
+    ],
+    "2331": [
+      9
+    ],
+    "2332": [
+      9
+    ],
+    "2333": [
+      9
+    ],
+    "2334": [
+      9
+    ],
+    "2335": [
+      9
+    ],
+    "2337": [
+      9
+    ],
+    "2338": [
+      9
+    ],
+    "234": [
+      9
+    ],
+    "2341": [
+      9
+    ],
+    "2342": [
+      10
+    ],
+    "2343": [
+      10
+    ],
+    "2344": [
+      10
+    ],
+    "2345": [
+      10
+    ],
+    "235": [
+      10
+    ],
+    "2351": [
+      10
+    ],
+    "2358": [
+      10
+    ],
+    "238": [
+      10
+    ],
+    "2381": [
+      10
+    ],
+    "2382": [
+      10
+    ],
+    "239": [
+      10
+    ],
+    "2391": [
+      10
+    ],
+    "2392": [
+      10
+    ],
+    "2393": [
+      10
+    ],
+    "2394": [
+      10
+    ],
+    "2395": [
+      10
+    ],
+    "2396": [
+      10
+    ],
+    "2398": [
+      10
+    ],
+    "241": [
+      11
+    ],
+    "2411": [
+      11
+    ],
+    "2412": [
+      11
+    ],
+    "2413": [
+      11
+    ],
+    "2414": [
+      11
+    ],
+    "2416": [
+      11
+    ],
+    "242": [
+      11
+    ],
+    "2421": [
+      11
+    ],
+    "2422": [
+      11
+    ],
+    "2426": [
+      11
+    ],
+    "243": [
+      11
+    ],
+    "244": [
+      11
+    ],
+    "2441": [
+      11
+    ],
+    "2442": [
+      11
+    ],
+    "2443": [
+      11
+    ],
+    "2444": [
+      11
+    ],
+    "2445": [
+      11
+    ],
+    "2446": [
+      11
+    ],
+    "2447": [
+      11
+    ],
+    "245": [
+      11
+    ],
+    "2451": [
+      11
+    ],
+    "2452": [
+      11
+    ],
+    "2453": [
+      11
+    ],
+    "2454": [
+      11
+    ],
+    "2455": [
+      11
+    ],
+    "2456": [
+      11
+    ],
+    "2457": [
+      11
+    ],
+    "2458": [
+      11
+    ],
+    "246": [
+      11
+    ],
+    "2461": [
+      11
+    ],
+    "2462": [
+      11
+    ],
+    "2463": [
+      11
+    ],
+    "2465": [
+      11
+    ],
+    "2468": [
+      11
+    ],
+    "247": [
+      12
+    ],
+    "2471": [
+      12
+    ],
+    "2472": [
+      12
+    ],
+    "2478": [
+      12
+    ],
+    "248": [
+      12
+    ],
+    "2481": [
+      12
+    ],
+    "2488": [
+      12
+    ],
+    "249": [
+      12
+    ],
+    "2491": [
+      12
+    ],
+    "2492": [
+      12
+    ],
+    "2493": [
+      12
+    ],
+    "2494": [
+      12
+    ],
+    "2495": [
+      12
+    ],
+    "2496": [
+      12
+    ],
+    "2497": [
+      12
+    ],
+    "2498": [
+      12
+    ],
+    "251": [
+      13
+    ],
+    "252": [
+      13
+    ],
+    "261": [
+      13
+    ],
+    "265": [
+      13
+    ],
+    "266": [
+      13
+    ],
+    "268": [
+      13
+    ],
+    "271": [
+      13
+    ],
+    "2711": [
+      13
+    ],
+    "2713": [
+      13
+    ],
+    "2715": [
+      13
+    ],
+    "2718": [
+      13
+    ],
+    "272": [
+      13
+    ],
+    "2721": [
+      13
+    ],
+    "2722": [
+      13
+    ],
+    "2728": [
+      13
+    ],
+    "273": [
+      13
+    ],
+    "2731": [
+      13
+    ],
+    "2733": [
+      13
+    ],
+    "2738": [
+      13
+    ],
+    "274": [
+      13
+    ],
+    "2741": [
+      13
+    ],
+    "2742": [
+      13
+    ],
+    "2743": [
+      13
+    ],
+    "2744": [
+      13
+    ],
+    "2745": [
+      13
+    ],
+    "2748": [
+      13
+    ],
+    "275": [
+      13
+    ],
+    "2751": [
+      13
+    ],
+    "2752": [
+      13
+    ],
+    "2753": [
+      13
+    ],
+    "2754": [
+      13
+    ],
+    "2755": [
+      13
+    ],
+    "2758": [
+      13
+    ],
+    "276": [
+      13
+    ],
+    "2761": [
+      14
+    ],
+    "2762": [
+      14
+    ],
+    "2763": [
+      14
+    ],
+    "2764": [
+      14
+    ],
+    "2765": [
+      14
+    ],
+    "2768": [
+      14
+    ],
+    "278": [
+      14
+    ],
+    "2781": [
+      14
+    ],
+    "2784": [
+      14
+    ],
+    "2785": [
+      14
+    ],
+    "2788": [
+      14
+    ],
+    "280": [
+      14
+    ],
+    "281": [
+      14
+    ],
+    "2812": [
+      14
+    ],
+    "2813": [
+      14
+    ],
+    "2814": [
+      14
+    ],
+    "2817": [
+      14
+    ],
+    "2818": [
+      14
+    ],
+    "282": [
+      14
+    ],
+    "2824": [
+      14
+    ],
+    "283": [
+      14
+    ],
+    "2831": [
+      14
+    ],
+    "2832": [
+      14
+    ],
+    "2833": [
+      14
+    ],
+    "2834": [
+      15
+    ],
+    "2835": [
+      15
+    ],
+    "2838": [
+      15
+    ],
+    "284": [
+      15
+    ],
+    "2841": [
+      15
+    ],
+    "2842": [
+      15
+    ],
+    "2843": [
+      15
+    ],
+    "2844": [
+      15
+    ],
+    "2845": [
+      15
+    ],
+    "2846": [
+      15
+    ],
+    "2847": [
+      15
+    ],
+    "2848": [
+      15
+    ],
+    "290": [
+      15
+    ],
+    "2901": [
+      15
+    ],
+    "2902": [
+      15
+    ],
+    "291": [
+      15
+    ],
+    "2912": [
+      15
+    ],
+    "2913": [
+      15
+    ],
+    "2914": [
+      16
+    ],
+    "2918": [
+      16
+    ],
+    "2919": [
+      16
+    ],
+    "292": [
+      16
+    ],
+    "2921": [
+      16
+    ],
+    "2922": [
+      16
+    ],
+    "2923": [
+      16
+    ],
+    "2924": [
+      16
+    ],
+    "2926": [
+      16
+    ],
+    "2928": [
+      16
+    ],
+    "2929": [
+      16
+    ],
+    "293": [
+      16
+    ],
+    "2931": [
+      16
+    ],
+    "2932": [
+      16
+    ],
+    "2933": [
+      16
+    ],
+    "2934": [
+      16
+    ],
+    "2935": [
+      16
+    ],
+    "2938": [
+      16
+    ],
+    "2939": [
+      16
+    ],
+    "294": [
+      16
+    ],
+    "2941": [
+      17
+    ],
+    "2942": [
+      17
+    ],
+    "2943": [
+      17
+    ],
+    "2944": [
+      17
+    ],
+    "2945": [
+      17
+    ],
+    "2946": [
+      17
+    ],
+    "2947": [
+      17
+    ],
+    "2948": [
+      17
+    ],
+    "2949": [
+      17
+    ],
+    "295": [
+      17
+    ],
+    "2951": [
+      17
+    ],
+    "2952": [
+      17
+    ],
+    "296": [
+      17
+    ],
+    "2961": [
+      17
+    ],
+    "2965": [
+      17
+    ],
+    "2966": [
+      17
+    ],
+    "2968": [
+      17
+    ],
+    "297": [
+      17
+    ],
+    "2971": [
+      17
+    ],
+    "2972": [
+      17
+    ],
+    "2973": [
+      17
+    ],
+    "2974": [
+      17
+    ],
+    "2975": [
+      17
+    ],
+    "2977": [
+      17
+    ],
+    "2978": [
+      18
+    ],
+    "311": [
+      19
+    ],
+    "312": [
+      19
+    ],
+    "321": [
+      19
+    ],
+    "322": [
+      19
+    ],
+    "323": [
+      19
+    ],
+    "324": [
+      19
+    ],
+    "325": [
+      19
+    ],
+    "331": [
+      19
+    ],
+    "333": [
+      19
+    ],
+    "334": [
+      19
+    ],
+    "335": [
+      19
+    ],
+    "3351": [
+      19
+    ],
+    "3352": [
+      19
+    ],
+    "3353": [
+      19
+    ],
+    "3358": [
+      19
+    ],
+    "338": [
+      19
+    ],
+    "341": [
+      20
+    ],
+    "345": [
+      20
+    ],
+    "361": [
+      20
+    ],
+    "362": [
+      20
+    ],
+    "363": [
+      20
+    ],
+    "3631": [
+      20
+    ],
+    "3632": [
+      20
+    ],
+    "3638": [
+      20
+    ],
+    "367": [
+      20
+    ],
+    "371": [
+      20
+    ],
+    "372": [
+      20
+    ],
+    "373": [
+      20
+    ],
+    "376": [
+      20
+    ],
+    "377": [
+      20
+    ],
+    "3771": [
+      20
+    ],
+    "3772": [
+      20
+    ],
+    "378": [
+      20
+    ],
+    "381": [
+      21
+    ],
+    "385": [
+      21
+    ],
+    "391": [
+      21
+    ],
+    "392": [
+      21
+    ],
+    "393": [
+      21
+    ],
+    "396": [
+      21
+    ],
+    "397": [
+      21
+    ],
+    "401": [
+      22
+    ],
+    "4011": [
+      22
+    ],
+    "4013": [
+      22
+    ],
+    "4016": [
+      22
+    ],
+    "4017": [
+      22
+    ],
+    "402": [
+      22
+    ],
+    "4021": [
+      22
+    ],
+    "4023": [
+      22
+    ],
+    "408": [
+      22
+    ],
+    "4081": [
+      22
+    ],
+    "4083": [
+      22
+    ],
+    "4086": [
+      22
+    ],
+    "409": [
+      22
+    ],
+    "4091": [
+      22
+    ],
+    "4093": [
+      22
+    ],
+    "4094": [
+      22
+    ],
+    "4098": [
+      22
+    ],
+    "411": [
+      23
+    ],
+    "412": [
+      23
+    ],
+    "413": [
+      23
+    ],
+    "4131": [
+      23
+    ],
+    "4132": [
+      23
+    ],
+    "4133": [
+      23
+    ],
+    "4138": [
+      23
+    ],
+    "416": [
+      23
+    ],
+    "4161": [
+      23
+    ],
+    "4162": [
+      23
+    ],
+    "418": [
+      23
+    ],
+    "4181": [
+      23
+    ],
+    "4182": [
+      23
+    ],
+    "4186": [
+      24
+    ],
+    "419": [
+      24
+    ],
+    "4191": [
+      24
+    ],
+    "4192": [
+      24
+    ],
+    "4194": [
+      24
+    ],
+    "4198": [
+      24
+    ],
+    "421": [
+      24
+    ],
+    "4211": [
+      24
+    ],
+    "4212": [
+      24
+    ],
+    "4213": [
+      24
+    ],
+    "422": [
+      24
+    ],
+    "423": [
+      24
+    ],
+    "4231": [
+      24
+    ],
+    "4232": [
+      24
+    ],
+    "4233": [
+      24
+    ],
+    "424": [
+      24
+    ],
+    "4241": [
+      24
+    ],
+    "4242": [
+      24
+    ],
+    "4245": [
+      24
+    ],
+    "4248": [
+      24
+    ],
+    "425": [
+      24
+    ],
+    "4251": [
+      24
+    ],
+    "4252": [
+      24
+    ],
+    "4258": [
+      24
+    ],
+    "427": [
+      24
+    ],
+    "428": [
+      24,
+      57
+    ],
+    "4281": [
+      24
+    ],
+    "4286": [
+      24
+    ],
+    "4287": [
+      24
+    ],
+    "431": [
+      25
+    ],
+    "4311": [
+      25
+    ],
+    "4312": [
+      25
+    ],
+    "4318": [
+      25
+    ],
+    "432": [
+      25
+    ],
+    "4321": [
+      25
+    ],
+    "4322": [
+      25
+    ],
+    "4328": [
+      25
+    ],
+    "433": [
+      25
+    ],
+    "4331": [
+      25
+    ],
+    "4332": [
+      25
+    ],
+    "4333": [
+      25
+    ],
+    "438": [
+      25
+    ],
+    "4381": [
+      25
+    ],
+    "4382": [
+      25
+    ],
+    "4386": [
+      25
+    ],
+    "4387": [
+      25
+    ],
+    "442": [
+      25
+    ],
+    "4422": [
+      25
+    ],
+    "4423": [
+      25
+    ],
+    "4424": [
+      26
+    ],
+    "4426": [
+      26
+    ],
+    "4428": [
+      26
+    ],
+    "443": [
+      26
+    ],
+    "444": [
+      26
+    ],
+    "445": [
+      26
+    ],
+    "446": [
+      26
+    ],
+    "447": [
+      26
+    ],
+    "4471": [
+      26
+    ],
+    "4472": [
+      26
+    ],
+    "4473": [
+      26
+    ],
+    "4474": [
+      26
+    ],
+    "4478": [
+      26
+    ],
+    "448": [
+      26
+    ],
+    "4486": [
+      26
+    ],
+    "4487": [
+      26
+    ],
+    "449": [
+      26
+    ],
+    "4491": [
+      26
+    ],
+    "450x": [
+      53,
+      56
+    ],
+    "451": [
+      27
+    ],
+    "4511": [
+      27
+    ],
+    "4512": [
+      27
+    ],
+    "4515": [
+      27
+    ],
+    "452": [
+      27
+    ],
+    "4521": [
+      27
+    ],
+    "4522": [
+      27
+    ],
+    "453": [
+      27
+    ],
+    "4531": [
+      27
+    ],
+    "4532": [
+      27
+    ],
+    "4535": [
+      27
+    ],
+    "454": [
+      27
+    ],
+    "4541": [
+      27
+    ],
+    "4542": [
+      27
+    ],
+    "4545": [
+      27
+    ],
+    "455": [
+      27
+    ],
+    "4551": [
+      27
+    ],
+    "4552": [
+      27
+    ],
+    "4555": [
+      27
+    ],
+    "456": [
+      27
+    ],
+    "4561": [
+      27
+    ],
+    "4562": [
+      27
+    ],
+    "457": [
+      27
+    ],
+    "4572": [
+      27
+    ],
+    "458": [
+      27
+    ],
+    "462": [
+      28
+    ],
+    "463": [
+      28
+    ],
+    "464": [
+      28
+    ],
+    "469": [
+      28
+    ],
+    "4692": [
+      28
+    ],
+    "4693": [
+      28
+    ],
+    "4694": [
+      28
+    ],
+    "471": [
+      29
+    ],
+    "4711": [
+      29
+    ],
+    "4712": [
+      29
+    ],
+    "4713": [
+      29
+    ],
+    "4717": [
+      29
+    ],
+    "4719": [
+      29
+    ],
+    "472": [
+      29
+    ],
+    "4721": [
+      29
+    ],
+    "4726": [
+      29
+    ],
+    "473": [
+      29
+    ],
+    "4731": [
+      29
+    ],
+    "4732": [
+      29
+    ],
+    "4733": [
+      29
+    ],
+    "4738": [
+      29
+    ],
+    "4739": [
+      29
+    ],
+    "474": [
+      29
+    ],
+    "4746": [
+      29
+    ],
+    "4747": [
+      29
+    ],
+    "475": [
+      29
+    ],
+    "476": [
+      29
+    ],
+    "477": [
+      29
+    ],
+    "478": [
+      29
+    ],
+    "47811": [
+      29
+    ],
+    "47818": [
+      29
+    ],
+    "4782": [
+      29
+    ],
+    "4783": [
+      29
+    ],
+    "47831": [
+      30
+    ],
+    "47838": [
+      30
+    ],
+    "4784": [
+      30
+    ],
+    "4786": [
+      30
+    ],
+    "4788": [
+      30
+    ],
+    "479": [
+      30
+    ],
+    "4791": [
+      30
+    ],
+    "47911": [
+      30
+    ],
+    "47918": [
+      30
+    ],
+    "4792": [
+      30
+    ],
+    "4793": [
+      30
+    ],
+    "47931": [
+      30
+    ],
+    "47938": [
+      30
+    ],
+    "4794": [
+      30
+    ],
+    "4797": [
+      30
+    ],
+    "4798": [
+      30
+    ],
+    "481": [
+      31
+    ],
+    "4811": [
+      31
+    ],
+    "4812": [
+      31
+    ],
+    "4813": [
+      31
+    ],
+    "4816": [
+      31
+    ],
+    "48161": [
+      31
+    ],
+    "48162": [
+      31
+    ],
+    "4817": [
+      32
+    ],
+    "48171": [
+      32
+    ],
+    "48172": [
+      32
+    ],
+    "4818": [
+      32
+    ],
+    "48181": [
+      32
+    ],
+    "48182": [
+      32
+    ],
+    "484": [
+      32
+    ],
+    "485": [
+      32
+    ],
+    "4851": [
+      32
+    ],
+    "4852": [
+      32
+    ],
+    "4856": [
+      32
+    ],
+    "4857": [
+      32
+    ],
+    "4858": [
+      32
+    ],
+    "486": [
+      32
+    ],
+    "4861": [
+      32
+    ],
+    "4865": [
+      32
+    ],
+    "488": [
+      32
+    ],
+    "4881": [
+      32
+    ],
+    "490": [
+      33
+    ],
+    "491": [
+      33
+    ],
+    "4911": [
+      33
+    ],
+    "4912": [
+      33
+    ],
+    "492": [
+      33
+    ],
+    "493": [
+      33
+    ],
+    "494": [
+      33
+    ],
+    "497": [
+      33
+    ],
+    "498": [
+      33
+    ],
+    "4985": [
+      33
+    ],
+    "4988": [
+      33
+    ],
+    "499": [
+      33
+    ],
+    "4998": [
+      33
+    ],
+    "501": [
+      34
+    ],
+    "5011": [
+      34
+    ],
+    "5012": [
+      34
+    ],
+    "5013": [
+      34
+    ],
+    "5016": [
+      34
+    ],
+    "502": [
+      34
+    ],
+    "5022": [
+      34
+    ],
+    "5026": [
+      34
+    ],
+    "503": [
+      34
+    ],
+    "5033": [
+      34
+    ],
+    "5035": [
+      34
+    ],
+    "5036": [
+      34
+    ],
+    "504": [
+      34
+    ],
+    "5042": [
+      34
+    ],
+    "5043": [
+      34
+    ],
+    "505": [
+      34
+    ],
+    "506": [
+      34
+    ],
+    "5061": [
+      34
+    ],
+    "5062": [
+      34
+    ],
+    "5063": [
+      34
+    ],
+    "508": [
+      34
+    ],
+    "513": [
+      35
+    ],
+    "514": [
+      35
+    ],
+    "515": [
+      35
+    ],
+    "518": [
+      35
+    ],
+    "5185": [
+      35
+    ],
+    "5186": [
+      35
+    ],
+    "5187": [
+      35
+    ],
+    "521": [
+      35
+    ],
+    "5211": [
+      35
+    ],
+    "5215": [
+      36
+    ],
+    "523": [
+      36
+    ],
+    "524": [
+      36
+    ],
+    "526": [
+      36
+    ],
+    "5261": [
+      36
+    ],
+    "5267": [
+      36
+    ],
+    "531": [
+      36
+    ],
+    "532": [
+      36
+    ],
+    "533": [
+      36
+    ],
+    "536": [
+      36
+    ],
+    "5361": [
+      36
+    ],
+    "5367": [
+      36
+    ],
+    "538": [
+      36
+    ],
+    "551": [
+      37
+    ],
+    "552": [
+      37
+    ],
+    "553": [
+      37
+    ],
+    "554": [
+      37
+    ],
+    "558": [
+      37
+    ],
+    "561": [
+      37
+    ],
+    "565": [
+      37
+    ],
+    "566": [
+      37
+    ],
+    "571": [
+      37
+    ],
+    "585": [
+      37
+    ],
+    "588": [
+      37
+    ],
+    "590": [
+      37
+    ],
+    "591": [
+      37
+    ],
+    "593": [
+      37
+    ],
+    "595": [
+      37
+    ],
+    "599": [
+      37
+    ],
+    "601": [
+      38
+    ],
+    "6011": [
+      38
+    ],
+    "6012": [
+      38
+    ],
+    "6013": [
+      38
+    ],
+    "6015": [
+      38
+    ],
+    "6019": [
+      38
+    ],
+    "602": [
+      38
+    ],
+    "6021": [
+      38
+    ],
+    "6022": [
+      38
+    ],
+    "6023": [
+      38
+    ],
+    "6025": [
+      38
+    ],
+    "6029": [
+      38
+    ],
+    "603": [
+      38
+    ],
+    "6031": [
+      38
+    ],
+    "6032": [
+      38
+    ],
+    "6033": [
+      39
+    ],
+    "6034": [
+      39
+    ],
+    "6035": [
+      39
+    ],
+    "604": [
+      39
+    ],
+    "6041": [
+      39
+    ],
+    "6042": [
+      39
+    ],
+    "6043": [
+      39
+    ],
+    "6045": [
+      39
+    ],
+    "6046": [
+      39
+    ],
+    "6047": [
+      39
+    ],
+    "6049": [
+      39
+    ],
+    "605": [
+      39
+    ],
+    "6051": [
+      39
+    ],
+    "6052": [
+      39
+    ],
+    "6053": [
+      39
+    ],
+    "6054": [
+      40
+    ],
+    "6055": [
+      40
+    ],
+    "6056": [
+      40
+    ],
+    "6057": [
+      40
+    ],
+    "6058": [
+      40
+    ],
+    "6059": [
+      40
+    ],
+    "606": [
+      40
+    ],
+    "6061": [
+      40
+    ],
+    "6062": [
+      40
+    ],
+    "6063": [
+      40
+    ],
+    "6064": [
+      40
+    ],
+    "6068": [
+      40
+    ],
+    "608": [
+      40
+    ],
+    "6081": [
+      40
+    ],
+    "6082": [
+      40
+    ],
+    "6083": [
+      40
+    ],
+    "6085": [
+      40
+    ],
+    "6089": [
+      40
+    ],
+    "612": [
+      41
+    ],
+    "613": [
+      41
+    ],
+    "614": [
+      41
+    ],
+    "616": [
+      41
+    ],
+    "618": [
+      41
+    ],
+    "6181": [
+      41
+    ],
+    "6183": [
+      41
+    ],
+    "619": [
+      41
+    ],
+    "621": [
+      41
+    ],
+    "622": [
+      41
+    ],
+    "6221": [
+      41
+    ],
+    "6222": [
+      41
+    ],
+    "6223": [
+      41
+    ],
+    "6224": [
+      41
+    ],
+    "6225": [
+      41
+    ],
+    "6226": [
+      41
+    ],
+    "6228": [
+      41
+    ],
+    "623": [
+      41
+    ],
+    "6232": [
+      41
+    ],
+    "6233": [
+      41
+    ],
+    "6234": [
+      41
+    ],
+    "6238": [
+      41
+    ],
+    "624": [
+      41
+    ],
+    "6241": [
+      41
+    ],
+    "6242": [
+      41
+    ],
+    "6243": [
+      41
+    ],
+    "6244": [
+      41
+    ],
+    "6248": [
+      41
+    ],
+    "625": [
+      41
+    ],
+    "6251": [
+      41
+    ],
+    "6252": [
+      41
+    ],
+    "6253": [
+      41
+    ],
+    "6258": [
+      43
+    ],
+    "626": [
+      43
+    ],
+    "6261": [
+      43
+    ],
+    "6265": [
+      43
+    ],
+    "6266": [
+      43
+    ],
+    "627": [
+      43
+    ],
+    "6271": [
+      43
+    ],
+    "6272": [
+      43
+    ],
+    "6273": [
+      43
+    ],
+    "6274": [
+      43
+    ],
+    "6275": [
+      43
+    ],
+    "6277": [
+      43
+    ],
+    "6278": [
+      43
+    ],
+    "628": [
+      43
+    ],
+    "6281": [
+      43
+    ],
+    "6283": [
+      43
+    ],
+    "6284": [
+      43
+    ],
+    "6288": [
+      43
+    ],
+    "631": [
+      44
+    ],
+    "6311": [
+      44
+    ],
+    "6312": [
+      44
+    ],
+    "6313": [
+      44
+    ],
+    "6315": [
+      44
+    ],
+    "6316": [
+      44
+    ],
+    "6317": [
+      44
+    ],
+    "6318": [
+      44
+    ],
+    "632": [
+      44
+    ],
+    "6322": [
+      44
+    ],
+    "6324": [
+      44
+    ],
+    "6325": [
+      44
+    ],
+    "6327": [
+      44
+    ],
+    "6328": [
+      44
+    ],
+    "633": [
+      44
+    ],
+    "634": [
+      44
+    ],
+    "6342": [
+      44
+    ],
+    "6343": [
+      44
+    ],
+    "6345": [
+      44
+    ],
+    "6346": [
+      44
+    ],
+    "6348": [
+      44
+    ],
+    "635": [
+      44
+    ],
+    "6351": [
+      44
+    ],
+    "6358": [
+      44
+    ],
+    "636": [
+      44
+    ],
+    "637": [
+      44
+    ],
+    "6371": [
+      44
+    ],
+    "6372": [
+      44
+    ],
+    "638": [
+      44
+    ],
+    "6381": [
+      44
+    ],
+    "6382": [
+      44
+    ],
+    "6383": [
+      44
+    ],
+    "6384": [
+      44
+    ],
+    "6385": [
+      45
+    ],
+    "6388": [
+      45
+    ],
+    "641": [
+      45
+    ],
+    "6411": [
+      45
+    ],
+    "6412": [
+      45
+    ],
+    "6413": [
+      45
+    ],
+    "6414": [
+      45
+    ],
+    "6415": [
+      45
+    ],
+    "6416": [
+      45
+    ],
+    "6418": [
+      45
+    ],
+    "645": [
+      45
+    ],
+    "646": [
+      45
+    ],
+    "6461": [
+      45
+    ],
+    "6462": [
+      45
+    ],
+    "6464": [
+      45
+    ],
+    "6468": [
+      45
+    ],
+    "647": [
+      45
+    ],
+    "6471": [
+      45
+    ],
+    "6472": [
+      45
+    ],
+    "6473": [
+      45
+    ],
+    "6474": [
+      45
+    ],
+    "6478": [
+      45
+    ],
+    "648": [
+      45
+    ],
+    "649": [
+      45
+    ],
+    "651": [
+      46
+    ],
+    "6511": [
+      46
+    ],
+    "6512": [
+      46
+    ],
+    "6515": [
+      46
+    ],
+    "652": [
+      46
+    ],
+    "654": [
+      46
+    ],
+    "6541": [
+      46
+    ],
+    "6545": [
+      46
+    ],
+    "657": [
+      46
+    ],
+    "658": [
+      46
+    ],
+    "659": [
+      46
+    ],
+    "6591": [
+      46
+    ],
+    "6593": [
+      46
+    ],
+    "6594": [
+      46
+    ],
+    "6598": [
+      46
+    ],
+    "661": [
+      46
+    ],
+    "6611": [
+      46
+    ],
+    "6612": [
+      46
+    ],
+    "6613": [
+      46
+    ],
+    "6614": [
+      46
+    ],
+    "6615": [
+      46
+    ],
+    "6616": [
+      46
+    ],
+    "6617": [
+      46
+    ],
+    "6618": [
+      46
+    ],
+    "662": [
+      46
+    ],
+    "6621": [
+      46
+    ],
+    "6622": [
+      47
+    ],
+    "6623": [
+      47
+    ],
+    "6624": [
+      47
+    ],
+    "6625": [
+      47
+    ],
+    "6626": [
+      47
+    ],
+    "6627": [
+      47
+    ],
+    "6628": [
+      47
+    ],
+    "663": [
+      47
+    ],
+    "6631": [
+      47
+    ],
+    "6632": [
+      47
+    ],
+    "6633": [
+      47
+    ],
+    "6634": [
+      47
+    ],
+    "6638": [
+      47
+    ],
+    "664": [
+      47
+    ],
+    "6641": [
+      47
+    ],
+    "6642": [
+      47
+    ],
+    "665": [
+      47
+    ],
+    "667": [
+      47
+    ],
+    "6671": [
+      47
+    ],
+    "6672": [
+      47
+    ],
+    "668": [
+      47
+    ],
+    "6681": [
+      47
+    ],
+    "6682": [
+      47
+    ],
+    "6683": [
+      47
+    ],
+    "6684": [
+      47
+    ],
+    "6685": [
+      47
+    ],
+    "6686": [
+      47
+    ],
+    "6687": [
+      47
+    ],
+    "6688": [
+      47
+    ],
+    "669": [
+      47
+    ],
+    "671": [
+      48
+    ],
+    "6711": [
+      48
+    ],
+    "6712": [
+      48
+    ],
+    "6713": [
+      48
+    ],
+    "672": [
+      48
+    ],
+    "6721": [
+      48
+    ],
+    "6722": [
+      48
+    ],
+    "6723": [
+      48
+    ],
+    "6724": [
+      48
+    ],
+    "673": [
+      48
+    ],
+    "674": [
+      48
+    ],
+    "6741": [
+      48
+    ],
+    "6742": [
+      48
+    ],
+    "6744": [
+      48
+    ],
+    "6745": [
+      48
+    ],
+    "6748": [
+      48
+    ],
+    "676": [
+      48
+    ],
+    "677": [
+      48
+    ],
+    "6771": [
+      48
+    ],
+    "678": [
+      48
+    ],
+    "6781": [
+      48
+    ],
+    "6782": [
+      48
+    ],
+    "679": [
+      49
+    ],
+    "6791": [
+      49
+    ],
+    "6795": [
+      49
+    ],
+    "6798": [
+      49
+    ],
+    "680": [
+      49
+    ],
+    "681": [
+      49
+    ],
+    "6812": [
+      49
+    ],
+    "6813": [
+      49
+    ],
+    "691": [
+      49
+    ],
+    "6911": [
+      49
+    ],
+    "6913": [
+      49
+    ],
+    "6914": [
+      49
+    ],
+    "695": [
+      49
+    ],
+    "6951": [
+      49
+    ],
+    "6952": [
+      49
+    ],
+    "697": [
+      49
+    ],
+    "6971": [
+      49
+    ],
+    "6972": [
+      50
+    ],
+    "701": [
+      51
+    ],
+    "702": [
+      51
+    ],
+    "703": [
+      51
+    ],
+    "704": [
+      51
+    ],
+    "7041": [
+      51
+    ],
+    "7042": [
+      51
+    ],
+    "7043": [
+      51
+    ],
+    "7044": [
+      51
+    ],
+    "7045": [
+      51
+    ],
+    "7046": [
+      51
+    ],
+    "7047": [
+      51
+    ],
+    "7048": [
+      51
+    ],
+    "705": [
+      51
+    ],
+    "7051": [
+      51
+    ],
+    "7052": [
+      51
+    ],
+    "7053": [
+      51
+    ],
+    "7054": [
+      51
+    ],
+    "7055": [
+      51
+    ],
+    "706": [
+      51
+    ],
+    "707": [
+      51
+    ],
+    "708": [
+      51
+    ],
+    "7081": [
+      51
+    ],
+    "7082": [
+      51
+    ],
+    "711": [
+      52
+    ],
+    "713": [
+      52
+    ],
+    "718": [
+      52
+    ],
+    "719": [
+      55
+    ],
+    "721": [
+      52
+    ],
+    "722": [
+      52
+    ],
+    "724": [
+      52
+    ],
+    "726": [
+      52
+    ],
+    "735": [
+      52
+    ],
+    "736": [
+      52
+    ],
+    "751": [
+      53
+    ],
+    "752": [
+      53
+    ],
+    "754": [
+      53
+    ],
+    "7542": [
+      53
+    ],
+    "758": [
+      53
+    ],
+    "7582": [
+      53
+    ],
+    "7583": [
+      53
+    ],
+    "7588": [
+      53
+    ],
+    "759": [
+      53
+    ],
+    "7591": [
+      53
+    ],
+    "7593": [
+      53
+    ],
+    "7594": [
+      53
+    ],
+    "7598": [
+      53
+    ],
+    "771": [
+      54
+    ],
+    "7712": [
+      54
+    ],
+    "7713": [
+      54
+    ],
+    "7717": [
+      54
+    ],
+    "772": [
+      54
+    ],
+    "7721": [
+      54
+    ],
+    "7722": [
+      54
+    ],
+    "773": [
+      54
+    ],
+    "774": [
+      54
+    ],
+    "7745": [
+      54
+    ],
+    "7746": [
+      54
+    ],
+    "7747": [
+      54
+    ],
+    "7748": [
+      54
+    ],
+    "776": [
+      54
+    ],
+    "778": [
+      54
+    ],
+    "7781": [
+      54
+    ],
+    "7782": [
+      54
+    ],
+    "779": [
+      54
+    ],
+    "7791": [
+      54
+    ],
+    "7795": [
+      54
+    ],
+    "7798": [
+      54
+    ],
+    "781": [
+      55
+    ],
+    "787": [
+      55
+    ],
+    "791": [
+      55
+    ],
+    "7911": [
+      55
+    ],
+    "7913": [
+      55
+    ],
+    "7914": [
+      55
+    ],
+    "792": [
+      55
+    ],
+    "7923": [
+      55
+    ],
+    "7925": [
+      55
+    ],
+    "7928": [
+      55
+    ],
+    "795": [
+      56
+    ],
+    "7951": [
+      56
+    ],
+    "7952": [
+      56
+    ],
+    "796": [
+      56
+    ],
+    "7961": [
+      56
+    ],
+    "7962": [
+      56
+    ],
+    "7968": [
+      56
+    ],
+    "797": [
+      56
+    ],
+    "7971": [
+      56
+    ],
+    "7972": [
+      56
+    ],
+    "798": [
+      56
+    ],
+    "799": [
+      56
+    ],
+    "812": [
+      57
+    ],
+    "816": [
+      57
+    ],
+    "818": [
+      57
+    ],
+    "821": [
+      58
+    ],
+    "822": [
+      58
+    ],
+    "826": [
+      58
+    ],
+    "828": [
+      58
+    ],
+    "831": [
+      58
+    ],
+    "8311": [
+      58
+    ],
+    "8315": [
+      58
+    ],
+    "832": [
+      58
+    ],
+    "834": [
+      58
+    ],
+    "836": [
+      58
+    ],
+    "838": [
+      58
+    ],
+    "839": [
+      58
+    ],
+    "841": [
+      59
+    ],
+    "8411": [
+      59
+    ],
+    "8412": [
+      59
+    ],
+    "8415": [
+      59
+    ],
+    "842": [
+      59
+    ],
+    "843": [
+      59
+    ],
+    "846": [
+      59
+    ],
+    "848": [
+      59
+    ],
+    "849": [
+      59
+    ],
+    "851": [
+      59
+    ],
+    "852": [
+      59
+    ],
+    "853": [
+      59
+    ],
+    "854": [
+      59
+    ],
+    "858": [
+      59
+    ],
+    "861": [
+      60
+    ],
+    "862": [
+      60
+    ],
+    "863": [
+      60
+    ],
+    "864": [
+      60
+    ],
+    "868": [
+      60
+    ],
+    "881": [
+      60
+    ],
+    "884": [
+      60
+    ],
+    "888": [
+      60
+    ],
+    "900": [
+      61
+    ],
+    "901": [
+      61
+    ],
+    "902": [
+      61
+    ],
+    "904": [
+      61
+    ],
+    "910": [
+      61
+    ],
+    "911": [
+      61
+    ],
+    "914": [
+      61
+    ],
+    "abandons": [
+      53,
+      58,
+      59
+    ],
+    "accessoires": [
+      39,
+      41,
+      42,
+      51
+    ],
+    "accidents": [
+      25
+    ],
+    "accordees": [
+      46
+    ],
+    "accorder": [
+      24
+    ],
+    "accordes": [
+      48
+    ],
+    "achat": [
+      52
+    ],
+    "achats": [
+      38,
+      39,
+      40,
+      41,
+      42
+    ],
+    "achetes": [
+      38
+    ],
+    "acomptes": [
+      6,
+      13,
+      17,
+      22,
+      24
+    ],
+    "acquis": [
+      15
+    ],
+    "acquisition": [
+      4,
+      8,
+      9,
+      11,
+      34,
+      41,
+      48
+    ],
+    "acte": [
+      3,
+      8,
+      12,
+      16,
+      21,
+      24,
+      29,
+      34,
+      38,
+      43,
+      47,
+      51,
+      56,
+      59
+    ],
+    "actes": [
+      44
+    ],
+    "actif": [
+      6,
+      16,
+      29
+    ],
+    "actifs": [
+      6,
+      11,
+      12,
+      15,
+      17,
+      20
+    ],
+    "actions": [
+      29,
+      34
+    ],
+    "activite": [
+      13,
+      19,
+      20,
+      38
+    ],
+    "activites": [
+      20,
+      22,
+      31,
+      32,
+      40,
+      51,
+      57,
+      58,
+      59
+    ],
+    "adheerents": [
+      23
+    ],
+    "adherents": [
+      22,
+      23,
+      24,
+      26,
+      27,
+      33,
+      46,
+      51,
+      53
+    ],
+    "administratifs": [
+      8,
+      9,
+      14,
+      16,
+      41
+    ],
+    "administration": [
+      22,
+      28,
+      51
+    ],
+    "aerien": [
+      11
+    ],
+    "aerodrome": [
+      9
+    ],
+    "affaires": [
+      26
+    ],
+    "affectation": [
+      2
+    ],
+    "affectes": [
+      1,
+      3,
+      8,
+      9,
+      20,
+      21,
+      46,
+      55,
+      58
+    ],
+    "age": [
+      1,
+      3,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      19,
+      21,
+      22,
+      24,
+      26,
+      29,
+      32,
+      34,
+      36,
+      38,
+      40,
+      43,
+      45,
+      47,
+      49,
+      51
+    ],
+    "agencements": [
+      6,
+      9,
+      10,
+      12,
+      14,
+      15,
+      16,
+      17
+    ],
+    "agricole": [
+      7,
+      11,
+      12,
+      15,
+      17
+    ],
+    "agricoles": [
+      7,
+      8,
+      9,
+      11,
+      14,
+      16
+    ],
+    "allocations": [
+      24
+    ],
+    "ameliorations": [
+      8
+    ],
+    "amenagements": [
+      8,
+      9,
+      10,
+      12,
+      15,
+      16,
+      17
+    ],
+    "amenages": [
+      8,
+      16
+    ],
+    "amendes": [
+      5,
+      45,
+      46
+    ],
+    "amortissements": [
+      6,
+      14,
+      15,
+      38,
+      49,
+      56,
+      57,
+      59,
+      60
+    ],
+    "analytique": [
+      61
+    ],
+    "animaux": [
+      11,
+      20
+    ],
+    "annexes": [
+      20,
+      45
+    ],
+    "annonces": [
+      43
+    ],
+    "annulations": [
+      45,
+      47
+    ],
+    "appels": [
+      23
+    ],
+    "appointements": [
+      45,
+      46
+    ],
+    "apporteurs": [
+      22,
+      27
+    ],
+    "apprentissage": [
+      45
+    ],
+    "approvisionnements": [
+      19,
+      20,
+      21,
+      39
+    ],
+    "arbres": [
+      8
+    ],
+    "arbustes": [
+      8
+    ],
+    "argent": [
+      15
+    ],
+    "arrets": [
+      24
+    ],
+    "art": [
+      12
+    ],
+    "assiette": [
+      45
+    ],
+    "assimilees": [
+      1,
+      4,
+      14,
+      27,
+      34,
+      36,
+      38,
+      48,
+      51,
+      54
+    ],
+    "assimiles": [
+      1,
+      3,
+      9,
+      10,
+      24,
+      27,
+      28,
+      34,
+      36,
+      37,
+      43,
+      47,
+      51,
+      54
+    ],
+    "assistance": [
+      24
+    ],
+    "associations": [
+      27
+    ],
+    "assurance": [
+      41
+    ],
+    "assurances": [
+      25,
+      39,
+      41,
+      43,
+      47,
+      53
+    ],
+    "attention": [
+      0
+    ],
+    "aucune": [
+      0
+    ],
+    "augmentation": [
+      29,
+      30
+    ],
+    "aupres": [
+      3,
+      4,
+      48
+    ],
+    "auto": [
+      52
+    ],
+    "automobile": [
+      11
+    ],
+    "autre": [
+      54
+    ],
+    "autres": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      59,
+      60
+    ],
+    "autrui": [
+      9,
+      10,
+      14,
+      16
+    ],
+    "aux": [
+      3,
+      7,
+      8,
+      14,
+      38,
+      46,
+      47,
+      49,
+      50,
+      59
+    ],
+    "avance": [
+      13,
+      29
+    ],
+    "avances": [
+      3,
+      4,
+      6,
+      13,
+      17,
+      22,
+      24,
+      48
+    ],
+    "avant": [
+      0
+    ],
+    "avantages": [
+      46,
+      47
+    ],
+    "avec": [
+      1
+    ],
+    "avis": [
+      24
+    ],
+    "avoirs": [
+      22,
+      24
+    ],
+    "bail": [
+      4,
+      41,
+      48
+    ],
+    "bailleurs": [
+      3,
+      22,
+      28
+    ],
+    "bancaires": [
+      44,
+      48
+    ],
+    "banque": [
+      36
+    ],
+    "banques": [
+      14,
+      34,
+      35,
+      36,
+      37
+    ],
+    "barrages": [
+      9
+    ],
+    "barres": [
+      15
+    ],
+    "batiments": [
+      6,
+      8,
+      9,
+      10,
+      14,
+      16,
+      41
+    ],
+    "batir": [
+      7
+    ],
+    "batis": [
+      8,
+      16
+    ],
+    "benevolat": [
+      61
+    ],
+    "benevole": [
+      61
+    ],
+    "benevoles": [
+      27,
+      53
+    ],
+    "biens": [
+      1,
+      19,
+      20,
+      21,
+      38,
+      41,
+      51,
+      52,
+      61
+    ],
+    "billets": [
+      13
+    ],
+    "billetteries": [
+      40
+    ],
+    "biolog": [
+      17
+    ],
+    "biologique": [
+      16
+    ],
+    "biologiques": [
+      6,
+      11,
+      12,
+      15,
+      17,
+      20
+    ],
+    "bloques": [
+      48
+    ],
+    "bons": [
+      29,
+      34,
+      40
+    ],
+    "brevets": [
+      6,
+      7,
+      14,
+      15,
+      44
+    ],
+    "bureau": [
+      11,
+      12,
+      19,
+      39,
+      40
+    ],
+    "bureautique": [
+      11
+    ],
+    "bureaux": [
+      10,
+      15,
+      16
+    ],
+    "but": [
+      3,
+      8,
+      12,
+      16,
+      21,
+      24,
+      29,
+      34,
+      38,
+      43,
+      47,
+      51,
+      56,
+      59
+    ],
+    "caisse": [
+      25,
+      34,
+      37
+    ],
+    "caisses": [
+      25
+    ],
+    "camscanner": [
+      2,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      18,
+      20,
+      21,
+      23,
+      25,
+      28,
+      31,
+      33,
+      35,
+      37,
+      39,
+      42,
+      44,
+      46,
+      48,
+      50,
+      52,
+      55,
+      56,
+      58,
+      60,
+      62
+    ],
+    "canonique": [
+      0
+    ],
+    "caractere": [
+      10,
+      37
+    ],
+    "carburant": [
+      37
+    ],
+    "carte": [
+      37
+    ],
+    "cartes": [
+      35,
+      44
+    ],
+    "cas": [
+      52
+    ],
+    "catalogues": [
+      43
+    ],
+    "cautionnement": [
+      13
+    ],
+    "cautionnements": [
+      4,
+      13,
+      14,
+      17
+    ],
+    "celebrations": [
+      51
+    ],
+    "certificats": [
+      13
+    ],
+    "cession": [
+      32
+    ],
+    "cessions": [
+      29,
+      32,
+      33,
+      48,
+      54,
+      57,
+      58
+    ],
+    "ceuvres": [
+      12,
+      24,
+      47
+    ],
+    "ceuyres": [
+      24
+    ],
+    "change": [
+      5,
+      30,
+      48,
+      54
+    ],
+    "charges": [
+      1,
+      5,
+      22,
+      24,
+      25,
+      26,
+      29,
+      33,
+      34,
+      36,
+      37,
+      38,
+      41,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      51,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60
+    ],
+    "cheptel": [
+      11
+    ],
+    "cheques": [
+      23,
+      35
+    ],
+    "chiffre": [
+      26
+    ],
+    "classe": [
+      1,
+      6,
+      34,
+      51,
+      61
+    ],
+    "clients": [
+      22,
+      23,
+      24,
+      33,
+      46,
+      53
+    ],
+    "coffres": [
+      44
+    ],
+    "collections": [
+      12
+    ],
+    "collectivites": [
+      2,
+      22,
+      25,
+      33,
+      52,
+      60
+    ],
+    "colloques": [
+      43
+    ],
+    "combustibles": [
+      39
+    ],
+    "comites": [
+      47
+    ],
+    "commercial": [
+      11,
+      12,
+      15,
+      17
+    ],
+    "commerciales": [
+      48
+    ],
+    "commerciaux": [
+      8,
+      9,
+      14,
+      16
+    ],
+    "commissions": [
+      39,
+      41,
+      44,
+      46
+    ],
+    "commun": [
+      13
+    ],
+    "communes": [
+      2
+    ],
+    "compensees": [
+      30
+    ],
+    "complementaire": [
+      25
+    ],
+    "complexes": [
+      9,
+      10
+    ],
+    "comptabilite": [
+      61
+    ],
+    "comptable": [
+      3,
+      8,
+      12,
+      16,
+      21,
+      24,
+      29,
+      34,
+      38,
+      43,
+      47,
+      51,
+      56,
+      59,
+      62
+    ],
+    "comptables": [
+      57
+    ],
+    "compte": [
+      1,
+      22,
+      29,
+      32,
+      41,
+      61
+    ],
+    "comptes": [
+      0,
+      1,
+      6,
+      10,
+      14,
+      19,
+      22,
+      23,
+      26,
+      27,
+      32,
+      33,
+      34,
+      36,
+      37,
+      39,
+      40,
+      41,
+      45,
+      48,
+      49,
+      51,
+      53,
+      57,
+      61,
+      62
+    ],
+    "concessions": [
+      6,
+      7,
+      14,
+      15,
+      44
+    ],
+    "concours": [
+      44
+    ],
+    "conferences": [
+      43
+    ],
+    "conges": [
+      24,
+      25,
+      46,
+      47
+    ],
+    "congregations": [
+      27
+    ],
+    "congres": [
+      43
+    ],
+    "conseils": [
+      44
+    ],
+    "consentis": [
+      58
+    ],
+    "consignation": [
+      20,
+      21
+    ],
+    "consignes": [
+      24
+    ],
+    "consommables": [
+      19,
+      39
+    ],
+    "consommee": [
+      52
+    ],
+    "consommees": [
+      29,
+      32
+    ],
+    "consomptible": [
+      1,
+      51
+    ],
+    "constatees": [
+      29,
+      58
+    ],
+    "constates": [
+      29,
+      59
+    ],
+    "contentieux": [
+      44
+    ],
+    "contenu": [
+      1,
+      6,
+      10,
+      14,
+      19,
+      22,
+      26,
+      32,
+      36,
+      40,
+      45,
+      49,
+      53,
+      57,
+      61
+    ],
+    "continue": [
+      45
+    ],
+    "contractuelles": [
+      2
+    ],
+    "contrats": [
+      41
+    ],
+    "contre": [
+      0
+    ],
+    "contribution": [
+      26,
+      45,
+      53
+    ],
+    "contributions": [
+      26,
+      47,
+      59,
+      61
+    ],
+    "conversion": [
+      0,
+      29,
+      30
+    ],
+    "coots": [
+      61
+    ],
+    "copropriete": [
+      45
+    ],
+    "corporelles": [
+      1,
+      13,
+      17,
+      31,
+      32,
+      49,
+      52,
+      55,
+      57,
+      58
+    ],
+    "correction": [
+      0
+    ],
+    "cotees": [
+      34
+    ],
+    "cotisations": [
+      23,
+      25,
+      44,
+      51
+    ],
+    "coupons": [
+      35
+    ],
+    "courants": [
+      22,
+      27,
+      29,
+      46,
+      48,
+      53
+    ],
+    "courlages": [
+      39,
+      42
+    ],
+    "cours": [
+      7,
+      8,
+      10,
+      12,
+      16,
+      17,
+      19,
+      20,
+      21,
+      52
+    ],
+    "court": [
+      22,
+      33,
+      34,
+      37,
+      46,
+      49,
+      53,
+      54,
+      58,
+      59
+    ],
+    "courus": [
+      4,
+      13,
+      22,
+      24,
+      34,
+      36,
+      37
+    ],
+    "couts": [
+      62
+    ],
+    "couverture": [
+      30
+    ],
+    "creances": [
+      13,
+      14,
+      17,
+      18,
+      22,
+      23,
+      26,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      46,
+      53,
+      54,
+      58,
+      59
+    ],
+    "credit": [
+      4,
+      26,
+      35,
+      41,
+      44,
+      48
+    ],
+    "crediteurs": [
+      22,
+      24,
+      29,
+      32,
+      48
+    ],
+    "credits": [
+      34,
+      37
+    ],
+    "creer": [
+      39,
+      41
+    ],
+    "culte": [
+      51
+    ],
+    "dans": [
+      13,
+      17,
+      38,
+      48
+    ],
+    "debiteurs": [
+      22,
+      29,
+      33,
+      46,
+      53
+    ],
+    "decentralisees": [
+      2
+    ],
+    "deficit": [
+      2
+    ],
+    "deficits": [
+      2
+    ],
+    "degrevements": [
+      45,
+      47
+    ],
+    "delegues": [
+      24
+    ],
+    "demantelement": [
+      5,
+      41
+    ],
+    "demenagement": [
+      44
+    ],
+    "deniers": [
+      51
+    ],
+    "departements": [
+      2
+    ],
+    "depdts": [
+      4,
+      14
+    ],
+    "depet": [
+      20,
+      21,
+      36
+    ],
+    "depets": [
+      4,
+      13,
+      14,
+      17,
+      24,
+      54
+    ],
+    "deplacements": [
+      41
+    ],
+    "depot": [
+      20
+    ],
+    "depots": [
+      4,
+      13,
+      48
+    ],
+    "depreciations": [
+      6,
+      15,
+      16,
+      17,
+      18,
+      19,
+      21,
+      22,
+      33,
+      34,
+      37,
+      38,
+      46,
+      49,
+      50,
+      51,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60
+    ],
+    "des": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      6,
+      8,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      21,
+      22,
+      24,
+      25,
+      26,
+      29,
+      30,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      43,
+      44,
+      45,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      61
+    ],
+    "destinees": [
+      3,
+      6,
+      15,
+      49,
+      56,
+      57,
+      58
+    ],
+    "detache": [
+      44,
+      47
+    ],
+    "detaille": [
+      1
+    ],
+    "detenteur": [
+      24
+    ],
+    "dettes": [
+      1,
+      4,
+      22,
+      24,
+      26,
+      29,
+      30,
+      31,
+      32,
+      48
+    ],
+    "developpement": [
+      2,
+      3,
+      28
+    ],
+    "devises": [
+      36,
+      37
+    ],
+    "diamant": [
+      15
+    ],
+    "differences": [
+      30,
+      62
+    ],
+    "digues": [
+      9
+    ],
+    "dime": [
+      51
+    ],
+    "diminution": [
+      29,
+      30
+    ],
+    "directes": [
+      46,
+      47
+    ],
+    "directs": [
+      45
+    ],
+    "dirigeants": [
+      27
+    ],
+    "disposition": [
+      61
+    ],
+    "distribuer": [
+      38,
+      39,
+      46,
+      53,
+      58,
+      59
+    ],
+    "divers": [
+      5,
+      8,
+      12,
+      22,
+      29,
+      33,
+      44,
+      47,
+      53
+    ],
+    "diverses": [
+      14,
+      18,
+      26,
+      41,
+      45,
+      46,
+      47,
+      48,
+      54
+    ],
+    "documentation": [
+      43
+    ],
+    "doit": [
+      0
+    ],
+    "donateur": [
+      3
+    ],
+    "donation": [
+      3,
+      56
+    ],
+    "donations": [
+      3,
+      5
+    ],
+    "dons": [
+      1,
+      3,
+      6,
+      15,
+      19,
+      20,
+      21,
+      22,
+      29,
+      31,
+      32,
+      38,
+      39,
+      46,
+      49,
+      51,
+      53,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61
+    ],
+    "dotation": [
+      1,
+      51
+    ],
+    "dotations": [
+      38,
+      49,
+      50,
+      57,
+      59
+    ],
+    "douane": [
+      26
+    ],
+    "douanes": [
+      39,
+      41
+    ],
+    "douteuses": [
+      23,
+      33
+    ],
+    "droit": [
+      1
+    ],
+    "droits": [
+      6,
+      7,
+      14,
+      15,
+      16,
+      26,
+      44,
+      45
+    ],
+    "due": [
+      26
+    ],
+    "dues": [
+      24
+    ],
+    "durable": [
+      15
+    ],
+    "durables": [
+      1
+    ],
+    "eau": [
+      9,
+      13,
+      39
+    ],
+    "ebnl": [
+      0
+    ],
+    "ecarts": [
+      1,
+      29,
+      30,
+      62
+    ],
+    "echange": [
+      52
+    ],
+    "echus": [
+      35
+    ],
+    "economique": [
+      13,
+      45
+    ],
+    "edifices": [
+      9,
+      10
+    ],
+    "effectuer": [
+      29,
+      31
+    ],
+    "effets": [
+      22,
+      23,
+      44
+    ],
+    "electricite": [
+      13,
+      39
+    ],
+    "electronique": [
+      34,
+      37,
+      44
+    ],
+    "emballage": [
+      11,
+      12,
+      15,
+      17
+    ],
+    "emballages": [
+      19,
+      22,
+      24,
+      40,
+      41
+    ],
+    "emission": [
+      44
+    ],
+    "emplois": [
+      61
+    ],
+    "emprunts": [
+      1,
+      4,
+      44,
+      48
+    ],
+    "encaissement": [
+      35
+    ],
+    "encaisser": [
+      34,
+      35,
+      37
+    ],
+    "encore": [
+      3,
+      6,
+      15,
+      49
+    ],
+    "energies": [
+      39
+    ],
+    "eng": [
+      0
+    ],
+    "engagements": [
+      3
+    ],
+    "enregistrement": [
+      45
+    ],
+    "ent": [
+      13
+    ],
+    "entite": [
+      24,
+      44,
+      46,
+      47
+    ],
+    "entites": [
+      2,
+      3,
+      8,
+      12,
+      16,
+      21,
+      24,
+      29,
+      34,
+      38,
+      43,
+      47,
+      51,
+      56,
+      59
+    ],
+    "entree": [
+      1
+    ],
+    "entretien": [
+      39,
+      40,
+      41
+    ],
+    "entretiens": [
+      41
+    ],
+    "equilibre": [
+      29,
+      57,
+      60
+    ],
+    "equipement": [
+      2,
+      47
+    ],
+    "equipements": [
+      40
+    ],
+    "escompte": [
+      37,
+      48
+    ],
+    "escomptes": [
+      48,
+      54
+    ],
+    "etablir": [
+      23,
+      32
+    ],
+    "etablissements": [
+      4,
+      34,
+      36,
+      37,
+      48
+    ],
+    "etat": [
+      2,
+      3,
+      4,
+      5,
+      13,
+      14,
+      17,
+      22,
+      25,
+      26,
+      28,
+      33,
+      38,
+      41,
+      52,
+      60
+    ],
+    "etats": [
+      36
+    ],
+    "etre": [
+      0
+    ],
+    "etudes": [
+      40,
+      43
+    ],
+    "evaluation": [
+      30
+    ],
+    "excedent": [
+      2
+    ],
+    "excedents": [
+      2
+    ],
+    "exercice": [
+      1,
+      2
+    ],
+    "expatriation": [
+      47
+    ],
+    "exploitation": [
+      7,
+      29,
+      30,
+      33,
+      41,
+      46,
+      49,
+      51,
+      52,
+      53,
+      55
+    ],
+    "exterieur": [
+      44,
+      47
+    ],
+    "exterieurs": [
+      38,
+      41,
+      44
+    ],
+    "externes": [
+      44,
+      45
+    ],
+    "facturee": [
+      26
+    ],
+    "factures": [
+      22,
+      23,
+      32
+    ],
+    "familial": [
+      46,
+      47
+    ],
+    "familiales": [
+      24,
+      25
+    ],
+    "fer": [
+      9
+    ],
+    "fermages": [
+      41
+    ],
+    "ferroviaire": [
+      11
+    ],
+    "financement": [
+      3,
+      28,
+      48
+    ],
+    "financier": [
+      37
+    ],
+    "financieres": [
+      1,
+      6,
+      13,
+      14,
+      17,
+      18,
+      29,
+      30,
+      32,
+      48,
+      49,
+      50,
+      52,
+      54,
+      55,
+      56,
+      57,
+      58
+    ],
+    "financiers": [
+      34,
+      36,
+      37,
+      38,
+      48,
+      49,
+      51,
+      54
+    ],
+    "finis": [
+      19,
+      20,
+      21,
+      51,
+      52
+    ],
+    "first": [
+      0
+    ],
+    "fiscales": [
+      45
+    ],
+    "fluvial": [
+      11
+    ],
+    "foncier": [
+      41
+    ],
+    "fonciers": [
+      45
+    ],
+    "fonctionnement": [
+      1,
+      6,
+      10,
+      14,
+      19,
+      22,
+      26,
+      32,
+      36,
+      40,
+      45,
+      49,
+      53,
+      57,
+      61
+    ],
+    "fondateur": [
+      53
+    ],
+    "fondateurs": [
+      22,
+      27
+    ],
+    "fondations": [
+      27
+    ],
+    "fonds": [
+      1,
+      3,
+      8,
+      13,
+      22,
+      23,
+      28,
+      37,
+      44,
+      47,
+      51,
+      55,
+      56
+    ],
+    "forestiere": [
+      7
+    ],
+    "forestiers": [
+      7,
+      8,
+      16
+    ],
+    "forfaitaires": [
+      47
+    ],
+    "formation": [
+      44,
+      45
+    ],
+    "fournisseurs": [
+      22,
+      31,
+      32,
+      33
+    ],
+    "fournitures": [
+      19,
+      20,
+      21,
+      24,
+      38,
+      39,
+      40
+    ],
+    "frais": [
+      24,
+      34,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      48,
+      53
+    ],
+    "fret": [
+      39,
+      41
+    ],
+    "from": [
+      0
+    ],
+    "gains": [
+      54
+    ],
+    "garantie": [
+      13,
+      22,
+      29,
+      32
+    ],
+    "garde": [
+      11,
+      44
+    ],
+    "gaz": [
+      13
+    ],
+    "general": [
+      26
+    ],
+    "generale": [
+      41,
+      43
+    ],
+    "generales": [
+      10
+    ],
+    "generosite": [
+      51
+    ],
+    "generosites": [
+      29
+    ],
+    "gestion": [
+      36,
+      61
+    ],
+    "gie": [
+      17
+    ],
+    "gratifications": [
+      25,
+      46,
+      47
+    ],
+    "gratuite": [
+      61
+    ],
+    "groupements": [
+      13
+    ],
+    "habillement": [
+      47
+    ],
+    "hao": [
+      19,
+      21,
+      29,
+      30,
+      32,
+      57,
+      59,
+      60
+    ],
+    "hippomobile": [
+      11
+    ],
+    "honoraires": [
+      44
+    ],
+    "hors": [
+      20,
+      22,
+      31,
+      32,
+      34,
+      36,
+      38,
+      57,
+      58,
+      59
+    ],
+    "hygiene": [
+      47
+    ],
+    "identifiable": [
+      11,
+      12,
+      15,
+      17
+    ],
+    "identifiables": [
+      19
+    ],
+    "image": [
+      0
+    ],
+    "immeubles": [
+      8,
+      9,
+      10,
+      11
+    ],
+    "immobilier": [
+      4,
+      41,
+      48
+    ],
+    "immobiliers": [
+      13,
+      41
+    ],
+    "immobilisations": [
+      1,
+      3,
+      6,
+      7,
+      13,
+      14,
+      15,
+      16,
+      17,
+      20,
+      31,
+      32,
+      33,
+      49,
+      50,
+      52,
+      55,
+      56,
+      57,
+      58
+    ],
+    "immobilise": [
+      6
+    ],
+    "immobilisee": [
+      51,
+      52
+    ],
+    "immobilises": [
+      13,
+      14,
+      17,
+      31,
+      54
+    ],
+    "immoblisations": [
+      6,
+      13
+    ],
+    "imn": [
+      52
+    ],
+    "imp6ts": [
+      45
+    ],
+    "impayees": [
+      23
+    ],
+    "impayes": [
+      23
+    ],
+    "impdets": [
+      45
+    ],
+    "impdts": [
+      25,
+      45
+    ],
+    "impe6ts": [
+      25
+    ],
+    "impet": [
+      26
+    ],
+    "impets": [
+      25,
+      26,
+      45
+    ],
+    "impots": [
+      38,
+      45
+    ],
+    "imprimes": [
+      43
+    ],
+    "incorporelles": [
+      6,
+      7,
+      13,
+      14,
+      15,
+      16,
+      17,
+      31,
+      32,
+      49,
+      52,
+      55,
+      57,
+      58
+    ],
+    "incorporels": [
+      7,
+      14,
+      16
+    ],
+    "indemnites": [
+      7,
+      14,
+      46,
+      47,
+      53
+    ],
+    "indirects": [
+      45
+    ],
+    "industriel": [
+      11,
+      12,
+      15,
+      17
+    ],
+    "industriels": [
+      8,
+      9,
+      14,
+      16
+    ],
+    "informatique": [
+      11
+    ],
+    "infrastructure": [
+      9,
+      10,
+      14
+    ],
+    "infrastructures": [
+      9,
+      10,
+      16
+    ],
+    "ingestion": [
+      0
+    ],
+    "inscrite": [
+      1
+    ],
+    "insertions": [
+      43
+    ],
+    "installation": [
+      13
+    ],
+    "installations": [
+      6,
+      9,
+      10,
+      14,
+      15,
+      16
+    ],
+    "instance": [
+      2
+    ],
+    "instruments": [
+      30,
+      34,
+      37,
+      44
+    ],
+    "intention": [
+      15
+    ],
+    "interet": [
+      13
+    ],
+    "interets": [
+      4,
+      13,
+      22,
+      24,
+      34,
+      35,
+      36,
+      37,
+      48,
+      54
+    ],
+    "interimaire": [
+      44,
+      47
+    ],
+    "intermediaire": [
+      20
+    ],
+    "intermediaires": [
+      20,
+      21,
+      44,
+      51,
+      52
+    ],
+    "intermediation": [
+      36
+    ],
+    "internationaux": [
+      3,
+      29,
+      52
+    ],
+    "internes": [
+      24,
+      34,
+      37,
+      62
+    ],
+    "internet": [
+      6,
+      7,
+      14,
+      15,
+      43,
+      44
+    ],
+    "investissement": [
+      1,
+      2,
+      3,
+      13,
+      29,
+      56
+    ],
+    "investissements": [
+      3,
+      31
+    ],
+    "jeux": [
+      40
+    ],
+    "joueurs": [
+      7,
+      14
+    ],
+    "journal": [
+      1,
+      3,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      19,
+      21,
+      22,
+      24,
+      26,
+      29,
+      32,
+      34,
+      36,
+      38,
+      40,
+      43,
+      45,
+      47,
+      49,
+      51,
+      53,
+      56,
+      57,
+      59,
+      61
+    ],
+    "justifier": [
+      3
+    ],
+    "lables": [
+      40
+    ],
+    "lagunaire": [
+      11
+    ],
+    "legs": [
+      1,
+      3,
+      5,
+      6,
+      15,
+      32,
+      49,
+      51,
+      55,
+      56,
+      57,
+      58
+    ],
+    "lentite": [
+      15
+    ],
+    "les": [
+      2,
+      25,
+      39,
+      41,
+      52,
+      53
+    ],
+    "lexercice": [
+      2
+    ],
+    "liaisons": [
+      62
+    ],
+    "liberes": [
+      29,
+      31
+    ],
+    "licences": [
+      6,
+      7,
+      14,
+      15,
+      44,
+      45
+    ],
+    "licenciement": [
+      46,
+      47
+    ],
+    "liees": [
+      19,
+      21,
+      38,
+      39
+    ],
+    "lies": [
+      19,
+      20,
+      21,
+      38,
+      51
+    ],
+    "lingots": [
+      15
+    ],
+    "liste": [
+      0
+    ],
+    "litiges": [
+      5
+    ],
+    "litigieuses": [
+      23,
+      33
+    ],
+    "locale": [
+      45
+    ],
+    "locales": [
+      35
+    ],
+    "location": [
+      4,
+      8,
+      9,
+      11,
+      41,
+      44,
+      48
+    ],
+    "locations": [
+      41,
+      48
+    ],
+    "locatives": [
+      41
+    ],
+    "logement": [
+      9,
+      47
+    ],
+    "logements": [
+      8,
+      11
+    ],
+    "logiciels": [
+      6,
+      7,
+      14,
+      15,
+      44
+    ],
+    "louis": [
+      15
+    ],
+    "loyers": [
+      13,
+      41,
+      48
+    ],
+    "ltentite": [
+      41
+    ],
+    "lucratif": [
+      3,
+      8,
+      12,
+      16,
+      21,
+      24,
+      29,
+      34,
+      38,
+      43,
+      47,
+      51,
+      56,
+      59
+    ],
+    "magasin": [
+      19,
+      39
+    ],
+    "maijorations": [
+      47
+    ],
+    "maintenance": [
+      41
+    ],
+    "maladie": [
+      46,
+      47
+    ],
+    "malis": [
+      41
+    ],
+    "maniere": [
+      15
+    ],
+    "manifestations": [
+      43,
+      51
+    ],
+    "marchandises": [
+      19,
+      20,
+      21,
+      38,
+      51
+    ],
+    "marques": [
+      6,
+      7,
+      14,
+      16
+    ],
+    "materiel": [
+      6,
+      11,
+      12,
+      15,
+      16,
+      17,
+      40,
+      41
+    ],
+    "materiels": [
+      6,
+      11,
+      12,
+      15,
+      17,
+      22,
+      24,
+      40,
+      41
+    ],
+    "matieres": [
+      19,
+      20,
+      21,
+      38,
+      39
+    ],
+    "mecenats": [
+      51
+    ],
+    "mecenes": [
+      27
+    ],
+    "medecine": [
+      47
+    ],
+    "medicale": [
+      24
+    ],
+    "membres": [
+      27
+    ],
+    "metaux": [
+      14,
+      15
+    ],
+    "methode": [
+      0
+    ],
+    "mise": [
+      8,
+      14,
+      16
+    ],
+    "mises": [
+      20,
+      61
+    ],
+    "missions": [
+      44
+    ],
+    "mixte": [
+      19,
+      40
+    ],
+    "mixtes": [
+      2
+    ],
+    "mobilier": [
+      4,
+      6,
+      11,
+      12,
+      15,
+      16,
+      17,
+      41,
+      48
+    ],
+    "mobiliers": [
+      12,
+      13,
+      41
+    ],
+    "monetaire": [
+      36
+    ],
+    "monnaie": [
+      34,
+      35,
+      37,
+      44
+    ],
+    "multirisques": [
+      41
+    ],
+    "mutation": [
+      45
+    ],
+    "mutuelle": [
+      25
+    ],
+    "national": [
+      46,
+      47
+    ],
+    "nationale": [
+      26,
+      35,
+      37
+    ],
+    "nationaux": [
+      29,
+      52
+    ],
+    "nature": [
+      1,
+      19,
+      20,
+      21,
+      27,
+      29,
+      32,
+      38,
+      39,
+      46,
+      47,
+      51,
+      53,
+      57,
+      58,
+      59,
+      60,
+      61
+    ],
+    "naval": [
+      11
+    ],
+    "negociables": [
+      34
+    ],
+    "net": [
+      1,
+      2
+    ],
+    "non": [
+      1,
+      3,
+      6,
+      8,
+      12,
+      15,
+      16,
+      19,
+      20,
+      21,
+      22,
+      24,
+      29,
+      31,
+      32,
+      34,
+      38,
+      39,
+      40,
+      41,
+      43,
+      46,
+      47,
+      49,
+      51,
+      56,
+      58,
+      59
+    ],
+    "notamment": [
+      52
+    ],
+    "nouveau": [
+      1,
+      2
+    ],
+    "numeeraire": [
+      27
+    ],
+    "numeraire": [
+      1,
+      27,
+      59
+    ],
+    "nus": [
+      7,
+      8,
+      16
+    ],
+    "obligataires": [
+      4,
+      25,
+      48
+    ],
+    "obligations": [
+      5,
+      13,
+      29,
+      34,
+      35,
+      48,
+      54
+    ],
+    "obligatoire": [
+      25
+    ],
+    "obtenir": [
+      22
+    ],
+    "obtenus": [
+      38,
+      39,
+      40,
+      41,
+      54,
+      59
+    ],
+    "ocr": [
+      0
+    ],
+    "officiel": [
+      1,
+      3,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      19,
+      21,
+      22,
+      24,
+      26,
+      29,
+      32,
+      34,
+      36,
+      38,
+      40,
+      43,
+      45,
+      47,
+      49,
+      51,
+      53,
+      56,
+      57,
+      59,
+      61
+    ],
+    "oftre": [
+      52
+    ],
+    "ohada": [
+      0,
+      1,
+      3,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      19,
+      21,
+      22,
+      24,
+      26,
+      29,
+      32,
+      34,
+      36,
+      38,
+      40,
+      43,
+      45,
+      47,
+      49,
+      51,
+      53,
+      56,
+      57,
+      59,
+      61
+    ],
+    "only": [
+      0
+    ],
+    "opa": [
+      52
+    ],
+    "ope": [
+      52
+    ],
+    "operations": [
+      2,
+      8,
+      14,
+      33,
+      36,
+      48,
+      54
+    ],
+    "oppositions": [
+      24
+    ],
+    "ordinaires": [
+      22,
+      31,
+      32,
+      37,
+      51,
+      57,
+      58,
+      59
+    ],
+    "ordres": [
+      27
+    ],
+    "organisations": [
+      27
+    ],
+    "organismes": [
+      3,
+      13,
+      17,
+      22,
+      24,
+      25,
+      28,
+      29,
+      33,
+      34,
+      36,
+      47,
+      52
+    ],
+    "outillage": [
+      11,
+      12,
+      15,
+      17,
+      40
+    ],
+    "outillages": [
+      41
+    ],
+    "ouvrages": [
+      9,
+      10,
+      14,
+      16
+    ],
+    "pactivite": [
+      21
+    ],
+    "page": [
+      56,
+      57,
+      59,
+      61
+    ],
+    "pageg": [
+      53
+    ],
+    "pages": [
+      0
+    ],
+    "par": [
+      30,
+      46,
+      52,
+      53
+    ],
+    "parkings": [
+      8
+    ],
+    "parrainage": [
+      51
+    ],
+    "part": [
+      51
+    ],
+    "participatifs": [
+      13
+    ],
+    "participation": [
+      6,
+      13,
+      17,
+      31,
+      54
+    ],
+    "participations": [
+      6,
+      13,
+      17,
+      54
+    ],
+    "partie": [
+      1,
+      6,
+      10,
+      14,
+      19,
+      22,
+      26,
+      32,
+      36,
+      38,
+      40,
+      45,
+      49,
+      53,
+      57,
+      61
+    ],
+    "parts": [
+      13,
+      17
+    ],
+    "parvenues": [
+      22,
+      32
+    ],
+    "passif": [
+      30
+    ],
+    "patente": [
+      45
+    ],
+    "payer": [
+      22,
+      24,
+      25,
+      26,
+      36
+    ],
+    "payes": [
+      46,
+      47
+    ],
+    "pdf": [
+      0
+    ],
+    "peage": [
+      37
+    ],
+    "penales": [
+      46
+    ],
+    "penalites": [
+      5,
+      45,
+      46,
+      47
+    ],
+    "pensions": [
+      5,
+      47
+    ],
+    "perdus": [
+      19,
+      40
+    ],
+    "periodique": [
+      29
+    ],
+    "personne": [
+      46
+    ],
+    "personnel": [
+      8,
+      9,
+      11,
+      13,
+      14,
+      17,
+      22,
+      24,
+      33,
+      38,
+      41,
+      44,
+      46,
+      47,
+      61
+    ],
+    "pertes": [
+      5,
+      46,
+      48,
+      58
+    ],
+    "petit": [
+      40
+    ],
+    "peut": [
+      39,
+      41
+    ],
+    "pharmacie": [
+      47
+    ],
+    "pieces": [
+      15
+    ],
+    "pilisations": [
+      52
+    ],
+    "pistes": [
+      9
+    ],
+    "plac": [
+      13
+    ],
+    "placement": [
+      8,
+      9,
+      10,
+      11,
+      29,
+      34,
+      37,
+      48,
+      49,
+      54
+    ],
+    "plan": [
+      1
+    ],
+    "plantation": [
+      8
+    ],
+    "plantations": [
+      11
+    ],
+    "plis": [
+      41
+    ],
+    "politique": [
+      0
+    ],
+    "politiques": [
+      27
+    ],
+    "portable": [
+      37
+    ],
+    "porte": [
+      37
+    ],
+    "portefeuille": [
+      13
+    ],
+    "postales": [
+      36
+    ],
+    "pour": [
+      1,
+      2,
+      5,
+      8,
+      13,
+      22,
+      24,
+      25,
+      33,
+      34,
+      37,
+      39,
+      41,
+      44,
+      46,
+      49,
+      53,
+      54,
+      55,
+      56,
+      58,
+      59,
+      60
+    ],
+    "pp101": [
+      53,
+      56
+    ],
+    "preavis": [
+      46,
+      47
+    ],
+    "precieux": [
+      14,
+      15
+    ],
+    "preetablis": [
+      62
+    ],
+    "premieres": [
+      19,
+      20,
+      21,
+      38,
+      39
+    ],
+    "prestataires": [
+      44
+    ],
+    "prestations": [
+      25,
+      40,
+      59,
+      61
+    ],
+    "prete": [
+      44,
+      47
+    ],
+    "pretes": [
+      13
+    ],
+    "prets": [
+      13,
+      14,
+      17,
+      54
+    ],
+    "primes": [
+      41,
+      43,
+      46,
+      47,
+      48
+    ],
+    "prives": [
+      3
+    ],
+    "production": [
+      51,
+      52
+    ],
+    "productions": [
+      19,
+      21
+    ],
+    "produits": [
+      19,
+      20,
+      21,
+      23,
+      24,
+      25,
+      26,
+      29,
+      36,
+      39,
+      51,
+      52,
+      53,
+      54,
+      57,
+      58,
+      59
+    ],
+    "professionnelle": [
+      45
+    ],
+    "professionnelles": [
+      8
+    ],
+    "professionnels": [
+      13,
+      17,
+      27
+    ],
+    "professions": [
+      44
+    ],
+    "profits": [
+      53
+    ],
+    "projet": [
+      3,
+      28,
+      55
+    ],
+    "projets": [
+      2
+    ],
+    "propre": [
+      9,
+      10,
+      14,
+      16
+    ],
+    "propriete": [
+      22,
+      31
+    ],
+    "provenant": [
+      1,
+      3,
+      6,
+      15,
+      20,
+      49,
+      55,
+      56,
+      57,
+      58
+    ],
+    "provisions": [
+      1,
+      3,
+      5,
+      22,
+      33,
+      34,
+      37,
+      38,
+      46,
+      49,
+      51,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60
+    ],
+    "psm": [
+      0
+    ],
+    "public": [
+      7
+    ],
+    "publications": [
+      43
+    ],
+    "publicitaires": [
+      43
+    ],
+    "publicite": [
+      43
+    ],
+    "publique": [
+      52
+    ],
+    "publiques": [
+      2,
+      22,
+      25,
+      33,
+      43,
+      52,
+      60
+    ],
+    "que": [
+      15
+    ],
+    "quete": [
+      51
+    ],
+    "quote": [
+      51
+    ],
+    "qxp": [
+      1,
+      3,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      19,
+      21,
+      22,
+      24,
+      26,
+      29,
+      32,
+      34,
+      36,
+      38,
+      40,
+      43,
+      45,
+      47,
+      49,
+      51,
+      53,
+      56,
+      57,
+      59,
+      61
+    ],
+    "rabais": [
+      22,
+      24,
+      38,
+      39,
+      40,
+      41
+    ],
+    "rattachees": [
+      17
+    ],
+    "rattaches": [
+      22,
+      23,
+      24
+    ],
+    "rebut": [
+      20
+    ],
+    "receptions": [
+      44
+    ],
+    "recevoir": [
+      3,
+      23,
+      24,
+      25,
+      26,
+      28,
+      29,
+      36
+    ],
+    "receyoir": [
+      28
+    ],
+    "recherche": [
+      44
+    ],
+    "recherches": [
+      43
+    ],
+    "reclassements": [
+      61
+    ],
+    "recouvrables": [
+      25,
+      26
+    ],
+    "recouvrement": [
+      45
+    ],
+    "recrutement": [
+      44
+    ],
+    "recues": [
+      4,
+      49,
+      53
+    ],
+    "recuperable": [
+      11,
+      12,
+      15,
+      17,
+      26
+    ],
+    "recuperables": [
+      19,
+      40
+    ],
+    "recus": [
+      3,
+      4,
+      6,
+      15,
+      38
+    ],
+    "redevances": [
+      41,
+      44
+    ],
+    "reevaluation": [
+      1,
+      3
+    ],
+    "reflechis": [
+      61
+    ],
+    "region": [
+      34,
+      36,
+      38
+    ],
+    "regions": [
+      2
+    ],
+    "reglement": [
+      1
+    ],
+    "reglemente": [
+      13
+    ],
+    "reglementees": [
+      3,
+      44,
+      59,
+      60
+    ],
+    "regues": [
+      24,
+      32,
+      48,
+      56,
+      57,
+      58
+    ],
+    "regus": [
+      4,
+      15,
+      24,
+      49,
+      53
+    ],
+    "relatif": [
+      3,
+      8,
+      12,
+      16,
+      21,
+      24,
+      29,
+      34,
+      38,
+      43,
+      47,
+      51,
+      56,
+      59
+    ],
+    "relations": [
+      43
+    ],
+    "religieuses": [
+      27
+    ],
+    "religieux": [
+      9,
+      10,
+      11,
+      14,
+      16
+    ],
+    "remboursement": [
+      48
+    ],
+    "remise": [
+      5,
+      41
+    ],
+    "remises": [
+      22,
+      24,
+      38,
+      39,
+      40,
+      41
+    ],
+    "remuneerations": [
+      44
+    ],
+    "remuneration": [
+      47
+    ],
+    "remunerations": [
+      24,
+      44,
+      46,
+      47
+    ],
+    "rendered": [
+      0
+    ],
+    "rendre": [
+      22
+    ],
+    "rentes": [
+      48,
+      54
+    ],
+    "reparation": [
+      41
+    ],
+    "repartition": [
+      29
+    ],
+    "report": [
+      1,
+      2
+    ],
+    "reportes": [
+      1,
+      3,
+      56
+    ],
+    "representants": [
+      24
+    ],
+    "representation": [
+      47
+    ],
+    "reprise": [
+      1
+    ],
+    "reprises": [
+      51,
+      53,
+      54,
+      55,
+      56,
+      57,
+      59,
+      60
+    ],
+    "reproducteurs": [
+      11
+    ],
+    "reserve": [
+      22,
+      31
+    ],
+    "reserves": [
+      1,
+      2
+    ],
+    "residuels": [
+      20,
+      21,
+      51,
+      52
+    ],
+    "ressources": [
+      1
+    ],
+    "restant": [
+      29,
+      31
+    ],
+    "resultat": [
+      1,
+      2
+    ],
+    "resultats": [
+      62
+    ],
+    "retenues": [
+      13,
+      22,
+      29,
+      32
+    ],
+    "retenus": [
+      26
+    ],
+    "retraite": [
+      25,
+      47
+    ],
+    "retraites": [
+      25
+    ],
+    "revenu": [
+      26
+    ],
+    "revenus": [
+      51,
+      54,
+      57,
+      59
+    ],
+    "reverser": [
+      29
+    ],
+    "risque": [
+      37
+    ],
+    "risques": [
+      1,
+      5,
+      22,
+      33,
+      34,
+      37,
+      41,
+      46,
+      48,
+      49,
+      53,
+      54,
+      55,
+      56,
+      58,
+      59,
+      60
+    ],
+    "ristournes": [
+      22,
+      24,
+      38,
+      39,
+      40,
+      41
+    ],
+    "route": [
+      20,
+      21
+    ],
+    "saisies": [
+      24
+    ],
+    "salaires": [
+      26,
+      45,
+      46
+    ],
+    "sans": [
+      1
+    ],
+    "sante": [
+      25,
+      47
+    ],
+    "scan": [
+      0
+    ],
+    "secours": [
+      61
+    ],
+    "securite": [
+      25,
+      47
+    ],
+    "semantique": [
+      0
+    ],
+    "seminaires": [
+      43
+    ],
+    "service": [
+      7
+    ],
+    "services": [
+      20,
+      38,
+      40,
+      41,
+      44,
+      51,
+      52,
+      59
+    ],
+    "sil": [
+      57
+    ],
+    "silencieuse": [
+      0
+    ],
+    "similaires": [
+      5,
+      6,
+      7,
+      14,
+      15,
+      44
+    ],
+    "sites": [
+      6,
+      7,
+      14,
+      15,
+      44
+    ],
+    "sociale": [
+      25
+    ],
+    "sociales": [
+      24,
+      25,
+      47
+    ],
+    "sociaux": [
+      22,
+      24,
+      25,
+      33
+    ],
+    "societes": [
+      36
+    ],
+    "sol": [
+      9,
+      10,
+      14,
+      16
+    ],
+    "solde": [
+      2
+    ],
+    "solidarite": [
+      26
+    ],
+    "sonserver": [
+      15
+    ],
+    "sorties": [
+      40
+    ],
+    "source": [
+      0,
+      26
+    ],
+    "sous": [
+      22,
+      39,
+      41
+    ],
+    "souscription": [
+      29,
+      34
+    ],
+    "speciales": [
+      3
+    ],
+    "specialisees": [
+      9,
+      10
+    ],
+    "specifique": [
+      3,
+      10,
+      55
+    ],
+    "sportifs": [
+      11
+    ],
+    "sportives": [
+      9,
+      10
+    ],
+    "stades": [
+      9,
+      10
+    ],
+    "statutaires": [
+      2
+    ],
+    "stock": [
+      20
+    ],
+    "stockables": [
+      39,
+      40
+    ],
+    "stockes": [
+      39
+    ],
+    "stocks": [
+      19,
+      20,
+      21,
+      38,
+      39,
+      46,
+      51,
+      52,
+      53,
+      57,
+      60,
+      61
+    ],
+    "structure": [
+      1,
+      6,
+      10,
+      14,
+      19,
+      22,
+      26,
+      32,
+      36,
+      40,
+      45,
+      49,
+      53,
+      57,
+      61
+    ],
+    "subvention": [
+      26
+    ],
+    "subventions": [
+      1,
+      2,
+      3,
+      29,
+      46,
+      51,
+      52,
+      56,
+      57,
+      60
+    ],
+    "subyentions": [
+      60
+    ],
+    "supplement": [
+      46,
+      47
+    ],
+    "sur": [
+      1,
+      4,
+      5,
+      6,
+      9,
+      10,
+      13,
+      14,
+      16,
+      17,
+      25,
+      26,
+      29,
+      30,
+      31,
+      32,
+      33,
+      38,
+      39,
+      40,
+      41,
+      42,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      53,
+      54,
+      58,
+      62
+    ],
+    "syndicales": [
+      27
+    ],
+    "syndicats": [
+      24,
+      47
+    ],
+    "systeme": [
+      3,
+      8,
+      12,
+      16,
+      21,
+      24,
+      29,
+      34,
+      38,
+      43,
+      47,
+      51,
+      56,
+      59
+    ],
+    "taxes": [
+      25,
+      26,
+      38,
+      45
+    ],
+    "technique": [
+      43
+    ],
+    "techniques": [
+      6,
+      9,
+      10,
+      14,
+      15,
+      16
+    ],
+    "telecommunications": [
+      43
+    ],
+    "telecopie": [
+      13,
+      43
+    ],
+    "telephone": [
+      13,
+      37,
+      43
+    ],
+    "temporaire": [
+      3,
+      6,
+      14,
+      15,
+      49,
+      56
+    ],
+    "tentite": [
+      39
+    ],
+    "terme": [
+      14,
+      22,
+      33,
+      34,
+      36,
+      37,
+      46,
+      49,
+      53,
+      54,
+      58,
+      59
+    ],
+    "terrains": [
+      6,
+      7,
+      8,
+      14,
+      16,
+      41
+    ],
+    "terre": [
+      9
+    ],
+    "tesseract": [
+      0
+    ],
+    "tiers": [
+      22,
+      24,
+      28,
+      33,
+      41
+    ],
+    "timbre": [
+      45
+    ],
+    "titres": [
+      6,
+      13,
+      14,
+      17,
+      29,
+      31,
+      34,
+      37,
+      44,
+      48,
+      49,
+      54
+    ],
+    "tombola": [
+      40
+    ],
+    "toute": [
+      0
+    ],
+    "trait": [
+      11
+    ],
+    "traitance": [
+      41
+    ],
+    "traitants": [
+      22
+    ],
+    "traitement": [
+      62
+    ],
+    "transferee": [
+      47,
+      51
+    ],
+    "transferes": [
+      51
+    ],
+    "transfert": [
+      7,
+      14
+    ],
+    "transferts": [
+      51,
+      55,
+      58,
+      59
+    ],
+    "transit": [
+      39,
+      42
+    ],
+    "transport": [
+      11,
+      12,
+      15,
+      41,
+      47
+    ],
+    "transports": [
+      38,
+      41
+    ],
+    "travail": [
+      25,
+      47
+    ],
+    "travailleurs": [
+      46,
+      47
+    ],
+    "travaux": [
+      8,
+      14,
+      16,
+      40
+    ],
+    "trersport": [
+      17
+    ],
+    "tresor": [
+      34,
+      36
+    ],
+    "tresorerie": [
+      30,
+      34,
+      37
+    ],
+    "uniforme": [
+      3,
+      8,
+      12,
+      16,
+      21,
+      24,
+      29,
+      34,
+      38,
+      43,
+      47,
+      51,
+      56,
+      59
+    ],
+    "universites": [
+      43
+    ],
+    "usage": [
+      19,
+      40
+    ],
+    "usagers": [
+      22,
+      23,
+      24,
+      33,
+      46,
+      53
+    ],
+    "usufruit": [
+      3,
+      6,
+      14,
+      15,
+      49,
+      51,
+      56
+    ],
+    "v2020": [
+      57,
+      59,
+      61
+    ],
+    "v21": [
+      1,
+      3,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      19,
+      21,
+      22,
+      24,
+      26,
+      29,
+      32,
+      34,
+      36,
+      38,
+      40,
+      43,
+      45,
+      47,
+      49,
+      51
+    ],
+    "vactivite": [
+      19
+    ],
+    "val": [
+      51
+    ],
+    "valeur": [
+      8,
+      14,
+      16
+    ],
+    "valeurs": [
+      7,
+      14,
+      16,
+      23,
+      34,
+      35,
+      37,
+      44,
+      57
+    ],
+    "valide": [
+      0
+    ],
+    "variations": [
+      38,
+      39,
+      51,
+      52,
+      57,
+      60
+    ],
+    "vegetaux": [
+      20
+    ],
+    "vendus": [
+      51,
+      59
+    ],
+    "vente": [
+      3,
+      4,
+      6,
+      15,
+      41,
+      44,
+      48,
+      49,
+      56,
+      57,
+      58
+    ],
+    "ventes": [
+      41,
+      51
+    ],
+    "ventiles": [
+      38,
+      39,
+      40,
+      41
+    ],
+    "versees": [
+      46,
+      47,
+      52
+    ],
+    "versements": [
+      29,
+      31,
+      47
+    ],
+    "verses": [
+      6,
+      13,
+      14,
+      17,
+      22
+    ],
+    "viageres": [
+      48,
+      54
+    ],
+    "vignettes": [
+      45
+    ],
+    "virements": [
+      34,
+      37
+    ],
+    "voies": [
+      9
+    ],
+    "volontaires": [
+      59,
+      61
+    ],
+    "voyage": [
+      35
+    ],
+    "voyages": [
+      40,
+      41
+    ],
+    "wagdf": [
+      27
+    ],
+    "zakat": [
+      51
+    ],
+    "zone": [
+      36
+    ]
+  }
+}

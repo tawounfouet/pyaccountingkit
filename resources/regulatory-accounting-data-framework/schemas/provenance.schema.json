@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Provenance",
+  "type": "object",
+  "required": [
+    "type",
+    "review_status",
+    "source_refs"
+  ],
+  "properties": {
+    "type": {
+      "enum": [
+        "source",
+        "derived",
+        "official_external",
+        "human_verified",
+        "ai_inferred"
+      ]
+    },
+    "review_status": {
+      "enum": [
+        "unverified",
+        "auto_verified",
+        "human_reviewed",
+        "official_source",
+        "rejected",
+        "deprecated"
+      ]
+    }
+  }
+}

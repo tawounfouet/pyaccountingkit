@@ -1,0 +1,1394 @@
+{
+  "dataset_layer": "v3_reporting",
+  "edition": "2026",
+  "mapping_policy": {
+    "account_hints": "derived_candidate",
+    "account_hints_executable": false,
+    "human_validation_required": true,
+    "statement_structure": "official_source"
+  },
+  "standard_id": "fr-nonprofit",
+  "statements": [
+    {
+      "lines": [
+        {
+          "account_hints": [],
+          "label_source": "Frais d'établissement",
+          "line_code": "L001",
+          "line_id": "nonprofit2026:balance:line:001",
+          "section": "asset"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Immobilisations incorporelles",
+          "line_code": "L002",
+          "line_id": "nonprofit2026:balance:line:002",
+          "section": "asset"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Frais de développement",
+          "line_code": "L003",
+          "line_id": "nonprofit2026:balance:line:003",
+          "section": "asset"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "204",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Donations temporaires d’usufruit",
+          "line_code": "L004",
+          "line_id": "nonprofit2026:balance:line:004",
+          "section": "asset"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Concessions, brevets, licences, marques, procédés, solutions informatiques, droits et valeurs similaires",
+          "line_code": "L005",
+          "line_id": "nonprofit2026:balance:line:005",
+          "section": "asset"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Immobilisations incorporelles en cours, avances et acomptes",
+          "line_code": "L006",
+          "line_id": "nonprofit2026:balance:line:006",
+          "section": "asset"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Immobilisations corporelles",
+          "line_code": "L007",
+          "line_id": "nonprofit2026:balance:line:007",
+          "section": "asset"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Terrains",
+          "line_code": "L008",
+          "line_id": "nonprofit2026:balance:line:008",
+          "section": "asset"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Constructions",
+          "line_code": "L009",
+          "line_id": "nonprofit2026:balance:line:009",
+          "section": "asset"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Installations techniques, matériel et outillage industriels",
+          "line_code": "L010",
+          "line_id": "nonprofit2026:balance:line:010",
+          "section": "asset"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Immobilisations corporelles en cours, avances et acomptes",
+          "line_code": "L011",
+          "line_id": "nonprofit2026:balance:line:011",
+          "section": "asset"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "24",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Biens reçus par legs ou donations destinés à être cédés",
+          "line_code": "L012",
+          "line_id": "nonprofit2026:balance:line:012",
+          "section": "asset"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Immobilisations financières",
+          "line_code": "L013",
+          "line_id": "nonprofit2026:balance:line:013",
+          "section": "asset"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Participations",
+          "line_code": "L014",
+          "line_id": "nonprofit2026:balance:line:014",
+          "section": "asset"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Créances rattachées à des participations",
+          "line_code": "L015",
+          "line_id": "nonprofit2026:balance:line:015",
+          "section": "asset"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Autres titres immobilisés",
+          "line_code": "L016",
+          "line_id": "nonprofit2026:balance:line:016",
+          "section": "asset"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Prêts",
+          "line_code": "L017",
+          "line_id": "nonprofit2026:balance:line:017",
+          "section": "asset"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Autres immobilisations financières",
+          "line_code": "L018",
+          "line_id": "nonprofit2026:balance:line:018",
+          "section": "asset"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Stocks et en-cours",
+          "line_code": "L019",
+          "line_id": "nonprofit2026:balance:line:019",
+          "section": "asset"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Créances clients, usagers et comptes rattachés",
+          "line_code": "L020",
+          "line_id": "nonprofit2026:balance:line:020",
+          "section": "asset"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "461",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Créances reçues par legs ou donations",
+          "line_code": "L021",
+          "line_id": "nonprofit2026:balance:line:021",
+          "section": "asset"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Autres créances",
+          "line_code": "L022",
+          "line_id": "nonprofit2026:balance:line:022",
+          "section": "asset"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Charges constatées d’avance",
+          "line_code": "L023",
+          "line_id": "nonprofit2026:balance:line:023",
+          "section": "asset"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Valeurs mobilières de placement",
+          "line_code": "L024",
+          "line_id": "nonprofit2026:balance:line:024",
+          "section": "asset"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Instruments financiers à terme et jetons détenus",
+          "line_code": "L025",
+          "line_id": "nonprofit2026:balance:line:025",
+          "section": "asset"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Disponibilités",
+          "line_code": "L026",
+          "line_id": "nonprofit2026:balance:line:026",
+          "section": "asset"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Frais d’émission des emprunts",
+          "line_code": "L027",
+          "line_id": "nonprofit2026:balance:line:027",
+          "section": "asset"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Primes de remboursement des emprunts",
+          "line_code": "L028",
+          "line_id": "nonprofit2026:balance:line:028",
+          "section": "asset"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Ecarts de conversion et différences d’évaluation Actif",
+          "line_code": "L029",
+          "line_id": "nonprofit2026:balance:line:029",
+          "section": "asset"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "102",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Fonds propres sans droit de reprise",
+          "line_code": "L030",
+          "line_id": "nonprofit2026:balance:line:030",
+          "section": "liability"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Fonds propres statutaires",
+          "line_code": "L031",
+          "line_id": "nonprofit2026:balance:line:031",
+          "section": "liability"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Fonds propres complémentaires",
+          "line_code": "L032",
+          "line_id": "nonprofit2026:balance:line:032",
+          "section": "liability"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "103",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Fonds propres avec droit de reprise",
+          "line_code": "L033",
+          "line_id": "nonprofit2026:balance:line:033",
+          "section": "liability"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Ecarts de réévaluation",
+          "line_code": "L034",
+          "line_id": "nonprofit2026:balance:line:034",
+          "section": "liability"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Réserves",
+          "line_code": "L035",
+          "line_id": "nonprofit2026:balance:line:035",
+          "section": "liability"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Réserves statutaires ou contractuelles",
+          "line_code": "L036",
+          "line_id": "nonprofit2026:balance:line:036",
+          "section": "liability"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "1068",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Réserves pour projet de l’entité",
+          "line_code": "L037",
+          "line_id": "nonprofit2026:balance:line:037",
+          "section": "liability"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Report à nouveau",
+          "line_code": "L038",
+          "line_id": "nonprofit2026:balance:line:038",
+          "section": "liability"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Excédent ou déficit de l’exercice",
+          "line_code": "L039",
+          "line_id": "nonprofit2026:balance:line:039",
+          "section": "liability"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "108",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Fonds propres consomptibles",
+          "line_code": "L040",
+          "line_id": "nonprofit2026:balance:line:040",
+          "section": "liability"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Subventions d'investissement",
+          "line_code": "L041",
+          "line_id": "nonprofit2026:balance:line:041",
+          "section": "liability"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Provisions réglementées",
+          "line_code": "L042",
+          "line_id": "nonprofit2026:balance:line:042",
+          "section": "liability"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Fonds non remboursables",
+          "line_code": "L043",
+          "line_id": "nonprofit2026:balance:line:043",
+          "section": "liability"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Avances conditionnées",
+          "line_code": "L044",
+          "line_id": "nonprofit2026:balance:line:044",
+          "section": "liability"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Droits du concédant",
+          "line_code": "L045",
+          "line_id": "nonprofit2026:balance:line:045",
+          "section": "liability"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "191",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Fonds reportés liés aux legs ou donations",
+          "line_code": "L046",
+          "line_id": "nonprofit2026:balance:line:046",
+          "section": "liability"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "194",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            },
+            {
+              "account_prefix": "195",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            },
+            {
+              "account_prefix": "196",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Fonds dédiés",
+          "line_code": "L047",
+          "line_id": "nonprofit2026:balance:line:047",
+          "section": "liability"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Provisions pour risques",
+          "line_code": "L048",
+          "line_id": "nonprofit2026:balance:line:048",
+          "section": "liability"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Provisions pour charges",
+          "line_code": "L049",
+          "line_id": "nonprofit2026:balance:line:049",
+          "section": "liability"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Emprunts obligataires et assimilés",
+          "line_code": "L050",
+          "line_id": "nonprofit2026:balance:line:050",
+          "section": "liability"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Emprunts et dettes auprès des établissements de crédit",
+          "line_code": "L051",
+          "line_id": "nonprofit2026:balance:line:051",
+          "section": "liability"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Emprunts et dettes financières diverses",
+          "line_code": "L052",
+          "line_id": "nonprofit2026:balance:line:052",
+          "section": "liability"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Instruments financiers à terme",
+          "line_code": "L053",
+          "line_id": "nonprofit2026:balance:line:053",
+          "section": "liability"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Dettes fournisseurs et comptes rattachés",
+          "line_code": "L054",
+          "line_id": "nonprofit2026:balance:line:054",
+          "section": "liability"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "466",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Dettes des legs ou donations",
+          "line_code": "L055",
+          "line_id": "nonprofit2026:balance:line:055",
+          "section": "liability"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Dettes fiscales et sociales",
+          "line_code": "L056",
+          "line_id": "nonprofit2026:balance:line:056",
+          "section": "liability"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Dettes sur immobilisations et comptes rattachés",
+          "line_code": "L057",
+          "line_id": "nonprofit2026:balance:line:057",
+          "section": "liability"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Autres dettes",
+          "line_code": "L058",
+          "line_id": "nonprofit2026:balance:line:058",
+          "section": "liability"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Produits constatés d’avance",
+          "line_code": "L059",
+          "line_id": "nonprofit2026:balance:line:059",
+          "section": "liability"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Ecarts de conversion et différences d’évaluation Passif",
+          "line_code": "L060",
+          "line_id": "nonprofit2026:balance:line:060",
+          "section": "liability"
+        }
+      ],
+      "name": "Bilan non-lucratif",
+      "regulatory_article": "421-1",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_end_pdf": 44,
+        "page_start_pdf": 43
+      },
+      "statement_id": "nonprofit2026:balance"
+    },
+    {
+      "lines": [
+        {
+          "account_hints": [
+            {
+              "account_prefix": "756",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Cotisations",
+          "line_code": "L001",
+          "line_id": "nonprofit2026:income:line:001",
+          "section": "product"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Ventes de biens et services",
+          "line_code": "L002",
+          "line_id": "nonprofit2026:income:line:002",
+          "section": "product"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Ventes de biens",
+          "line_code": "L003",
+          "line_id": "nonprofit2026:income:line:003",
+          "section": "product"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "7073",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "dont ventes de dons en nature",
+          "line_code": "L004",
+          "line_id": "nonprofit2026:income:line:004",
+          "section": "product"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Ventes de prestations de service",
+          "line_code": "L005",
+          "line_id": "nonprofit2026:income:line:005",
+          "section": "product"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "7063",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "dont parrainages",
+          "line_code": "L006",
+          "line_id": "nonprofit2026:income:line:006",
+          "section": "product"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Produits de tiers financeurs",
+          "line_code": "L007",
+          "line_id": "nonprofit2026:income:line:007",
+          "section": "product"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Concours publics et subventions d'exploitation",
+          "line_code": "L008",
+          "line_id": "nonprofit2026:income:line:008",
+          "section": "product"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "753",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Versements des fondateurs ou consommations de la dotation consomptible",
+          "line_code": "L009",
+          "line_id": "nonprofit2026:income:line:009",
+          "section": "product"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "754",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Ressources liées à la générosité du public",
+          "line_code": "L010",
+          "line_id": "nonprofit2026:income:line:010",
+          "section": "product"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "7541",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Dons manuels",
+          "line_code": "L011",
+          "line_id": "nonprofit2026:income:line:011",
+          "section": "product"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "7542",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Mécénats",
+          "line_code": "L012",
+          "line_id": "nonprofit2026:income:line:012",
+          "section": "product"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "7543",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Legs, donations et assurances-vie",
+          "line_code": "L013",
+          "line_id": "nonprofit2026:income:line:013",
+          "section": "product"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "755",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Contributions financières",
+          "line_code": "L014",
+          "line_id": "nonprofit2026:income:line:014",
+          "section": "product"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Reprises sur amortissements, dépréciations et provisions",
+          "line_code": "L015",
+          "line_id": "nonprofit2026:income:line:015",
+          "section": "product"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Produits des cessions d’immobilisations incorporelles et corporelles",
+          "line_code": "L016",
+          "line_id": "nonprofit2026:income:line:016",
+          "section": "product"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "789",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Utilisations des fonds dédiés",
+          "line_code": "L017",
+          "line_id": "nonprofit2026:income:line:017",
+          "section": "product"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Autres produits",
+          "line_code": "L018",
+          "line_id": "nonprofit2026:income:line:018",
+          "section": "product"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Achats de marchandises",
+          "line_code": "L019",
+          "line_id": "nonprofit2026:income:line:019",
+          "section": "charge"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Variation de stock",
+          "line_code": "L020",
+          "line_id": "nonprofit2026:income:line:020",
+          "section": "charge"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Autres achats et charges externes",
+          "line_code": "L021",
+          "line_id": "nonprofit2026:income:line:021",
+          "section": "charge"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "657",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Aides financières",
+          "line_code": "L022",
+          "line_id": "nonprofit2026:income:line:022",
+          "section": "charge"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Impôts, taxes et versements assimilés",
+          "line_code": "L023",
+          "line_id": "nonprofit2026:income:line:023",
+          "section": "charge"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Salaires",
+          "line_code": "L024",
+          "line_id": "nonprofit2026:income:line:024",
+          "section": "charge"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Cotisations sociales",
+          "line_code": "L025",
+          "line_id": "nonprofit2026:income:line:025",
+          "section": "charge"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Dotations aux amortissements et aux dépréciations",
+          "line_code": "L026",
+          "line_id": "nonprofit2026:income:line:026",
+          "section": "charge"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Dotations aux provisions",
+          "line_code": "L027",
+          "line_id": "nonprofit2026:income:line:027",
+          "section": "charge"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Valeurs comptables des immobilisations incorporelles et corporelles cédées",
+          "line_code": "L028",
+          "line_id": "nonprofit2026:income:line:028",
+          "section": "charge"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "689",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Reports en fonds dédiés",
+          "line_code": "L029",
+          "line_id": "nonprofit2026:income:line:029",
+          "section": "charge"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Autres charges",
+          "line_code": "L030",
+          "line_id": "nonprofit2026:income:line:030",
+          "section": "charge"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Résultat d'exploitation",
+          "line_code": "L031",
+          "line_id": "nonprofit2026:income:line:031",
+          "section": "result"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Résultat financier",
+          "line_code": "L032",
+          "line_id": "nonprofit2026:income:line:032",
+          "section": "result"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Résultat courant avant impôts",
+          "line_code": "L033",
+          "line_id": "nonprofit2026:income:line:033",
+          "section": "result"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Produits exceptionnels",
+          "line_code": "L034",
+          "line_id": "nonprofit2026:income:line:034",
+          "section": "product"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Charges exceptionnelles",
+          "line_code": "L035",
+          "line_id": "nonprofit2026:income:line:035",
+          "section": "charge"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Résultat exceptionnel",
+          "line_code": "L036",
+          "line_id": "nonprofit2026:income:line:036",
+          "section": "result"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Participation des salariés aux résultats",
+          "line_code": "L037",
+          "line_id": "nonprofit2026:income:line:037",
+          "section": "charge"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Impôts sur les bénéfices",
+          "line_code": "L038",
+          "line_id": "nonprofit2026:income:line:038",
+          "section": "charge"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Excédent ou déficit",
+          "line_code": "L039",
+          "line_id": "nonprofit2026:income:line:039",
+          "section": "result"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "870",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Dons en nature",
+          "line_code": "L040",
+          "line_id": "nonprofit2026:income:line:040",
+          "section": "cvin_product"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Prestations en nature",
+          "line_code": "L041",
+          "line_id": "nonprofit2026:income:line:041",
+          "section": "cvin_product"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "875",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Bénévolat",
+          "line_code": "L042",
+          "line_id": "nonprofit2026:income:line:042",
+          "section": "cvin_product"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "860",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Secours en nature",
+          "line_code": "L043",
+          "line_id": "nonprofit2026:income:line:043",
+          "section": "cvin_charge"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "861",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Mises à disposition gratuite de biens",
+          "line_code": "L044",
+          "line_id": "nonprofit2026:income:line:044",
+          "section": "cvin_charge"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Prestations en nature",
+          "line_code": "L045",
+          "line_id": "nonprofit2026:income:line:045",
+          "section": "cvin_charge"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "864",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Personnel bénévole",
+          "line_code": "L046",
+          "line_id": "nonprofit2026:income:line:046",
+          "section": "cvin_charge"
+        }
+      ],
+      "name": "Compte de résultat non-lucratif",
+      "regulatory_article": "422-1",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_end_pdf": 46,
+        "page_start_pdf": 45
+      },
+      "statement_id": "nonprofit2026:income"
+    },
+    {
+      "lines": [
+        {
+          "account_hints": [],
+          "label_source": "Produits liés à la générosité du public",
+          "line_code": "L001",
+          "line_id": "nonprofit2026:crod:line:001",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Cotisations sans contrepartie",
+          "line_code": "L002",
+          "line_id": "nonprofit2026:crod:line:002",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Dons, legs et mécénat",
+          "line_code": "L003",
+          "line_id": "nonprofit2026:crod:line:003",
+          "section": "annex"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "7541",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Dons manuels",
+          "line_code": "L004",
+          "line_id": "nonprofit2026:crod:line:004",
+          "section": "annex"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "7543",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Legs, donations et assurances-vie",
+          "line_code": "L005",
+          "line_id": "nonprofit2026:crod:line:005",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Mécénat",
+          "line_code": "L006",
+          "line_id": "nonprofit2026:crod:line:006",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Autres produits liés à la générosité du public",
+          "line_code": "L007",
+          "line_id": "nonprofit2026:crod:line:007",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Produits non liés à la générosité du public",
+          "line_code": "L008",
+          "line_id": "nonprofit2026:crod:line:008",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Cotisations avec contrepartie",
+          "line_code": "L009",
+          "line_id": "nonprofit2026:crod:line:009",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Parrainage des entreprises",
+          "line_code": "L010",
+          "line_id": "nonprofit2026:crod:line:010",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Contributions financières sans contrepartie",
+          "line_code": "L011",
+          "line_id": "nonprofit2026:crod:line:011",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Autres produits non liés à la générosité du public",
+          "line_code": "L012",
+          "line_id": "nonprofit2026:crod:line:012",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Subventions et autres concours publics",
+          "line_code": "L013",
+          "line_id": "nonprofit2026:crod:line:013",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Reprises sur provisions et dépréciations",
+          "line_code": "L014",
+          "line_id": "nonprofit2026:crod:line:014",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Utilisations des fonds dédiés antérieurs",
+          "line_code": "L015",
+          "line_id": "nonprofit2026:crod:line:015",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Missions sociales",
+          "line_code": "L016",
+          "line_id": "nonprofit2026:crod:line:016",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Missions sociales réalisées en France",
+          "line_code": "L017",
+          "line_id": "nonprofit2026:crod:line:017",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Missions sociales réalisées à l’étranger",
+          "line_code": "L018",
+          "line_id": "nonprofit2026:crod:line:018",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Frais de recherche de fonds",
+          "line_code": "L019",
+          "line_id": "nonprofit2026:crod:line:019",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Frais d’appel à la générosité du public",
+          "line_code": "L020",
+          "line_id": "nonprofit2026:crod:line:020",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Frais de recherche d'autres ressources",
+          "line_code": "L021",
+          "line_id": "nonprofit2026:crod:line:021",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Frais de fonctionnement",
+          "line_code": "L022",
+          "line_id": "nonprofit2026:crod:line:022",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Dotations aux provisions et dépréciations",
+          "line_code": "L023",
+          "line_id": "nonprofit2026:crod:line:023",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Impôt sur les bénéfices",
+          "line_code": "L024",
+          "line_id": "nonprofit2026:crod:line:024",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Reports en fonds dédiés de l'exercice",
+          "line_code": "L025",
+          "line_id": "nonprofit2026:crod:line:025",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Excédent ou déficit",
+          "line_code": "L026",
+          "line_id": "nonprofit2026:crod:line:026",
+          "section": "annex"
+        }
+      ],
+      "name": "Compte de résultat par origine et destination",
+      "regulatory_article": "432-2",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_end_pdf": 55,
+        "page_start_pdf": 54
+      },
+      "statement_id": "nonprofit2026:crod"
+    },
+    {
+      "lines": [
+        {
+          "account_hints": [],
+          "label_source": "Missions sociales réalisées en France",
+          "line_code": "L001",
+          "line_id": "nonprofit2026:cer:line:001",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Missions sociales réalisées à l’étranger",
+          "line_code": "L002",
+          "line_id": "nonprofit2026:cer:line:002",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Frais d’appel à la générosité du public",
+          "line_code": "L003",
+          "line_id": "nonprofit2026:cer:line:003",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Frais de recherche d'autres ressources",
+          "line_code": "L004",
+          "line_id": "nonprofit2026:cer:line:004",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Frais de fonctionnement",
+          "line_code": "L005",
+          "line_id": "nonprofit2026:cer:line:005",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Total des emplois",
+          "line_code": "L006",
+          "line_id": "nonprofit2026:cer:line:006",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Dotations aux provisions et dépréciations",
+          "line_code": "L007",
+          "line_id": "nonprofit2026:cer:line:007",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Reports en fonds dédiés de l'exercice",
+          "line_code": "L008",
+          "line_id": "nonprofit2026:cer:line:008",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Excédent de la générosité du public de l’exercice",
+          "line_code": "L009",
+          "line_id": "nonprofit2026:cer:line:009",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Cotisations sans contrepartie",
+          "line_code": "L010",
+          "line_id": "nonprofit2026:cer:line:010",
+          "section": "annex"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "7541",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Dons manuels",
+          "line_code": "L011",
+          "line_id": "nonprofit2026:cer:line:011",
+          "section": "annex"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "7543",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Legs, donations et assurances-vie",
+          "line_code": "L012",
+          "line_id": "nonprofit2026:cer:line:012",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Mécénat",
+          "line_code": "L013",
+          "line_id": "nonprofit2026:cer:line:013",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Autres ressources liées à la générosité du public",
+          "line_code": "L014",
+          "line_id": "nonprofit2026:cer:line:014",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Total des ressources",
+          "line_code": "L015",
+          "line_id": "nonprofit2026:cer:line:015",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Reprises sur provisions et dépréciations",
+          "line_code": "L016",
+          "line_id": "nonprofit2026:cer:line:016",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Utilisations des fonds dédiés antérieurs",
+          "line_code": "L017",
+          "line_id": "nonprofit2026:cer:line:017",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Déficit de la générosité du public de l’exercice",
+          "line_code": "L018",
+          "line_id": "nonprofit2026:cer:line:018",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Ressources reportées liées à la générosité du public en début d'exercice",
+          "line_code": "L019",
+          "line_id": "nonprofit2026:cer:line:019",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Investissements et désinvestissements nets liés à la générosité du public de l'exercice",
+          "line_code": "L020",
+          "line_id": "nonprofit2026:cer:line:020",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Ressources reportées liées à la générosité du public en fin d'exercice",
+          "line_code": "L021",
+          "line_id": "nonprofit2026:cer:line:021",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Contributions volontaires aux missions sociales",
+          "line_code": "L022",
+          "line_id": "nonprofit2026:cer:line:022",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Contributions volontaires à la recherche de fonds",
+          "line_code": "L023",
+          "line_id": "nonprofit2026:cer:line:023",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Contributions volontaires au fonctionnement",
+          "line_code": "L024",
+          "line_id": "nonprofit2026:cer:line:024",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Contributions volontaires liées à la générosité du public",
+          "line_code": "L025",
+          "line_id": "nonprofit2026:cer:line:025",
+          "section": "annex"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "875",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Bénévolat",
+          "line_code": "L026",
+          "line_id": "nonprofit2026:cer:line:026",
+          "section": "annex"
+        },
+        {
+          "account_hints": [],
+          "label_source": "Prestations en nature",
+          "line_code": "L027",
+          "line_id": "nonprofit2026:cer:line:027",
+          "section": "annex"
+        },
+        {
+          "account_hints": [
+            {
+              "account_prefix": "870",
+              "human_validation_required": true,
+              "mapping_status": "derived_candidate_from_specific_nomenclature"
+            }
+          ],
+          "label_source": "Dons en nature",
+          "line_code": "L028",
+          "line_id": "nonprofit2026:cer:line:028",
+          "section": "annex"
+        }
+      ],
+      "name": "Compte d'emploi annuel des ressources collectées auprès du public",
+      "regulatory_article": "432-17",
+      "source": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_end_pdf": 64,
+        "page_start_pdf": 62
+      },
+      "statement_id": "nonprofit2026:cer"
+    }
+  ],
+  "statistics": {
+    "lines_with_account_hints": 33,
+    "statement_lines": 160,
+    "statement_templates": 4
+  }
+}

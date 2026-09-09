@@ -1,0 +1,65 @@
+contract_id: cemac-pcemf-2010-amifond-legacy-v0.7
+framework_target: "0.2.0"
+migration_mode: byte_for_byte_for_canonical_artifacts
+
+historical_invariants:
+  v0:
+    source_entries: 1502
+    grouped_entries: 50
+  v1:
+    account_nodes: 1552
+    class_nodes: 9
+    graph_nodes: 1561
+    unique_atomic_codes: 1550
+    depth_1: 87
+    depth_2: 412
+    depth_3: 823
+    depth_4: 230
+    cycles: 0
+    self_references: 0
+    missing_parents: 0
+  v2:
+    annotations: 86
+    covered_top_level_accounts: 87
+    grouped_annotation_sections: 1
+    shared_debit_credit_sections: 3
+    observations: 40
+  v3:
+    statement_templates: 8
+    trial_balance_statements: 6
+    combination_statements: 2
+    statement_lines: 635
+    direct_mapped_lines: 379
+    parsed_mapping_components: 419
+    leaf_accounts_reverse_indexed: 1014
+    observations: 20
+  v4:
+    prudential_rules: 13
+    components: 114
+    formulas: 37
+    thresholds: 19
+    observations: 23
+  v5:
+    guide_chunks: 756
+    guide_terms: 5371
+    candidate_groups: 1552
+    candidate_mappings: 4656
+    approved_mappings: 0
+    same_code_used_in_score: 0
+  v6:
+    business_tags: 17
+    account_links: 10
+    products: 5
+    fee_models: 5
+    events: 13
+    posting_rule_models: 8
+    executable_posting_rules: 0
+    control_rules: 15
+    business_scenarios: 12
+
+safety_invariants:
+  padded_regulatory_code_as_identity: false
+  executable_rules_generated_from_v2: false
+  code_equality_used_for_crosswalk_score: false
+  crosswalk_auto_approval: false
+  human_validation_required_for_posting: true

@@ -1,0 +1,61 @@
+standard_id: fr-pcg
+standard_name: Plan comptable général
+authority: ANC
+jurisdiction: FR
+language: fr
+edition: '2026'
+effective_from: '2026-01-01'
+effective_to: null
+base_standard: null
+extension_type: null
+source_documents:
+- document_id: fr-pcg-plan-2026
+  relative_path: sources/Plan-de-comptes_PCG-2026.pdf
+  media_type: application/pdf
+  role: chart_of_accounts_official_source
+  sha256: e5d85249d348809bf5f4585d37ecdb9b7c37badd7bf86b371da27eef4bb8dd4a
+  derived_from: []
+- document_id: fr-pcg-plan-2026-md
+  relative_path: sources/Plan-de-comptes_PCG-2026.md
+  media_type: text/markdown
+  role: derived_transcription
+  sha256: b58bb312671e721c76b6bf424872b7434a070da0c632a117072feb9d3c4c0ac3
+  derived_from:
+  - fr-pcg-plan-2026
+- document_id: fr-pcg-regulation-2026
+  relative_path: sources/PCG--1er-janvier-2026.pdf
+  media_type: application/pdf
+  role: consolidated_regulation_official_source
+  sha256: 002bbc6a5eca1079b895ba6c4b670f01db9820459cf834c375cfe021ca17db18
+  derived_from: []
+- document_id: fr-pcg-regulation-2026-md
+  relative_path: sources/PCG_2026_Reglement_ANC_2014-03_Version_Consolidee.md
+  media_type: text/markdown
+  role: derived_transcription
+  sha256: a117738e1b648b70223d7c48ab9510347405fdf2bcbd855220cceefcbd573a15
+  derived_from:
+  - fr-pcg-regulation-2026
+- document_id: fr-pcg-recueil-2026
+  relative_path: sources/ANC_RECEUIL-PCG-2026-AVEC-COUVERTURE_Entreprise-Industrielles-et-Commerciales.pdf
+  media_type: application/pdf
+  role: regulation_and_doctrine_official_source
+  sha256: 62ccb7d97f10942a417b6405eb4ded0e500337198244b84aba0af6ca825a2815
+  derived_from: []
+- document_id: fr-pcg-recueil-2026-md
+  relative_path: sources/Recueil_Normes_Comptables_Francaises_PCG_2026_Entreprises_Industrielles_Commerciales.md
+  media_type: text/markdown
+  role: derived_transcription_for_rag_and_extraction
+  sha256: 2c3b233d8c18b51e0cccaa61268b4ef61b1d4e0cc693f9d2ee6d9278e6d2c31d
+  derived_from:
+  - fr-pcg-recueil-2026
+capabilities:
+  chart_of_accounts: true
+  structure: true
+  posting_guidance: true
+  financial_reporting: true
+  prudential: false
+  disclosures: true
+  consolidation: false
+  sector_adaptations: true
+  crosswalk: true
+  business_enrichment: false

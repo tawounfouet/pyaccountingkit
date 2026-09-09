@@ -1,0 +1,2366 @@
+{
+  "account_functioning_model": {
+    "executable_posting_rules_generated": false,
+    "fields_supported": [
+      "content",
+      "subdivisions",
+      "comments",
+      "debit_usage",
+      "credit_usage",
+      "exclusions",
+      "control_elements"
+    ],
+    "granularity": "two_digit_account_group_source_binding",
+    "semantic_rule_inference": false,
+    "visual_source_is_authority": true
+  },
+  "class_ranges": [
+    {
+      "class_number": 1,
+      "page_range": [
+        106,
+        132
+      ]
+    },
+    {
+      "class_number": 2,
+      "page_range": [
+        133,
+        164
+      ]
+    },
+    {
+      "class_number": 3,
+      "page_range": [
+        165,
+        187
+      ]
+    },
+    {
+      "class_number": 4,
+      "page_range": [
+        188,
+        217
+      ]
+    },
+    {
+      "class_number": 5,
+      "page_range": [
+        218,
+        237
+      ]
+    },
+    {
+      "class_number": 6,
+      "page_range": [
+        238,
+        264
+      ]
+    },
+    {
+      "class_number": 7,
+      "page_range": [
+        265,
+        286
+      ]
+    },
+    {
+      "class_number": 8,
+      "page_range": [
+        287,
+        304
+      ]
+    },
+    {
+      "class_number": 9,
+      "page_range": [
+        305,
+        308
+      ]
+    }
+  ],
+  "dataset_version": "v2_source_registry_0.7.1",
+  "document_id": "ohada-sycebnl-2023-full-act",
+  "edition": "2023",
+  "group_bindings": [
+    {
+      "binding_id": "ebnl2023:functioning:10",
+      "class_source_range": [
+        106,
+        132
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "10",
+      "group_node_id": "group:ohada-ebnl:2023:10",
+      "label_source": ": DOTATION",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 107,
+        "section": "Compte 10"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 107
+    },
+    {
+      "binding_id": "ebnl2023:functioning:11",
+      "class_source_range": [
+        106,
+        132
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "11",
+      "group_node_id": "group:ohada-ebnl:2023:11",
+      "label_source": "RESERVES",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 110,
+        "section": "Compte 11"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 110
+    },
+    {
+      "binding_id": "ebnl2023:functioning:12",
+      "class_source_range": [
+        106,
+        132
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "12",
+      "group_node_id": "group:ohada-ebnl:2023:12",
+      "label_source": "REPORT A NOUVEAU",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 112,
+        "section": "Compte 12"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 112
+    },
+    {
+      "binding_id": "ebnl2023:functioning:13",
+      "class_source_range": [
+        106,
+        132
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "13",
+      "group_node_id": "group:ohada-ebnl:2023:13",
+      "label_source": "RESULTAT NET DE L’EXERCICE",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 114,
+        "section": "Compte 13"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 114
+    },
+    {
+      "binding_id": "ebnl2023:functioning:14",
+      "class_source_range": [
+        106,
+        132
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "14",
+      "group_node_id": "group:ohada-ebnl:2023:14",
+      "label_source": "SUBVENTIONS D’INVESTISSEMENT",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 116,
+        "section": "Compte 14"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 116
+    },
+    {
+      "binding_id": "ebnl2023:functioning:15",
+      "class_source_range": [
+        106,
+        132
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "15",
+      "group_node_id": "group:ohada-ebnl:2023:15",
+      "label_source": "PROVISIONS REGLEMENTEES ET FONDS ASSIMILES",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 118,
+        "section": "Compte 15"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 118
+    },
+    {
+      "binding_id": "ebnl2023:functioning:16",
+      "class_source_range": [
+        106,
+        132
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "16",
+      "group_node_id": "group:ohada-ebnl:2023:16",
+      "label_source": "FONDS AFFECTES",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 120,
+        "section": "Compte 16"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 120
+    },
+    {
+      "binding_id": "ebnl2023:functioning:17",
+      "class_source_range": [
+        106,
+        132
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "17",
+      "group_node_id": "group:ohada-ebnl:2023:17",
+      "label_source": "FONDS REPORTES",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 124,
+        "section": "Compte 17"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 124
+    },
+    {
+      "binding_id": "ebnl2023:functioning:18",
+      "class_source_range": [
+        106,
+        132
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "18",
+      "group_node_id": "group:ohada-ebnl:2023:18",
+      "label_source": "EMPRUNTS ET DETTES ASSIMILEES",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 127,
+        "section": "Compte 18"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 127
+    },
+    {
+      "binding_id": "ebnl2023:functioning:19",
+      "class_source_range": [
+        106,
+        132
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "19",
+      "group_node_id": "group:ohada-ebnl:2023:19",
+      "label_source": "PROVISIONS POUR RISQUES ET CHARGES =",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 130,
+        "section": "Compte 19"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 130
+    },
+    {
+      "binding_id": "ebnl2023:functioning:20",
+      "class_source_range": [
+        133,
+        164
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "20",
+      "group_node_id": "group:ohada-ebnl:2023:20",
+      "label_source": "IMMOBILISATIONS DESTINEES A LA VENTE PROVENANT DE DONS ET",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 136,
+        "section": "Compte 20"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 136
+    },
+    {
+      "binding_id": "ebnl2023:functioning:21",
+      "class_source_range": [
+        133,
+        164
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "21",
+      "group_node_id": "group:ohada-ebnl:2023:21",
+      "label_source": "IMMOBILISATIONS INCORPORELLES",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 138,
+        "section": "Compte 21"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 138
+    },
+    {
+      "binding_id": "ebnl2023:functioning:22",
+      "class_source_range": [
+        133,
+        164
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "22",
+      "group_node_id": "group:ohada-ebnl:2023:22",
+      "label_source": "TERRAINS",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 141,
+        "section": "Compte 22"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 141
+    },
+    {
+      "binding_id": "ebnl2023:functioning:23",
+      "class_source_range": [
+        133,
+        164
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "23",
+      "group_node_id": "group:ohada-ebnl:2023:23",
+      "label_source": "BATIMENTS, INSTALLATIONS TECHNIQUES ET AGENCEMENTS",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 144,
+        "section": "Compte 23"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 144
+    },
+    {
+      "binding_id": "ebnl2023:functioning:24",
+      "class_source_range": [
+        133,
+        164
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "24",
+      "group_node_id": "group:ohada-ebnl:2023:24",
+      "label_source": "MATERIEL, MOBILIER ET ACTIFS BIOLOGIQUES",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 148,
+        "section": "Compte 24"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 148
+    },
+    {
+      "binding_id": "ebnl2023:functioning:25",
+      "class_source_range": [
+        133,
+        164
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "25",
+      "group_node_id": "group:ohada-ebnl:2023:25",
+      "label_source": "AVANCES ET ACOMPTES VERSES SUR IMMOBILISATIONS",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 151,
+        "section": "Compte 25"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 151
+    },
+    {
+      "binding_id": "ebnl2023:functioning:26",
+      "class_source_range": [
+        133,
+        164
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "26",
+      "group_node_id": "group:ohada-ebnl:2023:26",
+      "label_source": "TITRES DE PARTICIPATION",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 153,
+        "section": "Compte 26"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 153
+    },
+    {
+      "binding_id": "ebnl2023:functioning:27",
+      "class_source_range": [
+        133,
+        164
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "27",
+      "group_node_id": "group:ohada-ebnl:2023:27",
+      "label_source": "AUTRES IMMOBLISATIONS FINANCIERES",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 155,
+        "section": "Compte 27"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 155
+    },
+    {
+      "binding_id": "ebnl2023:functioning:28",
+      "class_source_range": [
+        133,
+        164
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "28",
+      "group_node_id": "group:ohada-ebnl:2023:28",
+      "label_source": "AMORTISSEMENTS",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 158,
+        "section": "Compte 28"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 158
+    },
+    {
+      "binding_id": "ebnl2023:functioning:29",
+      "class_source_range": [
+        133,
+        164
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "29",
+      "group_node_id": "group:ohada-ebnl:2023:29",
+      "label_source": "DEPRECIATIONS DES IMMOBILISATIONS",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 161,
+        "section": "Compte 29"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 161
+    },
+    {
+      "binding_id": "ebnl2023:functioning:31",
+      "class_source_range": [
+        165,
+        187
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "31",
+      "group_node_id": "group:ohada-ebnl:2023:31",
+      "label_source": "BIENS LIES A L’ACTIVITE",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 168,
+        "section": "Compte 31"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 168
+    },
+    {
+      "binding_id": "ebnl2023:functioning:32",
+      "class_source_range": [
+        165,
+        187
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "32",
+      "group_node_id": "group:ohada-ebnl:2023:32",
+      "label_source": "MARCHANDISES, MATIERES PREMIERES ET FOURNITURES LIEES",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 170,
+        "section": "Compte 32"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 170
+    },
+    {
+      "binding_id": "ebnl2023:functioning:33",
+      "class_source_range": [
+        165,
+        187
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "33",
+      "group_node_id": "group:ohada-ebnl:2023:33",
+      "label_source": "AUTRES APPROVISIONNEMENTS",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 173,
+        "section": "Compte 33"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 173
+    },
+    {
+      "binding_id": "ebnl2023:functioning:34",
+      "class_source_range": [
+        165,
+        187
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "34",
+      "group_node_id": "group:ohada-ebnl:2023:34",
+      "label_source": "DONS EN NATURE",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 175,
+        "section": "Compte 34"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 175
+    },
+    {
+      "binding_id": "ebnl2023:functioning:35",
+      "class_source_range": [
+        165,
+        187
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "35",
+      "group_node_id": "group:ohada-ebnl:2023:35",
+      "label_source": "PRODUITS ET SERVICES EN COURS",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 177,
+        "section": "Compte 35"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 177
+    },
+    {
+      "binding_id": "ebnl2023:functioning:36",
+      "class_source_range": [
+        165,
+        187
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "36",
+      "group_node_id": "group:ohada-ebnl:2023:36",
+      "label_source": "PRODUITS FINIS, PRODUITS INTERMEDIAIRE ET RESIDUELS",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 178,
+        "section": "Compte 36"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 178
+    },
+    {
+      "binding_id": "ebnl2023:functioning:37",
+      "class_source_range": [
+        165,
+        187
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "37",
+      "group_node_id": "group:ohada-ebnl:2023:37",
+      "label_source": "STOCKS EN COURS DE ROUTE , EN CONSIGNATION, OU EN DEPOT",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 181,
+        "section": "Compte 37"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 181
+    },
+    {
+      "binding_id": "ebnl2023:functioning:38",
+      "class_source_range": [
+        165,
+        187
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "38",
+      "group_node_id": "group:ohada-ebnl:2023:38",
+      "label_source": "DONS EN NATURE HAO",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 184,
+        "section": "Compte 38"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 184
+    },
+    {
+      "binding_id": "ebnl2023:functioning:39",
+      "class_source_range": [
+        165,
+        187
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "39",
+      "group_node_id": "group:ohada-ebnl:2023:39",
+      "label_source": "DEPRECIATIONS DES STOCKS ET DES PRODUCTIONS EN COURS",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 186,
+        "section": "Compte 39"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 186
+    },
+    {
+      "binding_id": "ebnl2023:functioning:40",
+      "class_source_range": [
+        188,
+        217
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "40",
+      "group_node_id": "group:ohada-ebnl:2023:40",
+      "label_source": "FOURNISSEURS ET COMPTES RATTACHES",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 189,
+        "section": "Compte 40"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 189
+    },
+    {
+      "binding_id": "ebnl2023:functioning:41",
+      "class_source_range": [
+        188,
+        217
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "41",
+      "group_node_id": "group:ohada-ebnl:2023:41",
+      "label_source": "ADHERENTS, CLIENTS-USAGERS ET COMPTES RATTACHES",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 193,
+        "section": "Compte 41"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 193
+    },
+    {
+      "binding_id": "ebnl2023:functioning:42",
+      "class_source_range": [
+        188,
+        217
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "42",
+      "group_node_id": "group:ohada-ebnl:2023:42",
+      "label_source": "PERSONNEL",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 199,
+        "section": "Compte 42"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 199
+    },
+    {
+      "binding_id": "ebnl2023:functioning:43",
+      "class_source_range": [
+        188,
+        217
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "43",
+      "group_node_id": "group:ohada-ebnl:2023:43",
+      "label_source": "ORGANISMES SOCIAUX",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 201,
+        "section": "Compte 43"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 201
+    },
+    {
+      "binding_id": "ebnl2023:functioning:44",
+      "class_source_range": [
+        188,
+        217
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "44",
+      "group_node_id": "group:ohada-ebnl:2023:44",
+      "label_source": "ETAT ET COLLECTIVITES PUBLIQUES",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 203,
+        "section": "Compte 44"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 203
+    },
+    {
+      "binding_id": "ebnl2023:functioning:45",
+      "class_source_range": [
+        188,
+        217
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "45",
+      "group_node_id": "group:ohada-ebnl:2023:45",
+      "label_source": "FONDATEURS, APPORTEURS ET COMPTES COURANTS",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 205,
+        "section": "Compte 45"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 205
+    },
+    {
+      "binding_id": "ebnl2023:functioning:46",
+      "class_source_range": [
+        188,
+        217
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "46",
+      "group_node_id": "group:ohada-ebnl:2023:46",
+      "label_source": "BAILLEURS, FONDS D’ADMINISTRATION",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 207,
+        "section": "Compte 46"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 207
+    },
+    {
+      "binding_id": "ebnl2023:functioning:47",
+      "class_source_range": [
+        188,
+        217
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "47",
+      "group_node_id": "group:ohada-ebnl:2023:47",
+      "label_source": "DEBITEURS ET CREDITEURS DIVERS",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 210,
+        "section": "Compte 47"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 210
+    },
+    {
+      "binding_id": "ebnl2023:functioning:48",
+      "class_source_range": [
+        188,
+        217
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "48",
+      "group_node_id": "group:ohada-ebnl:2023:48",
+      "label_source": "CREANCES ET DETTES DONS HORS ACTIVITES ORDINAIRES (H.A.O.)",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 212,
+        "section": "Compte 48"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 212
+    },
+    {
+      "binding_id": "ebnl2023:functioning:49",
+      "class_source_range": [
+        188,
+        217
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "49",
+      "group_node_id": "group:ohada-ebnl:2023:49",
+      "label_source": "DEPRECIATIONS ET PROVISIONS POUR RISQUES A COURT TERME",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 216,
+        "section": "Compte 49"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 216
+    },
+    {
+      "binding_id": "ebnl2023:functioning:50",
+      "class_source_range": [
+        218,
+        237
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "50",
+      "group_node_id": "group:ohada-ebnl:2023:50",
+      "label_source": "TITRES DE PLACEMENT",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 218,
+        "section": "Compte 50"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 218
+    },
+    {
+      "binding_id": "ebnl2023:functioning:51",
+      "class_source_range": [
+        218,
+        237
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "51",
+      "group_node_id": "group:ohada-ebnl:2023:51",
+      "label_source": "VALEURS A ENCAISSER",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 220,
+        "section": "Compte 51"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 220
+    },
+    {
+      "binding_id": "ebnl2023:functioning:52",
+      "class_source_range": [
+        218,
+        237
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "52",
+      "group_node_id": "group:ohada-ebnl:2023:52",
+      "label_source": "BANQUES",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 222,
+        "section": "Compte 52"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 222
+    },
+    {
+      "binding_id": "ebnl2023:functioning:53",
+      "class_source_range": [
+        218,
+        237
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "53",
+      "group_node_id": "group:ohada-ebnl:2023:53",
+      "label_source": "ETABLISSEMENTS FINANCIERS ET ASSIMILES",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 224,
+        "section": "Compte 53"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 224
+    },
+    {
+      "binding_id": "ebnl2023:functioning:55",
+      "class_source_range": [
+        218,
+        237
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "55",
+      "group_node_id": "group:ohada-ebnl:2023:55",
+      "label_source": "INSTRUMENTS DE MONNAIE ELECTRONIQUE",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 226,
+        "section": "Compte 55"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 226
+    },
+    {
+      "binding_id": "ebnl2023:functioning:56",
+      "class_source_range": [
+        218,
+        237
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "56",
+      "group_node_id": "group:ohada-ebnl:2023:56",
+      "label_source": "BANQUES, CREDITS DE TRESORERIE ET D’ESCOMPTE",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 228,
+        "section": "Compte 56"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 228
+    },
+    {
+      "binding_id": "ebnl2023:functioning:57",
+      "class_source_range": [
+        218,
+        237
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "57",
+      "group_node_id": "group:ohada-ebnl:2023:57",
+      "label_source": "CAISSE",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 230,
+        "section": "Compte 57"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 230
+    },
+    {
+      "binding_id": "ebnl2023:functioning:58",
+      "class_source_range": [
+        218,
+        237
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "58",
+      "group_node_id": "group:ohada-ebnl:2023:58",
+      "label_source": "VIREMENTS INTERNES",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 232,
+        "section": "Compte 58"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 232
+    },
+    {
+      "binding_id": "ebnl2023:functioning:59",
+      "class_source_range": [
+        218,
+        237
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "59",
+      "group_node_id": "group:ohada-ebnl:2023:59",
+      "label_source": "DEPRECIATIONS ET PROVISIONS POUR RISQUES A COURT TERME",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 235,
+        "section": "Compte 59"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 235
+    },
+    {
+      "binding_id": "ebnl2023:functioning:60",
+      "class_source_range": [
+        238,
+        264
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "60",
+      "group_node_id": "group:ohada-ebnl:2023:60",
+      "label_source": "ACHATS ET VARIATIONS DE STOCKS",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 238,
+        "section": "Compte 60"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 238
+    },
+    {
+      "binding_id": "ebnl2023:functioning:61",
+      "class_source_range": [
+        238,
+        264
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "61",
+      "group_node_id": "group:ohada-ebnl:2023:61",
+      "label_source": "TRANSPORTS",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 241,
+        "section": "Compte 61"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 241
+    },
+    {
+      "binding_id": "ebnl2023:functioning:62",
+      "class_source_range": [
+        238,
+        264
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "62",
+      "group_node_id": "group:ohada-ebnl:2023:62",
+      "label_source": "SERVICES EXTERIEURS",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 243,
+        "section": "Compte 62"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 243
+    },
+    {
+      "binding_id": "ebnl2023:functioning:63",
+      "class_source_range": [
+        238,
+        264
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "63",
+      "group_node_id": "group:ohada-ebnl:2023:63",
+      "label_source": "AUTRES SERVICES EXTERIEURS",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 243,
+        "section": "Compte 63"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 243
+    },
+    {
+      "binding_id": "ebnl2023:functioning:64",
+      "class_source_range": [
+        238,
+        264
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "64",
+      "group_node_id": "group:ohada-ebnl:2023:64",
+      "label_source": "IMPOTS ET TAXES",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 247,
+        "section": "Compte 64"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 247
+    },
+    {
+      "binding_id": "ebnl2023:functioning:65",
+      "class_source_range": [
+        238,
+        264
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "65",
+      "group_node_id": "group:ohada-ebnl:2023:65",
+      "label_source": "AUTRES CHARGES",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 250,
+        "section": "Compte 65"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 250
+    },
+    {
+      "binding_id": "ebnl2023:functioning:66",
+      "class_source_range": [
+        238,
+        264
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "66",
+      "group_node_id": "group:ohada-ebnl:2023:66",
+      "label_source": "CHARGES DE PERSONNEL",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 254,
+        "section": "Compte 66"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 254
+    },
+    {
+      "binding_id": "ebnl2023:functioning:67",
+      "class_source_range": [
+        238,
+        264
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "67",
+      "group_node_id": "group:ohada-ebnl:2023:67",
+      "label_source": "FRAIS FINANCIERS ET CHARGES ASSIMILEES",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 258,
+        "section": "Compte 67"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 258
+    },
+    {
+      "binding_id": "ebnl2023:functioning:68",
+      "class_source_range": [
+        238,
+        264
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "68",
+      "group_node_id": "group:ohada-ebnl:2023:68",
+      "label_source": "DOTATIONS AUX AMORTISSEMENTS",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 261,
+        "section": "Compte 68"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 261
+    },
+    {
+      "binding_id": "ebnl2023:functioning:69",
+      "class_source_range": [
+        238,
+        264
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "69",
+      "group_node_id": "group:ohada-ebnl:2023:69",
+      "label_source": "DOTATIONS AUX PROVISIONS ET AUX DEPRECIATIONS",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 263,
+        "section": "Compte 69"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 263
+    },
+    {
+      "binding_id": "ebnl2023:functioning:70",
+      "class_source_range": [
+        265,
+        286
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "70",
+      "group_node_id": "group:ohada-ebnl:2023:70",
+      "label_source": "REVENUS",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 266,
+        "section": "Compte 70"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 266
+    },
+    {
+      "binding_id": "ebnl2023:functioning:71",
+      "class_source_range": [
+        265,
+        286
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "71",
+      "group_node_id": "group:ohada-ebnl:2023:71",
+      "label_source": "SUBVENTIONS D’EXPLOITATION",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 268,
+        "section": "Compte 71"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 268
+    },
+    {
+      "binding_id": "ebnl2023:functioning:72",
+      "class_source_range": [
+        265,
+        286
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "72",
+      "group_node_id": "group:ohada-ebnl:2023:72",
+      "label_source": "PRODUCTION IMMOBILISEE",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 270,
+        "section": "Compte 72"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 270
+    },
+    {
+      "binding_id": "ebnl2023:functioning:73",
+      "class_source_range": [
+        265,
+        286
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "73",
+      "group_node_id": "group:ohada-ebnl:2023:73",
+      "label_source": "VARIATIONS DES STOCKS DE BIENS PRODUITS",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 272,
+        "section": "Compte 73"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 272
+    },
+    {
+      "binding_id": "ebnl2023:functioning:75",
+      "class_source_range": [
+        265,
+        286
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "75",
+      "group_node_id": "group:ohada-ebnl:2023:75",
+      "label_source": "AUTRES PRODUITS",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 275,
+        "section": "Compte 75"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 275
+    },
+    {
+      "binding_id": "ebnl2023:functioning:77",
+      "class_source_range": [
+        265,
+        286
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "77",
+      "group_node_id": "group:ohada-ebnl:2023:77",
+      "label_source": "REVENUS FINANCIERS ET PRODUITS ASSIMILES",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 279,
+        "section": "Compte 77"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 279
+    },
+    {
+      "binding_id": "ebnl2023:functioning:78",
+      "class_source_range": [
+        265,
+        286
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "78",
+      "group_node_id": "group:ohada-ebnl:2023:78",
+      "label_source": "TRANSFERTS DE CHARGES",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 281,
+        "section": "Compte 78"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 281
+    },
+    {
+      "binding_id": "ebnl2023:functioning:79",
+      "class_source_range": [
+        265,
+        286
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "79",
+      "group_node_id": "group:ohada-ebnl:2023:79",
+      "label_source": "REPRISES DE PROVISIONS, DE DEPRECIATIONS ET AUTRES",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 283,
+        "section": "Compte 79"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 283
+    },
+    {
+      "binding_id": "ebnl2023:functioning:81",
+      "class_source_range": [
+        287,
+        304
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "81",
+      "group_node_id": "group:ohada-ebnl:2023:81",
+      "label_source": "VALEURS COMPTABLES DES CESSIONS D’IMMOBILISATIONS",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 288,
+        "section": "Compte 81"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 288
+    },
+    {
+      "binding_id": "ebnl2023:functioning:82",
+      "class_source_range": [
+        287,
+        304
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "82",
+      "group_node_id": "group:ohada-ebnl:2023:82",
+      "label_source": "PRODUITS DES CESSIONS D’IMMOBILISATIONS",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 290,
+        "section": "Compte 82"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 290
+    },
+    {
+      "binding_id": "ebnl2023:functioning:83",
+      "class_source_range": [
+        287,
+        304
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "83",
+      "group_node_id": "group:ohada-ebnl:2023:83",
+      "label_source": "CHARGES HORS ACTIVITES ORDINAIRES",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 292,
+        "section": "Compte 83"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 292
+    },
+    {
+      "binding_id": "ebnl2023:functioning:84",
+      "class_source_range": [
+        287,
+        304
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "84",
+      "group_node_id": "group:ohada-ebnl:2023:84",
+      "label_source": "REVENUS HORS ACTIVITES ORDINAIRES",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 295,
+        "section": "Compte 84"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 295
+    },
+    {
+      "binding_id": "ebnl2023:functioning:85",
+      "class_source_range": [
+        287,
+        304
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "85",
+      "group_node_id": "group:ohada-ebnl:2023:85",
+      "label_source": "DOTATIONS HORS ACTIVITES ORDINAIRES",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 297,
+        "section": "Compte 85"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 297
+    },
+    {
+      "binding_id": "ebnl2023:functioning:86",
+      "class_source_range": [
+        287,
+        304
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "86",
+      "group_node_id": "group:ohada-ebnl:2023:86",
+      "label_source": "REPRISES D'AMORTISSEMENTS, PROVISIONS ET DEPRECIATIONS HAO.",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 299,
+        "section": "Compte 86"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 299
+    },
+    {
+      "binding_id": "ebnl2023:functioning:87",
+      "class_source_range": [
+        287,
+        304
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "87",
+      "group_node_id": "group:ohada-ebnl:2023:87",
+      "label_source": "VARIATIONS DE STOCKS DE DONS EN NATURE HAO",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 301,
+        "section": "Compte 87"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 301
+    },
+    {
+      "binding_id": "ebnl2023:functioning:88",
+      "class_source_range": [
+        287,
+        304
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "88",
+      "group_node_id": "group:ohada-ebnl:2023:88",
+      "label_source": "SUBVENTIONS D’EQUILIBRE",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 303,
+        "section": "Compte 88"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 303
+    },
+    {
+      "binding_id": "ebnl2023:functioning:90",
+      "class_source_range": [
+        305,
+        308
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "90",
+      "group_node_id": "group:ohada-ebnl:2023:90",
+      "label_source": "EMPLOIS DES CONTRIBUTIONS VOLONTAIRES EN NATURE",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 306,
+        "section": "Compte 90"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 306
+    },
+    {
+      "binding_id": "ebnl2023:functioning:91",
+      "class_source_range": [
+        305,
+        308
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "91",
+      "group_node_id": "group:ohada-ebnl:2023:91",
+      "label_source": "CONTRIBUTIONS VOLONTAIRES EN NATURE",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 306,
+        "section": "Compte 91"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 306
+    },
+    {
+      "binding_id": "ebnl2023:functioning:92",
+      "class_source_range": [
+        305,
+        308
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "92",
+      "group_node_id": "group:ohada-ebnl:2023:92",
+      "label_source": "COMPTES REFLECHIS",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 308,
+        "section": "Compte 92"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 308
+    },
+    {
+      "binding_id": "ebnl2023:functioning:93",
+      "class_source_range": [
+        305,
+        308
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "93",
+      "group_node_id": "group:ohada-ebnl:2023:93",
+      "label_source": "COMPTES DE RECLASSEMENTS",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 308,
+        "section": "Compte 93"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 308
+    },
+    {
+      "binding_id": "ebnl2023:functioning:94",
+      "class_source_range": [
+        305,
+        308
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "94",
+      "group_node_id": "group:ohada-ebnl:2023:94",
+      "label_source": "COMPTES DE COOTS",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 308,
+        "section": "Compte 94"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 308
+    },
+    {
+      "binding_id": "ebnl2023:functioning:95",
+      "class_source_range": [
+        305,
+        308
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "95",
+      "group_node_id": "group:ohada-ebnl:2023:95",
+      "label_source": "COMPTES DE STOCKS",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 308,
+        "section": "Compte 95"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 308
+    },
+    {
+      "binding_id": "ebnl2023:functioning:96",
+      "class_source_range": [
+        305,
+        308
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "96",
+      "group_node_id": "group:ohada-ebnl:2023:96",
+      "label_source": "COMPTES D'ECARTS SUR COUTS PREETABLIS",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 308,
+        "section": "Compte 96"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 308
+    },
+    {
+      "binding_id": "ebnl2023:functioning:97",
+      "class_source_range": [
+        305,
+        308
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "97",
+      "group_node_id": "group:ohada-ebnl:2023:97",
+      "label_source": "COMPTES DE DIFFERENCES DE TRAITEMENT COMPTABLE",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 308,
+        "section": "Compte 97"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 308
+    },
+    {
+      "binding_id": "ebnl2023:functioning:98",
+      "class_source_range": [
+        305,
+        308
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "98",
+      "group_node_id": "group:ohada-ebnl:2023:98",
+      "label_source": "COMPTES DE RESULTATS",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 308,
+        "section": "Compte 98"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 308
+    },
+    {
+      "binding_id": "ebnl2023:functioning:99",
+      "class_source_range": [
+        305,
+        308
+      ],
+      "field_transcription_status": "visual_source_bound_not_fully_retranscribed",
+      "group_code": "99",
+      "group_node_id": "group:ohada-ebnl:2023:99",
+      "label_source": "COMPTES DE LIAISONS INTERNES",
+      "source": {
+        "document_id": "ohada-sycebnl-2023-full-act",
+        "page_pdf": 308,
+        "section": "Compte 99"
+      },
+      "source_binding_status": "visual_title_page_verified",
+      "structured_section_schema": [
+        "contenu",
+        "subdivisions",
+        "commentaires",
+        "fonctionnement_débit",
+        "fonctionnement_crédit",
+        "exclusions",
+        "éléments_de_contrôle"
+      ],
+      "title_page_pdf": 308
+    }
+  ],
+  "source_range": [
+    106,
+    308
+  ],
+  "standard_id": "ohada-ebnl",
+  "statistics": {
+    "extra_title_page_codes": [],
+    "group_bindings": 84,
+    "missing_group_title_pages": [],
+    "visual_title_pages_bound": 84
+  }
+}

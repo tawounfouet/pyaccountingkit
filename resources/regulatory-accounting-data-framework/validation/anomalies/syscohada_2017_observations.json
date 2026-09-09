@@ -1,0 +1,54 @@
+{
+  "standard_ref": "ohada-syscohada:2017",
+  "observations": [
+    {
+      "observation_id": "syscohada2017:app53-number",
+      "severity": "warning",
+      "type": "source_heading_number_anomaly",
+      "status": "resolved_by_toc_title",
+      "reason": "Body prints APPLICATION 535 for 'Stocks de marchandises'; TOC identifies Application 53."
+    },
+    {
+      "observation_id": "syscohada2017:app61-number",
+      "severity": "warning",
+      "type": "source_heading_number_anomaly",
+      "status": "resolved_by_toc_title",
+      "reason": "Body prints APPLICATION 616 for 'Augmentation par incorporation de réserves'; TOC identifies Application 61."
+    },
+    {
+      "observation_id": "syscohada2017:app113-marker",
+      "severity": "warning",
+      "type": "source_heading_marker_anomaly",
+      "status": "preserved",
+      "reason": "Body prints 'APPLICATIONü 113'; canonical application remains 113."
+    },
+    {
+      "observation_id": "syscohada2017:app142-continuation",
+      "severity": "info",
+      "type": "continued_application_heading",
+      "status": "merged_as_continuation",
+      "reason": "Application 142 has a second heading 'Suite des données' on the following PDF page."
+    },
+    {
+      "observation_id": "syscohada2017:missing-title-ix-post-account-tables",
+      "severity": "warning",
+      "type": "source_scope_gap",
+      "status": "open",
+      "reason": "Guide refers to Title IX chapter 7 Postes/Comptes tables, absent from supplied corpus."
+    },
+    {
+      "observation_id": "syscohada2017:tft-duplicate-zf",
+      "severity": "warning",
+      "type": "source_conflict",
+      "status": "open",
+      "reason": "Application 127 page 358 prints ZF for two distinct cash-flow rows."
+    },
+    {
+      "observation_id": "syscohada2017:income-hao-conflict",
+      "severity": "warning",
+      "type": "source_conflict",
+      "status": "open",
+      "reason": "Page 331 narrative names RM/RN for HAO charges while model example includes RO."
+    }
+  ]
+}

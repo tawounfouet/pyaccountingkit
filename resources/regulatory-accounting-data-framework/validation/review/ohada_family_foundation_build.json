@@ -1,0 +1,68 @@
+{
+  "family": {
+    "description": "Famille de référentiels comptables liés au cadre OHADA et à ses spécialisations sectorielles/régionales. L'appartenance à la famille n'implique jamais un héritage réglementaire entre éditions.",
+    "family_id": "ohada-accounting",
+    "family_name": "OHADA / CEMAC Accounting Family",
+    "jurisdiction_scopes": [
+      "OHADA",
+      "CEMAC"
+    ],
+    "member_standard_refs": [
+      "ohada-syscohada:2017",
+      "ohada-ebnl:2023",
+      "cemac-pcemf:2010"
+    ],
+    "relation_policy": {
+      "code_equality_is_not_semantic_evidence": true,
+      "crosswalk_requires_human_review": true,
+      "later_standard_cannot_be_parent_of_earlier_standard_without_explicit_source": true,
+      "membership_does_not_imply_inheritance": true,
+      "neutral_concepts_are_semantic_pivots_not_accounting_rules": true
+    }
+  },
+  "members": [
+    {
+      "authority": "OHADA",
+      "canonical_status": "source_bundle_ready",
+      "jurisdiction": "OHADA",
+      "source_documents": 4,
+      "standard_ref": "ohada-syscohada:2017",
+      "standard_role": "general_accounting_standard"
+    },
+    {
+      "authority": "OHADA",
+      "canonical_status": "complete_official_normative_source_structured_v0_v3",
+      "jurisdiction": "OHADA",
+      "source_documents": 3,
+      "standard_ref": "ohada-ebnl:2023",
+      "standard_role": "nonprofit_specialized_standard"
+    },
+    {
+      "authority": "COBAC",
+      "canonical_status": "source_bundle_ready",
+      "jurisdiction": "CEMAC",
+      "source_documents": 6,
+      "standard_ref": "cemac-pcemf:2010",
+      "standard_role": "microfinance_sectoral_standard"
+    }
+  ],
+  "release": "0.5.0",
+  "statistics": {
+    "canonical_blocked_sources": 2,
+    "concept_bindings": 0,
+    "crosswalk_relations": 1,
+    "family_members": 3,
+    "inheritance_relations": 0,
+    "neutral_concepts": 12,
+    "relations": 4,
+    "source_documents": 13,
+    "source_hashes_verified": 13
+  },
+  "status": "ok",
+  "validation": {
+    "concept_bindings": [],
+    "inheritance": [],
+    "ohada_temporal_guards": [],
+    "source_hashes": []
+  }
+}

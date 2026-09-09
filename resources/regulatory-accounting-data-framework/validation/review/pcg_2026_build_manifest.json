@@ -1,0 +1,68 @@
+{
+  "edition": "2026",
+  "outputs": {
+    "article_registry": "datasets/annotated/pcg_2026_article_registry.json",
+    "doctrine_ir": "datasets/annotated/pcg_2026_doctrine_ir.json",
+    "rag": "rag/indexes/pcg-recueil-2026-v1.json",
+    "v0": "datasets/raw/pcg_2026_v0_raw.json",
+    "v1": "datasets/structured/pcg_2026_v1_structure.json",
+    "v2": "datasets/annotated/pcg_2026_v2_account_functioning.json",
+    "v3_reporting": "datasets/reporting/pcg_2026_v3_reporting.json"
+  },
+  "standard_id": "fr-pcg",
+  "statistics": {
+    "articles": {
+      "articles": 572,
+      "unique_article_refs": 531
+    },
+    "doctrine": {
+      "IR1": 41,
+      "IR2": 35,
+      "IR3": 199,
+      "IR4": 40,
+      "IR5": 3,
+      "linked_to_article": 318,
+      "total": 318
+    },
+    "rag": {
+      "average_tokens": 110.62,
+      "chunks": 1797,
+      "pages_with_chunks": 665,
+      "terms": 9273
+    },
+    "reporting": {
+      "accounts_reverse_indexed": 765,
+      "mapping_components": 190,
+      "observations": 0,
+      "statement_lines": 158,
+      "statement_templates": 4
+    },
+    "v0": {
+      "account_ranges": 1,
+      "accounts": 768,
+      "classes": 7,
+      "group_bundles": 1,
+      "groups": 61,
+      "minimum_plan_account_entries": 366,
+      "optional_account_entries": 403,
+      "records_total": 837
+    },
+    "v1": {
+      "account_nodes": 768,
+      "class_nodes": 7,
+      "graph_nodes": 837,
+      "group_bundle_nodes": 1,
+      "group_nodes": 61,
+      "minimum_account_or_group_nodes": 427,
+      "optional_account_nodes": 402,
+      "range_nodes": 1
+    },
+    "v2": {
+      "annotations": 58,
+      "debit_credit_evidence_fragments": 188,
+      "with_account_family_scope": 53,
+      "with_class_scope": 5
+    }
+  },
+  "status": "built"
+}

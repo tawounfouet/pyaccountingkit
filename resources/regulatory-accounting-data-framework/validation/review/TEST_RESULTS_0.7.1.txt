@@ -1,0 +1,27 @@
+Release 0.7.1 — OHADA EBNL Complete
+
+== pytest ==
+........................................................................ [ 78%]
+....................                                                     [100%]
+92 passed in 0.69s
+
+== ebln validate ==
+{
+  "v0": [],
+  "v1": [],
+  "duplicate_4555": [],
+  "comparison": [],
+  "source": [],
+  "legal": [],
+  "conceptual": [],
+  "v2": [],
+  "specific_operations": [],
+  "v3": [],
+  "disclosures": [],
+  "capabilities": []
+}
+
+== source verify ==
+OK ohada-sycebnl-2023-full-act ea818231ba98d81785f33966176c15d43934f5a2697a196b38456ec737a0457a
+OK ohada-ebnl-plan-2023 0ccacf4dc9e3badc0010731fc680b4b988c6c1cb9a6458e6268fbed2a1e394d7
+OK ohada-ebnl-plan-2023-md 91db517c560c2e2993ad6815cbe8c8bd46b640395be41f29fc14be0e7669d98e

@@ -1,0 +1,84 @@
+{
+  "base_standard": "fr-pcg:2026",
+  "edition": "2026",
+  "outputs": {
+    "account_overlay": "datasets/structured/nonprofit_2026_v1_account_overlay.json",
+    "articles": "datasets/annotated/nonprofit_2026_primary_article_registry.json",
+    "disclosures": "datasets/annotated/nonprofit_2026_disclosures.json",
+    "doctrine_ir": "datasets/annotated/nonprofit_2026_doctrine_ir.json",
+    "effective_plan": "datasets/structured/nonprofit_2026_v1_effective_plan.json",
+    "functioning": "datasets/annotated/nonprofit_2026_v2_account_functioning.json",
+    "orcom_comparison": "validation/review/nonprofit_2026_orcom_comparison.json",
+    "orcom_plan": "datasets/raw/orcom_associations_2025_practitioner_plan.json",
+    "rag": "rag/indexes/nonprofit-recueil-2026-v1.json",
+    "reporting": "datasets/reporting/nonprofit_2026_v3_reporting.json",
+    "specific_accounts": "datasets/raw/nonprofit_2026_art_320_2_specific_accounts.json"
+  },
+  "source_priority": [
+    "ANC Recueil secteur non lucratif 2026 - regulatory primary",
+    "ORCOM plan de comptes associations 2025 - practitioner secondary only"
+  ],
+  "standard_id": "fr-nonprofit",
+  "statistics": {
+    "articles": {
+      "articles": 142,
+      "unique_article_refs": 137
+    },
+    "disclosures": {
+      "general_annex": 14,
+      "public_generosity": 22,
+      "requirements": 36
+    },
+    "doctrine": {
+      "IR1": 16,
+      "IR2": 13,
+      "IR3": 78,
+      "IR4": 4,
+      "IR5": 1,
+      "linked_to_article": 111,
+      "total": 112
+    },
+    "effective_plan": {
+      "effective_accounts_or_groups": 901,
+      "extension_additions": 73,
+      "extension_overrides": 43,
+      "inherited": 785
+    },
+    "functioning": {
+      "account_refs_covered": 7,
+      "annotations": 7
+    },
+    "orcom": {
+      "occurrences": 855,
+      "unique_codes": 853
+    },
+    "orcom_comparison": {
+      "duplicate_code_meaning_in_practitioner_reference": 2,
+      "label_match": 683,
+      "label_variation": 142,
+      "missing_from_practitioner_reference": 74,
+      "practitioner_extra_not_in_canonical_effective_plan": 26
+    },
+    "overlay": {
+      "label_or_semantic_override": 26,
+      "same_semantics_label": 17,
+      "specific_addition": 73
+    },
+    "rag": {
+      "average_tokens": 111.07,
+      "chunks": 559,
+      "pages_with_chunks": 236,
+      "terms": 4319
+    },
+    "reporting": {
+      "lines_with_account_hints": 33,
+      "statement_lines": 160,
+      "statement_templates": 4
+    },
+    "specific_accounts": {
+      "entries": 116,
+      "unique_codes": 116
+    }
+  },
+  "status": "built"
+}

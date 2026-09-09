@@ -1,0 +1,14 @@
+{
+  "records": [
+    {
+      "record_id": "r1",
+      "code_source": "30 / 31",
+      "label_source": "CREDITS"
+    },
+    {
+      "record_id": "r2",
+      "code_source": "57",
+      "label_source": "CAISSE"
+    }
+  ]
+}

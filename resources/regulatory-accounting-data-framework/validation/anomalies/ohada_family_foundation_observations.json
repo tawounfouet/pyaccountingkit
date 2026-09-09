@@ -1,0 +1,39 @@
+{
+  "family_id": "ohada-accounting",
+  "observations": [
+    {
+      "observation_id": "ohada-foundation:ebnl-ocr-review",
+      "severity": "blocking",
+      "type": "ocr_transcription_requires_human_review",
+      "standard_ref": "ohada-ebnl:2023",
+      "document_id": "ohada-ebnl-plan-2023-md",
+      "reason": "Image-only PDF; OCR contains visible artifacts. Canonical V0 ingestion is blocked until source review.",
+      "status": "open"
+    },
+    {
+      "observation_id": "ohada-foundation:pcemf-list-reconstructed",
+      "severity": "warning",
+      "type": "reconstructed_transcription",
+      "standard_ref": "cemac-pcemf:2010",
+      "document_id": "pcemf-list-2010-md",
+      "reason": "Standalone list is image-only; Markdown is page-aligned from identical list section in full PCEMF.",
+      "status": "accepted"
+    },
+    {
+      "observation_id": "ohada-foundation:no-pcemf-inheritance-2017",
+      "severity": "blocking",
+      "type": "temporal_relation_guard",
+      "standard_ref": "cemac-pcemf:2010",
+      "reason": "PCEMF 2010 cannot inherit from SYSCOHADA 2017.",
+      "status": "accepted"
+    },
+    {
+      "observation_id": "ohada-foundation:ebnl-full-act-missing",
+      "severity": "warning",
+      "type": "source_scope_gap",
+      "standard_ref": "ohada-ebnl:2023",
+      "reason": "Current bundle contains detailed chart extract, not full EBNL Act. V2/V3 remain disabled.",
+      "status": "open"
+    }
+  ]
+}

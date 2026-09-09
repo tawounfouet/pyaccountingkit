@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AccountingConcept",
+  "type": "object",
+  "required": [
+    "concept_id",
+    "label",
+    "definition",
+    "concept_type",
+    "status"
+  ]
+}

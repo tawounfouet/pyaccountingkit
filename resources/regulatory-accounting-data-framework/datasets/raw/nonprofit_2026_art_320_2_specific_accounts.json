@@ -1,0 +1,1749 @@
+{
+  "article_ref": "320-2",
+  "entries": [
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "10",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:10",
+      "label_source": "Fonds propres et réserves",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": null,
+        "section": "Art. 320-2",
+        "snippet": "10 - Fonds propres et réserves",
+        "source_line_md": 1692
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "102",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:102",
+      "label_source": "Fonds propres sans droit de reprise",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": null,
+        "section": "Art. 320-2",
+        "snippet": "102 - Fonds propres sans droit de reprise",
+        "source_line_md": 1693
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "1021",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:1021",
+      "label_source": "Première situation nette établie",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": null,
+        "section": "Art. 320-2",
+        "snippet": "1021 - Première situation nette établie",
+        "source_line_md": 1694
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "1022",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:1022",
+      "label_source": "Fonds statutaires (à subdiviser en fonction des statuts)",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": null,
+        "section": "Art. 320-2",
+        "snippet": "1022 - Fonds statutaires (à subdiviser en fonction des statuts)",
+        "source_line_md": 1695
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "1023",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:1023",
+      "label_source": "Dotations non consomptibles",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": null,
+        "section": "Art. 320-2",
+        "snippet": "1023 - Dotations non consomptibles",
+        "source_line_md": 1696
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "10231",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:10231",
+      "label_source": "Dotations non consomptibles initiales",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": null,
+        "section": "Art. 320-2",
+        "snippet": "10231 - Dotations non consomptibles initiales",
+        "source_line_md": 1697
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "10232",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:10232",
+      "label_source": "Dotations non consomptibles complémentaires",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": null,
+        "section": "Art. 320-2",
+        "snippet": "10232 - Dotations non consomptibles complémentaires",
+        "source_line_md": 1698
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "1024",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:1024",
+      "label_source": "Autres fonds propres sans droit de reprise",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": null,
+        "section": "Art. 320-2",
+        "snippet": "1024 - Autres fonds propres sans droit de reprise",
+        "source_line_md": 1699
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "103",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:103",
+      "label_source": "Fonds propres avec droit de reprise",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": null,
+        "section": "Art. 320-2",
+        "snippet": "103 - Fonds propres avec droit de reprise",
+        "source_line_md": 1700
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "1032",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:1032",
+      "label_source": "Fonds statutaires (à subdiviser en fonction des statuts)",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": null,
+        "section": "Art. 320-2",
+        "snippet": "1032 - Fonds statutaires (à subdiviser en fonction des statuts)",
+        "source_line_md": 1701
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "1034",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:1034",
+      "label_source": "Autres fonds propres avec droit de reprise",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": null,
+        "section": "Art. 320-2",
+        "snippet": "1034 - Autres fonds propres avec droit de reprise",
+        "source_line_md": 1702
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "105",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:105",
+      "label_source": "Ecarts de réévaluation",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": null,
+        "section": "Art. 320-2",
+        "snippet": "105 - Ecarts de réévaluation",
+        "source_line_md": 1703
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "1051",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:1051",
+      "label_source": "Ecarts de réévaluation sur des biens sans droit de reprise",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": null,
+        "section": "Art. 320-2",
+        "snippet": "1051 - Ecarts de réévaluation sur des biens sans droit de reprise",
+        "source_line_md": 1704
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "1052",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:1052",
+      "label_source": "Ecarts de réévaluation sur des biens avec droit de reprise",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": null,
+        "section": "Art. 320-2",
+        "snippet": "1052 - Ecarts de réévaluation sur des biens avec droit de reprise",
+        "source_line_md": 1705
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "106",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:106",
+      "label_source": "Réserves",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": null,
+        "section": "Art. 320-2",
+        "snippet": "106 - Réserves",
+        "source_line_md": 1706
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "1068",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:1068",
+      "label_source": "Réserves pour projet de l’entité",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": null,
+        "section": "Art. 320-2",
+        "snippet": "1068 - Réserves pour projet de l’entité",
+        "source_line_md": 1707
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "108",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:108",
+      "label_source": "Dotations consomptibles",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": null,
+        "section": "Art. 320-2",
+        "snippet": "108 - Dotations consomptibles",
+        "source_line_md": 1708
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "1081",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:1081",
+      "label_source": "Dotations consomptibles",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": null,
+        "section": "Art. 320-2",
+        "snippet": "1081 - Dotations consomptibles",
+        "source_line_md": 1709
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "1089",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:1089",
+      "label_source": "Dotations consomptibles inscrites au compte de résultat",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": null,
+        "section": "Art. 320-2",
+        "snippet": "1089 - Dotations consomptibles inscrites au compte de résultat",
+        "source_line_md": 1710
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "15",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:15",
+      "label_source": "Provisions",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": null,
+        "section": "Art. 320-2",
+        "snippet": "15 - Provisions",
+        "source_line_md": 1711
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "152",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:152",
+      "label_source": "Provisions pour charges sur legs ou donations",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": null,
+        "section": "Art. 320-2",
+        "snippet": "152 - Provisions pour charges sur legs ou donations",
+        "source_line_md": 1712
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "16",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:16",
+      "label_source": "Emprunts et dettes assimilées",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": null,
+        "section": "Art. 320-2",
+        "snippet": "16 - Emprunts et dettes assimilées",
+        "source_line_md": 1713
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "163",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:163",
+      "label_source": "Autres emprunts obligataires",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "163 - Autres emprunts obligataires",
+        "source_line_md": 1720
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "1631",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:1631",
+      "label_source": "Titres associatifs et assimilés",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "1631 - Titres associatifs et assimilés",
+        "source_line_md": 1721
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "19",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:19",
+      "label_source": "Fonds dédiés ou reportés",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "19 - Fonds dédiés ou reportés",
+        "source_line_md": 1722
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "191",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:191",
+      "label_source": "Fonds reportés liés aux legs ou donations",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "191 - Fonds reportés liés aux legs ou donations",
+        "source_line_md": 1723
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "1911",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:1911",
+      "label_source": "Legs ou donations",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "1911 - Legs ou donations",
+        "source_line_md": 1724
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "1912",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:1912",
+      "label_source": "Donations temporaires d’usufruit",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "1912 - Donations temporaires d’usufruit",
+        "source_line_md": 1725
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "194",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:194",
+      "label_source": "Fonds dédiés sur subventions d’exploitation",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "194 - Fonds dédiés sur subventions d’exploitation",
+        "source_line_md": 1726
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "195",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:195",
+      "label_source": "Fonds dédiés sur contributions financières d’autres organismes",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "195 - Fonds dédiés sur contributions financières d’autres organismes",
+        "source_line_md": 1727
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "196",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:196",
+      "label_source": "Fonds dédiés sur ressources liées à la générosité du public",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "196 - Fonds dédiés sur ressources liées à la générosité du public",
+        "source_line_md": 1728
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "20",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:20",
+      "label_source": "Immobilisations incorporelles",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "20 - Immobilisations incorporelles",
+        "source_line_md": 1729
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "204",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:204",
+      "label_source": "Donations temporaires d’usufruit",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "204 - Donations temporaires d’usufruit",
+        "source_line_md": 1730
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "24",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:24",
+      "label_source": "Biens reçus par legs ou donations destinés à être cédés",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "24 - Biens reçus par legs ou donations destinés à être cédés",
+        "source_line_md": 1731
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "27",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:27",
+      "label_source": "Autres immobilisations financières",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "27 - Autres immobilisations financières",
+        "source_line_md": 1732
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "2742",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:2742",
+      "label_source": "Prêts aux partenaires",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "2742 - Prêts aux partenaires",
+        "source_line_md": 1733
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "28",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:28",
+      "label_source": "Amortissements des immobilisations",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "28 - Amortissements des immobilisations",
+        "source_line_md": 1734
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "280",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:280",
+      "label_source": "Amortissements des immobilisations incorporelles",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "280 - Amortissements des immobilisations incorporelles",
+        "source_line_md": 1735
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "2804",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:2804",
+      "label_source": "Donations temporaires d’usufruit",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "2804 - Donations temporaires d’usufruit",
+        "source_line_md": 1736
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "29",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:29",
+      "label_source": "Dépréciations des immobilisations",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "29 - Dépréciations des immobilisations",
+        "source_line_md": 1737
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "294",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:294",
+      "label_source": "Dépréciations des biens reçus par legs ou donations destinés à être cédés",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "294 - Dépréciations des biens reçus par legs ou donations destinés à être cédés",
+        "source_line_md": 1738
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "41",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:41",
+      "label_source": "Clients, adhérents, usagers et comptes rattachés",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "41 - Clients, adhérents, usagers et comptes rattachés",
+        "source_line_md": 1739
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "45",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:45",
+      "label_source": "Confédération, fédération, union, entités affiliées",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "45 - Confédération, fédération, union, entités affiliées",
+        "source_line_md": 1740
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "455",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:455",
+      "label_source": "Partenaires - comptes courants",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "455 - Partenaires - comptes courants",
+        "source_line_md": 1741
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "46",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:46",
+      "label_source": "Débiteurs et créditeurs divers",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "46 - Débiteurs et créditeurs divers",
+        "source_line_md": 1742
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "461",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:461",
+      "label_source": "Créances reçues par legs ou donations",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "461 - Créances reçues par legs ou donations",
+        "source_line_md": 1743
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "466",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:466",
+      "label_source": "Dettes des legs ou donations",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "466 - Dettes des legs ou donations",
+        "source_line_md": 1744
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "468",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:468",
+      "label_source": "Divers charges à payer et produits à recevoir",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "468 - Divers charges à payer et produits à recevoir",
+        "source_line_md": 1745
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "4681",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:4681",
+      "label_source": "Frais des bénévoles",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "4681 - Frais des bénévoles",
+        "source_line_md": 1746
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "62",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:62",
+      "label_source": "Autres services extérieurs",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "62 - Autres services extérieurs",
+        "source_line_md": 1747
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "622",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:622",
+      "label_source": "Rémunérations d’intermédiaires et honoraires",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "622 - Rémunérations d’intermédiaires et honoraires",
+        "source_line_md": 1748
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "6226",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:6226",
+      "label_source": "Honoraires",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "6226 - Honoraires",
+        "source_line_md": 1749
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "62264",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:62264",
+      "label_source": "Honoraires sur legs ou donations destinés à être cédés",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "62264 - Honoraires sur legs ou donations destinés à être cédés",
+        "source_line_md": 1750
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "65",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:65",
+      "label_source": "Autres charges de gestion courante",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "65 - Autres charges de gestion courante",
+        "source_line_md": 1751
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "652",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:652",
+      "label_source": "Valeurs comptables des immobilisations incorporelles et corporelles cédées",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "652 – Valeurs comptables des immobilisations incorporelles et corporelles cédées",
+        "source_line_md": 1752
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "6521",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:6521",
+      "label_source": "immobilisations reçues par legs ou donations",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "6521 - immobilisations reçues par legs ou donations",
+        "source_line_md": 1753
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "653",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:653",
+      "label_source": "Charges de la générosité du public",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 37,
+        "section": "Art. 320-2",
+        "snippet": "653 - Charges de la générosité du public",
+        "source_line_md": 1754
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "6531",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:6531",
+      "label_source": "Autres charges sur legs ou donations",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "6531 - Autres charges sur legs ou donations",
+        "source_line_md": 1761
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "657",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:657",
+      "label_source": "Aides financières",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "657 - Aides financières",
+        "source_line_md": 1762
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "6571",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:6571",
+      "label_source": "Aides financières octroyées",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "6571 - Aides financières octroyées",
+        "source_line_md": 1763
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "6572",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:6572",
+      "label_source": "Quotes-parts de générosité reversée",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "6572 - Quotes-parts de générosité reversée",
+        "source_line_md": 1764
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "6573",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:6573",
+      "label_source": "Apports ou affectations en numéraire",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "6573 – Apports ou affectations en numéraire",
+        "source_line_md": 1765
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "68",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:68",
+      "label_source": "Dotations aux amortissements, provisions et engagements",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "68 - Dotations aux amortissements, provisions et engagements",
+        "source_line_md": 1766
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "6816",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:6816",
+      "label_source": "Dotations pour dépréciations des immobilisations incorporelles et corporelles",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "6816 - Dotations pour dépréciations des immobilisations incorporelles et corporelles",
+        "source_line_md": 1767
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "68164",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:68164",
+      "label_source": "Dotations pour dépréciation d’actifs reçus par legs ou donations destinés à être cédés",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "68164 - Dotations pour dépréciation d’actifs reçus par legs ou donations destinés à être cédés",
+        "source_line_md": 1768
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "689",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:689",
+      "label_source": "Reports en fonds dédiés",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "689 - Reports en fonds dédiés",
+        "source_line_md": 1769
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "6891",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:6891",
+      "label_source": "Reports en fonds reportés",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "6891 - Reports en fonds reportés",
+        "source_line_md": 1770
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "6894",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:6894",
+      "label_source": "Reports en fonds dédiés sur subventions d’exploitation",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "6894 - Reports en fonds dédiés sur subventions d’exploitation",
+        "source_line_md": 1771
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "6895",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:6895",
+      "label_source": "Reports en fonds dédiés sur contributions financières d’autres organismes",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "6895 - Reports en fonds dédiés sur contributions financières d’autres organismes",
+        "source_line_md": 1772
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "6896",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:6896",
+      "label_source": "Reports en fonds dédiés sur ressources liées à la générosité du public",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "6896 - Reports en fonds dédiés sur ressources liées à la générosité du public",
+        "source_line_md": 1773
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "70",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:70",
+      "label_source": "Ventes de produits fabriqués, prestations de services, marchandises",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "70 - Ventes de produits fabriqués, prestations de services, marchandises",
+        "source_line_md": 1774
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "706",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:706",
+      "label_source": "Ventes de prestations de services",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "706 - Ventes de prestations de services",
+        "source_line_md": 1775
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "7063",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:7063",
+      "label_source": "Parrainages",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "7063 - Parrainages",
+        "source_line_md": 1776
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "707",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:707",
+      "label_source": "Ventes de marchandises",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "707 - Ventes de marchandises",
+        "source_line_md": 1777
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "7073",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:7073",
+      "label_source": "Ventes de dons en nature",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "7073 - Ventes de dons en nature",
+        "source_line_md": 1778
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "73",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:73",
+      "label_source": "Concours publics",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "73 - Concours publics",
+        "source_line_md": 1779
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "75",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:75",
+      "label_source": "Autres produits de gestion courante",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "75 - Autres produits de gestion courante",
+        "source_line_md": 1780
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "753",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:753",
+      "label_source": "Versements des fondateurs ou consommation de la dotation",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "753 - Versements des fondateurs ou consommation de la dotation",
+        "source_line_md": 1781
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "7531",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:7531",
+      "label_source": "Versements des fondateurs",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "7531 - Versements des fondateurs",
+        "source_line_md": 1782
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "7532",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:7532",
+      "label_source": "Quotes-parts de dotation consomptible virée au compte de résultat",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "7532 - Quotes-parts de dotation consomptible virée au compte de résultat",
+        "source_line_md": 1783
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "754",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:754",
+      "label_source": "Ressources liées à la générosité du public",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "754 - Ressources liées à la générosité du public",
+        "source_line_md": 1784
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "7541",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:7541",
+      "label_source": "Dons manuels",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "7541 - Dons manuels",
+        "source_line_md": 1785
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "75411",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:75411",
+      "label_source": "Dons manuels",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "75411 - Dons manuels",
+        "source_line_md": 1786
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "75412",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:75412",
+      "label_source": "Abandons de frais par les bénévoles",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "75412 - Abandons de frais par les bénévoles",
+        "source_line_md": 1787
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "7542",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:7542",
+      "label_source": "Mécénats",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "7542 - Mécénats",
+        "source_line_md": 1788
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "7543",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:7543",
+      "label_source": "Legs, donations et assurances-vie",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "7543 - Legs, donations et assurances-vie",
+        "source_line_md": 1789
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "75431",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:75431",
+      "label_source": "Assurances-vie",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "75431 - Assurances-vie",
+        "source_line_md": 1790
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "75432",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:75432",
+      "label_source": "Legs ou donations",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "75432 - Legs ou donations",
+        "source_line_md": 1791
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "75433",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:75433",
+      "label_source": "Autres produits sur legs ou donations",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "75433 - Autres produits sur legs ou donations",
+        "source_line_md": 1792
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "755",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:755",
+      "label_source": "Contributions financières",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "755 - Contributions financières",
+        "source_line_md": 1793
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "7551",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:7551",
+      "label_source": "Contributions financières d’autres organismes",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "7551 - Contributions financières d’autres organismes",
+        "source_line_md": 1794
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "7552",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:7552",
+      "label_source": "Quotes-parts de générosité reçues",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 38,
+        "section": "Art. 320-2",
+        "snippet": "7552 - Quotes-parts de générosité reçues",
+        "source_line_md": 1795
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "756",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:756",
+      "label_source": "Cotisations",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 39,
+        "section": "Art. 320-2",
+        "snippet": "756 - Cotisations",
+        "source_line_md": 1802
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "7561",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:7561",
+      "label_source": "Cotisations sans contrepartie",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 39,
+        "section": "Art. 320-2",
+        "snippet": "7561 - Cotisations sans contrepartie",
+        "source_line_md": 1803
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "7562",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:7562",
+      "label_source": "Cotisations avec contrepartie",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 39,
+        "section": "Art. 320-2",
+        "snippet": "7562 - Cotisations avec contrepartie",
+        "source_line_md": 1804
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "757",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:757",
+      "label_source": "Produits des cessions d’immobilisations incorporelles et corporelles",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 39,
+        "section": "Art. 320-2",
+        "snippet": "757 – Produits des cessions d’immobilisations incorporelles et corporelles",
+        "source_line_md": 1805
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "7571",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:7571",
+      "label_source": "Immobilisations reçues en legs ou donations destinées à être cédées",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 39,
+        "section": "Art. 320-2",
+        "snippet": "7571 – Immobilisations reçues en legs ou donations destinées à être cédées",
+        "source_line_md": 1806
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "7583",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:7583",
+      "label_source": "Rentrées sur créances amorties et gains de change sur créances et dettes d’exploitation",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 39,
+        "section": "Art. 320-2",
+        "snippet": "7583 – Rentrées sur créances amorties et gains de change sur créances et dettes d’exploitation",
+        "source_line_md": 1808
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "78",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:78",
+      "label_source": "Reprises sur amortissements, dépréciations et provisions",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 39,
+        "section": "Art. 320-2",
+        "snippet": "78 - Reprises sur amortissements, dépréciations et provisions",
+        "source_line_md": 1809
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "781",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:781",
+      "label_source": "Reprises sur amortissements des immobilisations dépréciations et provisions (à inscrire dans les",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 39,
+        "section": "Art. 320-2",
+        "snippet": "781 - Reprises sur amortissements des immobilisations dépréciations et provisions (à inscrire dans les",
+        "source_line_md": 1810
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "7816",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:7816",
+      "label_source": "Reprises sur dépréciations des immobilisations incorporelles et corporelles",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 39,
+        "section": "Art. 320-2",
+        "snippet": "7816 - Reprises sur dépréciations des immobilisations incorporelles et corporelles",
+        "source_line_md": 1812
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "78164",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:78164",
+      "label_source": "Reprises sur dépréciations d’actifs reçus par legs ou donations destinés à être cédés",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 39,
+        "section": "Art. 320-2",
+        "snippet": "78164 - Reprises sur dépréciations d’actifs reçus par legs ou donations destinés à être cédés",
+        "source_line_md": 1813
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "789",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:789",
+      "label_source": "Utilisations de fonds reportés et de fonds dédiés",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 39,
+        "section": "Art. 320-2",
+        "snippet": "789 - Utilisations de fonds reportés et de fonds dédiés",
+        "source_line_md": 1814
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "7891",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:7891",
+      "label_source": "Utilisations de fonds reportés",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 39,
+        "section": "Art. 320-2",
+        "snippet": "7891 - Utilisations de fonds reportés",
+        "source_line_md": 1815
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "7894",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:7894",
+      "label_source": "Utilisations des fonds dédiés sur subventions d’exploitation",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 39,
+        "section": "Art. 320-2",
+        "snippet": "7894 - Utilisations des fonds dédiés sur subventions d’exploitation",
+        "source_line_md": 1816
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "7895",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:7895",
+      "label_source": "Utilisations des fonds dédiés sur contributions financières d’autres organismes",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 39,
+        "section": "Art. 320-2",
+        "snippet": "7895 - Utilisations des fonds dédiés sur contributions financières d’autres organismes",
+        "source_line_md": 1817
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "7896",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:7896",
+      "label_source": "Utilisations des fonds dédiés sur ressources liées à la générosité du public",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 39,
+        "section": "Art. 320-2",
+        "snippet": "7896 - Utilisations des fonds dédiés sur ressources liées à la générosité du public",
+        "source_line_md": 1818
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "86",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:86",
+      "label_source": "Emplois des contributions volontaires en nature",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 39,
+        "section": "Art. 320-2",
+        "snippet": "86 - Emplois des contributions volontaires en nature",
+        "source_line_md": 1819
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "860",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:860",
+      "label_source": "Secours en nature",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 39,
+        "section": "Art. 320-2",
+        "snippet": "860 - Secours en nature",
+        "source_line_md": 1820
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "861",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:861",
+      "label_source": "Mises à disposition gratuite de biens",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 39,
+        "section": "Art. 320-2",
+        "snippet": "861 - Mises à disposition gratuite de biens",
+        "source_line_md": 1821
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "862",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:862",
+      "label_source": "Prestations",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 39,
+        "section": "Art. 320-2",
+        "snippet": "862 - Prestations",
+        "source_line_md": 1822
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "864",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:864",
+      "label_source": "Personnel bénévole",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 39,
+        "section": "Art. 320-2",
+        "snippet": "864 - Personnel bénévole",
+        "source_line_md": 1823
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "87",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:87",
+      "label_source": "Contributions volontaires en nature",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 39,
+        "section": "Art. 320-2",
+        "snippet": "87 - Contributions volontaires en nature",
+        "source_line_md": 1824
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "870",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:870",
+      "label_source": "Dons en nature",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 39,
+        "section": "Art. 320-2",
+        "snippet": "870 - Dons en nature",
+        "source_line_md": 1825
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "871",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:871",
+      "label_source": "Prestations en nature",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 39,
+        "section": "Art. 320-2",
+        "snippet": "871 - Prestations en nature",
+        "source_line_md": 1826
+      },
+      "standard_id": "fr-nonprofit"
+    },
+    {
+      "base_standard": "fr-pcg:2026",
+      "code": "875",
+      "edition": "2026",
+      "entry_id": "fr-nonprofit:2026:art320-2:875",
+      "label_source": "Bénévolat",
+      "source_ref": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "page_pdf": 39,
+        "section": "Art. 320-2",
+        "snippet": "875 - Bénévolat",
+        "source_line_md": 1827
+      },
+      "standard_id": "fr-nonprofit"
+    }
+  ],
+  "statistics": {
+    "entries": 116,
+    "unique_codes": 116
+  }
+}

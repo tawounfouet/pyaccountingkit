@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AccountingFamily",
+  "type": "object",
+  "required": [
+    "family_id",
+    "family_name",
+    "description",
+    "member_standard_refs",
+    "relation_policy"
+  ]
+}

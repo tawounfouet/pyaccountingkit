@@ -1,0 +1,193 @@
+{
+  "annotations": [
+    {
+      "account_refs": [
+        "102"
+      ],
+      "annotation_id": "fr-nonprofit:2026:functioning:331-1",
+      "article_ref": "331-1",
+      "executable_rules_generated": false,
+      "provenance": {
+        "confidence": 1.0,
+        "review_status": "official_source",
+        "type": "source"
+      },
+      "source_range": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre  III : Tenue, structure  et fonctionnement des",
+          "Titre III – Fonctionnement des comptes",
+          "Chapitre I – Comptes de fonds propres, emprunts et fonds dédiés"
+        ],
+        "page_end_pdf": 40,
+        "page_start_pdf": 40,
+        "source_line_md": 1838
+      },
+      "text_source": "Le compte 102 « Fonds propres sans droit de reprise » est constitué de fonds qui ne peuvent pas être repris\npar les membres ou les fondateurs de l’entité ou, s’agissant d’une fondation, de la dotation statutaire et des\ndotations complémentaires non consomptibles.\n**IR3 - Contexte**\nDans les départements du Bas-Rhin, du Haut-Rhin et de la Moselle, les associations sont soumises au régime\njuridique des articles 21 à 79-XII du code civil local qui prévoit dans son article 45 que le patrimoine lors de la\ndissolution de l’association est dévolu aux personnes désignées dans les statuts."
+    },
+    {
+      "account_refs": [
+        "1021"
+      ],
+      "annotation_id": "fr-nonprofit:2026:functioning:331-2",
+      "article_ref": "331-2",
+      "executable_rules_generated": false,
+      "provenance": {
+        "confidence": 1.0,
+        "review_status": "official_source",
+        "type": "source"
+      },
+      "source_range": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre  III : Tenue, structure  et fonctionnement des",
+          "Titre III – Fonctionnement des comptes",
+          "Chapitre I – Comptes de fonds propres, emprunts et fonds dédiés"
+        ],
+        "page_end_pdf": 40,
+        "page_start_pdf": 40,
+        "source_line_md": 1848
+      },
+      "text_source": "Le compte 1021 « Première situation nette établie » est utilisé pour l’établissement du bilan d’ouverture des\npremiers comptes annuels établis par l’entité en application du règlement.\n**IR3 - Eléments contextuels**\nCe compte est la contrepartie de l’actif et du passif pour l’établissement du bilan d’ouverture des premiers\ncomptes annuels établis par l’entité en application du règlement."
+    },
+    {
+      "account_refs": [
+        "1068"
+      ],
+      "annotation_id": "fr-nonprofit:2026:functioning:331-3",
+      "article_ref": "331-3",
+      "executable_rules_generated": false,
+      "provenance": {
+        "confidence": 1.0,
+        "review_status": "official_source",
+        "type": "source"
+      },
+      "source_range": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre  III : Tenue, structure  et fonctionnement des",
+          "Titre III – Fonctionnement des comptes",
+          "Chapitre I – Comptes de fonds propres, emprunts et fonds dédiés"
+        ],
+        "page_end_pdf": 40,
+        "page_start_pdf": 40,
+        "source_line_md": 1856
+      },
+      "text_source": "Le compte 1068 « Réserves pour projet de l’entité » est constitué des affectations de résultat en réserves\nlibres.\n**IR3 - Projet de l’entité**\nLe projet de l’entité est constitué des différents objectifs fixés par les organes statutairement compétents de\nl’entité pour réaliser l’objet social."
+    },
+    {
+      "account_refs": [
+        "1631"
+      ],
+      "annotation_id": "fr-nonprofit:2026:functioning:331-4",
+      "article_ref": "331-4",
+      "executable_rules_generated": false,
+      "provenance": {
+        "confidence": 1.0,
+        "review_status": "official_source",
+        "type": "source"
+      },
+      "source_range": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre  III : Tenue, structure  et fonctionnement des",
+          "Titre III – Fonctionnement des comptes",
+          "Chapitre I – Comptes de fonds propres, emprunts et fonds dédiés"
+        ],
+        "page_end_pdf": 41,
+        "page_start_pdf": 40,
+        "source_line_md": 1864
+      },
+      "text_source": "Le compte 1631 « Titres associatifs et assimilés » enregistre les emprunts obligataires visés à l’article L213-9\ndu code monétaire et financier.\n**IR3 - Présentation et information dans l’annexe**\nLes titres associatifs sont présentés en fonds non remboursables dans la rubrique des autres fonds propres\nlorsque l’entité analyse au vu des conditions de leur émission qu’ils présentent les mêmes caractéristiques de\nremboursement que les titres participatifs, à savoir en particulier s’ils sont uniquement remboursables à\nl’initiative de l’émetteur.\n\nL’entité donne une information dans l’annexe relative aux caractéristiques propres à chaque émission de titres\nassociatifs.\n\nArticle L. 213-8 du code monétaire et financier\n\nLes associations régies par la loi du 1er juillet 1901 relative au contrat d'association ou par les articles 21 à 79 du code civil\nlocal applicable dans les départements du Bas-Rhin, du Haut-Rhin et de la Moselle peuvent, lorsqu'elles exercent,\nexclusivement ou non, une activité économique effective depuis au moins deux années, émettre des obligations dans les\nconditions prévues à la présente sous-section. […]\n\nVersion du 1er janvier 2026                                                              39\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n\nArticle L. 213-9 du code monétaire et financier\n\nLes contrats d'émission d'obligations mentionnées à l’article L. 213-8 peuvent prévoir que celles-ci ne sont remboursables\nqu'à l'initiative de l'émetteur ou à une échéance conditionnée à la constitution, depuis la date de l'émission, d'excédents\ndépassant le montant nominal de l'émission, nets des éventuels déficits constitués durant la même période.\n\nCes obligations constituent alors des créances de dernier rang, émises sous forme nominative, et ne sont remboursables\nqu'à l'issue d'un délai minimal de sept ans. Elles prennent la dénomination de titres associatifs.\n\nSi plusieurs émissions de titres associatifs coexistent, l'application de la condition relative à la constitution d'excédents\nsuffisants mentionnée au premier alinéa se fait suivant leur ordre chronologique.\n\nLes excédents nets non affectés au remboursement d'un titre associatif sont reportables aux titres associatifs non encore\nremboursés.\n\nArticle L. 213-21-1-A du code monétaire et financier\n\nLa sous-section 3, à l'exception de l'article L. 213-20-1 et du dernier alinéa de l'article L. 213-10, s'applique aux fondations\ndotées de la personnalité morale, sous réserve des dispositions qui suivent.\n\nA l'article L. 213-18, la référence à la loi du 1er juillet 1901 relative au contrat d'association et au code civil local applicable\ndans les départements du Bas-Rhin, du Haut-Rhin et de la Moselle est remplacée par la référence à la loi n° 87-571 du\n23 juillet 1987 sur le développement du mécénat.\n\nLes dispositions relatives aux conseils d'administration, assemblée générale, directoire ou gérants de société s'appliquent\naux personnes ou organes chargés de l'administration de la fondation conformément à ses statuts.\n\nCelles relatives au conseil de surveillance d'une société ou à ses membres s'appliquent, s'il existe, à l'organe de contrôle\nde la fondation et aux personnes qui le composent.\n\n#### Chapitre II – Comptes d’immobilisations"
+    },
+    {
+      "account_refs": [
+        "2742"
+      ],
+      "annotation_id": "fr-nonprofit:2026:functioning:332-1",
+      "article_ref": "332-1",
+      "executable_rules_generated": false,
+      "provenance": {
+        "confidence": 1.0,
+        "review_status": "official_source",
+        "type": "source"
+      },
+      "source_range": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre  III : Tenue, structure  et fonctionnement des",
+          "Titre III – Fonctionnement des comptes",
+          "Chapitre II – Comptes d’immobilisations"
+        ],
+        "page_end_pdf": 41,
+        "page_start_pdf": 41,
+        "source_line_md": 1922
+      },
+      "text_source": "Le compte 2742 « Prêts aux partenaires » enregistre à son débit le montant des fonds prêtés ou laissés\ntemporairement à la disposition des partenaires par l’entité.\n**IR3 - Définition**\nLes partenaires sont les confédérations, fédérations, unions ou associations affiliées de l’entité.\n\n#### Chapitre III – Comptes de tiers et de régularisation"
+    },
+    {
+      "account_refs": [
+        "41"
+      ],
+      "annotation_id": "fr-nonprofit:2026:functioning:333-1",
+      "article_ref": "333-1",
+      "executable_rules_generated": false,
+      "provenance": {
+        "confidence": 1.0,
+        "review_status": "official_source",
+        "type": "source"
+      },
+      "source_range": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre  III : Tenue, structure  et fonctionnement des",
+          "Titre III – Fonctionnement des comptes",
+          "Chapitre III – Comptes de tiers et de régularisation"
+        ],
+        "page_end_pdf": 41,
+        "page_start_pdf": 41,
+        "source_line_md": 1931
+      },
+      "text_source": "Le terme « usager » du libellé du compte 41 se définit comme le bénéficiaire des services de l’entité."
+    },
+    {
+      "account_refs": [
+        "455"
+      ],
+      "annotation_id": "fr-nonprofit:2026:functioning:333-2",
+      "article_ref": "333-2",
+      "executable_rules_generated": false,
+      "provenance": {
+        "confidence": 1.0,
+        "review_status": "official_source",
+        "type": "source"
+      },
+      "source_range": {
+        "document_id": "fr-nonprofit-recueil-2026-md",
+        "heading_path": [
+          "Partie I – Règlements applicables pour l’établissement",
+          "Livre  III : Tenue, structure  et fonctionnement des",
+          "Titre III – Fonctionnement des comptes",
+          "Chapitre III – Comptes de tiers et de régularisation"
+        ],
+        "page_end_pdf": 42,
+        "page_start_pdf": 41,
+        "source_line_md": 1935
+      },
+      "text_source": "Le compte 455 « Partenaires - comptes courants » enregistre à son crédit le montant des fonds apportés ou\nlaissés temporairement à la disposition de l’entité par les partenaires.\n**IR3 - Définition**\nLes partenaires sont les confédérations, fédérations, unions ou associations affiliées de l’entité.\n\nVersion du 1er janvier 2026                                                              40\n\n\nRECUEIL DES NORMES COMPTABLES / SECTEUR NON LUCRATIF\n## Livre IV : Modèles des comptes annuels\n\n### Titre I – Règles d’établissement et de présentation des comptes annuels"
+    }
+  ],
+  "dataset_layer": "v2_account_functioning",
+  "edition": "2026",
+  "standard_id": "fr-nonprofit",
+  "statistics": {
+    "account_refs_covered": 7,
+    "annotations": 7
+  }
+}

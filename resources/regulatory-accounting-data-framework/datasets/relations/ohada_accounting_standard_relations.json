@@ -1,0 +1,109 @@
+{
+  "family_id": "ohada-accounting",
+  "relations": [
+    {
+      "relation_id": "ohada-family:syscohada-member",
+      "relation_type": "member_of_family",
+      "subject_ref": "ohada-syscohada:2017",
+      "target_ref": "ohada-accounting",
+      "subject_kind": "standard",
+      "target_kind": "family",
+      "evidence": {
+        "source_refs": [
+          {
+            "document_id": "syscohada-plan-2017-md",
+            "page_pdf": 1,
+            "section": "OHADA - Plan comptable 2017",
+            "heading_path": [],
+            "snippet": "Annexe de l’acte uniforme relatif au droit comptable et à l’information financière adopté le 26 janvier 2017"
+          }
+        ],
+        "note": "SYSCOHADA is the general OHADA accounting standard in this family.",
+        "evidence_status": "source_supported"
+      },
+      "human_review_required": false,
+      "auto_inference_allowed": false
+    },
+    {
+      "relation_id": "ohada-family:ebnl-member",
+      "relation_type": "specialized_standard_within_family",
+      "subject_ref": "ohada-ebnl:2023",
+      "target_ref": "ohada-accounting",
+      "subject_kind": "standard",
+      "target_kind": "family",
+      "evidence": {
+        "source_refs": [
+          {
+            "document_id": "ohada-ebnl-plan-2023-md",
+            "page_pdf": 1,
+            "section": "Plan des comptes détaillé",
+            "heading_path": [
+              "PARTIE 2 : STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES"
+            ],
+            "snippet": "ACTE UNIFORME RELATIF AU SYSTEME COMPTABLE DES ENTITES A BUT NON LUCRATIF"
+          }
+        ],
+        "note": "Specialized OHADA EBNL standard; no inheritance from SYSCOHADA is asserted in v0.5.",
+        "evidence_status": "source_supported"
+      },
+      "human_review_required": false,
+      "auto_inference_allowed": false
+    },
+    {
+      "relation_id": "ohada-family:pcemf-member",
+      "relation_type": "sector_specialization_within_family",
+      "subject_ref": "cemac-pcemf:2010",
+      "target_ref": "ohada-accounting",
+      "subject_kind": "standard",
+      "target_kind": "family",
+      "evidence": {
+        "source_refs": [
+          {
+            "document_id": "pcemf-2010-md",
+            "page_pdf": 3,
+            "section": "CONTEXTE ET EVOLUTION DE LA NORMALISATION COMPTABLE",
+            "heading_path": [
+              "PREAMBULE"
+            ],
+            "snippet": "Le PCEMF rattache sa normalisation au cadre comptable OHADA commun et qualifie les dispositifs COBAC de plan comptable sectoriel."
+          }
+        ],
+        "note": "Sectoral family relation, not inheritance from SYSCOHADA 2017.",
+        "evidence_status": "source_supported"
+      },
+      "human_review_required": false,
+      "auto_inference_allowed": false
+    },
+    {
+      "relation_id": "ohada-family:syscohada-pcemf-crosswalk-scope",
+      "relation_type": "crosswalk",
+      "subject_ref": "cemac-pcemf:2010",
+      "target_ref": "ohada-syscohada:2017",
+      "subject_kind": "standard",
+      "target_kind": "standard",
+      "evidence": {
+        "source_refs": [],
+        "note": "Crosswalk scope from AMIFOND phase F; individual mappings remain human-reviewed candidates.",
+        "evidence_status": "structural"
+      },
+      "human_review_required": true,
+      "auto_inference_allowed": false
+    }
+  ],
+  "negative_constraints": [
+    {
+      "constraint_id": "no-pcemf2010-inherits-syscohada2017",
+      "forbidden_relation_type": "inherits",
+      "subject_ref": "cemac-pcemf:2010",
+      "target_ref": "ohada-syscohada:2017",
+      "reason": "PCEMF 2010 predates SYSCOHADA 2017; source supports common-family/sectoral framing only."
+    },
+    {
+      "constraint_id": "no-ebnl-inherits-syscohada-with-current-corpus",
+      "forbidden_relation_type": "inherits",
+      "subject_ref": "ohada-ebnl:2023",
+      "target_ref": "ohada-syscohada:2017",
+      "reason": "Current EBNL bundle is only a detailed chart extract; no explicit inheritance rule is asserted from this source."
+    }
+  ]
+}

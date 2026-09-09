@@ -1,3 +1,7 @@
-"""fec_writer.py - Implementation target for PLAN-03_IMPORTS_REPORTING_0.3.0.md."""
+"""Bootstrap scaffold for a future PyAccountingKit milestone.
 
-from __future__ import annotations
+Module: adapters/regulatory/fec_writer.py.
+Target: PLAN-03_IMPORTS_REPORTING_0.3.0.md.
+PyAccountingKit 0.0.1 exposes no business implementation from this module.
+The path is retained only to preserve the target architecture.
+"""

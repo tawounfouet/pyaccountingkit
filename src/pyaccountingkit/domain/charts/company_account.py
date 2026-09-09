@@ -1,5 +1,6 @@
-"""Company account in the chart of accounts."""
+"""Bootstrap scaffold for a future PyAccountingKit milestone.
 
-
-class CompanyAccount:
-    """A single account in a company chart of accounts."""
+Module: domain/charts/company_account.py.
+PyAccountingKit 0.0.1 exposes no business implementation from this module.
+The path is retained only to preserve the target architecture.
+"""

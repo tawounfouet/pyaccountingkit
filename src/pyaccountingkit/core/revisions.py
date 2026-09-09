@@ -1,5 +1,6 @@
-"""Optimistic concurrency revision tracking."""
+"""Bootstrap scaffold for a future PyAccountingKit milestone.
 
-
-class Revision:
-    """Monotonic revision number for optimistic locking."""
+Module: core/revisions.py.
+PyAccountingKit 0.0.1 exposes no business implementation from this module.
+The path is retained only to preserve the target architecture.
+"""

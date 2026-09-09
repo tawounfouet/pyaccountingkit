@@ -1,5 +1,6 @@
-"""Journal aggregate root."""
+"""Bootstrap scaffold for a future PyAccountingKit milestone.
 
-
-class Journal:
-    """A named journal (e.g. general, sales, purchases)."""
+Module: domain/journals/journal.py.
+PyAccountingKit 0.0.1 exposes no business implementation from this module.
+The path is retained only to preserve the target architecture.
+"""

@@ -1,5 +1,6 @@
-"""Journal entry aggregate (header)."""
+"""Bootstrap scaffold for a future PyAccountingKit milestone.
 
-
-class JournalEntry:
-    """A balanced accounting entry with header and lines."""
+Module: domain/journals/journal_entry.py.
+PyAccountingKit 0.0.1 exposes no business implementation from this module.
+The path is retained only to preserve the target architecture.
+"""

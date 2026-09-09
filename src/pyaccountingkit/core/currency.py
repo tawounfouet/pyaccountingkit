@@ -1,5 +1,6 @@
-"""Currency value object and ISO 4217 support."""
+"""Bootstrap scaffold for a future PyAccountingKit milestone.
 
-
-class Currency:
-    """A currency with an ISO 4217 code and decimal precision."""
+Module: core/currency.py.
+PyAccountingKit 0.0.1 exposes no business implementation from this module.
+The path is retained only to preserve the target architecture.
+"""

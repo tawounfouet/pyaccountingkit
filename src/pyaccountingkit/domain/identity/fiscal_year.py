@@ -1,5 +1,6 @@
-"""Fiscal year definition for accounting periods."""
+"""Bootstrap scaffold for a future PyAccountingKit milestone.
 
-
-class FiscalYear:
-    """Represents a company's fiscal year."""
+Module: domain/identity/fiscal_year.py.
+PyAccountingKit 0.0.1 exposes no business implementation from this module.
+The path is retained only to preserve the target architecture.
+"""

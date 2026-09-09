@@ -1,3 +1,7 @@
-"""minority.py - Implementation target for PLAN-08_CONSOLIDATION_1.2.0.md."""
+"""Bootstrap scaffold for a future PyAccountingKit milestone.
 
-from __future__ import annotations
+Module: domain/consolidation/investments/minority.py.
+Target: PLAN-08_CONSOLIDATION_1.2.0.md.
+PyAccountingKit 0.0.1 exposes no business implementation from this module.
+The path is retained only to preserve the target architecture.
+"""

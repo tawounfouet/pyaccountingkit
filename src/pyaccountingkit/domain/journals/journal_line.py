@@ -1,5 +1,6 @@
-"""Journal line value object."""
+"""Bootstrap scaffold for a future PyAccountingKit milestone.
 
-
-class JournalLine:
-    """A single debit or credit line in a journal entry."""
+Module: domain/journals/journal_line.py.
+PyAccountingKit 0.0.1 exposes no business implementation from this module.
+The path is retained only to preserve the target architecture.
+"""

@@ -1,5 +1,6 @@
-"""Idempotency key handling to make operations safe to retry."""
+"""Bootstrap scaffold for a future PyAccountingKit milestone.
 
-
-class Idempotency:
-    """Tracks request idempotency keys to prevent duplicate side effects."""
+Module: core/idempotency.py.
+PyAccountingKit 0.0.1 exposes no business implementation from this module.
+The path is retained only to preserve the target architecture.
+"""

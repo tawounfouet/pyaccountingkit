@@ -1,5 +1,6 @@
-"""Base entity with identity and revision tracking."""
+"""Bootstrap scaffold for a future PyAccountingKit milestone.
 
-
-class Entity:
-    """Base class for all domain entities."""
+Module: domain/identity/entity.py.
+PyAccountingKit 0.0.1 exposes no business implementation from this module.
+The path is retained only to preserve the target architecture.
+"""

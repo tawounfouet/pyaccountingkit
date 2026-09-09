@@ -78,7 +78,6 @@ jobs:
           )
           conftest.write_text(text, encoding="utf-8")
 
-          # Repository-local proof that this lot no longer introduces line-length debt.
           overlong: list[str] = []
           for path in sorted(package.rglob("*.py")):
               for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
@@ -94,6 +93,7 @@ jobs:
           PY
 
           python -m pip install --quiet "ruff>=0.5"
+          ruff format tests/conftest.py
           ruff check src/ tests/
           ruff format --check src/ tests/
       - name: Commit normalization and remove temporary workflow

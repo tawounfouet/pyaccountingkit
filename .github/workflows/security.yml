@@ -8,23 +8,46 @@ on:
   schedule:
     - cron: "0 6 * * 1"
 
+permissions:
+  contents: read
+
+concurrency:
+  group: security-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PIP_DISABLE_PIP_VERSION_CHECK: "1"
+  PYTHONUNBUFFERED: "1"
+
 jobs:
   audit:
+    name: Dependency audit
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - run: pip install pip-audit
-      - run: pip-audit
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install dependency auditor
+        run: python -m pip install pip-audit
+      - name: Audit dependencies
+        run: python -m pip_audit
 
   sast:
+    name: Static security analysis
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - run: pip install bandit[toml]
-      - run: bandit -r src/ -c pyproject.toml
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install Bandit
+        run: python -m pip install "bandit[toml]"
+      - name: Run Bandit
+        run: python -m bandit -r src/ -c pyproject.toml

@@ -36,8 +36,8 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -e ".[dev]"
-      - name: Qualify bootstrap engineering gates
-        run: python scripts/qualify_release.py --skip-tests
+      - name: Qualify bootstrap release gates
+        run: python scripts/qualify_release.py
 
   test:
     runs-on: ubuntu-latest

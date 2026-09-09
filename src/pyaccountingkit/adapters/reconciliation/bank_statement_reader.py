@@ -1,7 +1,7 @@
-"""Bootstrap scaffold for PyAccountingKit.
+"""Bootstrap scaffold for a future PyAccountingKit milestone.
 
-Module path: adapters/reconciliation/bank_statement_reader.py.
-
-Implementation target: PLAN-07_RECONCILIATION_1.1.0.md.
-PyAccountingKit 0.0.1 intentionally exposes no accounting-domain, adapter, integration, application, port, or public-contract implementation from this module. The path is retained only to preserve the target architecture and will receive real code in its owning milestone.
+Module: adapters/reconciliation/bank_statement_reader.py.
+Target: PLAN-07_RECONCILIATION_1.1.0.md.
+PyAccountingKit 0.0.1 exposes no business implementation from this module.
+The path is retained only to preserve the target architecture.
 """

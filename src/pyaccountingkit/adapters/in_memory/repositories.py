@@ -1,7 +1,7 @@
-"""Bootstrap scaffold for PyAccountingKit.
+"""Bootstrap scaffold for a future PyAccountingKit milestone.
 
-Module path: adapters/in_memory/repositories.py.
-
-Implementation target: PLAN-01_ACCOUNTING_CORE_0.1.0.md.
-PyAccountingKit 0.0.1 intentionally exposes no accounting-domain, adapter, integration, application, port, or public-contract implementation from this module. The path is retained only to preserve the target architecture and will receive real code in its owning milestone.
+Module: adapters/in_memory/repositories.py.
+Target: PLAN-01_ACCOUNTING_CORE_0.1.0.md.
+PyAccountingKit 0.0.1 exposes no business implementation from this module.
+The path is retained only to preserve the target architecture.
 """

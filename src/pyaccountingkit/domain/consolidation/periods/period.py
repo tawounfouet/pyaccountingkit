@@ -1,7 +1,7 @@
-"""Bootstrap scaffold for PyAccountingKit.
+"""Bootstrap scaffold for a future PyAccountingKit milestone.
 
-Module path: domain/consolidation/periods/period.py.
-
-Implementation target: PLAN-08_CONSOLIDATION_1.2.0.md.
-PyAccountingKit 0.0.1 intentionally exposes no accounting-domain, adapter, integration, application, port, or public-contract implementation from this module. The path is retained only to preserve the target architecture and will receive real code in its owning milestone.
+Module: domain/consolidation/periods/period.py.
+Target: PLAN-08_CONSOLIDATION_1.2.0.md.
+PyAccountingKit 0.0.1 exposes no business implementation from this module.
+The path is retained only to preserve the target architecture.
 """

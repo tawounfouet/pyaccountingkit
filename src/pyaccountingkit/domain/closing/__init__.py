@@ -1,0 +1,1 @@
+"""Closing, adjustments, accruals, provisions."""

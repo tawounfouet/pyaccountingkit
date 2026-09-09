@@ -1,0 +1,1 @@
+"""Company chart of accounts."""

@@ -4,15 +4,16 @@ from __future__ import annotations
 
 import pytest
 
+from pyaccountingkit.core.errors import EntityScopeMismatchError
 from pyaccountingkit.core.identifiers import AccountId, EntityId
 from pyaccountingkit.domain.charts.account import CompanyAccount
 from pyaccountingkit.domain.charts.chart import CompanyChartOfAccounts
 
 
-def _account(code: str = "411000") -> CompanyAccount:
+def _account(code: str = "411000", entity_id: EntityId = EntityId("ent_1")) -> CompanyAccount:
     return CompanyAccount(
         id=AccountId(code),
-        entity_id=EntityId("ent_1"),
+        entity_id=entity_id,
         code=code,
         label=f"Compte {code}",
     )
@@ -81,9 +82,22 @@ def test_chart_add_increases_size() -> None:
 def test_chart_rejects_duplicate_code_on_construction() -> None:
     with pytest.raises(ValueError, match="Duplicate"):
         CompanyChartOfAccounts(
-            entity_id=EntityId("e"),
+            entity_id=EntityId("ent_1"),
             accounts=(_account("411"), _account("411")),
         )
+
+
+def test_chart_rejects_cross_entity_account_on_construction() -> None:
+    with pytest.raises(EntityScopeMismatchError):
+        CompanyChartOfAccounts(
+            entity_id=EntityId("ent_1"),
+            accounts=(_account("411", EntityId("ent_2")),),
+        )
+
+
+def test_chart_rejects_cross_entity_account_on_add() -> None:
+    with pytest.raises(EntityScopeMismatchError):
+        _chart().add(_account("411", EntityId("ent_2")))
 
 
 def test_chart_get_by_code() -> None:

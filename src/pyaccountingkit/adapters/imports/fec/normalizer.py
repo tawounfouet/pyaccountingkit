@@ -46,7 +46,7 @@ class FECNormalizer:
             credit = self._parse_decimal(
                 fields.get("Credit"), field="Credit", source_ref=raw.source_ref
             )
-            currency = self._currency(fields)
+            currency = self._accounting_currency()
 
             metadata = {
                 "fec.JournalLib": fields.get("JournalLib") or "",
@@ -82,12 +82,13 @@ class FECNormalizer:
             )
         return tuple(normalized)
 
-    def _currency(self, fields: Mapping[str, str | None]) -> Currency:
-        code = (fields.get("Idevise") or self.descriptor.default_currency).strip().upper()
+    def _accounting_currency(self) -> Currency:
+        """FEC Debit/Credit are ledger amounts; Idevise only describes original currency."""
+        code = self.descriptor.default_currency.strip().upper()
         try:
             return lookup_currency(code)
         except Exception as exc:
-            raise FECNormalizationError(f"unknown FEC currency {code!r}") from exc
+            raise FECNormalizationError(f"unknown accounting currency {code!r}") from exc
 
     @staticmethod
     def _required(fields: Mapping[str, str | None], name: str, source_ref: str) -> str:

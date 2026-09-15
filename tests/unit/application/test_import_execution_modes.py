@@ -1,5 +1,6 @@
 """Transaction-mode and idempotent-ID qualification for generic import execution."""
 
+from dataclasses import replace
 from datetime import date
 from decimal import Decimal
 
@@ -126,4 +127,16 @@ def test_same_reviewed_plan_produces_same_entry_ids() -> None:
     plan = _plan()
     first = _execute(service, plan, mode=ImportTransactionMode.ALL_OR_NOTHING)
     second = _execute(service, plan, mode=ImportTransactionMode.ALL_OR_NOTHING)
+    assert first.created_entry_ids == second.created_entry_ids
+
+
+def test_same_source_across_new_batch_keeps_same_entry_ids() -> None:
+    posting = _FakePosting()
+    service = ImportExecutionService(posting)  # type: ignore[arg-type]
+    plan = _plan()
+    second_batch = replace(plan, batch_id="batch-2")
+
+    first = _execute(service, plan, mode=ImportTransactionMode.ALL_OR_NOTHING)
+    second = _execute(service, second_batch, mode=ImportTransactionMode.ALL_OR_NOTHING)
+    assert plan.checksum != second_batch.checksum
     assert first.created_entry_ids == second.created_entry_ids

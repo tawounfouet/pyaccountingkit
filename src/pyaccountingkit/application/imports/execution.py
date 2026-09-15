@@ -60,15 +60,12 @@ class ImportExecutionService:
             chart_version=chart_version,
         )
         entries = tuple(
-            self._journal_entry(plan, entry_plan, currency)
-            for entry_plan in plan.entry_plans
+            self._journal_entry(plan, entry_plan, currency) for entry_plan in plan.entry_plans
         )
         if transaction_mode is ImportTransactionMode.ALL_OR_NOTHING:
             results = self._posting.post_many(entries, actor_id=actor_id)
         elif transaction_mode is ImportTransactionMode.PER_ITEM:
-            results = tuple(
-                self._posting.post(entry, actor_id=actor_id) for entry in entries
-            )
+            results = tuple(self._posting.post(entry, actor_id=actor_id) for entry in entries)
         else:
             if chunk_size is None or chunk_size <= 0:
                 raise ValueError("CHUNKED_ATOMIC import requires chunk_size > 0")
@@ -115,10 +112,16 @@ class ImportExecutionService:
 
     @staticmethod
     def _entry_id(plan: ImportPlan, entry_plan: ImportEntryPlan) -> EntryId:
-        """Stable ID: re-executing the same reviewed plan cannot duplicate an entry."""
-        digest = hashlib.sha256(
-            f"{plan.checksum}|{entry_plan.source_entry_key.value}".encode()
-        ).hexdigest()[:32]
+        """Stable source identity prevents duplicate ledger effects across import batches."""
+        identity = "|".join(
+            (
+                str(plan.entity_id),
+                plan.source_checksum,
+                plan.adapter_id,
+                entry_plan.source_entry_key.value,
+            )
+        )
+        digest = hashlib.sha256(identity.encode()).hexdigest()[:32]
         return EntryId(f"imp_{digest}")
 
 

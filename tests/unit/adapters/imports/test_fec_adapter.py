@@ -12,6 +12,7 @@ from pyaccountingkit.adapters.imports.fec import (
     build_fec_reconciliation_report,
     discover_fec,
 )
+from pyaccountingkit.core.currency import EUR
 from pyaccountingkit.core.identifiers import EntityId
 from pyaccountingkit.domain.imports.batch import ImportMode
 from pyaccountingkit.domain.imports.source_artifact import SourceArtifact
@@ -49,6 +50,8 @@ def _line(
     auxiliary: str = "",
     lettering: str = "",
     lettering_date: str = "",
+    foreign_amount: str = "",
+    foreign_currency: str = "",
 ) -> str:
     return "\t".join(
         (
@@ -68,8 +71,8 @@ def _line(
             lettering,
             lettering_date,
             "20260116",
-            "",
-            "",
+            foreign_amount,
+            foreign_currency,
         )
     )
 
@@ -143,6 +146,25 @@ def test_normalizer_preserves_auxiliary_and_lettering_without_account_concat() -
     assert first.metadata["fec.EcritureLet"] == "LET-1"
     assert first.metadata["fec.DateLet"] == "20260201"
     assert first.source_entry_key.value == "AC:E1"
+
+
+def test_foreign_currency_fields_do_not_change_fec_ledger_currency() -> None:
+    text = HEADER + "\n" + _line(
+        entry="E1",
+        account="401000",
+        debit="100.00",
+        credit="0",
+        foreign_amount="120.00",
+        foreign_currency="USD",
+    )
+    payload = (text + "\n").encode()
+    adapter = FECAdapter()
+    parsed = adapter.parse(_artifact(payload), batch_id="batch-1", payload=payload)
+    record = adapter.normalizer().normalize(parsed, batch_id="batch-1")[0]
+
+    assert record.currency == EUR
+    assert record.metadata["fec.Idevise"] == "USD"
+    assert record.metadata["fec.Montantdevise"] == "120.00"
 
 
 def test_fec_grouping_is_deterministic_and_balanced() -> None:

@@ -10,16 +10,17 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit is under active beta development. The package metadata is
-currently on the `0.2.0b1` line and the public API is **not yet stable**.
+PyAccountingKit is under active beta development. The current package line is
+`0.2.0b2` — the **cross-lot integrity-qualified beta** produced by
+`LOT-QA-01 — Cross-Lot Accounting & Policy Integrity Remediation`.
 
-The current hardening milestone is `LOT-QA-01 — Cross-Lot Accounting & Policy
-Integrity Remediation`. Its purpose is to consolidate cross-cutting invariants
-before feature development continues toward the next beta.
+The public API is **not yet stable**. `0.2.0b2` qualifies the integrity of the
+accounting, chart, policy, proposal, posting, replay and in-memory concurrency
+contracts before feature development continues with `LOT-14`.
 
 Do not infer release readiness from the version number alone. A release is
-qualified only when the canonical CI, package and security gates are green and
-the milestone Definition of Done is satisfied.
+qualified only when canonical CI, package, security and applicable accounting
+gates are green and the milestone Definition of Done is satisfied.
 
 ## Core guarantees
 
@@ -41,8 +42,13 @@ accidents:
 - historical replay is an explicit execution mode and must remain deterministic;
 - company-account resolution is entity-, accounting-date- and chart-version
   aware;
+- policy-generated proposals reach the ledger through
+  `ProposalPostingOrchestrator`; policies never post directly;
 - posting mutations, audit records, outbox events and idempotency state belong
-  to the same transactional unit of work.
+  to the same transactional unit of work;
+- the in-memory reference UoW uses isolated transaction-local state and rejects
+  stale competing writes instead of restoring a global snapshot over another
+  transaction's commit.
 
 When a new invariant invalidates an old fixture, **fix the fixture or generator;
 do not weaken the invariant**.
@@ -73,26 +79,43 @@ Main areas:
 - `docs/` — specifications, ADRs, plans and roadmap; architectural decisions
   are documentation-driven.
 
-A particularly important cross-lot path is:
+The canonical automated-accounting path is:
 
 ```text
 AccountingEntity + AccountingDate
         │
-        ▼
-CompanyChart ──► CompanyChartVersion ──► CompanyChartOfAccounts
-        │
-        ├──► AccountRole resolution
-        │
-        └──► JournalEntry / Proposal
-                     │
-                     ▼
+        ├──────────────────────────────┐
+        ▼                              ▼
+AccountingPolicySet               CompanyChart
+        │                              │
+        ▼                              ▼
+Policy resolution              CompanyChartVersion
+        │                              │
+        ▼                              ▼
+Recognition / Measurement     AccountRole resolution
+        │                              │
+        └─────────────┐        ┌───────┘
+                      ▼        ▼
+               JournalEntryProposal
+                      │
+                      ▼
+          ProposalPostingOrchestrator
+                      │
+                      ▼
+                 JournalEntry
+                      │
+                      ▼
               PostingOrchestrator
-                     │
-        Entry + Audit + Outbox + Idempotency
-                     │
-                     ▼
-                   COMMIT
+                      │
+       Entry + Audit + Outbox + Idempotency
+                      │
+                      ▼
+                    COMMIT
 ```
+
+The execution trace pins proposal checksum, policy versions, regulatory
+snapshots, company-chart version and resolved accounts so historical replay is
+explicit rather than inferred from current configuration.
 
 ## Documentation
 
@@ -127,11 +150,17 @@ python -m ruff check src tests scripts
 python -m ruff format --check src tests scripts
 python -m mypy src
 
-# Core deterministic test suite used by the Python matrix in CI.
-python -m pytest tests/unit tests/property tests/contract -v --tb=short
+# Canonical CI accounting suites.
+python -m pytest \
+  tests/unit tests/property tests/contract \
+  tests/golden tests/replay tests/concurrency \
+  -v --tb=short
 
-# Canonical release qualification.
+# Core qualification.
 python scripts/qualify_release.py
+
+# Extended accounting qualification.
+python scripts/qualify_release.py --full
 ```
 
 For security parity with `.github/workflows/security.yml`:
@@ -142,8 +171,8 @@ python -m pip_audit
 python -m bandit -r src/ -c pyproject.toml
 ```
 
-The CI test matrix currently qualifies supported Python versions independently.
-A change is not ready merely because it passes on one interpreter.
+The CI test matrix qualifies supported Python versions independently. A change
+is not ready merely because it passes on one interpreter.
 
 ## Change-safety checklist
 
@@ -155,16 +184,16 @@ Before committing or pushing a refactor:
    whole repository and migrate **all** call sites, fixtures and tests in the
    same change.
 3. If strengthening a domain invariant, update Hypothesis strategies and test
-   builders so they generate valid objects unless the test is explicitly
-   testing rejection.
+   builders so they generate valid objects unless the test explicitly checks
+   rejection.
 4. Prefer ports/resolvers at application boundaries. Do not bypass a versioned
    resolver by injecting a raw aggregate merely because an older test did so.
-5. Keep entity, date, chart version, policy version and reference snapshot
-   traceability intact across application boundaries.
-6. Run formatter, lint, typing, tests, release qualifier and relevant security
-   checks before pushing.
+5. Keep entity, accounting date, chart version, policy version and reference
+   snapshot traceability intact across application boundaries.
+6. Run formatter, lint, typing, tests, full qualifier and relevant security
+   checks before pushing a release candidate.
 
-The more detailed rules for coding agents are maintained in `AGENTS.md`.
+The detailed coding-agent rules are maintained in `AGENTS.md`.
 
 ## License
 

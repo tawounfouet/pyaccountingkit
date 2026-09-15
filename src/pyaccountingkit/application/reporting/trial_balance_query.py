@@ -6,7 +6,7 @@ from collections import defaultdict
 from collections.abc import Sequence
 
 from pyaccountingkit.core.currency import EUR, Currency
-from pyaccountingkit.core.identifiers import PeriodId
+from pyaccountingkit.core.identifiers import AccountId, PeriodId
 from pyaccountingkit.core.money import Money
 from pyaccountingkit.domain.charts.chart import CompanyChartOfAccounts
 from pyaccountingkit.domain.journals.journal_entry import JournalEntry
@@ -22,9 +22,9 @@ from pyaccountingkit.ports.unit_of_work import UnitOfWorkFactoryProtocol
 class TrialBalanceQuery:
     """Computes a trial balance from the reference journal-entry repository.
 
-    Only POSTED entries contribute; draft and validated entries are
-    excluded. Ordering is deterministic (account code asc, then checksum
-    of the aggregated lines).
+    Only POSTED entries contribute; draft and validated entries are excluded.
+    Trial-balance rows preserve the stable company-account id while exposing
+    the chart's business account code for presentation and drill-down.
     """
 
     def __init__(
@@ -57,12 +57,17 @@ class TrialBalanceQuery:
         account_code: str,
     ) -> Sequence[tuple[object, JournalLine]]:
         """Return the underlying journal lines of one account for drill-down."""
+        account = self._chart.get_by_code(account_code)
         with self._uow_factory.open() as uow:
             entries = uow.entries.list_by_period(period_id)
             matching: list[tuple[object, JournalLine]] = []
             for entry in entries:
                 for line in entry.lines:
-                    if str(line.account_id) == account_code:
+                    if account is not None:
+                        matches = line.account_id == account.id
+                    else:
+                        matches = str(line.account_id) == account_code
+                    if matches:
                         matching.append((entry.id, line))
             return tuple(matching)
 
@@ -71,32 +76,39 @@ class TrialBalanceQuery:
         entries: Sequence[JournalEntry],
     ) -> tuple[AccountBalanceLine, ...]:
         currency = self._default_currency(entries)
-        buckets: dict[str, list[Money]] = defaultdict(
+        buckets: dict[AccountId, list[Money]] = defaultdict(
             lambda: [Money.zero(currency), Money.zero(currency)]
         )
         for entry in entries:
             for line in entry.lines:
-                bucket = buckets[str(line.account_id)]
+                bucket = buckets[line.account_id]
                 bucket[0] = bucket[0] + line.debit
                 bucket[1] = bucket[1] + line.credit
-        return tuple(
+
+        rows = tuple(
             AccountBalanceLine(
-                account_code=code,
-                label=self._label(code),
+                account_id=account_id,
+                account_code=self._account_code(account_id),
+                label=self._label(account_id),
                 sum_debit=bucket[0],
                 sum_credit=bucket[1],
             )
-            for code, bucket in sorted(buckets.items())
+            for account_id, bucket in buckets.items()
         )
+        return tuple(sorted(rows, key=lambda row: row.account_code))
 
     def _default_currency(self, entries: Sequence[JournalEntry]) -> Currency:
         if not entries:
             return EUR
         return entries[0].lines[0].currency
 
-    def _label(self, code: str) -> str:
-        account = self._chart.get_by_code(code)
-        return account.label if account is not None else code
+    def _account_code(self, account_id: AccountId) -> str:
+        account = self._chart.get_by_id(account_id)
+        return account.code if account is not None else str(account_id)
+
+    def _label(self, account_id: AccountId) -> str:
+        account = self._chart.get_by_id(account_id)
+        return account.label if account is not None else str(account_id)
 
 
 __all__ = ["TrialBalanceQuery"]

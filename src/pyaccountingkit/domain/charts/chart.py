@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from pyaccountingkit.core.entity_scope import require_same_entity
 from pyaccountingkit.core.errors import AccountRuleError, InvalidAccountCodeError
 from pyaccountingkit.core.identifiers import AccountId, EntityId
 from pyaccountingkit.domain.charts.account import CompanyAccount
@@ -17,6 +18,12 @@ class CompanyChartOfAccounts:
     accounts: tuple[CompanyAccount, ...] = ()
 
     def __post_init__(self) -> None:
+        for account in self.accounts:
+            require_same_entity(
+                self.entity_id,
+                account.entity_id,
+                resource=f"company account {account.id}",
+            )
         codes = [account.code for account in self.accounts]
         if len(codes) != len(set(codes)):
             dupes = sorted({code for code in codes if codes.count(code) > 1})
@@ -38,6 +45,11 @@ class CompanyChartOfAccounts:
 
     def add(self, account: CompanyAccount) -> CompanyChartOfAccounts:
         """Return a new chart with an additional account (rejects duplicates)."""
+        require_same_entity(
+            self.entity_id,
+            account.entity_id,
+            resource=f"company account {account.id}",
+        )
         if self.get_by_code(account.code) is not None:
             raise InvalidAccountCodeError(f"Account code {account.code!r} already exists in chart")
         return CompanyChartOfAccounts(

@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0a2",
+  "version": "0.3.0b1",
   "error_codes": {
     "ENTITY_SCOPE_MISMATCH": "EntityScopeMismatchError",
     "ENTRY_UNBALANCED": "UnbalancedEntryError",
@@ -36,6 +36,13 @@
     "IMPORT_ERROR": "AccountingImportError",
     "IMPORT_INVALID_TRANSITION": "InvalidImportTransitionError",
     "IMPORT_STALE_PLAN": "StaleImportPlanError",
-    "IMPORT_INVALID_PLAN": "InvalidImportPlanError"
+    "IMPORT_INVALID_PLAN": "InvalidImportPlanError",
+    "REPORTING_ERROR": "ReportingError",
+    "REPORTING_INVALID_DEFINITION": "InvalidStatementDefinitionError",
+    "REPORTING_FORMULA_CYCLE": "FormulaCycleError",
+    "REPORTING_MAPPING_ERROR": "StatementMappingError",
+    "REPORTING_MAPPING_NOT_EXECUTABLE": "NonExecutableStatementMappingError",
+    "REPORTING_INVALID_SOURCE": "StatementSourceError",
+    "REPORTING_CONTROL_FAILED": "StatementControlError"
   }
 }

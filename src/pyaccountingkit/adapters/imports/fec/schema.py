@@ -5,7 +5,6 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import date
 
-
 FEC_FIELD_NAMES: tuple[str, ...] = (
     "JournalCode",
     "JournalLib",

@@ -7,7 +7,7 @@ from .grouping import FECGroupingStrategy
 from .normalizer import FECNormalizationError, FECNormalizer
 from .parser import FECParseError, FECParser
 from .reconciliation import FECReconciliationReport, build_fec_reconciliation_report
-from .schema import FEC_FIELDS, FEC_FIELD_NAMES, FECFieldDefinition, FECSourceDescriptor
+from .schema import FEC_FIELD_NAMES, FEC_FIELDS, FECFieldDefinition, FECSourceDescriptor
 
 __all__ = [
     "FECAdapter",

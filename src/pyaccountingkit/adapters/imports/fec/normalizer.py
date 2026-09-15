@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from datetime import date, datetime
 from decimal import Decimal, InvalidOperation
-from typing import Mapping
 
 from pyaccountingkit.core.currency import Currency, lookup_currency
 from pyaccountingkit.domain.imports.normalized_record import NormalizedImportRecord, SourceEntryKey
@@ -72,11 +72,11 @@ class FECNormalizer:
                     source_account_code=account_number,
                     accounting_date=entry_date,
                     document_date=self._optional_date(fields.get("PieceDate"), raw.source_ref),
-                    description=(fields.get("EcritureLib") or None),
+                    description=fields.get("EcritureLib") or None,
                     debit=debit,
                     credit=credit,
                     currency=currency,
-                    auxiliary_code=(fields.get("CompAuxNum") or None),
+                    auxiliary_code=fields.get("CompAuxNum") or None,
                     metadata=metadata,
                 )
             )

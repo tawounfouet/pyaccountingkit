@@ -8,7 +8,11 @@ from pyaccountingkit.application.ledger.posting_orchestrator import PostingResul
 from pyaccountingkit.core.currency import EUR
 from pyaccountingkit.core.identifiers import AccountId, EntityId, JournalId, PeriodId
 from pyaccountingkit.domain.imports.batch import ImportTransactionMode
-from pyaccountingkit.domain.imports.import_plan import ImportEntryPlan, ImportPlan, ImportPlannedLine
+from pyaccountingkit.domain.imports.import_plan import (
+    ImportEntryPlan,
+    ImportPlan,
+    ImportPlannedLine,
+)
 from pyaccountingkit.domain.imports.normalized_record import SourceEntryKey
 
 
@@ -66,7 +70,13 @@ def _plan() -> ImportPlan:
     )
 
 
-def _execute(service: ImportExecutionService, plan: ImportPlan, *, mode, chunk_size=None):
+def _execute(
+    service: ImportExecutionService,
+    plan: ImportPlan,
+    *,
+    mode: ImportTransactionMode,
+    chunk_size: int | None = None,
+):
     return service.execute(
         plan,
         currency=EUR,

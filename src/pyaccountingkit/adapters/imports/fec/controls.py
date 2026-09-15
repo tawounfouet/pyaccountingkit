@@ -7,7 +7,11 @@ from datetime import date, datetime
 from decimal import Decimal, InvalidOperation
 
 from pyaccountingkit.core.currency import lookup_currency
-from pyaccountingkit.domain.imports.issues import ImportIssue, ImportIssueSeverity, ImportValidationReport
+from pyaccountingkit.domain.imports.issues import (
+    ImportIssue,
+    ImportIssueSeverity,
+    ImportValidationReport,
+)
 from pyaccountingkit.domain.imports.normalized_record import NormalizedImportRecord
 from pyaccountingkit.domain.imports.raw_record import RawImportRecord
 
@@ -53,7 +57,13 @@ class FECValidator:
                 issues.append(self._issue("FEC_INVALID_CREDIT", raw, "invalid Credit"))
             if debit is not None and credit is not None:
                 if debit < 0 or credit < 0:
-                    issues.append(self._issue("FEC_NEGATIVE_AMOUNT", raw, "negative debit/credit amount"))
+                    issues.append(
+                        self._issue(
+                            "FEC_NEGATIVE_AMOUNT",
+                            raw,
+                            "negative debit/credit amount",
+                        )
+                    )
                 if debit > 0 and credit > 0:
                     issues.append(
                         self._issue(
@@ -171,16 +181,10 @@ class FECValidator:
     ) -> ImportValidationReport:
         issues = self.validate_raw(raw_records) + self.validate_normalized(normalized_records)
         rejected_refs = {
-            ref
-            for issue in issues
-            if issue.blocking
-            for ref in issue.source_record_refs
+            ref for issue in issues if issue.blocking for ref in issue.source_record_refs
         }
         warning_refs = {
-            ref
-            for issue in issues
-            if not issue.blocking
-            for ref in issue.source_record_refs
+            ref for issue in issues if not issue.blocking for ref in issue.source_record_refs
         }
         total_debit = sum((record.debit for record in normalized_records), Decimal(0))
         total_credit = sum((record.credit for record in normalized_records), Decimal(0))

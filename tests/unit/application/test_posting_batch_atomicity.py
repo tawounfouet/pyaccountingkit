@@ -4,18 +4,31 @@ from datetime import UTC, date, datetime
 
 import pytest
 
-from pyaccountingkit.adapters.in_memory.company_chart_resolver import InMemoryVersionedCompanyChartResolver
+from pyaccountingkit.adapters.in_memory.company_chart_resolver import (
+    InMemoryVersionedCompanyChartResolver,
+)
 from pyaccountingkit.adapters.in_memory.store import InMemoryStore
 from pyaccountingkit.adapters.in_memory.unit_of_work import InMemoryUnitOfWorkFactory
 from pyaccountingkit.application.ledger.posting_orchestrator import PostingOrchestrator
 from pyaccountingkit.core.clock import FrozenClock
 from pyaccountingkit.core.currency import EUR
 from pyaccountingkit.core.errors import UnknownAccountError
-from pyaccountingkit.core.identifiers import AccountId, EntityId, EntryId, FiscalYearId, JournalId, PeriodId
+from pyaccountingkit.core.identifiers import (
+    AccountId,
+    EntityId,
+    EntryId,
+    FiscalYearId,
+    JournalId,
+    PeriodId,
+)
 from pyaccountingkit.core.money import Money
 from pyaccountingkit.domain.charts.account import CompanyAccount
 from pyaccountingkit.domain.charts.chart import CompanyChartOfAccounts
-from pyaccountingkit.domain.charts.company_chart import ChartStatus, CompanyChart, CompanyChartVersion
+from pyaccountingkit.domain.charts.company_chart import (
+    ChartStatus,
+    CompanyChart,
+    CompanyChartVersion,
+)
 from pyaccountingkit.domain.journals.journal import Journal
 from pyaccountingkit.domain.journals.journal_entry import JournalEntry
 from pyaccountingkit.domain.journals.journal_line import JournalLine
@@ -40,7 +53,12 @@ def _orchestrator() -> tuple[PostingOrchestrator, InMemoryStore]:
             )
         )
         uow.journals.add(
-            Journal(id=JournalId("j1"), entity_id=ENTITY, code="AC", label="Achats")
+            Journal(
+                id=JournalId("j1"),
+                entity_id=ENTITY,
+                code="AC",
+                label="Achats",
+            )
         )
         uow.commit()
 

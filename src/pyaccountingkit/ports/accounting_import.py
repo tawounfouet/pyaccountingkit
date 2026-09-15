@@ -20,7 +20,13 @@ class ParsedImport:
 
 
 class AccountingImportParser(Protocol):
-    def parse(self, artifact: SourceArtifact, *, batch_id: str) -> ParsedImport: ...
+    def parse(
+        self,
+        artifact: SourceArtifact,
+        *,
+        batch_id: str,
+        payload: bytes,
+    ) -> ParsedImport: ...
 
 
 class AccountingImportNormalizer(Protocol):

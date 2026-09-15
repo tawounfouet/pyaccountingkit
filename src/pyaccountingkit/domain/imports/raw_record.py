@@ -4,9 +4,9 @@ from __future__ import annotations
 
 import hashlib
 import json
+from collections.abc import Mapping
 from dataclasses import dataclass, field
 from types import MappingProxyType
-from typing import Mapping
 
 
 @dataclass(frozen=True, slots=True)
@@ -34,7 +34,8 @@ class RawImportRecord:
         object.__setattr__(self, "provenance", provenance)
         if self.row_checksum is None:
             canonical = json.dumps(dict(fields), sort_keys=True, separators=(",", ":"))
-            object.__setattr__(self, "row_checksum", hashlib.sha256(canonical.encode()).hexdigest())
+            checksum = hashlib.sha256(canonical.encode()).hexdigest()
+            object.__setattr__(self, "row_checksum", checksum)
 
     @property
     def source_ref(self) -> str:

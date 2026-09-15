@@ -16,7 +16,8 @@ PyAccountingKit is under active beta development. The current package line is
 
 The public API is **not yet stable**. `0.2.0b2` qualifies the integrity of the
 accounting, chart, policy, proposal, posting, replay and in-memory concurrency
-contracts before feature development continues with `LOT-14`.
+contracts. The next feature milestone after this integrity baseline is
+`LOT-14 — Generic Accounting Import Engine` on the `0.3.0a1` line.
 
 Do not infer release readiness from the version number alone. A release is
 qualified only when canonical CI, package, security and applicable accounting

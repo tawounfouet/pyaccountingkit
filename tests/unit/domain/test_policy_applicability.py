@@ -33,6 +33,35 @@ def test_standard_matches() -> None:
     assert appl.matches(_ctx(standard_id="fr-pcg"))
 
 
+def test_declared_standard_rejects_missing_runtime_value() -> None:
+    appl = PolicyApplicability(standard_id="fr-pcg")
+    assert not appl.matches(_ctx(standard_id=None))
+
+
+@pytest.mark.parametrize(
+    ("applicability", "context_overrides"),
+    [
+        (PolicyApplicability(edition="2026"), {"edition": None}),
+        (PolicyApplicability(jurisdiction="FR"), {"jurisdiction": None}),
+        (PolicyApplicability(sector="BANKING"), {"sector": None}),
+        (PolicyApplicability(account_type="ASSET"), {"account_type": None}),
+        (
+            PolicyApplicability(reference_concept_id="class:2"),
+            {"reference_concept_id": None},
+        ),
+        (PolicyApplicability(asset_category="PPE"), {"asset_category": None}),
+        (PolicyApplicability(liability_category="PROVISION"), {"liability_category": None}),
+        (PolicyApplicability(transaction_type="SALE"), {"transaction_type": None}),
+        (PolicyApplicability(journal_type="OD"), {"journal_type": None}),
+    ],
+)
+def test_declared_criterion_rejects_missing_runtime_value(
+    applicability: PolicyApplicability,
+    context_overrides: dict[str, object],
+) -> None:
+    assert not applicability.matches(_ctx(**context_overrides))
+
+
 def test_out_of_range_date_rejects() -> None:
     appl = PolicyApplicability(effective_from=date(2027, 1, 1))
     assert not appl.matches(_ctx())

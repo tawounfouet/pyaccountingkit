@@ -235,4 +235,22 @@ class ControlFailureError(DomainError):
     code: str = "CONTROL_FAILED"
 
 
+class PolicyError(DomainError):
+    """Root of accounting-policy errors."""
+
+    code: str = "POLICY_ERROR"
+
+
+class PolicyNotFoundError(PolicyError):
+    """No applicable policy was found for the given context."""
+
+    code: str = "POLICY_NOT_FOUND"
+
+
+class AmbiguousPolicyResolutionError(PolicyError):
+    """Two or more policies matched at the same scope priority (fail-closed)."""
+
+    code: str = "POLICY_AMBIGUOUS_RESOLUTION"
+
+
 __all__ = [name for name in globals() if name.endswith("Error")]

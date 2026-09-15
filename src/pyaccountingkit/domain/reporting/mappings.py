@@ -87,7 +87,10 @@ class StatementAccountMapping:
         return self.effective_to is None or value <= self.effective_to
 
     def applies_to(self, line: AccountBalanceLine, *, as_of: date) -> bool:
-        if line.account_code != self.company_account_id or not self.effective_on(as_of):
+        if (
+            line.company_account_identity != self.company_account_id
+            or not self.effective_on(as_of)
+        ):
             return False
         if self.balance_side is MappingBalanceSide.ANY:
             return True

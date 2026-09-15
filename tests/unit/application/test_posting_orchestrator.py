@@ -6,6 +6,9 @@ from datetime import UTC, date, datetime
 
 import pytest
 
+from pyaccountingkit.adapters.in_memory.company_chart_resolver import (
+    InMemoryVersionedCompanyChartResolver,
+)
 from pyaccountingkit.adapters.in_memory.store import InMemoryStore
 from pyaccountingkit.adapters.in_memory.unit_of_work import InMemoryUnitOfWorkFactory
 from pyaccountingkit.application.ledger.posting_orchestrator import PostingOrchestrator
@@ -32,6 +35,7 @@ from pyaccountingkit.core.identifiers import (
 from pyaccountingkit.core.money import Money
 from pyaccountingkit.domain.charts.account import CompanyAccount
 from pyaccountingkit.domain.charts.chart import CompanyChartOfAccounts
+from pyaccountingkit.domain.charts.company_chart import ChartStatus, CompanyChart, CompanyChartVersion
 from pyaccountingkit.domain.journals.journal import Journal
 from pyaccountingkit.domain.journals.journal_entry import EntryStatus, JournalEntry
 from pyaccountingkit.domain.journals.journal_line import JournalLine
@@ -63,6 +67,26 @@ def _chart() -> CompanyChartOfAccounts:
         ),
     )
     return CompanyChartOfAccounts(entity_id=entity, accounts=accounts)
+
+
+def _chart_resolver() -> InMemoryVersionedCompanyChartResolver:
+    config = CompanyChart(
+        chart_id="chart:ent",
+        entity_id=EntityId("ent"),
+        code="STD",
+        label="Standard",
+        primary_standard="fr-pcg",
+        code_policy_id="numeric",
+        reference_snapshot_id="snap:1",
+        versions=(
+            CompanyChartVersion(
+                label="v1",
+                status=ChartStatus.ACTIVE,
+                effective_from=date(2024, 1, 1),
+            ),
+        ),
+    )
+    return InMemoryVersionedCompanyChartResolver(config, {"v1": _chart()})
 
 
 def _period(
@@ -99,7 +123,7 @@ def _bak_app(
         )
         uow.commit()
     posting = PostingService(clock=FrozenClock(NOW))
-    return PostingOrchestrator(factory, _chart(), posting), factory, store
+    return PostingOrchestrator(factory, _chart_resolver(), posting), factory, store
 
 
 def _draft(account_ids: tuple[str, str] = ("411000", "707000")) -> JournalEntry:
@@ -133,6 +157,7 @@ def test_post_happy_path_is_persisted_and_posted() -> None:
     assert store.entries[EntryId("e1")].status is EntryStatus.POSTED
     assert [event.event_type for event in store.audit_log] == ["ENTRY_POSTED"]
     assert store.audit_log[0].entity_id == "ent"
+    assert store.audit_log[0].payload["chart_version"] == "v1"
     assert [record.event_type for record in store.drain_outbox()] == ["ENTRY_POSTED"]
 
 

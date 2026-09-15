@@ -38,7 +38,10 @@ def validate_policy_set_execution(
             f"policy set {policy_set.code!r} is {policy_set.status.value}, expected ACTIVE"
         )
 
-    if policy_set.effective_from is not None and context.accounting_date < policy_set.effective_from:
+    if (
+        policy_set.effective_from is not None
+        and context.accounting_date < policy_set.effective_from
+    ):
         raise PolicySetNotEffectiveError(
             f"policy set {policy_set.code!r} is not effective on {context.accounting_date}"
         )

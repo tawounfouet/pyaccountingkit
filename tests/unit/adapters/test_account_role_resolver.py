@@ -7,6 +7,9 @@ from datetime import date
 import pytest
 
 from pyaccountingkit.adapters.in_memory.account_role_resolver import InMemoryAccountRoleResolver
+from pyaccountingkit.adapters.in_memory.company_chart_resolver import (
+    InMemoryVersionedCompanyChartResolver,
+)
 from pyaccountingkit.core.errors import (
     AccountRoleResolutionError,
     AmbiguousAccountRoleError,
@@ -16,7 +19,11 @@ from pyaccountingkit.core.identifiers import AccountId, EntityId
 from pyaccountingkit.domain.charts.account import CompanyAccount
 from pyaccountingkit.domain.charts.account_role import AccountRole
 from pyaccountingkit.domain.charts.chart import CompanyChartOfAccounts
-from pyaccountingkit.domain.charts.company_chart import ChartStatus, CompanyChart, CompanyChartVersion
+from pyaccountingkit.domain.charts.company_chart import (
+    ChartStatus,
+    CompanyChart,
+    CompanyChartVersion,
+)
 
 
 def _company_chart() -> CompanyChart:
@@ -59,11 +66,21 @@ def _accounts(version: str, code: str) -> CompanyChartOfAccounts:
     )
 
 
-def _resolver() -> InMemoryAccountRoleResolver:
-    return InMemoryAccountRoleResolver(
+def _chart_resolver(
+    *,
+    v1_chart: CompanyChartOfAccounts | None = None,
+) -> InMemoryVersionedCompanyChartResolver:
+    return InMemoryVersionedCompanyChartResolver(
         _company_chart(),
-        {"v1": _accounts("v1", "681100"), "v2": _accounts("v2", "681200")},
+        {
+            "v1": v1_chart or _accounts("v1", "681100"),
+            "v2": _accounts("v2", "681200"),
+        },
     )
+
+
+def _resolver() -> InMemoryAccountRoleResolver:
+    return InMemoryAccountRoleResolver(_chart_resolver())
 
 
 def test_resolver_uses_historical_chart_version_by_date() -> None:
@@ -106,7 +123,6 @@ def test_resolver_rejects_missing_role() -> None:
 
 
 def test_resolver_rejects_ambiguous_role() -> None:
-    chart = _company_chart()
     account_a = CompanyAccount(
         id=AccountId("a"),
         entity_id=EntityId("ent"),
@@ -121,13 +137,11 @@ def test_resolver_rejects_ambiguous_role() -> None:
         label="B",
         role=AccountRole.DEPRECIATION_EXPENSE_ACCOUNT,
     )
-    resolver = InMemoryAccountRoleResolver(
-        chart,
-        {
-            "v1": CompanyChartOfAccounts(EntityId("ent"), (account_a, account_b)),
-            "v2": _accounts("v2", "681200"),
-        },
+    ambiguous_v1 = CompanyChartOfAccounts(
+        EntityId("ent"),
+        (account_a, account_b),
     )
+    resolver = InMemoryAccountRoleResolver(_chart_resolver(v1_chart=ambiguous_v1))
     with pytest.raises(AmbiguousAccountRoleError):
         resolver.resolve(
             entity_id=EntityId("ent"),

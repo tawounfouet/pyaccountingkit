@@ -253,4 +253,40 @@ class AmbiguousPolicyResolutionError(PolicyError):
     code: str = "POLICY_AMBIGUOUS_RESOLUTION"
 
 
+class MeasurementError(DomainError):
+    """Root of measurement-policy errors."""
+
+    code: str = "MEASUREMENT_ERROR"
+
+
+class InvalidMeasurementError(MeasurementError):
+    """A measurement policy produced an inconsistent result."""
+
+    code: str = "MEASUREMENT_INVALID"
+
+
+class AccountRoleResolutionError(DomainError):
+    """No company account could be resolved for an ``AccountRole`` (fail-closed)."""
+
+    code: str = "ACCOUNT_ROLE_UNRESOLVED"
+
+
+class AmbiguousAccountRoleError(DomainError):
+    """Several company accounts match an ``AccountRole`` with no tie-breaker."""
+
+    code: str = "ACCOUNT_ROLE_AMBIGUOUS"
+
+
+class ProposalError(DomainError):
+    """Root of journal-entry-proposal errors."""
+
+    code: str = "PROPOSAL_ERROR"
+
+
+class UnbalancedProposalError(ProposalError):
+    """A proposal's debits and credits do not balance at the centime."""
+
+    code: str = "PROPOSAL_UNBALANCED"
+
+
 __all__ = [name for name in globals() if name.endswith("Error")]

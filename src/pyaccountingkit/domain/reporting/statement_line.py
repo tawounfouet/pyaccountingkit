@@ -72,9 +72,7 @@ class StatementLineDefinition:
         if not self.code.strip():
             raise InvalidStatementDefinitionError("statement line code must not be empty")
         if not self.label.strip() and self.line_type is not StatementLineType.SPACER:
-            raise InvalidStatementDefinitionError(
-                f"statement line {self.code!r} must have a label"
-            )
+            raise InvalidStatementDefinitionError(f"statement line {self.code!r} must have a label")
         if self.order < 0:
             raise InvalidStatementDefinitionError(
                 f"statement line {self.code!r} order must be >= 0"

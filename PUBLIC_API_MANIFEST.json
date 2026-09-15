@@ -1,8 +1,8 @@
 {
-  "version": "0.2.0b2",
+  "version": "0.3.0a1",
   "public_api": {
-    "stability": "internal-beta",
+    "stability": "internal-alpha",
     "stable_exports": [],
-    "note": "The public API is intentionally not frozen before the release-candidate line. Consumers should treat domain/application imports as beta contracts."
+    "note": "LOT-14 introduces the source-neutral accounting import domain. Public API remains intentionally unfrozen before the release-candidate line."
   }
 }

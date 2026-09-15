@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0a1] - 2026-09-15
+
+### Added
+- Source-format-neutral Generic Accounting Import Engine foundation (LOT-14).
+- Immutable `SourceArtifact` with SHA-256 evidence and scoped source fingerprinting.
+- Immutable `RawImportRecord` preservation with deterministic row checksums.
+- Generic `NormalizedImportRecord`, `SourceEntryKey` and deterministic entry grouping.
+- Explicit fail-closed account and journal mapping decisions without silent creation.
+- `AccountingImportBatch` lifecycle with guarded state transitions and execution modes.
+- Typed `ImportIssue` / `ImportValidationReport` structures.
+- Deterministic checksummed `ImportPlan`, stale-plan rejection and import checkpoints.
+- Source-neutral parser, normalizer and period-resolution ports.
+- Dry-run and import execution service delegating accounting mutations to the canonical
+  `PostingOrchestrator`.
+
+### Changed
+- Import-specific errors now have stable machine-readable codes in the public error manifest.
+- Adapter contract metadata documents the generic import extension boundary.
+- Regulatory compatibility metadata explicitly separates the generic import core from the
+  future FEC adapter in LOT-15.
+
+### Security
+- Import source identity uses SHA-256 evidence; no format-specific source data is interpreted
+  as trusted accounting semantics by the generic core.
+
 ## [0.2.0b2] - 2026-09-15
 
 ### Added

@@ -6,6 +6,7 @@ from decimal import Decimal
 import pytest
 
 from pyaccountingkit.core.currency import EUR
+from pyaccountingkit.core.errors import InvalidImportTransitionError, StaleImportPlanError
 from pyaccountingkit.core.identifiers import AccountId, EntityId, JournalId, PeriodId
 from pyaccountingkit.domain.imports.batch import AccountingImportBatch, ImportBatchStatus
 from pyaccountingkit.domain.imports.import_plan import (
@@ -87,7 +88,7 @@ def test_batch_state_machine_rejects_skipping_validation() -> None:
         correlation_id="corr-1",
         created_at=datetime(2026, 9, 15, tzinfo=UTC),
     )
-    with pytest.raises(ValueError, match="illegal"):
+    with pytest.raises(InvalidImportTransitionError, match="illegal"):
         batch.transition(ImportBatchStatus.COMPLETED, at=datetime.now(UTC))
 
 
@@ -121,7 +122,7 @@ def test_import_plan_is_deterministic_and_rejects_staleness() -> None:
         expected_line_count=2,
     )
     assert plan.checksum == plan.checksum
-    with pytest.raises(ValueError, match="stale"):
+    with pytest.raises(StaleImportPlanError, match="stale"):
         plan.assert_fresh(
             source_checksum="a" * 64,
             adapter_version="2",

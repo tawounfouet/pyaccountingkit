@@ -114,9 +114,7 @@ class ImportPlan:
             self.chart_version,
         )
         if current != planned:
-            raise StaleImportPlanError(
-                "stale import plan: source or resolution versions changed"
-            )
+            raise StaleImportPlanError("stale import plan: source or resolution versions changed")
 
 
 @dataclass(frozen=True, slots=True)

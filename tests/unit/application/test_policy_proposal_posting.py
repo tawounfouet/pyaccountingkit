@@ -1,9 +1,4 @@
-"""End-to-end: policy → proposal → role resolution → posting (LOT-13).
-
-Demonstrates the LOT-13 DoD: a measurement policy never posts directly; it
-produces a ``JournalEntryProposal`` whose roles are resolved to company
-accounts and then handed to the normal ``PostingOrchestrator``.
-"""
+"""End-to-end: policy → proposal → role resolution → posting (LOT-13)."""
 
 from __future__ import annotations
 
@@ -24,7 +19,6 @@ from pyaccountingkit.core.identifiers import (
     PeriodId,
 )
 from pyaccountingkit.core.money import Money
-from pyaccountingkit.domain.audit.events import AuditEvent
 from pyaccountingkit.domain.charts.account import CompanyAccount
 from pyaccountingkit.domain.charts.account_role import AccountRole
 from pyaccountingkit.domain.charts.chart import CompanyChartOfAccounts
@@ -46,14 +40,6 @@ from pyaccountingkit.domain.policies.proposal import (
 )
 
 NOW = datetime(2026, 12, 31, 18, 0, tzinfo=UTC)
-
-
-class RecordingAuditSink:
-    def __init__(self) -> None:
-        self.events: list[AuditEvent] = []
-
-    def record(self, event: AuditEvent) -> None:
-        self.events.append(event)
 
 
 def _chart() -> CompanyChartOfAccounts:
@@ -93,7 +79,7 @@ def _orchestrator() -> tuple[PostingOrchestrator, InMemoryStore]:
             )
         )
         uow.commit()
-    posting = PostingService(clock=FrozenClock(NOW), audit_sink=RecordingAuditSink())
+    posting = PostingService(clock=FrozenClock(NOW))
     return PostingOrchestrator(factory, _chart(), posting), store
 
 
@@ -113,7 +99,6 @@ def test_measurement_to_proposal_to_posting() -> None:
         period=(date(2026, 1, 1), date(2026, 12, 31)),
         context=context,
     )
-    # Decimal is preserved end to end (no float anywhere).
     assert isinstance(depreciation.period_amount.amount, Decimal)
 
     trace = PolicyExecutionTrace(
@@ -184,6 +169,6 @@ def test_measurement_to_proposal_to_posting() -> None:
 
     assert result.posted_entry.status is EntryStatus.POSTED
     assert store.entries[EntryId("e_dep_2026")].status is EntryStatus.POSTED
-    # Policy snapshot and reference snapshot stay pinned in the trace.
+    assert store.audit_log[-1].entity_id == "ent"
     assert proposal.policy_traces[0].reference_snapshot_id == "snap:1"
     assert proposal.policy_traces[0].policy_set_version == "3"

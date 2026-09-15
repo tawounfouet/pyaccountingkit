@@ -56,36 +56,40 @@ class Result(Generic[T, E]):
         """Return the contained error (``None`` on a success result)."""
         return self._error
 
+    def _required_value(self) -> T:
+        if self._value is None:
+            raise RuntimeError("Result success invariant violated: missing value")
+        return self._value
+
+    def _required_error(self) -> E:
+        if self._error is None:
+            raise RuntimeError("Result error invariant violated: missing error")
+        return self._error
+
     def unwrap(self) -> T:
         """Return the success value or raise ``RuntimeError``."""
         if not self._ok:
             message = self._error if self._error is not None else "unknown error"
             raise RuntimeError(f"Called unwrap() on an error Result: {message}")
-        assert self._value is not None
-        return self._value
+        return self._required_value()
 
     def unwrap_or(self, default: T) -> T:
         """Return the success value or ``default`` on an error result."""
         if self._ok:
-            assert self._value is not None
-            return self._value
+            return self._required_value()
         return default
 
     def map(self, transform: Callable[[T], U]) -> Result[U, E]:
         """Apply ``transform`` to the success value, keeping the error path intact."""
         if self._ok:
-            assert self._value is not None
-            return Result.ok(transform(self._value))
-        assert self._error is not None
-        return Result.err(self._error)
+            return Result.ok(transform(self._required_value()))
+        return Result.err(self._required_error())
 
     def map_err(self, transform: Callable[[E], U]) -> Result[T, U]:
         """Apply ``transform`` to the error, keeping the success path intact."""
         if self._ok:
-            assert self._value is not None
-            return Result.ok(self._value)
-        assert self._error is not None
-        return Result.err(transform(self._error))
+            return Result.ok(self._required_value())
+        return Result.err(transform(self._required_error()))
 
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Result):

@@ -1,4 +1,4 @@
-"""Traceable result of resolving a functional account role."""
+"""Traceable results of resolving versioned company chart configuration."""
 
 from __future__ import annotations
 
@@ -6,6 +6,18 @@ from dataclasses import dataclass
 
 from pyaccountingkit.core.identifiers import AccountId, EntityId
 from pyaccountingkit.domain.charts.account_role import AccountRole
+from pyaccountingkit.domain.charts.chart import CompanyChartOfAccounts
+
+
+@dataclass(frozen=True, slots=True)
+class ResolvedCompanyChart:
+    """Operational chart selected for one entity and accounting date."""
+
+    chart: CompanyChartOfAccounts
+    chart_id: str
+    chart_version: str
+    entity_id: EntityId
+    reference_snapshot_id: str
 
 
 @dataclass(frozen=True, slots=True)
@@ -21,4 +33,4 @@ class ResolvedAccount:
     reference_snapshot_id: str
 
 
-__all__ = ["ResolvedAccount"]
+__all__ = ["ResolvedAccount", "ResolvedCompanyChart"]

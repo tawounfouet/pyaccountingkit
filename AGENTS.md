@@ -67,6 +67,17 @@ Qualification canonique :
 python scripts/qualify_release.py
 ```
 
+Qualification comptable étendue avant merge de milestone/release :
+
+```bash
+python scripts/qualify_release.py --full
+```
+
+Le mode `--full` ajoute, lorsqu'elles existent, les suites `integration`,
+`golden`, `replay` et `concurrency`. Une PR de milestone ne doit pas être
+considérée mergeable sur la seule base de la boucle core si ces suites sont
+applicables au changement.
+
 Gates statiques rapides :
 
 ```bash
@@ -88,10 +99,6 @@ python -m pip_audit
 python -m bandit -r src/ -c pyproject.toml
 ```
 
-La full suite étendue peut inclure `integration`, `concurrency`, `replay`,
-`migration`, `golden` et `performance` selon le milestone. Lire le plan actif
-avant de déclarer une qualification complète.
-
 ---
 
 ## 3. Règle absolue avant commit / push
@@ -108,7 +115,8 @@ Avant tout push, l'agent doit exécuter localement, dans cet ordre :
 4. mypy
 5. tests unit/property/contract
 6. qualify_release.py
-7. security checks si le changement touche src/, dépendances, packaging ou CI
+7. qualify_release.py --full pour milestone/release ou changements cross-lot
+8. security checks si le changement touche src/, dépendances, packaging ou CI
 ```
 
 Aucun commit/push ne doit être produit avec un échec connu dans cette séquence.
@@ -172,7 +180,8 @@ AccountingEntity
    ├── AccountRole resolution
    ├── Posting
    ├── Reversal
-   └── Closing
+   ├── Closing
+   └── Accounting Import
 ```
 
 Utiliser l'invariant canonique (`require_same_entity` /
@@ -336,6 +345,9 @@ JournalEntryProposal
 AccountRoleResolverProtocol
         │
         ▼
+ProposalPostingOrchestrator
+        │
+        ▼
 JournalEntry
         │
         ▼
@@ -346,7 +358,8 @@ Ne jamais contourner ce chemin en résolvant manuellement des comptes depuis un
 mapping local dans un nouveau use case.
 
 Les objets de mesure doivent également vérifier leurs invariants arithmétiques,
-par exemple la cohérence entre ancienne valeur, nouvelle valeur et delta.
+notamment `delta == new_amount - previous_amount` et les bornes de calcul
+(dépréciation/amortissement, valeurs résiduelles, cumuls).
 
 ---
 
@@ -376,32 +389,56 @@ Interdictions :
 - ne pas laisser d'état partiel après exception.
 
 Chaque orchestration transactionnelle doit avoir un test qui force un échec et
-vérifie l'absence de :
+vérifie l'absence de nouvelle écriture, audit partiel, outbox partielle et clé
+d'idempotence consommée à tort.
 
-- nouvelle écriture persistée ;
-- audit partiel ;
-- outbox partielle ;
-- clé d'idempotence consommée à tort.
+Le reference adapter in-memory doit lui aussi respecter l'isolation : un
+rollback d'une transaction ne doit jamais restaurer un snapshot global qui
+écraserait le commit d'une transaction concurrente.
 
 ---
 
-## 11. Compatibilité lors des refactors
+## 11. Imports comptables — règles à respecter dès LOT-14
 
-Les erreurs rencontrées lors de `LOT-QA-01` montrent un pattern à éviter :
-le domaine évolue correctement, mais les anciens appelants restent sur la
-signature précédente.
+Le bounded context générique d'import ne connaît **aucun nom de colonne FEC**.
+Les concepts `JournalCode`, `EcritureNum`, `CompteNum`, etc. appartiennent à
+l'adapter FEC des lots suivants, pas à `domain/imports`.
 
-Après **toute** modification de :
+Chaîne générique obligatoire :
 
-- constructeur ;
-- protocole ;
-- méthode publique ;
-- dataclass structurante ;
-- enum/statut ;
-- invariant de construction ;
-- forme d'un port ;
+```text
+SourceArtifact
+→ RawImportRecord
+→ NormalizedImportRecord
+→ Mapping / Grouping / Validation
+→ ImportPlan
+→ JournalEntry
+→ PostingOrchestrator
+```
 
-l'agent doit lancer une recherche globale et traiter :
+Règles :
+
+- l'artefact source est immutable et son SHA-256 est conservé ;
+- raw et normalized restent distincts ;
+- le regroupement par `SourceEntryKey` est déterministe ;
+- account/journal mapping est explicite et fail-closed ;
+- un candidate mapping n'est pas exécutable ;
+- aucun account/journal inconnu n'est créé silencieusement ;
+- `ImportPlan` est construit avant toute mutation ;
+- dry-run ne mute jamais le core ;
+- un plan stale ne s'exécute pas ;
+- aucun record source ne peut être silently dropped ;
+- l'exécution utilise le Posting normal, jamais un second posting engine ;
+- import et period closing partagent les mêmes exigences de concurrence et
+  transactionnalité.
+
+---
+
+## 12. Compatibilité lors des refactors
+
+Après **toute** modification de constructeur, protocole, méthode publique,
+dataclass structurante, enum/statut, invariant ou port, lancer une recherche
+globale et traiter :
 
 ```text
 src/
@@ -411,6 +448,7 @@ tests/contract/
 tests/integration/
 tests/replay/
 tests/golden/
+tests/concurrency/
 scripts/
 docs exemples de code si applicables
 ```
@@ -420,7 +458,7 @@ historiques et E2E font partie du contrat de non-régression.
 
 ---
 
-## 12. Ruff / typing — règles de prévention
+## 13. Ruff / typing — règles de prévention
 
 ### Formatting
 
@@ -438,30 +476,10 @@ python -m ruff format --check src tests scripts
 
 Un `ruff check` vert ne signifie pas que `ruff format --check` sera vert.
 
-### Imports / line length
-
-Ne pas corriger manuellement à moitié un bloc d'imports ou une ligne longue.
-Laisser `ruff format` produire la forme canonique, puis exécuter `ruff check`.
-
 ### B008 — appels dans les valeurs par défaut
 
-Éviter :
-
-```python
-def build(entity_id: EntityId = EntityId("ent")) -> object:
-    ...
-```
-
-Préférer une constante de module :
-
-```python
-DEFAULT_ENTITY_ID = EntityId("ent")
-
-def build(entity_id: EntityId = DEFAULT_ENTITY_ID) -> object:
-    ...
-```
-
-ou `None` + initialisation dans le corps si le type/contrat l'exige.
+Éviter les constructions d'objets dans les paramètres par défaut. Préférer une
+constante de module ou `None` + initialisation dans le corps.
 
 ### Protocols
 
@@ -470,144 +488,69 @@ la forme compacte `-> Type: ...` lorsque requise.
 
 ---
 
-## 13. Sécurité
+## 14. Sécurité
 
 Les security checks sont des gates réelles, pas décoratives.
 
 - `pip-audit` doit rester vert ;
 - Bandit doit rester vert selon `pyproject.toml` ;
-- ne pas introduire de `random.Random()` dans un contexte qui requiert des IDs
-  non prédictibles ;
-- éviter les `assert` runtime pour des invariants de production lorsque des
-  exceptions explicites sont plus appropriées ;
-- les faux positifs doivent être documentés/configurés proprement, pas masqués
-  arbitrairement.
-
-Après toute modification de `core`, sécurité, dépendances ou CI, exécuter les
-security checks localement si l'environnement le permet.
+- utiliser `secrets`/UUID ou une stratégie sécurisée par défaut pour les
+  identifiants non prédictibles ;
+- réserver les sources déterministes injectées aux tests ;
+- ne pas utiliser `assert` pour faire respecter des invariants runtime ;
+- une suppression Bandit doit être ciblée, documentée et justifiée.
 
 ---
 
-## 14. Données & réglementaire
+## 15. Données & réglementaire
 
-- `domain/` ne lit jamais directement les données réglementaires ;
-- toute consommation passe par les ports de référence puis leurs adapters ;
-- les normes officielles vivent dans le framework de données réglementaires
-  amont, pas dans des duplications opportunistes du domaine ;
-- aucune donnée comptable réelle/confidentielle ne doit être versionnée ;
-- `tests/fixtures/` = entrées déterministes ;
-- `tests/golden/` = oracles certifiés ;
-- `data/samples/` = démonstration publique synthétique.
-
-Le comportement historique CFA FRA reste un oracle de migration lorsque le plan
-actif le demande. Ne jamais dual-write des mutations comptables.
+- `domain/` ne lit **jamais** directement `data/` ni un référentiel ;
+- toute consommation réglementaire passe par `AccountingReferenceProvider` et
+  ses adapters ;
+- les normes officielles restent dans les resources/frameworks amont ;
+- `tests/golden/` contient les oracles qualifiés, pas des données métier réelles ;
+- un statut `golden-qualified` signifie que les baselines couvertes sont
+  qualifiées, pas que tout le reporting réglementaire du framework est complet.
 
 ---
 
-## 15. Manifests, versioning et release qualification
+## 16. Versioning & release governance
 
-Les manifests racine doivent rester cohérents avec la version du projet. S'ils
-sont générés par les scripts du repo, utiliser ces scripts ; ne pas introduire
-une divergence manuelle entre manifests et `pyproject.toml`.
+Milestones pilotés par **scope + Definition of Done + gates**, jamais par date.
+Les prereleases utilisent PEP 440 (`aN`, `bN`, `rcN`).
 
-Les milestones sont pilotés par scope, Definition of Done et gates, pas par
-date.
-
-Une pre-release verte en CI n'est pas automatiquement une release stable.
-Avant `rc`/stable, vérifier les gates exigés par le plan actif, notamment selon
-le cas :
-
-- tests unit/property/contract ;
-- package qualification ;
-- security ;
-- integration ;
-- concurrency ;
-- replay ;
-- migration ;
-- golden tests ;
-- documentation ;
-- manifests publics ;
-- release evidence.
-
----
-
-## 16. Definition of Done minimale pour un changement agentique
-
-Un changement n'est pas terminé tant que :
+Une release stable n'est jamais un simple bump/tag. Elle exige :
 
 ```text
-[ ] la version/milestone active a été vérifiée
-[ ] specs/plans/ADR pertinents ont été lus
-[ ] tous les appelants d'une API modifiée ont été migrés
-[ ] aucun invariant n'a été affaibli pour satisfaire un test
-[ ] cross-entity fail-closed est couvert si pertinent
-[ ] property generators respectent les invariants de construction
-[ ] ruff format a été appliqué
-[ ] ruff check est vert
-[ ] ruff format --check est vert
-[ ] mypy est vert
-[ ] unit/property/contract sont verts
-[ ] qualify_release.py est vert
-[ ] security est vert si pertinent
-[ ] rollback/atomicité est testé pour toute mutation transactionnelle
-[ ] docs/README/AGENTS sont mis à jour si le contrat de développement change
+architecture + lint + format + typing
+unit/property/contract
+applicable integration/golden/replay/concurrency
+package verification
+security
+manifests cohérents
+README / CHANGELOG alignés
 ```
 
----
-
-## 17. Règles de décision face à un test cassé
-
-Lorsqu'un test échoue après un changement, diagnostiquer dans cet ordre :
-
-1. **Le test appelle-t-il encore une ancienne API ?**
-   - migrer le test/appelant ;
-2. **La fixture construit-elle désormais un état invalide ?**
-   - corriger la fixture/generator ;
-3. **Le happy path viole-t-il un nouveau lifecycle guard ?**
-   - rendre la fixture valide pour le mode testé ;
-4. **Le nouveau code a-t-il réellement régressé ?**
-   - corriger le code ;
-5. **Le formatter/linter signale-t-il uniquement une forme canonique ?**
-   - appliquer le formatter, puis rejouer tous les gates.
-
-Ne jamais commencer par supprimer l'exception ou assouplir la validation.
+Ne pas annoncer qu'un adapter in-memory qualifie la production ; ses tests
+établissent une référence comportementale à réexécuter sur les futurs adapters
+réels.
 
 ---
 
-## 18. Exemple des erreurs à ne plus reproduire
+## 17. Docs — source de vérité
 
-Les cas suivants ont été corrigés pendant `LOT-QA-01` et constituent désormais
-des anti-patterns documentés :
+- `docs/specs/` : spécifications canoniques et ADR ;
+- `docs/ROADMAP.md` : lots, DoD et gates ;
+- `docs/plans/` : plans d'implémentation par release ;
+- `CONTRIBUTING.md` : conventions de contribution et Conventional Commits.
 
-- modifier `PostingOrchestrator` pour accepter un resolver versionné sans migrer
-  les anciens tests qui lui passaient directement `CompanyChartOfAccounts` ;
-- modifier `InMemoryAccountRoleResolver` sans migrer ses constructeurs de test ;
-- rendre `PolicySet.ACTIVE` obligatoire pour `CURRENT` tout en conservant un
-  happy-path test avec un policy set `DRAFT` ;
-- interdire `JournalLine(0, 0)` dans le domaine mais laisser Hypothesis générer
-  zéro dans les tests qui ne cherchent pas à tester cette erreur ;
-- pousser alors que `ruff check` passe mais que `ruff format --check` n'a pas
-  été exécuté ;
-- utiliser des appels de constructeur (`EntityId(...)`) comme valeurs par défaut
-  de fonctions de test et déclencher `B008` ;
-- faire converger LOT-11/LOT-13 dans le code mais oublier les E2E historiques.
+Avant LOT-14 et suivants, ne pas coder à partir d'un exemple isolé dans un plan
+si la spec canonique définit un invariant plus strict : **la spec/ADR prime**.
 
-Ces erreurs ne doivent plus être considérées comme des surprises de CI : elles
-font désormais partie de la checklist locale obligatoire.
+## Conventions
 
----
-
-## 19. Documentation — source de vérité
-
-- `docs/specs/` : spécifications et ADR ;
-- `docs/ROADMAP.md` : séquence des lots et gates ;
-- `docs/plans/` : plan d'implémentation par jalon ;
-- `CONTRIBUTING.md` : Conventional Commits et règles de contribution ;
-- `README.md` : vue d'ensemble utilisateur/contributeur ;
-- `AGENTS.md` : contrat opérationnel spécifique aux coding agents.
-
-Docs et commentaires : français privilégié. Identifiants de code : anglais.
-
-La configuration globale OpenCode peut exister dans
-`~/.config/opencode/AGENTS.md`, mais ce fichier-ci est la référence spécifique
-au dépôt PyAccountingKit et ne doit pas être contourné.
+- docs/commentaires : français lorsque cela améliore la gouvernance ;
+- identifiants de code : anglais ;
+- commits : Conventional Commits ;
+- ne pas dupliquer dans ce fichier des instructions génériques qui appartiennent
+  à la configuration globale de l'agent.

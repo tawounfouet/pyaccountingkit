@@ -6,6 +6,7 @@ from dataclasses import dataclass, replace
 from datetime import datetime
 from enum import StrEnum
 
+from pyaccountingkit.core.errors import InvalidImportTransitionError
 from pyaccountingkit.core.identifiers import EntityId
 
 
@@ -109,12 +110,14 @@ class AccountingImportBatch:
         at: datetime | None = None,
     ) -> AccountingImportBatch:
         if target not in _ALLOWED[self.status]:
-            raise ValueError(f"illegal import batch transition: {self.status} -> {target}")
+            raise InvalidImportTransitionError(
+                f"illegal import batch transition: {self.status} -> {target}"
+            )
         started = self.started_at
         completed = self.completed_at
         if target is ImportBatchStatus.IMPORTING:
             if at is None:
-                raise ValueError("IMPORTING transition requires a timestamp")
+                raise InvalidImportTransitionError("IMPORTING transition requires a timestamp")
             started = at
         terminal = {
             ImportBatchStatus.COMPLETED,
@@ -123,7 +126,7 @@ class AccountingImportBatch:
         }
         if target in terminal:
             if at is None:
-                raise ValueError(f"{target} transition requires a timestamp")
+                raise InvalidImportTransitionError(f"{target} transition requires a timestamp")
             completed = at
         return replace(self, status=target, started_at=started, completed_at=completed)
 

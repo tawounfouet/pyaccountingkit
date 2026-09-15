@@ -65,9 +65,7 @@ def test_competing_uows_reject_stale_entry_revision() -> None:
         uow_a.__exit__(None, None, None)
         uow_b.__exit__(None, None, None)
 
-    assert factory.store.entries[EntryId("e1")].posted_at == datetime(
-        2026, 1, 2, 10, 0, tzinfo=UTC
-    )
+    assert factory.store.entries[EntryId("e1")].posted_at == datetime(2026, 1, 2, 10, 0, tzinfo=UTC)
     assert factory.store.entry_revisions[EntryId("e1")].value == 1
 
 

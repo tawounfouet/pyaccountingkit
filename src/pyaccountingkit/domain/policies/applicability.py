@@ -1,11 +1,4 @@
-"""Policy applicability and resolution context (LOT-12).
-
-``PolicyApplicability`` carries the criteria the resolution engine can select
-policies against (spec section 14).  ``PolicyContext`` is the immutable input
-of a resolution request (spec section 17).  Reference-data criteria reference
-standard/jurisdiction identifiers but never embed reference data themselves
-(ADR-POL-002/013).
-"""
+"""Policy applicability and resolution context (LOT-12)."""
 
 from __future__ import annotations
 
@@ -36,31 +29,22 @@ class PolicyApplicability:
     effective_to: date | None = None
 
     def matches(self, context: PolicyContext) -> bool:
-        """Return whether a resolution context satisfies every declared criterion.
-
-        An empty criterion (None) matches any value: only declared criteria
-        constrain resolution.  Runtime criteria are matched against the
-        context; date ranges are matched against ``accounting_date``.
-        """
+        """Return whether context satisfies every declared criterion, fail-closed."""
         declared = (
-            ("standard_id", self.standard_id, context.standard_id),
-            ("edition", self.edition, context.edition),
-            ("jurisdiction", self.jurisdiction, context.jurisdiction),
-            ("sector", self.sector, context.sector),
-            ("accounting_entity_id", self.accounting_entity_id, context.accounting_entity_id),
-            ("account_type", self.account_type, context.account_type),
-            (
-                "reference_concept_id",
-                self.reference_concept_id,
-                context.reference_concept_id,
-            ),
-            ("asset_category", self.asset_category, context.asset_category),
-            ("liability_category", self.liability_category, context.liability_category),
-            ("transaction_type", self.transaction_type, context.transaction_type),
-            ("journal_type", self.journal_type, context.journal_type),
+            (self.standard_id, context.standard_id),
+            (self.edition, context.edition),
+            (self.jurisdiction, context.jurisdiction),
+            (self.sector, context.sector),
+            (self.accounting_entity_id, context.accounting_entity_id),
+            (self.account_type, context.account_type),
+            (self.reference_concept_id, context.reference_concept_id),
+            (self.asset_category, context.asset_category),
+            (self.liability_category, context.liability_category),
+            (self.transaction_type, context.transaction_type),
+            (self.journal_type, context.journal_type),
         )
-        for _name, expected, actual in declared:
-            if expected is not None and actual is not None and expected != actual:
+        for expected, actual in declared:
+            if expected is not None and actual != expected:
                 return False
         if self.effective_from is not None and context.accounting_date < self.effective_from:
             return False
@@ -70,7 +54,6 @@ class PolicyApplicability:
 
     @property
     def specificity(self) -> int:
-        """Count of declared criteria, used to break scope ties deterministically."""
         criteria = (
             self.standard_id,
             self.edition,
@@ -89,7 +72,7 @@ class PolicyApplicability:
 
 @dataclass(frozen=True, slots=True)
 class PolicyContext:
-    """Immutable input of a policy resolution request (spec section 17)."""
+    """Immutable input of a policy resolution request."""
 
     accounting_entity_id: EntityId
     accounting_date: date
@@ -109,7 +92,4 @@ class PolicyContext:
     metadata: Mapping[str, Any] = field(default_factory=dict)
 
 
-__all__ = [
-    "PolicyApplicability",
-    "PolicyContext",
-]
+__all__ = ["PolicyApplicability", "PolicyContext"]

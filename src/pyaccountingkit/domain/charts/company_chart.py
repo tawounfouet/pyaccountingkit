@@ -1,9 +1,8 @@
 """Company chart configuration and versioning aggregate (LOT-11).
 
 The chart aggregate carries configuration and versions; it does not hold every
-account as a child (ADR COA-007/008).  Historical versions are preserved: a
-new snapshot or standard never silently mutates the active chart
-(ADR COA-020, spec section 13 of the chart architecture).
+account as a child (ADR COA-007/008). Historical versions are preserved and
+resolved explicitly by accounting date.
 """
 
 from __future__ import annotations
@@ -12,6 +11,7 @@ from dataclasses import dataclass
 from datetime import date
 from enum import StrEnum
 
+from pyaccountingkit.core.errors import AmbiguousChartVersionError, ChartVersionNotFoundError
 from pyaccountingkit.core.identifiers import EntityId
 
 
@@ -26,7 +26,11 @@ class ChartStatus(StrEnum):
 
 @dataclass(frozen=True, slots=True)
 class CompanyChartVersion:
-    """One version of a company chart, with effective bounds."""
+    """One version of a company chart, with effective bounds.
+
+    Effective intervals are interpreted as ``[effective_from, effective_to)``.
+    This makes a superseded version stop exactly when its successor starts.
+    """
 
     label: str
     status: ChartStatus
@@ -40,6 +44,14 @@ class CompanyChartVersion:
         if self.effective_to is not None and self.effective_from is not None:
             if self.effective_to < self.effective_from:
                 raise ValueError("effective_to precedes effective_from")
+
+    def applies_on(self, accounting_date: date) -> bool:
+        """Return whether this non-DRAFT version applies on *accounting_date*."""
+        if self.status is ChartStatus.DRAFT:
+            return False
+        if self.effective_from is None or accounting_date < self.effective_from:
+            return False
+        return self.effective_to is None or accounting_date < self.effective_to
 
 
 @dataclass(frozen=True, slots=True)
@@ -62,7 +74,7 @@ class CompanyChart:
         labels = [version.label for version in self.versions]
         if len(labels) != len(set(labels)):
             raise ValueError("duplicate chart version labels")
-        active = [v for v in self.versions if v.status is ChartStatus.ACTIVE]
+        active = [version for version in self.versions if version.status is ChartStatus.ACTIVE]
         if len(active) > 1:
             raise ValueError("at most one ACTIVE chart version")
 
@@ -73,17 +85,33 @@ class CompanyChart:
     @property
     def current_active_version(self) -> CompanyChartVersion | None:
         return next(
-            (v for v in reversed(self.versions) if v.status is ChartStatus.ACTIVE),
+            (version for version in reversed(self.versions) if version.status is ChartStatus.ACTIVE),
             None,
         )
 
-    def activate(self, label: str, effective_from: date) -> CompanyChart:
-        """Activate a DRAFT version, superseding the previous ACTIVE version.
+    def version_at(self, accounting_date: date) -> CompanyChartVersion:
+        """Resolve exactly one effective historical/current version for a date."""
+        applicable = tuple(
+            version for version in self.versions if version.applies_on(accounting_date)
+        )
+        if not applicable:
+            raise ChartVersionNotFoundError(
+                f"no chart version of {self.chart_id!r} applies on {accounting_date}"
+            )
+        if len(applicable) > 1:
+            raise AmbiguousChartVersionError(
+                f"{len(applicable)} chart versions of {self.chart_id!r} apply on {accounting_date}: "
+                + ", ".join(version.label for version in applicable)
+            )
+        return applicable[0]
 
-        Historical versions are preserved (the previous ACTIVE becomes
-        SUPERSEDED with its effective_to closed on ``effective_from``).
-        """
-        if any(v.label == label for v in self.versions if v.status is ChartStatus.DRAFT) is False:
+    def activate(self, label: str, effective_from: date) -> CompanyChart:
+        """Activate a DRAFT version, superseding the previous ACTIVE version."""
+        if any(
+            version.label == label
+            for version in self.versions
+            if version.status is ChartStatus.DRAFT
+        ) is False:
             raise ValueError(f"no DRAFT version {label!r} in chart")
         previous = self.current_active_version
         versions: list[CompanyChartVersion] = []
@@ -128,7 +156,7 @@ class CompanyChart:
         reason: str = "",
     ) -> CompanyChart:
         """Plan a new DRAFT version without mutating any historical version."""
-        if any(v.label == label for v in self.versions):
+        if any(version.label == label for version in self.versions):
             raise ValueError(f"version {label!r} already exists")
         last = self.current_version
         if last is not None and last.effective_from is not None:
@@ -156,8 +184,4 @@ class CompanyChart:
         )
 
 
-__all__ = [
-    "ChartStatus",
-    "CompanyChart",
-    "CompanyChartVersion",
-]
+__all__ = ["ChartStatus", "CompanyChart", "CompanyChartVersion"]

@@ -85,7 +85,11 @@ class CompanyChart:
     @property
     def current_active_version(self) -> CompanyChartVersion | None:
         return next(
-            (version for version in reversed(self.versions) if version.status is ChartStatus.ACTIVE),
+            (
+                version
+                for version in reversed(self.versions)
+                if version.status is ChartStatus.ACTIVE
+            ),
             None,
         )
 
@@ -100,7 +104,8 @@ class CompanyChart:
             )
         if len(applicable) > 1:
             raise AmbiguousChartVersionError(
-                f"{len(applicable)} chart versions of {self.chart_id!r} apply on {accounting_date}: "
+                f"{len(applicable)} chart versions of {self.chart_id!r} "
+                f"apply on {accounting_date}: "
                 + ", ".join(version.label for version in applicable)
             )
         return applicable[0]

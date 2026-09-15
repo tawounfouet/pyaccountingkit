@@ -7,7 +7,7 @@ from datetime import date
 import pytest
 
 from pyaccountingkit.core.currency import EUR
-from pyaccountingkit.core.errors import EmptyEntryError, UnbalancedEntryError
+from pyaccountingkit.core.errors import EmptyEntryError, UnbalancedEntryError, ZeroLineError
 from pyaccountingkit.core.identifiers import EntryId, JournalId, PeriodId
 from pyaccountingkit.core.money import Money
 from pyaccountingkit.domain.journals.journal_entry import EntryStatus, JournalEntry
@@ -40,6 +40,11 @@ def test_valid_entry_is_draft() -> None:
     entry = _balanced_entry()
     assert entry.status is EntryStatus.DRAFT
     assert entry.is_balanced()
+
+
+def test_journal_line_rejects_zero_zero_at_construction() -> None:
+    with pytest.raises(ZeroLineError):
+        _line()
 
 
 def test_entry_requires_at_least_two_lines() -> None:

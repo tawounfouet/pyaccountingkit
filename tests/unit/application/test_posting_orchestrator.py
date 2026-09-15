@@ -35,7 +35,11 @@ from pyaccountingkit.core.identifiers import (
 from pyaccountingkit.core.money import Money
 from pyaccountingkit.domain.charts.account import CompanyAccount
 from pyaccountingkit.domain.charts.chart import CompanyChartOfAccounts
-from pyaccountingkit.domain.charts.company_chart import ChartStatus, CompanyChart, CompanyChartVersion
+from pyaccountingkit.domain.charts.company_chart import (
+    ChartStatus,
+    CompanyChart,
+    CompanyChartVersion,
+)
 from pyaccountingkit.domain.journals.journal import Journal
 from pyaccountingkit.domain.journals.journal_entry import EntryStatus, JournalEntry
 from pyaccountingkit.domain.journals.journal_line import JournalLine
@@ -44,35 +48,46 @@ from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
 from pyaccountingkit.domain.periods.closing_status import ClosingStatus
 
 NOW = datetime(2024, 1, 20, 9, 0, tzinfo=UTC)
+ENTITY = EntityId("ent")
+OTHER_ENTITY = EntityId("other")
 
 
 def _chart() -> CompanyChartOfAccounts:
-    entity = EntityId("ent")
     accounts = (
-        CompanyAccount(id=AccountId("411000"), entity_id=entity, code="411000", label="Clients"),
-        CompanyAccount(id=AccountId("707000"), entity_id=entity, code="707000", label="Ventes"),
+        CompanyAccount(
+            id=AccountId("411000"),
+            entity_id=ENTITY,
+            code="411000",
+            label="Clients",
+        ),
+        CompanyAccount(
+            id=AccountId("707000"),
+            entity_id=ENTITY,
+            code="707000",
+            label="Ventes",
+        ),
         CompanyAccount(
             id=AccountId("41000"),
-            entity_id=entity,
+            entity_id=ENTITY,
             code="41000",
             label="Clients groupe",
             postable=False,
         ),
         CompanyAccount(
             id=AccountId("441000"),
-            entity_id=entity,
+            entity_id=ENTITY,
             code="441000",
             label="Soc inactive",
             active=False,
         ),
     )
-    return CompanyChartOfAccounts(entity_id=entity, accounts=accounts)
+    return CompanyChartOfAccounts(entity_id=ENTITY, accounts=accounts)
 
 
 def _chart_resolver() -> InMemoryVersionedCompanyChartResolver:
     config = CompanyChart(
         chart_id="chart:ent",
-        entity_id=EntityId("ent"),
+        entity_id=ENTITY,
         code="STD",
         label="Standard",
         primary_standard="fr-pcg",
@@ -92,7 +107,7 @@ def _chart_resolver() -> InMemoryVersionedCompanyChartResolver:
 def _period(
     status: ClosingStatus = ClosingStatus.OPEN,
     *,
-    entity_id: EntityId = EntityId("ent"),
+    entity_id: EntityId = ENTITY,
 ) -> AccountingPeriod:
     return AccountingPeriod(
         id=PeriodId("p_2024_01"),
@@ -107,7 +122,7 @@ def _period(
 def _bak_app(
     period: AccountingPeriod | None = None,
     *,
-    journal_entity_id: EntityId = EntityId("ent"),
+    journal_entity_id: EntityId = ENTITY,
 ) -> tuple[PostingOrchestrator, InMemoryUnitOfWorkFactory, InMemoryStore]:
     store = InMemoryStore()
     factory = InMemoryUnitOfWorkFactory(store)
@@ -173,7 +188,7 @@ def test_post_duplicate_request_replays_cleanly() -> None:
 
 
 def test_post_rejects_period_from_another_entity() -> None:
-    orchestrator, _, store = _bak_app(period=_period(entity_id=EntityId("other")))
+    orchestrator, _, store = _bak_app(period=_period(entity_id=OTHER_ENTITY))
     with pytest.raises(EntityScopeMismatchError):
         orchestrator.post(_draft(), actor_id="u1")
     assert store.entries == {}
@@ -182,7 +197,7 @@ def test_post_rejects_period_from_another_entity() -> None:
 
 
 def test_post_rejects_journal_from_another_entity() -> None:
-    orchestrator, _, store = _bak_app(journal_entity_id=EntityId("other"))
+    orchestrator, _, store = _bak_app(journal_entity_id=OTHER_ENTITY)
     with pytest.raises(EntityScopeMismatchError):
         orchestrator.post(_draft(), actor_id="u1")
     assert store.entries == {}

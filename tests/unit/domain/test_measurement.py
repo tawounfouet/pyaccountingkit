@@ -1,4 +1,4 @@
-"""Unit tests for the measurement domain (LOT-13)."""
+"""Unit tests for the measurement domain (LOT-13 / LOT-QA-01)."""
 
 from __future__ import annotations
 
@@ -72,7 +72,6 @@ def test_measurement_context_pins_policy_set_and_snapshot() -> None:
 def test_measurement_policy_is_abstract_and_never_posts() -> None:
     with pytest.raises(TypeError):
         MeasurementPolicy()  # type: ignore[abstract]
-    # ADR-POL-007: a measurement policy only measures, it never posts.
     assert not hasattr(MeasurementPolicy, "post")
     assert hasattr(MeasurementPolicy, "measure")
 
@@ -96,7 +95,18 @@ def test_adjustment_rejects_mixed_currencies() -> None:
         )
 
 
-def test_adjustment_accepts_consistent_currencies() -> None:
+def test_adjustment_rejects_inconsistent_delta() -> None:
+    with pytest.raises(ValueError, match="new_amount - previous_amount"):
+        MeasurementAdjustment(
+            adjustment_type=AdjustmentType.DEPRECIATION,
+            previous_amount=Money.from_str("100.00", EUR),
+            new_amount=Money.from_str("90.00", EUR),
+            delta=Money.from_str("500.00", EUR),
+            accounting_date=date(2026, 6, 30),
+        )
+
+
+def test_adjustment_accepts_consistent_currencies_and_delta() -> None:
     adjustment = MeasurementAdjustment(
         adjustment_type=AdjustmentType.DEPRECIATION,
         previous_amount=Money.from_str("100.00", EUR),

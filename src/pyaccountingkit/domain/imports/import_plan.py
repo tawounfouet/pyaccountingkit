@@ -52,7 +52,8 @@ class ImportPlan:
     warnings: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
-        if self.expected_line_count != sum(len(entry.lines) for entry in self.entry_plans):
+        planned_lines = sum(len(entry.lines) for entry in self.entry_plans)
+        if self.expected_line_count != planned_lines:
             raise ValueError("expected_line_count does not match planned lines")
         keys = [entry.source_entry_key for entry in self.entry_plans]
         if len(keys) != len(set(keys)):
@@ -105,7 +106,12 @@ class ImportPlan:
         chart_version: str,
     ) -> None:
         current = (source_checksum, adapter_version, mapping_version, chart_version)
-        planned = (self.source_checksum, self.adapter_version, self.mapping_version, self.chart_version)
+        planned = (
+            self.source_checksum,
+            self.adapter_version,
+            self.mapping_version,
+            self.chart_version,
+        )
         if current != planned:
             raise ValueError("stale import plan: source or resolution versions changed")
 

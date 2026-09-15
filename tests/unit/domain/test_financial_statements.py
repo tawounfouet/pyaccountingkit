@@ -213,9 +213,7 @@ def test_balance_sheet_control_detects_difference_when_mapping_omits_value() -> 
 def test_cross_entity_mapping_set_fails_closed() -> None:
     with pytest.raises(EntityScopeMismatchError):
         FinancialStatementEngine().build(
-            _balance_sheet_request(
-                mapping_set=_balance_sheet_mapping_set(entity=OTHER_ENTITY)
-            )
+            _balance_sheet_request(mapping_set=_balance_sheet_mapping_set(entity=OTHER_ENTITY))
         )
 
 

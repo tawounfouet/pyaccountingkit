@@ -11,14 +11,15 @@ specific regulatory dataset.
 ## Status
 
 PyAccountingKit is under active alpha/beta development. The current package
-line is `0.3.0a1`, introducing `LOT-14 — Generic Accounting Import Engine` on
-top of the `0.2.0b2` cross-lot integrity-qualified accounting baseline.
+line is `0.3.0a2`, introducing `LOT-15 — FEC Adapter` on top of the
+source-format-neutral `0.3.0a1` Generic Accounting Import Engine.
 
-The public API is **not yet stable**. `0.3.0a1` adds a source-format-neutral
-import domain: immutable source evidence, raw preservation, normalization,
-deterministic grouping, explicit mappings, import plans, dry-run, stale-plan
-rejection and canonical posting delegation. It does **not** claim FEC support;
-the French FEC adapter belongs to LOT-15.
+The public API is **not yet stable**. `0.3.0a2` adds a specialized French FEC
+adapter while preserving the generic import boundary: strict 18-column parsing,
+raw lineage, FEC normalization and controls, auxiliary/lettering preservation,
+duplicate warnings, discovery, source idempotence, transaction-scope rollback
+and reconciliation. The FEC adapter does not bypass the canonical posting
+engine and does not constitute a blanket claim of French tax-audit compliance.
 
 Do not infer release readiness from the version number alone. A release is
 qualified only when canonical CI, package, security and applicable accounting
@@ -58,7 +59,15 @@ accidents:
 - import plans pin source, adapter, mapping and chart versions and must reject
   execution when those coordinates become stale;
 - import execution delegates to `PostingOrchestrator`; the import bounded
-  context must never become a second posting engine.
+  context must never become a second posting engine;
+- FEC source rows remain traceable to their file, line number and row checksum;
+- `CompAuxNum` remains an auxiliary identifier and is never universally
+  concatenated with `CompteNum`;
+- FEC duplicate candidates are reported, not silently deleted;
+- FEC `Debit` / `Credit` are normalized in the configured accounting currency;
+  `Montantdevise` / `Idevise` remain preserved source evidence;
+- the same FEC source identity cannot create duplicate ledger effects merely
+  because it was acquired under a different batch identifier.
 
 When a new invariant invalidates an old fixture, **fix the fixture or generator;
 do not weaken the invariant**.
@@ -85,8 +94,8 @@ Main areas:
   orchestration;
 - `src/pyaccountingkit/ports/` — repository, unit-of-work, chart-resolution,
   account-role-resolution, import and external-service contracts;
-- `src/pyaccountingkit/adapters/` — in-memory and later production adapter
-  implementations;
+- `src/pyaccountingkit/adapters/` — in-memory and specialized source adapters,
+  including the French FEC adapter;
 - `docs/` — specifications, ADRs, plans and roadmap; architectural decisions
   are documentation-driven.
 
@@ -124,28 +133,37 @@ Recognition / Measurement     AccountRole resolution
                     COMMIT
 ```
 
-LOT-14 adds the source-neutral ingestion path without bypassing that engine:
+LOT-14 provides the source-neutral ingestion path and LOT-15 specializes its
+adapter edge for French FEC files without bypassing the ledger engine:
 
 ```text
-SourceArtifact
-      │
-      ▼
-RawImportRecord
-      │
-      ▼
+FEC bytes
+   │
+   ▼
+FECParser ──► SourceArtifact + RawImportRecord
+   │
+   ▼
+FECNormalizer
+   │
+   ▼
 NormalizedImportRecord
-      │
-      ▼
+   │
+   ├──► FEC controls / discovery
+   │
+   ▼
 Mapping + Grouping + Validation
-      │
-      ▼
+   │
+   ▼
 ImportPlan ─────► Dry Run (no mutation)
-      │
-      ▼
+   │
+   ▼
 JournalEntry
-      │
-      ▼
-PostingOrchestrator
+   │
+   ▼
+PostingOrchestrator / post_many
+   │
+   ▼
+FEC reconciliation
 ```
 
 The execution trace pins proposal checksum, policy versions, regulatory
@@ -227,7 +245,10 @@ Before committing or pushing a refactor:
    snapshot traceability intact across application boundaries.
 6. For imports, keep format-specific fields in adapters; generic import objects
    must remain source-neutral and every source record must be accounted for.
-7. Run formatter, lint, typing, tests, full qualifier and relevant security
+7. For FEC migrations, preserve raw lineage, auxiliary fields, lettering,
+   duplicate evidence and source-to-ledger reconciliation; never manufacture a
+   convenience account code by concatenating `CompteNum` and `CompAuxNum`.
+8. Run formatter, lint, typing, tests, full qualifier and relevant security
    checks before pushing a release candidate.
 
 The detailed coding-agent rules are maintained in `AGENTS.md`.

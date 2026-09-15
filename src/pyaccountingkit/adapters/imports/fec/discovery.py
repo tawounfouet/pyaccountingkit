@@ -22,8 +22,7 @@ class FECDiscoveryReport:
 
 def discover_fec(records: tuple[NormalizedImportRecord, ...]) -> FECDiscoveryReport:
     accounts = {
-        (record.source_account_code, record.metadata.get("fec.CompteLib", ""))
-        for record in records
+        (record.source_account_code, record.metadata.get("fec.CompteLib", "")) for record in records
     }
     journals = {
         (record.source_journal_code or "", record.metadata.get("fec.JournalLib", ""))

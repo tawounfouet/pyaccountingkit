@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0a1",
+  "version": "0.3.0a2",
   "regulatory_frameworks": [
     {
       "framework": "PCG",
@@ -7,9 +7,9 @@
       "company_chart_binding": "supported",
       "policy_layer": "partial-beta",
       "generic_import_core": "source-format-neutral-alpha",
-      "fec_adapter": "not-yet-implemented-LOT-15",
+      "fec_adapter": "LOT-15-alpha-qualified",
       "financial_reporting": "not-yet-qualified",
-      "notes": "LOT-14 adds only the generic import core. No FEC compliance claim is made before LOT-15."
+      "notes": "The French FEC adapter qualifies parsing, preservation, normalization, controls, idempotent source identity and reconciliation. This is not a claim of complete tax-audit or PCG reporting compliance."
     },
     {
       "framework": "SYSCOHADA",

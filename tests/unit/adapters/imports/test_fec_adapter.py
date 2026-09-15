@@ -149,13 +149,17 @@ def test_normalizer_preserves_auxiliary_and_lettering_without_account_concat() -
 
 
 def test_foreign_currency_fields_do_not_change_fec_ledger_currency() -> None:
-    text = HEADER + "\n" + _line(
-        entry="E1",
-        account="401000",
-        debit="100.00",
-        credit="0",
-        foreign_amount="120.00",
-        foreign_currency="USD",
+    text = (
+        HEADER
+        + "\n"
+        + _line(
+            entry="E1",
+            account="401000",
+            debit="100.00",
+            credit="0",
+            foreign_amount="120.00",
+            foreign_currency="USD",
+        )
     )
     payload = (text + "\n").encode()
     adapter = FECAdapter()

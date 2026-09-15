@@ -1,8 +1,8 @@
 {
-  "version": "0.3.0a1",
+  "version": "0.3.0a2",
   "public_api": {
     "stability": "internal-alpha",
     "stable_exports": [],
-    "note": "LOT-14 introduces the source-neutral accounting import domain. Public API remains intentionally unfrozen before the release-candidate line."
+    "note": "LOT-15 adds the specialized French FEC adapter over the generic import contracts. Public API remains intentionally unfrozen before the release-candidate line."
   }
 }

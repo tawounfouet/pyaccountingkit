@@ -7,6 +7,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0a2] - 2026-09-15
+
+### Added
+- Specialized French FEC adapter (LOT-15) over the source-neutral LOT-14 import contracts.
+- Canonical 18-column FEC schema, strict parser and SHA-256 source-evidence verification.
+- Lossless raw FEC line preservation including source line numbers and row checksums.
+- FEC normalization using `JournalCode:EcritureNum` as source-entry identity.
+- Preservation of `CompAuxNum` / `CompAuxLib`, `EcritureLet` / `DateLet`, document,
+  validation-date and foreign-currency metadata without concatenating auxiliary identifiers to
+  `CompteNum`.
+- FEC-specific structural, amount, date, balance, currency and duplicate-candidate controls.
+- FEC discovery report and post-import reconciliation report.
+- Explicit trust guard for `TRUSTED_POSTED_HISTORY_IMPORT`.
+- Import transaction modes: `ALL_OR_NOTHING`, `PER_ITEM` and `CHUNKED_ATOMIC`.
+- Atomic `PostingOrchestrator.post_many()` path used by imports without introducing a second
+  posting engine.
+
+### Changed
+- Generic parser contracts now receive source bytes explicitly alongside immutable
+  `SourceArtifact` evidence.
+- Imported entry IDs derive from stable source identity rather than transient batch identity,
+  preventing duplicate ledger effects when the same source is acquired in another batch.
+- FEC `Debit` / `Credit` always use the configured accounting currency; `Idevise` and
+  `Montantdevise` remain source metadata and do not redefine the ledger currency.
+- Adapter and regulatory manifests now expose the LOT-15 FEC qualification boundary.
+
+### Qualification
+- Multi-entry rollback is qualified against the in-memory transactional UoW.
+- Duplicate-row detection is warning-only and never removes source records.
+- Debit/credit source totals and imported totals are reconcilable through the FEC report model.
+
 ## [0.3.0a1] - 2026-09-15
 
 ### Added

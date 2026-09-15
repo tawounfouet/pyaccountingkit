@@ -23,7 +23,7 @@ class TrialBalanceQuery:
     """Computes a trial balance from the reference journal-entry repository.
 
     Only POSTED entries contribute; draft and validated entries are
-    excluded.  Ordering is deterministic (account code asc, then checksum
+    excluded. Ordering is deterministic (account code asc, then checksum
     of the aggregated lines).
     """
 
@@ -44,7 +44,12 @@ class TrialBalanceQuery:
         with self._uow_factory.open() as uow:
             entries = uow.entries.list_by_period(period_id)
             lines = self._aggregate(entries)
-        return TrialBalance.build(period_id, snapshot, lines)
+        return TrialBalance.build(
+            period_id,
+            snapshot,
+            lines,
+            accounting_entity_id=self._chart.entity_id,
+        )
 
     def drill_down(
         self,

@@ -1,8 +1,4 @@
-"""ReversalOrchestrator — the transactional, idempotent ReverseEntry use-case.
-
-Creates a posted reversal entry and marks the original entry accordingly,
-then persists both atomically.  A duplicate request replays cleanly.
-"""
+"""ReversalOrchestrator — transactional, entity-safe ReverseEntry use-case."""
 
 from __future__ import annotations
 
@@ -10,19 +6,18 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from datetime import date
 
+from pyaccountingkit.core.entity_scope import require_same_entity
 from pyaccountingkit.core.errors import (
     AlreadyReversedError,
-    EntryNotFoundError,
+    EntryNotPostedError,
     IdempotencyReplayError,
     PeriodClosedError,
 )
 from pyaccountingkit.core.identifiers import EntryId, PeriodId
 from pyaccountingkit.domain.journals.journal_entry import EntryStatus, JournalEntry
 from pyaccountingkit.domain.ledger.reversal import create_reversal
-from pyaccountingkit.ports.unit_of_work import (
-    UnitOfWorkFactoryProtocol,
-    UnitOfWorkProtocol,
-)
+from pyaccountingkit.ports.outbox import OutboxRecord
+from pyaccountingkit.ports.unit_of_work import UnitOfWorkFactoryProtocol, UnitOfWorkProtocol
 
 
 @dataclass(frozen=True, slots=True)
@@ -61,12 +56,18 @@ class ReversalOrchestrator:
 
             original = uow.entries.get(entry_id)
             target_period = uow.periods.get(target_period_id)
+            journal = uow.journals.get(original.journal_id)
+            require_same_entity(
+                journal.entity_id,
+                target_period.entity_id,
+                resource=f"reversal target period {target_period.id}",
+            )
             if not target_period.is_open_for_posting():
                 raise PeriodClosedError(
                     f"Période {target_period.id} fermée ou verrouillée pour la contrepassation"
                 )
             if original.status is not EntryStatus.POSTED:
-                raise EntryNotFoundError(
+                raise EntryNotPostedError(
                     f"Écriture {entry_id} non postée ({original.status.value})"
                 )
             if original.reversed_by_id is not None:
@@ -87,6 +88,18 @@ class ReversalOrchestrator:
             expected = uow.entries.get_revision(original.id)
             uow.entries.save(marked, expected)
             uow.entries.add(reversal)
+            uow.outbox.publish(
+                OutboxRecord(
+                    event_type="ENTRY_REVERSED",
+                    entity_id=str(journal.entity_id),
+                    idempotency_key=idempotency_key,
+                    payload={
+                        "original_entry_id": str(original.id),
+                        "reversal_entry_id": str(reversal.id),
+                        "target_period_id": str(target_period.id),
+                    },
+                )
+            )
             uow.idempotency.complete(idempotency_key)
             uow.commit()
         return ReversalResult(

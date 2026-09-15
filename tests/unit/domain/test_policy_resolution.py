@@ -26,10 +26,14 @@ from pyaccountingkit.domain.policies.policy_set import (
 )
 from pyaccountingkit.domain.policies.resolution import PolicyResolutionService
 
+ENTITY = EntityId("ent:1")
+OTHER_ENTITY = EntityId("ent:other")
+DEFAULT_EFFECTIVE_FROM = date(2026, 1, 1)
+
 
 def _ctx(**overrides: object) -> PolicyContext:
     defaults: dict[str, object] = {
-        "accounting_entity_id": EntityId("ent:1"),
+        "accounting_entity_id": ENTITY,
         "accounting_date": date(2026, 6, 1),
         "standard_id": "fr-pcg",
         "edition": "2026",
@@ -42,8 +46,8 @@ def _ctx(**overrides: object) -> PolicyContext:
 def _set(
     *bindings: PolicyBinding,
     status: PolicySetStatus = PolicySetStatus.ACTIVE,
-    entity_id: EntityId = EntityId("ent:1"),
-    effective_from: date | None = date(2026, 1, 1),
+    entity_id: EntityId = ENTITY,
+    effective_from: date | None = DEFAULT_EFFECTIVE_FROM,
     effective_to: date | None = None,
 ) -> AccountingPolicySet:
     return AccountingPolicySet(
@@ -62,9 +66,6 @@ def _set(
         effective_to=effective_to,
         bindings=bindings,
     )
-
-
-# --- fail-closed on empty ---
 
 
 def test_policy_not_found_when_no_binding() -> None:
@@ -112,9 +113,6 @@ def test_no_applicable_binding_with_multiple_same_type_is_not_generic_policy_err
         )
 
 
-# --- ambiguity / priority ---
-
-
 def test_ambiguous_same_scope_fails_closed() -> None:
     b1 = PolicyBinding(
         policy_type=PolicyType.RECOGNITION,
@@ -141,7 +139,7 @@ def test_entity_specific_beats_standard() -> None:
         policy_type=PolicyType.RECOGNITION,
         policy_id="rec-entity",
         policy_version="1",
-        applicability=PolicyApplicability(accounting_entity_id=EntityId("ent:1")),
+        applicability=PolicyApplicability(accounting_entity_id=ENTITY),
     )
     standard = PolicyBinding(
         policy_type=PolicyType.RECOGNITION,
@@ -159,9 +157,6 @@ def test_entity_specific_beats_standard() -> None:
     assert trace.resolved
 
 
-# --- execution guards ---
-
-
 def test_resolution_rejects_cross_entity_policy_set() -> None:
     with pytest.raises(EntityScopeMismatchError):
         PolicyResolutionService().resolve(
@@ -169,7 +164,7 @@ def test_resolution_rejects_cross_entity_policy_set() -> None:
             context=_ctx(),
             policy_set=_set(
                 PolicyBinding(PolicyType.RECOGNITION, "rec", "1"),
-                entity_id=EntityId("ent:other"),
+                entity_id=OTHER_ENTITY,
             ),
         )
 

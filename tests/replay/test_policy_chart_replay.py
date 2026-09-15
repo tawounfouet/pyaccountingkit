@@ -14,7 +14,11 @@ from pyaccountingkit.core.money import Money
 from pyaccountingkit.domain.charts.account import CompanyAccount
 from pyaccountingkit.domain.charts.account_role import AccountRole
 from pyaccountingkit.domain.charts.chart import CompanyChartOfAccounts
-from pyaccountingkit.domain.charts.company_chart import ChartStatus, CompanyChart, CompanyChartVersion
+from pyaccountingkit.domain.charts.company_chart import (
+    ChartStatus,
+    CompanyChart,
+    CompanyChartVersion,
+)
 from pyaccountingkit.domain.policies.policy_set import PolicyType
 from pyaccountingkit.domain.policies.policy_trace import PolicyExecutionTrace
 from pyaccountingkit.domain.policies.proposal import (

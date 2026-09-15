@@ -22,7 +22,6 @@ from pyaccountingkit.core.identifiers import (
     PeriodId,
 )
 from pyaccountingkit.core.money import Money
-from pyaccountingkit.domain.audit.events import AuditEvent
 from pyaccountingkit.domain.charts.account import CompanyAccount
 from pyaccountingkit.domain.charts.chart import CompanyChartOfAccounts
 from pyaccountingkit.domain.closing.closing_run import CloseGate, ClosingRunBook
@@ -41,14 +40,6 @@ from pyaccountingkit.domain.reporting.balance_line import AccountBalanceLine
 from pyaccountingkit.domain.reporting.trial_balance import TrialBalance, TrialBalanceSnapshot
 
 NOW = datetime(2024, 12, 31, 23, 0, tzinfo=UTC)
-
-
-class RecordingAuditSink:
-    def __init__(self) -> None:
-        self.events: list[AuditEvent] = []
-
-    def record(self, event: AuditEvent) -> None:
-        self.events.append(event)
 
 
 def _chart() -> CompanyChartOfAccounts:
@@ -146,12 +137,10 @@ def _build() -> tuple[ClosingOrchestrator, InMemoryUnitOfWorkFactory, InMemorySt
 
 
 def test_close_seals_period_and_records_evidence() -> None:
-    orchestrator, factory, store = _build()
+    orchestrator, _, store = _build()
     run = orchestrator.close_period(
         PeriodId("p_2024_12"),
-        control_runs=[
-            _control(ControlOutcome.PASS),
-        ],
+        control_runs=[_control(ControlOutcome.PASS)],
         trial_balance=_tb(),
     )
     assert run.is_sealed
@@ -162,10 +151,7 @@ def test_close_seals_period_and_records_evidence() -> None:
 
 def test_post_rejected_after_close() -> None:
     orchestrator, factory, store = _build()
-    chart = _chart()
-    sink = RecordingAuditSink()
-    svc = PostingService(clock=FrozenClock(NOW), audit_sink=sink)
-    posting = PostingOrchestrator(factory, chart, svc)
+    posting = PostingOrchestrator(factory, _chart(), PostingService(clock=FrozenClock(NOW)))
     first = posting.post(_balanced_draft("e1"), actor_id="u1")
     assert first.posted_entry.status is EntryStatus.POSTED
     orchestrator.close_period(
@@ -201,7 +187,7 @@ def _balanced_draft(entry_id: str) -> JournalEntry:
 
 
 def test_blocking_control_failure_prevents_close() -> None:
-    orchestrator, factory, store = _build()
+    orchestrator, _, store = _build()
     with pytest.raises(ControlFailureError):
         orchestrator.close_period(
             PeriodId("p_2024_12"),
@@ -213,7 +199,7 @@ def test_blocking_control_failure_prevents_close() -> None:
 
 
 def test_close_generates_traceable_opening_balances() -> None:
-    orchestrator, factory, store = _build()
+    orchestrator, _, store = _build()
     orchestrator.close_period(
         PeriodId("p_2024_12"),
         control_runs=[_control(ControlOutcome.PASS)],

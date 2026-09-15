@@ -1,4 +1,4 @@
-"""Unit tests for company chart versioning (LOT-11)."""
+"""Unit tests for company chart versioning (LOT-11 / LOT-QA-01)."""
 
 from __future__ import annotations
 
@@ -6,6 +6,7 @@ from datetime import date
 
 import pytest
 
+from pyaccountingkit.core.errors import ChartVersionNotFoundError
 from pyaccountingkit.core.identifiers import EntityId
 from pyaccountingkit.domain.charts.company_chart import (
     ChartStatus,
@@ -39,6 +40,22 @@ def test_current_active_version() -> None:
     assert chart.current_active_version.label == "v1"
 
 
+def test_version_at_resolves_current_active_version() -> None:
+    assert _chart().version_at(date(2026, 6, 1)).label == "v1"
+
+
+def test_version_at_preserves_historical_version_after_supersede() -> None:
+    chart = _chart().plan_version("v2", effective_from=date(2027, 1, 1))
+    activated = chart.activate("v2", effective_from=date(2027, 1, 1))
+    assert activated.version_at(date(2026, 12, 31)).label == "v1"
+    assert activated.version_at(date(2027, 1, 1)).label == "v2"
+
+
+def test_version_at_is_fail_closed_before_first_effective_version() -> None:
+    with pytest.raises(ChartVersionNotFoundError):
+        _chart().version_at(date(2025, 12, 31))
+
+
 def test_plan_version_adds_draft() -> None:
     chart = _chart()
     planned = chart.plan_version("v2", effective_from=date(2027, 1, 1))
@@ -61,7 +78,7 @@ def test_historical_versions_preserved_after_supersede() -> None:
     chart = _chart()
     planned = chart.plan_version("v2", effective_from=date(2027, 1, 1))
     activated = planned.activate("v2", effective_from=date(2027, 1, 1))
-    labels = [v.label for v in activated.versions]
+    labels = [version.label for version in activated.versions]
     assert "v1" in labels
     assert "v2" in labels
 

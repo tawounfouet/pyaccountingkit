@@ -1,0 +1,138 @@
+{
+  "dataset_layer": "v1_structure",
+  "edition": "2026",
+  "nodes": [
+    {
+      "node_id": "class:fr-pcg:2026:1",
+      "node_type": "class",
+      "standard_id": "fr-pcg",
+      "edition": "2026",
+      "ref_code": "1",
+      "label_source": "Comptes de capitaux",
+      "parent_node_id": null,
+      "account_class": 1,
+      "is_leaf": false,
+      "attributes": {}
+    },
+    {
+      "node_id": "account:fr-pcg:2026:10",
+      "node_type": "group",
+      "standard_id": "fr-pcg",
+      "edition": "2026",
+      "ref_code": "10",
+      "label_source": "Capital et réserves",
+      "parent_node_id": "class:fr-pcg:2026:1",
+      "account_class": 1,
+      "is_leaf": false,
+      "attributes": {"optional": false}
+    },
+    {
+      "node_id": "account:fr-pcg:2026:101",
+      "node_type": "account",
+      "standard_id": "fr-pcg",
+      "edition": "2026",
+      "ref_code": "101",
+      "label_source": "Capital",
+      "parent_node_id": "account:fr-pcg:2026:10",
+      "account_class": 1,
+      "is_leaf": true,
+      "attributes": {"is_minimum_plan_account": true}
+    },
+    {
+      "node_id": "account:fr-pcg:2026:105",
+      "node_type": "account",
+      "standard_id": "fr-pcg",
+      "edition": "2026",
+      "ref_code": "105",
+      "label_source": "Écarts de réévaluation",
+      "parent_node_id": "account:fr-pcg:2026:10",
+      "account_class": 1,
+      "is_leaf": true,
+      "attributes": {"is_minimum_plan_account": false}
+    },
+    {
+      "node_id": "class:fr-pcg:2026:4",
+      "node_type": "class",
+      "standard_id": "fr-pcg",
+      "edition": "2026",
+      "ref_code": "4",
+      "label_source": "Comptes de tiers",
+      "parent_node_id": null,
+      "account_class": 4,
+      "is_leaf": false,
+      "attributes": {}
+    },
+    {
+      "node_id": "account:fr-pcg:2026:40",
+      "node_type": "group",
+      "standard_id": "fr-pcg",
+      "edition": "2026",
+      "ref_code": "40",
+      "label_source": "Fournisseurs et comptes rattachés",
+      "parent_node_id": "class:fr-pcg:2026:4",
+      "account_class": 4,
+      "is_leaf": false,
+      "attributes": {"optional": false}
+    },
+    {
+      "node_id": "account:fr-pcg:2026:401",
+      "node_type": "account",
+      "standard_id": "fr-pcg",
+      "edition": "2026",
+      "ref_code": "401",
+      "label_source": "Fournisseurs",
+      "parent_node_id": "account:fr-pcg:2026:40",
+      "account_class": 4,
+      "is_leaf": true,
+      "attributes": {"is_minimum_plan_account": true}
+    },
+    {
+      "node_id": "account:fr-pcg:2026:411",
+      "node_type": "account",
+      "standard_id": "fr-pcg",
+      "edition": "2026",
+      "ref_code": "411",
+      "label_source": "Clients",
+      "parent_node_id": "account:fr-pcg:2026:40",
+      "account_class": 4,
+      "is_leaf": true,
+      "attributes": {"is_minimum_plan_account": true}
+    },
+    {
+      "node_id": "class:fr-pcg:2026:5",
+      "node_type": "class",
+      "standard_id": "fr-pcg",
+      "edition": "2026",
+      "ref_code": "5",
+      "label_source": "Comptes financiers",
+      "parent_node_id": null,
+      "account_class": 5,
+      "is_leaf": false,
+      "attributes": {}
+    },
+    {
+      "node_id": "account:fr-pcg:2026:51",
+      "node_type": "group",
+      "standard_id": "fr-pcg",
+      "edition": "2026",
+      "ref_code": "51",
+      "label_source": "Banques",
+      "parent_node_id": "class:fr-pcg:2026:5",
+      "account_class": 5,
+      "is_leaf": false,
+      "attributes": {"optional": false}
+    },
+    {
+      "node_id": "account:fr-pcg:2026:512",
+      "node_type": "account",
+      "standard_id": "fr-pcg",
+      "edition": "2026",
+      "ref_code": "512",
+      "label_source": "Banques",
+      "parent_node_id": "account:fr-pcg:2026:51",
+      "account_class": 5,
+      "is_leaf": true,
+      "attributes": {"is_minimum_plan_account": true}
+    }
+  ]
+}

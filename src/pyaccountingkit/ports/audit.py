@@ -1,6 +1,18 @@
-"""Bootstrap scaffold for a future PyAccountingKit milestone.
+"""Audit port — records immutable events of business mutations."""
 
-Module: ports/audit.py.
-PyAccountingKit 0.0.1 exposes no business implementation from this module.
-The path is retained only to preserve the target architecture.
-"""
+from __future__ import annotations
+
+from typing import Protocol
+
+from pyaccountingkit.domain.audit.events import AuditEvent
+
+
+class AuditLogSinkProtocol(Protocol):
+    """Persists an AuditEvent for later reconstruction and control."""
+
+    def record(self, event: AuditEvent) -> None:
+        """Append an event to the audit log."""
+        ...
+
+
+__all__ = ["AuditLogSinkProtocol"]

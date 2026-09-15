@@ -1,6 +1,21 @@
-"""Bootstrap scaffold for a future PyAccountingKit milestone.
+"""Trial balance query port."""
 
-Module: ports/queries.py.
-PyAccountingKit 0.0.1 exposes no business implementation from this module.
-The path is retained only to preserve the target architecture.
-"""
+from __future__ import annotations
+
+from typing import Protocol
+
+from pyaccountingkit.domain.reporting.trial_balance import (
+    TrialBalance,
+    TrialBalanceSnapshot,
+)
+
+
+class TrialBalanceProviderProtocol(Protocol):
+    """Computes a verified trial balance for a given period and snapshot."""
+
+    def balance_for(self, period_id: str, snapshot: TrialBalanceSnapshot) -> TrialBalance:
+        """Return the trial balance; only POSTED entries contribute."""
+        ...
+
+
+__all__ = ["TrialBalanceProviderProtocol"]

@@ -1,4 +1,4 @@
-"""Tests for versioned bootstrap manifests."""
+"""Tests for versioned root manifests."""
 
 from __future__ import annotations
 
@@ -23,23 +23,22 @@ def _project_version() -> str:
 
 
 @pytest.mark.parametrize(("filename", "payload_key", "payload_type"), MANIFEST_SPECS)
-def test_bootstrap_manifest_contract(
+def test_manifest_contract(
     filename: str,
     payload_key: str,
     payload_type: type[dict] | type[list],
 ) -> None:
-    """Each public manifest is parseable, version-aligned, typed and empty at 0.0.1."""
+    """Each manifest is parseable, version-aligned and typed."""
     path = ROOT / filename
     assert path.is_file(), f"missing manifest: {filename}"
 
     payload = json.loads(path.read_text(encoding="utf-8"))
-    assert payload["version"] == _project_version() == "0.0.1"
+    assert payload["version"] == _project_version()
     assert isinstance(payload[payload_key], payload_type)
-    assert not payload[payload_key]
 
 
 def test_manifest_set_is_complete() -> None:
-    """The bootstrap exposes exactly the four governed root manifests."""
+    """The repository exposes exactly the four governed root manifests."""
     expected = {filename for filename, _, _ in MANIFEST_SPECS}
     actual = {path.name for path in ROOT.glob("*.json") if path.name in expected}
     assert actual == expected

@@ -1,6 +1,21 @@
-"""Bootstrap scaffold for a future PyAccountingKit milestone.
+"""Accounting entity root of the identity bounded context."""
 
-Module: domain/identity/entity.py.
-PyAccountingKit 0.0.1 exposes no business implementation from this module.
-The path is retained only to preserve the target architecture.
-"""
+from __future__ import annotations
+
+from dataclasses import dataclass
+
+from pyaccountingkit.core.currency import Currency
+from pyaccountingkit.core.identifiers import EntityId
+
+
+@dataclass(frozen=True, slots=True)
+class AccountingEntity:
+    """A legal accounting unit that owns charts, journals and ledgers."""
+
+    id: EntityId
+    name: str
+    default_currency: Currency
+    active: bool = True
+
+
+__all__ = ["AccountingEntity"]

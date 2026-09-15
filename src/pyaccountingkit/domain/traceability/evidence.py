@@ -1,6 +1,20 @@
-"""Bootstrap scaffold for a future PyAccountingKit milestone.
+"""Evidence — verifiable material captured by a control run."""
 
-Module: domain/traceability/evidence.py.
-PyAccountingKit 0.0.1 exposes no business implementation from this module.
-The path is retained only to preserve the target architecture.
-"""
+from __future__ import annotations
+
+from dataclasses import dataclass
+from datetime import datetime
+
+
+@dataclass(frozen=True, slots=True)
+class Evidence:
+    """A checksum-sealed artifact linked to a control run."""
+
+    id: str
+    control_run_id: str
+    capsule: str
+    checksum: str
+    captured_at: datetime
+
+
+__all__ = ["Evidence"]

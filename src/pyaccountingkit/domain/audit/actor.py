@@ -1,6 +1,15 @@
-"""Bootstrap scaffold for a future PyAccountingKit milestone.
+"""Actor context used by audit and traceability."""
 
-Module: domain/audit/actor.py.
-PyAccountingKit 0.0.1 exposes no business implementation from this module.
-The path is retained only to preserve the target architecture.
-"""
+from __future__ import annotations
+
+from dataclasses import dataclass
+
+
+@dataclass(frozen=True, slots=True)
+class ActorContext:
+    """Who performed a mutation (user or system)."""
+
+    user_id: str
+
+
+__all__ = ["ActorContext"]

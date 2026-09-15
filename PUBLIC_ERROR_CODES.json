@@ -1,5 +1,5 @@
 {
-  "version": "0.2.0b2",
+  "version": "0.3.0a1",
   "error_codes": {
     "ENTITY_SCOPE_MISMATCH": "EntityScopeMismatchError",
     "ENTRY_UNBALANCED": "UnbalancedEntryError",
@@ -32,6 +32,10 @@
     "POLICY_REFERENCE_MISMATCH": "PolicyReferenceMismatchError",
     "ACCOUNT_ROLE_UNRESOLVED": "AccountRoleResolutionError",
     "ACCOUNT_ROLE_AMBIGUOUS": "AmbiguousAccountRoleError",
-    "PROPOSAL_UNBALANCED": "UnbalancedProposalError"
+    "PROPOSAL_UNBALANCED": "UnbalancedProposalError",
+    "IMPORT_ERROR": "AccountingImportError",
+    "IMPORT_INVALID_TRANSITION": "InvalidImportTransitionError",
+    "IMPORT_STALE_PLAN": "StaleImportPlanError",
+    "IMPORT_INVALID_PLAN": "InvalidImportPlanError"
   }
 }

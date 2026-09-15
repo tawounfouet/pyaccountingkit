@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from dataclasses import dataclass, field
 from datetime import date
 from decimal import Decimal
 from types import MappingProxyType
-from typing import Mapping
 
 from pyaccountingkit.core.currency import Currency
 
@@ -44,7 +44,13 @@ class NormalizedImportRecord:
     metadata: Mapping[str, str] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
-        for name in ("batch_id", "normalized_record_id", "source_record_ref", "source_account_code"):
+        required = (
+            "batch_id",
+            "normalized_record_id",
+            "source_record_ref",
+            "source_account_code",
+        )
+        for name in required:
             if not getattr(self, name).strip():
                 raise ValueError(f"{name} must not be empty")
         if not isinstance(self.debit, Decimal) or not isinstance(self.credit, Decimal):
@@ -95,7 +101,7 @@ class NormalizedEntryGroup:
 def group_normalized_records(
     records: tuple[NormalizedImportRecord, ...],
 ) -> tuple[NormalizedEntryGroup, ...]:
-    """Group records deterministically by ``SourceEntryKey`` without dropping any record."""
+    """Group deterministically by source entry key without dropping records."""
     buckets: dict[SourceEntryKey, list[NormalizedImportRecord]] = {}
     for record in records:
         buckets.setdefault(record.source_entry_key, []).append(record)

@@ -105,18 +105,20 @@ class CompanyChart:
         if len(applicable) > 1:
             raise AmbiguousChartVersionError(
                 f"{len(applicable)} chart versions of {self.chart_id!r} "
-                f"apply on {accounting_date}: "
-                + ", ".join(version.label for version in applicable)
+                f"apply on {accounting_date}: " + ", ".join(version.label for version in applicable)
             )
         return applicable[0]
 
     def activate(self, label: str, effective_from: date) -> CompanyChart:
         """Activate a DRAFT version, superseding the previous ACTIVE version."""
-        if any(
-            version.label == label
-            for version in self.versions
-            if version.status is ChartStatus.DRAFT
-        ) is False:
+        if (
+            any(
+                version.label == label
+                for version in self.versions
+                if version.status is ChartStatus.DRAFT
+            )
+            is False
+        ):
             raise ValueError(f"no DRAFT version {label!r} in chart")
         previous = self.current_active_version
         versions: list[CompanyChartVersion] = []

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run PyAccountingKit release qualification gates with explicit skip controls."""
+"""Run PyAccountingKit release qualification gates with explicit controls."""
 
 from __future__ import annotations
 
@@ -97,8 +97,25 @@ def run_callable(name: str, function: Callable[[], GateResult]) -> GateResult:
         raise QualificationError(f"{name} failed unexpectedly: {exc}") from exc
 
 
-def qualify(*, skip_tests: bool, skip_package: bool) -> list[GateResult]:
-    """Execute the deterministic release qualification sequence."""
+def _pytest_gate(paths: list[str], *, label: str) -> GateResult:
+    return run_command(
+        [sys.executable, "-m", "pytest", *paths, "-v", "--tb=short"],
+        label=label,
+    )
+
+
+def _has_tests(relative_path: str) -> bool:
+    path = ROOT / relative_path
+    return path.is_dir() and any(path.rglob("test_*.py"))
+
+
+def qualify(
+    *,
+    skip_tests: bool,
+    skip_package: bool,
+    full: bool,
+) -> list[GateResult]:
+    """Execute the deterministic qualification sequence."""
     results: list[GateResult] = []
     results.append(run_command(["bash", "scripts/check_hygiene.sh"], label="Repository hygiene"))
     results.append(
@@ -152,20 +169,23 @@ def qualify(*, skip_tests: bool, skip_package: bool) -> list[GateResult]:
 
     if not skip_tests:
         results.append(
-            run_command(
-                [
-                    sys.executable,
-                    "-m",
-                    "pytest",
-                    "tests/unit",
-                    "tests/property",
-                    "tests/contract",
-                    "-v",
-                    "--tb=short",
-                ],
-                label="Bootstrap test suite",
+            _pytest_gate(
+                ["tests/unit", "tests/property", "tests/contract"],
+                label="Core deterministic test suite",
             )
         )
+        if full:
+            for path, label in (
+                ("tests/integration", "Integration test suite"),
+                ("tests/golden", "Golden test suite"),
+                ("tests/replay", "Replay test suite"),
+                ("tests/concurrency", "Concurrency test suite"),
+            ):
+                if _has_tests(path):
+                    results.append(_pytest_gate([path], label=label))
+                else:
+                    print(f"\n== {label} ==")
+                    print(f"{label}: NOT APPLICABLE (no tests collected in {path})")
 
     return results
 
@@ -183,10 +203,19 @@ def main() -> int:
         action="store_true",
         help="Skip wheel/sdist qualification for focused local diagnostics.",
     )
+    parser.add_argument(
+        "--full",
+        action="store_true",
+        help="Add integration/golden/replay/concurrency suites when present.",
+    )
     args = parser.parse_args()
 
     try:
-        results = qualify(skip_tests=args.skip_tests, skip_package=args.skip_package)
+        results = qualify(
+            skip_tests=args.skip_tests,
+            skip_package=args.skip_package,
+            full=args.full,
+        )
     except QualificationError as exc:
         print(f"\nRelease qualification: FAIL: {exc}", file=sys.stderr)
         return 1
@@ -194,6 +223,7 @@ def main() -> int:
     total = sum(result.duration_seconds for result in results)
     print("\nRelease qualification: PASS")
     print(f"Project version: {project_version()}")
+    print(f"Mode: {'FULL' if args.full else 'CORE'}")
     print(f"Gates passed: {len(results)}")
     print(f"Aggregate gate time: {total:.2f}s")
     if args.skip_tests:

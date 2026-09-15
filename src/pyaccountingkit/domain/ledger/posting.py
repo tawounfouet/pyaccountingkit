@@ -1,24 +1,24 @@
-"""Posting service — the pure domain transition from DRAFT to POSTED.
+"""Posting service — pure domain transition from DRAFT to POSTED.
 
-This is the innermost domain service.  Idempotency, account validation and
-transactional commit live in the orchestrator layer that calls this one.
+Idempotency, entity isolation, account validation, audit, outbox publication
+and transactional commit belong to the application orchestrator.  This
+service only validates the accounting transition and returns an immutable
+POSTED copy.
 """
 
 from __future__ import annotations
 
 from pyaccountingkit.core.clock import ClockProtocol
-from pyaccountingkit.domain.audit.events import AuditEvent
+from pyaccountingkit.core.errors import EntryAlreadyPostedError, PeriodClosedError
 from pyaccountingkit.domain.journals.journal_entry import EntryStatus, JournalEntry
 from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
-from pyaccountingkit.ports.audit import AuditLogSinkProtocol
 
 
 class PostingService:
-    """Apply the irreversible DRAFT → POSTED transition of a journal entry."""
+    """Apply the irreversible DRAFT/VALIDATED → POSTED domain transition."""
 
-    def __init__(self, clock: ClockProtocol, audit_sink: AuditLogSinkProtocol) -> None:
+    def __init__(self, clock: ClockProtocol) -> None:
         self._clock = clock
-        self._audit_sink = audit_sink
 
     def post(
         self,
@@ -28,48 +28,20 @@ class PostingService:
     ) -> JournalEntry:
         """Validate and post *entry*, returning a new POSTED copy.
 
-        Raises
-        ------
-        EntryAlreadyPostedError
-            If the entry is neither DRAFT nor VALIDATED.
-        PeriodClosedError
-            If the period is closed/locked or the date falls outside.
-        UnbalancedEntryError
-            If debits and credits do not balance exactly.
+        ``user_id`` remains part of the stable service signature because the
+        application layer uses it for the transactional audit record.  The
+        pure domain transition itself does not persist or emit that record.
         """
+        del user_id
         entry.validate_balance()
         if entry.status is not EntryStatus.DRAFT and entry.status is not EntryStatus.VALIDATED:
-            from pyaccountingkit.core.errors import EntryAlreadyPostedError
-
             raise EntryAlreadyPostedError(
                 f"Écriture {entry.id} ({entry.status.value}) ne peut être comptabilisée"
             )
-
         if not period.is_open_for_posting():
-            from pyaccountingkit.core.errors import PeriodClosedError
-
             raise PeriodClosedError(f"La période {period.id} est verrouillée ou clôturée")
-
         period.assert_date_within(entry.entry_date)
-
-        now = self._clock.now()
-        posted = entry.freeze(now)
-
-        self._audit_sink.record(
-            AuditEvent(
-                event_type="ENTRY_POSTED",
-                entity_id=str(entry.id),
-                actor_id=user_id,
-                occurred_at=now,
-                payload={
-                    "entry_id": str(entry.id),
-                    "period_id": str(entry.period_id),
-                    "total_debit": str(posted.total_debit().amount),
-                    "total_credit": str(posted.total_credit().amount),
-                },
-            )
-        )
-        return posted
+        return entry.freeze(self._clock.now())
 
 
 __all__ = ["PostingService"]

@@ -6,6 +6,9 @@ from datetime import UTC, date, datetime
 
 import pytest
 
+from pyaccountingkit.adapters.in_memory.company_chart_resolver import (
+    InMemoryVersionedCompanyChartResolver,
+)
 from pyaccountingkit.adapters.in_memory.store import InMemoryStore
 from pyaccountingkit.adapters.in_memory.unit_of_work import InMemoryUnitOfWorkFactory
 from pyaccountingkit.application.closing.closing_orchestrator import ClosingOrchestrator
@@ -22,9 +25,13 @@ from pyaccountingkit.core.identifiers import (
     PeriodId,
 )
 from pyaccountingkit.core.money import Money
-from pyaccountingkit.domain.audit.events import AuditEvent
 from pyaccountingkit.domain.charts.account import CompanyAccount
 from pyaccountingkit.domain.charts.chart import CompanyChartOfAccounts
+from pyaccountingkit.domain.charts.company_chart import (
+    ChartStatus,
+    CompanyChart,
+    CompanyChartVersion,
+)
 from pyaccountingkit.domain.closing.closing_run import CloseGate, ClosingRunBook
 from pyaccountingkit.domain.controls.control import (
     ControlOutcome,
@@ -41,42 +48,53 @@ from pyaccountingkit.domain.reporting.balance_line import AccountBalanceLine
 from pyaccountingkit.domain.reporting.trial_balance import TrialBalance, TrialBalanceSnapshot
 
 NOW = datetime(2024, 12, 31, 23, 0, tzinfo=UTC)
-
-
-class RecordingAuditSink:
-    def __init__(self) -> None:
-        self.events: list[AuditEvent] = []
-
-    def record(self, event: AuditEvent) -> None:
-        self.events.append(event)
+ENTITY = EntityId("ent")
 
 
 def _chart() -> CompanyChartOfAccounts:
-    entity = EntityId("ent")
     accounts = (
         CompanyAccount(
             id=AccountId("411000"),
-            entity_id=entity,
+            entity_id=ENTITY,
             code="411000",
             label="Clients",
         ),
         CompanyAccount(
             id=AccountId("707000"),
-            entity_id=entity,
+            entity_id=ENTITY,
             code="707000",
             label="Ventes",
         ),
     )
-    return CompanyChartOfAccounts(entity_id=entity, accounts=accounts)
+    return CompanyChartOfAccounts(entity_id=ENTITY, accounts=accounts)
+
+
+def _chart_resolver() -> InMemoryVersionedCompanyChartResolver:
+    config = CompanyChart(
+        chart_id="chart:ent",
+        entity_id=ENTITY,
+        code="STD",
+        label="Standard",
+        primary_standard="fr-pcg",
+        code_policy_id="numeric",
+        reference_snapshot_id="snap:core",
+        versions=(
+            CompanyChartVersion(
+                label="v1",
+                status=ChartStatus.ACTIVE,
+                effective_from=date(2024, 1, 1),
+            ),
+        ),
+    )
+    return InMemoryVersionedCompanyChartResolver(config, {"v1": _chart()})
 
 
 def _periods() -> dict[PeriodId, AccountingPeriod]:
-    entity = EntityId("ent")
     fy = FiscalYearId("fy")
     return {
         PeriodId("p_2024_12"): AccountingPeriod(
             id=PeriodId("p_2024_12"),
-            entity_id=entity,
+            entity_id=ENTITY,
             fiscal_year_id=fy,
             start_date=date(2024, 12, 1),
             end_date=date(2024, 12, 31),
@@ -84,7 +102,7 @@ def _periods() -> dict[PeriodId, AccountingPeriod]:
         ),
         PeriodId("p_2025_01"): AccountingPeriod(
             id=PeriodId("p_2025_01"),
-            entity_id=entity,
+            entity_id=ENTITY,
             fiscal_year_id=fy,
             start_date=date(2025, 1, 1),
             end_date=date(2025, 1, 31),
@@ -129,7 +147,7 @@ def _build() -> tuple[ClosingOrchestrator, InMemoryUnitOfWorkFactory, InMemorySt
         for period in _periods().values():
             uow.periods.add(period)
         uow.journals.add(
-            Journal(id=JournalId("j_ventes"), entity_id=EntityId("ent"), code="V", label="Ventes")
+            Journal(id=JournalId("j_ventes"), entity_id=ENTITY, code="V", label="Ventes")
         )
         uow.commit()
     book = ClosingRunBook()
@@ -146,12 +164,10 @@ def _build() -> tuple[ClosingOrchestrator, InMemoryUnitOfWorkFactory, InMemorySt
 
 
 def test_close_seals_period_and_records_evidence() -> None:
-    orchestrator, factory, store = _build()
+    orchestrator, _, store = _build()
     run = orchestrator.close_period(
         PeriodId("p_2024_12"),
-        control_runs=[
-            _control(ControlOutcome.PASS),
-        ],
+        control_runs=[_control(ControlOutcome.PASS)],
         trial_balance=_tb(),
     )
     assert run.is_sealed
@@ -162,10 +178,11 @@ def test_close_seals_period_and_records_evidence() -> None:
 
 def test_post_rejected_after_close() -> None:
     orchestrator, factory, store = _build()
-    chart = _chart()
-    sink = RecordingAuditSink()
-    svc = PostingService(clock=FrozenClock(NOW), audit_sink=sink)
-    posting = PostingOrchestrator(factory, chart, svc)
+    posting = PostingOrchestrator(
+        factory,
+        _chart_resolver(),
+        PostingService(clock=FrozenClock(NOW)),
+    )
     first = posting.post(_balanced_draft("e1"), actor_id="u1")
     assert first.posted_entry.status is EntryStatus.POSTED
     orchestrator.close_period(
@@ -201,7 +218,7 @@ def _balanced_draft(entry_id: str) -> JournalEntry:
 
 
 def test_blocking_control_failure_prevents_close() -> None:
-    orchestrator, factory, store = _build()
+    orchestrator, _, store = _build()
     with pytest.raises(ControlFailureError):
         orchestrator.close_period(
             PeriodId("p_2024_12"),
@@ -213,7 +230,7 @@ def test_blocking_control_failure_prevents_close() -> None:
 
 
 def test_close_generates_traceable_opening_balances() -> None:
-    orchestrator, factory, store = _build()
+    orchestrator, _, store = _build()
     orchestrator.close_period(
         PeriodId("p_2024_12"),
         control_runs=[_control(ControlOutcome.PASS)],

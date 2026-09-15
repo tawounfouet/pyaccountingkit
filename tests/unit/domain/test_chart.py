@@ -4,22 +4,26 @@ from __future__ import annotations
 
 import pytest
 
+from pyaccountingkit.core.errors import EntityScopeMismatchError
 from pyaccountingkit.core.identifiers import AccountId, EntityId
 from pyaccountingkit.domain.charts.account import CompanyAccount
 from pyaccountingkit.domain.charts.chart import CompanyChartOfAccounts
 
+ENTITY = EntityId("ent_1")
+OTHER_ENTITY = EntityId("ent_2")
 
-def _account(code: str = "411000") -> CompanyAccount:
+
+def _account(code: str = "411000", entity_id: EntityId = ENTITY) -> CompanyAccount:
     return CompanyAccount(
         id=AccountId(code),
-        entity_id=EntityId("ent_1"),
+        entity_id=entity_id,
         code=code,
         label=f"Compte {code}",
     )
 
 
 def _chart(accounts: tuple[CompanyAccount, ...] = ()) -> CompanyChartOfAccounts:
-    return CompanyChartOfAccounts(entity_id=EntityId("ent_1"), accounts=accounts)
+    return CompanyChartOfAccounts(entity_id=ENTITY, accounts=accounts)
 
 
 def test_account_code_is_string() -> None:
@@ -58,7 +62,7 @@ def test_account_postable_flag() -> None:
     assert account.postable
     parent = CompanyAccount(
         id=AccountId("41000"),
-        entity_id=EntityId("ent_1"),
+        entity_id=ENTITY,
         code="41000",
         label="Parent",
         postable=False,
@@ -81,9 +85,22 @@ def test_chart_add_increases_size() -> None:
 def test_chart_rejects_duplicate_code_on_construction() -> None:
     with pytest.raises(ValueError, match="Duplicate"):
         CompanyChartOfAccounts(
-            entity_id=EntityId("e"),
+            entity_id=ENTITY,
             accounts=(_account("411"), _account("411")),
         )
+
+
+def test_chart_rejects_cross_entity_account_on_construction() -> None:
+    with pytest.raises(EntityScopeMismatchError):
+        CompanyChartOfAccounts(
+            entity_id=ENTITY,
+            accounts=(_account("411", OTHER_ENTITY),),
+        )
+
+
+def test_chart_rejects_cross_entity_account_on_add() -> None:
+    with pytest.raises(EntityScopeMismatchError):
+        _chart().add(_account("411", OTHER_ENTITY))
 
 
 def test_chart_get_by_code() -> None:

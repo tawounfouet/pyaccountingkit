@@ -1,4 +1,4 @@
-"""Unit tests for JournalEntryProposal and account resolution (LOT-13)."""
+"""Unit tests for JournalEntryProposal and account resolution (LOT-13 / LOT-QA-01)."""
 
 from __future__ import annotations
 
@@ -10,6 +10,8 @@ from pyaccountingkit.core.currency import EUR
 from pyaccountingkit.core.errors import (
     AccountRoleResolutionError,
     AmbiguousAccountRoleError,
+    EntityScopeMismatchError,
+    UnbalancedProposalError,
 )
 from pyaccountingkit.core.identifiers import EntityId
 from pyaccountingkit.core.money import Money
@@ -52,21 +54,25 @@ def test_proposal_is_balanced() -> None:
     assert _proposal().is_balanced() is True
 
 
-def test_proposal_detects_imbalance() -> None:
-    proposal = JournalEntryProposal(
-        entity_id=EntityId("ent:1"),
-        accounting_date=date(2026, 12, 31),
-        entry_type="DEPRECIATION",
-        lines=(
-            _line(AccountRole.DEPRECIATION_EXPENSE_ACCOUNT, DebitCredit.DEBIT, "250.00"),
-            _line(AccountRole.ACCUMULATED_DEPRECIATION_ACCOUNT, DebitCredit.CREDIT, "240.00"),
-        ),
-    )
-    assert proposal.is_balanced() is False
+def test_proposal_rejects_imbalance_at_construction() -> None:
+    with pytest.raises(UnbalancedProposalError):
+        JournalEntryProposal(
+            entity_id=EntityId("ent:1"),
+            accounting_date=date(2026, 12, 31),
+            entry_type="DEPRECIATION",
+            lines=(
+                _line(AccountRole.DEPRECIATION_EXPENSE_ACCOUNT, DebitCredit.DEBIT, "250.00"),
+                _line(
+                    AccountRole.ACCUMULATED_DEPRECIATION_ACCOUNT,
+                    DebitCredit.CREDIT,
+                    "240.00",
+                ),
+            ),
+        )
 
 
-def test_proposal_requires_lines() -> None:
-    with pytest.raises(ValueError, match="at least one line"):
+def test_proposal_requires_at_least_two_lines() -> None:
+    with pytest.raises(ValueError, match="at least two lines"):
         JournalEntryProposal(
             entity_id=EntityId("ent:1"),
             accounting_date=date(2026, 12, 31),
@@ -84,8 +90,11 @@ def test_proposal_rejects_zero_amount() -> None:
         )
 
 
+def test_proposal_checksum_is_deterministic() -> None:
+    assert _proposal().checksum() == _proposal().checksum()
+
+
 def test_role_differs_from_account_code() -> None:
-    # ADR-POL-009: a policy expresses an AccountRole, not a company code.
     line = _line(AccountRole.PROVISION_ACCOUNT, DebitCredit.CREDIT)
     assert line.account_role is AccountRole.PROVISION_ACCOUNT
     assert line.resolved_account_id is None
@@ -93,21 +102,32 @@ def test_role_differs_from_account_code() -> None:
 
 def test_account_resolution_service_resolves_single_candidate() -> None:
     service = AccountResolutionService(
-        candidates_by_role={AccountRole.ASSET_COST_ACCOUNT: ("215000",)}
+        entity_id=EntityId("ent:1"),
+        candidates_by_role={AccountRole.ASSET_COST_ACCOUNT: ("215000",)},
     )
     resolved = service.resolve(role=AccountRole.ASSET_COST_ACCOUNT, entity_id=EntityId("ent:1"))
     assert resolved == "215000"
 
 
+def test_account_resolution_rejects_other_entity() -> None:
+    service = AccountResolutionService(
+        entity_id=EntityId("ent:1"),
+        candidates_by_role={AccountRole.ASSET_COST_ACCOUNT: ("215000",)},
+    )
+    with pytest.raises(EntityScopeMismatchError):
+        service.resolve(role=AccountRole.ASSET_COST_ACCOUNT, entity_id=EntityId("ent:2"))
+
+
 def test_account_resolution_fail_closed_when_missing() -> None:
-    service = AccountResolutionService()
+    service = AccountResolutionService(entity_id=EntityId("ent:1"))
     with pytest.raises(AccountRoleResolutionError):
         service.resolve(role=AccountRole.ASSET_COST_ACCOUNT, entity_id=EntityId("ent:1"))
 
 
 def test_account_resolution_fail_closed_when_ambiguous() -> None:
     service = AccountResolutionService(
-        candidates_by_role={AccountRole.PROVISION_ACCOUNT: ("151000", "151100")}
+        entity_id=EntityId("ent:1"),
+        candidates_by_role={AccountRole.PROVISION_ACCOUNT: ("151000", "151100")},
     )
     with pytest.raises(AmbiguousAccountRoleError):
         service.resolve(role=AccountRole.PROVISION_ACCOUNT, entity_id=EntityId("ent:1"))

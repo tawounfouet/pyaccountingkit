@@ -14,7 +14,7 @@ from pyaccountingkit.core.errors import ControlFailureError
 
 
 class ControlOutcome(StrEnum):
-    PASS = "PASS"
+    PASS = "PASS"  # nosec B105 - accounting control outcome, not a credential
     FAIL = "FAIL"
     ERROR = "ERROR"
 

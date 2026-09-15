@@ -6,6 +6,9 @@ from datetime import UTC, date, datetime
 
 import pytest
 
+from pyaccountingkit.adapters.in_memory.company_chart_resolver import (
+    InMemoryVersionedCompanyChartResolver,
+)
 from pyaccountingkit.adapters.in_memory.store import InMemoryStore
 from pyaccountingkit.adapters.in_memory.unit_of_work import InMemoryUnitOfWorkFactory
 from pyaccountingkit.application.closing.closing_orchestrator import ClosingOrchestrator
@@ -25,9 +28,13 @@ from pyaccountingkit.core.identifiers import (
     PeriodId,
 )
 from pyaccountingkit.core.money import Money
-from pyaccountingkit.domain.audit.events import AuditEvent
 from pyaccountingkit.domain.charts.account import CompanyAccount
 from pyaccountingkit.domain.charts.chart import CompanyChartOfAccounts
+from pyaccountingkit.domain.charts.company_chart import (
+    ChartStatus,
+    CompanyChart,
+    CompanyChartVersion,
+)
 from pyaccountingkit.domain.closing.closing_run import CloseGate, ClosingRunBook
 from pyaccountingkit.domain.controls.control import ControlOutcome, ControlResult, ControlRun
 from pyaccountingkit.domain.journals.journal import Journal
@@ -39,14 +46,6 @@ from pyaccountingkit.domain.periods.closing_status import ClosingStatus
 from pyaccountingkit.domain.reporting.trial_balance import TrialBalanceSnapshot
 
 NOW = datetime(2024, 12, 31, 18, 0, tzinfo=UTC)
-
-
-class RecordingAuditSink:
-    def __init__(self) -> None:
-        self.events: list[AuditEvent] = []
-
-    def record(self, event: AuditEvent) -> None:
-        self.events.append(event)
 
 
 def _chart(entity: EntityId) -> CompanyChartOfAccounts:
@@ -65,6 +64,29 @@ def _chart(entity: EntityId) -> CompanyChartOfAccounts:
         ),
     )
     return CompanyChartOfAccounts(entity_id=entity, accounts=accounts)
+
+
+def _chart_resolver(
+    entity: EntityId,
+    chart: CompanyChartOfAccounts,
+) -> InMemoryVersionedCompanyChartResolver:
+    config = CompanyChart(
+        chart_id="chart:ent",
+        entity_id=entity,
+        code="STD",
+        label="Standard",
+        primary_standard="fr-pcg",
+        code_policy_id="numeric",
+        reference_snapshot_id="snap:core",
+        versions=(
+            CompanyChartVersion(
+                label="v1",
+                status=ChartStatus.ACTIVE,
+                effective_from=date(2024, 1, 1),
+            ),
+        ),
+    )
+    return InMemoryVersionedCompanyChartResolver(config, {"v1": chart})
 
 
 def test_0_1_core_scenario_end_to_end() -> None:
@@ -92,10 +114,9 @@ def test_0_1_core_scenario_end_to_end() -> None:
         uow.commit()
 
     chart = _chart(entity)
-    sink = RecordingAuditSink()
     clock = FrozenClock(NOW)
-    svc = PostingService(clock=clock, audit_sink=sink)
-    posting = PostingOrchestrator(factory, chart, svc)
+    svc = PostingService(clock=clock)
+    posting = PostingOrchestrator(factory, _chart_resolver(entity, chart), svc)
     reversal = ReversalOrchestrator(factory, lambda: EntryId("rev1"))
     tb_query = TrialBalanceQuery(factory, chart)
     journal_query = JournalQuery(factory)
@@ -105,6 +126,8 @@ def test_0_1_core_scenario_end_to_end() -> None:
 
     result = posting.post(entry, actor_id="u1")
     assert result.posted_entry.status is EntryStatus.POSTED
+    assert store.audit_log[-1].event_type == "ENTRY_POSTED"
+    assert store.audit_log[-1].payload["chart_version"] == "v1"
     assert len(journal_query.entries_for(journal_id, period)) == 1
     assert len(ledger_query.account_ledger(period, "411000")) == 1
 
@@ -160,7 +183,6 @@ def test_0_1_core_scenario_end_to_end() -> None:
     with pytest.raises(PeriodClosedError):
         posting.post(_draft("e2"), actor_id="u1")
 
-    # Balance after reversal is zero: nothing to carry into the next period.
     assert EntryId("o2025") not in store.entries
 
 

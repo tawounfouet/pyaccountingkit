@@ -1,7 +1,7 @@
-"""Depreciation policy domain (LOT-13, foundation).
+"""Depreciation policy domain (LOT-13, hardened by LOT-QA-01).
 
 A ``DepreciationPolicy`` computes the periodic depreciation expense of an
-asset (spec section 39).  It returns a ``DepreciationResult`` and never
+asset (spec section 39). It returns a ``DepreciationResult`` and never
 touches the ledger (ADR-POL-007).
 """
 
@@ -14,9 +14,7 @@ from decimal import Decimal
 from enum import StrEnum
 
 from pyaccountingkit.core.money import Money
-from pyaccountingkit.domain.policies.measurement import (
-    MeasurementContext,
-)
+from pyaccountingkit.domain.policies.measurement import MeasurementContext
 from pyaccountingkit.domain.policies.policy_set import PolicyType
 from pyaccountingkit.domain.policies.policy_trace import PolicyExecutionTrace
 
@@ -66,7 +64,7 @@ class DepreciationPolicy(ABC):
 
 @dataclass(frozen=True, slots=True)
 class StraightLineDepreciationPolicy(DepreciationPolicy):
-    """Equal-amount depreciation over useful life (spec section 40)."""
+    """Equal full-period depreciation over useful life, capped at residual value."""
 
     policy_id: str = "dep-straight-line"
     policy_version: str = "1.0"
@@ -83,13 +81,42 @@ class StraightLineDepreciationPolicy(DepreciationPolicy):
     ) -> DepreciationResult:
         if not depreciable_base.is_same_currency(residual_value):
             raise ValueError("base and residual must share currency")
+        if not depreciable_base.is_same_currency(cumulative_before):
+            raise ValueError("base and cumulative depreciation must share currency")
+        if depreciable_base.currency != context.functional_currency:
+            raise ValueError("depreciation currency must match functional currency")
+        if depreciable_base.amount < 0:
+            raise ValueError("depreciable base must be non-negative")
+        if residual_value.amount < 0:
+            raise ValueError("residual value must be non-negative")
+        if residual_value.amount > depreciable_base.amount:
+            raise ValueError("residual value cannot exceed depreciable base")
         if useful_life_total <= 0:
             raise ValueError("useful life must be positive")
-        recoverable = depreciable_base.amount - residual_value.amount
-        period_amount = Money(recoverable / useful_life_total, depreciable_base.currency)
-        cumulative_amt = cumulative_before.amount + period_amount.amount
-        cumulative = Money(cumulative_amt, depreciable_base.currency)
-        carrying = Money(depreciable_base.amount - cumulative.amount, depreciable_base.currency)
+        if period[0] > period[1]:
+            raise ValueError("depreciation period start must not follow period end")
+
+        depreciable_amount = depreciable_base.amount - residual_value.amount
+        if cumulative_before.amount < 0:
+            raise ValueError("cumulative depreciation must be non-negative")
+        if cumulative_before.amount > depreciable_amount:
+            raise ValueError("cumulative depreciation cannot exceed depreciable amount")
+
+        scheduled_amount = depreciable_amount / useful_life_total
+        remaining_amount = depreciable_amount - cumulative_before.amount
+        current_amount = min(scheduled_amount, remaining_amount)
+        period_amount = Money(current_amount, depreciable_base.currency)
+        cumulative = Money(
+            cumulative_before.amount + period_amount.amount,
+            depreciable_base.currency,
+        )
+        carrying = Money(
+            depreciable_base.amount - cumulative.amount,
+            depreciable_base.currency,
+        )
+        if carrying.amount < residual_value.amount:
+            raise ValueError("depreciation cannot reduce carrying amount below residual value")
+
         return DepreciationResult(
             period_amount=period_amount,
             cumulative_amount=cumulative,

@@ -1,4 +1,4 @@
-"""Unit tests for the domain PostingService (PLAN-01 §3.3)."""
+"""Unit tests for the pure domain PostingService (PLAN-01 §3.3)."""
 
 from __future__ import annotations
 
@@ -15,21 +15,12 @@ from pyaccountingkit.core.errors import (
 )
 from pyaccountingkit.core.identifiers import EntryId, JournalId, PeriodId
 from pyaccountingkit.core.money import Money
-from pyaccountingkit.domain.audit.events import AuditEvent
 from pyaccountingkit.domain.journals.journal_entry import EntryStatus, JournalEntry
 from pyaccountingkit.domain.journals.journal_line import JournalLine
 from pyaccountingkit.domain.ledger.posting import PostingService
 from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
 
 NOW = datetime(2024, 3, 15, 10, 0, tzinfo=UTC)
-
-
-class RecordingAuditSink:
-    def __init__(self) -> None:
-        self.events: list[AuditEvent] = []
-
-    def record(self, event: AuditEvent) -> None:
-        self.events.append(event)
 
 
 def _period(*, closed: bool = False) -> AccountingPeriod:
@@ -67,57 +58,37 @@ def _draft(*, balanced: bool = True, status: EntryStatus = EntryStatus.DRAFT) ->
     )
 
 
-def _service() -> tuple[PostingService, RecordingAuditSink]:
-    sink = RecordingAuditSink()
-    return PostingService(clock=FrozenClock(NOW), audit_sink=sink), sink
+def _service() -> PostingService:
+    return PostingService(clock=FrozenClock(NOW))
 
 
 def test_posting_produces_a_posted_copy() -> None:
-    service, _ = _service()
-    posted = service.post(_draft(), _period(), user_id="u1")
+    posted = _service().post(_draft(), _period(), user_id="u1")
     assert posted.status is EntryStatus.POSTED
     assert posted.posted_at == NOW
 
 
-def test_posting_records_audit_event() -> None:
-    service, sink = _service()
-    service.post(_draft(), _period(), user_id="u1")
-    assert len(sink.events) == 1
-    event = sink.events[0]
-    assert event.event_type == "ENTRY_POSTED"
-    assert event.actor_id == "u1"
-
-
 def test_posting_rejects_already_posted() -> None:
-    service, _ = _service()
     with pytest.raises(EntryAlreadyPostedError):
-        service.post(_draft(status=EntryStatus.POSTED), _period(), user_id="u1")
+        _service().post(_draft(status=EntryStatus.POSTED), _period(), user_id="u1")
 
 
 def test_posting_rejects_reversed() -> None:
-    service, _ = _service()
     with pytest.raises(EntryAlreadyPostedError):
-        service.post(_draft(status=EntryStatus.REVERSED), _period(), user_id="u1")
+        _service().post(_draft(status=EntryStatus.REVERSED), _period(), user_id="u1")
 
 
 def test_posting_rejects_unbalanced_entry() -> None:
-    service, _ = _service()
     with pytest.raises(UnbalancedEntryError):
-        service.post(_draft(balanced=False), _period(), user_id="u1")
+        _service().post(_draft(balanced=False), _period(), user_id="u1")
 
 
 def test_posting_rejects_closed_period() -> None:
-    service, _ = _service()
     with pytest.raises(PeriodClosedError):
-        service.post(_draft(), _period(closed=True), user_id="u1")
+        _service().post(_draft(), _period(closed=True), user_id="u1")
 
 
 def test_posting_preserves_reversal_and_reversed_by() -> None:
-    service, _ = _service()
-    posted = service.post(
-        _draft(),
-        _period(),
-        user_id="u1",
-    )
+    posted = _service().post(_draft(), _period(), user_id="u1")
     assert posted.reversal_of_id is None
     assert posted.reversed_by_id is None

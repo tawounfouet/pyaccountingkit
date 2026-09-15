@@ -49,6 +49,12 @@ class DomainError(AccountingError):
     code: str = "DOMAIN_ERROR"
 
 
+class EntityScopeMismatchError(DomainError):
+    """Objects from different accounting entities were combined in one operation."""
+
+    code: str = "ENTITY_SCOPE_MISMATCH"
+
+
 class EntryError(DomainError):
     """Root of journal-entry errors."""
 
@@ -199,6 +205,18 @@ class InvalidAccountCodeError(AccountRuleError):
     code: str = "ACCOUNT_INVALID_CODE"
 
 
+class ChartVersionNotFoundError(AccountRuleError):
+    """No company-chart version applies to the requested accounting date."""
+
+    code: str = "CHART_VERSION_NOT_FOUND"
+
+
+class AmbiguousChartVersionError(AccountRuleError):
+    """Several company-chart versions apply to the same accounting date."""
+
+    code: str = "CHART_VERSION_AMBIGUOUS"
+
+
 class ReversalRuleError(DomainError):
     """Root of reversal rule errors."""
 
@@ -251,6 +269,24 @@ class AmbiguousPolicyResolutionError(PolicyError):
     """Two or more policies matched at the same scope priority (fail-closed)."""
 
     code: str = "POLICY_AMBIGUOUS_RESOLUTION"
+
+
+class PolicySetNotActiveError(PolicyError):
+    """Current execution attempted to use a non-ACTIVE policy set."""
+
+    code: str = "POLICY_SET_NOT_ACTIVE"
+
+
+class PolicySetNotEffectiveError(PolicyError):
+    """A policy set is outside its effective-date window."""
+
+    code: str = "POLICY_SET_NOT_EFFECTIVE"
+
+
+class PolicyReferenceMismatchError(PolicyError):
+    """Policy context and the pinned regulatory reference do not agree."""
+
+    code: str = "POLICY_REFERENCE_MISMATCH"
 
 
 class MeasurementError(DomainError):

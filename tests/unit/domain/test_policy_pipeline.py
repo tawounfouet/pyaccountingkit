@@ -10,6 +10,7 @@ from pyaccountingkit.domain.policies.policy_set import (
     AccountingPolicySet,
     PolicyBinding,
     PolicySetReference,
+    PolicySetStatus,
     PolicyType,
 )
 from pyaccountingkit.domain.policies.policy_trace import PolicyExecutionTrace
@@ -74,6 +75,8 @@ def test_pipeline_resolves_then_recognizes_then_traces() -> None:
             dataset_version="v1",
             reference_snapshot_id="snap:1",
         ),
+        status=PolicySetStatus.ACTIVE,
+        effective_from=date(2026, 1, 1),
         bindings=(binding,),
     )
     event = AccountingEvent(
@@ -114,7 +117,6 @@ def test_pipeline_resolves_then_recognizes_then_traces() -> None:
     )
     assert execution.policy_set_version == "3"
     assert execution.reference_snapshot_id == "snap:1"
-    # replayability: the trace pins the policy version and reference snapshot.
     assert (execution.policy_id, execution.policy_version) == ("rec-sale-on-doc-date", "1.0")
 
 

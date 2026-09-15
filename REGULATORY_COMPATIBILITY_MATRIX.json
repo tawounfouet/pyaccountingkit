@@ -1,4 +1,21 @@
 {
-  "version": "0.2.0b1",
-  "regulatory_frameworks": []
+  "version": "0.2.0b2",
+  "regulatory_frameworks": [
+    {
+      "framework": "PCG",
+      "reference_layer": "golden-qualified",
+      "company_chart_binding": "supported",
+      "policy_layer": "partial-beta",
+      "financial_reporting": "not-yet-qualified",
+      "notes": "Reference hierarchy and selected golden baselines are qualified; this is not a claim of complete PCG reporting compliance."
+    },
+    {
+      "framework": "SYSCOHADA",
+      "reference_layer": "golden-qualified",
+      "company_chart_binding": "supported",
+      "policy_layer": "partial-beta",
+      "financial_reporting": "not-yet-qualified",
+      "notes": "Selected reference baselines are qualified; full jurisdiction-specific policy/reporting coverage remains outside 0.2.0b2."
+    }
+  ]
 }

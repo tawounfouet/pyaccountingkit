@@ -9,6 +9,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CI_WORKFLOW = ROOT / ".github" / "workflows" / "ci.yml"
 SECURITY_WORKFLOW = ROOT / ".github" / "workflows" / "security.yml"
+TEST_COMMAND = (
+    "python -m pytest tests/unit tests/property tests/contract tests/golden "
+    "tests/replay tests/concurrency -v --tb=short"
+)
 
 
 def _missing_snippets(text: str, snippets: tuple[str, ...], *, label: str) -> list[str]:
@@ -35,7 +39,7 @@ def validate_ci_text(text: str) -> list[str]:
             'python-version: ["3.11", "3.12", "3.13"]',
             "python scripts/qualify_release.py --skip-tests --skip-package",
             "python scripts/verify_package.py",
-            "python -m pytest tests/unit tests/property tests/contract -v --tb=short",
+            TEST_COMMAND,
             "needs: [quality, test, package]",
             "if: ${{ always() }}",
             "QUALITY_RESULT: ${{ needs.quality.result }}",
@@ -55,11 +59,8 @@ def validate_ci_text(text: str) -> list[str]:
         violations.append("CI: every pip cache must be keyed from pyproject.toml")
     if text.count("python scripts/verify_package.py") != 1:
         violations.append("CI: package verification must execute exactly once")
-    test_command = "python -m pytest tests/unit tests/property tests/contract -v --tb=short"
-    if text.count(test_command) != 1:
-        violations.append(
-            "CI: Bootstrap test command must be declared exactly once in the matrix job"
-        )
+    if text.count(TEST_COMMAND) != 1:
+        violations.append("CI: accounting qualification test command must appear exactly once")
 
     forbidden = (
         "\n  lint:\n",
@@ -131,6 +132,7 @@ def main() -> int:
     print("CI workflow validation: PASS")
     print("Canonical jobs: quality, test, package, ci-gate")
     print("Supported Python matrix: 3.11, 3.12, 3.13")
+    print("Qualified suites: unit, property, contract, golden, replay, concurrency")
     print("Security jobs: audit, sast")
     return 0
 

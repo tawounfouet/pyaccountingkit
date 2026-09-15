@@ -1,8 +1,7 @@
 """Reversal service — creates a mirror entry that cancels a posted one.
 
-The service itself is pure and persistence-free; it returns immutable
-domain objects.  The orchestrator layer persists both the reversal and
-the marked original.
+The service itself is persistence-free; it returns immutable domain objects.
+The orchestrator provides the transactional audit sink from its UnitOfWork.
 """
 
 from __future__ import annotations
@@ -33,22 +32,7 @@ def create_reversal(
     clock: ClockProtocol,
     user_id: str,
 ) -> tuple[JournalEntry, JournalEntry]:
-    """Create a new posted reversal entry and a copy of the original marked as reversed.
-
-    Returns
-    -------
-    (marked_original, reversal)
-        Both are frozen immutable copies ready for persistence.
-
-    Raises
-    ------
-    EntryNotPostedError
-        If *original* is not POSTED.
-    AlreadyReversedError
-        If *original* already carries ``reversed_by_id``.
-    InvalidReversalDateError
-        If *reversal_date* is outside the target period.
-    """
+    """Create a posted mirror entry and mark the original as reversed."""
     if original.status is not EntryStatus.POSTED:
         raise EntryNotPostedError(
             f"Seules les écritures POSTED peuvent être contrepassées, reçu {original.status.value}"
@@ -103,7 +87,7 @@ def create_reversal(
     audit_sink.record(
         AuditEvent(
             event_type="ENTRY_REVERSED",
-            entity_id=str(original.id),
+            entity_id=str(target_period.entity_id),
             actor_id=user_id,
             occurred_at=now,
             payload={

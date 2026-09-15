@@ -1,15 +1,10 @@
-"""PostingOrchestrator — the transactional, idempotent PostEntry use-case.
-
-Encapsulates the atomic mutation (*rollback leaves no partial state*),
-chart/journal/period validation, exact-once posting under duplicate
-requests, audit and outbox hooks.  The pure DRAFT → POSTED transition is
-delegated to the domain ``PostingService``.
-"""
+"""PostingOrchestrator — transactional, entity-safe and version-aware posting."""
 
 from __future__ import annotations
 
 from dataclasses import dataclass
 
+from pyaccountingkit.core.entity_scope import require_same_entity
 from pyaccountingkit.core.errors import (
     IdempotencyReplayError,
     InactiveAccountError,
@@ -20,9 +15,11 @@ from pyaccountingkit.core.errors import (
 )
 from pyaccountingkit.core.identifiers import EntryId
 from pyaccountingkit.core.revisions import Revision
+from pyaccountingkit.domain.audit.events import AuditEvent
 from pyaccountingkit.domain.charts.chart import CompanyChartOfAccounts
 from pyaccountingkit.domain.journals.journal_entry import EntryStatus, JournalEntry
 from pyaccountingkit.domain.ledger.posting import PostingService
+from pyaccountingkit.ports.company_chart_resolution import CompanyChartResolverProtocol
 from pyaccountingkit.ports.outbox import OutboxRecord
 from pyaccountingkit.ports.unit_of_work import UnitOfWorkFactoryProtocol, UnitOfWorkProtocol
 
@@ -42,11 +39,11 @@ class PostingOrchestrator:
     def __init__(
         self,
         uow_factory: UnitOfWorkFactoryProtocol,
-        chart: CompanyChartOfAccounts,
+        chart_resolver: CompanyChartResolverProtocol,
         posting_service: PostingService,
     ) -> None:
         self._uow_factory = uow_factory
-        self._chart = chart
+        self._chart_resolver = chart_resolver
         self._posting_service = posting_service
 
     def post(self, entry: JournalEntry, actor_id: str) -> PostingResult:
@@ -58,23 +55,52 @@ class PostingOrchestrator:
 
             period = uow.periods.get(entry.period_id)
             journal = uow.journals.get(entry.journal_id)
+            require_same_entity(
+                journal.entity_id,
+                period.entity_id,
+                resource=f"period {period.id}",
+            )
+            resolved_chart = self._chart_resolver.resolve(
+                entity_id=journal.entity_id,
+                accounting_date=entry.entry_date,
+            )
             if not journal.is_active():
                 raise InactiveJournalError(f"Journal {journal.id} inactif")
             if not period.is_open_for_posting():
                 raise PeriodClosedError(f"Période {period.id} fermée ou verrouillée")
-            self._validate_accounts(entry)
+            self._validate_accounts(entry, resolved_chart.chart)
 
             uow.entries.add(entry)
             posted = self._posting_service.post(entry, period, actor_id)
             uow.entries.save(posted, Revision())
+
+            trace_payload = {
+                "entry_id": str(posted.id),
+                "period_id": str(posted.period_id),
+                "journal_id": str(posted.journal_id),
+                "chart_id": resolved_chart.chart_id,
+                "chart_version": resolved_chart.chart_version,
+                "reference_snapshot_id": resolved_chart.reference_snapshot_id,
+            }
+            uow.audit.record(
+                AuditEvent(
+                    event_type="ENTRY_POSTED",
+                    entity_id=str(journal.entity_id),
+                    actor_id=actor_id,
+                    occurred_at=posted.posted_at or uow.clock.now(),
+                    payload={
+                        **trace_payload,
+                        "total_debit": str(posted.total_debit().amount),
+                        "total_credit": str(posted.total_credit().amount),
+                    },
+                )
+            )
             uow.outbox.publish(
                 OutboxRecord(
                     event_type="ENTRY_POSTED",
-                    entity_id=str(posted.id),
-                    payload={
-                        "entry_id": str(posted.id),
-                        "period_id": str(posted.period_id),
-                    },
+                    entity_id=str(journal.entity_id),
+                    payload=trace_payload,
+                    idempotency_key=idempotency_key,
                 )
             )
             uow.idempotency.complete(idempotency_key)
@@ -94,11 +120,17 @@ class PostingOrchestrator:
             )
         return PostingResult(posted_entry=stored, idempotency_key=key, was_replayed=True)
 
-    def _validate_accounts(self, entry: JournalEntry) -> None:
+    @staticmethod
+    def _validate_accounts(entry: JournalEntry, chart: CompanyChartOfAccounts) -> None:
         for line in entry.lines:
-            account = self._chart.get_by_code(str(line.account_id))
+            account = chart.get_by_code(str(line.account_id))
             if account is None:
                 raise UnknownAccountError(f"Compte {line.account_id} inconnu au plan")
+            require_same_entity(
+                chart.entity_id,
+                account.entity_id,
+                resource=f"company account {account.id}",
+            )
             if not account.is_active():
                 raise InactiveAccountError(f"Compte {line.account_id} inactif")
             if not account.postable:

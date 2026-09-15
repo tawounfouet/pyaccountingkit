@@ -15,23 +15,22 @@ from pyaccountingkit.core.errors import (
     EmptyEntryError,
     NegativeAmountError,
     UnbalancedEntryError,
+    ZeroLineError,
 )
 from pyaccountingkit.core.identifiers import EntryId, JournalId, PeriodId
 from pyaccountingkit.core.money import Money
 from pyaccountingkit.domain.journals.journal_entry import JournalEntry
 from pyaccountingkit.domain.journals.journal_line import JournalLine
 
-_money_amounts = st.integers(min_value=0, max_value=10**8).map(Decimal)
+_positive_money_amounts = st.integers(min_value=1, max_value=10**8).map(Decimal)
 
 
-def _random_amounts(n: int) -> st.SearchStrategy[tuple[Decimal, ...]]:
-    return st.tuples(*(_money_amounts for _ in range(n)))
+def _positive_amounts(n: int) -> st.SearchStrategy[tuple[Decimal, ...]]:
+    return st.tuples(*(_positive_money_amounts for _ in range(n)))
 
 
-@given(_random_amounts(2))
-def test_large_balanced_entry_is_valid(totals: tuple[Decimal, ...]) -> None:
-    debit, credit = totals
-    total = Money(debit, EUR).amount
+@given(_positive_money_amounts)
+def test_large_balanced_entry_is_valid(total: Decimal) -> None:
     entry = JournalEntry(
         id=EntryId("e"),
         journal_id=JournalId("j"),
@@ -47,7 +46,7 @@ def test_large_balanced_entry_is_valid(totals: tuple[Decimal, ...]) -> None:
     assert entry.total_debit() == entry.total_credit()
 
 
-@given(_random_amounts(4))
+@given(_positive_amounts(4))
 def test_multiline_entry_sums_exactly(amounts: tuple[Decimal, ...]) -> None:
     debit_a, debit_b, credit_a, credit_b = amounts
     lines = (
@@ -98,10 +97,25 @@ def test_negative_line_amounts_rejected(amount: int) -> None:
         )
 
 
-@given(_random_amounts(3))
+def test_zero_line_is_rejected_by_construction() -> None:
+    with pytest.raises(ZeroLineError):
+        JournalLine(
+            account_id="a",
+            debit=Money.zero(EUR),
+            credit=Money.zero(EUR),
+        )
+
+
+@given(_positive_amounts(3))
 def test_minimum_two_lines_invariant(amounts: tuple[Decimal, ...]) -> None:
     total = sum(amounts)
-    too_small = (JournalLine(account_id="a", debit=Money(amounts[0], EUR), credit=Money.zero(EUR)),)
+    too_small = (
+        JournalLine(
+            account_id="a",
+            debit=Money(amounts[0], EUR),
+            credit=Money.zero(EUR),
+        ),
+    )
     with pytest.raises(EmptyEntryError):
         JournalEntry(
             id=EntryId("e"),

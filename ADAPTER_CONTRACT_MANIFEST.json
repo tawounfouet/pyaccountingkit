@@ -1,4 +1,33 @@
 {
-  "version": "0.2.0b1",
-  "adapter_contracts": {}
+  "version": "0.2.0b2",
+  "adapter_contracts": {
+    "unit_of_work": {
+      "port": "UnitOfWorkProtocol",
+      "reference_adapter": "InMemoryUnitOfWork",
+      "qualified_behaviors": [
+        "atomic_commit_rollback",
+        "transaction_local_state",
+        "optimistic_revision_conflict",
+        "idempotency_conflict",
+        "audit_outbox_atomicity"
+      ],
+      "production_qualification": false
+    },
+    "company_chart_resolution": {
+      "port": "CompanyChartResolverProtocol",
+      "reference_adapter": "InMemoryVersionedCompanyChartResolver",
+      "scope": ["entity_id", "accounting_date"],
+      "fail_closed": true
+    },
+    "account_role_resolution": {
+      "port": "AccountRoleResolverProtocol",
+      "reference_adapter": "InMemoryAccountRoleResolver",
+      "scope": ["entity_id", "accounting_date", "company_chart_version"],
+      "fail_closed": true
+    },
+    "accounting_references": {
+      "port": "AccountingReferenceProviderProtocol",
+      "status": "qualified_reference_contract"
+    }
+  }
 }

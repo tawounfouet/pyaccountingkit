@@ -25,7 +25,6 @@ from pyaccountingkit.core.identifiers import (
     PeriodId,
 )
 from pyaccountingkit.core.money import Money
-from pyaccountingkit.domain.audit.events import AuditEvent
 from pyaccountingkit.domain.charts.account import CompanyAccount
 from pyaccountingkit.domain.charts.chart import CompanyChartOfAccounts
 from pyaccountingkit.domain.closing.closing_run import CloseGate, ClosingRunBook
@@ -39,14 +38,6 @@ from pyaccountingkit.domain.periods.closing_status import ClosingStatus
 from pyaccountingkit.domain.reporting.trial_balance import TrialBalanceSnapshot
 
 NOW = datetime(2024, 12, 31, 18, 0, tzinfo=UTC)
-
-
-class RecordingAuditSink:
-    def __init__(self) -> None:
-        self.events: list[AuditEvent] = []
-
-    def record(self, event: AuditEvent) -> None:
-        self.events.append(event)
 
 
 def _chart(entity: EntityId) -> CompanyChartOfAccounts:
@@ -92,9 +83,8 @@ def test_0_1_core_scenario_end_to_end() -> None:
         uow.commit()
 
     chart = _chart(entity)
-    sink = RecordingAuditSink()
     clock = FrozenClock(NOW)
-    svc = PostingService(clock=clock, audit_sink=sink)
+    svc = PostingService(clock=clock)
     posting = PostingOrchestrator(factory, chart, svc)
     reversal = ReversalOrchestrator(factory, lambda: EntryId("rev1"))
     tb_query = TrialBalanceQuery(factory, chart)
@@ -105,6 +95,7 @@ def test_0_1_core_scenario_end_to_end() -> None:
 
     result = posting.post(entry, actor_id="u1")
     assert result.posted_entry.status is EntryStatus.POSTED
+    assert store.audit_log[-1].event_type == "ENTRY_POSTED"
     assert len(journal_query.entries_for(journal_id, period)) == 1
     assert len(ledger_query.account_ledger(period, "411000")) == 1
 
@@ -160,7 +151,6 @@ def test_0_1_core_scenario_end_to_end() -> None:
     with pytest.raises(PeriodClosedError):
         posting.post(_draft("e2"), actor_id="u1")
 
-    # Balance after reversal is zero: nothing to carry into the next period.
     assert EntryId("o2025") not in store.entries
 
 

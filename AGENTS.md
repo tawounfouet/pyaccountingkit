@@ -8,22 +8,35 @@ Kit comptable Python (partie double) en architecture hexagonale, piloté par doc
 python -m venv .venv && . .venv/bin/activate
 pip install -e ".[dev]"        # dev = pytest, pytest-timeout, ruff, mypy, hypothesis
 
-ruff check src/ tests/         # lint (rules E,F,I,B,UP)
-ruff format --check src/ tests/
+ruff check src/ tests/ scripts/    # lint (rules E,F,I,B,UP)
+ruff format --check src/ tests/ scripts/
 mypy src/                      # strict (pyproject)
 pytest tests/unit tests/property tests/contract   # G0/G1 core
+
+python scripts/qualify_release.py                  # gate canonique (ce que lance la CI)
+python scripts/qualify_release.py --skip-tests --skip-package  # gates statiques rapides
+bash scripts/check_hygiene.sh   # artefacts de cache générés, .env, marqueurs de conflit
+python scripts/verify_package.py # build + contrôle wheel/sdist + import en venv isolé
 ```
 
-- Full suite (`tests/{integration,concurrency,replay,migration,golden,performance}`) touche PostgreSQL/adapter réel : ce sont des gates **G3/Nightly**, pas la boucle locale.
+- Le job `quality` de `ci.yml` exécute `qualify_release.py --skip-tests --skip-package` (hygiène, architecture, cohérence des manifests, ruff lint + format, mypy). Le tour complet en local : `python scripts/qualify_release.py`.
+- Full suite (`tests/{integration,concurrency,replay,migration,golden,performance}`) touche PostgreSQL/adapter réel : ce sont des gates **G3/Nightly** (`nightly.yml` lance `pytest tests/`), pas la boucle locale.
 - Les manifests racine (`PUBLIC_API_MANIFEST.json`, `PUBLIC_ERROR_CODES.json`, `ADAPTER_CONTRACT_MANIFEST.json`, `REGULATORY_COMPATIBILITY_MATRIX.json`) sont **générés** par `scripts/generate_*` — ne pas les éditer à la main.
-- `scripts/validate_architecture.py` = guard d'import-architecture (gate GA).
+
+## Bootstrap 0.0.1 (piège n°1)
+
+Version courante = `0.0.1` (milestone PLAN-00). Tant qu'elle est en vigueur :
+
+- **Tous les modules de `src/pyaccountingkit/` (hors `__init__.py` racine) doivent rester des échafaudages vides** (docstring seulement). `scripts/validate_architecture.py` échoue dès qu'un module non-racine contient du code exécutable (classe, fonction, import, constante), et `verify_package.py` exige **zéro dépendance runtime**.
+- Les manifests racine doivent rester **vides** (`qualify_release.py` le vérifie).
+- Ne pas implémenter de logique métier avant le passage au milestone suivant (`docs/plans/PLAN-01_ACCOUNTING_CORE_0.1.0.md`) — ces garde-fous se désactivent automatiquement au changement de version.
 
 ## Architecture (contraintes non négociables du `GA`)
 
 Direction stricte `adapters → application → domain`. **`domain` n'importe JAMAIS Django, SQLAlchemy, FastAPI.** Dépendance dirigée vers les `ports/`, concrétisation dans `adapters/`.
 
-- `core/` : primitives (Money, Currency, Clock, Revision, Idempotency) — aucun dépendance métier/ORM.
-- `domain/` : modèle métier pur, framework-free (subdivisé par bounded context : journals, charts, references, policies, ledger, closing, controls, audit, traceability, imports, reporting, analysis, subledgers, reconciliation, consolidation).
+- `core/` : primitives (Money, Currency, Clock, Revision, Idempotency) — aucune dépendance métier/ORM.
+- `domain/` : modèle métier pur, framework-free (bounded contexts : journals, charts, references, policies, ledger, closing, controls, audit, traceability, imports, reporting, analysis, subledgers, reconciliation, consolidation, identity, periods).
 - `application/` : use-cases, orchestre domain + ports.
 - `ports/` : contrats (repositories, unit_of_work, references, valuation, exchange_rates, artifacts, audit, outbox, queries, reconciliation).
 - `adapters/` : `in_memory` (**référence comportementale, ne qualifie PAS la production**), puis `django`, `sqlalchemy`, `regulatory`, `imports/fec`, `reconciliation`.
@@ -54,7 +67,7 @@ Direction stricte `adapters → application → domain`. **`domain` n'importe JA
 
 ## Versioning & quality gates
 
-Milestones pilotés par **scope + DoD + gates** (jamais par date). `0.0.1 → 1.0.0` puis `1.1.0` (réconciliation), `1.2.0` (consolidation) ; pre-releases PEP 440 (`aN`, `bN`, `rcN`).
+Milestones pilotés par **scope + DoD + gates** (jamais par date). `0.0.1 (bootstrap) → 0.1.0 (core comptable) → 1.0.0` puis `1.1.0` (réconciliation), `1.2.0` (consolidation) ; pre-releases PEP 440 (`aN`, `bN`, `rcN`).
 
 - Gates `G0` (hygiène) → `G1` (domaine pur) → `G2` (adaptateurs in-memory) → `G3` (PostgreSQL réel) → `G4` (parité API) → `G5` (release). Spécialisées : `GA` invariants, `GC` rounding, `GP` concurrence, `GR` conformité, `GI` immutabilité, `GS` snapshot/replay, `GAPI` surface API, `GM` parité migration, `GSEC` supply-chain.
 - Une release stable n'est **jamais un simple tag** : qualification + compatibilité + replay + migration + validation package + evidence.

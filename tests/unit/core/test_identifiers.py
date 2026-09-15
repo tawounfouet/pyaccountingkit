@@ -34,10 +34,11 @@ def test_id_factory_produces_prefixed_identifiers() -> None:
     assert identifier != factory.new("entry")
 
 
-def test_id_factory_is_deterministic_when_seeded() -> None:
-    seed = 42
-    first = IdFactory(random.Random(seed))
-    second = IdFactory(random.Random(seed))
+def test_id_factory_is_deterministic_with_injected_source() -> None:
+    first_rng = random.Random(42)
+    second_rng = random.Random(42)
+    first = IdFactory(first_rng.getrandbits)
+    second = IdFactory(second_rng.getrandbits)
     assert first.new("entry") == second.new("entry")
 
 

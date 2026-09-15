@@ -37,6 +37,8 @@ class JournalLine:
             raise DebitAndCreditSetError(
                 f"Débit et crédit ne peuvent pas être simultanés sur {self.account_id}"
             )
+        if self.debit.is_zero() and self.credit.is_zero():
+            raise ZeroLineError(f"Ligne entièrement nulle sur {self.account_id}")
 
     @property
     def currency(self) -> Currency:
@@ -44,7 +46,7 @@ class JournalLine:
         return self.debit.currency
 
     def validate_not_null(self) -> None:
-        """Reject an entirely null line (INV-LINE-003, applied at validation)."""
+        """Compatibility validation; null lines are already rejected at construction."""
         if self.debit.is_zero() and self.credit.is_zero():
             raise ZeroLineError(f"Ligne entièrement nulle sur {self.account_id}")
 

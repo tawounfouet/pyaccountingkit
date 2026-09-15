@@ -1,10 +1,9 @@
 """Policy resolution service (LOT-12).
 
-Resolution answers ``context + available bindings = one applicable policy``
-(spec section 16).  Scope priority follows ADR-POL-010 and the precedence
-proposed in spec section 15 (entity > sector > jurisdiction > standard >
-generic).  Conflicts on the same scope are fail-closed (ADR-POL-011, spec
-section 18): the engine never picks a policy arbitrarily.
+Resolution answers ``context + available bindings = one applicable policy``.
+Scope priority follows entity > sector > jurisdiction > standard > generic.
+Conflicts on the same scope are fail-closed: the engine never picks a policy
+arbitrarily.
 """
 
 from __future__ import annotations
@@ -15,6 +14,10 @@ from typing import Any
 
 from pyaccountingkit.core.errors import AmbiguousPolicyResolutionError, PolicyNotFoundError
 from pyaccountingkit.domain.policies.applicability import PolicyContext
+from pyaccountingkit.domain.policies.execution import (
+    PolicyExecutionMode,
+    validate_policy_set_execution,
+)
 from pyaccountingkit.domain.policies.policy_set import (
     AccountingPolicySet,
     PolicyBinding,
@@ -47,26 +50,27 @@ class PolicyResolutionService:
         policy_type: PolicyType,
         context: PolicyContext,
         policy_set: AccountingPolicySet,
+        mode: PolicyExecutionMode = PolicyExecutionMode.CURRENT,
     ) -> PolicyResolutionTrace:
-        """Pick the most specific applicable binding, or fail closed.
+        """Pick the highest-priority applicable binding, or fail closed."""
+        validate_policy_set_execution(policy_set, context, mode)
 
-        Raises ``PolicyNotFoundError`` when no binding applies and
-        ``AmbiguousPolicyResolutionError`` when several bindings share the
-        highest scope priority (ADR-POL-011).
-        """
+        typed_bindings = tuple(
+            binding for binding in policy_set.bindings if binding.policy_type is policy_type
+        )
         applicable = [
-            binding
-            for binding in policy_set.bindings
-            if binding.policy_type is policy_type and binding.applicability.matches(context)
+            binding for binding in typed_bindings if binding.applicability.matches(context)
         ]
         context_summary: Mapping[str, Any] = {
             "entity_id": context.accounting_entity_id,
             "accounting_date": context.accounting_date.isoformat(),
             "standard_id": context.standard_id,
             "edition": context.edition,
+            "reference_snapshot_id": context.reference_snapshot_id,
+            "execution_mode": mode.value,
         }
         if not applicable:
-            if policy_set.binding_for(policy_type) is None:
+            if not typed_bindings:
                 raise PolicyNotFoundError(
                     f"no {policy_type.value} binding in policy set {policy_set.code!r}"
                 )
@@ -74,6 +78,7 @@ class PolicyResolutionService:
                 f"no {policy_type.value} binding of {policy_set.code!r} applies "
                 f"to the given context"
             )
+
         best_rank = max(_scope_rank(binding) for binding in applicable)
         tied = [binding for binding in applicable if _scope_rank(binding) == best_rank]
         if len(tied) > 1:
@@ -93,7 +98,7 @@ class PolicyResolutionService:
 
 
 def _scope_rank(binding: PolicyBinding) -> int:
-    """Scope priority of a binding (spec section 15: entity > sector > ...)."""
+    """Scope priority of a binding: entity > sector > jurisdiction > standard > generic."""
     applicability = binding.applicability
     if applicability.accounting_entity_id is not None:
         return 5
@@ -106,7 +111,4 @@ def _scope_rank(binding: PolicyBinding) -> int:
     return 1
 
 
-__all__ = [
-    "PolicyResolutionService",
-    "PolicyResolutionTrace",
-]
+__all__ = ["PolicyResolutionService", "PolicyResolutionTrace"]

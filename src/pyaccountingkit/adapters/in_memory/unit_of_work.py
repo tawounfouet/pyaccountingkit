@@ -117,19 +117,17 @@ class InMemoryUnitOfWork:
 
     def _validate_concurrent_changes(self, baseline: InMemoryStore) -> None:
         for entry_id in set(baseline.entries) | set(self._working.entries):
-            changed = (
-                baseline.entries.get(entry_id) != self._working.entries.get(entry_id)
-                or baseline.entry_revisions.get(entry_id)
-                != self._working.entry_revisions.get(entry_id)
+            changed = baseline.entries.get(entry_id) != self._working.entries.get(
+                entry_id
+            ) or baseline.entry_revisions.get(entry_id) != self._working.entry_revisions.get(
+                entry_id
             )
             if changed and (
                 self._store.entries.get(entry_id) != baseline.entries.get(entry_id)
                 or self._store.entry_revisions.get(entry_id)
                 != baseline.entry_revisions.get(entry_id)
             ):
-                raise RevisionConflictError(
-                    f"Entry {entry_id} changed after UnitOfWork snapshot"
-                )
+                raise RevisionConflictError(f"Entry {entry_id} changed after UnitOfWork snapshot")
 
         self._validate_mapping_changes(
             "Period",

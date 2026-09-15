@@ -8,8 +8,9 @@ restores an old global snapshot and cannot erase another transaction's commit.
 
 from __future__ import annotations
 
+from collections.abc import Mapping, MutableMapping
 from types import TracebackType
-from typing import Self
+from typing import Any, Self
 
 from pyaccountingkit.adapters.in_memory.repositories import (
     InMemoryJournalEntryRepository,
@@ -157,9 +158,9 @@ class InMemoryUnitOfWork:
     @staticmethod
     def _validate_mapping_changes(
         resource: str,
-        baseline: dict[object, object],
-        working: dict[object, object],
-        shared: dict[object, object],
+        baseline: Mapping[Any, Any],
+        working: Mapping[Any, Any],
+        shared: Mapping[Any, Any],
     ) -> None:
         for key in set(baseline) | set(working):
             if baseline.get(key) != working.get(key) and shared.get(key) != baseline.get(key):
@@ -184,9 +185,9 @@ class InMemoryUnitOfWork:
 
     @staticmethod
     def _merge_mapping(
-        baseline: dict[object, object],
-        working: dict[object, object],
-        shared: dict[object, object],
+        baseline: Mapping[Any, Any],
+        working: Mapping[Any, Any],
+        shared: MutableMapping[Any, Any],
     ) -> None:
         for key in set(baseline) | set(working):
             if baseline.get(key) == working.get(key):

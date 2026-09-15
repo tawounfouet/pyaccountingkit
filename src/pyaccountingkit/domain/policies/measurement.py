@@ -3,7 +3,7 @@
 A ``MeasurementPolicy`` determines how much an element should be booked.
 It never posts directly (ADR-POL-007); it produces a ``MeasurementResult``
 or ``MeasurementAdjustment`` which is consumed by a
-``JournalEntryProposal`` (ADR-POL-008).  Initial and subsequent measurements
+``JournalEntryProposal`` (ADR-POL-008). Initial and subsequent measurements
 are distinct contracts (ADR-POL-004).
 """
 
@@ -83,7 +83,7 @@ class MeasurementResult:
 
 @dataclass(frozen=True, slots=True)
 class MeasurementAdjustment:
-    """A subsequent-measurement delta (spec section 37)."""
+    """A subsequent-measurement delta with an enforced arithmetic identity."""
 
     adjustment_type: AdjustmentType
     previous_amount: Money
@@ -97,6 +97,12 @@ class MeasurementAdjustment:
             raise ValueError("adjustment amounts must share currency")
         if not self.delta.is_same_currency(self.new_amount):
             raise ValueError("delta must share currency with new amount")
+        expected_delta = self.new_amount - self.previous_amount
+        if self.delta != expected_delta:
+            raise ValueError(
+                "measurement delta must equal new_amount - previous_amount "
+                f"({self.delta.amount} != {expected_delta.amount})"
+            )
 
 
 class MeasurementPolicy(ABC):

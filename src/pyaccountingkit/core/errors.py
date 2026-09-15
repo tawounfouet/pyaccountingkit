@@ -325,4 +325,28 @@ class UnbalancedProposalError(ProposalError):
     code: str = "PROPOSAL_UNBALANCED"
 
 
+class AccountingImportError(DomainError):
+    """Root of source-neutral accounting import errors."""
+
+    code: str = "IMPORT_ERROR"
+
+
+class InvalidImportTransitionError(AccountingImportError):
+    """An import batch lifecycle transition is not permitted."""
+
+    code: str = "IMPORT_INVALID_TRANSITION"
+
+
+class StaleImportPlanError(AccountingImportError):
+    """An import plan no longer matches its pinned source/resolution versions."""
+
+    code: str = "IMPORT_STALE_PLAN"
+
+
+class InvalidImportPlanError(AccountingImportError):
+    """An import plan violates structural accounting import invariants."""
+
+    code: str = "IMPORT_INVALID_PLAN"
+
+
 __all__ = [name for name in globals() if name.endswith("Error")]

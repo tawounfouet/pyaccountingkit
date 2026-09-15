@@ -10,14 +10,15 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit is under active beta development. The current package line is
-`0.2.0b2` — the **cross-lot integrity-qualified beta** produced by
-`LOT-QA-01 — Cross-Lot Accounting & Policy Integrity Remediation`.
+PyAccountingKit is under active alpha/beta development. The current package
+line is `0.3.0a1`, introducing `LOT-14 — Generic Accounting Import Engine` on
+top of the `0.2.0b2` cross-lot integrity-qualified accounting baseline.
 
-The public API is **not yet stable**. `0.2.0b2` qualifies the integrity of the
-accounting, chart, policy, proposal, posting, replay and in-memory concurrency
-contracts. The next feature milestone after this integrity baseline is
-`LOT-14 — Generic Accounting Import Engine` on the `0.3.0a1` line.
+The public API is **not yet stable**. `0.3.0a1` adds a source-format-neutral
+import domain: immutable source evidence, raw preservation, normalization,
+deterministic grouping, explicit mappings, import plans, dry-run, stale-plan
+rejection and canonical posting delegation. It does **not** claim FEC support;
+the French FEC adapter belongs to LOT-15.
 
 Do not infer release readiness from the version number alone. A release is
 qualified only when canonical CI, package, security and applicable accounting
@@ -49,7 +50,15 @@ accidents:
   to the same transactional unit of work;
 - the in-memory reference UoW uses isolated transaction-local state and rejects
   stale competing writes instead of restoring a global snapshot over another
-  transaction's commit.
+  transaction's commit;
+- generic imports preserve source evidence and raw records, and never infer
+  adapter-specific semantics in the generic domain;
+- import account/journal mappings are explicit and fail closed: unknown targets
+  are never silently created or guessed;
+- import plans pin source, adapter, mapping and chart versions and must reject
+  execution when those coordinates become stale;
+- import execution delegates to `PostingOrchestrator`; the import bounded
+  context must never become a second posting engine.
 
 When a new invariant invalidates an old fixture, **fix the fixture or generator;
 do not weaken the invariant**.
@@ -70,11 +79,12 @@ Main areas:
 
 - `src/pyaccountingkit/core/` — primitives such as money, currency, clock,
   identifiers, revisions, idempotency and entity-scope guards;
-- `src/pyaccountingkit/domain/` — pure accounting model and policies;
+- `src/pyaccountingkit/domain/` — pure accounting model, policies and generic
+  import model;
 - `src/pyaccountingkit/application/` — use cases and transactional
   orchestration;
 - `src/pyaccountingkit/ports/` — repository, unit-of-work, chart-resolution,
-  account-role-resolution, audit, outbox and external-service contracts;
+  account-role-resolution, import and external-service contracts;
 - `src/pyaccountingkit/adapters/` — in-memory and later production adapter
   implementations;
 - `docs/` — specifications, ADRs, plans and roadmap; architectural decisions
@@ -112,6 +122,30 @@ Recognition / Measurement     AccountRole resolution
                       │
                       ▼
                     COMMIT
+```
+
+LOT-14 adds the source-neutral ingestion path without bypassing that engine:
+
+```text
+SourceArtifact
+      │
+      ▼
+RawImportRecord
+      │
+      ▼
+NormalizedImportRecord
+      │
+      ▼
+Mapping + Grouping + Validation
+      │
+      ▼
+ImportPlan ─────► Dry Run (no mutation)
+      │
+      ▼
+JournalEntry
+      │
+      ▼
+PostingOrchestrator
 ```
 
 The execution trace pins proposal checksum, policy versions, regulatory
@@ -191,7 +225,9 @@ Before committing or pushing a refactor:
    resolver by injecting a raw aggregate merely because an older test did so.
 5. Keep entity, accounting date, chart version, policy version and reference
    snapshot traceability intact across application boundaries.
-6. Run formatter, lint, typing, tests, full qualifier and relevant security
+6. For imports, keep format-specific fields in adapters; generic import objects
+   must remain source-neutral and every source record must be accounted for.
+7. Run formatter, lint, typing, tests, full qualifier and relevant security
    checks before pushing a release candidate.
 
 The detailed coding-agent rules are maintained in `AGENTS.md`.

@@ -17,8 +17,7 @@ class CompanyChartResolverProtocol(Protocol):
         *,
         entity_id: EntityId,
         accounting_date: date,
-    ) -> ResolvedCompanyChart:
-        ...
+    ) -> ResolvedCompanyChart: ...
 
 
 __all__ = ["CompanyChartResolverProtocol"]

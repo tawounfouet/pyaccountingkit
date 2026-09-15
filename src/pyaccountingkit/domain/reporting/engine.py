@@ -129,9 +129,7 @@ class FinancialStatementEngine:
         rendered_lines: list[StatementLineValue] = []
         for line in request.statement_definition.ordered_lines:
             amount = current_values[line.code]
-            comparative = (
-                comparative_values[line.code] if comparative_values is not None else None
-            )
+            comparative = comparative_values[line.code] if comparative_values is not None else None
             visible = self._is_visible(line, amount, comparative)
             rendered_lines.append(
                 StatementLineValue(
@@ -153,9 +151,7 @@ class FinancialStatementEngine:
         controls = self._run_controls(request.statement_definition, current_values)
         if request.fail_on_control_error:
             failed = [
-                control
-                for control in controls
-                if control.status is StatementControlStatus.FAIL
+                control for control in controls if control.status is StatementControlStatus.FAIL
             ]
             if failed:
                 codes = ", ".join(control.control_code for control in failed)
@@ -237,9 +233,7 @@ class FinancialStatementEngine:
         require_full_mapping: bool | None = None,
     ) -> tuple[dict[str, Money], dict[str, tuple[StatementDrilldownItem, ...]]]:
         require_mapping = (
-            request.require_full_mapping
-            if require_full_mapping is None
-            else require_full_mapping
+            request.require_full_mapping if require_full_mapping is None else require_full_mapping
         )
         currency = source.currency
         definition = request.statement_definition
@@ -249,9 +243,7 @@ class FinancialStatementEngine:
             for line in definition.lines
             if line.line_type is StatementLineType.DETAIL
         }
-        drilldown: dict[str, list[StatementDrilldownItem]] = {
-            code: [] for code in detail_values
-        }
+        drilldown: dict[str, list[StatementDrilldownItem]] = {code: [] for code in detail_values}
 
         for source_line in source.lines:
             applicable = tuple(
@@ -324,8 +316,7 @@ class FinancialStatementEngine:
                         f"formula line {line.code!r} has no formula"
                     )
                 dependencies = {
-                    dependency: evaluate(dependency)
-                    for dependency in line.formula.dependencies
+                    dependency: evaluate(dependency) for dependency in line.formula.dependencies
                 }
                 raw = line.formula.evaluate(dependencies, currency=currency)
             else:

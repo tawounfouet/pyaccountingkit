@@ -8,7 +8,11 @@ import pytest
 from pyaccountingkit.core.currency import EUR
 from pyaccountingkit.core.identifiers import AccountId, EntityId, JournalId, PeriodId
 from pyaccountingkit.domain.imports.batch import AccountingImportBatch, ImportBatchStatus
-from pyaccountingkit.domain.imports.import_plan import ImportEntryPlan, ImportPlan, ImportPlannedLine
+from pyaccountingkit.domain.imports.import_plan import (
+    ImportEntryPlan,
+    ImportPlan,
+    ImportPlannedLine,
+)
 from pyaccountingkit.domain.imports.mapping import ExplicitImportAccountMapper, ImportMappingStatus
 from pyaccountingkit.domain.imports.normalized_record import (
     NormalizedImportRecord,
@@ -88,7 +92,8 @@ def test_batch_state_machine_rejects_skipping_validation() -> None:
 
 
 def test_unknown_account_mapping_is_not_executable() -> None:
-    decision = ExplicitImportAccountMapper({"401": AccountId("account-401")}).resolve("999")
+    mapper = ExplicitImportAccountMapper({"401": AccountId("account-401")})
+    decision = mapper.resolve("999")
     assert decision.status is ImportMappingStatus.UNMAPPED
     assert decision.executable is False
 

@@ -19,8 +19,7 @@ class AccountRoleResolverProtocol(Protocol):
         entity_id: EntityId,
         accounting_date: date,
         role: AccountRole,
-    ) -> ResolvedAccount:
-        ...
+    ) -> ResolvedAccount: ...
 
 
 __all__ = ["AccountRoleResolverProtocol"]

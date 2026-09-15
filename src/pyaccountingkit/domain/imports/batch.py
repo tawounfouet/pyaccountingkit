@@ -36,14 +36,34 @@ class ImportTransactionMode(StrEnum):
 
 
 _ALLOWED: dict[ImportBatchStatus, frozenset[ImportBatchStatus]] = {
-    ImportBatchStatus.CREATED: frozenset({ImportBatchStatus.ACQUIRED, ImportBatchStatus.CANCELLED}),
-    ImportBatchStatus.ACQUIRED: frozenset({ImportBatchStatus.PARSED, ImportBatchStatus.FAILED, ImportBatchStatus.CANCELLED}),
-    ImportBatchStatus.PARSED: frozenset({ImportBatchStatus.NORMALIZED, ImportBatchStatus.FAILED, ImportBatchStatus.CANCELLED}),
-    ImportBatchStatus.NORMALIZED: frozenset({ImportBatchStatus.MAPPED, ImportBatchStatus.FAILED, ImportBatchStatus.CANCELLED}),
-    ImportBatchStatus.MAPPED: frozenset({ImportBatchStatus.VALIDATED, ImportBatchStatus.FAILED, ImportBatchStatus.CANCELLED}),
-    ImportBatchStatus.VALIDATED: frozenset({ImportBatchStatus.READY, ImportBatchStatus.FAILED, ImportBatchStatus.CANCELLED}),
-    ImportBatchStatus.READY: frozenset({ImportBatchStatus.IMPORTING, ImportBatchStatus.CANCELLED}),
-    ImportBatchStatus.IMPORTING: frozenset({ImportBatchStatus.COMPLETED, ImportBatchStatus.COMPLETED_WITH_WARNINGS, ImportBatchStatus.FAILED}),
+    ImportBatchStatus.CREATED: frozenset(
+        {ImportBatchStatus.ACQUIRED, ImportBatchStatus.CANCELLED}
+    ),
+    ImportBatchStatus.ACQUIRED: frozenset(
+        {ImportBatchStatus.PARSED, ImportBatchStatus.FAILED, ImportBatchStatus.CANCELLED}
+    ),
+    ImportBatchStatus.PARSED: frozenset(
+        {ImportBatchStatus.NORMALIZED, ImportBatchStatus.FAILED, ImportBatchStatus.CANCELLED}
+    ),
+    ImportBatchStatus.NORMALIZED: frozenset(
+        {ImportBatchStatus.MAPPED, ImportBatchStatus.FAILED, ImportBatchStatus.CANCELLED}
+    ),
+    ImportBatchStatus.MAPPED: frozenset(
+        {ImportBatchStatus.VALIDATED, ImportBatchStatus.FAILED, ImportBatchStatus.CANCELLED}
+    ),
+    ImportBatchStatus.VALIDATED: frozenset(
+        {ImportBatchStatus.READY, ImportBatchStatus.FAILED, ImportBatchStatus.CANCELLED}
+    ),
+    ImportBatchStatus.READY: frozenset(
+        {ImportBatchStatus.IMPORTING, ImportBatchStatus.CANCELLED}
+    ),
+    ImportBatchStatus.IMPORTING: frozenset(
+        {
+            ImportBatchStatus.COMPLETED,
+            ImportBatchStatus.COMPLETED_WITH_WARNINGS,
+            ImportBatchStatus.FAILED,
+        }
+    ),
     ImportBatchStatus.COMPLETED: frozenset(),
     ImportBatchStatus.COMPLETED_WITH_WARNINGS: frozenset(),
     ImportBatchStatus.FAILED: frozenset(),
@@ -70,11 +90,24 @@ class AccountingImportBatch:
     completed_at: datetime | None = None
 
     def __post_init__(self) -> None:
-        for name in ("batch_id", "source_type", "adapter_id", "adapter_version", "source_artifact_ref", "correlation_id"):
+        required = (
+            "batch_id",
+            "source_type",
+            "adapter_id",
+            "adapter_version",
+            "source_artifact_ref",
+            "correlation_id",
+        )
+        for name in required:
             if not getattr(self, name).strip():
                 raise ValueError(f"{name} must not be empty")
 
-    def transition(self, target: ImportBatchStatus, *, at: datetime | None = None) -> AccountingImportBatch:
+    def transition(
+        self,
+        target: ImportBatchStatus,
+        *,
+        at: datetime | None = None,
+    ) -> AccountingImportBatch:
         if target not in _ALLOWED[self.status]:
             raise ValueError(f"illegal import batch transition: {self.status} -> {target}")
         started = self.started_at
@@ -83,7 +116,12 @@ class AccountingImportBatch:
             if at is None:
                 raise ValueError("IMPORTING transition requires a timestamp")
             started = at
-        if target in {ImportBatchStatus.COMPLETED, ImportBatchStatus.COMPLETED_WITH_WARNINGS, ImportBatchStatus.FAILED}:
+        terminal = {
+            ImportBatchStatus.COMPLETED,
+            ImportBatchStatus.COMPLETED_WITH_WARNINGS,
+            ImportBatchStatus.FAILED,
+        }
+        if target in terminal:
             if at is None:
                 raise ValueError(f"{target} transition requires a timestamp")
             completed = at

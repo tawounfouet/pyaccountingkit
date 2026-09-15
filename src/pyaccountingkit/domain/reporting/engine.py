@@ -12,7 +12,6 @@ from enum import StrEnum
 from pyaccountingkit.core.entity_scope import require_same_entity
 from pyaccountingkit.core.identifiers import EntityId
 from pyaccountingkit.core.money import Money
-from pyaccountingkit.domain.reporting.balance_line import AccountBalanceLine
 from pyaccountingkit.domain.reporting.errors import (
     InvalidStatementDefinitionError,
     NonExecutableStatementMappingError,

@@ -30,6 +30,9 @@ from pyaccountingkit.domain.journals.journal_line import JournalLine
 from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
 from pyaccountingkit.domain.periods.closing_status import ClosingStatus
 
+ENTITY = EntityId("ent")
+OTHER_ENTITY = EntityId("other")
+
 
 def _posted_entry() -> JournalEntry:
     return JournalEntry(
@@ -58,7 +61,7 @@ def _posted_entry() -> JournalEntry:
 def _app(
     *,
     with_posted: bool = True,
-    target_entity_id: EntityId = EntityId("ent"),
+    target_entity_id: EntityId = ENTITY,
 ) -> tuple[ReversalOrchestrator, InMemoryUnitOfWorkFactory, InMemoryStore]:
     store = InMemoryStore()
     factory = InMemoryUnitOfWorkFactory(store)
@@ -66,7 +69,7 @@ def _app(
         uow.journals.add(
             Journal(
                 id=JournalId("j_ventes"),
-                entity_id=EntityId("ent"),
+                entity_id=ENTITY,
                 code="V",
                 label="Ventes",
             )
@@ -74,7 +77,7 @@ def _app(
         uow.periods.add(
             AccountingPeriod(
                 id=PeriodId("p_2024_01"),
-                entity_id=EntityId("ent"),
+                entity_id=ENTITY,
                 fiscal_year_id=FiscalYearId("fy"),
                 start_date=date(2024, 1, 1),
                 end_date=date(2024, 1, 31),
@@ -141,7 +144,7 @@ def test_reverse_rejects_non_posted_entry() -> None:
 
 
 def test_reverse_rejects_target_period_from_another_entity() -> None:
-    orchestrator, _, store = _app(target_entity_id=EntityId("other"))
+    orchestrator, _, store = _app(target_entity_id=OTHER_ENTITY)
     with pytest.raises(EntityScopeMismatchError):
         orchestrator.reverse(EntryId("e1"), "p_2024_02", date(2024, 2, 10), actor_id="u1")
     assert store.entries[EntryId("e1")].reversed_by_id is None
@@ -152,7 +155,7 @@ def test_reverse_rejects_target_period_from_another_entity() -> None:
 def _closed_february_period() -> AccountingPeriod:
     return AccountingPeriod(
         id=PeriodId("p_2024_02"),
-        entity_id=EntityId("ent"),
+        entity_id=ENTITY,
         fiscal_year_id=FiscalYearId("fy"),
         start_date=date(2024, 2, 1),
         end_date=date(2024, 2, 29),

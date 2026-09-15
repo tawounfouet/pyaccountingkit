@@ -12,6 +12,9 @@ from pyaccountingkit.adapters.in_memory.company_chart_resolver import (
 from pyaccountingkit.adapters.in_memory.store import InMemoryStore
 from pyaccountingkit.adapters.in_memory.unit_of_work import InMemoryUnitOfWorkFactory
 from pyaccountingkit.application.ledger.posting_orchestrator import PostingOrchestrator
+from pyaccountingkit.application.ledger.proposal_posting_orchestrator import (
+    ProposalPostingOrchestrator,
+)
 from pyaccountingkit.core.clock import FrozenClock
 from pyaccountingkit.core.currency import EUR
 from pyaccountingkit.core.identifiers import (
@@ -32,8 +35,7 @@ from pyaccountingkit.domain.charts.company_chart import (
     CompanyChartVersion,
 )
 from pyaccountingkit.domain.journals.journal import Journal
-from pyaccountingkit.domain.journals.journal_entry import EntryStatus, JournalEntry
-from pyaccountingkit.domain.journals.journal_line import JournalLine
+from pyaccountingkit.domain.journals.journal_entry import EntryStatus
 from pyaccountingkit.domain.ledger.posting import PostingService
 from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
 from pyaccountingkit.domain.periods.closing_status import ClosingStatus
@@ -52,23 +54,25 @@ ENTITY = EntityId("ent")
 
 
 def _chart() -> CompanyChartOfAccounts:
-    accounts = (
-        CompanyAccount(
-            id=AccountId("681100"),
-            entity_id=ENTITY,
-            code="681100",
-            label="Dotations",
-            role=AccountRole.DEPRECIATION_EXPENSE_ACCOUNT,
-        ),
-        CompanyAccount(
-            id=AccountId("281500"),
-            entity_id=ENTITY,
-            code="281500",
-            label="Amort. mat.",
-            role=AccountRole.ACCUMULATED_DEPRECIATION_ACCOUNT,
+    return CompanyChartOfAccounts(
+        entity_id=ENTITY,
+        accounts=(
+            CompanyAccount(
+                id=AccountId("681100"),
+                entity_id=ENTITY,
+                code="681100",
+                label="Dotations",
+                role=AccountRole.DEPRECIATION_EXPENSE_ACCOUNT,
+            ),
+            CompanyAccount(
+                id=AccountId("281500"),
+                entity_id=ENTITY,
+                code="281500",
+                label="Amort. mat.",
+                role=AccountRole.ACCUMULATED_DEPRECIATION_ACCOUNT,
+            ),
         ),
     )
-    return CompanyChartOfAccounts(entity_id=ENTITY, accounts=accounts)
 
 
 def _chart_resolver() -> InMemoryVersionedCompanyChartResolver:
@@ -91,7 +95,7 @@ def _chart_resolver() -> InMemoryVersionedCompanyChartResolver:
     return InMemoryVersionedCompanyChartResolver(config, {"v1": _chart()})
 
 
-def _orchestrator(
+def _posting(
     chart_resolver: InMemoryVersionedCompanyChartResolver,
 ) -> tuple[PostingOrchestrator, InMemoryStore]:
     store = InMemoryStore()
@@ -171,44 +175,33 @@ def test_measurement_to_proposal_to_posting() -> None:
             ),
         ),
     )
-    assert proposal.is_balanced() is True
 
     chart_resolver = _chart_resolver()
-    role_resolver = InMemoryAccountRoleResolver(chart_resolver)
-    resolved = tuple(
-        role_resolver.resolve(
-            role=line.account_role,
-            entity_id=proposal.entity_id,
-            accounting_date=proposal.accounting_date,
-        )
-        for line in proposal.lines
+    posting, store = _posting(chart_resolver)
+    orchestrator = ProposalPostingOrchestrator(
+        account_role_resolver=InMemoryAccountRoleResolver(chart_resolver),
+        posting_orchestrator=posting,
+        entry_id_factory=lambda: EntryId("e_dep_2026"),
     )
-    assert tuple(account.account_code for account in resolved) == ("681100", "281500")
-    assert all(account.chart_version == "v1" for account in resolved)
-    assert all(account.reference_snapshot_id == "snap:1" for account in resolved)
-
-    entry = JournalEntry(
-        id=EntryId("e_dep_2026"),
+    result = orchestrator.post(
+        proposal,
         journal_id=JournalId("j_od"),
         period_id=PeriodId("p_2026_12"),
-        entry_date=proposal.accounting_date,
+        actor_id="u1",
         description="Dotation aux amortissements 2026",
-        lines=tuple(
-            JournalLine(
-                account_id=account.account_code,
-                debit=line.amount if line.side is DebitCredit.DEBIT else Money.zero(EUR),
-                credit=line.amount if line.side is DebitCredit.CREDIT else Money.zero(EUR),
-            )
-            for account, line in zip(resolved, proposal.lines, strict=True)
-        ),
     )
-
-    orchestrator, store = _orchestrator(chart_resolver)
-    result = orchestrator.post(entry, actor_id="u1")
 
     assert result.posted_entry.status is EntryStatus.POSTED
     assert store.entries[EntryId("e_dep_2026")].status is EntryStatus.POSTED
+    assert tuple(account.account_code for account in result.resolved_accounts) == (
+        "681100",
+        "281500",
+    )
+    assert result.execution_trace.company_chart_version == "v1"
+    assert result.execution_trace.company_chart_reference_snapshot_id == "snap:1"
+    assert result.execution_trace.policy_set_versions == ("3",)
+    assert result.execution_trace.policy_versions == ("1.0",)
+    assert result.execution_trace.proposal_checksum == proposal.checksum()
+    assert result.execution_trace.journal_entry_id == EntryId("e_dep_2026")
     assert store.audit_log[-1].entity_id == "ent"
     assert store.audit_log[-1].payload["chart_version"] == "v1"
-    assert proposal.policy_traces[0].reference_snapshot_id == "snap:1"
-    assert proposal.policy_traces[0].policy_set_version == "3"

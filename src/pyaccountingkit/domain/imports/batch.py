@@ -37,9 +37,7 @@ class ImportTransactionMode(StrEnum):
 
 
 _ALLOWED: dict[ImportBatchStatus, frozenset[ImportBatchStatus]] = {
-    ImportBatchStatus.CREATED: frozenset(
-        {ImportBatchStatus.ACQUIRED, ImportBatchStatus.CANCELLED}
-    ),
+    ImportBatchStatus.CREATED: frozenset({ImportBatchStatus.ACQUIRED, ImportBatchStatus.CANCELLED}),
     ImportBatchStatus.ACQUIRED: frozenset(
         {ImportBatchStatus.PARSED, ImportBatchStatus.FAILED, ImportBatchStatus.CANCELLED}
     ),
@@ -55,9 +53,7 @@ _ALLOWED: dict[ImportBatchStatus, frozenset[ImportBatchStatus]] = {
     ImportBatchStatus.VALIDATED: frozenset(
         {ImportBatchStatus.READY, ImportBatchStatus.FAILED, ImportBatchStatus.CANCELLED}
     ),
-    ImportBatchStatus.READY: frozenset(
-        {ImportBatchStatus.IMPORTING, ImportBatchStatus.CANCELLED}
-    ),
+    ImportBatchStatus.READY: frozenset({ImportBatchStatus.IMPORTING, ImportBatchStatus.CANCELLED}),
     ImportBatchStatus.IMPORTING: frozenset(
         {
             ImportBatchStatus.COMPLETED,

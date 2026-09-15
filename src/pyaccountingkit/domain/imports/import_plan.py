@@ -8,6 +8,7 @@ from dataclasses import dataclass
 from datetime import date
 from decimal import Decimal
 
+from pyaccountingkit.core.errors import InvalidImportPlanError, StaleImportPlanError
 from pyaccountingkit.core.identifiers import AccountId, EntityId, JournalId, PeriodId
 from pyaccountingkit.domain.imports.normalized_record import SourceEntryKey
 
@@ -31,11 +32,11 @@ class ImportEntryPlan:
 
     def __post_init__(self) -> None:
         if len(self.lines) < 2:
-            raise ValueError("an import entry plan requires at least two lines")
+            raise InvalidImportPlanError("an import entry plan requires at least two lines")
         debit = sum((line.debit for line in self.lines), Decimal(0))
         credit = sum((line.credit for line in self.lines), Decimal(0))
         if debit != credit:
-            raise ValueError("an import entry plan must be balanced")
+            raise InvalidImportPlanError("an import entry plan must be balanced")
 
 
 @dataclass(frozen=True, slots=True)
@@ -54,10 +55,10 @@ class ImportPlan:
     def __post_init__(self) -> None:
         planned_lines = sum(len(entry.lines) for entry in self.entry_plans)
         if self.expected_line_count != planned_lines:
-            raise ValueError("expected_line_count does not match planned lines")
+            raise InvalidImportPlanError("expected_line_count does not match planned lines")
         keys = [entry.source_entry_key for entry in self.entry_plans]
         if len(keys) != len(set(keys)):
-            raise ValueError("source entry keys must be unique within an import plan")
+            raise InvalidImportPlanError("source entry keys must be unique within an import plan")
 
     @property
     def expected_entry_count(self) -> int:
@@ -113,7 +114,9 @@ class ImportPlan:
             self.chart_version,
         )
         if current != planned:
-            raise ValueError("stale import plan: source or resolution versions changed")
+            raise StaleImportPlanError(
+                "stale import plan: source or resolution versions changed"
+            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -126,7 +129,7 @@ class ImportCheckpoint:
 
     def __post_init__(self) -> None:
         if self.imported_count < 0:
-            raise ValueError("imported_count must be non-negative")
+            raise InvalidImportPlanError("imported_count must be non-negative")
 
 
 __all__ = ["ImportCheckpoint", "ImportEntryPlan", "ImportPlan", "ImportPlannedLine"]

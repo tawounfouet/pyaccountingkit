@@ -34,7 +34,7 @@ class PostingResult:
 
 
 class PostingOrchestrator:
-    """Transactional use-case for posting one journal entry."""
+    """Transactional use-case for posting one or several journal entries."""
 
     def __init__(
         self,
@@ -47,64 +47,86 @@ class PostingOrchestrator:
         self._posting_service = posting_service
 
     def post(self, entry: JournalEntry, actor_id: str) -> PostingResult:
-        """Post *entry* exactly once; a duplicate request replays cleanly."""
-        idempotency_key = f"post:{entry.id}"
+        """Post *entry* exactly once in one transaction."""
         with self._uow_factory.open() as uow:
-            if not uow.idempotency.claim(idempotency_key):
-                return self._replay(uow, entry.id, idempotency_key)
-
-            period = uow.periods.get(entry.period_id)
-            journal = uow.journals.get(entry.journal_id)
-            require_same_entity(
-                journal.entity_id,
-                period.entity_id,
-                resource=f"period {period.id}",
-            )
-            resolved_chart = self._chart_resolver.resolve(
-                entity_id=journal.entity_id,
-                accounting_date=entry.entry_date,
-            )
-            if not journal.is_active():
-                raise InactiveJournalError(f"Journal {journal.id} inactif")
-            if not period.is_open_for_posting():
-                raise PeriodClosedError(f"Période {period.id} fermée ou verrouillée")
-            self._validate_accounts(entry, resolved_chart.chart)
-
-            uow.entries.add(entry)
-            posted = self._posting_service.post(entry, period, actor_id)
-            uow.entries.save(posted, Revision())
-
-            trace_payload = {
-                "entry_id": str(posted.id),
-                "period_id": str(posted.period_id),
-                "journal_id": str(posted.journal_id),
-                "chart_id": resolved_chart.chart_id,
-                "chart_version": resolved_chart.chart_version,
-                "reference_snapshot_id": resolved_chart.reference_snapshot_id,
-            }
-            uow.audit.record(
-                AuditEvent(
-                    event_type="ENTRY_POSTED",
-                    entity_id=str(journal.entity_id),
-                    actor_id=actor_id,
-                    occurred_at=posted.posted_at or uow.clock.now(),
-                    payload={
-                        **trace_payload,
-                        "total_debit": str(posted.total_debit().amount),
-                        "total_credit": str(posted.total_credit().amount),
-                    },
-                )
-            )
-            uow.outbox.publish(
-                OutboxRecord(
-                    event_type="ENTRY_POSTED",
-                    entity_id=str(journal.entity_id),
-                    payload=trace_payload,
-                    idempotency_key=idempotency_key,
-                )
-            )
-            uow.idempotency.complete(idempotency_key)
+            result = self._post_in_uow(uow, entry, actor_id)
             uow.commit()
+        return result
+
+    def post_many(
+        self,
+        entries: tuple[JournalEntry, ...],
+        actor_id: str,
+    ) -> tuple[PostingResult, ...]:
+        """Post several entries atomically through the same canonical engine."""
+        if not entries:
+            return ()
+        with self._uow_factory.open() as uow:
+            results = tuple(self._post_in_uow(uow, entry, actor_id) for entry in entries)
+            uow.commit()
+        return results
+
+    def _post_in_uow(
+        self,
+        uow: UnitOfWorkProtocol,
+        entry: JournalEntry,
+        actor_id: str,
+    ) -> PostingResult:
+        idempotency_key = f"post:{entry.id}"
+        if not uow.idempotency.claim(idempotency_key):
+            return self._replay(uow, entry.id, idempotency_key)
+
+        period = uow.periods.get(entry.period_id)
+        journal = uow.journals.get(entry.journal_id)
+        require_same_entity(
+            journal.entity_id,
+            period.entity_id,
+            resource=f"period {period.id}",
+        )
+        resolved_chart = self._chart_resolver.resolve(
+            entity_id=journal.entity_id,
+            accounting_date=entry.entry_date,
+        )
+        if not journal.is_active():
+            raise InactiveJournalError(f"Journal {journal.id} inactif")
+        if not period.is_open_for_posting():
+            raise PeriodClosedError(f"Période {period.id} fermée ou verrouillée")
+        self._validate_accounts(entry, resolved_chart.chart)
+
+        uow.entries.add(entry)
+        posted = self._posting_service.post(entry, period, actor_id)
+        uow.entries.save(posted, Revision())
+
+        trace_payload = {
+            "entry_id": str(posted.id),
+            "period_id": str(posted.period_id),
+            "journal_id": str(posted.journal_id),
+            "chart_id": resolved_chart.chart_id,
+            "chart_version": resolved_chart.chart_version,
+            "reference_snapshot_id": resolved_chart.reference_snapshot_id,
+        }
+        uow.audit.record(
+            AuditEvent(
+                event_type="ENTRY_POSTED",
+                entity_id=str(journal.entity_id),
+                actor_id=actor_id,
+                occurred_at=posted.posted_at or uow.clock.now(),
+                payload={
+                    **trace_payload,
+                    "total_debit": str(posted.total_debit().amount),
+                    "total_credit": str(posted.total_credit().amount),
+                },
+            )
+        )
+        uow.outbox.publish(
+            OutboxRecord(
+                event_type="ENTRY_POSTED",
+                entity_id=str(journal.entity_id),
+                payload=trace_payload,
+                idempotency_key=idempotency_key,
+            )
+        )
+        uow.idempotency.complete(idempotency_key)
         return PostingResult(posted_entry=posted, idempotency_key=idempotency_key)
 
     def _replay(

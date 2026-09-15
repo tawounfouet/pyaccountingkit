@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0a1",
+  "version": "0.3.0a2",
   "adapter_contracts": {
     "unit_of_work": {
       "port": "UnitOfWorkProtocol",
@@ -37,7 +37,19 @@
       ],
       "source_format_neutral": true,
       "posting_path": "PostingOrchestrator",
-      "specialized_adapters": "deferred-to-LOT-15-and-later"
+      "specialized_adapters": ["FECAdapter"],
+      "fec_fr": {
+        "adapter": "FECAdapter",
+        "adapter_version": "0.3.0a2",
+        "format": "French FEC 18-column text export",
+        "raw_preservation": true,
+        "source_checksum": "sha256",
+        "source_entry_identity": "JournalCode:EcritureNum",
+        "duplicate_strategy": "warn-only-row-hash",
+        "transaction_modes": ["ALL_OR_NOTHING", "PER_ITEM", "CHUNKED_ATOMIC"],
+        "posting_path": "PostingOrchestrator",
+        "qualification": "LOT-15-alpha"
+      }
     }
   }
 }

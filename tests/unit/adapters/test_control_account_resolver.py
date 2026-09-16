@@ -238,9 +238,7 @@ def test_resolver_rejects_account_absent_from_applicable_chart() -> None:
 def test_resolver_rejects_inactive_control_account() -> None:
     resolver = InMemoryControlAccountResolver(
         bindings=(_binding("inactive", "inactive"),),
-        chart_resolver=_chart_resolver(
-            v1_accounts=(_account("inactive", "411000", active=False),)
-        ),
+        chart_resolver=_chart_resolver(v1_accounts=(_account("inactive", "411000", active=False),)),
     )
     with pytest.raises(InactiveAccountError):
         resolver.resolve(

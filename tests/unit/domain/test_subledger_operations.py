@@ -8,6 +8,7 @@ from decimal import Decimal
 import pytest
 
 from pyaccountingkit.core.currency import EUR
+from pyaccountingkit.core.errors import EntityScopeMismatchError
 from pyaccountingkit.core.identifiers import AccountId, EntityId, EntryId
 from pyaccountingkit.core.money import Money
 from pyaccountingkit.domain.subledgers.accounting_reference import PostedAccountingReference
@@ -32,8 +33,8 @@ from pyaccountingkit.domain.subledgers.errors import (
 )
 from pyaccountingkit.domain.subledgers.matching import (
     AccountingMatchItem,
-    MatchSide,
     MatchingCandidate,
+    MatchSide,
 )
 from pyaccountingkit.domain.subledgers.open_item import OpenItem
 from pyaccountingkit.domain.subledgers.payment_terms import DueDateRule, PaymentTerm
@@ -327,7 +328,9 @@ def test_aging_snapshot_partitions_every_open_source_once() -> None:
         allocation_date=date(2026, 10, 15),
     )
     receivable = allocation.subledger_item
-    sources = tuple(AgingSourceItem.from_receivable(receivable, due) for due in receivable.due_items)
+    sources = tuple(
+        AgingSourceItem.from_receivable(receivable, due) for due in receivable.due_items
+    )
 
     snapshot = AgingEngine().snapshot(
         entity_id=ENTITY,
@@ -438,7 +441,7 @@ def test_settlement_accounting_reference_is_entity_scoped() -> None:
         amount=_money("100.00"),
         source_reference="bank:entity",
     )
-    with pytest.raises(Exception):
+    with pytest.raises(EntityScopeMismatchError):
         settlement.link_posted_accounting(
             _posted_reference("entry:other", entity_id=OTHER_ENTITY)
         )

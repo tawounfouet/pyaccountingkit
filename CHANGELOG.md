@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-09-16
+
+### Stable release
+- Promotes the fully qualified `0.3.0rc1` imports/reporting behavior without adding new
+  accounting, import, reporting or regulatory semantics.
+- Freezes the `0.3.x` milestone around the composed source-to-evidence path:
+  FEC source evidence -> explicit `ImportPlan` -> canonical `PostingOrchestrator` -> posted
+  ledger -> `TrialBalance` -> financial statements -> published `ReportSnapshot` -> regulatory
+  projection -> validation -> canonical export -> checksummed evidence.
+- Retains mandatory cross-lot integration, golden, replay and concurrency qualification in the
+  canonical Python 3.11 / 3.12 / 3.13 CI matrix.
+- Keeps package stability separate from public API freeze: the Python API remains pre-1.0 and
+  intentionally unfrozen.
+
+### Qualification
+- FEC contract, rollback, idempotency and concurrency gates remain green.
+- Financial-statement golden qualification remains green.
+- Regulatory mapping safety and exact-snapshot execution remain green.
+- Source-to-evidence report replay remains deterministic.
+- Package wheel/sdist verification, dependency audit and Bandit static analysis remain required
+  stable-release gates.
+- Stable `0.3.0` preserves the same compatibility boundary as the RC: PCG/FEC cross-lot software
+  mechanics are qualified, while exhaustive statutory templates, DGFiP filing certification,
+  legal certification and regulator-submission compliance are not claimed. SYSCOHADA remains
+  qualified through LOT-17 XOF golden/replay scenarios rather than the PCG/FEC ingestion path.
+
 ## [0.3.0rc1] - 2026-09-16
 
 ### Added

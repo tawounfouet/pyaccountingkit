@@ -1,4 +1,4 @@
-"""Payable aggregate root for LOT-18 subledger foundations."""
+"""Payable aggregate root for subledger foundations and allocation state."""
 
 from __future__ import annotations
 
@@ -49,6 +49,13 @@ class Payable:
     def accounting_effective(self) -> bool:
         return self.accounting_status is AccountingEffectStatus.POSTED
 
+    @property
+    def open_amount(self) -> Money:
+        total = Money.zero(self.original_amount.currency)
+        for due_item in self.due_items:
+            total += due_item.open_amount
+        return total
+
     def open(self) -> Payable:
         if self.operational_status is not OperationalItemStatus.DRAFT:
             raise InvalidSubledgerItemError("only a DRAFT payable can become OPEN")
@@ -69,6 +76,28 @@ class Payable:
             accounting_status=AccountingEffectStatus.POSTED,
             accounting_reference=reference,
         )
+
+    def replace_due_item(self, updated: DueItem) -> Payable:
+        require_same_entity(
+            self.entity_id,
+            updated.entity_id,
+            resource=f"due item {updated.due_item_id}",
+        )
+        if updated.source_subledger_item_id != self.payable_id:
+            raise InvalidSubledgerItemError("updated due item belongs to a different payable")
+        found = False
+        items: list[DueItem] = []
+        for current in self.due_items:
+            if current.due_item_id == updated.due_item_id:
+                items.append(updated)
+                found = True
+            else:
+                items.append(current)
+        if not found:
+            raise InvalidSubledgerItemError(
+                f"due item {updated.due_item_id!r} is not part of payable"
+            )
+        return replace(self, due_items=tuple(items))
 
 
 __all__ = ["Payable"]

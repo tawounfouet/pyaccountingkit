@@ -5,7 +5,8 @@ from __future__ import annotations
 from datetime import date
 from decimal import Decimal
 
-from hypothesis import given, strategies as st
+from hypothesis import given
+from hypothesis import strategies as st
 
 from pyaccountingkit.core.currency import EUR
 from pyaccountingkit.core.identifiers import EntityId

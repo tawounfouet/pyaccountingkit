@@ -78,17 +78,17 @@ class ReferenceUpgradePlan:
 
         for node_id in sorted(set(after) - set(before)):
             node = after[node_id]
-            reasons = ["node added"]
+            added_reasons = ["node added"]
             if node.required:
-                reasons.append("new node is required")
+                added_reasons.append("new node is required")
             if node.human_validation_required:
-                reasons.append("new node requires human validation")
+                added_reasons.append("new node requires human validation")
             changes.append(
                 ReferenceNodeChange(
                     change_type=ReferenceNodeChangeType.ADDED,
                     node_id=node.node_id,
                     code=node.code,
-                    reasons=tuple(reasons),
+                    reasons=tuple(added_reasons),
                 )
             )
 

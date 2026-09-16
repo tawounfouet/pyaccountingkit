@@ -9,13 +9,23 @@ import pytest
 from pyaccountingkit.adapters.in_memory.company_chart_resolver import (
     InMemoryVersionedCompanyChartResolver,
 )
-from pyaccountingkit.adapters.in_memory.control_account_resolver import InMemoryControlAccountResolver
+from pyaccountingkit.adapters.in_memory.control_account_resolver import (
+    InMemoryControlAccountResolver,
+)
 from pyaccountingkit.core.currency import EUR, USD, Currency
-from pyaccountingkit.core.errors import InactiveAccountError, NonPostableAccountError, UnknownAccountError
+from pyaccountingkit.core.errors import (
+    InactiveAccountError,
+    NonPostableAccountError,
+    UnknownAccountError,
+)
 from pyaccountingkit.core.identifiers import AccountId, EntityId
 from pyaccountingkit.domain.charts.account import CompanyAccount
 from pyaccountingkit.domain.charts.chart import CompanyChartOfAccounts
-from pyaccountingkit.domain.charts.company_chart import ChartStatus, CompanyChart, CompanyChartVersion
+from pyaccountingkit.domain.charts.company_chart import (
+    ChartStatus,
+    CompanyChart,
+    CompanyChartVersion,
+)
 from pyaccountingkit.domain.subledgers.control_account import ControlAccountBinding
 from pyaccountingkit.domain.subledgers.errors import (
     AmbiguousControlAccountError,

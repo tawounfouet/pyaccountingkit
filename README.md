@@ -11,16 +11,20 @@ specific regulatory dataset.
 ## Status
 
 PyAccountingKit is under active pre-1.0 development. The current package line is
-`0.4.0a1`, introducing `LOT-18 — Subledger Foundations` on top of the stable
-`0.3.0` imports/reporting baseline and the qualified ledger, reference, chart and
-policy foundations.
+`0.4.0a2`, delivering `LOT-19 — Settlements, Allocations, Matching & Aging` on
+top of the `0.4.0a1` subledger foundations and stable `0.3.0`
+imports/reporting baseline.
 
-The public API is **not yet frozen**. `0.4.0a1` is an alpha foundation for
-operational/auxiliary accounting: entity-scoped subledgers and parties,
-receivables/payables with due schedules, explicit open-item projections,
-versioned auxiliary policies and fail-closed control-account resolution. It does
-not yet provide settlement allocation, matching/lettering, aging, write-offs or
-subledger-to-GL reconciliation; those remain LOT-19+ scope.
+The public API is **not yet frozen**. `0.4.0a2` is an alpha operational
+subledger milestone: receivables/payables and due items can now participate in
+immutable partial/full many-to-many settlement allocation, explicit settlement
+reversal, validated accounting matching, deterministic payment-term schedules,
+aging projections and subledger-to-control-account reconciliation.
+
+Allocation does **not** create a second General Ledger posting path. Matching is
+not settlement. Aging is not impairment. Residuals are never silently absorbed
+as write-offs, and LOT-20 financial-analysis metrics such as DSO/DPO remain out
+of scope.
 
 Stable `0.3.0` remains the qualified imports/reporting baseline. Its composed
 PCG/FEC path runs from immutable source evidence through explicit import
@@ -124,7 +128,23 @@ accidents:
   `PostedAccountingReference` to a genuinely posted entry;
 - due schedules are entity/currency consistent and must reconcile exactly to
   the receivable/payable original amount;
-- LOT-18 due items start fully open; settlement mutations belong to LOT-19;
+- revision-zero due items start fully open; settlement changes use immutable
+  `allocate()` / `restore()` transitions and optimistic revision guards;
+- settlement allocation is distinct from settlement accounting: allocation
+  changes auxiliary open amounts but never posts another GL entry;
+- settlement reversal restores every active allocation before marking the
+  settlement reversed and requires a distinct posted reversal reference;
+- matching candidates are non-executable; only explicitly validated
+  `AccountingMatch` objects can represent accounting matching, and partial
+  matching must carry the exact residual explicitly;
+- payment-term allocations are Decimal-based, sum exactly to one and assign
+  rounding residue deterministically to the final due-date rule;
+- aging policies declare their date basis and define a gap-free, non-overlapping
+  partition; aging never performs impairment or provision calculations;
+- subledger reconciliation consumes an explicitly normalized GL control-account
+  balance and never infers account semantics from national code prefixes;
+- write-off intent requires explicit accounting-policy/proposal evidence and
+  never silently removes a residual balance;
 - control accounts resolve explicitly by entity, subledger, accounting date and
   optional party/currency dimensions, using the applicable versioned company
   chart; zero or ambiguous bindings fail closed;
@@ -297,37 +317,28 @@ RegulatoryReport → Validation → Export → Evidence
 Deterministic replay
 ```
 
-LOT-18 adds a distinct operational-accounting boundary without replacing the GL:
+LOT-18 establishes the distinct operational-accounting boundary, and LOT-19
+adds settlement operations without replacing the GL:
 
 ```text
-SubledgerDefinition + AccountingEntity
-              │
-              ▼
-        SubledgerParty
-              │
-     Receivable / Payable
-              │
-              ▼
-           DueItem
-              │
-     accounting effect POSTED
-              │
-              ▼
-           OpenItem
-              │
-              └────────► PostedAccountingReference ─────► JournalEntry (POSTED)
+Receivable / Payable ──────► DueItem ──────► OpenItem
+        │                      ▲                 │
+        │                      │                 │
+        │             SettlementAllocation      │
+        │                      ▲                 │
+        │                      │                 │
+        └──────────────── Settlement ────────────┘
+                              │
+                 PostedAccountingReference
+                              │
+                              ▼
+                    JournalEntry (POSTED)
 
-ControlAccountBinding
-      + accounting date / party / currency
-              │
-              ▼
-   ControlAccountResolverProtocol
-              │
-              ▼
-     CompanyChartResolverProtocol
-              │
-              ▼
- ResolvedControlAccount + chart/version/snapshot trace
+MatchingCandidate ── explicit validation ──► AccountingMatch
+PaymentTerm ────────────────────────────────► deterministic DueItems
+Open DueItems ── AgingPolicy ───────────────► AgingSnapshot
+OpenItems + ResolvedControlAccount
+        + normalized GL balance ────────────► SubledgerReconciliation
 ```
 
 The execution trace pins proposal checksum, policy versions, regulatory
@@ -336,20 +347,21 @@ explicit rather than inferred from current configuration. Financial report
 snapshots similarly pin their Trial Balance, statement-definition and
 mapping-set checksums. LOT-17 extends that evidence chain by pinning the
 regulatory profile, exact reference model, regulatory mappings, validation and
-export payload. LOT-18 reuses the same version-aware chart authority for control
-accounts rather than introducing a separate account-resolution source of truth.
+export payload. LOT-18/19 reuse the same version-aware chart authority for
+control accounts rather than introducing a separate account-resolution source
+of truth.
 
 ## Documentation
 
 Start with:
 
 - `docs/ROADMAP.md` for the lot sequence and release gates;
+- `docs/plans/LOT-19_SETTLEMENTS_ALLOCATIONS_MATCHING_AGING_IMPLEMENTATION_PLAN.md`
+  for the current `0.4.0a2` implementation contract;
 - `docs/plans/LOT-18_SUBLEDGER_FOUNDATIONS_IMPLEMENTATION_PLAN.md` for the
-  current `0.4.0a1` implementation contract;
+  preceding `0.4.0a1` foundation contract;
 - `docs/plans/RELEASE_0.3.0_STABLE_PROMOTION_PLAN.md` for the stable 0.3.0
   promotion contract;
-- `docs/plans/RELEASE_0.3.0_RC1_CROSS_LOT_QUALIFICATION_PLAN.md` for the 0.3.x
-  qualification evidence design;
 - `docs/plans/` for milestone-specific implementation plans;
 - `docs/specs/` for canonical requirements and ADRs;
 - `AGENTS.md` for the mandatory coding-agent workflow and repository-specific
@@ -433,9 +445,9 @@ Before committing or pushing a refactor:
 9. For regulatory reporting, resolve exact reference coordinates, keep hints
    non-executable until explicitly validated, preserve human-review flags and
    ensure renderers only serialize precomputed reports.
-10. For subledgers, keep parties/open items distinct from accounts/GL lines,
-    preserve operational/accounting state separation, and resolve control
-    accounts through version-aware bindings rather than national-code guesses.
+10. For subledgers, keep settlement/allocation/matching/reconciliation as
+    distinct concepts, preserve revision guards, never infer control accounts
+    from national code prefixes and never hide residuals as implicit write-offs.
 11. Run formatter, lint, typing, canonical tests, strict release qualification
     and relevant security checks before promoting a release.
 

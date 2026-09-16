@@ -11,23 +11,25 @@ specific regulatory dataset.
 ## Status
 
 PyAccountingKit is under active pre-1.0 development. The current package line is
-`0.3.0rc1`, the release-candidate qualification of the complete LOT-14 → LOT-17
-imports and reporting value chain on top of the qualified ledger, reference,
-chart and policy foundations.
+`0.3.0`, the stable imports/reporting milestone covering LOT-14 → LOT-17 on top
+of the qualified ledger, reference, chart and policy foundations.
 
-The public API is **not yet stable**. `0.3.0rc1` does not add a new accounting
-bounded context; it qualifies composition of the existing `0.3.x` capabilities
-from immutable FEC source evidence through explicit import planning, canonical
-posting, Trial Balance, financial statements, published `ReportSnapshot`,
-regulatory projection, validation, canonical export and checksummed evidence.
+The public API is **not yet frozen**. Stable `0.3.0` means the complete 0.3.x
+imports/reporting line has passed its canonical qualification gates; it does not
+imply a 1.0-style compatibility guarantee for every Python import path or symbol.
 
-The RC adds executable cross-lot integration and source-to-evidence replay
-qualification. Integration is part of the canonical Python 3.11/3.12/3.13 CI
-matrix, and `python scripts/qualify_release.py --release-candidate` fails closed
-if integration, golden, replay, concurrency, package or core qualification
-evidence is missing.
+`0.3.0` is a direct promotion of the qualified `0.3.0rc1` behavior. No new
+accounting, import, reporting or regulatory semantics are introduced during the
+stable promotion. The qualified composed path runs from immutable FEC source
+evidence through explicit import planning, canonical posting, Trial Balance,
+financial statements, published `ReportSnapshot`, regulatory projection,
+validation, canonical export and checksummed evidence.
 
-The PCG/FEC RC scenario qualifies the mechanics of that composed path; it does
+Cross-lot integration is part of the canonical Python 3.11/3.12/3.13 CI matrix,
+and the strict release qualification gate fails closed if integration, golden,
+replay, concurrency, package or core evidence is missing.
+
+The PCG/FEC scenario qualifies the mechanics of that composed path; it does
 **not** claim exhaustive statutory PCG templates, legal filing certification,
 DGFiP filing certification or regulator-submission compliance. SYSCOHADA remains
 qualified through the LOT-17 XOF golden/replay scenarios and is not presented as
@@ -108,7 +110,7 @@ accidents:
 - reference upgrades compare sealed model coordinates, preserve history and
   escalate risky structural/mapping changes to human review rather than silently
   rewriting prior execution semantics;
-- release-candidate qualification requires non-empty integration, golden, replay
+- strict release qualification requires non-empty integration, golden, replay
   and concurrency suites and cannot skip package or accounting tests.
 
 When a new invariant invalidates an old fixture, **fix the fixture or generator;
@@ -255,7 +257,7 @@ RegulatoryReportingProfile  ReferenceReportingModel  RegulatoryMappingSet
                     ReportEvidenceBundle
 ```
 
-`0.3.0rc1` qualifies the composed PCG/FEC path across both chains:
+`0.3.0` qualifies the composed PCG/FEC path across both chains:
 
 ```text
 FEC / SourceArtifact
@@ -282,17 +284,19 @@ explicit rather than inferred from current configuration. Financial report
 snapshots similarly pin their Trial Balance, statement-definition and
 mapping-set checksums. LOT-17 extends that evidence chain by pinning the
 regulatory profile, exact reference model, regulatory mappings, validation and
-export payload. The RC verifies that those independently qualified boundaries
-compose without introducing an alternative posting path or losing deterministic
-lineage.
+export payload. The stable 0.3.0 line verifies that those independently qualified
+boundaries compose without introducing an alternative posting path or losing
+deterministic lineage.
 
 ## Documentation
 
 Start with:
 
 - `docs/ROADMAP.md` for the lot sequence and release gates;
-- `docs/plans/RELEASE_0.3.0_RC1_CROSS_LOT_QUALIFICATION_PLAN.md` for the current
-  release-candidate contract;
+- `docs/plans/RELEASE_0.3.0_STABLE_PROMOTION_PLAN.md` for the stable promotion
+  contract;
+- `docs/plans/RELEASE_0.3.0_RC1_CROSS_LOT_QUALIFICATION_PLAN.md` for the RC
+  qualification evidence design;
 - `docs/plans/` for milestone-specific implementation plans;
 - `docs/specs/` for canonical requirements and ADRs;
 - `AGENTS.md` for the mandatory coding-agent workflow and repository-specific
@@ -333,7 +337,7 @@ python scripts/qualify_release.py
 # Extended development qualification: runs extended suites when present.
 python scripts/qualify_release.py --full
 
-# Release-candidate qualification: mandatory non-empty integration/golden/replay/
+# Strict release qualification: mandatory non-empty integration/golden/replay/
 # concurrency suites plus package verification; tests/package cannot be skipped.
 python scripts/qualify_release.py --release-candidate
 ```
@@ -376,8 +380,8 @@ Before committing or pushing a refactor:
 9. For regulatory reporting, resolve exact reference coordinates, keep hints
    non-executable until explicitly validated, preserve human-review flags and
    ensure renderers only serialize precomputed reports.
-10. Run formatter, lint, typing, canonical tests, release-candidate qualifier and
-    relevant security checks before promoting a release candidate.
+10. Run formatter, lint, typing, canonical tests, strict release qualification
+    and relevant security checks before promoting a release.
 
 The detailed coding-agent rules are maintained in `AGENTS.md`.
 

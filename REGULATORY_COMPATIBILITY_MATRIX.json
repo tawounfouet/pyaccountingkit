@@ -1,20 +1,20 @@
 {
-  "version": "0.3.0rc1",
+  "version": "0.3.0",
   "regulatory_frameworks": [
     {
       "framework": "PCG",
       "reference_layer": "golden-qualified",
       "company_chart_binding": "supported",
       "policy_layer": "partial-beta",
-      "generic_import_core": "source-format-neutral-rc-qualified",
-      "fec_adapter": "0.3.0rc1-cross-lot-qualified",
-      "financial_reporting": "generic-financial-statements-engine-rc-qualified",
-      "regulatory_reporting": "profile-model-mapping-validation-export-rc-qualified",
+      "generic_import_core": "source-format-neutral-stable-qualified",
+      "fec_adapter": "0.3.0-stable-cross-lot-qualified",
+      "financial_reporting": "generic-financial-statements-engine-stable-qualified",
+      "regulatory_reporting": "profile-model-mapping-validation-export-stable-qualified",
       "reference_resolution": "exact-snapshot",
       "regulatory_golden": "LOT-17-beta-qualified",
-      "release_candidate_cross_lot": "FEC-to-ledger-to-reporting-to-evidence-qualified",
+      "stable_cross_lot": "FEC-to-ledger-to-reporting-to-evidence-qualified",
       "export_renderer": "canonical-json-reference",
-      "notes": "Release 0.3.0rc1 qualifies the composed PCG/FEC mechanics from immutable source evidence through explicit import mapping, canonical posting, TrialBalance, financial statements, published ReportSnapshot, regulatory projection, validation, canonical export and evidence checksums, including deterministic replay. Reference account hints remain non-executable unless explicitly validated. This release candidate does not claim exhaustive statutory PCG templates, legal filing certification, DGFiP filing certification or authority-submission compliance."
+      "notes": "Release 0.3.0 promotes the 0.3.0rc1 PCG/FEC cross-lot qualification unchanged: immutable source evidence, explicit import mapping, canonical posting, TrialBalance, financial statements, published ReportSnapshot, regulatory projection, validation, canonical export and deterministic evidence replay. Reference account hints remain non-executable unless explicitly validated. Stable package status does not claim exhaustive statutory PCG templates, legal filing certification, DGFiP filing certification or authority-submission compliance."
     },
     {
       "framework": "SYSCOHADA",
@@ -26,9 +26,9 @@
       "regulatory_reporting": "profile-model-mapping-validation-export-beta",
       "reference_resolution": "exact-snapshot",
       "regulatory_golden": "LOT-17-beta-qualified",
-      "release_candidate_cross_lot": "not-exercised-via-FEC-source-path",
+      "stable_cross_lot": "not-exercised-via-FEC-source-path",
       "export_renderer": "canonical-json-reference",
-      "notes": "SYSCOHADA remains qualified through LOT-17 deterministic XOF golden and replay scenarios over published ReportSnapshot inputs with exact reference-model coordinates, validated mapping provenance, validation, canonical export and replayable evidence. The 0.3.0rc1 FEC source-to-evidence integration scenario is PCG-specific and is not presented as an equivalent SYSCOHADA ingestion qualification. Candidate/reference hints cannot execute silently. This milestone does not claim exhaustive official SYSCOHADA filing templates, legal certification or authority-submission compliance."
+      "notes": "SYSCOHADA remains qualified through LOT-17 deterministic XOF golden and replay scenarios over published ReportSnapshot inputs with exact reference-model coordinates, validated mapping provenance, validation, canonical export and replayable evidence. The 0.3.0 PCG/FEC source-to-evidence integration is not presented as an equivalent SYSCOHADA ingestion qualification. Candidate/reference hints cannot execute silently. Stable package status does not claim exhaustive official SYSCOHADA filing templates, legal certification or authority-submission compliance."
     }
   ]
 }

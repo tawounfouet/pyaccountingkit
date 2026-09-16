@@ -7,6 +7,51 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0a1] - 2026-09-16
+
+### Added
+- LOT-18 Subledger Foundations with explicit `SubledgerDefinition` and entity-scoped
+  `Subledger` instances.
+- `SubledgerParty`, `PartyRef` and `AuxiliaryReference` primitives that remain distinct from
+  `CompanyAccount` identity and never imply account-code concatenation.
+- Explicit auxiliary modes `SUBLEDGER`, `EXTENDED_ACCOUNT_CODE` and `HYBRID` without hardcoded
+  national account-number conventions.
+- `Receivable` and `Payable` aggregate roots with immutable due schedules, operational status
+  and separate accounting-effect status.
+- `DueItem` with strict positive-money, entity, parent and currency invariants; LOT-18 items
+  start fully open.
+- `OpenItem` projection derived from accounting-effective due items and deliberately distinct
+  from `JournalEntryLine`.
+- `PostedAccountingReference` linking subledger items to genuinely posted `JournalEntry`
+  effects without turning the subledger into a second ledger.
+- Effective-dated `AuxiliaryAccountingPolicy` with explicit lifecycle and optional mandatory
+  auxiliary-reference requirement.
+- Effective-dated `ControlAccountBinding`, `ControlAccountResolverProtocol` and
+  `InMemoryControlAccountResolver`.
+- Stable subledger error codes covering invalid configuration/items, due items, accounting
+  links, missing/ambiguous control accounts and auxiliary-policy execution.
+
+### Changed
+- Control-account resolution now reuses `CompanyChartResolverProtocol` so the applicable
+  entity/date chart version remains the single authority for company-account resolution.
+- Resolved control accounts preserve binding, chart, chart-version and reference-snapshot
+  traceability.
+- The regulatory compatibility matrix records LOT-18 only as a generic subledger foundation;
+  existing PCG/SYSCOHADA regulatory qualification claims are not broadened.
+
+### Qualification
+- `sum(due_item.original_amount) == receivable/payable.original_amount` is enforced and covered
+  by unit and property-based tests.
+- Cross-entity due items and accounting references fail closed.
+- Operational `OPEN` state does not imply a posted accounting effect; accounting-effective
+  items require an explicit posted-entry reference.
+- `OpenItem` creation is rejected before its parent is accounting-effective.
+- Control-account resolution qualifies most-specific context selection, exact effective-date
+  boundaries, absence/ambiguity, cross-entity isolation and missing/inactive/non-postable
+  accounts in the applicable chart version.
+- Settlement, allocation, matching/lettering, aging, write-offs and subledger reconciliation
+  are intentionally deferred to LOT-19+ and are not claimed by this alpha milestone.
+
 ## [0.3.0] - 2026-09-16
 
 ### Stable release

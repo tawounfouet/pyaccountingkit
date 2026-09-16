@@ -150,9 +150,7 @@ def test_pcg_regulatory_reporting_golden_projection() -> None:
         effective_from=date(2026, 1, 1),
     )
 
-    result = RegulatoryReportingService(
-        InMemoryReferenceReportingModelProvider((model,))
-    ).build(
+    result = RegulatoryReportingService(InMemoryReferenceReportingModelProvider((model,))).build(
         snapshot=snapshot,
         profile=profile,
         mapping_set=mappings,
@@ -160,9 +158,7 @@ def test_pcg_regulatory_reporting_golden_projection() -> None:
     )
 
     assert result.report.node("PCG_ASSETS").amount == Money.from_str("125000.00", EUR)
-    assert result.report.node("PCG_LIABILITIES_EQUITY").amount == Money.from_str(
-        "125000.00", EUR
-    )
+    assert result.report.node("PCG_LIABILITIES_EQUITY").amount == Money.from_str("125000.00", EUR)
     assert result.report.node("PCG_ASSETS").mapping_provenances == ("MANUAL",)
     assert result.report.node("PCG_ASSETS").account_hints_executable is False
     assert result.report.node("PCG_ASSETS").human_validation_required is True

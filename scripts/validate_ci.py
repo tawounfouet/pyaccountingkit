@@ -10,8 +10,8 @@ ROOT = Path(__file__).resolve().parents[1]
 CI_WORKFLOW = ROOT / ".github" / "workflows" / "ci.yml"
 SECURITY_WORKFLOW = ROOT / ".github" / "workflows" / "security.yml"
 TEST_COMMAND = (
-    "python -m pytest tests/unit tests/property tests/contract tests/golden "
-    "tests/replay tests/concurrency -v --tb=short"
+    "python -m pytest tests/unit tests/property tests/contract tests/integration "
+    "tests/golden tests/replay tests/concurrency -v --tb=short"
 )
 
 
@@ -132,7 +132,7 @@ def main() -> int:
     print("CI workflow validation: PASS")
     print("Canonical jobs: quality, test, package, ci-gate")
     print("Supported Python matrix: 3.11, 3.12, 3.13")
-    print("Qualified suites: unit, property, contract, golden, replay, concurrency")
+    print("Qualified suites: unit, property, contract, integration, golden, replay, concurrency")
     print("Security jobs: audit, sast")
     return 0
 

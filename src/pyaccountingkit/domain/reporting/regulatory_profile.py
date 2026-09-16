@@ -133,9 +133,7 @@ class RegulatoryReportingProfile:
             "status": self.status.value,
             "reference_snapshot_id": self.reference_snapshot_id,
             "reference_snapshot_checksum": self.reference_snapshot_checksum,
-            "financial_statement_definition_ids": sorted(
-                self.financial_statement_definition_ids
-            ),
+            "financial_statement_definition_ids": sorted(self.financial_statement_definition_ids),
             "regulatory_mapping_set_id": self.regulatory_mapping_set_id,
             "export_definition_ids": sorted(self.export_definition_ids),
             "effective_from": self.effective_from.isoformat(),

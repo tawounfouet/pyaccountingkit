@@ -13,7 +13,10 @@ from pyaccountingkit.core.entity_scope import require_same_entity
 from pyaccountingkit.core.identifiers import EntityId
 from pyaccountingkit.core.money import Money
 from pyaccountingkit.domain.subledgers.due_item import DueItem
-from pyaccountingkit.domain.subledgers.errors import InvalidAgingPolicyError, InvalidAgingSourceError
+from pyaccountingkit.domain.subledgers.errors import (
+    InvalidAgingPolicyError,
+    InvalidAgingSourceError,
+)
 from pyaccountingkit.domain.subledgers.payable import Payable
 from pyaccountingkit.domain.subledgers.receivable import Receivable
 
@@ -245,7 +248,9 @@ class AgingEngine:
                 else source.accounting_date
             )
             age_days = (as_of - basis_date).days
-            matches = tuple(bucket for bucket in policy.ordered_buckets if bucket.contains(age_days))
+            matches = tuple(
+                bucket for bucket in policy.ordered_buckets if bucket.contains(age_days)
+            )
             if len(matches) != 1:
                 raise InvalidAgingPolicyError(
                     f"aging policy must assign source {source_key!r} to exactly one bucket"

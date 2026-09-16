@@ -10,7 +10,10 @@ from pyaccountingkit.core.entity_scope import require_same_entity
 from pyaccountingkit.core.identifiers import EntityId
 from pyaccountingkit.core.money import Money
 from pyaccountingkit.domain.subledgers.due_item import DueItem
-from pyaccountingkit.domain.subledgers.errors import InvalidSettlementError, InvalidSubledgerItemError
+from pyaccountingkit.domain.subledgers.errors import (
+    InvalidSettlementError,
+    InvalidSubledgerItemError,
+)
 from pyaccountingkit.domain.subledgers.payable import Payable
 from pyaccountingkit.domain.subledgers.primitives import OperationalItemStatus
 from pyaccountingkit.domain.subledgers.receivable import Receivable
@@ -129,7 +132,9 @@ class SettlementAllocationService:
     ) -> AllocationResult:
         self._validate_scope(settlement, subledger_item)
         if allocation.status is AllocationStatus.REVERSED:
-            raise InvalidSettlementError(f"allocation {allocation.allocation_id!r} is already reversed")
+            raise InvalidSettlementError(
+                f"allocation {allocation.allocation_id!r} is already reversed"
+            )
         if allocation.settlement_id != settlement.settlement_id:
             raise InvalidSettlementError("allocation belongs to a different settlement")
         if allocation.source_item_id != _item_id(subledger_item):

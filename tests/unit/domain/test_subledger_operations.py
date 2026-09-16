@@ -442,6 +442,4 @@ def test_settlement_accounting_reference_is_entity_scoped() -> None:
         source_reference="bank:entity",
     )
     with pytest.raises(EntityScopeMismatchError):
-        settlement.link_posted_accounting(
-            _posted_reference("entry:other", entity_id=OTHER_ENTITY)
-        )
+        settlement.link_posted_accounting(_posted_reference("entry:other", entity_id=OTHER_ENTITY))

@@ -79,7 +79,9 @@ class Settlement:
             raise InvalidSettlementError("FULLY_ALLOCATED settlement must have zero open amount")
         if self.status is SettlementStatus.REVERSED:
             if self.open_amount != self.amount:
-                raise InvalidSettlementError("REVERSED settlement must have all allocations restored")
+                raise InvalidSettlementError(
+                    "REVERSED settlement must have all allocations restored"
+                )
             if not self.reversed_by_id:
                 raise InvalidSettlementError("REVERSED settlement requires reversed_by_id")
         elif self.reversed_by_id is not None:

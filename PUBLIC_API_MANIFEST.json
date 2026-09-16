@@ -1,8 +1,8 @@
 {
-  "version": "0.3.0b2",
+  "version": "0.3.0rc1",
   "public_api": {
-    "stability": "internal-beta",
+    "stability": "pre-1.0-release-candidate",
     "stable_exports": [],
-    "note": "LOT-17 adds deterministic regulatory reporting over published ReportSnapshot inputs: versioned profiles, exact reference reporting models, validated regulatory mappings, deterministic validation, canonical export rendering, evidence bundles and reference-upgrade impact plans. Public API remains intentionally unfrozen before the release-candidate line."
+    "note": "Release 0.3.0rc1 qualifies the composed imports-to-reporting value chain without freezing the public API: FEC source evidence and explicit import mappings flow through the canonical PostingOrchestrator into the ledger, TrialBalance, FinancialStatementEngine, published ReportSnapshot, regulatory projection, validation, export and evidence bundle. Cross-lot replay is deterministic and integration is mandatory in the canonical Python 3.11/3.12/3.13 CI matrix. Public API remains intentionally unfrozen before 1.0."
   }
 }

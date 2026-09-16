@@ -49,6 +49,43 @@ def test_qualifier_help_is_available() -> None:
     assert result.returncode == 0
     assert "--skip-tests" in result.stdout
     assert "--skip-package" in result.stdout
+    assert "--release-candidate" in result.stdout
+
+
+@pytest.mark.parametrize(
+    ("skip_flag", "expected"),
+    (
+        ("--skip-tests", "cannot skip tests"),
+        ("--skip-package", "cannot skip package verification"),
+    ),
+)
+def test_release_candidate_qualifier_rejects_skipped_evidence(
+    skip_flag: str,
+    expected: str,
+) -> None:
+    result = _run(
+        sys.executable,
+        "scripts/qualify_release.py",
+        "--release-candidate",
+        skip_flag,
+    )
+    assert result.returncode == 1
+    assert expected in result.stderr
+
+
+def test_release_candidate_contract_requires_every_extended_suite(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    module = _load_qualifier()
+    for relative in ("tests/golden", "tests/replay", "tests/concurrency"):
+        directory = tmp_path / relative
+        directory.mkdir(parents=True)
+        (directory / "test_present.py").write_text("def test_present(): pass\n", encoding="utf-8")
+
+    monkeypatch.setattr(module, "ROOT", tmp_path)
+    with pytest.raises(module.QualificationError, match="tests/integration"):
+        module.validate_release_candidate_contract(skip_tests=False, skip_package=False)
 
 
 def test_manifest_gate_rejects_version_drift(

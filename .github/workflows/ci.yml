@@ -52,7 +52,7 @@ jobs:
       - name: Install development tooling
         run: python -m pip install -e ".[dev]"
       - name: Run accounting qualification test suites
-        run: python -m pytest tests/unit tests/property tests/contract tests/golden tests/replay tests/concurrency -v --tb=short
+        run: python -m pytest tests/unit tests/property tests/contract tests/integration tests/golden tests/replay tests/concurrency -v --tb=short
 
   package:
     name: Package qualification

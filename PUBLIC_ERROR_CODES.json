@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0b1",
+  "version": "0.3.0b2",
   "error_codes": {
     "ENTITY_SCOPE_MISMATCH": "EntityScopeMismatchError",
     "ENTRY_UNBALANCED": "UnbalancedEntryError",
@@ -43,6 +43,20 @@
     "REPORTING_MAPPING_ERROR": "StatementMappingError",
     "REPORTING_MAPPING_NOT_EXECUTABLE": "NonExecutableStatementMappingError",
     "REPORTING_INVALID_SOURCE": "StatementSourceError",
-    "REPORTING_CONTROL_FAILED": "StatementControlError"
+    "REPORTING_CONTROL_FAILED": "StatementControlError",
+    "REGULATORY_REPORTING_ERROR": "RegulatoryReportingError",
+    "REGULATORY_PROFILE_ERROR": "RegulatoryProfileError",
+    "REGULATORY_PROFILE_NOT_ACTIVE": "RegulatoryProfileNotActiveError",
+    "REGULATORY_PROFILE_NOT_EFFECTIVE": "RegulatoryProfileNotEffectiveError",
+    "REGULATORY_REFERENCE_MISMATCH": "RegulatoryReferenceMismatchError",
+    "REGULATORY_MODEL_NOT_FOUND": "RegulatoryModelNotFoundError",
+    "REGULATORY_MAPPING_ERROR": "RegulatoryMappingError",
+    "REGULATORY_MAPPING_NOT_EXECUTABLE": "NonExecutableRegulatoryMappingError",
+    "REGULATORY_MAPPING_INCOMPLETE": "IncompleteRegulatoryMappingError",
+    "REGULATORY_VALIDATION_FAILED": "RegulatoryValidationError",
+    "REGULATORY_EXPORT_FAILED": "RegulatoryExportError",
+    "REGULATORY_EXPORT_INCOMPATIBLE": "RegulatoryExportIncompatibleError",
+    "REGULATORY_EVIDENCE_MISMATCH": "RegulatoryEvidenceMismatchError",
+    "REGULATORY_UPGRADE_REVIEW_REQUIRED": "RegulatoryUpgradeReviewRequiredError"
   }
 }

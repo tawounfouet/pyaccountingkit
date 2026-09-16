@@ -7,6 +7,49 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0b2] - 2026-09-16
+
+### Added
+- Regulatory Reporting read-side (LOT-17) built exclusively from published immutable
+  `ReportSnapshot` inputs; no regulatory component writes back to the ledger.
+- Versioned/effective-dated `RegulatoryReportingProfile` pinning framework, jurisdiction,
+  edition, reference snapshot id/checksum, financial-statement definitions, mapping set and
+  export definitions.
+- `ReferenceReportingModel` with deterministic hierarchy, official reporting nodes and
+  explicitly non-executable account hints requiring human validation where declared.
+- Exact-coordinate `ReferenceReportingModelProviderProtocol` and in-memory reference adapter;
+  snapshot/framework/edition/model lookup fails closed instead of resolving an implicit
+  `latest` model.
+- Versioned `RegulatoryMappingSet` and `RegulatoryStatementMapping` lifecycle with explicit
+  provenance, allocation and candidate/review/validated states.
+- Immutable `RegulatoryReport` and deterministic `RegulatoryValidationReport` including
+  blocking rules for unmapped required nodes, human-review preservation and reference-hint
+  execution safety.
+- `RegulatoryExportDefinition`, canonical JSON renderer, checksummed export artifact and
+  checksummed `ReportEvidenceBundle` sealing the report, validation and export chain.
+- Deterministic `ReferenceUpgradePlan` describing model changes, impacted mappings and
+  human-review escalation without rewriting historical execution coordinates.
+- PCG/EUR and SYSCOHADA/XOF regulatory golden scenarios plus end-to-end replay qualification.
+- Stable regulatory reporting error codes and adapter-contract metadata.
+
+### Changed
+- `ReportSnapshot` now seals `as_of` in its checksum so effective-dated regulatory execution
+  can be replayed against the exact historical accounting date.
+- Regulatory compatibility metadata now distinguishes exact-snapshot regulatory reporting
+  mechanics from any claim of statutory filing or authority-submission compliance.
+
+### Qualification
+- Regulatory report, validation, canonical export payload and evidence checksums replay
+  deterministically from the same pinned inputs even when export timestamps and generated
+  technical IDs differ.
+- Candidate mappings and `REFERENCE_HINT` metadata cannot execute silently as validated
+  mappings; human-validation requirements survive the projection boundary.
+- PCG and SYSCOHADA golden scenarios are qualified as reference reporting projections, not as
+  certification of exhaustive official templates, legal filing compliance or regulator
+  submission readiness.
+- CI qualifies unit, property, contract, golden, replay and concurrency suites on Python 3.11,
+  3.12 and 3.13; package and Security gates are part of the release qualification.
+
 ## [0.3.0b1] - 2026-09-15
 
 ### Added

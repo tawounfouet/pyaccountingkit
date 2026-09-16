@@ -38,7 +38,11 @@ def validate_item(
 
     total = Money.zero(original_amount.currency)
     for due_item in due_items:
-        require_same_entity(entity_id, due_item.entity_id, resource=f"due item {due_item.due_item_id}")
+        require_same_entity(
+            entity_id,
+            due_item.entity_id,
+            resource=f"due item {due_item.due_item_id}",
+        )
         if due_item.source_subledger_item_id != item_id:
             raise InvalidSubledgerItemError(
                 f"due item {due_item.due_item_id!r} targets a different parent item"

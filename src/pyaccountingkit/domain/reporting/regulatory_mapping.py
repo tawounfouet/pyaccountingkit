@@ -72,9 +72,7 @@ class RegulatoryStatementMapping:
         if self.effective_to is not None and self.effective_to < self.effective_from:
             raise RegulatoryMappingError("mapping effective_to cannot precede effective_from")
         if self.review_required and self.status is RegulatoryMappingStatus.VALIDATED:
-            raise RegulatoryMappingError(
-                "review-required regulatory mappings cannot be validated"
-            )
+            raise RegulatoryMappingError("review-required regulatory mappings cannot be validated")
         if (
             self.provenance is RegulatoryMappingProvenance.REFERENCE_HINT
             and self.status is RegulatoryMappingStatus.VALIDATED

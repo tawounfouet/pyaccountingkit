@@ -55,7 +55,9 @@ class PaymentTerm:
         if len(set(orders)) != len(orders):
             raise InvalidPaymentTermError("payment-term rule orders must be unique")
         if sum((rule.allocation for rule in self.rules), start=_ZERO) != _ONE:
-            raise InvalidPaymentTermError("payment-term allocations must sum exactly to Decimal('1')")
+            raise InvalidPaymentTermError(
+                "payment-term allocations must sum exactly to Decimal('1')"
+            )
 
     @property
     def ordered_rules(self) -> tuple[DueDateRule, ...]:

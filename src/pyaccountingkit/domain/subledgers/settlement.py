@@ -41,6 +41,7 @@ class Settlement:
     status: SettlementStatus = SettlementStatus.OPEN
     accounting_status: AccountingEffectStatus = AccountingEffectStatus.PENDING
     accounting_reference: PostedAccountingReference | None = None
+    reversal_accounting_reference: PostedAccountingReference | None = None
     revision: int = 0
     reversed_by_id: str | None = None
 
@@ -62,6 +63,10 @@ class Settlement:
             raise InvalidSettlementError("settlement open amount must be between zero and amount")
         if self.revision < 0:
             raise InvalidSettlementError("settlement revision cannot be negative")
+        self._validate_operational_status()
+        self._validate_accounting_status()
+
+    def _validate_operational_status(self) -> None:
         if self.status is SettlementStatus.OPEN and self.open_amount != self.amount:
             raise InvalidSettlementError("OPEN settlement must be fully unallocated")
         if self.status is SettlementStatus.PARTIALLY_ALLOCATED and (
@@ -72,25 +77,57 @@ class Settlement:
             )
         if self.status is SettlementStatus.FULLY_ALLOCATED and not self.open_amount.is_zero():
             raise InvalidSettlementError("FULLY_ALLOCATED settlement must have zero open amount")
-        if self.status is SettlementStatus.REVERSED and self.open_amount != self.amount:
-            raise InvalidSettlementError("REVERSED settlement must have all allocations restored")
+        if self.status is SettlementStatus.REVERSED:
+            if self.open_amount != self.amount:
+                raise InvalidSettlementError("REVERSED settlement must have all allocations restored")
+            if not self.reversed_by_id:
+                raise InvalidSettlementError("REVERSED settlement requires reversed_by_id")
+        elif self.reversed_by_id is not None:
+            raise InvalidSettlementError("only REVERSED settlement can carry reversed_by_id")
+
+    def _validate_accounting_status(self) -> None:
         if self.accounting_status is AccountingEffectStatus.PENDING:
             if self.accounting_reference is not None:
                 raise InvalidSettlementError("PENDING settlement cannot carry posted accounting")
-        elif self.accounting_reference is None:
+            if self.reversal_accounting_reference is not None:
+                raise InvalidSettlementError("PENDING settlement cannot carry reversal accounting")
+            if self.status is SettlementStatus.REVERSED:
+                raise InvalidSettlementError("REVERSED settlement cannot have PENDING accounting")
+            return
+
+        if self.accounting_reference is None:
             raise InvalidSettlementError(
                 f"{self.accounting_status.value} settlement requires posted accounting reference"
             )
-        if self.accounting_reference is not None:
+        require_same_entity(
+            self.entity_id,
+            self.accounting_reference.entity_id,
+            resource="settlement posted accounting reference",
+        )
+
+        if self.accounting_status is AccountingEffectStatus.POSTED:
+            if self.reversal_accounting_reference is not None:
+                raise InvalidSettlementError("POSTED settlement cannot carry reversal accounting")
+            if self.status is SettlementStatus.REVERSED:
+                raise InvalidSettlementError("REVERSED settlement requires REVERSED accounting")
+            return
+
+        if self.accounting_status is AccountingEffectStatus.REVERSED:
+            if self.status is not SettlementStatus.REVERSED:
+                raise InvalidSettlementError("REVERSED accounting requires REVERSED settlement")
+            if self.reversal_accounting_reference is None:
+                raise InvalidSettlementError(
+                    "REVERSED settlement requires explicit reversal accounting reference"
+                )
             require_same_entity(
                 self.entity_id,
-                self.accounting_reference.entity_id,
-                resource="settlement posted accounting reference",
+                self.reversal_accounting_reference.entity_id,
+                resource="settlement reversal accounting reference",
             )
-        if self.status is SettlementStatus.REVERSED and not self.reversed_by_id:
-            raise InvalidSettlementError("REVERSED settlement requires reversed_by_id")
-        if self.status is not SettlementStatus.REVERSED and self.reversed_by_id is not None:
-            raise InvalidSettlementError("only REVERSED settlement can carry reversed_by_id")
+            if self.reversal_accounting_reference.entry_id == self.accounting_reference.entry_id:
+                raise InvalidSettlementError(
+                    "settlement reversal must reference a distinct posted journal entry"
+                )
 
     @classmethod
     def create(
@@ -182,10 +219,21 @@ class Settlement:
         restored = self.open_amount + amount
         if restored.compare(self.amount) > 0:
             raise InvalidSettlementError("restoring allocation would exceed settlement amount")
-        status = SettlementStatus.OPEN if restored == self.amount else SettlementStatus.PARTIALLY_ALLOCATED
+        status = (
+            SettlementStatus.OPEN
+            if restored == self.amount
+            else SettlementStatus.PARTIALLY_ALLOCATED
+        )
         return replace(self, open_amount=restored, status=status, revision=self.revision + 1)
 
-    def mark_reversed(self, reversal_id: str) -> Settlement:
+    def mark_reversed(
+        self,
+        *,
+        reversal_id: str,
+        accounting_reversal_reference: PostedAccountingReference,
+        expected_revision: int | None = None,
+    ) -> Settlement:
+        self._check_revision(expected_revision)
         if self.status is SettlementStatus.REVERSED:
             raise SettlementAlreadyReversedError(
                 f"settlement {self.settlement_id!r} is already reversed"
@@ -194,14 +242,24 @@ class Settlement:
             raise InvalidSettlementError("reversal_id must not be empty")
         if self.open_amount != self.amount:
             raise InvalidSettlementError("all active allocations must be restored before reversal")
-        if not self.accounting_effective:
+        if not self.accounting_effective or self.accounting_reference is None:
             raise SettlementNotAccountingEffectiveError(
                 "posted settlement accounting must be reversed explicitly"
+            )
+        require_same_entity(
+            self.entity_id,
+            accounting_reversal_reference.entity_id,
+            resource="settlement reversal accounting reference",
+        )
+        if accounting_reversal_reference.entry_id == self.accounting_reference.entry_id:
+            raise InvalidSettlementError(
+                "settlement reversal must reference a distinct posted journal entry"
             )
         return replace(
             self,
             status=SettlementStatus.REVERSED,
             accounting_status=AccountingEffectStatus.REVERSED,
+            reversal_accounting_reference=accounting_reversal_reference,
             revision=self.revision + 1,
             reversed_by_id=reversal_id,
         )

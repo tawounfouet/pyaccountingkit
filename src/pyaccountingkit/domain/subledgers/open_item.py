@@ -108,7 +108,11 @@ class OpenItem:
             )
         if due_item not in due_items or due_item.source_subledger_item_id != item_id:
             raise InvalidSubledgerItemError("due item does not belong to the requested parent")
-        require_same_entity(entity_id, due_item.entity_id, resource=f"due item {due_item.due_item_id}")
+        require_same_entity(
+            entity_id,
+            due_item.entity_id,
+            resource=f"due item {due_item.due_item_id}",
+        )
         return cls(
             open_item_id=open_item_id,
             entity_id=entity_id,

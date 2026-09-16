@@ -22,7 +22,6 @@ from pyaccountingkit.domain.subledgers.errors import (
     InvalidSettlementError,
     InvalidSubledgerItemError,
 )
-from pyaccountingkit.domain.subledgers.payable import Payable
 from pyaccountingkit.domain.subledgers.receivable import Receivable
 from pyaccountingkit.domain.subledgers.settlement import Settlement
 

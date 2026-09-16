@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import date, datetime, timezone
+from datetime import UTC, date, datetime
 
 import pytest
 
@@ -57,7 +57,7 @@ def _posted_reference(entity_id: EntityId = ENTITY) -> PostedAccountingReference
     return PostedAccountingReference(
         entity_id=entity_id,
         entry_id=EntryId("entry:posted"),
-        posted_at=datetime(2026, 9, 16, 8, 0, tzinfo=timezone.utc),
+        posted_at=datetime(2026, 9, 16, 8, 0, tzinfo=UTC),
     )
 
 
@@ -221,7 +221,7 @@ def test_posted_accounting_reference_rejects_draft_entry() -> None:
 
 
 def test_posted_accounting_reference_accepts_posted_entry() -> None:
-    posted_at = datetime(2026, 9, 16, 8, 0, tzinfo=timezone.utc)
+    posted_at = datetime(2026, 9, 16, 8, 0, tzinfo=UTC)
     reference = PostedAccountingReference.from_posted_entry(
         _entry(status=EntryStatus.POSTED, posted_at=posted_at),
         entry_entity_id=ENTITY,

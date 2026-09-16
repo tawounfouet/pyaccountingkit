@@ -25,9 +25,9 @@ from pyaccountingkit.domain.subledgers.due_item import DueItem
 from pyaccountingkit.domain.subledgers.matching import (
     AccountingMatch,
     AccountingMatchItem,
+    MatchingCandidate,
     MatchSide,
     MatchStatus,
-    MatchingCandidate,
 )
 from pyaccountingkit.domain.subledgers.open_item import OpenItem
 from pyaccountingkit.domain.subledgers.parties import PartyRef, SubledgerParty

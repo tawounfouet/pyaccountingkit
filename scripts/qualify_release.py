@@ -15,6 +15,13 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
+_RC_TEST_SUITES: tuple[tuple[str, str], ...] = (
+    ("tests/integration", "Integration test suite"),
+    ("tests/golden", "Golden test suite"),
+    ("tests/replay", "Replay test suite"),
+    ("tests/concurrency", "Concurrency test suite"),
+)
+
 
 @dataclass(frozen=True)
 class GateResult:
@@ -109,13 +116,38 @@ def _has_tests(relative_path: str) -> bool:
     return path.is_dir() and any(path.rglob("test_*.py"))
 
 
+def validate_release_candidate_contract(
+    *,
+    skip_tests: bool,
+    skip_package: bool,
+) -> None:
+    """Fail closed when a release candidate omits mandatory qualification evidence."""
+    if skip_tests:
+        raise QualificationError("release-candidate qualification cannot skip tests")
+    if skip_package:
+        raise QualificationError("release-candidate qualification cannot skip package verification")
+    missing = [path for path, _ in _RC_TEST_SUITES if not _has_tests(path)]
+    if missing:
+        joined = ", ".join(missing)
+        raise QualificationError(
+            f"release-candidate qualification requires non-empty test suites: {joined}"
+        )
+
+
 def qualify(
     *,
     skip_tests: bool,
     skip_package: bool,
     full: bool,
+    release_candidate: bool = False,
 ) -> list[GateResult]:
     """Execute the deterministic qualification sequence."""
+    if release_candidate:
+        validate_release_candidate_contract(
+            skip_tests=skip_tests,
+            skip_package=skip_package,
+        )
+
     results: list[GateResult] = []
     results.append(run_command(["bash", "scripts/check_hygiene.sh"], label="Repository hygiene"))
     results.append(
@@ -174,15 +206,14 @@ def qualify(
                 label="Core deterministic test suite",
             )
         )
-        if full:
-            for path, label in (
-                ("tests/integration", "Integration test suite"),
-                ("tests/golden", "Golden test suite"),
-                ("tests/replay", "Replay test suite"),
-                ("tests/concurrency", "Concurrency test suite"),
-            ):
+        if full or release_candidate:
+            for path, label in _RC_TEST_SUITES:
                 if _has_tests(path):
                     results.append(_pytest_gate([path], label=label))
+                elif release_candidate:
+                    raise QualificationError(
+                        f"{label} is mandatory for a release candidate but {path} is empty"
+                    )
                 else:
                     print(f"\n== {label} ==")
                     print(f"{label}: NOT APPLICABLE (no tests collected in {path})")
@@ -208,6 +239,14 @@ def main() -> int:
         action="store_true",
         help="Add integration/golden/replay/concurrency suites when present.",
     )
+    parser.add_argument(
+        "--release-candidate",
+        action="store_true",
+        help=(
+            "Require package verification plus non-empty integration, golden, replay and "
+            "concurrency suites; no qualification evidence may be skipped."
+        ),
+    )
     args = parser.parse_args()
 
     try:
@@ -215,15 +254,22 @@ def main() -> int:
             skip_tests=args.skip_tests,
             skip_package=args.skip_package,
             full=args.full,
+            release_candidate=args.release_candidate,
         )
     except QualificationError as exc:
         print(f"\nRelease qualification: FAIL: {exc}", file=sys.stderr)
         return 1
 
     total = sum(result.duration_seconds for result in results)
+    if args.release_candidate:
+        mode = "RELEASE_CANDIDATE"
+    elif args.full:
+        mode = "FULL"
+    else:
+        mode = "CORE"
     print("\nRelease qualification: PASS")
     print(f"Project version: {project_version()}")
-    print(f"Mode: {'FULL' if args.full else 'CORE'}")
+    print(f"Mode: {mode}")
     print(f"Gates passed: {len(results)}")
     print(f"Aggregate gate time: {total:.2f}s")
     if args.skip_tests:

@@ -111,7 +111,8 @@ def test_settlement_allocation_preserves_open_plus_allocated_identity(
 
     assert result.settlement.allocated_amount + result.settlement.open_amount == amount
     updated_due = result.subledger_item.due_items[0]
-    assert (updated_due.original_amount - updated_due.open_amount) + updated_due.open_amount == amount
+    allocated_due = updated_due.original_amount - updated_due.open_amount
+    assert allocated_due + updated_due.open_amount == amount
 
 
 @given(total_cents=st.integers(min_value=3, max_value=10_000_000))

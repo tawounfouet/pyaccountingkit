@@ -41,7 +41,8 @@ class DueItem:
             raise InvalidDueItemError("due item revision cannot be negative")
         if self.revision == 0 and self.open_amount != self.original_amount:
             raise InvalidDueItemError(
-                "new due items must start fully open; partial state requires an allocation transition"
+                "new due items must start fully open; partial state requires an "
+                "allocation transition"
             )
 
     @property
@@ -103,7 +104,9 @@ class DueItem:
 
     def _check_transition_amount(self, amount: Money) -> None:
         if amount.currency != self.original_amount.currency:
-            raise InvalidDueItemError("allocation/restoration currency must match due item currency")
+            raise InvalidDueItemError(
+                "allocation/restoration currency must match due item currency"
+            )
         if amount.amount <= 0:
             raise InvalidDueItemError("allocation/restoration amount must be strictly positive")
 

@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0b2",
+  "version": "0.3.0rc1",
   "adapter_contracts": {
     "unit_of_work": {
       "port": "UnitOfWorkProtocol",
@@ -38,6 +38,7 @@
       "source_format_neutral": true,
       "posting_path": "PostingOrchestrator",
       "specialized_adapters": ["FECAdapter"],
+      "release_candidate_qualification": "source-to-evidence-cross-lot",
       "fec_fr": {
         "adapter": "FECAdapter",
         "adapter_version": "0.3.0a2",
@@ -48,7 +49,7 @@
         "duplicate_strategy": "warn-only-row-hash",
         "transaction_modes": ["ALL_OR_NOTHING", "PER_ITEM", "CHUNKED_ATOMIC"],
         "posting_path": "PostingOrchestrator",
-        "qualification": "LOT-15-alpha"
+        "qualification": "0.3.0rc1-cross-lot-qualified"
       }
     },
     "reference_reporting_model": {
@@ -62,7 +63,7 @@
       ],
       "resolution": "exact-only",
       "fail_closed": true,
-      "qualification": "LOT-17-beta"
+      "qualification": "0.3.0rc1-cross-lot-qualified"
     },
     "regulatory_renderer": {
       "port": "RegulatoryRendererProtocol",
@@ -70,7 +71,7 @@
       "input": "precomputed-RegulatoryReport",
       "recalculates_accounting": false,
       "deterministic_payload": true,
-      "qualification": "LOT-17-beta"
+      "qualification": "0.3.0rc1-cross-lot-qualified"
     }
   }
 }

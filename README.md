@@ -11,19 +11,22 @@ specific regulatory dataset.
 ## Status
 
 PyAccountingKit is under active pre-1.0 development. The current package line is
-`0.3.0`, the stable imports/reporting milestone covering LOT-14 → LOT-17 on top
-of the qualified ledger, reference, chart and policy foundations.
+`0.4.0a1`, introducing `LOT-18 — Subledger Foundations` on top of the stable
+`0.3.0` imports/reporting baseline and the qualified ledger, reference, chart and
+policy foundations.
 
-The public API is **not yet frozen**. Stable `0.3.0` means the complete 0.3.x
-imports/reporting line has passed its canonical qualification gates; it does not
-imply a 1.0-style compatibility guarantee for every Python import path or symbol.
+The public API is **not yet frozen**. `0.4.0a1` is an alpha foundation for
+operational/auxiliary accounting: entity-scoped subledgers and parties,
+receivables/payables with due schedules, explicit open-item projections,
+versioned auxiliary policies and fail-closed control-account resolution. It does
+not yet provide settlement allocation, matching/lettering, aging, write-offs or
+subledger-to-GL reconciliation; those remain LOT-19+ scope.
 
-`0.3.0` is a direct promotion of the qualified `0.3.0rc1` behavior. No new
-accounting, import, reporting or regulatory semantics are introduced during the
-stable promotion. The qualified composed path runs from immutable FEC source
-evidence through explicit import planning, canonical posting, Trial Balance,
-financial statements, published `ReportSnapshot`, regulatory projection,
-validation, canonical export and checksummed evidence.
+Stable `0.3.0` remains the qualified imports/reporting baseline. Its composed
+PCG/FEC path runs from immutable source evidence through explicit import
+planning, canonical posting, Trial Balance, financial statements, published
+`ReportSnapshot`, regulatory projection, validation, canonical export and
+checksummed evidence.
 
 Cross-lot integration is part of the canonical Python 3.11/3.12/3.13 CI matrix,
 and the strict release qualification gate fails closed if integration, golden,
@@ -47,8 +50,8 @@ accidents:
 - monetary arithmetic uses `Decimal`; business code must never introduce
   binary floating-point arithmetic;
 - every accounting operation is scoped to exactly one `AccountingEntity`;
-  cross-entity chart, journal, period, policy, mapping or account usage must fail
-  closed;
+  cross-entity chart, journal, period, policy, mapping, account or subledger
+  usage must fail closed;
 - a journal line with both debit and credit equal to zero is invalid and must
   never be made constructible merely to satisfy an old test fixture;
 - journal entries and journal-entry proposals must be balanced before posting;
@@ -110,6 +113,21 @@ accidents:
 - reference upgrades compare sealed model coordinates, preserve history and
   escalate risky structural/mapping changes to human review rather than silently
   rewriting prior execution semantics;
+- a subledger is not a General Ledger and never becomes an alternate posting
+  engine;
+- `SubledgerParty` is not `CompanyAccount`, and `AuxiliaryReference` is not an
+  implicitly concatenated account code;
+- `OpenItem` is an auxiliary projection from a `DueItem`, not a
+  `JournalEntryLine` alias;
+- operational item state and accounting-effect state are independent;
+- a receivable/payable becomes accounting-effective only through an explicit
+  `PostedAccountingReference` to a genuinely posted entry;
+- due schedules are entity/currency consistent and must reconcile exactly to
+  the receivable/payable original amount;
+- LOT-18 due items start fully open; settlement mutations belong to LOT-19;
+- control accounts resolve explicitly by entity, subledger, accounting date and
+  optional party/currency dimensions, using the applicable versioned company
+  chart; zero or ambiguous bindings fail closed;
 - strict release qualification requires non-empty integration, golden, replay
   and concurrency suites and cannot skip package or accounting tests.
 
@@ -132,12 +150,13 @@ Main areas:
 
 - `src/pyaccountingkit/core/` — primitives such as money, currency, clock,
   identifiers, revisions, idempotency and entity-scope guards;
-- `src/pyaccountingkit/domain/` — pure accounting model, policies, imports and
-  financial/regulatory reporting projections;
+- `src/pyaccountingkit/domain/` — pure accounting model, policies, imports,
+  subledgers and financial/regulatory reporting projections;
 - `src/pyaccountingkit/application/` — use cases and transactional/read-side
   orchestration;
 - `src/pyaccountingkit/ports/` — repository, unit-of-work, chart-resolution,
-  account-role-resolution, import, regulatory-model and renderer contracts;
+  account-role/control-account-resolution, import, regulatory-model and renderer
+  contracts;
 - `src/pyaccountingkit/adapters/` — in-memory, source and presentation adapters,
   including the French FEC adapter and canonical regulatory JSON renderer;
 - `docs/` — specifications, ADRs, plans and roadmap; architectural decisions
@@ -278,24 +297,58 @@ RegulatoryReport → Validation → Export → Evidence
 Deterministic replay
 ```
 
+LOT-18 adds a distinct operational-accounting boundary without replacing the GL:
+
+```text
+SubledgerDefinition + AccountingEntity
+              │
+              ▼
+        SubledgerParty
+              │
+     Receivable / Payable
+              │
+              ▼
+           DueItem
+              │
+     accounting effect POSTED
+              │
+              ▼
+           OpenItem
+              │
+              └────────► PostedAccountingReference ─────► JournalEntry (POSTED)
+
+ControlAccountBinding
+      + accounting date / party / currency
+              │
+              ▼
+   ControlAccountResolverProtocol
+              │
+              ▼
+     CompanyChartResolverProtocol
+              │
+              ▼
+ ResolvedControlAccount + chart/version/snapshot trace
+```
+
 The execution trace pins proposal checksum, policy versions, regulatory
 snapshots, company-chart version and resolved accounts so historical replay is
 explicit rather than inferred from current configuration. Financial report
 snapshots similarly pin their Trial Balance, statement-definition and
 mapping-set checksums. LOT-17 extends that evidence chain by pinning the
 regulatory profile, exact reference model, regulatory mappings, validation and
-export payload. The stable 0.3.0 line verifies that those independently qualified
-boundaries compose without introducing an alternative posting path or losing
-deterministic lineage.
+export payload. LOT-18 reuses the same version-aware chart authority for control
+accounts rather than introducing a separate account-resolution source of truth.
 
 ## Documentation
 
 Start with:
 
 - `docs/ROADMAP.md` for the lot sequence and release gates;
-- `docs/plans/RELEASE_0.3.0_STABLE_PROMOTION_PLAN.md` for the stable promotion
-  contract;
-- `docs/plans/RELEASE_0.3.0_RC1_CROSS_LOT_QUALIFICATION_PLAN.md` for the RC
+- `docs/plans/LOT-18_SUBLEDGER_FOUNDATIONS_IMPLEMENTATION_PLAN.md` for the
+  current `0.4.0a1` implementation contract;
+- `docs/plans/RELEASE_0.3.0_STABLE_PROMOTION_PLAN.md` for the stable 0.3.0
+  promotion contract;
+- `docs/plans/RELEASE_0.3.0_RC1_CROSS_LOT_QUALIFICATION_PLAN.md` for the 0.3.x
   qualification evidence design;
 - `docs/plans/` for milestone-specific implementation plans;
 - `docs/specs/` for canonical requirements and ADRs;
@@ -380,7 +433,10 @@ Before committing or pushing a refactor:
 9. For regulatory reporting, resolve exact reference coordinates, keep hints
    non-executable until explicitly validated, preserve human-review flags and
    ensure renderers only serialize precomputed reports.
-10. Run formatter, lint, typing, canonical tests, strict release qualification
+10. For subledgers, keep parties/open items distinct from accounts/GL lines,
+    preserve operational/accounting state separation, and resolve control
+    accounts through version-aware bindings rather than national-code guesses.
+11. Run formatter, lint, typing, canonical tests, strict release qualification
     and relevant security checks before promoting a release.
 
 The detailed coding-agent rules are maintained in `AGENTS.md`.

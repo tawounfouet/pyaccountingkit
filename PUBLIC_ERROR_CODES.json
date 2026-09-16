@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0",
+  "version": "0.4.0a1",
   "error_codes": {
     "ENTITY_SCOPE_MISMATCH": "EntityScopeMismatchError",
     "ENTRY_UNBALANCED": "UnbalancedEntryError",
@@ -57,6 +57,15 @@
     "REGULATORY_EXPORT_FAILED": "RegulatoryExportError",
     "REGULATORY_EXPORT_INCOMPATIBLE": "RegulatoryExportIncompatibleError",
     "REGULATORY_EVIDENCE_MISMATCH": "RegulatoryEvidenceMismatchError",
-    "REGULATORY_UPGRADE_REVIEW_REQUIRED": "RegulatoryUpgradeReviewRequiredError"
+    "REGULATORY_UPGRADE_REVIEW_REQUIRED": "RegulatoryUpgradeReviewRequiredError",
+    "SUBLEDGER_ERROR": "SubledgerError",
+    "SUBLEDGER_INVALID_CONFIGURATION": "InvalidSubledgerConfigurationError",
+    "SUBLEDGER_INVALID_ITEM": "InvalidSubledgerItemError",
+    "SUBLEDGER_INVALID_DUE_ITEM": "InvalidDueItemError",
+    "SUBLEDGER_ACCOUNTING_LINK_INVALID": "SubledgerAccountingLinkError",
+    "SUBLEDGER_CONTROL_ACCOUNT_NOT_CONFIGURED": "ControlAccountNotConfiguredError",
+    "SUBLEDGER_CONTROL_ACCOUNT_AMBIGUOUS": "AmbiguousControlAccountError",
+    "SUBLEDGER_POLICY_NOT_ACTIVE": "AuxiliaryPolicyNotActiveError",
+    "SUBLEDGER_POLICY_NOT_EFFECTIVE": "AuxiliaryPolicyNotEffectiveError"
   }
 }

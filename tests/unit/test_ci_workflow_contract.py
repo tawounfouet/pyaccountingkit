@@ -52,6 +52,16 @@ def test_ci_contract_requires_complete_python_matrix() -> None:
     assert any("3.13" in item for item in violations)
 
 
+def test_ci_contract_requires_integration_suite() -> None:
+    """Cross-lot integration must remain part of every supported Python test matrix run."""
+    module = _load_validator()
+    text = module.CI_WORKFLOW.read_text(encoding="utf-8")
+    invalid = text.replace(" tests/integration", "")
+
+    violations = module.validate_ci_text(invalid)
+    assert any("accounting qualification test command" in item for item in violations)
+
+
 def test_security_contract_rejects_legacy_action_generations() -> None:
     """Security must not regress to the Node-20 action generations."""
     module = _load_validator()

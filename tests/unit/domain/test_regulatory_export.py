@@ -141,7 +141,7 @@ def test_exporter_serializes_precomputed_report_and_seals_evidence() -> None:
 
     decoded = json.loads(result.artifact.payload)
     assert decoded["report_checksum"] == report.checksum
-    assert decoded["nodes"][0]["amount"] == "100"
+    assert decoded["nodes"][0]["amount"] == "100.00"
     assert result.artifact.payload_checksum == hashlib.sha256(result.artifact.payload).hexdigest()
     assert result.evidence.regulatory_report_checksum == report.checksum
     assert result.evidence.export_artifact_payload_checksum == result.artifact.payload_checksum

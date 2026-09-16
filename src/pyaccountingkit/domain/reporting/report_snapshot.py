@@ -5,7 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import date, datetime
 from enum import StrEnum
 
 from pyaccountingkit.core.identifiers import EntityId
@@ -50,6 +50,7 @@ class ReportSnapshot:
     mapping_set_version: str
     mapping_set_checksum: str
     result_checksum: str
+    as_of: date
     created_at: datetime
     status: ReportSnapshotStatus
     lines: tuple[ReportSnapshotLine, ...]
@@ -89,6 +90,7 @@ class ReportSnapshot:
             mapping_set_version=result.mapping_set_version,
             mapping_set_checksum=result.mapping_set_checksum,
             result_checksum=result.checksum,
+            as_of=result.as_of,
             created_at=created_at,
             status=status,
             lines=lines,
@@ -121,6 +123,7 @@ class ReportSnapshot:
             "mapping_set_version": result.mapping_set_version,
             "mapping_set_checksum": result.mapping_set_checksum,
             "result_checksum": result.checksum,
+            "as_of": result.as_of.isoformat(),
             "status": status.value,
             "lines": [
                 {

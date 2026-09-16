@@ -35,7 +35,7 @@ from pyaccountingkit.domain.reporting.trial_balance import TrialBalance
 
 
 class StatementControlStatus(StrEnum):
-    PASS = "PASS"
+    PASS = "PASS"  # nosec B105 - reporting control outcome, not a credential
     FAIL = "FAIL"
     NOT_APPLICABLE = "NOT_APPLICABLE"
 

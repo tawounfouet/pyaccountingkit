@@ -10,22 +10,28 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit is under active alpha/beta development. The current package
-line is `0.3.0b2`, introducing `LOT-17 — Regulatory Reporting` on top of the
-`0.3.0b1` Financial Statements Engine, the `0.3.0a2` French FEC adapter and the
-source-format-neutral import foundation.
+PyAccountingKit is under active pre-1.0 development. The current package line is
+`0.3.0rc1`, the release-candidate qualification of the complete LOT-14 → LOT-17
+imports and reporting value chain on top of the qualified ledger, reference,
+chart and policy foundations.
 
-The public API is **not yet stable**. `0.3.0b2` adds a deterministic regulatory
-read-side over published financial `ReportSnapshot` inputs: versioned/effective-
-dated regulatory profiles, exact reference reporting models, explicitly
-validated mappings, deterministic validation, canonical export rendering,
-checksummed evidence and reference-upgrade impact analysis.
+The public API is **not yet stable**. `0.3.0rc1` does not add a new accounting
+bounded context; it qualifies composition of the existing `0.3.x` capabilities
+from immutable FEC source evidence through explicit import planning, canonical
+posting, Trial Balance, financial statements, published `ReportSnapshot`,
+regulatory projection, validation, canonical export and checksummed evidence.
 
-LOT-17 does **not** turn regulatory reporting into a second accounting source of
-truth. It never posts, reverses or recalculates the ledger. The PCG and
-SYSCOHADA golden scenarios qualify the reporting mechanics and replay boundaries;
-they do not claim exhaustive statutory templates, legal filing certification or
-regulator-submission compliance.
+The RC adds executable cross-lot integration and source-to-evidence replay
+qualification. Integration is part of the canonical Python 3.11/3.12/3.13 CI
+matrix, and `python scripts/qualify_release.py --release-candidate` fails closed
+if integration, golden, replay, concurrency, package or core qualification
+evidence is missing.
+
+The PCG/FEC RC scenario qualifies the mechanics of that composed path; it does
+**not** claim exhaustive statutory PCG templates, legal filing certification,
+DGFiP filing certification or regulator-submission compliance. SYSCOHADA remains
+qualified through the LOT-17 XOF golden/replay scenarios and is not presented as
+having the same FEC ingestion qualification.
 
 Do not infer release readiness from the version number alone. A release is
 qualified only when canonical CI, package, security and applicable accounting
@@ -101,7 +107,9 @@ accidents:
   explicit replayable evidence chain;
 - reference upgrades compare sealed model coordinates, preserve history and
   escalate risky structural/mapping changes to human review rather than silently
-  rewriting prior execution semantics.
+  rewriting prior execution semantics;
+- release-candidate qualification requires non-empty integration, golden, replay
+  and concurrency suites and cannot skip package or accounting tests.
 
 When a new invariant invalidates an old fixture, **fix the fixture or generator;
 do not weaken the invariant**.
@@ -247,19 +255,44 @@ RegulatoryReportingProfile  ReferenceReportingModel  RegulatoryMappingSet
                     ReportEvidenceBundle
 ```
 
+`0.3.0rc1` qualifies the composed PCG/FEC path across both chains:
+
+```text
+FEC / SourceArtifact
+      │
+      ▼
+FECAdapter → ImportPlan → PostingOrchestrator
+      │
+      ▼
+Posted Ledger → TrialBalance
+      │
+      ▼
+FinancialStatementEngine → ReportSnapshot
+      │
+      ▼
+RegulatoryReport → Validation → Export → Evidence
+      │
+      ▼
+Deterministic replay
+```
+
 The execution trace pins proposal checksum, policy versions, regulatory
 snapshots, company-chart version and resolved accounts so historical replay is
 explicit rather than inferred from current configuration. Financial report
 snapshots similarly pin their Trial Balance, statement-definition and
 mapping-set checksums. LOT-17 extends that evidence chain by pinning the
 regulatory profile, exact reference model, regulatory mappings, validation and
-export payload.
+export payload. The RC verifies that those independently qualified boundaries
+compose without introducing an alternative posting path or losing deterministic
+lineage.
 
 ## Documentation
 
 Start with:
 
 - `docs/ROADMAP.md` for the lot sequence and release gates;
+- `docs/plans/RELEASE_0.3.0_RC1_CROSS_LOT_QUALIFICATION_PLAN.md` for the current
+  release-candidate contract;
 - `docs/plans/` for milestone-specific implementation plans;
 - `docs/specs/` for canonical requirements and ADRs;
 - `AGENTS.md` for the mandatory coding-agent workflow and repository-specific
@@ -288,17 +321,21 @@ python -m ruff check src tests scripts
 python -m ruff format --check src tests scripts
 python -m mypy src
 
-# Canonical CI accounting suites.
+# Canonical CI accounting suites, including cross-lot integration.
 python -m pytest \
-  tests/unit tests/property tests/contract \
+  tests/unit tests/property tests/contract tests/integration \
   tests/golden tests/replay tests/concurrency \
   -v --tb=short
 
 # Core qualification.
 python scripts/qualify_release.py
 
-# Extended accounting qualification.
+# Extended development qualification: runs extended suites when present.
 python scripts/qualify_release.py --full
+
+# Release-candidate qualification: mandatory non-empty integration/golden/replay/
+# concurrency suites plus package verification; tests/package cannot be skipped.
+python scripts/qualify_release.py --release-candidate
 ```
 
 For security parity with `.github/workflows/security.yml`:
@@ -339,8 +376,8 @@ Before committing or pushing a refactor:
 9. For regulatory reporting, resolve exact reference coordinates, keep hints
    non-executable until explicitly validated, preserve human-review flags and
    ensure renderers only serialize precomputed reports.
-10. Run formatter, lint, typing, tests, full qualifier and relevant security
-   checks before pushing a release candidate.
+10. Run formatter, lint, typing, canonical tests, release-candidate qualifier and
+    relevant security checks before promoting a release candidate.
 
 The detailed coding-agent rules are maintained in `AGENTS.md`.
 

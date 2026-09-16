@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0b1",
+  "version": "0.3.0b2",
   "adapter_contracts": {
     "unit_of_work": {
       "port": "UnitOfWorkProtocol",
@@ -50,6 +50,27 @@
         "posting_path": "PostingOrchestrator",
         "qualification": "LOT-15-alpha"
       }
+    },
+    "reference_reporting_model": {
+      "port": "ReferenceReportingModelProviderProtocol",
+      "reference_adapter": "InMemoryReferenceReportingModelProvider",
+      "coordinates": [
+        "reference_snapshot_id",
+        "framework",
+        "edition",
+        "model_code"
+      ],
+      "resolution": "exact-only",
+      "fail_closed": true,
+      "qualification": "LOT-17-beta"
+    },
+    "regulatory_renderer": {
+      "port": "RegulatoryRendererProtocol",
+      "reference_adapter": "CanonicalJSONRegulatoryRenderer",
+      "input": "precomputed-RegulatoryReport",
+      "recalculates_accounting": false,
+      "deterministic_payload": true,
+      "qualification": "LOT-17-beta"
     }
   }
 }

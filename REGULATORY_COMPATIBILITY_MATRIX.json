@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0b1",
+  "version": "0.3.0b2",
   "regulatory_frameworks": [
     {
       "framework": "PCG",
@@ -9,7 +9,11 @@
       "generic_import_core": "source-format-neutral-alpha",
       "fec_adapter": "LOT-15-alpha-qualified",
       "financial_reporting": "generic-financial-statements-engine-beta",
-      "notes": "LOT-16 qualifies the generic projection engine, versioned statement definitions, validated company-account mappings, controls, comparatives, drill-down and immutable snapshots. It does not yet claim statutory PCG statement templates or French regulatory-export compliance; those remain profile/reference work for LOT-17 and later qualification."
+      "regulatory_reporting": "profile-model-mapping-validation-export-beta",
+      "reference_resolution": "exact-snapshot",
+      "regulatory_golden": "LOT-17-beta-qualified",
+      "export_renderer": "canonical-json-reference",
+      "notes": "LOT-17 qualifies deterministic PCG regulatory projections from published financial ReportSnapshot inputs through versioned profiles, exact reference-model coordinates, explicitly validated mappings, validation, canonical export and evidence checksums. Reference account hints remain non-executable unless explicitly validated. This milestone does not claim exhaustive statutory PCG templates, legal filing certification or authority-submission compliance."
     },
     {
       "framework": "SYSCOHADA",
@@ -18,7 +22,11 @@
       "policy_layer": "partial-beta",
       "generic_import_core": "source-format-neutral-alpha",
       "financial_reporting": "generic-financial-statements-engine-beta",
-      "notes": "LOT-16 is framework-neutral and can project validated mappings from SYSCOHADA-based company charts, but no official SYSCOHADA statement profile or regulatory export is claimed at this milestone."
+      "regulatory_reporting": "profile-model-mapping-validation-export-beta",
+      "reference_resolution": "exact-snapshot",
+      "regulatory_golden": "LOT-17-beta-qualified",
+      "export_renderer": "canonical-json-reference",
+      "notes": "LOT-17 qualifies deterministic SYSCOHADA regulatory projections in XOF from published financial ReportSnapshot inputs through versioned profiles, exact reference-model coordinates, validated mapping provenance, validation, canonical export and replayable evidence. Candidate/reference hints cannot execute silently. This milestone does not claim exhaustive official SYSCOHADA filing templates, legal certification or authority-submission compliance."
     }
   ]
 }

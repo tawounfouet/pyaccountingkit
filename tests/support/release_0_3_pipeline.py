@@ -33,7 +33,6 @@ from pyaccountingkit.core.identifiers import (
     JournalId,
     PeriodId,
 )
-from pyaccountingkit.core.money import Money
 from pyaccountingkit.domain.charts.account import CompanyAccount
 from pyaccountingkit.domain.charts.chart import CompanyChartOfAccounts
 from pyaccountingkit.domain.charts.company_chart import (
@@ -50,6 +49,8 @@ from pyaccountingkit.domain.imports.mapping import (
     ExplicitImportAccountMapper,
     ExplicitImportJournalMapper,
 )
+from pyaccountingkit.domain.imports.normalized_record import NormalizedImportRecord
+from pyaccountingkit.domain.imports.source_artifact import SourceArtifact
 from pyaccountingkit.domain.journals.journal import Journal
 from pyaccountingkit.domain.ledger.posting import PostingService
 from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
@@ -87,7 +88,6 @@ from pyaccountingkit.domain.reporting.report_snapshot import (
     ReportSnapshot,
     ReportSnapshotStatus,
 )
-from pyaccountingkit.domain.reporting.source_snapshot import ReportingSourceSnapshot
 from pyaccountingkit.domain.reporting.statement_definition import (
     FinancialStatementDefinition,
     FinancialStatementType,
@@ -252,7 +252,7 @@ def _chart_resolver(chart: CompanyChartOfAccounts) -> InMemoryVersionedCompanyCh
 def _build_import_plan(
     *,
     source_checksum: str,
-    normalized_records: tuple,
+    normalized_records: tuple[NormalizedImportRecord, ...],
     adapter: FECAdapter,
 ) -> ImportPlan:
     groups = adapter.grouping().group(normalized_records)
@@ -501,11 +501,13 @@ def run_release_0_3_pipeline(
             fiscal_year_end=date(2026, 12, 31),
         )
     )
-    artifact = adapter.parser().source_artifact_from_bytes(
+    artifact = SourceArtifact.from_bytes(
         artifact_ref="fec:release-0.3",
+        source_type="FEC",
         payload=payload,
         acquired_at=datetime(2026, 12, 31, 12, 0, tzinfo=UTC),
         filename="123456789FEC20261231.txt",
+        media_type="text/plain",
     )
     parsed = adapter.parse(artifact, batch_id="release-0.3-batch", payload=payload)
     normalized = adapter.normalizer().normalize(parsed, batch_id="release-0.3-batch")

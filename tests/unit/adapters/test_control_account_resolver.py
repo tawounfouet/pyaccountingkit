@@ -10,7 +10,7 @@ from pyaccountingkit.adapters.in_memory.company_chart_resolver import (
     InMemoryVersionedCompanyChartResolver,
 )
 from pyaccountingkit.adapters.in_memory.control_account_resolver import InMemoryControlAccountResolver
-from pyaccountingkit.core.currency import EUR, USD
+from pyaccountingkit.core.currency import EUR, USD, Currency
 from pyaccountingkit.core.errors import InactiveAccountError, NonPostableAccountError, UnknownAccountError
 from pyaccountingkit.core.identifiers import AccountId, EntityId
 from pyaccountingkit.domain.charts.account import CompanyAccount
@@ -96,7 +96,8 @@ def _binding(
     *,
     entity_id: EntityId = ENTITY,
     party_type: SubledgerPartyType | None = None,
-    currency=None,
+    currency: Currency | None = None,
+    effective_to: date | None = None,
     status: BindingStatus = BindingStatus.ACTIVE,
 ) -> ControlAccountBinding:
     return ControlAccountBinding(
@@ -105,6 +106,7 @@ def _binding(
         subledger_id=AR,
         company_account_id=AccountId(account_id),
         effective_from=date(2026, 1, 1),
+        effective_to=effective_to,
         party_type=party_type,
         currency=currency,
         status=status,
@@ -143,7 +145,7 @@ def test_resolver_selects_most_specific_binding() -> None:
 def test_resolver_uses_chart_version_applicable_to_date() -> None:
     resolver = InMemoryControlAccountResolver(
         bindings=(
-            _binding("v1", "ar-v1"),
+            _binding("v1", "ar-v1", effective_to=date(2027, 1, 1)),
             ControlAccountBinding(
                 binding_id="v2",
                 entity_id=ENTITY,

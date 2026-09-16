@@ -153,9 +153,7 @@ def _run(
     id_seed: int,
 ) -> tuple[str, str, str, str]:
     snapshot, model, profile, mapping_set, export_definition = _coordinates()
-    reporting = RegulatoryReportingService(
-        InMemoryReferenceReportingModelProvider((model,))
-    ).build(
+    reporting = RegulatoryReportingService(InMemoryReferenceReportingModelProvider((model,))).build(
         snapshot=snapshot,
         profile=profile,
         mapping_set=mapping_set,

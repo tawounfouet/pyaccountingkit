@@ -16,6 +16,7 @@ from pyaccountingkit.domain.subledgers.allocation import (
     SettlementAllocationService,
     SubledgerItem,
 )
+from pyaccountingkit.domain.subledgers.due_item import DueItem
 from pyaccountingkit.domain.subledgers.errors import (
     AllocationConcurrencyConflictError,
     InvalidSettlementError,
@@ -212,7 +213,7 @@ def _item_id(item: SubledgerItem) -> str:
     return item.payable_id
 
 
-def _due_item(item: SubledgerItem, due_item_id: str):
+def _due_item(item: SubledgerItem, due_item_id: str) -> DueItem:
     for due_item in item.due_items:
         if due_item.due_item_id == due_item_id:
             return due_item

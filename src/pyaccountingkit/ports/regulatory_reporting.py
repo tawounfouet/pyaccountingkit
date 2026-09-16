@@ -5,6 +5,8 @@ from __future__ import annotations
 from typing import Protocol
 
 from pyaccountingkit.domain.reporting.reference_reporting_model import ReferenceReportingModel
+from pyaccountingkit.domain.reporting.regulatory_export import RegulatoryExportDefinition
+from pyaccountingkit.domain.reporting.regulatory_report import RegulatoryReport
 
 
 class ReferenceReportingModelProviderProtocol(Protocol):
@@ -27,7 +29,11 @@ class RegulatoryRendererProtocol(Protocol):
 
     renderer_id: str
 
-    def render(self, report: object, definition: object) -> bytes:
+    def render(
+        self,
+        report: RegulatoryReport,
+        definition: RegulatoryExportDefinition,
+    ) -> bytes:
         """Return deterministic export bytes for a precomputed report."""
         ...
 

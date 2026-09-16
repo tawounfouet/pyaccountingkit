@@ -150,9 +150,7 @@ def test_syscohada_regulatory_reporting_golden_projection() -> None:
         effective_from=date(2018, 1, 1),
     )
 
-    result = RegulatoryReportingService(
-        InMemoryReferenceReportingModelProvider((model,))
-    ).build(
+    result = RegulatoryReportingService(InMemoryReferenceReportingModelProvider((model,))).build(
         snapshot=snapshot,
         profile=profile,
         mapping_set=mappings,
@@ -163,9 +161,7 @@ def test_syscohada_regulatory_reporting_golden_projection() -> None:
     assert result.report.node("SYSCOHADA_LIABILITIES_EQUITY").amount == Money.from_str(
         "25000000", XOF
     )
-    assert result.report.node("SYSCOHADA_ASSETS").mapping_provenances == (
-        "VALIDATED_CANDIDATE",
-    )
+    assert result.report.node("SYSCOHADA_ASSETS").mapping_provenances == ("VALIDATED_CANDIDATE",)
     assert "REFERENCE_HINT" not in result.report.node("SYSCOHADA_ASSETS").mapping_provenances
     assert result.report.node("SYSCOHADA_ASSETS").human_validation_required is True
     assert result.validation.is_valid is True

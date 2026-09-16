@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0b2",
+  "version": "0.3.0rc1",
   "error_codes": {
     "ENTITY_SCOPE_MISMATCH": "EntityScopeMismatchError",
     "ENTRY_UNBALANCED": "UnbalancedEntryError",

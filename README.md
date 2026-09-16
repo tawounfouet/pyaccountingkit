@@ -11,19 +11,21 @@ specific regulatory dataset.
 ## Status
 
 PyAccountingKit is under active alpha/beta development. The current package
-line is `0.3.0b1`, introducing `LOT-16 — Financial Statements Engine` on top of
-the `0.3.0a2` French FEC adapter and source-format-neutral import foundation.
+line is `0.3.0b2`, introducing `LOT-17 — Regulatory Reporting` on top of the
+`0.3.0b1` Financial Statements Engine, the `0.3.0a2` French FEC adapter and the
+source-format-neutral import foundation.
 
-The public API is **not yet stable**. `0.3.0b1` adds a generic, framework-neutral
-financial-statement projection layer: versioned/effective-dated statement
-definitions, explicit validated company-account mappings, a restricted formula
-DSL, deterministic subtotals/totals, comparatives, statement controls,
-drill-down and immutable report snapshots.
+The public API is **not yet stable**. `0.3.0b2` adds a deterministic regulatory
+read-side over published financial `ReportSnapshot` inputs: versioned/effective-
+dated regulatory profiles, exact reference reporting models, explicitly
+validated mappings, deterministic validation, canonical export rendering,
+checksummed evidence and reference-upgrade impact analysis.
 
-LOT-16 does **not** turn reporting into a second accounting source of truth.
-Statements are derived from verified Trial Balance snapshots only. It also does
-not claim official PCG/SYSCOHADA statement templates or regulatory-export
-compliance; those profile/reference concerns remain LOT-17 and later scope.
+LOT-17 does **not** turn regulatory reporting into a second accounting source of
+truth. It never posts, reverses or recalculates the ledger. The PCG and
+SYSCOHADA golden scenarios qualify the reporting mechanics and replay boundaries;
+they do not claim exhaustive statutory templates, legal filing certification or
+regulator-submission compliance.
 
 Do not infer release readiness from the version number alone. A release is
 qualified only when canonical CI, package, security and applicable accounting
@@ -83,8 +85,23 @@ accidents:
   execution is forbidden and dependency cycles fail closed;
 - company-account identity is preserved separately from presentation account
   code across Trial Balance and statement mapping boundaries;
-- published report snapshots are immutable and can be detected as stale when
-  their source Trial Balance checksum changes.
+- published report snapshots are immutable, seal their accounting `as_of` date
+  and can be detected as stale when their source Trial Balance checksum changes;
+- regulatory reporting accepts published `ReportSnapshot` inputs only and never
+  becomes an alternative ledger or posting path;
+- regulatory reference models resolve from exact snapshot/framework/edition/model
+  coordinates; implicit `latest` resolution is not a valid replay contract;
+- regulatory candidate mappings, review-required mappings and reference account
+  hints cannot execute silently as validated mappings;
+- human-validation requirements declared by the reference model must survive
+  projection into the regulatory report;
+- regulatory renderers serialize a precomputed `RegulatoryReport`; they must not
+  recalculate accounting or reinterpret ledger data;
+- regulatory report, validation, export artifact and evidence checksums form an
+  explicit replayable evidence chain;
+- reference upgrades compare sealed model coordinates, preserve history and
+  escalate risky structural/mapping changes to human review rather than silently
+  rewriting prior execution semantics.
 
 When a new invariant invalidates an old fixture, **fix the fixture or generator;
 do not weaken the invariant**.
@@ -106,13 +123,13 @@ Main areas:
 - `src/pyaccountingkit/core/` — primitives such as money, currency, clock,
   identifiers, revisions, idempotency and entity-scope guards;
 - `src/pyaccountingkit/domain/` — pure accounting model, policies, imports and
-  financial-reporting projections;
-- `src/pyaccountingkit/application/` — use cases and transactional
+  financial/regulatory reporting projections;
+- `src/pyaccountingkit/application/` — use cases and transactional/read-side
   orchestration;
 - `src/pyaccountingkit/ports/` — repository, unit-of-work, chart-resolution,
-  account-role-resolution, import and external-service contracts;
-- `src/pyaccountingkit/adapters/` — in-memory and specialized source adapters,
-  including the French FEC adapter;
+  account-role-resolution, import, regulatory-model and renderer contracts;
+- `src/pyaccountingkit/adapters/` — in-memory, source and presentation adapters,
+  including the French FEC adapter and canonical regulatory JSON renderer;
 - `docs/` — specifications, ADRs, plans and roadmap; architectural decisions
   are documentation-driven.
 
@@ -183,8 +200,8 @@ PostingOrchestrator / post_many
 FEC reconciliation
 ```
 
-LOT-16 adds a separate read-side projection path. It starts from the verified
-Trial Balance and never writes back to the accounting engine:
+LOT-16 and LOT-17 form a separate read-side projection chain. It starts from the
+verified Trial Balance and never writes back to the accounting engine:
 
 ```text
 Posted Ledger
@@ -207,14 +224,36 @@ TrialBalance / TrialBalanceSnapshot
                    └──────────┴──────────┘
                               │
                               ▼
-                         ReportSnapshot
+                    ReportSnapshot (published)
+                              │
+          ┌───────────────────┼───────────────────┐
+          ▼                   ▼                   ▼
+RegulatoryReportingProfile  ReferenceReportingModel  RegulatoryMappingSet
+          │                   │                   │
+          └───────────────────┼───────────────────┘
+                              ▼
+                      RegulatoryReport
+                              │
+                              ▼
+                    RegulatoryValidation
+                              │
+                              ▼
+                    RegulatoryRenderer
+                              │
+                              ▼
+                 RegulatoryExportArtifact
+                              │
+                              ▼
+                    ReportEvidenceBundle
 ```
 
 The execution trace pins proposal checksum, policy versions, regulatory
 snapshots, company-chart version and resolved accounts so historical replay is
 explicit rather than inferred from current configuration. Financial report
 snapshots similarly pin their Trial Balance, statement-definition and
-mapping-set checksums.
+mapping-set checksums. LOT-17 extends that evidence chain by pinning the
+regulatory profile, exact reference model, regulatory mappings, validation and
+export payload.
 
 ## Documentation
 
@@ -297,7 +336,10 @@ Before committing or pushing a refactor:
 8. For financial statements, preserve the Trial Balance as the source of truth,
    reject formula cycles, separate candidate mappings from active mappings and
    keep published report snapshots immutable.
-9. Run formatter, lint, typing, tests, full qualifier and relevant security
+9. For regulatory reporting, resolve exact reference coordinates, keep hints
+   non-executable until explicitly validated, preserve human-review flags and
+   ensure renderers only serialize precomputed reports.
+10. Run formatter, lint, typing, tests, full qualifier and relevant security
    checks before pushing a release candidate.
 
 The detailed coding-agent rules are maintained in `AGENTS.md`.

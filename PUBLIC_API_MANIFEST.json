@@ -1,8 +1,8 @@
 {
-  "version": "0.3.0b1",
+  "version": "0.3.0b2",
   "public_api": {
     "stability": "internal-beta",
     "stable_exports": [],
-    "note": "LOT-16 adds the generic Financial Statements Engine: versioned definitions, validated mappings, deterministic formulas, controls, comparatives, drill-down and immutable report snapshots. Public API remains intentionally unfrozen before the release-candidate line."
+    "note": "LOT-17 adds deterministic regulatory reporting over published ReportSnapshot inputs: versioned profiles, exact reference reporting models, validated regulatory mappings, deterministic validation, canonical export rendering, evidence bundles and reference-upgrade impact plans. Public API remains intentionally unfrozen before the release-candidate line."
   }
 }

@@ -1,5 +1,5 @@
 {
-  "version": "0.4.0a1",
+  "version": "0.4.0a2",
   "error_codes": {
     "ENTITY_SCOPE_MISMATCH": "EntityScopeMismatchError",
     "ENTRY_UNBALANCED": "UnbalancedEntryError",
@@ -66,6 +66,20 @@
     "SUBLEDGER_CONTROL_ACCOUNT_NOT_CONFIGURED": "ControlAccountNotConfiguredError",
     "SUBLEDGER_CONTROL_ACCOUNT_AMBIGUOUS": "AmbiguousControlAccountError",
     "SUBLEDGER_POLICY_NOT_ACTIVE": "AuxiliaryPolicyNotActiveError",
-    "SUBLEDGER_POLICY_NOT_EFFECTIVE": "AuxiliaryPolicyNotEffectiveError"
+    "SUBLEDGER_POLICY_NOT_EFFECTIVE": "AuxiliaryPolicyNotEffectiveError",
+    "SETTLEMENT_INVALID": "InvalidSettlementError",
+    "SETTLEMENT_NOT_ACCOUNTING_EFFECTIVE": "SettlementNotAccountingEffectiveError",
+    "SETTLEMENT_OVER_ALLOCATION": "SettlementOverAllocationError",
+    "DUE_ITEM_OVER_ALLOCATION": "DueItemOverAllocationError",
+    "ALLOCATION_CONCURRENCY_CONFLICT": "AllocationConcurrencyConflictError",
+    "SETTLEMENT_ALREADY_REVERSED": "SettlementAlreadyReversedError",
+    "MATCHING_INVALID": "InvalidMatchingError",
+    "MATCHING_NOT_EXECUTABLE": "NonExecutableMatchingError",
+    "MATCHING_OVER_ALLOCATION": "MatchOverAllocationError",
+    "PAYMENT_TERM_INVALID": "InvalidPaymentTermError",
+    "AGING_POLICY_INVALID": "InvalidAgingPolicyError",
+    "AGING_SOURCE_INVALID": "InvalidAgingSourceError",
+    "SUBLEDGER_RECONCILIATION_FAILED": "SubledgerReconciliationError",
+    "WRITE_OFF_POLICY_REQUIRED": "WriteOffPolicyRequiredError"
   }
 }

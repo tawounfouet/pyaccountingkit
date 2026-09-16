@@ -1,5 +1,5 @@
 {
-  "version": "0.4.0a1",
+  "version": "0.4.0a2",
   "adapter_contracts": {
     "unit_of_work": {
       "port": "UnitOfWorkProtocol",
@@ -39,7 +39,7 @@
       "selection": "most-specific-fail-closed",
       "validates_account": ["present", "active", "postable", "entity-scoped"],
       "trace": ["binding_id", "chart_id", "chart_version", "reference_snapshot_id"],
-      "qualification": "LOT-18-alpha"
+      "qualification": "LOT-18-alpha-reused-by-LOT-19"
     },
     "accounting_references": {
       "port": "AccountingReferenceProviderProtocol",

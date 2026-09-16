@@ -1,8 +1,8 @@
 {
-  "version": "0.4.0a1",
+  "version": "0.4.0a2",
   "public_api": {
     "stability": "pre-1.0-alpha",
     "stable_exports": [],
-    "note": "Release 0.4.0a1 introduces LOT-18 Subledger Foundations on top of stable 0.3.0: entity-scoped subledgers and parties, auxiliary references, receivables/payables with due schedules, OpenItem projections distinct from JournalEntryLine, explicit posted-accounting links, versioned auxiliary policies and fail-closed control-account resolution through the applicable company-chart version. Settlement, allocation, matching, aging and subledger reconciliation remain LOT-19+ scope. The public Python API remains intentionally unfrozen before 1.0."
+    "note": "Release 0.4.0a2 extends the LOT-18 subledger foundations with LOT-19 operational subledger mechanics: immutable partial/full many-to-many settlement allocation with revision guards, explicit settlement reversal, candidate-versus-validated accounting matching, deterministic PaymentTerm due schedules, explicit aging policies/snapshots, normalized subledger-to-control-account reconciliation and a fail-closed write-off authorization boundary. Allocation never becomes a second General Ledger posting path; aging does not perform impairment; no national account-prefix heuristics or LOT-20 financial-analysis metrics are introduced. The public Python API remains intentionally unfrozen before 1.0."
   }
 }

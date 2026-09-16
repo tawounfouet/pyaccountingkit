@@ -7,6 +7,51 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0a2] - 2026-09-16
+
+### Added
+- LOT-19 operational subledger mechanics with immutable `Settlement` and
+  `SettlementAllocation` evidence distinct from General Ledger posting.
+- Partial/full and many-to-many settlement allocation with optimistic revision guards on both
+  settlements and due items.
+- Traceable settlement reversal that restores all active allocations and requires a distinct
+  posted accounting reversal reference.
+- Explicit `MatchingCandidate` versus validated `AccountingMatch`; candidates never execute
+  silently and partial matching requires an exact declared residual.
+- Deterministic `PaymentTerm` / `DueDateRule` schedule generation with Decimal allocations and
+  final-rule rounding residue.
+- Explicit `AgingPolicy`, gap-free bucket partitions and deterministic checksummed
+  `AgingSnapshot` projections.
+- `SubledgerReconciliationService` comparing open-item balances with an explicitly normalized
+  GL control-account balance while preserving chart/version/reference-snapshot traceability.
+- Fail-closed `WriteOffAuthorization` / `WriteOffRequest` boundary requiring policy/proposal
+  evidence instead of silently absorbing residuals.
+- Stable LOT-19 settlement, allocation, matching, payment-term, aging, reconciliation and
+  write-off error codes.
+
+### Changed
+- `DueItem` now supports immutable `allocate()` / `restore()` transitions and revision tracking;
+  revision-zero items still must start fully open.
+- `Receivable` / `Payable` expose current open balance and immutable due-item replacement while
+  preserving original-amount reconciliation.
+- Control-account resolution from LOT-18 is reused as the single account authority for
+  subledger reconciliation; no national account-prefix heuristic is introduced.
+- Regulatory compatibility metadata records LOT-19 only as generic operational subledger
+  mechanics and does not broaden PCG/SYSCOHADA regulatory claims.
+
+### Qualification
+- Unit qualification covers partial/full allocation, many-to-many allocation, settlement
+  reversal, payment-term rounding, explicit matching validation, aging, reconciliation,
+  write-off authorization and cross-entity rejection.
+- Property tests prove open-plus-allocated balance identities and payment-term amount
+  reconciliation over broad generated amount ranges.
+- Concurrency tests reject stale settlement/due-item revisions before mutation.
+- Golden qualification covers a 1,200 EUR receivable, 500 EUR settlement, 700 EUR remaining
+  exposure, deterministic aging and exact reconciliation to a normalized 700 EUR GL balance;
+  overpayment remains explicit as unapplied settlement value.
+- Allocation remains an auxiliary-state transition and never creates a second GL posting path;
+  aging remains distinct from impairment and LOT-20 DSO/DPO analysis remains out of scope.
+
 ## [0.4.0a1] - 2026-09-16
 
 ### Added

@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0",
+  "version": "0.4.0a1",
   "regulatory_frameworks": [
     {
       "framework": "PCG",
@@ -13,8 +13,9 @@
       "reference_resolution": "exact-snapshot",
       "regulatory_golden": "LOT-17-beta-qualified",
       "stable_cross_lot": "FEC-to-ledger-to-reporting-to-evidence-qualified",
+      "subledger_foundations": "generic-LOT-18-alpha",
       "export_renderer": "canonical-json-reference",
-      "notes": "Release 0.3.0 promotes the 0.3.0rc1 PCG/FEC cross-lot qualification unchanged: immutable source evidence, explicit import mapping, canonical posting, TrialBalance, financial statements, published ReportSnapshot, regulatory projection, validation, canonical export and deterministic evidence replay. Reference account hints remain non-executable unless explicitly validated. Stable package status does not claim exhaustive statutory PCG templates, legal filing certification, DGFiP filing certification or authority-submission compliance."
+      "notes": "Release 0.4.0a1 preserves the 0.3.0 PCG/FEC cross-lot qualification unchanged and adds generic subledger foundations with explicit version-aware control-account resolution. LOT-18 does not broaden PCG statutory-template, legal-filing, DGFiP-filing or authority-submission claims; settlement, allocation, matching, aging and subledger reconciliation remain outside this alpha milestone."
     },
     {
       "framework": "SYSCOHADA",
@@ -27,8 +28,9 @@
       "reference_resolution": "exact-snapshot",
       "regulatory_golden": "LOT-17-beta-qualified",
       "stable_cross_lot": "not-exercised-via-FEC-source-path",
+      "subledger_foundations": "generic-LOT-18-alpha",
       "export_renderer": "canonical-json-reference",
-      "notes": "SYSCOHADA remains qualified through LOT-17 deterministic XOF golden and replay scenarios over published ReportSnapshot inputs with exact reference-model coordinates, validated mapping provenance, validation, canonical export and replayable evidence. The 0.3.0 PCG/FEC source-to-evidence integration is not presented as an equivalent SYSCOHADA ingestion qualification. Candidate/reference hints cannot execute silently. Stable package status does not claim exhaustive official SYSCOHADA filing templates, legal certification or authority-submission compliance."
+      "notes": "SYSCOHADA remains qualified through LOT-17 deterministic XOF golden and replay scenarios. Release 0.4.0a1 adds generic subledger foundations without changing the existing SYSCOHADA regulatory qualification boundary and without claiming an equivalent FEC ingestion path or statutory filing certification."
     }
   ]
 }

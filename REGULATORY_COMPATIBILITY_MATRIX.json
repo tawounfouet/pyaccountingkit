@@ -1,5 +1,5 @@
 {
-  "version": "0.4.0a1",
+  "version": "0.4.0a2",
   "regulatory_frameworks": [
     {
       "framework": "PCG",
@@ -14,8 +14,9 @@
       "regulatory_golden": "LOT-17-beta-qualified",
       "stable_cross_lot": "FEC-to-ledger-to-reporting-to-evidence-qualified",
       "subledger_foundations": "generic-LOT-18-alpha",
+      "subledger_operations": "generic-LOT-19-alpha",
       "export_renderer": "canonical-json-reference",
-      "notes": "Release 0.4.0a1 preserves the 0.3.0 PCG/FEC cross-lot qualification unchanged and adds generic subledger foundations with explicit version-aware control-account resolution. LOT-18 does not broaden PCG statutory-template, legal-filing, DGFiP-filing or authority-submission claims; settlement, allocation, matching, aging and subledger reconciliation remain outside this alpha milestone."
+      "notes": "Release 0.4.0a2 preserves the 0.3.0 PCG/FEC regulatory qualification unchanged while extending the generic subledger layer with settlement allocation/reversal, explicit matching, payment terms, aging and normalized control-account reconciliation. These are generic accounting mechanics and do not broaden statutory-template, legal-filing, DGFiP-filing or authority-submission claims. Aging is not impairment and write-off requires explicit accounting-policy/proposal evidence."
     },
     {
       "framework": "SYSCOHADA",
@@ -29,8 +30,9 @@
       "regulatory_golden": "LOT-17-beta-qualified",
       "stable_cross_lot": "not-exercised-via-FEC-source-path",
       "subledger_foundations": "generic-LOT-18-alpha",
+      "subledger_operations": "generic-LOT-19-alpha",
       "export_renderer": "canonical-json-reference",
-      "notes": "SYSCOHADA remains qualified through LOT-17 deterministic XOF golden and replay scenarios. Release 0.4.0a1 adds generic subledger foundations without changing the existing SYSCOHADA regulatory qualification boundary and without claiming an equivalent FEC ingestion path or statutory filing certification."
+      "notes": "SYSCOHADA remains qualified through LOT-17 deterministic XOF golden and replay scenarios. Release 0.4.0a2 extends only generic subledger mechanics and does not change the existing SYSCOHADA regulatory qualification boundary, claim an equivalent FEC ingestion path or provide statutory filing certification."
     }
   ]
 }

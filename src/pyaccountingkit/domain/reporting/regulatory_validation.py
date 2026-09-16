@@ -142,9 +142,7 @@ class RegulatoryValidationEngine:
                             if hint_executed
                             else RegulatoryValidationStatus.PASS
                         ),
-                        message=(
-                            "reference account hints must not execute as validated mappings"
-                        ),
+                        message=("reference account hints must not execute as validated mappings"),
                         node_id=node.node_id,
                     )
                 )

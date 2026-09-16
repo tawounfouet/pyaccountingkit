@@ -1,8 +1,8 @@
 {
-  "version": "0.3.0",
+  "version": "0.4.0a1",
   "public_api": {
-    "stability": "pre-1.0-stable-release",
+    "stability": "pre-1.0-alpha",
     "stable_exports": [],
-    "note": "Release 0.3.0 is the stable promotion of the qualified imports-to-reporting value chain delivered and cross-lot qualified in 0.3.0rc1. FEC source evidence and explicit import mappings flow through the canonical PostingOrchestrator into the ledger, TrialBalance, FinancialStatementEngine, published ReportSnapshot, regulatory projection, validation, export and evidence bundle. The package release is stable for the 0.3.x milestone, but the public Python API remains intentionally unfrozen before 1.0."
+    "note": "Release 0.4.0a1 introduces LOT-18 Subledger Foundations on top of stable 0.3.0: entity-scoped subledgers and parties, auxiliary references, receivables/payables with due schedules, OpenItem projections distinct from JournalEntryLine, explicit posted-accounting links, versioned auxiliary policies and fail-closed control-account resolution through the applicable company-chart version. Settlement, allocation, matching, aging and subledger reconciliation remain LOT-19+ scope. The public Python API remains intentionally unfrozen before 1.0."
   }
 }

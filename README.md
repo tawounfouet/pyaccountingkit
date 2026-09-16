@@ -11,15 +11,19 @@ specific regulatory dataset.
 ## Status
 
 PyAccountingKit is under active alpha/beta development. The current package
-line is `0.3.0a2`, introducing `LOT-15 — FEC Adapter` on top of the
-source-format-neutral `0.3.0a1` Generic Accounting Import Engine.
+line is `0.3.0b1`, introducing `LOT-16 — Financial Statements Engine` on top of
+the `0.3.0a2` French FEC adapter and source-format-neutral import foundation.
 
-The public API is **not yet stable**. `0.3.0a2` adds a specialized French FEC
-adapter while preserving the generic import boundary: strict 18-column parsing,
-raw lineage, FEC normalization and controls, auxiliary/lettering preservation,
-duplicate warnings, discovery, source idempotence, transaction-scope rollback
-and reconciliation. The FEC adapter does not bypass the canonical posting
-engine and does not constitute a blanket claim of French tax-audit compliance.
+The public API is **not yet stable**. `0.3.0b1` adds a generic, framework-neutral
+financial-statement projection layer: versioned/effective-dated statement
+definitions, explicit validated company-account mappings, a restricted formula
+DSL, deterministic subtotals/totals, comparatives, statement controls,
+drill-down and immutable report snapshots.
+
+LOT-16 does **not** turn reporting into a second accounting source of truth.
+Statements are derived from verified Trial Balance snapshots only. It also does
+not claim official PCG/SYSCOHADA statement templates or regulatory-export
+compliance; those profile/reference concerns remain LOT-17 and later scope.
 
 Do not infer release readiness from the version number alone. A release is
 qualified only when canonical CI, package, security and applicable accounting
@@ -33,7 +37,8 @@ accidents:
 - monetary arithmetic uses `Decimal`; business code must never introduce
   binary floating-point arithmetic;
 - every accounting operation is scoped to exactly one `AccountingEntity`;
-  cross-entity chart, journal, period, policy or account usage must fail closed;
+  cross-entity chart, journal, period, policy, mapping or account usage must fail
+  closed;
 - a journal line with both debit and credit equal to zero is invalid and must
   never be made constructible merely to satisfy an old test fixture;
 - journal entries and journal-entry proposals must be balanced before posting;
@@ -67,7 +72,19 @@ accidents:
 - FEC `Debit` / `Credit` are normalized in the configured accounting currency;
   `Montantdevise` / `Idevise` remain preserved source evidence;
 - the same FEC source identity cannot create duplicate ledger effects merely
-  because it was acquired under a different batch identifier.
+  because it was acquired under a different batch identifier;
+- financial statements are read-side projections from a verified
+  `TrialBalance`; they never post, reverse or otherwise mutate the ledger;
+- statement definitions, mapping sets and report snapshots are versioned or
+  checksummed so historical results can be reproduced explicitly;
+- candidate or review-required account mappings are never executable as active
+  statement mappings;
+- financial-statement formulas use a restricted data-only DSL; arbitrary Python
+  execution is forbidden and dependency cycles fail closed;
+- company-account identity is preserved separately from presentation account
+  code across Trial Balance and statement mapping boundaries;
+- published report snapshots are immutable and can be detected as stale when
+  their source Trial Balance checksum changes.
 
 When a new invariant invalidates an old fixture, **fix the fixture or generator;
 do not weaken the invariant**.
@@ -88,8 +105,8 @@ Main areas:
 
 - `src/pyaccountingkit/core/` — primitives such as money, currency, clock,
   identifiers, revisions, idempotency and entity-scope guards;
-- `src/pyaccountingkit/domain/` — pure accounting model, policies and generic
-  import model;
+- `src/pyaccountingkit/domain/` — pure accounting model, policies, imports and
+  financial-reporting projections;
 - `src/pyaccountingkit/application/` — use cases and transactional
   orchestration;
 - `src/pyaccountingkit/ports/` — repository, unit-of-work, chart-resolution,
@@ -166,9 +183,38 @@ PostingOrchestrator / post_many
 FEC reconciliation
 ```
 
+LOT-16 adds a separate read-side projection path. It starts from the verified
+Trial Balance and never writes back to the accounting engine:
+
+```text
+Posted Ledger
+      │
+      ▼
+TrialBalance / TrialBalanceSnapshot
+      │
+      ├──────────────► StatementMappingSet
+      │                       │
+      │                       ▼
+      └──────────────► FinancialStatementDefinition
+                              │
+                              ▼
+                   FinancialStatementEngine
+                              │
+                   ┌──────────┼──────────┐
+                   ▼          ▼          ▼
+                Lines      Controls   Drill-down
+                   │          │          │
+                   └──────────┴──────────┘
+                              │
+                              ▼
+                         ReportSnapshot
+```
+
 The execution trace pins proposal checksum, policy versions, regulatory
 snapshots, company-chart version and resolved accounts so historical replay is
-explicit rather than inferred from current configuration.
+explicit rather than inferred from current configuration. Financial report
+snapshots similarly pin their Trial Balance, statement-definition and
+mapping-set checksums.
 
 ## Documentation
 
@@ -248,7 +294,10 @@ Before committing or pushing a refactor:
 7. For FEC migrations, preserve raw lineage, auxiliary fields, lettering,
    duplicate evidence and source-to-ledger reconciliation; never manufacture a
    convenience account code by concatenating `CompteNum` and `CompAuxNum`.
-8. Run formatter, lint, typing, tests, full qualifier and relevant security
+8. For financial statements, preserve the Trial Balance as the source of truth,
+   reject formula cycles, separate candidate mappings from active mappings and
+   keep published report snapshots immutable.
+9. Run formatter, lint, typing, tests, full qualifier and relevant security
    checks before pushing a release candidate.
 
 The detailed coding-agent rules are maintained in `AGENTS.md`.

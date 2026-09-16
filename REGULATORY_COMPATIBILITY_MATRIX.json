@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0a2",
+  "version": "0.3.0b1",
   "regulatory_frameworks": [
     {
       "framework": "PCG",
@@ -8,8 +8,8 @@
       "policy_layer": "partial-beta",
       "generic_import_core": "source-format-neutral-alpha",
       "fec_adapter": "LOT-15-alpha-qualified",
-      "financial_reporting": "not-yet-qualified",
-      "notes": "The French FEC adapter qualifies parsing, preservation, normalization, controls, idempotent source identity and reconciliation. This is not a claim of complete tax-audit or PCG reporting compliance."
+      "financial_reporting": "generic-financial-statements-engine-beta",
+      "notes": "LOT-16 qualifies the generic projection engine, versioned statement definitions, validated company-account mappings, controls, comparatives, drill-down and immutable snapshots. It does not yet claim statutory PCG statement templates or French regulatory-export compliance; those remain profile/reference work for LOT-17 and later qualification."
     },
     {
       "framework": "SYSCOHADA",
@@ -17,8 +17,8 @@
       "company_chart_binding": "supported",
       "policy_layer": "partial-beta",
       "generic_import_core": "source-format-neutral-alpha",
-      "financial_reporting": "not-yet-qualified",
-      "notes": "Generic import foundations are framework-neutral; specialized SYSCOHADA import adapters remain future scope."
+      "financial_reporting": "generic-financial-statements-engine-beta",
+      "notes": "LOT-16 is framework-neutral and can project validated mappings from SYSCOHADA-based company charts, but no official SYSCOHADA statement profile or regulatory export is claimed at this milestone."
     }
   ]
 }

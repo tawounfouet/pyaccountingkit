@@ -7,6 +7,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0b1] - 2026-09-15
+
+### Added
+- Generic Financial Statements Engine (LOT-16) built strictly as a projection from verified
+  `TrialBalance` snapshots.
+- Versioned/effective-dated `FinancialStatementDefinition` and immutable
+  `StatementLineDefinition` models.
+- Restricted deterministic formula DSL with dependency-graph validation and cycle rejection.
+- Versioned `StatementMappingSet` and explicit `StatementAccountMapping` lifecycle separating
+  candidate/review mappings from executable validated mappings.
+- Decimal one-to-many account allocation, balance-side mapping, comparatives and statement-line
+  drill-down to source trial-balance contributions.
+- Balance Sheet equation control and Cash Flow reconciliation control anchors.
+- Immutable `ReportSnapshot` with definition, mapping and source checksums plus stale-source
+  detection.
+- Stable reporting error codes for invalid definitions, formula cycles, mappings, sources and
+  failed controls.
+
+### Changed
+- Trial-balance snapshots may now pin `accounting_entity_id` and expose their actual currency.
+- `TrialBalanceQuery` preserves stable company-account IDs separately from business account
+  codes, strengthening `CompanyAccount -> TrialBalance -> StatementLine` lineage.
+- Reporting execution fails closed on cross-entity sources/mappings, non-effective definitions,
+  non-executable mappings and unmapped non-zero accounts unless explicitly configured otherwise.
+
+### Qualification
+- Financial statements remain read-side projections and introduce no ledger mutation path.
+- Candidate mappings cannot execute as active mappings.
+- Formula cycles are rejected before evaluation.
+- Balance Sheet and Cash Flow controls, comparative projection, account identity, snapshot
+  determinism and immutability are covered by LOT-16 qualification tests.
+- This milestone does not claim statutory PCG/SYSCOHADA statement templates or regulatory
+  exporter compliance; those remain LOT-17 scope.
+
 ## [0.3.0a2] - 2026-09-15
 
 ### Added

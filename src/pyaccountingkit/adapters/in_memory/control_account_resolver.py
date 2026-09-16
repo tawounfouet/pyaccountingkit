@@ -7,7 +7,11 @@ from datetime import date
 
 from pyaccountingkit.core.currency import Currency
 from pyaccountingkit.core.entity_scope import require_same_entity
-from pyaccountingkit.core.errors import InactiveAccountError, NonPostableAccountError, UnknownAccountError
+from pyaccountingkit.core.errors import (
+    InactiveAccountError,
+    NonPostableAccountError,
+    UnknownAccountError,
+)
 from pyaccountingkit.core.identifiers import EntityId
 from pyaccountingkit.domain.subledgers.control_account import (
     ControlAccountBinding,

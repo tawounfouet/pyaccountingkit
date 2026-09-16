@@ -7,6 +7,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0rc1] - 2026-09-16
+
+### Added
+- Executable cross-lot integration qualification from immutable French FEC source evidence
+  through `FECAdapter`, explicit `ImportPlan`, canonical `PostingOrchestrator`, posted ledger,
+  `TrialBalance`, `FinancialStatementEngine`, published `ReportSnapshot`, regulatory projection,
+  validation, canonical JSON export and `ReportEvidenceBundle`.
+- Shared release-0.3 qualification pipeline used by integration and replay tests so the same
+  production components are exercised across both gates.
+- Source-to-evidence replay qualification proving stable semantic identities/checksums across
+  fresh executions while allowing technical timestamps and generated export/evidence IDs to
+  differ.
+- Same-store replay qualification proving the same reviewed import source does not create a
+  second posted accounting effect or duplicate posting audit event.
+- Explicit `--release-candidate` mode in `scripts/qualify_release.py`.
+
+### Changed
+- Canonical CI now executes `tests/integration` together with unit, property, contract, golden,
+  replay and concurrency suites on Python 3.11, 3.12 and 3.13.
+- The executable CI contract now fails if cross-lot integration is removed from the canonical
+  matrix.
+- Release-candidate qualification fails closed when integration, golden, replay or concurrency
+  suites are empty and forbids skipping tests or package verification.
+- Root manifests and documentation are aligned to the `0.3.0rc1` package baseline.
+- The regulatory compatibility matrix distinguishes the PCG/FEC source-to-evidence RC
+  qualification from SYSCOHADA LOT-17 golden/replay qualification.
+
+### Qualification
+- The composed FEC → ledger → Trial Balance → financial statements → regulatory reporting →
+  evidence path passes the canonical CI matrix on Python 3.11, 3.12 and 3.13.
+- Package qualification and Security gates are required before promotion of the release
+  candidate.
+- The RC proves composition and deterministic replay of the existing 0.3.x capabilities; it
+  does not introduce LOT-18/0.4.x domain scope or a second posting engine.
+- The PCG/FEC scenario qualifies software mechanics and evidence lineage only. It does not claim
+  exhaustive statutory templates, DGFiP filing certification, legal certification or
+  regulator-submission compliance.
+
 ## [0.3.0b2] - 2026-09-16
 
 ### Added

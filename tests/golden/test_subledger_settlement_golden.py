@@ -130,7 +130,9 @@ def test_golden_invoice_1200_settlement_500_ages_and_reconciles_to_700() -> None
     assert invoice.due_items[1].open_amount == _money("600.00")
     assert invoice.open_amount == _money("700.00")
 
-    aging_sources = tuple(AgingSourceItem.from_receivable(invoice, due) for due in invoice.due_items)
+    aging_sources = tuple(
+        AgingSourceItem.from_receivable(invoice, due) for due in invoice.due_items
+    )
     aging = AgingEngine().snapshot(
         entity_id=ENTITY,
         subledger_id=AR,

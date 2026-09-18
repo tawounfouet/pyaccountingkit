@@ -67,7 +67,7 @@ class FinancialIndicatorValue:
         object.__setattr__(self, "checksum", self._compute_checksum())
 
     def _validate(self) -> None:
-        if not self.definition_id.strip() or not self.definition_version.strip() or not self.code.strip():
+        if (\n            not self.definition_id.strip()\n            or not self.definition_version.strip()\n            or not self.code.strip()\n        ):
             raise ValueError("indicator value identity fields must not be empty")
         if self.status is IndicatorValueStatus.CALCULATED:
             if self.value is None or not self.value.is_finite():

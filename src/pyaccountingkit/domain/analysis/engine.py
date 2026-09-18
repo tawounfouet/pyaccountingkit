@@ -35,7 +35,7 @@ from pyaccountingkit.domain.analysis.values import (
 )
 
 
-_ZERO: Final = Decimal("0")
+_ZERO = Decimal("0")
 
 
 @dataclass(frozen=True, slots=True)
@@ -110,7 +110,7 @@ class FinancialAnalysisEngine:
             evaluate_indicator(code)
 
         ratio_values: list[FinancialRatioValue] = []
-        for definition in sorted(request.definition_set.ratio_definitions, key=lambda item: item.code):
+        for definition in sorted(\n            request.definition_set.ratio_definitions,\n            key=lambda item: item.code,\n        ):
             value, trace = self._evaluate_ratio(
                 definition,
                 source=request.source,
@@ -311,7 +311,7 @@ class FinancialAnalysisEngine:
             return IndicatorValueStatus.ERROR, None, f"analytical calculation failed: {exc}"
 
         if not result.is_finite():
-            return IndicatorValueStatus.ERROR, None, "analytical calculation produced non-finite value"
+            return (\n                IndicatorValueStatus.ERROR,\n                None,\n                "analytical calculation produced non-finite value",\n            )
         return IndicatorValueStatus.CALCULATED, result, None
 
     @staticmethod

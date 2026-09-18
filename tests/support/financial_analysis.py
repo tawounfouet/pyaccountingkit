@@ -248,7 +248,7 @@ def build_definition_set() -> AnalysisDefinitionSet:
             definition_id="ratio:equity",
             code="EQUITY_RATIO",
             label="Equity ratio",
-            category=FinancialRatioCategory.CAPITAL_STRUCTURE,
+            category=FinancialRatioCategory.SOLVENCY,
             version="1",
             numerator_ref="EQUITY",
             denominator_ref="TOTAL_ASSETS",

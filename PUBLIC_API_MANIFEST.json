@@ -1,8 +1,8 @@
 {
-  "version": "0.4.0b1",
+  "version": "0.4.0rc1",
   "public_api": {
-    "stability": "pre-1.0-beta",
+    "stability": "pre-1.0-release-candidate",
     "stable_exports": [],
-    "note": "Release 0.4.0b1 adds LOT-20 Financial Analysis as a deterministic read-only bounded context over sealed reporting/accounting facts. It provides versioned indicator/ratio definitions, explicit CALCULATED/NOT_APPLICABLE/UNDEFINED/INDETERMINATE/ERROR outcomes, SIG/EBE/EBITDA/CAF examples, functional-balance and FRNG/BFR/Net-Treasury mechanics, historical ratios, trends, diagnostics, CalculationTrace and replayable AnalysisSnapshot evidence. Analysis never mutates the ledger or reporting source, does not infer semantics from account-number prefixes, and excludes Corporate Finance concepts such as NPV/IRR/WACC/DCF/valuation. The public Python API remains intentionally unfrozen before 1.0."
+    "note": "Release 0.4.0rc1 adds no new business capability. It transversely qualifies LOT-18 Subledger Foundations, LOT-19 Settlements/Allocations/Matching/Aging and LOT-20 Financial Analysis together: receivable/payable due-item flows through settlement allocation, open-item aging and exact normalized GL reconciliation; financial-analysis golden/replay evidence including EBE, EBITDA, CAF, FRNG/BFR/Net Treasury, ratios, deterministic trends and replayable AnalysisSnapshot; stale/double allocation concurrency rejection; the Corporate Finance boundary guard; and continued 0.3.x import/reporting replay qualification. The public Python API remains intentionally unfrozen before LOT-21."
   }
 }

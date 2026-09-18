@@ -88,6 +88,31 @@ def test_release_candidate_contract_requires_every_extended_suite(
         module.validate_release_candidate_contract(skip_tests=False, skip_package=False)
 
 
+def test_release_candidate_contract_requires_versioned_0_4_evidence(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    module = _load_qualifier()
+    for relative in ("tests/integration", "tests/golden", "tests/replay", "tests/concurrency"):
+        directory = tmp_path / relative
+        directory.mkdir(parents=True, exist_ok=True)
+        (directory / "test_present.py").write_text("def test_present(): pass\n", encoding="utf-8")
+
+    required = module._VERSIONED_RC_EVIDENCE["0.4.0rc1"]
+    missing = "tests/replay/test_0_4_release_pipeline_replay.py"
+    for relative in required:
+        if relative == missing:
+            continue
+        path = tmp_path / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("def test_release_evidence(): pass\n", encoding="utf-8")
+
+    monkeypatch.setattr(module, "ROOT", tmp_path)
+    monkeypatch.setattr(module, "project_version", lambda: "0.4.0rc1")
+    with pytest.raises(module.QualificationError, match="0.4.0rc1.*missing required evidence"):
+        module.validate_release_candidate_contract(skip_tests=False, skip_package=False)
+
+
 def test_manifest_gate_rejects_version_drift(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,

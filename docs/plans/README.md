@@ -23,6 +23,15 @@ Chaque plan correspond à un jalon de release sémantique clair, définit les lo
 
 ---
 
+## Qualification de release active
+
+- [`RELEASE_0.4.0_RC1_CROSS_LOT_QUALIFICATION_PLAN.md`](RELEASE_0.4.0_RC1_CROSS_LOT_QUALIFICATION_PLAN.md)
+  — qualification transverse LOT-18 + LOT-19 + LOT-20, cible `0.4.0rc1`, sans nouveau code métier.
+- [`RELEASE_0.3.0_RC1_CROSS_LOT_QUALIFICATION_PLAN.md`](RELEASE_0.3.0_RC1_CROSS_LOT_QUALIFICATION_PLAN.md)
+  — historique de qualification transverse de la ligne 0.3.
+- [`RELEASE_0.3.0_STABLE_PROMOTION_PLAN.md`](RELEASE_0.3.0_STABLE_PROMOTION_PLAN.md)
+  — historique de promotion stable 0.3.
+
 ## 2. Graphe d'Ordonnancement & Chemin Critique
 
 ### Aperçu Schématique (Vue ASCII Textuelle)

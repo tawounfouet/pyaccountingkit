@@ -11,45 +11,40 @@ specific regulatory dataset.
 ## Status
 
 PyAccountingKit is under active pre-1.0 development. The current package line is
-`0.4.0b1`, delivering `LOT-20 — Financial Analysis` on top of the LOT-18/19
-subledger foundations and stable `0.3.0` imports/reporting baseline.
+`0.4.0rc1`, the release-candidate qualification of the complete `0.4.x`
+line delivered by LOT-18, LOT-19 and LOT-20 on top of the stable `0.3.0`
+imports/reporting baseline.
 
-The public API is **not yet frozen**. `0.4.0b1` is the beta analytical
-milestone for the 0.4 line: sealed reporting/accounting evidence can now feed
-versioned indicators and ratios, SIG examples including distinct EBE and EBITDA,
-CAF, functional-balance and working-capital identities, historical trends,
-policy-driven diagnostics and immutable replayable `AnalysisSnapshot` evidence.
+The public API is **not yet frozen**. This RC adds no new business capability.
+It qualifies the composed subledger path
+`Receivable/Payable -> DueItem -> Settlement -> Allocation -> OpenItem -> Aging -> GL reconciliation`
+together with the read-only financial-analysis path
+`ReportSnapshot -> FinancialAnalysisEngine -> EBE/EBITDA/CAF -> FRNG/BFR/Net Treasury -> ratios -> AnalysisSnapshot`.
 
-Financial analysis is strictly read-only and never becomes accounting truth.
-Missing required inputs are `INDETERMINATE`; undefined denominators are
-`UNDEFINED`, never silent zero, NaN or Infinity. Analytical semantics are
-definition-driven rather than inferred from account-number prefixes. Corporate
-Finance concepts such as NPV/IRR/WACC/DCF/valuation remain outside the core.
+Release qualification explicitly preserves stale/double-allocation concurrency rejection,
+exact subledger/control-account reconciliation, deterministic analysis golden and replay
+evidence, deterministic trends, the Corporate Finance boundary guard, and the existing
+`0.3.x` import/reporting integration and replay scenarios.
 
-LOT-19 settlement/allocation mechanics remain available unchanged: allocation
-does **not** create a second General Ledger posting path, matching is not
-settlement, aging is not impairment and residuals are never silently absorbed
-as write-offs.
+Financial analysis remains strictly read-only and never becomes accounting truth.
+Allocation remains an auxiliary-state transition and never becomes a second General Ledger
+posting path. Missing analytical inputs remain `INDETERMINATE`; undefined denominators remain
+`UNDEFINED`; Corporate Finance concepts such as NPV/IRR/WACC/DCF/valuation remain outside
+the core.
 
-Stable `0.3.0` remains the qualified imports/reporting baseline. Its composed
-PCG/FEC path runs from immutable source evidence through explicit import
-planning, canonical posting, Trial Balance, financial statements, published
-`ReportSnapshot`, regulatory projection, validation, canonical export and
-checksummed evidence.
+Cross-lot integration is part of the canonical Python 3.11/3.12/3.13 CI matrix, and
+`python scripts/qualify_release.py --release-candidate` fails closed if required
+integration, golden, replay, concurrency, package or version-specific RC evidence is missing.
 
-Cross-lot integration is part of the canonical Python 3.11/3.12/3.13 CI matrix,
-and the strict release qualification gate fails closed if integration, golden,
-replay, concurrency, package or core evidence is missing.
+The PCG/FEC scenario qualifies the mechanics of the stable 0.3 composed path; it does
+**not** claim exhaustive statutory PCG templates, legal filing certification, DGFiP filing
+certification or regulator-submission compliance. SYSCOHADA remains qualified through the
+LOT-17 XOF golden/replay scenarios and is not presented as having the same FEC ingestion
+qualification.
 
-The PCG/FEC scenario qualifies the mechanics of that composed path; it does
-**not** claim exhaustive statutory PCG templates, legal filing certification,
-DGFiP filing certification or regulator-submission compliance. SYSCOHADA remains
-qualified through the LOT-17 XOF golden/replay scenarios and is not presented as
-having the same FEC ingestion qualification.
-
-Do not infer release readiness from the version number alone. A release is
-qualified only when canonical CI, package, security and applicable accounting
-gates are green and the milestone Definition of Done is satisfied.
+Do not infer release readiness from the version number alone. `0.4.0rc1` is promotable to
+stable `0.4.0` only after canonical CI, package, Security and all release-candidate
+qualification gates are green on the exact release head.
 
 ## Core guarantees
 
@@ -374,7 +369,9 @@ of truth.
 Start with:
 
 - `docs/ROADMAP.md` for the lot sequence and release gates;
-- `docs/plans/LOT-20_FINANCIAL_ANALYSIS_IMPLEMENTATION_PLAN.md` for the current
+- `docs/plans/RELEASE_0.4.0_RC1_CROSS_LOT_QUALIFICATION_PLAN.md` for the current
+  `0.4.0rc1` release-candidate qualification contract;
+- `docs/plans/LOT-20_FINANCIAL_ANALYSIS_IMPLEMENTATION_PLAN.md` for the LOT-20
   `0.4.0b1` analytical implementation contract;
 - `docs/plans/LOT-19_SETTLEMENTS_ALLOCATIONS_MATCHING_AGING_IMPLEMENTATION_PLAN.md`
   for the preceding `0.4.0a2` operational subledger contract;

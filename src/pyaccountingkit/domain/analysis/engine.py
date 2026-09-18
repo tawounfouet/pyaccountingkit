@@ -214,6 +214,7 @@ class FinancialAnalysisEngine:
                 strict=True,
             )
         )
+        message: str | None
         if required_missing:
             status = IndicatorValueStatus.INDETERMINATE
             result_value = None

@@ -150,9 +150,7 @@ def validate_release_candidate_contract(
     version = project_version()
     required_evidence = _VERSIONED_RC_EVIDENCE.get(version, ())
     missing_evidence = [
-        relative_path
-        for relative_path in required_evidence
-        if not (ROOT / relative_path).is_file()
+        relative_path for relative_path in required_evidence if not (ROOT / relative_path).is_file()
     ]
     if missing_evidence:
         joined = ", ".join(missing_evidence)

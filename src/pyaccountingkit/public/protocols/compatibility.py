@@ -47,7 +47,7 @@ class RuntimeCapabilities:
 def runtime_capabilities() -> RuntimeCapabilities:
     """Detect optional integration availability without importing those frameworks."""
 
-    package_root = Path(__file__).resolve().parents[1]
+    package_root = Path(__file__).resolve().parents[2]
     return RuntimeCapabilities(
         adapter_contract_version=ADAPTER_CONTRACT_VERSION,
         python_version=f"{version_info.major}.{version_info.minor}.{version_info.micro}",

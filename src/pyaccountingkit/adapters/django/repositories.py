@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 
-from django.db import IntegrityError, transaction
+from django.db import IntegrityError, connections, transaction
 from django.db.models import F
 
 from pyaccountingkit.adapters.django.mappers import (
@@ -97,8 +97,11 @@ class DjangoJournalEntryRepository:
             raise RevisionConflictError(f"Entry {entry.id} persistence conflict") from exc
 
     def get(self, entry_id: EntryId) -> JournalEntry:
+        queryset = JournalEntryModel.objects.using(self._using)
+        if connections[self._using].in_atomic_block:
+            queryset = queryset.select_for_update()
         try:
-            model = JournalEntryModel.objects.using(self._using).get(pk=str(entry_id))
+            model = queryset.get(pk=str(entry_id))
         except JournalEntryModel.DoesNotExist as exc:
             raise EntryNotFoundError(f"Entry {entry_id} not found") from exc
         return entry_to_domain(model, using=self._using)
@@ -180,8 +183,11 @@ class DjangoPeriodRepository:
             raise PeriodNotFoundError(f"Period {period.id} not found")
 
     def get(self, period_id: PeriodId) -> AccountingPeriod:
+        queryset = AccountingPeriodModel.objects.using(self._using)
+        if connections[self._using].in_atomic_block:
+            queryset = queryset.select_for_update()
         try:
-            model = AccountingPeriodModel.objects.using(self._using).get(pk=str(period_id))
+            model = queryset.get(pk=str(period_id))
         except AccountingPeriodModel.DoesNotExist as exc:
             raise PeriodNotFoundError(f"Period {period_id} not found") from exc
         return period_to_domain(model)

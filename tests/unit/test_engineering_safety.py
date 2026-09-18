@@ -140,6 +140,20 @@ def test_manifest_gate_rejects_version_drift(
         module.validate_manifests()
 
 
+@pytest.mark.parametrize(
+    "script",
+    (
+        "scripts/generate_public_api_manifest.py",
+        "scripts/generate_error_codes_manifest.py",
+        "scripts/generate_adapter_contract_manifest.py",
+    ),
+)
+def test_generated_manifests_are_committed_deterministically(script: str) -> None:
+    result = _run(sys.executable, script, "--check")
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert ": OK" in result.stdout
+
+
 def test_manifest_gate_accepts_current_repository() -> None:
     """The current root manifests must satisfy the release qualifier contract."""
     module = _load_qualifier()

@@ -86,9 +86,7 @@ class DjangoJournalEntryRepository:
                     raise RevisionConflictError(
                         f"Entry {entry.id}: expected revision {expected_revision}"
                     )
-                JournalLineModel.objects.using(self._using).filter(
-                    entry_id=str(entry.id)
-                ).delete()
+                JournalLineModel.objects.using(self._using).filter(entry_id=str(entry.id)).delete()
                 JournalLineModel.objects.using(self._using).bulk_create(
                     [
                         line_to_model(str(entry.id), line_number, line)

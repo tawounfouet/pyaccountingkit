@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from collections.abc import Mapping, Sequence
+from collections.abc import Callable, Mapping, Sequence
 from dataclasses import fields, is_dataclass
 from enum import Enum
-from typing import Callable, cast
+from typing import cast
 
 from pyaccountingkit.public.context import CommandContext
 from pyaccountingkit.public.errors import (

@@ -1,5 +1,5 @@
 {
-  "version": "0.4.0a2",
+  "version": "0.4.0b1",
   "regulatory_frameworks": [
     {
       "framework": "PCG",
@@ -16,7 +16,8 @@
       "subledger_foundations": "generic-LOT-18-alpha",
       "subledger_operations": "generic-LOT-19-alpha",
       "export_renderer": "canonical-json-reference",
-      "notes": "Release 0.4.0a2 preserves the 0.3.0 PCG/FEC regulatory qualification unchanged while extending the generic subledger layer with settlement allocation/reversal, explicit matching, payment terms, aging and normalized control-account reconciliation. These are generic accounting mechanics and do not broaden statutory-template, legal-filing, DGFiP-filing or authority-submission claims. Aging is not impairment and write-off requires explicit accounting-policy/proposal evidence."
+      "notes": "Release 0.4.0b1 preserves the stable 0.3.0 PCG/FEC regulatory qualification unchanged while adding generic LOT-20 read-only financial-analysis mechanics over sealed accounting/reporting evidence. Indicator/ratio definitions, working-capital analysis, trends and diagnostics do not broaden statutory-template, legal-filing, DGFiP-filing or authority-submission claims, and no account-prefix semantic inference is introduced.",
+      "financial_analysis": "generic-LOT-20-beta"
     },
     {
       "framework": "SYSCOHADA",
@@ -32,7 +33,8 @@
       "subledger_foundations": "generic-LOT-18-alpha",
       "subledger_operations": "generic-LOT-19-alpha",
       "export_renderer": "canonical-json-reference",
-      "notes": "SYSCOHADA remains qualified through LOT-17 deterministic XOF golden and replay scenarios. Release 0.4.0a2 extends only generic subledger mechanics and does not change the existing SYSCOHADA regulatory qualification boundary, claim an equivalent FEC ingestion path or provide statutory filing certification."
+      "notes": "SYSCOHADA remains qualified through LOT-17 deterministic XOF golden/replay scenarios. Release 0.4.0b1 adds only generic LOT-20 read-only financial-analysis mechanics and does not change the existing SYSCOHADA regulatory qualification boundary, claim an equivalent FEC ingestion path, infer semantics from SYSCOHADA account prefixes or provide statutory filing certification.",
+      "financial_analysis": "generic-LOT-20-beta"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "version": "0.4.0a2",
+  "version": "0.4.0b1",
   "adapter_contracts": {
     "unit_of_work": {
       "port": "UnitOfWorkProtocol",
@@ -16,13 +16,20 @@
     "company_chart_resolution": {
       "port": "CompanyChartResolverProtocol",
       "reference_adapter": "InMemoryVersionedCompanyChartResolver",
-      "scope": ["entity_id", "accounting_date"],
+      "scope": [
+        "entity_id",
+        "accounting_date"
+      ],
       "fail_closed": true
     },
     "account_role_resolution": {
       "port": "AccountRoleResolverProtocol",
       "reference_adapter": "InMemoryAccountRoleResolver",
-      "scope": ["entity_id", "accounting_date", "company_chart_version"],
+      "scope": [
+        "entity_id",
+        "accounting_date",
+        "company_chart_version"
+      ],
       "fail_closed": true
     },
     "control_account_resolution": {
@@ -37,8 +44,18 @@
       ],
       "chart_resolution": "CompanyChartResolverProtocol",
       "selection": "most-specific-fail-closed",
-      "validates_account": ["present", "active", "postable", "entity-scoped"],
-      "trace": ["binding_id", "chart_id", "chart_version", "reference_snapshot_id"],
+      "validates_account": [
+        "present",
+        "active",
+        "postable",
+        "entity-scoped"
+      ],
+      "trace": [
+        "binding_id",
+        "chart_id",
+        "chart_version",
+        "reference_snapshot_id"
+      ],
       "qualification": "LOT-18-alpha-reused-by-LOT-19"
     },
     "accounting_references": {
@@ -53,7 +70,9 @@
       ],
       "source_format_neutral": true,
       "posting_path": "PostingOrchestrator",
-      "specialized_adapters": ["FECAdapter"],
+      "specialized_adapters": [
+        "FECAdapter"
+      ],
       "stable_release_qualification": "source-to-evidence-cross-lot",
       "fec_fr": {
         "adapter": "FECAdapter",
@@ -63,7 +82,11 @@
         "source_checksum": "sha256",
         "source_entry_identity": "JournalCode:EcritureNum",
         "duplicate_strategy": "warn-only-row-hash",
-        "transaction_modes": ["ALL_OR_NOTHING", "PER_ITEM", "CHUNKED_ATOMIC"],
+        "transaction_modes": [
+          "ALL_OR_NOTHING",
+          "PER_ITEM",
+          "CHUNKED_ATOMIC"
+        ],
         "posting_path": "PostingOrchestrator",
         "qualification": "0.3.0-stable-cross-lot-qualified"
       }

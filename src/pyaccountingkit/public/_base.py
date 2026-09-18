@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
+from dataclasses import fields, is_dataclass
+from enum import Enum
 from typing import Callable, cast
 
 from pyaccountingkit.public.context import CommandContext
@@ -22,22 +24,33 @@ def _has_forbidden_framework_ancestry(value: object) -> bool:
     )
 
 
-def ensure_framework_neutral(value: object) -> None:
+def ensure_framework_neutral(value: object, *, _seen: set[int] | None = None) -> None:
     """Reject ORM/framework objects anywhere in a returned public object graph."""
 
-    if value is None or isinstance(value, (str, bytes, int, float, bool)):
+    if value is None or isinstance(value, (str, bytes, int, float, bool, Enum)):
         return
     if _has_forbidden_framework_ancestry(value):
         qualified = f"{type(value).__module__}.{type(value).__qualname__}"
         raise PublicBoundaryViolationError(qualified)
+
+    seen = _seen if _seen is not None else set()
+    identity = id(value)
+    if identity in seen:
+        return
+    seen.add(identity)
+
     if isinstance(value, Mapping):
         for key, item in value.items():
-            ensure_framework_neutral(key)
-            ensure_framework_neutral(item)
+            ensure_framework_neutral(key, _seen=seen)
+            ensure_framework_neutral(item, _seen=seen)
         return
     if isinstance(value, Sequence) and not isinstance(value, (str, bytes, bytearray)):
         for item in value:
-            ensure_framework_neutral(item)
+            ensure_framework_neutral(item, _seen=seen)
+        return
+    if is_dataclass(value) and not isinstance(value, type):
+        for field in fields(value):
+            ensure_framework_neutral(getattr(value, field.name), _seen=seen)
 
 
 class PublicNamespace:

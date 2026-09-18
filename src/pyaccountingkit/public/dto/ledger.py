@@ -11,7 +11,7 @@ from pyaccountingkit.domain.reporting.trial_balance import TrialBalance
 
 @dataclass(frozen=True, slots=True)
 class TrialBalanceLineDTO:
-    account_id: str
+    account_id: str | None
     account_code: str
     label: str
     debit: Money
@@ -21,7 +21,7 @@ class TrialBalanceLineDTO:
     @classmethod
     def from_domain(cls, line: AccountBalanceLine) -> TrialBalanceLineDTO:
         return cls(
-            account_id=str(line.account_id),
+            account_id=str(line.account_id) if line.account_id is not None else None,
             account_code=line.account_code,
             label=line.label,
             debit=line.sum_debit,

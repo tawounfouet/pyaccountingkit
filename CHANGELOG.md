@@ -7,6 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-09-18
+
+### Stable promotion
+- Promotes the fully qualified `0.4.0rc1` behavior to stable `0.4.0` with no new
+  business-domain functionality.
+- LOT-18 Subledger Foundations, LOT-19 Settlements/Allocations/Matching/Aging and LOT-20
+  Financial Analysis are now qualified together as the stable 0.4 release line.
+- Receivable and payable flows remain qualified through DueItem, settlement allocation,
+  OpenItem projection, deterministic Aging and exact normalized GL reconciliation.
+- Settlement allocation property invariants and stale competing-allocation rejection remain
+  canonical release evidence.
+- Financial Analysis remains read-only and qualified for distinct EBE/EBITDA, CAF,
+  FRNG/BFR/Net Treasury, historical ratios, deterministic trends and replayable
+  `AnalysisSnapshot` evidence.
+- The Corporate Finance boundary guard and the complete stable 0.3.x import/reporting
+  integration/replay baseline remain green release gates.
+
+### Qualification
+- Canonical tests pass on Python 3.11, 3.12 and 3.13.
+- Repository hygiene, architecture validation, manifest coherence, Ruff lint/format and strict
+  mypy remain green.
+- Wheel/sdist package verification remains green.
+- Dependency audit and Bandit static security analysis remain green.
+- Public Python API status remains pre-1.0 and intentionally unfrozen; LOT-21 starts the
+  dedicated Public API Facade work in `0.5.0a1`.
+
+
 ## [0.4.0rc1] - 2026-09-18
 
 ### Added

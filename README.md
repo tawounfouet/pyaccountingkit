@@ -11,40 +11,42 @@ specific regulatory dataset.
 ## Status
 
 PyAccountingKit is under active pre-1.0 development. The current package line is
-`0.4.0rc1`, the release-candidate qualification of the complete `0.4.x`
-line delivered by LOT-18, LOT-19 and LOT-20 on top of the stable `0.3.0`
-imports/reporting baseline.
+`0.4.0`, the stable Subledgers & Financial Analysis milestone covering LOT-18
+through LOT-20 on top of the stable `0.3.0` imports/reporting baseline.
 
-The public API is **not yet frozen**. This RC adds no new business capability.
-It qualifies the composed subledger path
-`Receivable/Payable -> DueItem -> Settlement -> Allocation -> OpenItem -> Aging -> GL reconciliation`
-together with the read-only financial-analysis path
+The public API is **not yet frozen**. Stable `0.4.0` means the complete 0.4.x
+line has passed its canonical qualification gates; it does not imply a 1.0-style
+compatibility guarantee for every Python import path or symbol.
+
+`0.4.0` is a direct promotion of the qualified `0.4.0rc1` behavior. No new
+subledger, settlement, reconciliation or financial-analysis semantics are introduced
+during the stable promotion.
+
+The qualified composed subledger path is:
+
+`Receivable/Payable -> DueItem -> Settlement -> Allocation -> OpenItem -> Aging -> normalized GL reconciliation`.
+
+The qualified analytical path is:
+
 `ReportSnapshot -> FinancialAnalysisEngine -> EBE/EBITDA/CAF -> FRNG/BFR/Net Treasury -> ratios -> AnalysisSnapshot`.
 
-Release qualification explicitly preserves stale/double-allocation concurrency rejection,
-exact subledger/control-account reconciliation, deterministic analysis golden and replay
-evidence, deterministic trends, the Corporate Finance boundary guard, and the existing
-`0.3.x` import/reporting integration and replay scenarios.
+Settlement allocation remains distinct from General Ledger posting, stale competing
+allocations fail closed, aging remains distinct from impairment, and Financial Analysis
+remains a read-only bounded context over sealed accounting/reporting evidence.
+Deterministic trend/replay, replayable `AnalysisSnapshot` evidence and the Corporate
+Finance boundary guard remain release gates.
 
-Financial analysis remains strictly read-only and never becomes accounting truth.
-Allocation remains an auxiliary-state transition and never becomes a second General Ledger
-posting path. Missing analytical inputs remain `INDETERMINATE`; undefined denominators remain
-`UNDEFINED`; Corporate Finance concepts such as NPV/IRR/WACC/DCF/valuation remain outside
-the core.
+The stable `0.3.x` FEC/import/reporting/regulatory integration and replay scenarios are
+retained in the canonical suite. Cross-lot tests run on Python 3.11/3.12/3.13 together
+with Ruff, strict mypy, package verification, dependency audit and Bandit.
 
-Cross-lot integration is part of the canonical Python 3.11/3.12/3.13 CI matrix, and
-`python scripts/qualify_release.py --release-candidate` fails closed if required
-integration, golden, replay, concurrency, package or version-specific RC evidence is missing.
+The PCG/FEC scenario qualifies the mechanics of its composed path; it does **not** claim
+exhaustive statutory PCG templates, legal filing certification, DGFiP filing certification
+or regulator-submission compliance. SYSCOHADA remains qualified through the LOT-17 XOF
+golden/replay scenarios and is not presented as having the same FEC ingestion qualification.
 
-The PCG/FEC scenario qualifies the mechanics of the stable 0.3 composed path; it does
-**not** claim exhaustive statutory PCG templates, legal filing certification, DGFiP filing
-certification or regulator-submission compliance. SYSCOHADA remains qualified through the
-LOT-17 XOF golden/replay scenarios and is not presented as having the same FEC ingestion
-qualification.
-
-Do not infer release readiness from the version number alone. `0.4.0rc1` is promotable to
-stable `0.4.0` only after canonical CI, package, Security and all release-candidate
-qualification gates are green on the exact release head.
+The next roadmap phase is LOT-21 / `0.5.0a1` — Public API Facade. It begins only after
+this stable 0.4 baseline and does not retroactively freeze the pre-1.0 API.
 
 ## Core guarantees
 
@@ -369,8 +371,10 @@ of truth.
 Start with:
 
 - `docs/ROADMAP.md` for the lot sequence and release gates;
-- `docs/plans/RELEASE_0.4.0_RC1_CROSS_LOT_QUALIFICATION_PLAN.md` for the current
-  `0.4.0rc1` release-candidate qualification contract;
+- `docs/plans/RELEASE_0.4.0_STABLE_PROMOTION_PLAN.md` for the current stable
+  `0.4.0` promotion contract;
+- `docs/plans/RELEASE_0.4.0_RC1_CROSS_LOT_QUALIFICATION_PLAN.md` for the preceding
+  `0.4.0rc1` cross-lot qualification contract;
 - `docs/plans/LOT-20_FINANCIAL_ANALYSIS_IMPLEMENTATION_PLAN.md` for the LOT-20
   `0.4.0b1` analytical implementation contract;
 - `docs/plans/LOT-19_SETTLEMENTS_ALLOCATIONS_MATCHING_AGING_IMPLEMENTATION_PLAN.md`

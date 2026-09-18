@@ -62,7 +62,12 @@ def _aging_policy() -> AgingPolicy:
     )
 
 
-def _control_account(*, subledger_id: str, account_id: str, account_code: str) -> ResolvedControlAccount:
+def _control_account(
+    *,
+    subledger_id: str,
+    account_id: str,
+    account_code: str,
+) -> ResolvedControlAccount:
     return ResolvedControlAccount(
         binding_id=f"binding:{subledger_id}",
         account_id=AccountId(account_id),

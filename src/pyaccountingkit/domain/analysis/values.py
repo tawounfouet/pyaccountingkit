@@ -9,7 +9,10 @@ from decimal import Decimal
 from enum import StrEnum
 
 from pyaccountingkit.domain.analysis.errors import InvalidAnalysisSourceError
-from pyaccountingkit.domain.analysis.indicators import IndicatorUnit, IndicatorValueStatus
+from pyaccountingkit.domain.analysis.indicators import (
+    IndicatorUnit,
+    IndicatorValueStatus,
+)
 from pyaccountingkit.domain.reporting.report_snapshot import ReportSnapshot
 
 
@@ -26,11 +29,20 @@ class AnalysisInputValue:
 
     def __post_init__(self) -> None:
         if not self.key.strip():
-            raise InvalidAnalysisSourceError("analysis input key must not be empty")
+            raise InvalidAnalysisSourceError(
+                "analysis input key must not be empty"
+            )
         if not self.source_ref.strip():
-            raise InvalidAnalysisSourceError("analysis input source_ref must not be empty")
-        if not isinstance(self.value, Decimal) or not self.value.is_finite():
-            raise InvalidAnalysisSourceError("analysis input value must be a finite Decimal")
+            raise InvalidAnalysisSourceError(
+                "analysis input source_ref must not be empty"
+            )
+        if (
+            not isinstance(self.value, Decimal)
+            or not self.value.is_finite()
+        ):
+            raise InvalidAnalysisSourceError(
+                "analysis input value must be a finite Decimal"
+            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -41,12 +53,18 @@ class DependencyObservation:
 
     def __post_init__(self) -> None:
         if not self.ref.strip():
-            raise ValueError("dependency observation ref must not be empty")
+            raise ValueError(
+                "dependency observation ref must not be empty"
+            )
         if self.status is IndicatorValueStatus.CALCULATED:
             if self.value is None or not self.value.is_finite():
-                raise ValueError("calculated dependency must carry a finite Decimal")
+                raise ValueError(
+                    "calculated dependency must carry a finite Decimal"
+                )
         elif self.value is not None:
-            raise ValueError("non-calculated dependency must not carry a value")
+            raise ValueError(
+                "non-calculated dependency must not carry a value"
+            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -64,23 +82,41 @@ class FinancialIndicatorValue:
 
     def __post_init__(self) -> None:
         self._validate()
-        object.__setattr__(self, "checksum", self._compute_checksum())
+        object.__setattr__(
+            self,
+            "checksum",
+            self._compute_checksum(),
+        )
 
     def _validate(self) -> None:
-        if (\n            not self.definition_id.strip()\n            or not self.definition_version.strip()\n            or not self.code.strip()\n        ):
-            raise ValueError("indicator value identity fields must not be empty")
+        if (
+            not self.definition_id.strip()
+            or not self.definition_version.strip()
+            or not self.code.strip()
+        ):
+            raise ValueError(
+                "indicator value identity fields must not be empty"
+            )
         if self.status is IndicatorValueStatus.CALCULATED:
             if self.value is None or not self.value.is_finite():
-                raise ValueError("calculated indicator must carry a finite Decimal")
+                raise ValueError(
+                    "calculated indicator must carry a finite Decimal"
+                )
         elif self.value is not None:
-            raise ValueError("non-calculated indicator must not carry a value")
+            raise ValueError(
+                "non-calculated indicator must not carry a value"
+            )
 
     def _compute_checksum(self) -> str:
         payload = {
             "definition_id": self.definition_id,
             "definition_version": self.definition_version,
             "code": self.code,
-            "value": str(self.value) if self.value is not None else None,
+            "value": (
+                str(self.value)
+                if self.value is not None
+                else None
+            ),
             "unit": self.unit.value,
             "status": self.status.value,
             "source_refs": list(self.source_refs),
@@ -88,14 +124,22 @@ class FinancialIndicatorValue:
                 {
                     "ref": item.ref,
                     "status": item.status.value,
-                    "value": str(item.value) if item.value is not None else None,
+                    "value": (
+                        str(item.value)
+                        if item.value is not None
+                        else None
+                    ),
                 }
                 for item in self.dependencies
             ],
             "message": self.message,
         }
         return hashlib.sha256(
-            json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()
+            json.dumps(
+                payload,
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode()
         ).hexdigest()
 
 
@@ -114,32 +158,60 @@ class FinancialRatioValue:
     checksum: str = field(init=False)
 
     def __post_init__(self) -> None:
-        if not self.definition_id.strip() or not self.definition_version.strip() or not self.code.strip():
-            raise ValueError("ratio value identity fields must not be empty")
+        if (
+            not self.definition_id.strip()
+            or not self.definition_version.strip()
+            or not self.code.strip()
+        ):
+            raise ValueError(
+                "ratio value identity fields must not be empty"
+            )
         if self.status is IndicatorValueStatus.CALCULATED:
             if self.value is None or not self.value.is_finite():
-                raise ValueError("calculated ratio must carry a finite Decimal")
+                raise ValueError(
+                    "calculated ratio must carry a finite Decimal"
+                )
         elif self.value is not None:
-            raise ValueError("non-calculated ratio must not carry a value")
-        object.__setattr__(self, "checksum", self._compute_checksum())
+            raise ValueError(
+                "non-calculated ratio must not carry a value"
+            )
+        object.__setattr__(
+            self,
+            "checksum",
+            self._compute_checksum(),
+        )
 
     def _compute_checksum(self) -> str:
         payload = {
             "definition_id": self.definition_id,
             "definition_version": self.definition_version,
             "code": self.code,
-            "value": str(self.value) if self.value is not None else None,
+            "value": (
+                str(self.value)
+                if self.value is not None
+                else None
+            ),
             "unit": self.unit.value,
             "status": self.status.value,
-            "numerator": str(self.numerator_value) if self.numerator_value is not None else None,
+            "numerator": (
+                str(self.numerator_value)
+                if self.numerator_value is not None
+                else None
+            ),
             "denominator": (
-                str(self.denominator_value) if self.denominator_value is not None else None
+                str(self.denominator_value)
+                if self.denominator_value is not None
+                else None
             ),
             "source_refs": list(self.source_refs),
             "message": self.message,
         }
         return hashlib.sha256(
-            json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()
+            json.dumps(
+                payload,
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode()
         ).hexdigest()
 
 
@@ -157,8 +229,14 @@ class CalculationTrace:
 
     def __post_init__(self) -> None:
         if not self.metric_code.strip() or not self.definition_id.strip():
-            raise ValueError("calculation trace identity fields must not be empty")
-        object.__setattr__(self, "checksum", self._compute_checksum())
+            raise ValueError(
+                "calculation trace identity fields must not be empty"
+            )
+        object.__setattr__(
+            self,
+            "checksum",
+            self._compute_checksum(),
+        )
 
     def _compute_checksum(self) -> str:
         payload = {
@@ -171,19 +249,33 @@ class CalculationTrace:
                 {
                     "ref": item.ref,
                     "status": item.status.value,
-                    "value": str(item.value) if item.value is not None else None,
+                    "value": (
+                        str(item.value)
+                        if item.value is not None
+                        else None
+                    ),
                 }
                 for item in self.dependencies
             ],
             "status": self.status.value,
-            "result_value": str(self.result_value) if self.result_value is not None else None,
+            "result_value": (
+                str(self.result_value)
+                if self.result_value is not None
+                else None
+            ),
         }
         return hashlib.sha256(
-            json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()
+            json.dumps(
+                payload,
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode()
         ).hexdigest()
 
 
-def inputs_from_report_snapshot(snapshot: ReportSnapshot) -> tuple[AnalysisInputValue, ...]:
+def inputs_from_report_snapshot(
+    snapshot: ReportSnapshot,
+) -> tuple[AnalysisInputValue, ...]:
     return tuple(
         AnalysisInputValue(
             key=line.code,

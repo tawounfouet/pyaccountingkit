@@ -216,7 +216,9 @@ class DjangoJournalRepository:
         try:
             journal_to_model(journal).save(using=self._using, force_insert=True)
         except IntegrityError as exc:
-            raise RevisionConflictError(f"Journal {journal.id} already exists or conflicts") from exc
+            raise RevisionConflictError(
+                f"Journal {journal.id} already exists or conflicts"
+            ) from exc
 
     def get(self, journal_id: JournalId) -> Journal:
         try:

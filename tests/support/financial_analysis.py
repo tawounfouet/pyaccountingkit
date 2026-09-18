@@ -345,9 +345,7 @@ def run_golden_analysis(
         source_snapshot=source_snapshot,
         result_checksum=result.checksum,
         analysis_snapshot=snapshot,
-        indicator_values=tuple(
-            (value.code, value.value) for value in result.indicator_values
-        ),
+        indicator_values=tuple((value.code, value.value) for value in result.indicator_values),
         ratio_values=tuple((value.code, value.value) for value in result.ratio_values),
         frng=working_capital.frng,
         bfr=working_capital.bfr,

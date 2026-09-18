@@ -77,23 +77,16 @@ class FinancialAnalysisEngine:
     """Evaluate versioned analytical definitions without mutating accounting truth."""
 
     def run(self, request: FinancialAnalysisRequest) -> FinancialAnalysisResult:
-        request.source.assert_publishable(
-            historical_replay=request.historical_replay
-        )
+        request.source.assert_publishable(historical_replay=request.historical_replay)
         if not request.definition_set.executable:
-            raise InvalidAnalysisDefinitionSetError(
-                "analysis definition set must be ACTIVE"
-            )
+            raise InvalidAnalysisDefinitionSetError("analysis definition set must be ACTIVE")
         if not request.definition_set.is_effective_on(request.source.as_of):
             raise InvalidAnalysisDefinitionSetError(
                 "analysis definition set is not effective on source as_of date"
             )
 
         input_map = {item.key: item for item in request.inputs}
-        definitions = {
-            item.code: item
-            for item in request.definition_set.indicator_definitions
-        }
+        definitions = {item.code: item for item in request.definition_set.indicator_definitions}
         resolved: dict[str, FinancialIndicatorValue] = {}
         traces: dict[tuple[AnalysisMetricKind, str], CalculationTrace] = {}
 
@@ -128,9 +121,7 @@ class FinancialAnalysisEngine:
             ratio_values.append(value)
             traces[(AnalysisMetricKind.RATIO, definition.code)] = trace
 
-        indicator_values = tuple(
-            resolved[code] for code in sorted(resolved)
-        )
+        indicator_values = tuple(resolved[code] for code in sorted(resolved))
         frozen_ratios = tuple(ratio_values)
         frozen_traces = tuple(
             traces[key]
@@ -164,9 +155,7 @@ class FinancialAnalysisEngine:
         input_map: dict[str, AnalysisInputValue],
         evaluate_indicator: Callable[[str], FinancialIndicatorValue],
     ) -> tuple[FinancialIndicatorValue, CalculationTrace]:
-        if not definition.executable or not definition.is_effective_on(
-            source.as_of
-        ):
+        if not definition.executable or not definition.is_effective_on(source.as_of):
             value = FinancialIndicatorValue(
                 definition_id=definition.definition_id,
                 definition_version=definition.version,
@@ -183,13 +172,8 @@ class FinancialAnalysisEngine:
         observations: list[DependencyObservation] = []
         source_refs = {source.source_ref}
         for dependency in definition.dependencies:
-            if (
-                dependency.dependency_type
-                is IndicatorDependencyType.INDICATOR
-            ):
-                indicator_value = evaluate_indicator(
-                    dependency.dependency_id
-                )
+            if dependency.dependency_type is IndicatorDependencyType.INDICATOR:
+                indicator_value = evaluate_indicator(dependency.dependency_id)
                 observation = DependencyObservation(
                     ref=dependency.dependency_id,
                     status=indicator_value.status,
@@ -282,27 +266,19 @@ class FinancialAnalysisEngine:
             AnalysisFormulaOperation.IF_DEFINED,
         }:
             for observation in ordered:
-                if (
-                    observation.status
-                    is IndicatorValueStatus.CALCULATED
-                ):
+                if observation.status is IndicatorValueStatus.CALCULATED:
                     return (
                         IndicatorValueStatus.CALCULATED,
                         observation.value,
                         None,
                     )
             if any(
-                observation.status
-                is IndicatorValueStatus.INDETERMINATE
-                for observation in ordered
+                observation.status is IndicatorValueStatus.INDETERMINATE for observation in ordered
             ):
                 return (
                     IndicatorValueStatus.INDETERMINATE,
                     None,
-                    (
-                        "no defined operand; at least one dependency "
-                        "is indeterminate"
-                    ),
+                    ("no defined operand; at least one dependency is indeterminate"),
                 )
             return (
                 IndicatorValueStatus.UNDEFINED,
@@ -325,9 +301,7 @@ class FinancialAnalysisEngine:
                 None,
                 "formula operand is unavailable",
             )
-        resolved = tuple(
-            value for value in values if value is not None
-        )
+        resolved = tuple(value for value in values if value is not None)
 
         try:
             if formula.operation in {
@@ -357,8 +331,7 @@ class FinancialAnalysisEngine:
                 result = max(resolved)
             else:
                 raise UnsupportedAnalysisOperationError(
-                    "unsupported analysis operation "
-                    f"{formula.operation.value!r}"
+                    f"unsupported analysis operation {formula.operation.value!r}"
                 )
         except (ArithmeticError, IndexError) as exc:
             return (
@@ -398,9 +371,7 @@ class FinancialAnalysisEngine:
         input_map: dict[str, AnalysisInputValue],
         indicators: dict[str, FinancialIndicatorValue],
     ) -> tuple[FinancialRatioValue, CalculationTrace]:
-        if not definition.executable or not definition.is_effective_on(
-            source.as_of
-        ):
+        if not definition.executable or not definition.is_effective_on(source.as_of):
             value = FinancialRatioValue(
                 definition_id=definition.definition_id,
                 definition_version=definition.version,
@@ -440,17 +411,11 @@ class FinancialAnalysisEngine:
         if numerator.status is not IndicatorValueStatus.CALCULATED:
             status = self._ratio_dependency_status(numerator.status)
             result = None
-            message = (
-                f"ratio numerator {definition.numerator_ref!r} "
-                "is not calculated"
-            )
+            message = f"ratio numerator {definition.numerator_ref!r} is not calculated"
         elif denominator.status is not IndicatorValueStatus.CALCULATED:
             status = self._ratio_dependency_status(denominator.status)
             result = None
-            message = (
-                f"ratio denominator {definition.denominator_ref!r} "
-                "is not calculated"
-            )
+            message = f"ratio denominator {definition.denominator_ref!r} is not calculated"
         elif denominator.value is None or numerator.value is None:
             status = IndicatorValueStatus.INDETERMINATE
             result = None
@@ -458,11 +423,7 @@ class FinancialAnalysisEngine:
         elif denominator.value.is_zero():
             status, result, message = self._zero_denominator(definition)
         else:
-            result = (
-                numerator.value
-                / denominator.value
-                * definition.scale
-            )
+            result = numerator.value / denominator.value * definition.scale
             if not result.is_finite():
                 status = IndicatorValueStatus.ERROR
                 result = None
@@ -529,28 +490,19 @@ class FinancialAnalysisEngine:
     def _zero_denominator(
         definition: FinancialRatioDefinition,
     ) -> tuple[IndicatorValueStatus, Decimal | None, str]:
-        if (
-            definition.zero_denominator_policy
-            is ZeroDenominatorPolicy.NOT_APPLICABLE
-        ):
+        if definition.zero_denominator_policy is ZeroDenominatorPolicy.NOT_APPLICABLE:
             return (
                 IndicatorValueStatus.NOT_APPLICABLE,
                 None,
                 "ratio denominator is zero",
             )
-        if (
-            definition.zero_denominator_policy
-            is ZeroDenominatorPolicy.ZERO_IF_CONFIGURED
-        ):
+        if definition.zero_denominator_policy is ZeroDenominatorPolicy.ZERO_IF_CONFIGURED:
             return (
                 IndicatorValueStatus.CALCULATED,
                 _ZERO,
                 "zero denominator policy returned zero",
             )
-        if (
-            definition.zero_denominator_policy
-            is ZeroDenominatorPolicy.ERROR
-        ):
+        if definition.zero_denominator_policy is ZeroDenominatorPolicy.ERROR:
             return (
                 IndicatorValueStatus.ERROR,
                 None,
@@ -567,9 +519,7 @@ class FinancialAnalysisEngine:
         definition: FinancialRatioDefinition,
         value: FinancialRatioValue,
         *,
-        dependencies: (
-            tuple[DependencyObservation, DependencyObservation] | None
-        ) = None,
+        dependencies: (tuple[DependencyObservation, DependencyObservation] | None) = None,
     ) -> CalculationTrace:
         observations = dependencies or (
             DependencyObservation(
@@ -609,15 +559,9 @@ class FinancialAnalysisEngine:
             "period_id": request.source.period_id,
             "as_of": request.source.as_of.isoformat(),
             "definition_set_checksum": request.definition_set.checksum,
-            "indicators": [
-                value.checksum for value in indicators
-            ],
-            "ratios": [
-                value.checksum for value in ratios
-            ],
-            "traces": [
-                trace.checksum for trace in traces
-            ],
+            "indicators": [value.checksum for value in indicators],
+            "ratios": [value.checksum for value in ratios],
+            "traces": [trace.checksum for trace in traces],
         }
         return hashlib.sha256(
             json.dumps(

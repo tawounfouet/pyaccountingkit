@@ -130,9 +130,7 @@ class FunctionalBalanceResult:
             "operating_current_assets": amount(self.operating_current_assets),
             "operating_current_liabilities": amount(self.operating_current_liabilities),
             "non_operating_current_assets": amount(self.non_operating_current_assets),
-            "non_operating_current_liabilities": amount(
-                self.non_operating_current_liabilities
-            ),
+            "non_operating_current_liabilities": amount(self.non_operating_current_liabilities),
             "cash_assets": amount(self.cash_assets),
             "cash_liabilities": amount(self.cash_liabilities),
             "missing_refs": list(self.missing_refs),
@@ -198,12 +196,8 @@ class FunctionalBalanceEngine:
             stable_resources=money(definition.stable_resources_ref),
             stable_uses=money(definition.stable_uses_ref),
             operating_current_assets=money(definition.operating_current_assets_ref),
-            operating_current_liabilities=money(
-                definition.operating_current_liabilities_ref
-            ),
-            non_operating_current_assets=money(
-                definition.non_operating_current_assets_ref
-            ),
+            operating_current_liabilities=money(definition.operating_current_liabilities_ref),
+            non_operating_current_assets=money(definition.non_operating_current_assets_ref),
             non_operating_current_liabilities=money(
                 definition.non_operating_current_liabilities_ref
             ),

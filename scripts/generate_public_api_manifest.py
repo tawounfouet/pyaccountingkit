@@ -3,11 +3,11 @@
 
 from __future__ import annotations
 
+from manifest_generation import parse_check_flag, project_version, write_or_check
+
 import pyaccountingkit
 import pyaccountingkit.public
 import pyaccountingkit.public.protocols
-
-from manifest_generation import parse_check_flag, project_version, write_or_check
 from pyaccountingkit.public.protocols import ADAPTER_CONTRACT_VERSION
 
 _FILENAME = "PUBLIC_API_MANIFEST.json"

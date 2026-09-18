@@ -22,6 +22,20 @@ _RC_TEST_SUITES: tuple[tuple[str, str], ...] = (
     ("tests/concurrency", "Concurrency test suite"),
 )
 
+_VERSIONED_RC_EVIDENCE: dict[str, tuple[str, ...]] = {
+    "0.4.0rc1": (
+        "tests/integration/test_0_4_subledger_financial_analysis_pipeline.py",
+        "tests/property/test_subledger_settlement_properties.py",
+        "tests/concurrency/test_subledger_allocation_concurrency.py",
+        "tests/golden/test_subledger_settlement_golden.py",
+        "tests/golden/test_financial_analysis_golden.py",
+        "tests/replay/test_0_4_release_pipeline_replay.py",
+        "tests/contract/test_corporate_finance_boundary.py",
+        "tests/integration/test_0_3_import_reporting_pipeline.py",
+        "tests/replay/test_0_3_release_pipeline_replay.py",
+    ),
+}
+
 
 @dataclass(frozen=True)
 class GateResult:
@@ -131,6 +145,19 @@ def validate_release_candidate_contract(
         joined = ", ".join(missing)
         raise QualificationError(
             f"release-candidate qualification requires non-empty test suites: {joined}"
+        )
+
+    version = project_version()
+    required_evidence = _VERSIONED_RC_EVIDENCE.get(version, ())
+    missing_evidence = [
+        relative_path
+        for relative_path in required_evidence
+        if not (ROOT / relative_path).is_file()
+    ]
+    if missing_evidence:
+        joined = ", ".join(missing_evidence)
+        raise QualificationError(
+            f"release-candidate {version} is missing required evidence: {joined}"
         )
 
 

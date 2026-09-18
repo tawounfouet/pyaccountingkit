@@ -6,6 +6,7 @@ from __future__ import annotations
 import json
 
 from manifest_generation import parse_check_flag, project_version, write_or_check
+
 from pyaccountingkit.public.protocols import (
     ADAPTER_CONTRACT_VERSION,
     SUPPORTED_ADAPTER_CONTRACT_VERSIONS,

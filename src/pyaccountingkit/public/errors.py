@@ -80,7 +80,43 @@ class PublicValidationError(PublicAccountingError):
     code = "PUBLIC_VALIDATION_ERROR"
 
 
+class AdapterContractMismatchError(PublicAccountingError):
+    """An adapter does not declare support for the active extension contract."""
+
+    code = "ADAPTER_CONTRACT_MISMATCH"
+
+    def __init__(
+        self,
+        *,
+        adapter_name: str,
+        required_version: str,
+        supported_versions: tuple[str, ...],
+    ) -> None:
+        super().__init__(
+            f"adapter {adapter_name!r} does not support contract version {required_version}",
+            context={
+                "adapter_name": adapter_name,
+                "required_version": required_version,
+                "supported_versions": supported_versions,
+            },
+        )
+
+
+class OptionalDependencyMissingError(PublicAccountingError):
+    """An explicitly requested optional integration dependency is unavailable."""
+
+    code = "OPTIONAL_DEPENDENCY_MISSING"
+
+    def __init__(self, *, extra: str, module: str) -> None:
+        super().__init__(
+            f"optional dependency {module!r} is required by extra {extra!r}",
+            context={"extra": extra, "module": module},
+        )
+
+
 __all__ = [
+    "AdapterContractMismatchError",
+    "OptionalDependencyMissingError",
     "PublicAccountingError",
     "PublicBoundaryViolationError",
     "PublicErrorInfo",

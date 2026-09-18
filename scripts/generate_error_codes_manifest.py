@@ -110,7 +110,7 @@ _PUBLIC_ERROR_CLASS_NAMES = [
     "UnsupportedAnalysisOperationError",
     "WriteOffPolicyRequiredError",
     "ZeroEntryError",
-    "ZeroLineError"
+    "ZeroLineError",
 ]
 
 

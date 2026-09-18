@@ -11,42 +11,52 @@ specific regulatory dataset.
 ## Status
 
 PyAccountingKit is under active pre-1.0 development. The current package line is
-`0.4.0`, the stable Subledgers & Financial Analysis milestone covering LOT-18
-through LOT-20 on top of the stable `0.3.0` imports/reporting baseline.
+`0.5.0a1`, the LOT-21 Public API Facade alpha built on the stable `0.4.0`
+Subledgers & Financial Analysis baseline.
 
-The public API is **not yet frozen**. Stable `0.4.0` means the complete 0.4.x
-line has passed its canonical qualification gates; it does not imply a 1.0-style
-compatibility guarantee for every Python import path or symbol.
+The public Python API is **not yet frozen**. LOT-21 introduces the first coherent,
+framework-neutral user boundary without changing the accounting semantics already qualified
+through LOT-20.
 
-`0.4.0` is a direct promotion of the qualified `0.4.0rc1` behavior. No new
-subledger, settlement, reconciliation or financial-analysis semantics are introduced
-during the stable promotion.
+The primary entry point is:
 
-The qualified composed subledger path is:
+```python
+from pyaccountingkit import AccountingApplication, CommandContext, Money
+```
 
-`Receivable/Payable -> DueItem -> Settlement -> Allocation -> OpenItem -> Aging -> normalized GL reconciliation`.
+`AccountingApplication` exposes the following namespaces:
 
-The qualified analytical path is:
+```text
+references
+charts
+entries
+ledger
+closing
+controls
+imports
+statements
+reporting
+analysis
+subledgers
+```
 
-`ReportSnapshot -> FinancialAnalysisEngine -> EBE/EBITDA/CAF -> FRNG/BFR/Net Treasury -> ratios -> AnalysisSnapshot`.
+The LOT-21 boundary uses explicit commands/queries, immutable stdlib DTOs,
+machine-readable public errors, cursor-first pagination and a frozen
+`CommandContext`. Public results are checked so Django/SQLAlchemy-derived objects cannot
+cross the facade. The root package imports without requiring either ORM.
 
-Settlement allocation remains distinct from General Ledger posting, stale competing
-allocations fail closed, aging remains distinct from impairment, and Financial Analysis
-remains a read-only bounded context over sealed accounting/reporting evidence.
-Deterministic trend/replay, replayable `AnalysisSnapshot` evidence and the Corporate
-Finance boundary guard remain release gates.
+LOT-21 does **not** introduce Django/PostgreSQL or SQLAlchemy/PostgreSQL persistence, expose
+ORM sessions/transactions, or freeze adapter-author contracts. Those remain LOT-22 through
+LOT-24 work. Missing composed operations fail closed with a typed
+`PublicOperationUnavailableError`.
 
-The stable `0.3.x` FEC/import/reporting/regulatory integration and replay scenarios are
-retained in the canonical suite. Cross-lot tests run on Python 3.11/3.12/3.13 together
-with Ruff, strict mypy, package verification, dependency audit and Bandit.
+The stable `0.4.0` business qualification remains mandatory underneath this facade:
+settlement allocation/concurrency, exact subledger/GL reconciliation, financial-analysis
+golden/replay, Corporate Finance boundary protection and the retained `0.3.x`
+imports/reporting qualification continue to run unchanged.
 
-The PCG/FEC scenario qualifies the mechanics of its composed path; it does **not** claim
-exhaustive statutory PCG templates, legal filing certification, DGFiP filing certification
-or regulator-submission compliance. SYSCOHADA remains qualified through the LOT-17 XOF
-golden/replay scenarios and is not presented as having the same FEC ingestion qualification.
-
-The next roadmap phase is LOT-21 / `0.5.0a1` — Public API Facade. It begins only after
-this stable 0.4 baseline and does not retroactively freeze the pre-1.0 API.
+The package remains pre-1.0. LOT-22 / `0.5.0a2` will formalize the extension API,
+deterministic manifests and compatibility contracts after LOT-21 is qualified.
 
 ## Core guarantees
 

@@ -59,6 +59,4 @@ def test_root_public_surface_is_explicit_and_minimal() -> None:
     assert isinstance(pyaccountingkit.__version__, str)
     assert consumer_names <= public_names
     unexpected_names = public_names - consumer_names
-    assert all(
-        isinstance(getattr(pyaccountingkit, name), ModuleType) for name in unexpected_names
-    )
+    assert all(isinstance(getattr(pyaccountingkit, name), ModuleType) for name in unexpected_names)

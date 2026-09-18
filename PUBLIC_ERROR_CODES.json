@@ -1,5 +1,5 @@
 {
-  "version": "0.4.0",
+  "version": "0.5.0a1",
   "error_codes": {
     "ENTITY_SCOPE_MISMATCH": "EntityScopeMismatchError",
     "ENTRY_UNBALANCED": "UnbalancedEntryError",
@@ -90,6 +90,9 @@
     "ANALYSIS_INVALID_DEFINITION_SET": "InvalidAnalysisDefinitionSetError",
     "ANALYSIS_UNSUPPORTED_OPERATION": "UnsupportedAnalysisOperationError",
     "ANALYSIS_INVALID_FUNCTIONAL_BALANCE": "InvalidFunctionalBalanceError",
-    "ANALYSIS_INVALID_SNAPSHOT": "InvalidAnalysisSnapshotError"
+    "ANALYSIS_INVALID_SNAPSHOT": "InvalidAnalysisSnapshotError",
+    "PUBLIC_OPERATION_UNAVAILABLE": "PublicOperationUnavailableError",
+    "PUBLIC_BOUNDARY_VIOLATION": "PublicBoundaryViolationError",
+    "PUBLIC_VALIDATION_ERROR": "PublicValidationError"
   }
 }

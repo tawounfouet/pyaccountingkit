@@ -1,8 +1,14 @@
 {
-  "version": "0.4.0",
+  "version": "0.5.0a1",
   "public_api": {
-    "stability": "pre-1.0-stable-release",
-    "stable_exports": [],
-    "note": "Release 0.4.0 is the stable promotion of the LOT-18/19/20 subledger and Financial Analysis line qualified in 0.4.0rc1. Receivable/payable due-item flows remain qualified through settlement allocation, open-item aging and exact normalized GL reconciliation; financial analysis remains read-only with EBE/EBITDA/CAF, FRNG/BFR/Net Treasury, ratios, deterministic trends and replayable AnalysisSnapshot evidence. Settlement concurrency guards, the Corporate Finance boundary and the stable 0.3.x imports/reporting baseline remain part of the release qualification. The package milestone is stable, while the public Python API remains intentionally unfrozen before 1.0 and LOT-21."
+    "stability": "pre-1.0-alpha",
+    "stable_exports": [
+      "AccountingApplication",
+      "CommandContext",
+      "Currency",
+      "CurrencyCode",
+      "Money"
+    ],
+    "note": "LOT-21 / 0.5.0a1 introduces the first framework-neutral user-facing facade: AccountingApplication with references, charts, entries, ledger, closing, controls, imports, statements, reporting, analysis and subledgers namespaces; immutable stdlib DTOs; CommandContext; cursor-first Page; and machine-readable public boundary errors. Public operations delegate only to composed application services, reject Django/SQLAlchemy-derived return values, and expose no ORM/session/transaction API. This alpha does not freeze the pre-1.0 Python API; LOT-22 remains responsible for extension contracts, deterministic manifest generation and compatibility formalization."
   }
 }

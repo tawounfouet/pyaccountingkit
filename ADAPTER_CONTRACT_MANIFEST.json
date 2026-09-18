@@ -1,5 +1,5 @@
 {
-  "version": "0.4.0",
+  "version": "0.5.0a1",
   "adapter_contracts": {
     "unit_of_work": {
       "port": "UnitOfWorkProtocol",

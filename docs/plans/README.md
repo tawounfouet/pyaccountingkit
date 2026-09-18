@@ -23,10 +23,12 @@ Chaque plan correspond à un jalon de release sémantique clair, définit les lo
 
 ---
 
-## Qualification de release active
+## Lot actif / qualification
 
+- [`LOT-21_PUBLIC_API_FACADE_IMPLEMENTATION_PLAN.md`](LOT-21_PUBLIC_API_FACADE_IMPLEMENTATION_PLAN.md)
+  — LOT-21 Public API Facade, cible `0.5.0a1`, gate GA + GAPI.
 - [`RELEASE_0.4.0_STABLE_PROMOTION_PLAN.md`](RELEASE_0.4.0_STABLE_PROMOTION_PLAN.md)
-  — promotion de `0.4.0rc1` vers `0.4.0` stable, sans nouveau code métier.
+  — baseline stable `0.4.0` dont LOT-21 conserve toute la qualification.
 - [`RELEASE_0.4.0_RC1_CROSS_LOT_QUALIFICATION_PLAN.md`](RELEASE_0.4.0_RC1_CROSS_LOT_QUALIFICATION_PLAN.md)
   — qualification transverse LOT-18 + LOT-19 + LOT-20 ayant produit `0.4.0rc1`.
 - [`RELEASE_0.3.0_RC1_CROSS_LOT_QUALIFICATION_PLAN.md`](RELEASE_0.3.0_RC1_CROSS_LOT_QUALIFICATION_PLAN.md)

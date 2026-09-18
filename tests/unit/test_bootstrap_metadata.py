@@ -44,11 +44,19 @@ def test_pep561_marker_is_packaged() -> None:
 
 
 def test_root_public_surface_is_explicit_and_minimal() -> None:
-    """The package root exposes only version metadata as a public API."""
-    assert pyaccountingkit.__all__ == ["__version__"]
+    """LOT-21 exposes only the intentional consumer entry points at package root."""
+    expected = [
+        "AccountingApplication",
+        "CommandContext",
+        "Currency",
+        "CurrencyCode",
+        "Money",
+        "__version__",
+    ]
+    assert pyaccountingkit.__all__ == expected
     public_names = {name for name in vars(pyaccountingkit) if not name.startswith("_")}
+    consumer_names = set(expected) - {"__version__"}
     assert isinstance(pyaccountingkit.__version__, str)
-    visible_modules = {
-        name for name in public_names if isinstance(getattr(pyaccountingkit, name), ModuleType)
-    }
-    assert public_names <= visible_modules
+    assert consumer_names <= public_names
+    unexpected_names = public_names - consumer_names
+    assert all(isinstance(getattr(pyaccountingkit, name), ModuleType) for name in unexpected_names)

@@ -7,6 +7,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0a1] - 2026-09-18
+
+### Added
+- LOT-21 `AccountingApplication` as the first framework-neutral public composition root.
+- Explicit public namespaces for references, charts, entries, ledger, closing, controls,
+  imports, financial statements, regulatory reporting, financial analysis and subledgers.
+- Nested subledger user API for partners, receivables, payables, settlements and matching.
+- Frozen `CommandContext` carrying actor, correlation/request identifiers, idempotency key and
+  read-only metadata without performing authentication.
+- Frozen cursor-first `Page[T]` / `Cursor` pagination primitives.
+- Immutable stdlib DTOs for journal entries, trial balances and financial statements.
+- Machine-readable public error boundary with explicit unavailable-operation, validation and
+  framework-boundary violation codes.
+- GAPI tests proving the root package imports without Django/SQLAlchemy and rejecting
+  framework-derived objects from returned public object graphs.
+
+### Changed
+- Package-root consumer imports now expose `AccountingApplication`, `CommandContext`,
+  `Money`, `Currency` and `CurrencyCode`.
+- Existing 0.4 accounting, subledger and financial-analysis semantics remain unchanged beneath
+  the public facade.
+- Root manifests are aligned to `0.5.0a1`; the API remains explicitly pre-1.0 and unfrozen.
+
+### Boundaries
+- LOT-21 does not provide Django/PostgreSQL or SQLAlchemy/PostgreSQL production adapters.
+- LOT-21 does not expose ORM sessions, QuerySets, transactions or lock primitives.
+- Public extension protocols, deterministic manifest generation and compatibility contracts
+  remain LOT-22 scope.
+
+
 ## [0.4.0] - 2026-09-18
 
 ### Stable promotion

@@ -1,6 +1,60 @@
 {
-  "version": "0.5.0a1",
   "public_api": {
+    "adapter_contract_version": "1",
+    "extension_exports": [
+      "ADAPTER_CONTRACT_VERSION",
+      "AccountingReferenceProviderProtocol",
+      "AdapterContractVersion",
+      "RegulatoryExporterProtocol",
+      "RegulatoryRendererProtocol",
+      "RuntimeCapabilities",
+      "SUPPORTED_ADAPTER_CONTRACT_VERSIONS",
+      "UnitOfWorkFactoryProtocol",
+      "UnitOfWorkProtocol",
+      "require_adapter_contract",
+      "require_optional_dependency",
+      "runtime_capabilities"
+    ],
+    "note": "LOT-22 / 0.5.0a2 formalizes the adapter-author extension API separately from the LOT-21 user facade. Public and extension symbol inventories are generated deterministically from explicit __all__ declarations; adapter contract v1 is published without freezing the full pre-1.0 Python API.",
+    "public_package_exports": [
+      "AccountingApplication",
+      "AdapterContractMismatchError",
+      "ChartsAPI",
+      "ClosingAPI",
+      "CommandContext",
+      "ControlsAPI",
+      "Cursor",
+      "EntriesAPI",
+      "FinancialAnalysisAPI",
+      "FinancialStatementDTO",
+      "FinancialStatementLineDTO",
+      "ImportsAPI",
+      "JournalEntryDTO",
+      "JournalLineDTO",
+      "LedgerAPI",
+      "OptionalDependencyMissingError",
+      "Page",
+      "PublicAccountingError",
+      "PublicBoundaryViolationError",
+      "PublicErrorInfo",
+      "PublicOperationUnavailableError",
+      "PublicValidationError",
+      "PyAccountingKitError",
+      "ReferencesAPI",
+      "RegulatoryReportingAPI",
+      "StatementsAPI",
+      "SubledgersAPI",
+      "TrialBalanceDTO",
+      "TrialBalanceLineDTO"
+    ],
+    "root_exports": [
+      "AccountingApplication",
+      "CommandContext",
+      "Currency",
+      "CurrencyCode",
+      "Money",
+      "__version__"
+    ],
     "stability": "pre-1.0-alpha",
     "stable_exports": [
       "AccountingApplication",
@@ -8,7 +62,7 @@
       "Currency",
       "CurrencyCode",
       "Money"
-    ],
-    "note": "LOT-21 / 0.5.0a1 introduces the first framework-neutral user-facing facade: AccountingApplication with references, charts, entries, ledger, closing, controls, imports, statements, reporting, analysis and subledgers namespaces; immutable stdlib DTOs; CommandContext; cursor-first Page; and machine-readable public boundary errors. Public operations delegate only to composed application services, reject Django/SQLAlchemy-derived return values, and expose no ORM/session/transaction API. This alpha does not freeze the pre-1.0 Python API; LOT-22 remains responsible for extension contracts, deterministic manifest generation and compatibility formalization."
-  }
+    ]
+  },
+  "version": "0.5.0a2"
 }

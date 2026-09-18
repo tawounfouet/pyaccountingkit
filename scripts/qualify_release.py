@@ -182,6 +182,17 @@ def qualify(
         )
     )
     results.append(run_callable("Manifest coherence", validate_manifests))
+    for script, label in (
+        ("scripts/generate_public_api_manifest.py", "Public API manifest generation"),
+        ("scripts/generate_error_codes_manifest.py", "Public error manifest generation"),
+        ("scripts/generate_adapter_contract_manifest.py", "Adapter contract manifest generation"),
+    ):
+        results.append(
+            run_command(
+                [sys.executable, script, "--check"],
+                label=label,
+            )
+        )
     results.append(
         run_command(
             [sys.executable, "scripts/validate_ci.py"],

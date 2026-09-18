@@ -1,39 +1,76 @@
 {
-  "version": "0.5.0a1",
   "adapter_contracts": {
-    "unit_of_work": {
-      "port": "UnitOfWorkProtocol",
-      "reference_adapter": "InMemoryUnitOfWork",
-      "qualified_behaviors": [
-        "atomic_commit_rollback",
-        "transaction_local_state",
-        "optimistic_revision_conflict",
-        "idempotency_conflict",
-        "audit_outbox_atomicity"
-      ],
-      "production_qualification": false
-    },
-    "company_chart_resolution": {
-      "port": "CompanyChartResolverProtocol",
-      "reference_adapter": "InMemoryVersionedCompanyChartResolver",
-      "scope": [
-        "entity_id",
-        "accounting_date"
-      ],
-      "fail_closed": true
-    },
     "account_role_resolution": {
+      "fail_closed": true,
       "port": "AccountRoleResolverProtocol",
       "reference_adapter": "InMemoryAccountRoleResolver",
       "scope": [
         "entity_id",
         "accounting_date",
         "company_chart_version"
+      ]
+    },
+    "accounting_import": {
+      "fec_fr": {
+        "adapter": "FECAdapter",
+        "adapter_version": "0.3.0a2",
+        "duplicate_strategy": "warn-only-row-hash",
+        "format": "French FEC 18-column text export",
+        "posting_path": "PostingOrchestrator",
+        "qualification": "0.3.0-stable-cross-lot-qualified",
+        "raw_preservation": true,
+        "source_checksum": "sha256",
+        "source_entry_identity": "JournalCode:EcritureNum",
+        "transaction_modes": [
+          "ALL_OR_NOTHING",
+          "PER_ITEM",
+          "CHUNKED_ATOMIC"
+        ]
+      },
+      "ports": [
+        "AccountingImportParser",
+        "AccountingImportNormalizer",
+        "ImportPeriodResolver"
       ],
-      "fail_closed": true
+      "posting_path": "PostingOrchestrator",
+      "source_format_neutral": true,
+      "specialized_adapters": [
+        "FECAdapter"
+      ],
+      "stable_release_qualification": "source-to-evidence-cross-lot"
+    },
+    "accounting_references": {
+      "port": "AccountingReferenceProviderProtocol",
+      "status": "qualified_reference_contract"
+    },
+    "company_chart_resolution": {
+      "fail_closed": true,
+      "port": "CompanyChartResolverProtocol",
+      "reference_adapter": "InMemoryVersionedCompanyChartResolver",
+      "scope": [
+        "entity_id",
+        "accounting_date"
+      ]
+    },
+    "contract": {
+      "current_version": "1",
+      "extension_api": [
+        "AccountingReferenceProviderProtocol",
+        "RegulatoryExporterProtocol",
+        "RegulatoryRendererProtocol",
+        "UnitOfWorkFactoryProtocol",
+        "UnitOfWorkProtocol"
+      ],
+      "production_adapters": [],
+      "qualification": "LOT-22-extension-contract-alpha",
+      "supported_versions": [
+        "1"
+      ]
     },
     "control_account_resolution": {
+      "chart_resolution": "CompanyChartResolverProtocol",
       "port": "ControlAccountResolverProtocol",
+      "qualification": "LOT-18-alpha-reused-by-LOT-19",
       "reference_adapter": "InMemoryControlAccountResolver",
       "scope": [
         "entity_id",
@@ -42,75 +79,53 @@
         "party_type",
         "currency"
       ],
-      "chart_resolution": "CompanyChartResolverProtocol",
       "selection": "most-specific-fail-closed",
-      "validates_account": [
-        "present",
-        "active",
-        "postable",
-        "entity-scoped"
-      ],
       "trace": [
         "binding_id",
         "chart_id",
         "chart_version",
         "reference_snapshot_id"
       ],
-      "qualification": "LOT-18-alpha-reused-by-LOT-19"
-    },
-    "accounting_references": {
-      "port": "AccountingReferenceProviderProtocol",
-      "status": "qualified_reference_contract"
-    },
-    "accounting_import": {
-      "ports": [
-        "AccountingImportParser",
-        "AccountingImportNormalizer",
-        "ImportPeriodResolver"
-      ],
-      "source_format_neutral": true,
-      "posting_path": "PostingOrchestrator",
-      "specialized_adapters": [
-        "FECAdapter"
-      ],
-      "stable_release_qualification": "source-to-evidence-cross-lot",
-      "fec_fr": {
-        "adapter": "FECAdapter",
-        "adapter_version": "0.3.0a2",
-        "format": "French FEC 18-column text export",
-        "raw_preservation": true,
-        "source_checksum": "sha256",
-        "source_entry_identity": "JournalCode:EcritureNum",
-        "duplicate_strategy": "warn-only-row-hash",
-        "transaction_modes": [
-          "ALL_OR_NOTHING",
-          "PER_ITEM",
-          "CHUNKED_ATOMIC"
-        ],
-        "posting_path": "PostingOrchestrator",
-        "qualification": "0.3.0-stable-cross-lot-qualified"
-      }
+      "validates_account": [
+        "present",
+        "active",
+        "postable",
+        "entity-scoped"
+      ]
     },
     "reference_reporting_model": {
-      "port": "ReferenceReportingModelProviderProtocol",
-      "reference_adapter": "InMemoryReferenceReportingModelProvider",
       "coordinates": [
         "reference_snapshot_id",
         "framework",
         "edition",
         "model_code"
       ],
-      "resolution": "exact-only",
       "fail_closed": true,
-      "qualification": "0.3.0-stable-cross-lot-qualified"
+      "port": "ReferenceReportingModelProviderProtocol",
+      "qualification": "0.3.0-stable-cross-lot-qualified",
+      "reference_adapter": "InMemoryReferenceReportingModelProvider",
+      "resolution": "exact-only"
     },
     "regulatory_renderer": {
-      "port": "RegulatoryRendererProtocol",
-      "reference_adapter": "CanonicalJSONRegulatoryRenderer",
-      "input": "precomputed-RegulatoryReport",
-      "recalculates_accounting": false,
       "deterministic_payload": true,
-      "qualification": "0.3.0-stable-cross-lot-qualified"
+      "input": "precomputed-RegulatoryReport",
+      "port": "RegulatoryRendererProtocol",
+      "qualification": "0.3.0-stable-cross-lot-qualified",
+      "recalculates_accounting": false,
+      "reference_adapter": "CanonicalJSONRegulatoryRenderer"
+    },
+    "unit_of_work": {
+      "port": "UnitOfWorkProtocol",
+      "production_qualification": false,
+      "qualified_behaviors": [
+        "atomic_commit_rollback",
+        "transaction_local_state",
+        "optimistic_revision_conflict",
+        "idempotency_conflict",
+        "audit_outbox_atomicity"
+      ],
+      "reference_adapter": "InMemoryUnitOfWork"
     }
-  }
+  },
+  "version": "0.5.0a2"
 }

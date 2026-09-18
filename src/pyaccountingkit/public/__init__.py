@@ -16,6 +16,8 @@ from pyaccountingkit.public.dto import (
 )
 from pyaccountingkit.public.entries import EntriesAPI
 from pyaccountingkit.public.errors import (
+    AdapterContractMismatchError,
+    OptionalDependencyMissingError,
     PublicAccountingError,
     PublicBoundaryViolationError,
     PublicErrorInfo,
@@ -33,6 +35,7 @@ from pyaccountingkit.public.subledgers import SubledgersAPI
 
 __all__ = [
     "AccountingApplication",
+    "AdapterContractMismatchError",
     "ChartsAPI",
     "ClosingAPI",
     "CommandContext",
@@ -46,6 +49,7 @@ __all__ = [
     "JournalEntryDTO",
     "JournalLineDTO",
     "LedgerAPI",
+    "OptionalDependencyMissingError",
     "Page",
     "PublicAccountingError",
     "PublicBoundaryViolationError",

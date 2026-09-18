@@ -11,52 +11,50 @@ specific regulatory dataset.
 ## Status
 
 PyAccountingKit is under active pre-1.0 development. The current package line is
-`0.5.0a1`, the LOT-21 Public API Facade alpha built on the stable `0.4.0`
-Subledgers & Financial Analysis baseline.
+`0.5.0a2`, the LOT-22 Extension API, Manifests & Compatibility Contracts alpha
+built on the qualified LOT-21 `0.5.0a1` user facade.
 
-The public Python API is **not yet frozen**. LOT-21 introduces the first coherent,
-framework-neutral user boundary without changing the accounting semantics already qualified
-through LOT-20.
-
-The primary entry point is:
+The ordinary consumer API remains centered on:
 
 ```python
 from pyaccountingkit import AccountingApplication, CommandContext, Money
 ```
 
-`AccountingApplication` exposes the following namespaces:
+Adapter authors use a deliberately separate extension namespace:
 
-```text
-references
-charts
-entries
-ledger
-closing
-controls
-imports
-statements
-reporting
-analysis
-subledgers
+```python
+from pyaccountingkit.public.protocols import (
+    ADAPTER_CONTRACT_VERSION,
+    AccountingReferenceProviderProtocol,
+    RegulatoryExporterProtocol,
+    RegulatoryRendererProtocol,
+    UnitOfWorkFactoryProtocol,
+)
 ```
 
-The LOT-21 boundary uses explicit commands/queries, immutable stdlib DTOs,
-machine-readable public errors, cursor-first pagination and a frozen
-`CommandContext`. Public results are checked so Django/SQLAlchemy-derived objects cannot
-cross the facade. The root package imports without requiring either ORM.
+LOT-22 publishes adapter contract **v1** and fails closed with
+`AdapterContractMismatchError` when a custom adapter does not explicitly support the
+active contract. Optional integrations are detected without importing Django or SQLAlchemy;
+an explicitly requested missing integration raises `OptionalDependencyMissingError`.
 
-LOT-21 does **not** introduce Django/PostgreSQL or SQLAlchemy/PostgreSQL persistence, expose
-ORM sessions/transactions, or freeze adapter-author contracts. Those remain LOT-22 through
-LOT-24 work. Missing composed operations fail closed with a typed
-`PublicOperationUnavailableError`.
+The three root compatibility artifacts are now deterministic generated evidence:
 
-The stable `0.4.0` business qualification remains mandatory underneath this facade:
-settlement allocation/concurrency, exact subledger/GL reconciliation, financial-analysis
-golden/replay, Corporate Finance boundary protection and the retained `0.3.x`
-imports/reporting qualification continue to run unchanged.
+```text
+PUBLIC_API_MANIFEST.json
+PUBLIC_ERROR_CODES.json
+ADAPTER_CONTRACT_MANIFEST.json
+```
 
-The package remains pre-1.0. LOT-22 / `0.5.0a2` will formalize the extension API,
-deterministic manifests and compatibility contracts after LOT-21 is qualified.
+Their generators support `--check`, and canonical Quality fails if committed JSON drifts from
+the source-declared public/extension symbols, error codes or adapter contract metadata.
+`py.typed` remains packaged and runtime capabilities expose that fact without loading an ORM.
+
+The public Python API is still **pre-1.0 and unfrozen**. LOT-22 versions the extension contract;
+it does not claim that every Python symbol has reached 1.0 compatibility. No production Django
+or SQLAlchemy adapter is introduced here: those remain LOT-23 and LOT-24.
+
+All LOT-21 GAPI checks and the retained 0.4 accounting/subledger/analysis qualification continue
+to run unchanged underneath these compatibility contracts.
 
 ## Core guarantees
 

@@ -12,7 +12,119 @@ from pyaccountingkit.public.protocols import (
 )
 
 _FILENAME = "ADAPTER_CONTRACT_MANIFEST.json"
-_LEGACY_CONTRACTS: dict[str, object] = json.loads("{\"unit_of_work\":{\"port\":\"UnitOfWorkProtocol\",\"reference_adapter\":\"InMemoryUnitOfWork\",\"qualified_behaviors\":[\"atomic_commit_rollback\",\"transaction_local_state\",\"optimistic_revision_conflict\",\"idempotency_conflict\",\"audit_outbox_atomicity\"],\"production_qualification\":false},\"company_chart_resolution\":{\"port\":\"CompanyChartResolverProtocol\",\"reference_adapter\":\"InMemoryVersionedCompanyChartResolver\",\"scope\":[\"entity_id\",\"accounting_date\"],\"fail_closed\":true},\"account_role_resolution\":{\"port\":\"AccountRoleResolverProtocol\",\"reference_adapter\":\"InMemoryAccountRoleResolver\",\"scope\":[\"entity_id\",\"accounting_date\",\"company_chart_version\"],\"fail_closed\":true},\"control_account_resolution\":{\"port\":\"ControlAccountResolverProtocol\",\"reference_adapter\":\"InMemoryControlAccountResolver\",\"scope\":[\"entity_id\",\"subledger_id\",\"accounting_date\",\"party_type\",\"currency\"],\"chart_resolution\":\"CompanyChartResolverProtocol\",\"selection\":\"most-specific-fail-closed\",\"validates_account\":[\"present\",\"active\",\"postable\",\"entity-scoped\"],\"trace\":[\"binding_id\",\"chart_id\",\"chart_version\",\"reference_snapshot_id\"],\"qualification\":\"LOT-18-alpha-reused-by-LOT-19\"},\"accounting_references\":{\"port\":\"AccountingReferenceProviderProtocol\",\"status\":\"qualified_reference_contract\"},\"accounting_import\":{\"ports\":[\"AccountingImportParser\",\"AccountingImportNormalizer\",\"ImportPeriodResolver\"],\"source_format_neutral\":true,\"posting_path\":\"PostingOrchestrator\",\"specialized_adapters\":[\"FECAdapter\"],\"stable_release_qualification\":\"source-to-evidence-cross-lot\",\"fec_fr\":{\"adapter\":\"FECAdapter\",\"adapter_version\":\"0.3.0a2\",\"format\":\"French FEC 18-column text export\",\"raw_preservation\":true,\"source_checksum\":\"sha256\",\"source_entry_identity\":\"JournalCode:EcritureNum\",\"duplicate_strategy\":\"warn-only-row-hash\",\"transaction_modes\":[\"ALL_OR_NOTHING\",\"PER_ITEM\",\"CHUNKED_ATOMIC\"],\"posting_path\":\"PostingOrchestrator\",\"qualification\":\"0.3.0-stable-cross-lot-qualified\"}},\"reference_reporting_model\":{\"port\":\"ReferenceReportingModelProviderProtocol\",\"reference_adapter\":\"InMemoryReferenceReportingModelProvider\",\"coordinates\":[\"reference_snapshot_id\",\"framework\",\"edition\",\"model_code\"],\"resolution\":\"exact-only\",\"fail_closed\":true,\"qualification\":\"0.3.0-stable-cross-lot-qualified\"},\"regulatory_renderer\":{\"port\":\"RegulatoryRendererProtocol\",\"reference_adapter\":\"CanonicalJSONRegulatoryRenderer\",\"input\":\"precomputed-RegulatoryReport\",\"recalculates_accounting\":false,\"deterministic_payload\":true,\"qualification\":\"0.3.0-stable-cross-lot-qualified\"}}")
+_LEGACY_CONTRACTS: dict[str, object] = json.loads(r"""{
+  "unit_of_work": {
+    "port": "UnitOfWorkProtocol",
+    "reference_adapter": "InMemoryUnitOfWork",
+    "qualified_behaviors": [
+      "atomic_commit_rollback",
+      "transaction_local_state",
+      "optimistic_revision_conflict",
+      "idempotency_conflict",
+      "audit_outbox_atomicity"
+    ],
+    "production_qualification": false
+  },
+  "company_chart_resolution": {
+    "port": "CompanyChartResolverProtocol",
+    "reference_adapter": "InMemoryVersionedCompanyChartResolver",
+    "scope": [
+      "entity_id",
+      "accounting_date"
+    ],
+    "fail_closed": true
+  },
+  "account_role_resolution": {
+    "port": "AccountRoleResolverProtocol",
+    "reference_adapter": "InMemoryAccountRoleResolver",
+    "scope": [
+      "entity_id",
+      "accounting_date",
+      "company_chart_version"
+    ],
+    "fail_closed": true
+  },
+  "control_account_resolution": {
+    "port": "ControlAccountResolverProtocol",
+    "reference_adapter": "InMemoryControlAccountResolver",
+    "scope": [
+      "entity_id",
+      "subledger_id",
+      "accounting_date",
+      "party_type",
+      "currency"
+    ],
+    "chart_resolution": "CompanyChartResolverProtocol",
+    "selection": "most-specific-fail-closed",
+    "validates_account": [
+      "present",
+      "active",
+      "postable",
+      "entity-scoped"
+    ],
+    "trace": [
+      "binding_id",
+      "chart_id",
+      "chart_version",
+      "reference_snapshot_id"
+    ],
+    "qualification": "LOT-18-alpha-reused-by-LOT-19"
+  },
+  "accounting_references": {
+    "port": "AccountingReferenceProviderProtocol",
+    "status": "qualified_reference_contract"
+  },
+  "accounting_import": {
+    "ports": [
+      "AccountingImportParser",
+      "AccountingImportNormalizer",
+      "ImportPeriodResolver"
+    ],
+    "source_format_neutral": true,
+    "posting_path": "PostingOrchestrator",
+    "specialized_adapters": [
+      "FECAdapter"
+    ],
+    "stable_release_qualification": "source-to-evidence-cross-lot",
+    "fec_fr": {
+      "adapter": "FECAdapter",
+      "adapter_version": "0.3.0a2",
+      "format": "French FEC 18-column text export",
+      "raw_preservation": true,
+      "source_checksum": "sha256",
+      "source_entry_identity": "JournalCode:EcritureNum",
+      "duplicate_strategy": "warn-only-row-hash",
+      "transaction_modes": [
+        "ALL_OR_NOTHING",
+        "PER_ITEM",
+        "CHUNKED_ATOMIC"
+      ],
+      "posting_path": "PostingOrchestrator",
+      "qualification": "0.3.0-stable-cross-lot-qualified"
+    }
+  },
+  "reference_reporting_model": {
+    "port": "ReferenceReportingModelProviderProtocol",
+    "reference_adapter": "InMemoryReferenceReportingModelProvider",
+    "coordinates": [
+      "reference_snapshot_id",
+      "framework",
+      "edition",
+      "model_code"
+    ],
+    "resolution": "exact-only",
+    "fail_closed": true,
+    "qualification": "0.3.0-stable-cross-lot-qualified"
+  },
+  "regulatory_renderer": {
+    "port": "RegulatoryRendererProtocol",
+    "reference_adapter": "CanonicalJSONRegulatoryRenderer",
+    "input": "precomputed-RegulatoryReport",
+    "recalculates_accounting": false,
+    "deterministic_payload": true,
+    "qualification": "0.3.0-stable-cross-lot-qualified"
+  }
+}""")
 
 
 def build_payload() -> dict[str, object]:

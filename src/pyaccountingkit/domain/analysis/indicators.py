@@ -109,8 +109,7 @@ class FinancialIndicatorDefinition:
         unknown_operands = set(self.formula.operands) - set(dependency_ids)
         if unknown_operands:
             raise InvalidIndicatorDefinitionError(
-                "formula references undeclared dependencies: "
-                + ", ".join(sorted(unknown_operands))
+                "formula references undeclared dependencies: " + ", ".join(sorted(unknown_operands))
             )
 
     def is_effective_on(self, on_date: date) -> bool:

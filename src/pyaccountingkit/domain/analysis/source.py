@@ -93,9 +93,7 @@ class FinancialAnalysisSource:
             )
         return cls(
             source_type=FinancialAnalysisSourceType.TRIAL_BALANCE_SNAPSHOT,
-            source_ref=(
-                f"trial_balance:{trial_balance.period_id}:{trial_balance.snapshot.value}"
-            ),
+            source_ref=(f"trial_balance:{trial_balance.period_id}:{trial_balance.snapshot.value}"),
             accounting_entity_id=trial_balance.accounting_entity_id,
             period_id=trial_balance.period_id,
             as_of=as_of,

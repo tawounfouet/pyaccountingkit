@@ -1,5 +1,5 @@
 {
-  "version": "0.4.0a2",
+  "version": "0.4.0b1",
   "error_codes": {
     "ENTITY_SCOPE_MISMATCH": "EntityScopeMismatchError",
     "ENTRY_UNBALANCED": "UnbalancedEntryError",
@@ -80,6 +80,16 @@
     "AGING_POLICY_INVALID": "InvalidAgingPolicyError",
     "AGING_SOURCE_INVALID": "InvalidAgingSourceError",
     "SUBLEDGER_RECONCILIATION_FAILED": "SubledgerReconciliationError",
-    "WRITE_OFF_POLICY_REQUIRED": "WriteOffPolicyRequiredError"
+    "WRITE_OFF_POLICY_REQUIRED": "WriteOffPolicyRequiredError",
+    "ANALYSIS_ERROR": "FinancialAnalysisError",
+    "ANALYSIS_INVALID_SOURCE": "InvalidAnalysisSourceError",
+    "ANALYSIS_STALE_SOURCE": "StaleAnalysisSourceError",
+    "ANALYSIS_INVALID_INDICATOR_DEFINITION": "InvalidIndicatorDefinitionError",
+    "ANALYSIS_INVALID_RATIO_DEFINITION": "InvalidRatioDefinitionError",
+    "ANALYSIS_DEPENDENCY_CYCLE": "IndicatorDependencyCycleError",
+    "ANALYSIS_INVALID_DEFINITION_SET": "InvalidAnalysisDefinitionSetError",
+    "ANALYSIS_UNSUPPORTED_OPERATION": "UnsupportedAnalysisOperationError",
+    "ANALYSIS_INVALID_FUNCTIONAL_BALANCE": "InvalidFunctionalBalanceError",
+    "ANALYSIS_INVALID_SNAPSHOT": "InvalidAnalysisSnapshotError"
   }
 }

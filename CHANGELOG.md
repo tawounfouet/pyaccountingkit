@@ -7,6 +7,53 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0b1] - 2026-09-18
+
+### Added
+- LOT-20 deterministic, read-only Financial Analysis bounded context consuming sealed
+  `ReportSnapshot` / verified analytical source evidence without mutating accounting truth.
+- Versioned `FinancialIndicatorDefinition`, `FinancialRatioDefinition` and
+  `AnalysisDefinitionSet` with effective dates, lifecycle status and acyclic dependency
+  validation.
+- Restricted analytical formula DSL covering additive/subtractive/multiplicative/divisive,
+  aggregate, sign, absolute, min/max and explicit coalescing operations without arbitrary
+  Python execution.
+- Explicit analytical result semantics: `CALCULATED`, `NOT_APPLICABLE`, `UNDEFINED`,
+  `INDETERMINATE` and `ERROR`; missing required input and mathematical undefinedness are
+  never silently converted to zero.
+- Definition-driven SIG examples including distinct EBE and EBITDA definitions plus CAF.
+- Explicit `FunctionalBalanceDefinition` and deterministic FRNG, BFRE, BFRHE, BFR and Net
+  Treasury derivation with reconciliation against cash assets less cash liabilities.
+- Versioned historical ratios, deterministic multi-period trends and explicit policy-driven
+  diagnostics without hard-coded universal judgments.
+- Immutable checksummed `CalculationTrace` and `AnalysisSnapshot` evidence whose semantic
+  checksum excludes technical snapshot IDs and generation timestamps.
+- Executable Corporate Finance boundary guard preventing NPV/IRR/WACC/DCF/valuation and related
+  investment/financing concepts from entering the accounting analysis core.
+- Stable financial-analysis error taxonomy for invalid/stale sources, definitions, dependency
+  cycles, unsupported operations, functional-balance errors and invalid snapshots.
+
+### Changed
+- The 0.4 line now exposes financial analysis as a separate read-side bounded context alongside
+  LOT-18/19 subledgers; it does not become a posting, ledger, reporting or regulatory mutation
+  path.
+- Analytical source freshness fails closed for current publication while explicit historical
+  replay may consume pinned stale/superseded evidence.
+- PCG and SYSCOHADA compatibility metadata records LOT-20 as generic analytical mechanics only;
+  no statutory-template, legal-filing, tax-filing or regulator-submission claim is broadened.
+
+### Qualification
+- Canonical unit/property/contract/integration/golden/replay/concurrency suites pass on Python
+  3.11, 3.12 and 3.13.
+- Golden analysis qualifies ReportSnapshot -> Gross Margin / EBE / EBITDA / CAF -> functional
+  balance -> FRNG / BFR / Net Treasury -> historical ratios -> AnalysisSnapshot.
+- Property qualification proves ratio outputs never emit NaN/Infinity and working-capital
+  identities reconcile across generated inputs.
+- Replay qualification proves identical pinned semantic inputs reproduce the same analytical
+  result and AnalysisSnapshot checksum even when technical snapshot IDs/timestamps differ.
+- Corporate Finance vocabulary guard, Ruff, canonical formatting, strict mypy, package build,
+  dependency audit and static security analysis are release gates.
+
 ## [0.4.0a2] - 2026-09-16
 
 ### Added

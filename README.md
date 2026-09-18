@@ -11,20 +11,25 @@ specific regulatory dataset.
 ## Status
 
 PyAccountingKit is under active pre-1.0 development. The current package line is
-`0.4.0a2`, delivering `LOT-19 — Settlements, Allocations, Matching & Aging` on
-top of the `0.4.0a1` subledger foundations and stable `0.3.0`
-imports/reporting baseline.
+`0.4.0b1`, delivering `LOT-20 — Financial Analysis` on top of the LOT-18/19
+subledger foundations and stable `0.3.0` imports/reporting baseline.
 
-The public API is **not yet frozen**. `0.4.0a2` is an alpha operational
-subledger milestone: receivables/payables and due items can now participate in
-immutable partial/full many-to-many settlement allocation, explicit settlement
-reversal, validated accounting matching, deterministic payment-term schedules,
-aging projections and subledger-to-control-account reconciliation.
+The public API is **not yet frozen**. `0.4.0b1` is the beta analytical
+milestone for the 0.4 line: sealed reporting/accounting evidence can now feed
+versioned indicators and ratios, SIG examples including distinct EBE and EBITDA,
+CAF, functional-balance and working-capital identities, historical trends,
+policy-driven diagnostics and immutable replayable `AnalysisSnapshot` evidence.
 
-Allocation does **not** create a second General Ledger posting path. Matching is
-not settlement. Aging is not impairment. Residuals are never silently absorbed
-as write-offs, and LOT-20 financial-analysis metrics such as DSO/DPO remain out
-of scope.
+Financial analysis is strictly read-only and never becomes accounting truth.
+Missing required inputs are `INDETERMINATE`; undefined denominators are
+`UNDEFINED`, never silent zero, NaN or Infinity. Analytical semantics are
+definition-driven rather than inferred from account-number prefixes. Corporate
+Finance concepts such as NPV/IRR/WACC/DCF/valuation remain outside the core.
+
+LOT-19 settlement/allocation mechanics remain available unchanged: allocation
+does **not** create a second General Ledger posting path, matching is not
+settlement, aging is not impairment and residuals are never silently absorbed
+as write-offs.
 
 Stable `0.3.0` remains the qualified imports/reporting baseline. Its composed
 PCG/FEC path runs from immutable source evidence through explicit import
@@ -148,6 +153,19 @@ accidents:
 - control accounts resolve explicitly by entity, subledger, accounting date and
   optional party/currency dimensions, using the applicable versioned company
   chart; zero or ambiguous bindings fail closed;
+- financial analysis is a read-only bounded context over sealed accounting/reporting
+  facts and never posts, reverses or mutates accounting truth;
+- analytical definitions are versioned/effective-dated and dependency cycles fail closed;
+- missing required analytical input is `INDETERMINATE`; mathematically undefined ratios are
+  `UNDEFINED` and never silently become zero, NaN or Infinity;
+- EBE and EBITDA remain separate explicit definitions; SIG/CAF/ratio semantics are never guessed
+  from national account-code prefixes;
+- functional-balance and working-capital analysis preserves explicit FRNG/BFRE/BFRHE/BFR/Net
+  Treasury identities and reconciliation evidence;
+- `CalculationTrace` and `AnalysisSnapshot` seal semantic checksums so identical pinned inputs
+  replay deterministically while technical IDs/timestamps may differ;
+- Corporate Finance concepts including NPV/IRR/WACC/DCF/valuation, stochastic simulation and
+  financing optimization remain outside the PyAccountingKit analysis core;
 - strict release qualification requires non-empty integration, golden, replay
   and concurrency suites and cannot skip package or accounting tests.
 
@@ -356,10 +374,12 @@ of truth.
 Start with:
 
 - `docs/ROADMAP.md` for the lot sequence and release gates;
+- `docs/plans/LOT-20_FINANCIAL_ANALYSIS_IMPLEMENTATION_PLAN.md` for the current
+  `0.4.0b1` analytical implementation contract;
 - `docs/plans/LOT-19_SETTLEMENTS_ALLOCATIONS_MATCHING_AGING_IMPLEMENTATION_PLAN.md`
-  for the current `0.4.0a2` implementation contract;
+  for the preceding `0.4.0a2` operational subledger contract;
 - `docs/plans/LOT-18_SUBLEDGER_FOUNDATIONS_IMPLEMENTATION_PLAN.md` for the
-  preceding `0.4.0a1` foundation contract;
+  `0.4.0a1` subledger foundation contract;
 - `docs/plans/RELEASE_0.3.0_STABLE_PROMOTION_PLAN.md` for the stable 0.3.0
   promotion contract;
 - `docs/plans/` for milestone-specific implementation plans;

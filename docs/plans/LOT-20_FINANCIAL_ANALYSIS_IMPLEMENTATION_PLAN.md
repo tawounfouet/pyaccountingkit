@@ -279,23 +279,39 @@ Same pinned accounting source + same definitions => same semantic result and sna
 
 ## Definition of Done
 
-- [ ] analysis is read-only
-- [ ] source evidence is explicit and checksummed
-- [ ] definitions are versioned
-- [ ] dependency graph is acyclic
-- [ ] missing required input => `INDETERMINATE`
-- [ ] undefined denominator => `UNDEFINED`
-- [ ] no NaN / Infinity semantics
-- [ ] EBE and EBITDA remain separate definitions
-- [ ] SIG/CAF/working-capital mechanics are definition-driven
-- [ ] FRNG/BFR/Net Treasury controls green
-- [ ] historical ratios deterministic
-- [ ] trends replay deterministically
-- [ ] AnalysisSnapshot immutable/checksummed
-- [ ] Corporate Finance concepts remain outside core
-- [ ] unit/property/golden/replay/architecture qualification green
-- [ ] Ruff/format/mypy green
-- [ ] Python 3.11/3.12/3.13 green
-- [ ] package qualification green
-- [ ] Security green
-- [ ] manifests/docs/version aligned before merge
+- [x] analysis is read-only
+- [x] source evidence is explicit and checksummed
+- [x] definitions are versioned
+- [x] dependency graph is acyclic
+- [x] missing required input => `INDETERMINATE`
+- [x] undefined denominator => `UNDEFINED`
+- [x] no NaN / Infinity semantics
+- [x] EBE and EBITDA remain separate definitions
+- [x] SIG/CAF/working-capital mechanics are definition-driven
+- [x] FRNG/BFR/Net Treasury controls green
+- [x] historical ratios deterministic
+- [x] trends replay deterministically
+- [x] AnalysisSnapshot immutable/checksummed
+- [x] Corporate Finance concepts remain outside core
+- [x] unit/property/golden/replay/architecture qualification green
+- [x] Ruff/format/mypy green
+- [x] Python 3.11/3.12/3.13 green
+- [x] package qualification green
+- [x] Security green
+- [x] manifests/docs/version aligned before merge
+
+## Qualification evidence
+
+Promotion candidate `0.4.0b1` is based on LOT-20 implementation commit
+`c8199cda3d39666df4ff8a80709989cc72eae030` plus release-metadata alignment.
+
+Pre-promotion qualification on that implementation commit:
+
+- canonical Quality gates: green, including Ruff, Ruff format and strict mypy;
+- Python 3.11 / 3.12 / 3.13 accounting qualification suites: green;
+- package qualification: green;
+- canonical CI gate: green;
+- Security workflow: green;
+- LOT-20 unit/property/golden/replay and Corporate Finance boundary guard: green.
+
+The release-metadata commit must pass the same CI/Security gates before PR merge.

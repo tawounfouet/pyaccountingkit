@@ -1,8 +1,8 @@
 {
-  "version": "0.4.0a2",
+  "version": "0.4.0b1",
   "public_api": {
-    "stability": "pre-1.0-alpha",
+    "stability": "pre-1.0-beta",
     "stable_exports": [],
-    "note": "Release 0.4.0a2 extends the LOT-18 subledger foundations with LOT-19 operational subledger mechanics: immutable partial/full many-to-many settlement allocation with revision guards, explicit settlement reversal, candidate-versus-validated accounting matching, deterministic PaymentTerm due schedules, explicit aging policies/snapshots, normalized subledger-to-control-account reconciliation and a fail-closed write-off authorization boundary. Allocation never becomes a second General Ledger posting path; aging does not perform impairment; no national account-prefix heuristics or LOT-20 financial-analysis metrics are introduced. The public Python API remains intentionally unfrozen before 1.0."
+    "note": "Release 0.4.0b1 adds LOT-20 Financial Analysis as a deterministic read-only bounded context over sealed reporting/accounting facts. It provides versioned indicator/ratio definitions, explicit CALCULATED/NOT_APPLICABLE/UNDEFINED/INDETERMINATE/ERROR outcomes, SIG/EBE/EBITDA/CAF examples, functional-balance and FRNG/BFR/Net-Treasury mechanics, historical ratios, trends, diagnostics, CalculationTrace and replayable AnalysisSnapshot evidence. Analysis never mutates the ledger or reporting source, does not infer semantics from account-number prefixes, and excludes Corporate Finance concepts such as NPV/IRR/WACC/DCF/valuation. The public Python API remains intentionally unfrozen before 1.0."
   }
 }

@@ -25,16 +25,14 @@ Chaque plan correspond à un jalon de release sémantique clair, définit les lo
 
 ## Lot actif / qualification
 
+- [`LOT-22_EXTENSION_API_MANIFESTS_COMPATIBILITY_IMPLEMENTATION_PLAN.md`](LOT-22_EXTENSION_API_MANIFESTS_COMPATIBILITY_IMPLEMENTATION_PLAN.md)
+  — LOT-22 Extension API / manifests / compatibility contracts, cible `0.5.0a2`, gate GAPI + GA.
 - [`LOT-21_PUBLIC_API_FACADE_IMPLEMENTATION_PLAN.md`](LOT-21_PUBLIC_API_FACADE_IMPLEMENTATION_PLAN.md)
-  — LOT-21 Public API Facade, cible `0.5.0a1`, gate GA + GAPI.
+  — LOT-21 Public API Facade qualifié en `0.5.0a1`.
 - [`RELEASE_0.4.0_STABLE_PROMOTION_PLAN.md`](RELEASE_0.4.0_STABLE_PROMOTION_PLAN.md)
-  — baseline stable `0.4.0` dont LOT-21 conserve toute la qualification.
+  — baseline stable `0.4.0` conservée par la ligne 0.5.
 - [`RELEASE_0.4.0_RC1_CROSS_LOT_QUALIFICATION_PLAN.md`](RELEASE_0.4.0_RC1_CROSS_LOT_QUALIFICATION_PLAN.md)
   — qualification transverse LOT-18 + LOT-19 + LOT-20 ayant produit `0.4.0rc1`.
-- [`RELEASE_0.3.0_RC1_CROSS_LOT_QUALIFICATION_PLAN.md`](RELEASE_0.3.0_RC1_CROSS_LOT_QUALIFICATION_PLAN.md)
-  — historique de qualification transverse de la ligne 0.3.
-- [`RELEASE_0.3.0_STABLE_PROMOTION_PLAN.md`](RELEASE_0.3.0_STABLE_PROMOTION_PLAN.md)
-  — historique de promotion stable 0.3.
 
 ## 2. Graphe d'Ordonnancement & Chemin Critique
 

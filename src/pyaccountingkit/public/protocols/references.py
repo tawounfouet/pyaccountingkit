@@ -1,7 +1,19 @@
-"""Bootstrap scaffold for a future PyAccountingKit milestone.
+"""Public accounting-reference extension contract."""
 
-Module: public/protocols/references.py.
-Target: PLAN-05_PUBLIC_API_ADAPTERS_0.5.0.md.
-PyAccountingKit 0.0.1 exposes no business implementation from this module.
-The path is retained only to preserve the target architecture.
-"""
+from __future__ import annotations
+
+from typing import Protocol
+
+from pyaccountingkit.ports.references import (
+    AccountingReferenceProviderProtocol as _InternalAccountingReferenceProviderProtocol,
+)
+
+
+class AccountingReferenceProviderProtocol(
+    _InternalAccountingReferenceProviderProtocol,
+    Protocol,
+):
+    """Stable extension surface implemented by accounting-reference providers."""
+
+
+__all__ = ["AccountingReferenceProviderProtocol"]

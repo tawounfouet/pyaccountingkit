@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "pyaccountingkit"
-version = "0.5.0a2"
+version = "0.5.0b1"
 description = "A Python toolkit for double-entry accounting."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -13,7 +13,14 @@ authors = [{ name = "pyaccountingkit contributors" }]
 dependencies = []
 
 [project.optional-dependencies]
+django = [
+    "Django>=5.2,<6",
+    "psycopg[binary]>=3.2,<4",
+]
 dev = [
+    "Django>=5.2,<6",
+    "django-stubs>=5.2,<6",
+    "psycopg[binary]>=3.2,<4",
     "pytest>=8.0",
     "pytest-timeout>=2.2",
     "ruff>=0.5",

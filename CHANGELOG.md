@@ -7,6 +7,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0rc1] - 2026-09-18
+
+### Added
+- Release-level cross-lot integration proving both receivable and payable flows through
+  `DueItem -> Settlement -> Allocation -> OpenItem -> Aging -> normalized GL reconciliation`.
+- Release-level replay qualification proving deterministic analytical result,
+  `AnalysisSnapshot` and trend checksums.
+- Version-specific release-candidate evidence contract for `0.4.0rc1`.
+
+### Changed
+- Release metadata is promoted from `0.4.0b1` to `0.4.0rc1` without adding new business
+  functionality.
+- `scripts/qualify_release.py --release-candidate` now requires the concrete 0.4 evidence
+  files for settlement property/concurrency, subledger reconciliation golden, analysis golden,
+  analysis/trend replay, Corporate Finance boundary protection, and the retained 0.3
+  integration/replay baseline.
+
+### Qualification
+- Receivable and Payable open balances remain exact after partial settlement allocation and
+  reconcile to explicit normalized control-account balances.
+- Existing over-allocation and stale-revision concurrency guards remain mandatory evidence.
+- Analysis golden evidence keeps EBE distinct from EBITDA, computes CAF and reconciles
+  FRNG/BFR/Net Treasury and ratios into a sealed `AnalysisSnapshot`.
+- Replay proves identical pinned analytical semantics reproduce the same analysis and snapshot
+  checksums while technical IDs/timestamps may differ; trend ordering is deterministic.
+- The existing 0.3 FEC/import/reporting/regulatory integration and replay tests remain in the
+  canonical suite.
+- Python 3.11/3.12/3.13, Ruff, strict mypy, package verification and Security remain required
+  release gates.
+
+
 ## [0.4.0b1] - 2026-09-18
 
 ### Added

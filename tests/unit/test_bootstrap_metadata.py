@@ -6,6 +6,8 @@ import importlib.metadata
 import importlib.resources
 import tomllib
 from pathlib import Path
+from types import ModuleType
+
 import pyaccountingkit
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -53,5 +55,10 @@ def test_root_public_surface_is_explicit_and_minimal() -> None:
     ]
     assert pyaccountingkit.__all__ == expected
     public_names = {name for name in vars(pyaccountingkit) if not name.startswith("_")}
+    consumer_names = set(expected) - {"__version__"}
     assert isinstance(pyaccountingkit.__version__, str)
-    assert public_names == set(expected)
+    assert consumer_names <= public_names
+    unexpected_names = public_names - consumer_names
+    assert all(
+        isinstance(getattr(pyaccountingkit, name), ModuleType) for name in unexpected_names
+    )

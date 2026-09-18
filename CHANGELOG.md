@@ -7,6 +7,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0a2] - 2026-09-18
+
+### Added
+- LOT-22 versioned adapter-author extension API under `pyaccountingkit.public.protocols`.
+- Adapter contract v1 via `AdapterContractVersion`, `ADAPTER_CONTRACT_VERSION` and explicit
+  supported-version declarations.
+- Public extension contracts for Unit of Work factories, accounting-reference providers,
+  regulatory renderers and regulatory exporters.
+- Immutable runtime capability discovery that checks optional Django/SQLAlchemy availability
+  without importing either framework and reports packaged `py.typed` support.
+- Typed `AdapterContractMismatchError` and `OptionalDependencyMissingError`.
+- Deterministic generators with `--check` for `PUBLIC_API_MANIFEST.json`,
+  `PUBLIC_ERROR_CODES.json` and `ADAPTER_CONTRACT_MANIFEST.json`.
+- Canonical Quality gates that fail closed on generated-manifest drift.
+
+### Changed
+- Root compatibility manifests are promoted to `0.5.0a2`.
+- `PUBLIC_API_MANIFEST.json` now inventories root user exports, the broader public package and
+  the separate extension API.
+- `ADAPTER_CONTRACT_MANIFEST.json` now publishes current/supported contract version,
+  extension points and the explicit absence of Production-qualified ORM adapters.
+- The normal `pyaccountingkit` package root remains focused on LOT-21 consumer primitives;
+  adapter-author contracts are not added to that root surface.
+
+### Boundaries
+- No Django/PostgreSQL or SQLAlchemy/PostgreSQL production adapter is implemented in LOT-22.
+- No accounting-domain semantics are changed.
+- Full public API freeze remains a later pre-1.0 hardening milestone.
+
+
 ## [0.5.0a1] - 2026-09-18
 
 ### Added

@@ -1,8 +1,8 @@
 {
-  "version": "0.4.0rc1",
+  "version": "0.4.0",
   "public_api": {
-    "stability": "pre-1.0-release-candidate",
+    "stability": "pre-1.0-stable-release",
     "stable_exports": [],
-    "note": "Release 0.4.0rc1 adds no new business capability. It transversely qualifies LOT-18 Subledger Foundations, LOT-19 Settlements/Allocations/Matching/Aging and LOT-20 Financial Analysis together: receivable/payable due-item flows through settlement allocation, open-item aging and exact normalized GL reconciliation; financial-analysis golden/replay evidence including EBE, EBITDA, CAF, FRNG/BFR/Net Treasury, ratios, deterministic trends and replayable AnalysisSnapshot; stale/double allocation concurrency rejection; the Corporate Finance boundary guard; and continued 0.3.x import/reporting replay qualification. The public Python API remains intentionally unfrozen before LOT-21."
+    "note": "Release 0.4.0 is the stable promotion of the LOT-18/19/20 subledger and Financial Analysis line qualified in 0.4.0rc1. Receivable/payable due-item flows remain qualified through settlement allocation, open-item aging and exact normalized GL reconciliation; financial analysis remains read-only with EBE/EBITDA/CAF, FRNG/BFR/Net Treasury, ratios, deterministic trends and replayable AnalysisSnapshot evidence. Settlement concurrency guards, the Corporate Finance boundary and the stable 0.3.x imports/reporting baseline remain part of the release qualification. The package milestone is stable, while the public Python API remains intentionally unfrozen before 1.0 and LOT-21."
   }
 }

@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import importlib
-from typeguard import TypeCheckError  # type: ignore[import-not-found]  # pragma: no cover
 
 from manifest_generation import parse_check_flag, project_version, write_or_check
 

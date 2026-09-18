@@ -1,7 +1,18 @@
-"""Bootstrap scaffold for a future PyAccountingKit milestone.
+"""Public transaction extension contracts for adapter authors."""
 
-Module: public/protocols/unit_of_work.py.
-Target: PLAN-05_PUBLIC_API_ADAPTERS_0.5.0.md.
-PyAccountingKit 0.0.1 exposes no business implementation from this module.
-The path is retained only to preserve the target architecture.
-"""
+from __future__ import annotations
+
+from typing import Protocol
+
+from pyaccountingkit.ports.unit_of_work import UnitOfWorkProtocol
+
+
+class UnitOfWorkFactoryProtocol(Protocol):
+    """Supply a fresh transaction scope for each application operation."""
+
+    def open(self) -> UnitOfWorkProtocol:
+        """Open a new framework-neutral unit of work."""
+        ...
+
+
+__all__ = ["UnitOfWorkFactoryProtocol", "UnitOfWorkProtocol"]

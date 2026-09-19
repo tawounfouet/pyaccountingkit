@@ -106,9 +106,7 @@ class SQLAlchemyJournalEntryRepository:
 
     def get(self, entry_id: EntryId) -> JournalEntry:
         row = self._session.scalar(
-            select(JournalEntryTable)
-            .where(JournalEntryTable.id == str(entry_id))
-            .with_for_update()
+            select(JournalEntryTable).where(JournalEntryTable.id == str(entry_id)).with_for_update()
         )
         if row is None:
             raise EntryNotFoundError(f"Entry {entry_id} not found")

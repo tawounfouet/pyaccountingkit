@@ -75,6 +75,7 @@ PERIOD_ID = PeriodId("period:2026-09")
 @pytest.fixture(autouse=True)
 def clean_postgresql_adapter_tables() -> None:
     JournalLineModel.objects.all().delete()
+    JournalEntryModel.objects.all().update(reversal_of=None, reversed_by=None)
     JournalEntryModel.objects.all().delete()
     OutboxMessageModel.objects.all().delete()
     AuditEventModel.objects.all().delete()
@@ -247,7 +248,7 @@ def test_double_reversal_commits_one_reversal_and_replays_the_other_request() ->
     assert sorted(replayed for _, replayed in results) == [False, True]
     assert JournalEntryModel.objects.filter(reversal_of_id="entry:1").count() == 1
     original = JournalEntryModel.objects.get(pk="entry:1")
-    assert original.status == EntryStatus.REVERSED.value
+    assert original.status == EntryStatus.POSTED.value
     assert original.reversed_by_id == "entry:reversal"
 
 

@@ -24,7 +24,11 @@ _LEGACY_CONTRACTS: dict[str, object] = json.loads(r"""{
       "idempotency_conflict",
       "audit_outbox_atomicity"
     ],
-    "production_qualification": false
+    "production_qualification": true,
+    "production_adapters": [
+      "DjangoUnitOfWork"
+    ],
+    "qualification": "0.5.0b1-django-postgresql-qualified"
   },
   "company_chart_resolution": {
     "port": "CompanyChartResolverProtocol",
@@ -74,6 +78,29 @@ _LEGACY_CONTRACTS: dict[str, object] = json.loads(r"""{
   "accounting_references": {
     "port": "AccountingReferenceProviderProtocol",
     "status": "qualified_reference_contract"
+  },
+  "django_postgresql": {
+    "adapter_contract_version": "1",
+    "package": "pyaccountingkit.adapters.django",
+    "package_extra": "django",
+    "django_version": ">=5.2,<6",
+    "database": "PostgreSQL 16",
+    "unit_of_work": "DjangoUnitOfWork",
+    "unit_of_work_factory": "DjangoUnitOfWorkFactory",
+    "migration_baseline": "0001_initial",
+    "public_api_orm_leakage": false,
+    "qualified_behaviors": [
+      "fresh_migration",
+      "model_migration_coherence",
+      "repository_round_trip",
+      "atomic_commit_rollback",
+      "optimistic_revision_conflict",
+      "idempotency_conflict",
+      "audit_outbox_atomicity",
+      "double_reversal_serialization",
+      "posting_close_serialization"
+    ],
+    "qualification": "0.5.0b1-production-qualified"
   },
   "accounting_import": {
     "ports": [
@@ -140,8 +167,8 @@ def build_payload() -> dict[str, object]:
             "UnitOfWorkFactoryProtocol",
             "UnitOfWorkProtocol",
         ],
-        "production_adapters": [],
-        "qualification": "LOT-22-extension-contract-alpha",
+        "production_adapters": ["django_postgresql"],
+        "qualification": "LOT-23-django-postgresql-beta",
     }
     return {"version": project_version(), "adapter_contracts": contracts}
 

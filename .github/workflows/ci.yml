@@ -103,8 +103,8 @@ jobs:
           python-version: "3.12"
           cache: pip
           cache-dependency-path: pyproject.toml
-      - name: Install Django adapter qualification tooling
-        run: python -m pip install -e ".[dev]"
+      - name: Install published Django adapter extra and test tooling
+        run: python -m pip install -e ".[django]" pytest pytest-timeout
       - name: Apply fresh PostgreSQL migrations
         run: python -m django migrate --noinput
       - name: Require model and migration coherence

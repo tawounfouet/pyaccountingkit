@@ -61,8 +61,10 @@
         "UnitOfWorkFactoryProtocol",
         "UnitOfWorkProtocol"
       ],
-      "production_adapters": [],
-      "qualification": "LOT-22-extension-contract-alpha",
+      "production_adapters": [
+        "django_postgresql"
+      ],
+      "qualification": "LOT-23-django-postgresql-beta",
       "supported_versions": [
         "1"
       ]
@@ -93,6 +95,29 @@
         "entity-scoped"
       ]
     },
+    "django_postgresql": {
+      "adapter_contract_version": "1",
+      "database": "PostgreSQL 16",
+      "django_version": ">=5.2,<6",
+      "migration_baseline": "0001_initial",
+      "package": "pyaccountingkit.adapters.django",
+      "package_extra": "django",
+      "public_api_orm_leakage": false,
+      "qualification": "0.5.0b1-production-qualified",
+      "qualified_behaviors": [
+        "fresh_migration",
+        "model_migration_coherence",
+        "repository_round_trip",
+        "atomic_commit_rollback",
+        "optimistic_revision_conflict",
+        "idempotency_conflict",
+        "audit_outbox_atomicity",
+        "double_reversal_serialization",
+        "posting_close_serialization"
+      ],
+      "unit_of_work": "DjangoUnitOfWork",
+      "unit_of_work_factory": "DjangoUnitOfWorkFactory"
+    },
     "reference_reporting_model": {
       "coordinates": [
         "reference_snapshot_id",
@@ -116,7 +141,11 @@
     },
     "unit_of_work": {
       "port": "UnitOfWorkProtocol",
-      "production_qualification": false,
+      "production_adapters": [
+        "DjangoUnitOfWork"
+      ],
+      "production_qualification": true,
+      "qualification": "0.5.0b1-django-postgresql-qualified",
       "qualified_behaviors": [
         "atomic_commit_rollback",
         "transaction_local_state",
@@ -127,5 +156,5 @@
       "reference_adapter": "InMemoryUnitOfWork"
     }
   },
-  "version": "0.5.0a2"
+  "version": "0.5.0b1"
 }

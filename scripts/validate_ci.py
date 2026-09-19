@@ -34,28 +34,35 @@ def validate_ci_text(text: str) -> list[str]:
             "quality:\n",
             "test:\n",
             "package:\n",
+            "postgresql:\n",
             "ci-gate:\n",
             "fail-fast: false",
             'python-version: ["3.11", "3.12", "3.13"]',
             "python scripts/qualify_release.py --skip-tests --skip-package",
             "python scripts/verify_package.py",
             TEST_COMMAND,
-            "needs: [quality, test, package]",
+            "image: postgres:16",
+            "python -m django migrate --noinput",
+            "python -m django makemigrations pyaccountingkit_django --check --dry-run",
+            "tests/integration/test_django_postgresql_adapter.py",
+            "tests/concurrency/test_django_postgresql_concurrency.py",
+            "needs: [quality, test, package, postgresql]",
             "if: ${{ always() }}",
             "QUALITY_RESULT: ${{ needs.quality.result }}",
             "TEST_RESULT: ${{ needs.test.result }}",
             "PACKAGE_RESULT: ${{ needs.package.result }}",
+            "POSTGRESQL_RESULT: ${{ needs.postgresql.result }}",
         ),
         label="CI",
     )
 
-    if text.count("actions/checkout@v7") != 3:
-        violations.append("CI: expected exactly three actions/checkout@v7 uses")
-    if text.count("actions/setup-python@v7") != 3:
-        violations.append("CI: expected exactly three actions/setup-python@v7 uses")
-    if text.count("cache: pip") != 3:
+    if text.count("actions/checkout@v7") != 4:
+        violations.append("CI: expected exactly four actions/checkout@v7 uses")
+    if text.count("actions/setup-python@v7") != 4:
+        violations.append("CI: expected exactly four actions/setup-python@v7 uses")
+    if text.count("cache: pip") != 4:
         violations.append("CI: every Python execution job must enable pip cache")
-    if text.count("cache-dependency-path: pyproject.toml") != 3:
+    if text.count("cache-dependency-path: pyproject.toml") != 4:
         violations.append("CI: every pip cache must be keyed from pyproject.toml")
     if text.count("python scripts/verify_package.py") != 1:
         violations.append("CI: package verification must execute exactly once")
@@ -130,9 +137,10 @@ def main() -> int:
         return 1
 
     print("CI workflow validation: PASS")
-    print("Canonical jobs: quality, test, package, ci-gate")
+    print("Canonical jobs: quality, test, package, postgresql, ci-gate")
     print("Supported Python matrix: 3.11, 3.12, 3.13")
     print("Qualified suites: unit, property, contract, integration, golden, replay, concurrency")
+    print("Production adapter gate: Django/PostgreSQL 16")
     print("Security jobs: audit, sast")
     return 0
 

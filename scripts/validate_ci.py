@@ -139,7 +139,8 @@ def main() -> int:
     print("CI workflow validation: PASS")
     print("Canonical jobs: quality, test, package, postgresql, ci-gate")
     print("Supported Python matrix: 3.11, 3.12, 3.13")
-    print("Qualified suites: unit, property, contract, integration, golden, replay, concurrency")\n    print("Production adapter gate: Django/PostgreSQL 16")
+    print("Qualified suites: unit, property, contract, integration, golden, replay, concurrency")
+    print("Production adapter gate: Django/PostgreSQL 16")
     print("Security jobs: audit, sast")
     return 0
 

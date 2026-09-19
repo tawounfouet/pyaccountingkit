@@ -31,9 +31,7 @@ class Base(DeclarativeBase):
 
 class JournalTable(Base):
     __tablename__ = "pyak_journal"
-    __table_args__ = (
-        UniqueConstraint("entity_id", "code", name="uq_pyak_journal_entity_code"),
-    )
+    __table_args__ = (UniqueConstraint("entity_id", "code", name="uq_pyak_journal_entity_code"),)
 
     id: Mapped[str] = mapped_column(String(128), primary_key=True)
     entity_id: Mapped[str] = mapped_column(String(128), index=True)
@@ -44,9 +42,7 @@ class JournalTable(Base):
 
 class AccountingPeriodTable(Base):
     __tablename__ = "pyak_accounting_period"
-    __table_args__ = (
-        CheckConstraint("start_date <= end_date", name="ck_pyak_period_date_order"),
-    )
+    __table_args__ = (CheckConstraint("start_date <= end_date", name="ck_pyak_period_date_order"),)
 
     id: Mapped[str] = mapped_column(String(128), primary_key=True)
     entity_id: Mapped[str] = mapped_column(String(128), index=True)
@@ -70,9 +66,7 @@ class JournalEntryTable(Base):
     )
 
     id: Mapped[str] = mapped_column(String(128), primary_key=True)
-    journal_id: Mapped[str] = mapped_column(
-        ForeignKey("pyak_journal.id", ondelete="RESTRICT")
-    )
+    journal_id: Mapped[str] = mapped_column(ForeignKey("pyak_journal.id", ondelete="RESTRICT"))
     period_id: Mapped[str] = mapped_column(
         ForeignKey("pyak_accounting_period.id", ondelete="RESTRICT")
     )

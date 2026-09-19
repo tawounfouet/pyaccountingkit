@@ -70,10 +70,56 @@ jobs:
       - name: Build and verify wheel and sdist
         run: python scripts/verify_package.py
 
+  postgresql:
+    name: Django/PostgreSQL qualification
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: pyaccountingkit
+          POSTGRES_USER: pyaccountingkit
+          POSTGRES_PASSWORD: pyaccountingkit
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U pyaccountingkit -d pyaccountingkit"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DJANGO_SETTINGS_MODULE: tests.support.django_settings
+      PYAK_POSTGRES_TEST: "1"
+      PYAK_DB_NAME: pyaccountingkit
+      PYAK_DB_USER: pyaccountingkit
+      PYAK_DB_PASSWORD: pyaccountingkit
+      PYAK_DB_HOST: 127.0.0.1
+      PYAK_DB_PORT: "5432"
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install Django adapter qualification tooling
+        run: python -m pip install -e ".[dev]"
+      - name: Apply fresh PostgreSQL migrations
+        run: python -m django migrate --noinput
+      - name: Require model and migration coherence
+        run: python -m django makemigrations pyaccountingkit_django --check --dry-run
+      - name: Run PostgreSQL adapter qualification
+        run: >-
+          python -m pytest
+          tests/integration/test_django_postgresql_adapter.py
+          tests/concurrency/test_django_postgresql_concurrency.py
+          -v --tb=short
+
   ci-gate:
     name: Canonical CI gate
     if: ${{ always() }}
-    needs: [quality, test, package]
+    needs: [quality, test, package, postgresql]
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -82,7 +128,9 @@ jobs:
           QUALITY_RESULT: ${{ needs.quality.result }}
           TEST_RESULT: ${{ needs.test.result }}
           PACKAGE_RESULT: ${{ needs.package.result }}
+          POSTGRESQL_RESULT: ${{ needs.postgresql.result }}
         run: |
           test "$QUALITY_RESULT" = "success"
           test "$TEST_RESULT" = "success"
           test "$PACKAGE_RESULT" = "success"
+          test "$POSTGRESQL_RESULT" = "success"

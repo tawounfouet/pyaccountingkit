@@ -131,7 +131,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="JournalLineModel",
             fields=[
-                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
                 ("line_number", models.PositiveIntegerField()),
                 ("account_id", models.CharField(db_index=True, max_length=128)),
                 ("debit_amount", models.DecimalField(decimal_places=18, max_digits=38)),

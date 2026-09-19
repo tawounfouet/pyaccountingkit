@@ -67,21 +67,21 @@ GA GAPI GP G3 G4
 ## Definition of Done
 
 ```text
-[ ] core-only import succeeds without Django installed
-[ ] django extra installs cleanly
-[ ] Django app loads without importing through package root
-[ ] fresh PostgreSQL migration green
-[ ] repository contract green
-[ ] UoW commit/rollback green
-[ ] optimistic revision conflict green
-[ ] audit/outbox/idempotency atomicity green
-[ ] posting vs close race green
-[ ] double reversal race green
-[ ] no ORM object leaks through public API
-[ ] adapter manifest declares contract v1
-[ ] Production qualification is evidence-backed, never aspirational
-[ ] Python 3.11/3.12/3.13 retained core qualification green
-[ ] Ruff, strict mypy, package, pip-audit and Bandit green
+[x] core-only import succeeds without Django installed
+[x] django extra installs cleanly
+[x] Django app loads without importing through package root
+[x] fresh PostgreSQL migration green
+[x] repository contract green
+[x] UoW commit/rollback green
+[x] optimistic revision conflict green
+[x] audit/outbox/idempotency atomicity green
+[x] posting vs close race green
+[x] double reversal race green
+[x] no ORM object leaks through public API
+[x] adapter manifest declares contract v1
+[x] Production qualification is evidence-backed, never aspirational
+[x] Python 3.11/3.12/3.13 retained core qualification green
+[x] Ruff, strict mypy, package, pip-audit and Bandit green
 ```
 
 ## Explicit non-goals

@@ -62,7 +62,7 @@ class SQLAlchemyJournalEntryRepository:
 
     def save(self, entry: JournalEntry, expected_revision: Revision) -> None:
         try:
-            result = self._session.execute(
+            updated_id = self._session.scalar(
                 update(JournalEntryTable)
                 .where(
                     JournalEntryTable.id == str(entry.id),
@@ -83,9 +83,10 @@ class SQLAlchemyJournalEntryRepository:
                     ),
                     revision=JournalEntryTable.revision + 1,
                 )
+                .returning(JournalEntryTable.id)
                 .execution_options(synchronize_session=False)
             )
-            if result.rowcount != 1:
+            if updated_id is None:
                 raise RevisionConflictError(
                     f"Entry {entry.id}: expected revision {expected_revision}"
                 )
@@ -168,7 +169,7 @@ class SQLAlchemyPeriodRepository:
             raise RevisionConflictError(f"Period {period.id} already exists or conflicts") from exc
 
     def save(self, period: AccountingPeriod) -> None:
-        result = self._session.execute(
+        updated_id = self._session.scalar(
             update(AccountingPeriodTable)
             .where(AccountingPeriodTable.id == str(period.id))
             .values(
@@ -178,9 +179,10 @@ class SQLAlchemyPeriodRepository:
                 end_date=period.end_date,
                 status=period.status.value,
             )
+            .returning(AccountingPeriodTable.id)
             .execution_options(synchronize_session=False)
         )
-        if result.rowcount != 1:
+        if updated_id is None:
             raise PeriodNotFoundError(f"Period {period.id} not found")
 
     def get(self, period_id: PeriodId) -> AccountingPeriod:

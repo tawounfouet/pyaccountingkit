@@ -7,6 +7,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0b2] - 2026-09-23
+
+### Added
+- LOT-24 SQLAlchemy 2.x / PostgreSQL Production adapter with canonical schema parity to the
+  Django adapter.
+- `SessionUnitOfWork` and `SQLAlchemyUnitOfWorkFactory` implementing adapter contract v1.
+- SQLAlchemy repositories for journals, accounting periods and journal entries plus
+  transactional audit, idempotency and outbox sinks.
+- Packaged Alembic migration lineage with fresh `0001_initial` qualification.
+- Declarative metadata-to-migrated-database coherence check.
+- Canonical SQLAlchemy/PostgreSQL 16 CI gate covering repository round-trip, commit/rollback,
+  optimistic conflicts, idempotency races, double reversal and posting-vs-close serialization.
+- Published `sqlalchemy` optional extra with SQLAlchemy, Alembic and psycopg.
+
+### Changed
+- Canonical CI now requires both Django/PostgreSQL and SQLAlchemy/PostgreSQL Production gates.
+- Reversal self-referential PostgreSQL foreign keys are deferred inside the SQLAlchemy schema so
+  the existing atomic reversal contract can update the source entry and insert its reversal in
+  one transaction.
+- Adapter contract evidence now declares both `django_postgresql` and
+  `sqlalchemy_postgresql` Production-qualified on contract v1.
+
+### Boundaries
+- LOT-24 introduces no accounting-domain semantics and no SQLAlchemy-specific public DTOs.
+- ORM objects remain confined to adapter modules.
+- Stable `0.5.0` still requires transverse LOT-21 through LOT-24 release qualification.
+
+## [0.5.0b1] - 2026-09-23
+
+### Added
+- LOT-23 Django/PostgreSQL Production adapter with migrations, repositories and
+  `DjangoUnitOfWork`.
+- PostgreSQL 16 qualification for fresh migrations, repository round-trips, rollback,
+  audit/outbox/idempotency atomicity, optimistic conflicts and critical concurrency races.
+- Published `django` optional extra.
+
+### Changed
+- Adapter contract evidence declares `django_postgresql` Production-qualified on contract v1.
+- Canonical CI includes the real Django/PostgreSQL gate.
+
+
 ## [0.5.0a2] - 2026-09-18
 
 ### Added

@@ -25,16 +25,16 @@ Chaque plan correspond à un jalon de release sémantique clair, définit les lo
 
 ## Lot actif / qualification
 
+- [`RELEASE_0.5.0_RC1_CROSS_LOT_QUALIFICATION_PLAN.md`](RELEASE_0.5.0_RC1_CROSS_LOT_QUALIFICATION_PLAN.md)
+  — qualification transverse LOT-21 + LOT-22 + LOT-23 + LOT-24, cible `0.5.0rc1`.
 - [`LOT-24_SQLALCHEMY_POSTGRESQL_ADAPTER_IMPLEMENTATION_PLAN.md`](LOT-24_SQLALCHEMY_POSTGRESQL_ADAPTER_IMPLEMENTATION_PLAN.md)
-  — LOT-24 SQLAlchemy/PostgreSQL Production adapter, cible `0.5.0b2`, qualification terminée avant merge.
+  — LOT-24 SQLAlchemy/PostgreSQL Production adapter qualifié en `0.5.0b2`.
 - [`LOT-23_DJANGO_POSTGRESQL_ADAPTER_IMPLEMENTATION_PLAN.md`](LOT-23_DJANGO_POSTGRESQL_ADAPTER_IMPLEMENTATION_PLAN.md)
   — LOT-23 Django/PostgreSQL Production adapter qualifié en `0.5.0b1`.
 - [`LOT-22_EXTENSION_API_MANIFESTS_COMPATIBILITY_IMPLEMENTATION_PLAN.md`](LOT-22_EXTENSION_API_MANIFESTS_COMPATIBILITY_IMPLEMENTATION_PLAN.md)
   — LOT-22 Extension API / manifests / compatibility contracts qualifié en `0.5.0a2`.
 - [`LOT-21_PUBLIC_API_FACADE_IMPLEMENTATION_PLAN.md`](LOT-21_PUBLIC_API_FACADE_IMPLEMENTATION_PLAN.md)
   — LOT-21 Public API Facade qualifié en `0.5.0a1`.
-- [`RELEASE_0.4.0_STABLE_PROMOTION_PLAN.md`](RELEASE_0.4.0_STABLE_PROMOTION_PLAN.md)
-  — baseline stable `0.4.0` conservée par la ligne 0.5.
 
 ## 2. Graphe d'Ordonnancement & Chemin Critique
 

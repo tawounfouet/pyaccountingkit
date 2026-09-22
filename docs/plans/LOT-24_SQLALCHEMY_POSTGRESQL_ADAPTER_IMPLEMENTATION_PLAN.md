@@ -101,21 +101,21 @@ A dedicated PostgreSQL 16 CI job must prove:
 ## Definition of Done
 
 ```text
-[ ] core-only wheel import remains ORM-free
-[ ] sqlalchemy extra installs cleanly
-[ ] Declarative metadata represents canonical PostgreSQL schema
-[ ] fresh Alembic migration green
-[ ] repository contract green
-[ ] Session UnitOfWork commit/rollback green
-[ ] optimistic revision conflict green
-[ ] audit/outbox/idempotency atomicity green
-[ ] posting-vs-close race green
-[ ] double reversal race green
-[ ] no SQLAlchemy ORM object leaks through public API
-[ ] adapter contract manifest declares SQLAlchemy Production qualification
-[ ] Django Production qualification remains green
-[ ] Python 3.11/3.12/3.13 retained qualification green
-[ ] Ruff, strict mypy, package, pip-audit and Bandit green
+[x] core-only wheel import remains ORM-free
+[x] sqlalchemy extra installs cleanly
+[x] Declarative metadata represents canonical PostgreSQL schema
+[x] fresh Alembic migration green
+[x] repository contract green
+[x] Session UnitOfWork commit/rollback green
+[x] optimistic revision conflict green
+[x] audit/outbox/idempotency atomicity green
+[x] posting-vs-close race green
+[x] double reversal race green
+[x] no SQLAlchemy ORM object leaks through public API
+[x] adapter contract manifest declares SQLAlchemy Production qualification
+[x] Django Production qualification remains green
+[x] Python 3.11/3.12/3.13 retained qualification green
+[x] Ruff, strict mypy, package, pip-audit and Bandit green
 ```
 
 ## Explicit non-goals

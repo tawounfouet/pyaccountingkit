@@ -20,6 +20,7 @@ LOT-24  SQLAlchemy/PostgreSQL Production Adapter
 
 - no file under `src/pyaccountingkit/domain/` changes;
 - no Django/SQLAlchemy implementation code changes;
+- release-only qualification assertions may be generalized from RC to the stable version;
 - adapter contract remains version `1`;
 - both Production adapters remain declared and independently PostgreSQL-qualified;
 - public package root remains ORM-neutral;

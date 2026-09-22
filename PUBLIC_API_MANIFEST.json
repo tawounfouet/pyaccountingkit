@@ -15,7 +15,7 @@
       "require_optional_dependency",
       "runtime_capabilities"
     ],
-    "note": "LOT-22 / 0.5.0a2 formalizes the adapter-author extension API separately from the LOT-21 user facade. Public and extension symbol inventories are generated deterministically from explicit __all__ declarations; adapter contract v1 is published without freezing the full pre-1.0 Python API.",
+    "note": "The 0.5 line exposes the framework-neutral LOT-21 user facade and the separate LOT-22 adapter-author extension API on adapter contract v1. Django/PostgreSQL and SQLAlchemy/PostgreSQL are Production-qualified without freezing the full pre-1.0 Python API.",
     "public_package_exports": [
       "AccountingApplication",
       "AdapterContractMismatchError",
@@ -55,7 +55,7 @@
       "Money",
       "__version__"
     ],
-    "stability": "pre-1.0-alpha",
+    "stability": "pre-1.0-release-candidate",
     "stable_exports": [
       "AccountingApplication",
       "CommandContext",

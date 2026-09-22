@@ -1,40 +1,40 @@
 {
-  "version": "0.5.0b1",
   "regulatory_frameworks": [
     {
-      "framework": "PCG",
-      "reference_layer": "golden-qualified",
       "company_chart_binding": "supported",
-      "policy_layer": "partial-beta",
-      "generic_import_core": "source-format-neutral-stable-qualified",
+      "export_renderer": "canonical-json-reference",
       "fec_adapter": "0.3.0-stable-cross-lot-qualified",
+      "financial_analysis": "generic-LOT-20-stable-qualified",
       "financial_reporting": "generic-financial-statements-engine-stable-qualified",
-      "regulatory_reporting": "profile-model-mapping-validation-export-stable-qualified",
+      "framework": "PCG",
+      "generic_import_core": "source-format-neutral-stable-qualified",
+      "notes": "Stable 0.4.0 preserves the stable 0.3.0 PCG/FEC regulatory qualification unchanged while qualifying generic LOT-18/19 subledger mechanics and LOT-20 read-only financial analysis together. These capabilities do not broaden statutory-template, legal-filing, DGFiP-filing or authority-submission claims, and no account-prefix semantic inference is introduced.",
+      "policy_layer": "partial-beta",
+      "reference_layer": "golden-qualified",
       "reference_resolution": "exact-snapshot",
       "regulatory_golden": "LOT-17-beta-qualified",
+      "regulatory_reporting": "profile-model-mapping-validation-export-stable-qualified",
       "stable_cross_lot": "FEC-to-ledger-to-reporting-to-evidence-qualified",
       "subledger_foundations": "generic-LOT-18-stable-qualified",
-      "subledger_operations": "generic-LOT-19-stable-qualified",
-      "export_renderer": "canonical-json-reference",
-      "notes": "Stable 0.4.0 preserves the stable 0.3.0 PCG/FEC regulatory qualification unchanged while qualifying generic LOT-18/19 subledger mechanics and LOT-20 read-only financial analysis together. These capabilities do not broaden statutory-template, legal-filing, DGFiP-filing or authority-submission claims, and no account-prefix semantic inference is introduced.",
-      "financial_analysis": "generic-LOT-20-stable-qualified"
+      "subledger_operations": "generic-LOT-19-stable-qualified"
     },
     {
-      "framework": "SYSCOHADA",
-      "reference_layer": "golden-qualified",
       "company_chart_binding": "supported",
-      "policy_layer": "partial-beta",
-      "generic_import_core": "source-format-neutral-alpha",
+      "export_renderer": "canonical-json-reference",
+      "financial_analysis": "generic-LOT-20-stable-qualified",
       "financial_reporting": "generic-financial-statements-engine-beta",
-      "regulatory_reporting": "profile-model-mapping-validation-export-beta",
+      "framework": "SYSCOHADA",
+      "generic_import_core": "source-format-neutral-alpha",
+      "notes": "SYSCOHADA remains qualified through LOT-17 deterministic XOF golden/replay scenarios. Stable 0.4.0 qualifies the generic LOT-18/19 subledger mechanics and LOT-20 read-only financial-analysis mechanics without changing the existing SYSCOHADA regulatory boundary, claiming an equivalent FEC ingestion path, inferring semantics from SYSCOHADA account prefixes or providing statutory filing certification.",
+      "policy_layer": "partial-beta",
+      "reference_layer": "golden-qualified",
       "reference_resolution": "exact-snapshot",
       "regulatory_golden": "LOT-17-beta-qualified",
+      "regulatory_reporting": "profile-model-mapping-validation-export-beta",
       "stable_cross_lot": "not-exercised-via-FEC-source-path",
       "subledger_foundations": "generic-LOT-18-stable-qualified",
-      "subledger_operations": "generic-LOT-19-stable-qualified",
-      "export_renderer": "canonical-json-reference",
-      "notes": "SYSCOHADA remains qualified through LOT-17 deterministic XOF golden/replay scenarios. Stable 0.4.0 qualifies the generic LOT-18/19 subledger mechanics and LOT-20 read-only financial-analysis mechanics without changing the existing SYSCOHADA regulatory boundary, claiming an equivalent FEC ingestion path, inferring semantics from SYSCOHADA account prefixes or providing statutory filing certification.",
-      "financial_analysis": "generic-LOT-20-stable-qualified"
+      "subledger_operations": "generic-LOT-19-stable-qualified"
     }
-  ]
+  ],
+  "version": "0.5.0b2"
 }

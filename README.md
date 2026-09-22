@@ -11,50 +11,36 @@ specific regulatory dataset.
 ## Status
 
 PyAccountingKit is under active pre-1.0 development. The current package line is
-`0.5.0a2`, the LOT-22 Extension API, Manifests & Compatibility Contracts alpha
-built on the qualified LOT-21 `0.5.0a1` user facade.
+`0.5.0b2`, completing LOT-24 with two independently qualified PostgreSQL Production
+adapters on adapter contract **v1**.
 
-The ordinary consumer API remains centered on:
+The ordinary consumer API remains framework-neutral:
 
 ```python
 from pyaccountingkit import AccountingApplication, CommandContext, Money
 ```
 
-Adapter authors use a deliberately separate extension namespace:
-
-```python
-from pyaccountingkit.public.protocols import (
-    ADAPTER_CONTRACT_VERSION,
-    AccountingReferenceProviderProtocol,
-    RegulatoryExporterProtocol,
-    RegulatoryRendererProtocol,
-    UnitOfWorkFactoryProtocol,
-)
-```
-
-LOT-22 publishes adapter contract **v1** and fails closed with
-`AdapterContractMismatchError` when a custom adapter does not explicitly support the
-active contract. Optional integrations are detected without importing Django or SQLAlchemy;
-an explicitly requested missing integration raises `OptionalDependencyMissingError`.
-
-The three root compatibility artifacts are now deterministic generated evidence:
+Production persistence is optional and explicit:
 
 ```text
-PUBLIC_API_MANIFEST.json
-PUBLIC_ERROR_CODES.json
-ADAPTER_CONTRACT_MANIFEST.json
+pip install "pyaccountingkit[django]"
+pip install "pyaccountingkit[sqlalchemy]"
 ```
 
-Their generators support `--check`, and canonical Quality fails if committed JSON drifts from
-the source-declared public/extension symbols, error codes or adapter contract metadata.
-`py.typed` remains packaged and runtime capabilities expose that fact without loading an ORM.
+The canonical CI qualifies both backends against **PostgreSQL 16**. Django proves fresh
+Django migrations, model/migration coherence, repository round-trips, transaction rollback,
+optimistic conflict handling, idempotency and critical races. SQLAlchemy proves the same
+business behavior through SQLAlchemy 2.x plus a fresh Alembic migration and Declarative
+metadata/database coherence.
 
-The public Python API is still **pre-1.0 and unfrozen**. LOT-22 versions the extension contract;
-it does not claim that every Python symbol has reached 1.0 compatibility. No production Django
-or SQLAlchemy adapter is introduced here: those remain LOT-23 and LOT-24.
+The public package root does not import either ORM. Adapter-author contracts remain isolated
+under `pyaccountingkit.public.protocols`, and the deterministic
+`ADAPTER_CONTRACT_MANIFEST.json` records both `django_postgresql` and
+`sqlalchemy_postgresql` as Production-qualified implementations of adapter contract v1.
 
-All LOT-21 GAPI checks and the retained 0.4 accounting/subledger/analysis qualification continue
-to run unchanged underneath these compatibility contracts.
+The `0.5.0b2` milestone closes implementation scope for LOT-21 through LOT-24. The next
+step is transverse release qualification of the complete 0.5 line before promotion to
+`0.5.0` stable. No new accounting-domain semantics are introduced by LOT-23 or LOT-24.
 
 ## Core guarantees
 

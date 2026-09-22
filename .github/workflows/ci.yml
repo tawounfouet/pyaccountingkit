@@ -116,10 +116,54 @@ jobs:
           tests/concurrency/test_django_postgresql_concurrency.py
           -v --tb=short
 
+  sqlalchemy-postgresql:
+    name: SQLAlchemy/PostgreSQL qualification
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: pyaccountingkit
+          POSTGRES_USER: pyaccountingkit
+          POSTGRES_PASSWORD: pyaccountingkit
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U pyaccountingkit -d pyaccountingkit"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      PYAK_SQLALCHEMY_POSTGRES_TEST: "1"
+      PYAK_SQLALCHEMY_DATABASE_URL: postgresql+psycopg://pyaccountingkit:pyaccountingkit@127.0.0.1:5432/pyaccountingkit
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install published SQLAlchemy adapter extra and test tooling
+        run: python -m pip install -e ".[sqlalchemy]" pytest pytest-timeout
+      - name: Apply fresh Alembic migrations
+        run: >-
+          python -c
+          "from pyaccountingkit.adapters.sqlalchemy.migrations import upgrade;
+          import os; upgrade(os.environ['PYAK_SQLALCHEMY_DATABASE_URL'])"
+      - name: Require Declarative metadata and migration coherence
+        run: python scripts/check_sqlalchemy_metadata.py
+      - name: Run SQLAlchemy/PostgreSQL adapter qualification
+        run: >-
+          python -m pytest
+          tests/integration/test_sqlalchemy_postgresql_adapter.py
+          tests/concurrency/test_sqlalchemy_postgresql_concurrency.py
+          -v --tb=short
+
   ci-gate:
     name: Canonical CI gate
     if: ${{ always() }}
-    needs: [quality, test, package, postgresql]
+    needs: [quality, test, package, postgresql, sqlalchemy-postgresql]
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -129,8 +173,10 @@ jobs:
           TEST_RESULT: ${{ needs.test.result }}
           PACKAGE_RESULT: ${{ needs.package.result }}
           POSTGRESQL_RESULT: ${{ needs.postgresql.result }}
+          SQLALCHEMY_POSTGRESQL_RESULT: ${{ needs.sqlalchemy-postgresql.result }}
         run: |
           test "$QUALITY_RESULT" = "success"
           test "$TEST_RESULT" = "success"
           test "$PACKAGE_RESULT" = "success"
           test "$POSTGRESQL_RESULT" = "success"
+          test "$SQLALCHEMY_POSTGRESQL_RESULT" = "success"

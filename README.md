@@ -10,10 +10,9 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit **0.5.0** is the stable pre-1.0 release of the Public API & Production
-Adapters line.
+PyAccountingKit **0.5.0** is the stable Public API & Production Adapters milestone.
 
-It stabilizes together:
+The release closes LOT-21 through LOT-24:
 
 ```text
 LOT-21  framework-neutral AccountingApplication / public DTO boundary
@@ -22,16 +21,14 @@ LOT-23  Django/PostgreSQL Production adapter
 LOT-24  SQLAlchemy/PostgreSQL Production adapter
 ```
 
-The package root remains ORM-neutral. Production persistence is optional through
-`pyaccountingkit[django]` or `pyaccountingkit[sqlalchemy]`, and both adapters are mandatory
-canonical gates against **PostgreSQL 16**.
+Both persistence adapters are independently Production-qualified against **PostgreSQL 16** and
+remain mandatory Canonical CI gates. The core package is ORM-neutral; persistence is optional
+through `pyaccountingkit[django]` or `pyaccountingkit[sqlalchemy]`.
 
-Stable `0.5.0` is a promotion of the fully qualified `0.5.0rc1`; it introduces no new
-accounting-domain or adapter behavior. The stable line also retains the 0.4
-subledger/financial-analysis guarantees and the 0.3 import/reporting/replay baseline.
-
-The broader Python API remains pre-1.0. Adapter contract **v1** is versioned, while the full
-1.0 compatibility freeze remains part of the later hardening roadmap.
+Stable `0.5.0` preserves the qualified 0.4 subledger/financial-analysis line and the stable
+0.3 imports/reporting/replay line. This is a stable **pre-1.0** milestone: adapter contract v1
+and the documented public facade are qualified, while the broader Python API freeze remains
+reserved for LOT-29/LOT-30.
 
 ## Core guarantees
 

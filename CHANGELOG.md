@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0rc1] - 2026-09-23
+
+### Release Candidate
+- Qualifies LOT-21 through LOT-24 together with no new accounting-domain capability.
+- Requires the framework-neutral public API and adapter contract v1 evidence.
+- Requires both Django/PostgreSQL 16 and SQLAlchemy/PostgreSQL 16 Production gates.
+- Retains stable 0.4 subledger/financial-analysis and stable 0.3 import/reporting/replay
+  qualification.
+- Adds version-specific fail-closed RC evidence to `scripts/qualify_release.py`.
+- Makes the deterministic public API manifest explicitly release-aware for prerelease,
+  release-candidate and pre-1.0 stable states.
+
+### Exit Criterion
+- Stable `0.5.0` promotion may contain release metadata/documentation changes only, unless
+  this RC exposes a genuine defect.
+
+
 ## [0.5.0b2] - 2026-09-23
 
 ### Added

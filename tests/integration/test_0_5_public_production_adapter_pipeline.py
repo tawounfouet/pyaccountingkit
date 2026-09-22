@@ -62,7 +62,8 @@ def test_release_0_5_core_import_remains_orm_neutral() -> None:
     script = (
         "import sys; import pyaccountingkit; "
         "loaded={name.split('.',1)[0] for name in sys.modules}; "
-        "assert 'django' not in loaded, sorted(name for name in sys.modules if name.startswith('django')); "
+        "assert 'django' not in loaded, "
+        "sorted(name for name in sys.modules if name.startswith('django')); "
         "assert 'sqlalchemy' not in loaded, "
         "sorted(name for name in sys.modules if name.startswith('sqlalchemy'))"
     )

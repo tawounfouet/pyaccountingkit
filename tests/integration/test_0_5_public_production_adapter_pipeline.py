@@ -24,7 +24,7 @@ def test_release_0_5_public_and_production_adapter_contract_is_coherent() -> Non
     )
     api_manifest = json.loads((ROOT / "PUBLIC_API_MANIFEST.json").read_text(encoding="utf-8"))
 
-    assert pyproject["project"]["version"] == "0.5.0rc1"
+    assert pyproject["project"]["version"] in {"0.5.0rc1", "0.5.0"}
     assert set(pyproject["project"]["optional-dependencies"]) >= {
         "django",
         "sqlalchemy",

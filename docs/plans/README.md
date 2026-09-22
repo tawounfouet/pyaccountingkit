@@ -25,8 +25,10 @@ Chaque plan correspond à un jalon de release sémantique clair, définit les lo
 
 ## Lot actif / qualification
 
+- [`RELEASE_0.5.0_STABLE_PROMOTION_PLAN.md`](RELEASE_0.5.0_STABLE_PROMOTION_PLAN.md)
+  — promotion stable metadata-only de la ligne LOT-21..24 vers `0.5.0`.
 - [`RELEASE_0.5.0_RC1_CROSS_LOT_QUALIFICATION_PLAN.md`](RELEASE_0.5.0_RC1_CROSS_LOT_QUALIFICATION_PLAN.md)
-  — qualification transverse LOT-21 + LOT-22 + LOT-23 + LOT-24, cible `0.5.0rc1`.
+  — qualification transverse LOT-21 + LOT-22 + LOT-23 + LOT-24 validée en `0.5.0rc1`.
 - [`LOT-24_SQLALCHEMY_POSTGRESQL_ADAPTER_IMPLEMENTATION_PLAN.md`](LOT-24_SQLALCHEMY_POSTGRESQL_ADAPTER_IMPLEMENTATION_PLAN.md)
   — LOT-24 SQLAlchemy/PostgreSQL Production adapter qualifié en `0.5.0b2`.
 - [`LOT-23_DJANGO_POSTGRESQL_ADAPTER_IMPLEMENTATION_PLAN.md`](LOT-23_DJANGO_POSTGRESQL_ADAPTER_IMPLEMENTATION_PLAN.md)

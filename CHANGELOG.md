@@ -7,6 +7,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-09-23
+
+### Stable
+- Promotes the fully qualified `0.5.0rc1` line with no new accounting-domain capability.
+- Stabilizes the LOT-21 framework-neutral public facade and immutable public DTO boundary.
+- Stabilizes LOT-22 adapter contract v1, typed extension protocols and deterministic manifests.
+- Ships both Django/PostgreSQL and SQLAlchemy/PostgreSQL as independently Production-qualified
+  optional adapters against PostgreSQL 16.
+- Preserves the stable 0.4 subledger/financial-analysis and 0.3 import/reporting/replay evidence.
+- Retains core-only installation and import without Django or SQLAlchemy.
+
+### Compatibility
+- `0.5.0` is a stable pre-1.0 milestone, not the final 1.0 public API freeze.
+- Adapter contract v1 remains the compatibility boundary for Production adapter authors.
+- The broader API freeze and 1.0 migration guarantees remain LOT-29/LOT-30 scope.
+
+
+## [0.5.0] - 2026-09-23
+
+### Stable Promotion
+- Promotes the fully qualified `0.5.0rc1` behavior to stable `0.5.0` with no new business
+  or adapter implementation changes.
+- Stabilizes LOT-21 Public API Facade, LOT-22 extension API / adapter contract v1,
+  LOT-23 Django/PostgreSQL and LOT-24 SQLAlchemy/PostgreSQL as one release line.
+- Retains both real PostgreSQL 16 Production gates, deterministic manifest checks,
+  Python 3.11/3.12/3.13 qualification, package verification and Security gates.
+- Retains the stable 0.4 subledger/financial-analysis and stable 0.3
+  import/reporting/replay evidence.
+- Public API metadata is promoted from release-candidate to
+  `pre-1.0-stable-release`; the broader 1.0 API freeze remains a later hardening milestone.
+
+
 ## [0.5.0rc1] - 2026-09-23
 
 ### Release Candidate

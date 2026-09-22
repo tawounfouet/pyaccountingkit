@@ -10,37 +10,25 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit is under active pre-1.0 development. The current package line is
-`0.5.0b2`, completing LOT-24 with two independently qualified PostgreSQL Production
-adapters on adapter contract **v1**.
+PyAccountingKit is currently qualified as **`0.5.0rc1`**, the release candidate for the
+complete Public API & Production Adapters line.
 
-The ordinary consumer API remains framework-neutral:
-
-```python
-from pyaccountingkit import AccountingApplication, CommandContext, Money
-```
-
-Production persistence is optional and explicit:
+This RC combines, without adding new accounting-domain functionality:
 
 ```text
-pip install "pyaccountingkit[django]"
-pip install "pyaccountingkit[sqlalchemy]"
+LOT-21  framework-neutral AccountingApplication / public DTO boundary
+LOT-22  adapter-author extension API + adapter contract v1
+LOT-23  Django/PostgreSQL Production adapter
+LOT-24  SQLAlchemy/PostgreSQL Production adapter
 ```
 
-The canonical CI qualifies both backends against **PostgreSQL 16**. Django proves fresh
-Django migrations, model/migration coherence, repository round-trips, transaction rollback,
-optimistic conflict handling, idempotency and critical races. SQLAlchemy proves the same
-business behavior through SQLAlchemy 2.x plus a fresh Alembic migration and Declarative
-metadata/database coherence.
+Both persistence adapters are mandatory Canonical CI gates against **PostgreSQL 16**. The
+core package remains ORM-neutral, while optional persistence is installed explicitly through
+`pyaccountingkit[django]` or `pyaccountingkit[sqlalchemy]`.
 
-The public package root does not import either ORM. Adapter-author contracts remain isolated
-under `pyaccountingkit.public.protocols`, and the deterministic
-`ADAPTER_CONTRACT_MANIFEST.json` records both `django_postgresql` and
-`sqlalchemy_postgresql` as Production-qualified implementations of adapter contract v1.
-
-The `0.5.0b2` milestone closes implementation scope for LOT-21 through LOT-24. The next
-step is transverse release qualification of the complete 0.5 line before promotion to
-`0.5.0` stable. No new accounting-domain semantics are introduced by LOT-23 or LOT-24.
+The RC also retains the stable 0.4 subledger/financial-analysis qualification and the stable
+0.3 imports/reporting/replay baseline. Promotion to `0.5.0` stable is allowed only after this
+cross-lot RC remains green; the stable promotion will contain no new business capability.
 
 ## Core guarantees
 

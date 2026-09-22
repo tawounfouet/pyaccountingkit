@@ -54,7 +54,10 @@ def validate_ci_text(text: str) -> list[str]:
             "python scripts/check_sqlalchemy_metadata.py",
             "python scripts/qualify_release.py --release-candidate",
             "startsWith(github.head_ref, 'release/')",
-            "needs: [quality, test, package, postgresql, sqlalchemy-postgresql, release-qualification]",
+            (
+                "needs: [quality, test, package, postgresql, sqlalchemy-postgresql, "
+                "release-qualification]"
+            ),
             "if: ${{ always() }}",
             "QUALITY_RESULT: ${{ needs.quality.result }}",
             "TEST_RESULT: ${{ needs.test.result }}",
@@ -147,7 +150,10 @@ def main() -> int:
         return 1
 
     print("CI workflow validation: PASS")
-    print("Canonical jobs: quality, test, package, postgresql, sqlalchemy-postgresql, release-qualification, ci-gate")
+    print(
+        "Canonical jobs: quality, test, package, postgresql, sqlalchemy-postgresql, "
+        "release-qualification, ci-gate"
+    )
     print("Supported Python matrix: 3.11, 3.12, 3.13")
     print("Qualified suites: unit, property, contract, integration, golden, replay, concurrency")
     print("Production adapter gates: Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16")

@@ -47,7 +47,7 @@ def validate_ci_text(text: str) -> list[str]:
             "python -m django makemigrations pyaccountingkit_django --check --dry-run",
             "tests/integration/test_django_postgresql_adapter.py",
             "tests/concurrency/test_django_postgresql_concurrency.py",
-            "PYAK_SQLALCHEMY_POSTGRES_TEST: \"1\"",
+            'PYAK_SQLALCHEMY_POSTGRES_TEST: "1"',
             "tests/integration/test_sqlalchemy_postgresql_adapter.py",
             "tests/concurrency/test_sqlalchemy_postgresql_concurrency.py",
             "python scripts/check_sqlalchemy_metadata.py",

@@ -75,11 +75,21 @@ class JournalEntryTable(Base):
     status: Mapped[str] = mapped_column(String(16), index=True)
     posted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     reversal_of_id: Mapped[str | None] = mapped_column(
-        ForeignKey("pyak_journal_entry.id", ondelete="RESTRICT"),
+        ForeignKey(
+            "pyak_journal_entry.id",
+            ondelete="RESTRICT",
+            deferrable=True,
+            initially="DEFERRED",
+        ),
         nullable=True,
     )
     reversed_by_id: Mapped[str | None] = mapped_column(
-        ForeignKey("pyak_journal_entry.id", ondelete="RESTRICT"),
+        ForeignKey(
+            "pyak_journal_entry.id",
+            ondelete="RESTRICT",
+            deferrable=True,
+            initially="DEFERRED",
+        ),
         nullable=True,
     )
     revision: Mapped[int] = mapped_column(BigInteger, default=0)

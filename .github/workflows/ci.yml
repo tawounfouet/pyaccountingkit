@@ -160,10 +160,27 @@ jobs:
           tests/concurrency/test_sqlalchemy_postgresql_concurrency.py
           -v --tb=short
 
+  release-qualification:
+    name: Extended release qualification
+    if: ${{ startsWith(github.head_ref, 'release/') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install development tooling
+        run: python -m pip install -e ".[dev]"
+      - name: Run release-candidate qualification
+        run: python scripts/qualify_release.py --release-candidate
+
   ci-gate:
     name: Canonical CI gate
     if: ${{ always() }}
-    needs: [quality, test, package, postgresql, sqlalchemy-postgresql]
+    needs: [quality, test, package, postgresql, sqlalchemy-postgresql, release-qualification]
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -174,9 +191,11 @@ jobs:
           PACKAGE_RESULT: ${{ needs.package.result }}
           POSTGRESQL_RESULT: ${{ needs.postgresql.result }}
           SQLALCHEMY_POSTGRESQL_RESULT: ${{ needs.sqlalchemy-postgresql.result }}
+          RELEASE_QUALIFICATION_RESULT: ${{ needs.release-qualification.result }}
         run: |
           test "$QUALITY_RESULT" = "success"
           test "$TEST_RESULT" = "success"
           test "$PACKAGE_RESULT" = "success"
           test "$POSTGRESQL_RESULT" = "success"
           test "$SQLALCHEMY_POSTGRESQL_RESULT" = "success"
+          test "$RELEASE_QUALIFICATION_RESULT" = "success" || test "$RELEASE_QUALIFICATION_RESULT" = "skipped"

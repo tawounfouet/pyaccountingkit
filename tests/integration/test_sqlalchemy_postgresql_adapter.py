@@ -130,11 +130,14 @@ def test_repository_round_trip_is_exact() -> None:
         read.rollback()
 
     with Session(ENGINE) as session:
-        assert session.scalar(
-            select(func.count()).select_from(JournalLineTable).where(
-                JournalLineTable.entry_id == "entry:1"
+        assert (
+            session.scalar(
+                select(func.count())
+                .select_from(JournalLineTable)
+                .where(JournalLineTable.entry_id == "entry:1")
             )
-        ) == 2
+            == 2
+        )
 
 
 def test_uncommitted_unit_of_work_rolls_back_every_sink() -> None:

@@ -9,6 +9,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.5.0] - 2026-09-23
 
+### Stable
+- Promotes the fully qualified `0.5.0rc1` line with no new accounting-domain capability.
+- Stabilizes the LOT-21 framework-neutral public facade and immutable public DTO boundary.
+- Stabilizes LOT-22 adapter contract v1, typed extension protocols and deterministic manifests.
+- Ships both Django/PostgreSQL and SQLAlchemy/PostgreSQL as independently Production-qualified
+  optional adapters against PostgreSQL 16.
+- Preserves the stable 0.4 subledger/financial-analysis and 0.3 import/reporting/replay evidence.
+- Retains core-only installation and import without Django or SQLAlchemy.
+
+### Compatibility
+- `0.5.0` is a stable pre-1.0 milestone, not the final 1.0 public API freeze.
+- Adapter contract v1 remains the compatibility boundary for Production adapter authors.
+- The broader API freeze and 1.0 migration guarantees remain LOT-29/LOT-30 scope.
+
+
+## [0.5.0] - 2026-09-23
+
 ### Stable Promotion
 - Promotes the fully qualified `0.5.0rc1` behavior to stable `0.5.0` with no new business
   or adapter implementation changes.

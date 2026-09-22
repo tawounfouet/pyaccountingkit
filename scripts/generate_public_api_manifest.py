@@ -13,24 +13,33 @@ from pyaccountingkit.public.protocols import ADAPTER_CONTRACT_VERSION
 _FILENAME = "PUBLIC_API_MANIFEST.json"
 
 
+def _stability(version: str) -> str:
+    if "rc" in version:
+        return "pre-1.0-release-candidate"
+    if "a" in version or "b" in version:
+        return "pre-1.0-prerelease"
+    return "pre-1.0-stable-release"
+
+
 def build_payload() -> dict[str, object]:
+    version = project_version()
     root_exports = sorted(pyaccountingkit.__all__)
     public_exports = sorted(pyaccountingkit.public.__all__)
     extension_exports = sorted(pyaccountingkit.public.protocols.__all__)
     return {
-        "version": project_version(),
+        "version": version,
         "public_api": {
-            "stability": "pre-1.0-alpha",
+            "stability": _stability(version),
             "stable_exports": [name for name in root_exports if name != "__version__"],
             "root_exports": root_exports,
             "public_package_exports": public_exports,
             "extension_exports": extension_exports,
             "adapter_contract_version": str(ADAPTER_CONTRACT_VERSION),
             "note": (
-                "LOT-22 / 0.5.0a2 formalizes the adapter-author extension API separately "
-                "from the LOT-21 user facade. Public and extension symbol inventories are "
-                "generated deterministically from explicit __all__ declarations; adapter "
-                "contract v1 is published without freezing the full pre-1.0 Python API."
+                "The 0.5 line exposes the framework-neutral LOT-21 user facade and the "
+                "separate LOT-22 adapter-author extension API on adapter contract v1. "
+                "Django/PostgreSQL and SQLAlchemy/PostgreSQL are Production-qualified "
+                "without freezing the full pre-1.0 Python API."
             ),
         },
     }

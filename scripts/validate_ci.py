@@ -36,6 +36,7 @@ def validate_ci_text(text: str) -> list[str]:
             "package:\n",
             "postgresql:\n",
             "sqlalchemy-postgresql:\n",
+            "release-qualification:\n",
             "ci-gate:\n",
             "fail-fast: false",
             'python-version: ["3.11", "3.12", "3.13"]',
@@ -51,24 +52,30 @@ def validate_ci_text(text: str) -> list[str]:
             "tests/integration/test_sqlalchemy_postgresql_adapter.py",
             "tests/concurrency/test_sqlalchemy_postgresql_concurrency.py",
             "python scripts/check_sqlalchemy_metadata.py",
-            "needs: [quality, test, package, postgresql, sqlalchemy-postgresql]",
+            "python scripts/qualify_release.py --release-candidate",
+            "startsWith(github.head_ref, 'release/')",
+            (
+                "needs: [quality, test, package, postgresql, sqlalchemy-postgresql, "
+                "release-qualification]"
+            ),
             "if: ${{ always() }}",
             "QUALITY_RESULT: ${{ needs.quality.result }}",
             "TEST_RESULT: ${{ needs.test.result }}",
             "PACKAGE_RESULT: ${{ needs.package.result }}",
             "POSTGRESQL_RESULT: ${{ needs.postgresql.result }}",
             "SQLALCHEMY_POSTGRESQL_RESULT: ${{ needs.sqlalchemy-postgresql.result }}",
+            "RELEASE_QUALIFICATION_RESULT: ${{ needs.release-qualification.result }}",
         ),
         label="CI",
     )
 
-    if text.count("actions/checkout@v7") != 5:
-        violations.append("CI: expected exactly five actions/checkout@v7 uses")
-    if text.count("actions/setup-python@v7") != 5:
-        violations.append("CI: expected exactly five actions/setup-python@v7 uses")
-    if text.count("cache: pip") != 5:
+    if text.count("actions/checkout@v7") != 6:
+        violations.append("CI: expected exactly six actions/checkout@v7 uses")
+    if text.count("actions/setup-python@v7") != 6:
+        violations.append("CI: expected exactly six actions/setup-python@v7 uses")
+    if text.count("cache: pip") != 6:
         violations.append("CI: every Python execution job must enable pip cache")
-    if text.count("cache-dependency-path: pyproject.toml") != 5:
+    if text.count("cache-dependency-path: pyproject.toml") != 6:
         violations.append("CI: every pip cache must be keyed from pyproject.toml")
     if text.count("python scripts/verify_package.py") != 1:
         violations.append("CI: package verification must execute exactly once")
@@ -143,7 +150,10 @@ def main() -> int:
         return 1
 
     print("CI workflow validation: PASS")
-    print("Canonical jobs: quality, test, package, postgresql, sqlalchemy-postgresql, ci-gate")
+    print(
+        "Canonical jobs: quality, test, package, postgresql, sqlalchemy-postgresql, "
+        "release-qualification, ci-gate"
+    )
     print("Supported Python matrix: 3.11, 3.12, 3.13")
     print("Qualified suites: unit, property, contract, integration, golden, replay, concurrency")
     print("Production adapter gates: Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16")

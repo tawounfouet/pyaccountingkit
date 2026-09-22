@@ -34,6 +34,20 @@ _VERSIONED_RC_EVIDENCE: dict[str, tuple[str, ...]] = {
         "tests/integration/test_0_3_import_reporting_pipeline.py",
         "tests/replay/test_0_3_release_pipeline_replay.py",
     ),
+    "0.5.0rc1": (
+        "tests/integration/test_0_5_public_production_adapter_pipeline.py",
+        "tests/contract/test_public_api_boundary.py",
+        "tests/contract/test_extension_api_contracts.py",
+        "tests/integration/test_django_postgresql_adapter.py",
+        "tests/concurrency/test_django_postgresql_concurrency.py",
+        "tests/integration/test_sqlalchemy_postgresql_adapter.py",
+        "tests/concurrency/test_sqlalchemy_postgresql_concurrency.py",
+        "tests/integration/test_0_4_subledger_financial_analysis_pipeline.py",
+        "tests/replay/test_0_4_release_pipeline_replay.py",
+        "tests/contract/test_corporate_finance_boundary.py",
+        "tests/integration/test_0_3_import_reporting_pipeline.py",
+        "tests/replay/test_0_3_release_pipeline_replay.py",
+    ),
 }
 
 

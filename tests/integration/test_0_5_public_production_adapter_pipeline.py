@@ -22,9 +22,7 @@ def test_release_0_5_public_and_production_adapter_contract_is_coherent() -> Non
     adapter_manifest = json.loads(
         (ROOT / "ADAPTER_CONTRACT_MANIFEST.json").read_text(encoding="utf-8")
     )
-    api_manifest = json.loads(
-        (ROOT / "PUBLIC_API_MANIFEST.json").read_text(encoding="utf-8")
-    )
+    api_manifest = json.loads((ROOT / "PUBLIC_API_MANIFEST.json").read_text(encoding="utf-8"))
 
     assert pyproject["project"]["version"] == "0.5.0rc1"
     assert set(pyproject["project"]["optional-dependencies"]) >= {
@@ -39,12 +37,8 @@ def test_release_0_5_public_and_production_adapter_contract_is_coherent() -> Non
         "django_postgresql",
         "sqlalchemy_postgresql",
     ]
-    assert contracts["django_postgresql"]["qualification"].endswith(
-        "production-qualified"
-    )
-    assert contracts["sqlalchemy_postgresql"]["qualification"].endswith(
-        "production-qualified"
-    )
+    assert contracts["django_postgresql"]["qualification"].endswith("production-qualified")
+    assert contracts["sqlalchemy_postgresql"]["qualification"].endswith("production-qualified")
     assert contracts["django_postgresql"]["public_api_orm_leakage"] is False
     assert contracts["sqlalchemy_postgresql"]["public_api_orm_leakage"] is False
 

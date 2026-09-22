@@ -83,11 +83,15 @@ def upgrade() -> None:
             ["reversal_of_id"],
             ["pyak_journal_entry.id"],
             ondelete="RESTRICT",
+            deferrable=True,
+            initially="DEFERRED",
         ),
         sa.ForeignKeyConstraint(
             ["reversed_by_id"],
             ["pyak_journal_entry.id"],
             ondelete="RESTRICT",
+            deferrable=True,
+            initially="DEFERRED",
         ),
         sa.PrimaryKeyConstraint("id"),
     )

@@ -62,9 +62,10 @@
         "UnitOfWorkProtocol"
       ],
       "production_adapters": [
-        "django_postgresql"
+        "django_postgresql",
+        "sqlalchemy_postgresql"
       ],
-      "qualification": "LOT-23-django-postgresql-beta",
+      "qualification": "LOT-24-dual-postgresql-beta",
       "supported_versions": [
         "1"
       ]
@@ -139,13 +140,38 @@
       "recalculates_accounting": false,
       "reference_adapter": "CanonicalJSONRegulatoryRenderer"
     },
+    "sqlalchemy_postgresql": {
+      "adapter_contract_version": "1",
+      "alembic_version": ">=1.13,<2",
+      "database": "PostgreSQL 16",
+      "migration_baseline": "0001_initial",
+      "package": "pyaccountingkit.adapters.sqlalchemy",
+      "package_extra": "sqlalchemy",
+      "public_api_orm_leakage": false,
+      "qualification": "0.5.0b2-production-qualified",
+      "qualified_behaviors": [
+        "fresh_migration",
+        "declarative_metadata_coherence",
+        "repository_round_trip",
+        "atomic_commit_rollback",
+        "optimistic_revision_conflict",
+        "idempotency_conflict",
+        "audit_outbox_atomicity",
+        "double_reversal_serialization",
+        "posting_close_serialization"
+      ],
+      "sqlalchemy_version": ">=2.0,<3",
+      "unit_of_work": "SessionUnitOfWork",
+      "unit_of_work_factory": "SQLAlchemyUnitOfWorkFactory"
+    },
     "unit_of_work": {
       "port": "UnitOfWorkProtocol",
       "production_adapters": [
-        "DjangoUnitOfWork"
+        "DjangoUnitOfWork",
+        "SessionUnitOfWork"
       ],
       "production_qualification": true,
-      "qualification": "0.5.0b1-django-postgresql-qualified",
+      "qualification": "0.5.0b2-dual-postgresql-qualified",
       "qualified_behaviors": [
         "atomic_commit_rollback",
         "transaction_local_state",

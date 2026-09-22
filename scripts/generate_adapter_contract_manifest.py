@@ -26,9 +26,10 @@ _LEGACY_CONTRACTS: dict[str, object] = json.loads(r"""{
     ],
     "production_qualification": true,
     "production_adapters": [
-      "DjangoUnitOfWork"
+      "DjangoUnitOfWork",
+      "SessionUnitOfWork"
     ],
-    "qualification": "0.5.0b1-django-postgresql-qualified"
+    "qualification": "0.5.0b2-dual-postgresql-qualified"
   },
   "company_chart_resolution": {
     "port": "CompanyChartResolverProtocol",
@@ -102,6 +103,30 @@ _LEGACY_CONTRACTS: dict[str, object] = json.loads(r"""{
     ],
     "qualification": "0.5.0b1-production-qualified"
   },
+  "sqlalchemy_postgresql": {
+    "adapter_contract_version": "1",
+    "package": "pyaccountingkit.adapters.sqlalchemy",
+    "package_extra": "sqlalchemy",
+    "sqlalchemy_version": ">=2.0,<3",
+    "alembic_version": ">=1.13,<2",
+    "database": "PostgreSQL 16",
+    "unit_of_work": "SessionUnitOfWork",
+    "unit_of_work_factory": "SQLAlchemyUnitOfWorkFactory",
+    "migration_baseline": "0001_initial",
+    "public_api_orm_leakage": false,
+    "qualified_behaviors": [
+      "fresh_migration",
+      "declarative_metadata_coherence",
+      "repository_round_trip",
+      "atomic_commit_rollback",
+      "optimistic_revision_conflict",
+      "idempotency_conflict",
+      "audit_outbox_atomicity",
+      "double_reversal_serialization",
+      "posting_close_serialization"
+    ],
+    "qualification": "0.5.0b2-production-qualified"
+  },
   "accounting_import": {
     "ports": [
       "AccountingImportParser",
@@ -167,8 +192,8 @@ def build_payload() -> dict[str, object]:
             "UnitOfWorkFactoryProtocol",
             "UnitOfWorkProtocol",
         ],
-        "production_adapters": ["django_postgresql"],
-        "qualification": "LOT-23-django-postgresql-beta",
+        "production_adapters": ["django_postgresql", "sqlalchemy_postgresql"],
+        "qualification": "LOT-24-dual-postgresql-beta",
     }
     return {"version": project_version(), "adapter_contracts": contracts}
 

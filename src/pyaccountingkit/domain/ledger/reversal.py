@@ -17,7 +17,7 @@ from pyaccountingkit.core.errors import (
 )
 from pyaccountingkit.core.identifiers import EntryId
 from pyaccountingkit.domain.audit.events import AuditEvent
-from pyaccountingkit.domain.journals.journal_entry import EntryStatus, JournalEntry
+from pyaccountingkit.domain.journals.journal_entry import EntryStatus, EntryType, JournalEntry
 from pyaccountingkit.domain.journals.journal_line import JournalLine
 from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
 from pyaccountingkit.ports.audit import AuditLogSinkProtocol
@@ -66,6 +66,7 @@ def create_reversal(
         entry_date=reversal_date,
         description=f"Contrepassation de {original.id}",
         lines=reversed_lines,
+        entry_type=EntryType.REVERSAL,
         status=EntryStatus.POSTED,
         posted_at=now,
         reversal_of_id=original.id,
@@ -78,6 +79,7 @@ def create_reversal(
         entry_date=original.entry_date,
         description=original.description,
         lines=original.lines,
+        entry_type=original.entry_type,
         status=EntryStatus.REVERSED,
         posted_at=original.posted_at,
         reversal_of_id=original.reversal_of_id,

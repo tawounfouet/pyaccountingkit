@@ -1,0 +1,31 @@
+{
+  "scenario_id": "CFA-POST-REV-001",
+  "category": "POSTING",
+  "oracle_tree_sha": "07d4880534d2e2239e19fd4ef4139de70b56773a",
+  "oracle_manifest_version": "0.8.0",
+  "inputs": {
+    "currency": "XAF",
+    "journal": "JOD",
+    "posting_date": "2025-01-15",
+    "reversal_date": "2025-01-20",
+    "lines": [
+      {"account": "57110000", "debit": "1000", "credit": "0"},
+      {"account": "10110000", "debit": "0", "credit": "1000"}
+    ]
+  },
+  "expected": {
+    "posting_status": "POSTED",
+    "posting_type": "NORMAL",
+    "posting_total_debit": "1000",
+    "posting_total_credit": "1000",
+    "original_after_reversal_status": "REVERSED",
+    "reversal_status": "POSTED",
+    "reversal_type": "REVERSAL",
+    "reversal_of": "cfa-post-001",
+    "reversal_lines": [
+      {"account": "57110000", "debit": "0", "credit": "1000"},
+      {"account": "10110000", "debit": "1000", "credit": "0"}
+    ]
+  },
+  "divergences": []
+}

@@ -53,14 +53,16 @@ class InMemoryJournalEntryRepository:
         return tuple(
             entry
             for entry in self._store.entries.values()
-            if entry.period_id == period_id and entry.status is EntryStatus.POSTED
+            if entry.period_id == period_id
+            and entry.status in {EntryStatus.POSTED, EntryStatus.REVERSED}
         )
 
     def list_by_journal(self, journal_id: JournalId) -> Sequence[JournalEntry]:
         return tuple(
             entry
             for entry in self._store.entries.values()
-            if entry.journal_id == journal_id and entry.status is EntryStatus.POSTED
+            if entry.journal_id == journal_id
+            and entry.status in {EntryStatus.POSTED, EntryStatus.REVERSED}
         )
 
     def find_by_reversal_of(self, entry_id: EntryId) -> Sequence[JournalEntry]:

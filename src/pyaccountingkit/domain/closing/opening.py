@@ -9,7 +9,7 @@ from datetime import date
 from pyaccountingkit.core.errors import UnbalancedEntryError
 from pyaccountingkit.core.identifiers import AccountId, EntryId, JournalId, PeriodId
 from pyaccountingkit.core.money import Money
-from pyaccountingkit.domain.journals.journal_entry import EntryStatus, JournalEntry
+from pyaccountingkit.domain.journals.journal_entry import EntryStatus, EntryType, JournalEntry
 from pyaccountingkit.domain.journals.journal_line import JournalLine
 from pyaccountingkit.domain.reporting.balance_line import AccountBalanceLine
 
@@ -88,6 +88,7 @@ class OpeningEntryBuilder:
             entry_date=self._opening_date,
             description=f"Ouverture depuis clôture {self._evidence_run_id}",
             lines=lines,
+            entry_type=EntryType.OPENING,
             status=EntryStatus.POSTED,
             posted_at=None,
         )

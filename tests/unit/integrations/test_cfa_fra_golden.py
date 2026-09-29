@@ -7,12 +7,12 @@ from decimal import Decimal
 import pytest
 
 from pyaccountingkit.integrations.cfa_fra.golden import (
+    ORACLE_MANIFEST_VERSION,
+    ORACLE_TREE_SHA,
     DivergenceCategory,
     GoldenCategory,
     GoldenFixture,
     IntentionalDivergence,
-    ORACLE_MANIFEST_VERSION,
-    ORACLE_TREE_SHA,
 )
 
 

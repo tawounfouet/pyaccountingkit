@@ -7,7 +7,12 @@ from datetime import date
 import pytest
 
 from pyaccountingkit.core.currency import EUR
-from pyaccountingkit.core.errors import (\n    EmptyEntryError,\n    InvalidEntryStateError,\n    UnbalancedEntryError,\n    ZeroLineError,\n)
+from pyaccountingkit.core.errors import (
+    EmptyEntryError,
+    InvalidEntryStateError,
+    UnbalancedEntryError,
+    ZeroLineError,
+)
 from pyaccountingkit.core.identifiers import EntryId, JournalId, PeriodId
 from pyaccountingkit.core.money import Money
 from pyaccountingkit.domain.journals.journal_entry import EntryStatus, EntryType, JournalEntry

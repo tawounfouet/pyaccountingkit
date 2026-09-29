@@ -1,0 +1,40 @@
+{
+  "scenario_id": "CFA-STMT-001-003",
+  "category": "STATEMENTS",
+  "oracle_tree_sha": "07d4880534d2e2239e19fd4ef4139de70b56773a",
+  "oracle_manifest_version": "0.8.0",
+  "inputs": {
+    "source": "CFA FRA Sprint 6 executable tests",
+    "currency": "XAF"
+  },
+  "expected": {
+    "income_statement": {
+      "revenue": "500",
+      "external_services": "250",
+      "net_income": "250"
+    },
+    "balance_sheet": {
+      "current_assets": "1500",
+      "noncurrent_assets": "100",
+      "total_assets": "1600",
+      "current_liabilities": "50",
+      "noncurrent_liabilities": "300",
+      "equity": "1000",
+      "current_result": "250",
+      "total_liabilities_equity": "1600",
+      "balance_gap": "0",
+      "is_balanced": true
+    },
+    "cash_flow": {
+      "opening_cash": "1000",
+      "operating": "300",
+      "investing": "-100",
+      "financing": "300",
+      "unclassified": "0",
+      "net_change": "500",
+      "ending_cash": "1500",
+      "reconciliation_gap": "0"
+    }
+  },
+  "divergences": []
+}

@@ -1,4 +1,4 @@
-"""Posting service — pure domain transition from DRAFT to POSTED.
+"""Posting service — pure domain transition from VALIDATED to POSTED.
 
 Idempotency, entity isolation, account validation, audit, outbox publication
 and transactional commit belong to the application orchestrator.  This
@@ -9,13 +9,13 @@ POSTED copy.
 from __future__ import annotations
 
 from pyaccountingkit.core.clock import ClockProtocol
-from pyaccountingkit.core.errors import EntryAlreadyPostedError, PeriodClosedError
+from pyaccountingkit.core.errors import (\n    EntryAlreadyPostedError,\n    InvalidEntryStateError,\n    PeriodClosedError,\n)
 from pyaccountingkit.domain.journals.journal_entry import EntryStatus, JournalEntry
 from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
 
 
 class PostingService:
-    """Apply the irreversible DRAFT/VALIDATED → POSTED domain transition."""
+    """Apply the irreversible VALIDATED → POSTED domain transition."""
 
     def __init__(self, clock: ClockProtocol) -> None:
         self._clock = clock
@@ -34,7 +34,11 @@ class PostingService:
         """
         del user_id
         entry.validate_balance()
-        if entry.status is not EntryStatus.DRAFT and entry.status is not EntryStatus.VALIDATED:
+        if entry.status is EntryStatus.DRAFT:
+            raise InvalidEntryStateError(
+                f"Écriture {entry.id} doit être VALIDATED avant comptabilisation"
+            )
+        if entry.status is not EntryStatus.VALIDATED:
             raise EntryAlreadyPostedError(
                 f"Écriture {entry.id} ({entry.status.value}) ne peut être comptabilisée"
             )

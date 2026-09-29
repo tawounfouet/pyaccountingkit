@@ -19,7 +19,7 @@ from pyaccountingkit.core.identifiers import (
 )
 from pyaccountingkit.core.money import Money
 from pyaccountingkit.domain.journals.journal import Journal
-from pyaccountingkit.domain.journals.journal_entry import EntryStatus, JournalEntry
+from pyaccountingkit.domain.journals.journal_entry import EntryStatus, EntryType, JournalEntry
 from pyaccountingkit.domain.journals.journal_line import JournalLine
 from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
 from pyaccountingkit.domain.periods.closing_status import ClosingStatus
@@ -108,6 +108,7 @@ def entry_to_domain(model: JournalEntryModel, *, using: str | None = None) -> Jo
         entry_date=model.entry_date,
         description=model.description,
         lines=lines,
+        entry_type=EntryType(model.entry_type),
         status=EntryStatus(model.status),
         posted_at=model.posted_at,
         reversal_of_id=EntryId(model.reversal_of_id) if model.reversal_of_id else None,
@@ -122,6 +123,7 @@ def entry_to_model(entry: JournalEntry, *, revision: int = 0) -> JournalEntryMod
         period_id=str(entry.period_id),
         entry_date=entry.entry_date,
         description=entry.description,
+        entry_type=entry.entry_type.value,
         status=entry.status.value,
         posted_at=entry.posted_at,
         reversal_of_id=str(entry.reversal_of_id) if entry.reversal_of_id else None,

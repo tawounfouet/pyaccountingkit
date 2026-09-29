@@ -9,7 +9,11 @@ POSTED copy.
 from __future__ import annotations
 
 from pyaccountingkit.core.clock import ClockProtocol
-from pyaccountingkit.core.errors import (\n    EntryAlreadyPostedError,\n    InvalidEntryStateError,\n    PeriodClosedError,\n)
+from pyaccountingkit.core.errors import (
+    EntryAlreadyPostedError,
+    InvalidEntryStateError,
+    PeriodClosedError,
+)
 from pyaccountingkit.domain.journals.journal_entry import EntryStatus, JournalEntry
 from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
 

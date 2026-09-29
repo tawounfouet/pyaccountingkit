@@ -253,7 +253,7 @@ def test_double_reversal_commits_one_reversal_and_replays_the_other_request() ->
         assert len(reversals) == 1
         original = session.get(JournalEntryTable, "entry:1")
         assert original is not None
-        assert original.status == EntryStatus.POSTED.value
+        assert original.status == EntryStatus.REVERSED.value
         assert original.reversed_by_id == "entry:reversal"
 
 

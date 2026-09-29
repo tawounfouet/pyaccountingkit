@@ -66,13 +66,16 @@ class ReversalOrchestrator:
                 raise PeriodClosedError(
                     f"Période {target_period.id} fermée ou verrouillée pour la contrepassation"
                 )
+            if (
+                original.status is EntryStatus.REVERSED
+                or original.reversed_by_id is not None
+            ):
+                raise AlreadyReversedError(
+                    f"Écriture {entry_id} déjà contrepassée ({original.reversed_by_id})"
+                )
             if original.status is not EntryStatus.POSTED:
                 raise EntryNotPostedError(
                     f"Écriture {entry_id} non postée ({original.status.value})"
-                )
-            if original.reversed_by_id is not None:
-                raise AlreadyReversedError(
-                    f"Écriture {entry_id} déjà contrepassée ({original.reversed_by_id})"
                 )
 
             reversal_id = self._reversal_id_factory()

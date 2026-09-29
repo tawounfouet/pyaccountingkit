@@ -1,0 +1,27 @@
+{
+  "scenario_id": "CFA-FEC-001",
+  "category": "FEC",
+  "oracle_tree_sha": "07d4880534d2e2239e19fd4ef4139de70b56773a",
+  "oracle_manifest_version": "0.8.0",
+  "inputs": {
+    "currency": "XAF",
+    "fiscal_year": "2025",
+    "encoding": "utf-8",
+    "line_count": 2
+  },
+  "expected": {
+    "raw_record_count": 2,
+    "source_line_numbers": [2, 3],
+    "raw_rows_preserved": true,
+    "row_checksums_present": true,
+    "normalized_entry_keys": ["AC:E1", "AC:E1"],
+    "group_count": 1,
+    "group_balanced": true,
+    "total_debit": "1000",
+    "total_credit": "1000",
+    "valid": true,
+    "source_accounts": ["401000", "512000"],
+    "source_journals": ["AC"]
+  },
+  "divergences": []
+}

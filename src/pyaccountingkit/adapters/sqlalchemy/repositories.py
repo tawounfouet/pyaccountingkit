@@ -143,7 +143,9 @@ class SQLAlchemyJournalEntryRepository:
             select(JournalEntryTable)
             .where(
                 JournalEntryTable.journal_id == str(journal_id),
-                JournalEntryTable.status == EntryStatus.POSTED.value,
+                JournalEntryTable.status.in_(
+                    (EntryStatus.POSTED.value, EntryStatus.REVERSED.value)
+                ),
             )
             .order_by(JournalEntryTable.entry_date, JournalEntryTable.id)
         )

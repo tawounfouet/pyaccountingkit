@@ -18,6 +18,7 @@ from pyaccountingkit.core.errors import (
     EntityScopeMismatchError,
     InactiveAccountError,
     InactiveJournalError,
+    InvalidEntryStateError,
     JournalNotFoundError,
     NonPostableAccountError,
     PeriodClosedError,
@@ -141,8 +142,12 @@ def _bak_app(
     return PostingOrchestrator(factory, _chart_resolver(), posting), factory, store
 
 
-def _draft(account_ids: tuple[str, str] = ("411000", "707000")) -> JournalEntry:
-    return JournalEntry(
+def _draft(
+    account_ids: tuple[str, str] = ("411000", "707000"),
+    *,
+    validated: bool = True,
+) -> JournalEntry:
+    entry = JournalEntry(
         id=EntryId("e1"),
         journal_id=JournalId("j_ventes"),
         period_id=PeriodId("p_2024_01"),
@@ -161,6 +166,7 @@ def _draft(account_ids: tuple[str, str] = ("411000", "707000")) -> JournalEntry:
             ),
         ),
     )
+    return entry.validate() if validated else entry
 
 
 def test_post_happy_path_is_persisted_and_posted() -> None:
@@ -200,6 +206,15 @@ def test_post_rejects_journal_from_another_entity() -> None:
     orchestrator, _, store = _bak_app(journal_entity_id=OTHER_ENTITY)
     with pytest.raises(EntityScopeMismatchError):
         orchestrator.post(_draft(), actor_id="u1")
+    assert store.entries == {}
+    assert store.audit_log == []
+    assert store.outbox == []
+
+
+def test_post_rejects_draft_entry_before_persistence() -> None:
+    orchestrator, _, store = _bak_app()
+    with pytest.raises(InvalidEntryStateError, match="VALIDATED"):
+        orchestrator.post(_draft(validated=False), actor_id="u1")
     assert store.entries == {}
     assert store.audit_log == []
     assert store.outbox == []

@@ -248,7 +248,7 @@ def test_double_reversal_commits_one_reversal_and_replays_the_other_request() ->
     assert sorted(replayed for _, replayed in results) == [False, True]
     assert JournalEntryModel.objects.filter(reversal_of_id="entry:1").count() == 1
     original = JournalEntryModel.objects.get(pk="entry:1")
-    assert original.status == EntryStatus.POSTED.value
+    assert original.status == EntryStatus.REVERSED.value
     assert original.reversed_by_id == "entry:reversal"
 
 

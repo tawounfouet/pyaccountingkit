@@ -31,7 +31,7 @@ Oracle tree: `07d4880534d2e2239e19fd4ef4139de70b56773a`.
 
 ## First committed fixture pack
 
-LOT-25 starts with three normalized fixture families that can be grounded directly in the
+LOT-25 starts with four normalized fixture families that can be grounded directly in the
 bundled oracle documentation/tests without running the legacy code at PyAccountingKit runtime.
 
 ### CFA-POST-001 / CFA-REV-001

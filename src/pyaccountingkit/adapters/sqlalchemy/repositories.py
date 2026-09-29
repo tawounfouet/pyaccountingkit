@@ -73,6 +73,7 @@ class SQLAlchemyJournalEntryRepository:
                     period_id=str(entry.period_id),
                     entry_date=entry.entry_date,
                     description=entry.description,
+                    entry_type=entry.entry_type.value,
                     status=entry.status.value,
                     posted_at=entry.posted_at,
                     reversal_of_id=(
@@ -129,7 +130,9 @@ class SQLAlchemyJournalEntryRepository:
             select(JournalEntryTable)
             .where(
                 JournalEntryTable.period_id == str(period_id),
-                JournalEntryTable.status == EntryStatus.POSTED.value,
+                JournalEntryTable.status.in_(
+                    (EntryStatus.POSTED.value, EntryStatus.REVERSED.value)
+                ),
             )
             .order_by(JournalEntryTable.entry_date, JournalEntryTable.id)
         )

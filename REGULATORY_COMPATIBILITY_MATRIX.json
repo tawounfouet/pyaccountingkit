@@ -8,7 +8,7 @@
       "financial_reporting": "generic-financial-statements-engine-stable-qualified",
       "framework": "PCG",
       "generic_import_core": "source-format-neutral-stable-qualified",
-      "notes": "Stable 0.4.0 preserves the stable 0.3.0 PCG/FEC regulatory qualification unchanged while qualifying generic LOT-18/19 subledger mechanics and LOT-20 read-only financial analysis together. These capabilities do not broaden statutory-template, legal-filing, DGFiP-filing or authority-submission claims, and no account-prefix semantic inference is introduced.",
+      "notes": "LOT-25 0.6.0a1 adds CFA FRA behavioral golden parity for posting, reversal, FEC ingestion, ledger variants and generic financial statements while preserving the existing PCG/FEC regulatory qualification. It does not broaden statutory-template, legal-filing, DGFiP-filing or authority-submission claims; regulatory production qualification remains LOT-27.",
       "policy_layer": "partial-beta",
       "reference_layer": "golden-qualified",
       "reference_resolution": "exact-snapshot",
@@ -25,7 +25,7 @@
       "financial_reporting": "generic-financial-statements-engine-beta",
       "framework": "SYSCOHADA",
       "generic_import_core": "source-format-neutral-alpha",
-      "notes": "SYSCOHADA remains qualified through LOT-17 deterministic XOF golden/replay scenarios. Stable 0.4.0 qualifies the generic LOT-18/19 subledger mechanics and LOT-20 read-only financial-analysis mechanics without changing the existing SYSCOHADA regulatory boundary, claiming an equivalent FEC ingestion path, inferring semantics from SYSCOHADA account prefixes or providing statutory filing certification.",
+      "notes": "SYSCOHADA remains qualified through LOT-17 deterministic XOF golden/replay scenarios. LOT-25 0.6.0a1 adds CFA FRA behavioral migration evidence only; it does not change the SYSCOHADA regulatory boundary, claim an equivalent FEC ingestion path, infer semantics from account prefixes or provide statutory filing certification.",
       "policy_layer": "partial-beta",
       "reference_layer": "golden-qualified",
       "reference_resolution": "exact-snapshot",
@@ -36,5 +36,5 @@
       "subledger_operations": "generic-LOT-19-stable-qualified"
     }
   ],
-  "version": "0.5.0"
+  "version": "0.6.0a1"
 }

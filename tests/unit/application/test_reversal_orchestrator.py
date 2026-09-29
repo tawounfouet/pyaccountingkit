@@ -113,6 +113,7 @@ def test_reverse_happy_path_persists_reversal() -> None:
     assert reversal.reversal_of_id == EntryId("e1")
     marked = store.entries[EntryId("e1")]
     assert marked.reversed_by_id == result.reversal_entry.id
+    assert marked.status is EntryStatus.REVERSED
     assert marked.lines == _posted_entry().lines
     assert store.audit_log[-1].entity_id == "ent"
     assert store.outbox[-1].event_type == "ENTRY_REVERSED"
@@ -148,6 +149,7 @@ def test_reverse_rejects_target_period_from_another_entity() -> None:
     with pytest.raises(EntityScopeMismatchError):
         orchestrator.reverse(EntryId("e1"), "p_2024_02", date(2024, 2, 10), actor_id="u1")
     assert store.entries[EntryId("e1")].reversed_by_id is None
+    assert store.entries[EntryId("e1")].status is EntryStatus.POSTED
     assert store.audit_log == []
     assert store.outbox == []
 

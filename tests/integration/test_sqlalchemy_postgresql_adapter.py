@@ -36,7 +36,7 @@ from pyaccountingkit.core.identifiers import (
 from pyaccountingkit.core.money import Money
 from pyaccountingkit.domain.audit.events import AuditEvent
 from pyaccountingkit.domain.journals.journal import Journal
-from pyaccountingkit.domain.journals.journal_entry import JournalEntry
+from pyaccountingkit.domain.journals.journal_entry import EntryType, JournalEntry
 from pyaccountingkit.domain.journals.journal_line import JournalLine
 from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
 from pyaccountingkit.ports.outbox import OutboxRecord
@@ -94,6 +94,7 @@ def _entry(entry_id: str = "entry:1") -> JournalEntry:
         period_id=PERIOD_ID,
         entry_date=date(2026, 9, 19),
         description="SQLAlchemy/PostgreSQL adapter round-trip",
+        entry_type=EntryType.ADJUSTING,
         lines=(
             JournalLine(
                 account_id=AccountId("411000"),
@@ -138,6 +139,7 @@ def test_repository_round_trip_is_exact() -> None:
             )
             == 2
         )
+        assert session.get(JournalEntryTable, "entry:1").entry_type == "ADJUSTING"
 
 
 def test_uncommitted_unit_of_work_rolls_back_every_sink() -> None:

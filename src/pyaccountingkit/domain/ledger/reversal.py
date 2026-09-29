@@ -78,7 +78,7 @@ def create_reversal(
         entry_date=original.entry_date,
         description=original.description,
         lines=original.lines,
-        status=EntryStatus.POSTED,
+        status=EntryStatus.REVERSED,
         posted_at=original.posted_at,
         reversal_of_id=original.reversal_of_id,
         reversed_by_id=reversal_id,

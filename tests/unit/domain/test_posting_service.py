@@ -10,6 +10,7 @@ from pyaccountingkit.core.clock import FrozenClock
 from pyaccountingkit.core.currency import EUR
 from pyaccountingkit.core.errors import (
     EntryAlreadyPostedError,
+    InvalidEntryStateError,
     PeriodClosedError,
     UnbalancedEntryError,
 )
@@ -63,9 +64,14 @@ def _service() -> PostingService:
 
 
 def test_posting_produces_a_posted_copy() -> None:
-    posted = _service().post(_draft(), _period(), user_id="u1")
+    posted = _service().post(_draft().validate(), _period(), user_id="u1")
     assert posted.status is EntryStatus.POSTED
     assert posted.posted_at == NOW
+
+
+def test_posting_rejects_draft_entry() -> None:
+    with pytest.raises(InvalidEntryStateError, match="VALIDATED"):
+        _service().post(_draft(), _period(), user_id="u1")
 
 
 def test_posting_rejects_already_posted() -> None:
@@ -85,10 +91,10 @@ def test_posting_rejects_unbalanced_entry() -> None:
 
 def test_posting_rejects_closed_period() -> None:
     with pytest.raises(PeriodClosedError):
-        _service().post(_draft(), _period(closed=True), user_id="u1")
+        _service().post(_draft().validate(), _period(closed=True), user_id="u1")
 
 
 def test_posting_preserves_reversal_and_reversed_by() -> None:
-    posted = _service().post(_draft(), _period(), user_id="u1")
+    posted = _service().post(_draft().validate(), _period(), user_id="u1")
     assert posted.reversal_of_id is None
     assert posted.reversed_by_id is None

@@ -106,7 +106,7 @@ def test_reversal_inverts_debit_and_credit() -> None:
 
 def test_marked_original_keeps_accounting_lines() -> None:
     marked, _, _ = _do_reverse()
-    assert marked.status is EntryStatus.POSTED
+    assert marked.status is EntryStatus.REVERSED
     assert marked.id == EntryId("e1")
     assert marked.reversed_by_id == EntryId("rev_1")
     assert marked.lines == _posted().lines

@@ -88,12 +88,13 @@ _LEGACY_CONTRACTS: dict[str, object] = json.loads(r"""{
     "database": "PostgreSQL 16",
     "unit_of_work": "DjangoUnitOfWork",
     "unit_of_work_factory": "DjangoUnitOfWorkFactory",
-    "migration_baseline": "0001_initial",
+    "migration_baseline": "0002_journalentry_entry_type",
     "public_api_orm_leakage": false,
     "qualified_behaviors": [
       "fresh_migration",
       "model_migration_coherence",
       "repository_round_trip",
+      "entry_type_round_trip",
       "atomic_commit_rollback",
       "optimistic_revision_conflict",
       "idempotency_conflict",
@@ -101,7 +102,7 @@ _LEGACY_CONTRACTS: dict[str, object] = json.loads(r"""{
       "double_reversal_serialization",
       "posting_close_serialization"
     ],
-    "qualification": "0.5.0b1-production-qualified"
+    "qualification": "0.6.0a1-production-qualified-with-entry-type"
   },
   "sqlalchemy_postgresql": {
     "adapter_contract_version": "1",
@@ -112,12 +113,13 @@ _LEGACY_CONTRACTS: dict[str, object] = json.loads(r"""{
     "database": "PostgreSQL 16",
     "unit_of_work": "SessionUnitOfWork",
     "unit_of_work_factory": "SQLAlchemyUnitOfWorkFactory",
-    "migration_baseline": "0001_initial",
+    "migration_baseline": "0002_entry_type",
     "public_api_orm_leakage": false,
     "qualified_behaviors": [
       "fresh_migration",
       "declarative_metadata_coherence",
       "repository_round_trip",
+      "entry_type_round_trip",
       "atomic_commit_rollback",
       "optimistic_revision_conflict",
       "idempotency_conflict",
@@ -125,7 +127,7 @@ _LEGACY_CONTRACTS: dict[str, object] = json.loads(r"""{
       "double_reversal_serialization",
       "posting_close_serialization"
     ],
-    "qualification": "0.5.0b2-production-qualified"
+    "qualification": "0.6.0a1-production-qualified-with-entry-type"
   },
   "accounting_import": {
     "ports": [
@@ -153,7 +155,7 @@ _LEGACY_CONTRACTS: dict[str, object] = json.loads(r"""{
         "CHUNKED_ATOMIC"
       ],
       "posting_path": "PostingOrchestrator",
-      "qualification": "0.3.0-stable-cross-lot-qualified"
+      "qualification": "0.6.0a1-cfa-fra-golden-parity"
     }
   },
   "reference_reporting_model": {

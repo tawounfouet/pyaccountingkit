@@ -1,0 +1,44 @@
+{
+  "lot": "LOT-25",
+  "target_version": "0.6.0a1",
+  "oracle": {
+    "path": "resources/cfa_fra_django_mvp_sprint_7",
+    "tree_sha": "07d4880534d2e2239e19fd4ef4139de70b56773a",
+    "manifest_version": "0.8.0"
+  },
+  "evidence_documents": {
+    "docs/plans/cfa_fra/01_CFA_FRA_COMPONENT_INVENTORY.md": {
+      "git_blob_sha": "d3b4bc1677e02c74aa1d4ffd3a41f1964a739109"
+    },
+    "docs/plans/cfa_fra/02_CFA_FRA_GOLDEN_SCENARIO_INVENTORY.md": {
+      "git_blob_sha": "53232e887e5db2dbdb85a2b7948230fcdedf041f"
+    },
+    "docs/plans/cfa_fra/03_CFA_FRA_BEHAVIORAL_BASELINE.md": {
+      "git_blob_sha": "680b7e8295650b234d0a579ce751c9a7b4558d5b"
+    }
+  },
+  "fixtures": {
+    "posting_reversal.json": {
+      "scenario_id": "CFA-POST-REV-001",
+      "semantic_checksum": "85140e21b77fe5c8594d38e0d629fce28d47d84b66dcaafe47cd8b69646362e9"
+    },
+    "fec_import.json": {
+      "scenario_id": "CFA-FEC-001",
+      "semantic_checksum": "c1c541c5a7e0bc60aa4a310a34e250f56a5f1fad83cd0c10621d6ad04d0e47ac"
+    },
+    "trial_balance_variants.json": {
+      "scenario_id": "CFA-TB-001-003",
+      "semantic_checksum": "4b80faeadb6db1639b29dcde812595e61a704445e48252b2551826bb5563e8b7"
+    },
+    "financial_statements.json": {
+      "scenario_id": "CFA-STMT-001-003",
+      "semantic_checksum": "50607d9c47a7df2ec1fdfc61bf0a2e9399548320825bf217d6daa6503f157717"
+    }
+  },
+  "closing_evidence": {
+    "status": "DOCUMENTED_ORACLE_GAP",
+    "reason": "The bundled Sprint 7 oracle explicitly schedules Regulatory Controls & Closing Package for Sprint 8.",
+    "pyaccountingkit_engine": "independently qualified",
+    "claim": "No executable CFA FRA closing parity is asserted from missing legacy behavior."
+  }
+}

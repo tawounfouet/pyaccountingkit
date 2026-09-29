@@ -29,6 +29,16 @@ class EntryStatus(StrEnum):
     REVERSED = "REVERSED"
 
 
+class EntryType(StrEnum):
+    """Accounting classification independent from Journal type."""
+
+    OPENING = "OPENING"
+    NORMAL = "NORMAL"
+    ADJUSTING = "ADJUSTING"
+    CLOSING = "CLOSING"
+    REVERSAL = "REVERSAL"
+
+
 @dataclass(frozen=True)
 class JournalEntry:
     """Écriture comptable respectant la règle de la partie double."""
@@ -39,6 +49,7 @@ class JournalEntry:
     entry_date: date
     description: str
     lines: tuple[JournalLine, ...]
+    entry_type: EntryType = EntryType.NORMAL
     status: EntryStatus = EntryStatus.DRAFT
     posted_at: datetime | None = None
     reversal_of_id: EntryId | None = None
@@ -93,6 +104,7 @@ class JournalEntry:
             entry_date=self.entry_date,
             description=self.description,
             lines=self.lines,
+            entry_type=self.entry_type,
             status=EntryStatus.VALIDATED,
             posted_at=self.posted_at,
             reversal_of_id=self.reversal_of_id,
@@ -116,6 +128,7 @@ class JournalEntry:
             entry_date=self.entry_date,
             description=self.description,
             lines=self.lines,
+            entry_type=self.entry_type,
             status=EntryStatus.POSTED,
             posted_at=posted_at,
             reversal_of_id=self.reversal_of_id,

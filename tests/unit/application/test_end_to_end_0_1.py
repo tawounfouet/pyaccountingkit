@@ -122,7 +122,7 @@ def test_0_1_core_scenario_end_to_end() -> None:
     journal_query = JournalQuery(factory)
     ledger_query = GeneralLedgerQuery(factory)
 
-    entry = _draft("e1")
+    entry = _draft("e1").validate()
 
     result = posting.post(entry, actor_id="u1")
     assert result.posted_entry.status is EntryStatus.POSTED
@@ -181,7 +181,7 @@ def test_0_1_core_scenario_end_to_end() -> None:
     assert store.periods[period].status is ClosingStatus.CLOSED
 
     with pytest.raises(PeriodClosedError):
-        posting.post(_draft("e2"), actor_id="u1")
+        posting.post(_draft("e2").validate(), actor_id="u1")
 
     assert EntryId("o2025") not in store.entries
 

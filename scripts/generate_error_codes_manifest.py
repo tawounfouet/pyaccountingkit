@@ -55,6 +55,7 @@ _PUBLIC_ERROR_CLASS_NAMES = [
     "InvalidImportPlanError",
     "InvalidImportTransitionError",
     "InvalidIndicatorDefinitionError",
+    "InvalidEntryStateError",
     "InvalidMatchingError",
     "InvalidPaymentTermError",
     "InvalidRatioDefinitionError",

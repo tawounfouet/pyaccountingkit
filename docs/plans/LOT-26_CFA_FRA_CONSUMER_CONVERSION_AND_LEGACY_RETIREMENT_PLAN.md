@@ -261,3 +261,14 @@ non-regression gate, while MIG-13 now takes its `consumer_e2e_green` retirement 
 verified live evidence. Generation, cryptographic verification, promotion and the reviewed
 plan/apply pipeline all accept `consumer_e2e`; canonical live state remains BLOCKED until
 real consumer evidence is supplied.
+
+
+The `0.6.0b20` slice starts L26-C without performing destructive retirement. A
+`LegacyRetirementPlan` is generated only when MIG-13 is explicitly READY with target-only
+routing, empty blocker sets and every evidence gate green. The plan fingerprints the exact
+inventory/readiness inputs and converts each inventory disposition into a deterministic,
+reviewable action. Duplicate engines are marked for retirement, rewired consumer boundaries
+for verification, persistence for preservation/migration, consumer-owned concerns for keeping,
+and every frozen-oracle test anchor for immutable preservation. Canonical CI qualifies this
+planning capability against isolated READY fixture evidence while real live CFA FRA retirement
+remains blocked.

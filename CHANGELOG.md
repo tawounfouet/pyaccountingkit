@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0b20] - 2026-10-01
+
+### Added
+- Deterministic `LegacyRetirementPlan` for the L26-C retirement phase.
+- Explicit retirement dispositions and non-executing actions.
+- Inventory and MIG-13 readiness fingerprints sealed into each plan.
+- Fail-closed planner requiring target-only routing, `ready=true`, empty blocker sets and
+  every retirement evidence gate green.
+- `plan_cfa_fra_legacy_retirement.py` reviewable planner CLI.
+- Canonical CI gate qualifying the complete 39-component plan against isolated READY evidence.
+
+### Safety
+- The planner performs no deletion, rewrite or consumer mutation.
+- `FROZEN_ORACLE` inventory entries can only map to `PRESERVE_FROZEN_ORACLE`.
+- Persistence components are preserved/migrated rather than treated as deletable engine code.
+- The canonical live CFA FRA readiness remains blocked; fixture readiness is used only to prove
+  planner behavior.
+
 ## [0.6.0b19] - 2026-09-30
 
 ### Added

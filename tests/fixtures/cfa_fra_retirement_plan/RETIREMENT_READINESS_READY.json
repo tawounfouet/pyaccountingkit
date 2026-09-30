@@ -1,0 +1,13 @@
+{
+  "routing_target_only": true,
+  "ready": true,
+  "blockers": [],
+  "expected_blockers": [],
+  "evidence": {
+    "golden_parity_green": true,
+    "production_adapters_green": true,
+    "consumer_e2e_green": true,
+    "identities_traceable": true,
+    "regulatory_authority_replaced": true
+  }
+}

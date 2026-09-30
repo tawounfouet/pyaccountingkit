@@ -96,6 +96,15 @@ from pyaccountingkit.integrations.cfa_fra.retirement import (
     LegacyRetirementEvidence,
     LegacyRetirementGate,
 )
+from pyaccountingkit.integrations.cfa_fra.retirement_plan import (
+    LegacyRetirementAction,
+    LegacyRetirementDisposition,
+    LegacyRetirementPlan,
+    LegacyRetirementPlanError,
+    LegacyRetirementPlanItem,
+    build_legacy_retirement_plan,
+    retirement_plan_payload,
+)
 
 __all__ = [
     "ORACLE_MANIFEST_VERSION",
@@ -153,7 +162,9 @@ __all__ = [
     "verify_live_cutover_evidence",
     "StatementTargetParametersFactory",
     "attest_external_cutover_artifact",
+    "build_legacy_retirement_plan",
     "build_target_only_consumer_bridge",
+    "retirement_plan_payload",
     "DivergenceCategory",
     "DualRunObservation",
     "GoldenCategory",
@@ -162,10 +173,15 @@ __all__ = [
     "LegacyIdentityLink",
     "LegacyIdentityMap",
     "LegacyIdentityStoreProtocol",
+    "LegacyRetirementAction",
     "LegacyRetirementBlockedError",
     "LegacyRetirementDecision",
+    "LegacyRetirementDisposition",
     "LegacyRetirementEvidence",
     "LegacyRetirementGate",
+    "LegacyRetirementPlan",
+    "LegacyRetirementPlanError",
+    "LegacyRetirementPlanItem",
     "MigrationRouting",
     "MutationBackend",
     "ParityMismatch",

@@ -40,6 +40,7 @@ def validate_ci_text(text: str) -> list[str]:
             "retirement-inventory:\n",
             "cutover-evidence:\n",
             "cutover-pipeline:\n",
+            "retirement-plan:\n",
             "retirement-readiness:\n",
             "release-qualification:\n",
             "ci-gate:\n",
@@ -63,6 +64,7 @@ def validate_ci_text(text: str) -> list[str]:
             "python scripts/validate_cfa_fra_retirement_inventory.py",
             "python scripts/validate_cfa_fra_cutover_evidence.py",
             "python scripts/run_cfa_fra_cutover_evidence_pipeline.py",
+            "python scripts/plan_cfa_fra_legacy_retirement.py",
             "identities_traceable: ${{ steps.cutover-state.outputs.identities_traceable }}",
             (
                 "regulatory_authority_replaced: "
@@ -81,7 +83,8 @@ def validate_ci_text(text: str) -> list[str]:
             (
                 "[quality, test, package, postgresql, sqlalchemy-postgresql, "
                 "consumer-evidence, retirement-inventory, cutover-evidence, "
-                "cutover-pipeline, retirement-readiness, release-qualification]"
+                "cutover-pipeline, retirement-plan, retirement-readiness, "
+                "release-qualification]"
             ),
             "if: ${{ always() }}",
             "QUALITY_RESULT: ${{ needs.quality.result }}",
@@ -94,19 +97,21 @@ def validate_ci_text(text: str) -> list[str]:
             "CUTOVER_EVIDENCE_RESULT: ${{ needs.cutover-evidence.result }}",
             "CUTOVER_PIPELINE_RESULT: ${{ needs.cutover-pipeline.result }}",
             'test "$CUTOVER_PIPELINE_RESULT" = "success"',
+            "RETIREMENT_PLAN_RESULT: ${{ needs.retirement-plan.result }}",
+            'test "$RETIREMENT_PLAN_RESULT" = "success"',
             "RETIREMENT_READINESS_RESULT: ${{ needs.retirement-readiness.result }}",
             "RELEASE_QUALIFICATION_RESULT: ${{ needs.release-qualification.result }}",
         ),
         label="CI",
     )
 
-    if text.count("actions/checkout@v7") != 11:
-        violations.append("CI: expected exactly eleven actions/checkout@v7 uses")
-    if text.count("actions/setup-python@v7") != 11:
-        violations.append("CI: expected exactly eleven actions/setup-python@v7 uses")
-    if text.count("cache: pip") != 11:
+    if text.count("actions/checkout@v7") != 12:
+        violations.append("CI: expected exactly twelve actions/checkout@v7 uses")
+    if text.count("actions/setup-python@v7") != 12:
+        violations.append("CI: expected exactly twelve actions/setup-python@v7 uses")
+    if text.count("cache: pip") != 12:
         violations.append("CI: every Python execution job must enable pip cache")
-    if text.count("cache-dependency-path:") != 11:
+    if text.count("cache-dependency-path:") != 12:
         violations.append("CI: every Python execution job must define a pip cache key")
     if text.count("python scripts/verify_package.py") != 1:
         violations.append("CI: package verification must execute exactly once")
@@ -185,7 +190,8 @@ def main() -> int:
     print(
         "Canonical jobs: quality, test, package, postgresql, sqlalchemy-postgresql, "
         "consumer-evidence, retirement-inventory, cutover-evidence, "
-        "cutover-pipeline, retirement-readiness, release-qualification, ci-gate"
+        "cutover-pipeline, retirement-plan, retirement-readiness, "
+        "release-qualification, ci-gate"
     )
     print("Supported Python matrix: 3.11, 3.12, 3.13")
     print("Qualified suites: unit, property, contract, integration, golden, replay, concurrency")
@@ -194,6 +200,7 @@ def main() -> int:
     print("Retirement inventory: live-consumer deletion/rewire/migration classification")
     print("Cutover evidence: cryptographically verified consumer/identity/reference artifacts")
     print("Cutover pipeline: reviewed plan/apply execution on isolated fixture evidence")
+    print("Retirement plan: deterministic non-executing L26-C actions after MIG-13 READY")
     print("Retirement gate: MIG-13 readiness with explicit blocker evidence")
     print("Security jobs: audit, sast")
     return 0

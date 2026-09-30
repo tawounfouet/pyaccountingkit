@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from dataclasses import dataclass
 from datetime import datetime
 from enum import StrEnum
@@ -66,6 +67,33 @@ class ExternalCutoverEvidence:
         except ValueError as exc:
             raise ValueError("cutover evidence observed_at must be ISO-8601") from exc
 
+    @classmethod
+    def from_mapping(cls, payload: Mapping[str, object]) -> ExternalCutoverEvidence:
+        """Parse one JSON-compatible evidence record through the same invariants."""
+        raw_status = payload.get("status")
+        raw_source = payload.get("source")
+        if not isinstance(raw_status, str):
+            raise ValueError("cutover evidence status must be a string")
+        if not isinstance(raw_source, str):
+            raise ValueError("cutover evidence source must be a string")
+
+        values: dict[str, str | None] = {}
+        for key in ("reason", "artifact", "sha256", "observed_at", "producer"):
+            raw = payload.get(key)
+            if raw is not None and not isinstance(raw, str):
+                raise ValueError(f"cutover evidence {key} must be a string")
+            values[key] = raw
+
+        return cls(
+            status=CutoverEvidenceStatus(raw_status),
+            source=raw_source,
+            reason=values["reason"],
+            artifact=values["artifact"],
+            sha256=values["sha256"],
+            observed_at=values["observed_at"],
+            producer=values["producer"],
+        )
+
     @property
     def green(self) -> bool:
         """Return whether this evidence is an attested passing proof."""
@@ -78,6 +106,20 @@ class LiveCutoverEvidence:
 
     legacy_identities: ExternalCutoverEvidence
     regulatory_authority: ExternalCutoverEvidence
+
+    @classmethod
+    def from_mapping(cls, payload: Mapping[str, object]) -> LiveCutoverEvidence:
+        """Parse the required external evidence set from a manifest mapping."""
+        raw_identities = payload.get("legacy_identities")
+        raw_authority = payload.get("regulatory_authority")
+        if not isinstance(raw_identities, dict):
+            raise ValueError("legacy_identities cutover evidence is missing")
+        if not isinstance(raw_authority, dict):
+            raise ValueError("regulatory_authority cutover evidence is missing")
+        return cls(
+            legacy_identities=ExternalCutoverEvidence.from_mapping(raw_identities),
+            regulatory_authority=ExternalCutoverEvidence.from_mapping(raw_authority),
+        )
 
     @property
     def identities_traceable(self) -> bool:

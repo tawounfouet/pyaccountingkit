@@ -55,16 +55,9 @@ def validate() -> list[str]:
         not evidence.regulatory_authority_replaced
         and "evidence:regulatory-authority" not in expected
     ):
-        violations.append(
-            "blocked regulatory evidence must keep regulatory-authority blocker"
-        )
-    if (
-        evidence.regulatory_authority_replaced
-        and "evidence:regulatory-authority" in expected
-    ):
-        violations.append(
-            "attested regulatory evidence must remove regulatory-authority blocker"
-        )
+        violations.append("blocked regulatory evidence must keep regulatory-authority blocker")
+    if evidence.regulatory_authority_replaced and "evidence:regulatory-authority" in expected:
+        violations.append("attested regulatory evidence must remove regulatory-authority blocker")
 
     return violations
 
@@ -80,10 +73,7 @@ def main() -> int:
     evidence = LiveCutoverEvidence.from_mapping(_load()["external_evidence"])
     print("CFA FRA live cutover evidence: PASS")
     print(f"Legacy identities attested: {evidence.identities_traceable}")
-    print(
-        "Regulatory authority attested: "
-        f"{evidence.regulatory_authority_replaced}"
-    )
+    print(f"Regulatory authority attested: {evidence.regulatory_authority_replaced}")
     print("PASS records require artifact + SHA-256 + UTC observation + producer")
     return 0
 

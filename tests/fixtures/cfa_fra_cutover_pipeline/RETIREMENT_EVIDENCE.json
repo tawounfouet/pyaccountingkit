@@ -1,0 +1,32 @@
+{
+  "schema_version": "4",
+  "consumer": "CFA FRA generation test consumer",
+  "routing_profile": "target_only",
+  "external_evidence": {
+    "legacy_identities": {
+      "status": "BLOCKED",
+      "source": "live-consumer-cutover",
+      "reason": "pipeline fixture identity proof not applied"
+    },
+    "regulatory_authority": {
+      "status": "BLOCKED",
+      "source": "live-consumer-cutover",
+      "reason": "pipeline fixture authority proof not applied"
+    }
+  },
+  "expected_blockers": [
+    "evidence:consumer-e2e",
+    "evidence:legacy-identities",
+    "evidence:regulatory-authority"
+  ],
+  "artifact_policy": {
+    "root": "tests/consumer/cfa_fra/live_evidence",
+    "require_local_materialization": true,
+    "sha256_verified": true,
+    "content_schema_verified": true,
+    "schemas": {
+      "legacy_identities": "cfa_fra_legacy_identity_migration/v1",
+      "regulatory_authority": "cfa_fra_regulatory_authority_cutover/v1"
+    }
+  }
+}

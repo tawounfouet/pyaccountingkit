@@ -242,3 +242,13 @@ Regulatory-authority proofs are generated only from an observed target-only stat
 PyAccountingKit provider, disabled local authority, delegated effective-plan resolution and
 provider-backed samples. Generation is deterministic, dry-run by default, schema-validated
 before write and does not itself promote the retirement manifest.
+
+
+The `0.6.0b18` slice composes observation-to-promotion as an explicitly reviewed pipeline.
+The `plan` phase generates and validates evidence in isolation, simulates promotion and
+serializes the exact artifact digest, source-manifest fingerprint, blocker transition and
+candidate manifest. The `apply` phase consumes only that reviewed plan and fails closed if
+the retirement manifest became stale, the artifact already exists without explicit overwrite,
+the digest changed or the promoted manifest differs from the plan. Canonical CI proves both
+identity and regulatory transitions against isolated fixture state without promoting live
+CFA FRA evidence.

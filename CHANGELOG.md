@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0b18] - 2026-09-30
+
+### Added
+- Reviewable cutover-evidence pipeline plan schema v1.
+- `plan_cutover_evidence_pipeline(...)` for side-effect-free generation, validation and
+  promotion simulation.
+- `apply_cutover_evidence_pipeline(...)` for stale-safe application of a reviewed plan.
+- `run_cfa_fra_cutover_evidence_pipeline.py` with separate `plan` and `apply` commands.
+- Semantic retirement-manifest fingerprinting independent of pretty-print formatting.
+- Canonical CI gate executing identity and regulatory plan/apply transitions on isolated
+  fixture evidence.
+
+### Safety
+- Planning never mutates durable evidence or the retirement manifest.
+- Apply rejects a manifest changed after planning.
+- Apply refuses implicit artifact overwrite.
+- Artifact SHA-256, removed blocker and the full promoted manifest must match the reviewed
+  plan exactly.
+- Generation fixtures and pipeline fixtures never alter canonical CFA FRA live evidence.
+- The canonical live blocker set remains unchanged.
+
 ## [0.6.0b17] - 2026-09-30
 
 ### Added

@@ -75,3 +75,30 @@ reference authority.
 
 Generation does **not** edit `RETIREMENT_EVIDENCE.json`. Promotion remains a separate,
 reviewable action through `promote_cfa_fra_cutover_evidence.py`.
+
+
+## Reviewed pipeline workflow
+
+b18 provides a two-step orchestration layer:
+
+```bash
+python scripts/run_cfa_fra_cutover_evidence_pipeline.py \
+  plan legacy_identities \
+  --source identity-source.json \
+  --artifact legacy-identities.json \
+  --evidence-source live-consumer-cutover \
+  --observed-at 2026-09-30T15:00:00Z \
+  --producer cfa-fra-cutover-pipeline \
+  --plan-output identity-plan.json
+```
+
+Review the serialized plan before applying it:
+
+```bash
+python scripts/run_cfa_fra_cutover_evidence_pipeline.py \
+  apply --plan identity-plan.json
+```
+
+The apply step verifies that the current retirement manifest still matches the fingerprint
+captured by the plan. Any intervening change requires a new plan. It also recomputes the
+promotion result and requires it to match the reviewed candidate manifest exactly.

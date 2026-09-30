@@ -4,8 +4,6 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from dataclasses import dataclass
-from typing import cast
-
 from pyaccountingkit.integrations.cfa_fra.compatibility import (
     LegacyIdentityLink,
     LegacyIdentityStoreProtocol,
@@ -187,7 +185,7 @@ def generation_payload(
     artifact: GeneratedCutoverArtifact,
 ) -> dict[str, object]:
     """Return a mutable deterministic JSON-ready copy of generated evidence."""
-    return cast(dict[str, object], dict(artifact.payload))
+    return dict(artifact.payload)
 
 
 __all__ = [

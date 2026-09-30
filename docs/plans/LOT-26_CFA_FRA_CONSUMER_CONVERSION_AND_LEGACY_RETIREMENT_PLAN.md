@@ -124,6 +124,12 @@ contract. It requires explicit PASS evidence for login, organization context, FE
 journal, ledger, balance, financial statements, controls, closing and exports. Missing,
 failed or blocked evidence keeps `consumer_e2e_green` false and therefore blocks retirement.
 
+The `0.6.0b5` slice executes the frozen Sprint-7 Django test harness in canonical CI.
+Organization context, FEC, journal, ledger/balance, financial statements and exports are
+backed by real upstream pytest suites. Login, controls and closing remain explicit BLOCKED
+evidence; the CI gate verifies that the executable scenarios stay green and that the known
+gap set does not silently change.
+
 ### L26-C — retirement
 
 Only after parity and consumer gates are green:

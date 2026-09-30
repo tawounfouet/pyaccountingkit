@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from collections.abc import Mapping
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 
 from pyaccountingkit.integrations.cfa_fra.compatibility import (
@@ -100,7 +100,7 @@ def generate_consumer_e2e_artifact(
     observed_at: str,
     environment: str,
     producer: str,
-    scenarios: list[Mapping[str, object]],
+    scenarios: Sequence[Mapping[str, object]],
 ) -> GeneratedCutoverArtifact:
     """Generate live consumer E2E evidence from structured scenario observations."""
     payload: dict[str, object] = {

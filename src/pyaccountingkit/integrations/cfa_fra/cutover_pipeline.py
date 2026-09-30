@@ -81,22 +81,16 @@ def _stage_existing_pass_artifacts(
 ) -> None:
     raw_external = manifest.get("external_evidence")
     if not isinstance(raw_external, dict):
-        raise CutoverEvidencePipelineError(
-            "retirement manifest must define external_evidence"
-        )
+        raise CutoverEvidencePipelineError("retirement manifest must define external_evidence")
 
     for raw in raw_external.values():
         if not isinstance(raw, dict):
-            raise CutoverEvidencePipelineError(
-                "retirement evidence records must be JSON objects"
-            )
+            raise CutoverEvidencePipelineError("retirement evidence records must be JSON objects")
         evidence = ExternalCutoverEvidence.from_mapping(raw)
         if evidence.status is not CutoverEvidenceStatus.PASS:
             continue
         if evidence.artifact is None:
-            raise CutoverEvidencePipelineError(
-                "existing PASS evidence must declare an artifact"
-            )
+            raise CutoverEvidencePipelineError("existing PASS evidence must declare an artifact")
 
         source = resolve_cutover_artifact_path(source_root, evidence.artifact)
         if not source.is_file():

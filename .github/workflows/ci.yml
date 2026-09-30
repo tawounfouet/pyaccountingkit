@@ -256,6 +256,7 @@ jobs:
         run: >-
           python scripts/run_cfa_fra_cutover_evidence_pipeline.py
           --manifest build/cfa_fra_cutover_pipeline/RETIREMENT_EVIDENCE.json
+          --artifact-root build/cfa_fra_cutover_pipeline/live_evidence
           plan legacy_identities
           --source tests/fixtures/cfa_fra_cutover_generation/identity-source.json
           --artifact legacy-identities.json
@@ -274,6 +275,7 @@ jobs:
         run: >-
           python scripts/run_cfa_fra_cutover_evidence_pipeline.py
           --manifest build/cfa_fra_cutover_pipeline/RETIREMENT_EVIDENCE.json
+          --artifact-root build/cfa_fra_cutover_pipeline/live_evidence
           plan regulatory_authority
           --source tests/fixtures/cfa_fra_cutover_generation/regulatory-source.json
           --artifact regulatory-authority.json

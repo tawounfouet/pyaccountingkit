@@ -14,7 +14,6 @@ from pyaccountingkit.integrations.cfa_fra.cutover_generation import (
     generate_consumer_e2e_artifact,
 )
 
-
 SCENARIOS = (
     "login",
     "organization_context",

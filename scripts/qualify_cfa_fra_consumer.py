@@ -61,6 +61,68 @@ def _run_pytest(resource: Path, targets: Sequence[str]) -> tuple[bool, str]:
     return False, f"bundled CFA FRA pytest exited with {result.returncode}"
 
 
+def _run_login_flow(
+    resource: Path,
+) -> tuple[ConsumerScenarioStatus, str | None]:
+    script = """
+import os
+import sys
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.test")
+import django
+django.setup()
+from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.core.management import call_command
+from django.test import Client
+from django.urls import NoReverseMatch, reverse
+
+call_command("migrate", verbosity=0, interactive=False)
+user = get_user_model().objects.create_user(
+    username="consumer-login",
+    email="consumer-login@example.com",
+    password="secret1234",
+)
+client = Client(HTTP_HOST="localhost")
+login_url = reverse("login")
+get_response = client.get(login_url)
+assert get_response.status_code == 200
+post_response = client.post(
+    login_url + "?next=/health/",
+    {"username": user.username, "password": "secret1234"},
+)
+assert post_response.status_code == 302
+assert post_response["Location"] == "/health/"
+assert client.session.get("_auth_user_id") == str(user.pk)
+
+try:
+    reverse(settings.LOGIN_REDIRECT_URL)
+except NoReverseMatch:
+    assert settings.LOGIN_REDIRECT_URL == "dashboard"
+    assert reverse("analytics:dashboard") == "/"
+    raise SystemExit(2)
+"""
+    command = [sys.executable, "-c", script]
+    print("+ request-level Django login smoke", flush=True)
+    result = subprocess.run(
+        command,
+        cwd=resource,
+        check=False,
+        text=True,
+    )
+    if result.returncode == 0:
+        return ConsumerScenarioStatus.PASS, None
+    if result.returncode == 2:
+        return (
+            ConsumerScenarioStatus.BLOCKED,
+            "authentication succeeds, but frozen LOGIN_REDIRECT_URL='dashboard' "
+            "cannot reverse; the actual route is 'analytics:dashboard'",
+        )
+    return (
+        ConsumerScenarioStatus.FAIL,
+        f"bundled CFA FRA login flow exited with {result.returncode}",
+    )
+
+
 def build_evidence() -> tuple[ConsumerScenarioEvidence, ...]:
     matrix = _load_matrix()
     oracle = cast(Mapping[str, object], matrix["oracle"])
@@ -89,6 +151,23 @@ def build_evidence() -> tuple[ConsumerScenarioEvidence, ...]:
                     status=ConsumerScenarioStatus.BLOCKED,
                     source=f"cfa-fra-sprint7:{tree_sha}",
                     detail=reason,
+                )
+            )
+            continue
+
+        if mode == "django_login":
+            raw_sources = item.get("source_files")
+            if not isinstance(raw_sources, list) or not raw_sources:
+                raise ValueError("login evidence requires source files")
+            sources = tuple(str(source) for source in raw_sources)
+            status, detail = _run_login_flow(resource)
+            evidence.append(
+                ConsumerScenarioEvidence(
+                    scenario=scenario,
+                    status=status,
+                    source="cfa-fra-sprint7:request-level-login",
+                    detail=detail,
+                    evidence_checksum=_target_checksum(resource, sources),
                 )
             )
             continue

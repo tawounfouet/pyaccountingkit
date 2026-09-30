@@ -126,9 +126,14 @@ failed or blocked evidence keeps `consumer_e2e_green` false and therefore blocks
 
 The `0.6.0b5` slice executes the frozen Sprint-7 Django test harness in canonical CI.
 Organization context, FEC, journal, ledger/balance, financial statements and exports are
-backed by real upstream pytest suites. Login, controls and closing remain explicit BLOCKED
-evidence; the CI gate verifies that the executable scenarios stay green and that the known
-gap set does not silently change.
+backed by real upstream pytest suites.
+
+The `0.6.0b6` slice adds request-level login evidence externally to the frozen resource.
+The runner initializes the snapshot's SQLite test settings and proves that authentication
+creates a valid session when a safe explicit `next` URL is supplied. It also proves a real
+consumer defect in the frozen configuration: `LOGIN_REDIRECT_URL = "dashboard"` does not
+resolve because the route is namespaced as `analytics:dashboard`. Login remains BLOCKED
+until the consumer fixes that redirect, alongside controls and closing.
 
 ### L26-C — retirement
 

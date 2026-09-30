@@ -29,7 +29,7 @@ def test_sprint7_known_gaps_remain_explicit_and_retirement_blocking() -> None:
     evidence = []
     for item in payload["scenarios"]:
         scenario = ConsumerScenario(item["scenario"])
-        if item["mode"] == "blocked":
+        if item["mode"] in {"blocked", "django_login"}:
             evidence.append(
                 ConsumerScenarioEvidence(
                     scenario=scenario,
@@ -72,3 +72,13 @@ def test_every_pytest_evidence_target_exists_in_frozen_resource() -> None:
 
     assert targets
     assert all((resource / target).is_file() for target in targets)
+
+
+def test_login_evidence_is_request_level_and_source_backed() -> None:
+    payload = json.loads(MATRIX.read_text(encoding="utf-8"))
+    resource = ROOT / payload["oracle"]["resource_path"]
+    login = next(item for item in payload["scenarios"] if item["scenario"] == "login")
+
+    assert login["mode"] == "django_login"
+    assert login["source_files"]
+    assert all((resource / path).is_file() for path in login["source_files"])

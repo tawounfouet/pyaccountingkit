@@ -96,7 +96,16 @@ def test_release_0_6_consumer_cutover_is_single_writer_with_shadow_read() -> Non
 def test_release_0_6_metadata_and_legacy_runtime_boundary_are_coherent() -> None:
     pyproject = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
     version = str(pyproject["project"]["version"])
-    assert version in {"0.6.0b1", "0.6.0b2", "0.6.0b3", "0.6.0b4", "0.6.0b5", "0.6.0rc1", "0.6.0"}
+    assert version in {
+        "0.6.0b1",
+        "0.6.0b2",
+        "0.6.0b3",
+        "0.6.0b4",
+        "0.6.0b5",
+        "0.6.0b6",
+        "0.6.0rc1",
+        "0.6.0",
+    }
 
     public_manifest = json.loads((ROOT / "PUBLIC_API_MANIFEST.json").read_text(encoding="utf-8"))
     adapter_manifest = json.loads(

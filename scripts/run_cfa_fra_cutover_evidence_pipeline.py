@@ -94,7 +94,7 @@ def main() -> int:
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     plan = subparsers.add_parser("plan")
-    plan.add_argument("key", choices=("legacy_identities", "regulatory_authority"))
+    plan.add_argument("key", choices=("consumer_e2e", "legacy_identities", "regulatory_authority"))
     plan.add_argument("--source", type=Path, required=True)
     plan.add_argument("--artifact", required=True)
     plan.add_argument("--evidence-source", required=True)

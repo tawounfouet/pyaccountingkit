@@ -59,6 +59,7 @@ def validate_ci_text(text: str) -> list[str]:
             "python scripts/check_sqlalchemy_metadata.py",
             "python scripts/qualify_cfa_fra_consumer.py",
             "consumer_e2e_green: ${{ steps.consumer-state.outputs.consumer_e2e_green }}",
+            "consumer_e2e_green: ${{ steps.cutover-state.outputs.consumer_e2e_green }}",
             "python scripts/validate_cfa_fra_retirement_inventory.py",
             "python scripts/validate_cfa_fra_cutover_evidence.py",
             "python scripts/run_cfa_fra_cutover_evidence_pipeline.py",
@@ -67,6 +68,7 @@ def validate_ci_text(text: str) -> list[str]:
                 "regulatory_authority_replaced: "
                 "${{ steps.cutover-state.outputs.regulatory_authority_replaced }}"
             ),
+            '--consumer-e2e-green "${{ needs.cutover-evidence.outputs.consumer_e2e_green }}"',
             '--identities-traceable "${{ needs.cutover-evidence.outputs.identities_traceable }}"',
             (
                 "--regulatory-authority-replaced "
@@ -118,6 +120,7 @@ def validate_ci_text(text: str) -> list[str]:
         "run: python scripts/qualify_release.py\n",
         "actions/checkout@v4",
         "actions/setup-python@v5",
+        '--consumer-e2e-green "${{ needs.consumer-evidence.outputs.consumer_e2e_green }}"',
     )
     message = "CI: forbidden legacy or redundant workflow construct"
     for snippet in forbidden:
@@ -189,7 +192,9 @@ def main() -> int:
     print("Production adapter gates: Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16")
     print("Consumer gate: bundled CFA FRA Sprint-7 executable evidence")
     print("Retirement inventory: live-consumer deletion/rewire/migration classification")
-    print("Cutover evidence: cryptographically verified external identity/reference artifacts")
+    print(
+        "Cutover evidence: cryptographically verified consumer/identity/reference artifacts"
+    )
     print("Cutover pipeline: reviewed plan/apply execution on isolated fixture evidence")
     print("Retirement gate: MIG-13 readiness with explicit blocker evidence")
     print("Security jobs: audit, sast")

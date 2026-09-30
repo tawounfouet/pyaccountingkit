@@ -10,7 +10,7 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit **0.6.0b13** is the LOT-26 CFA FRA Live Cutover Evidence beta.
+PyAccountingKit **0.6.0b14** is the LOT-26 CFA FRA Verified Cutover Artifacts beta.
 
 LOT-26 turns the frozen LOT-25 CFA FRA behavioral baseline into an executable
 migration boundary. The temporary `CFAFRACompatibilityAdapter` lets the Django
@@ -39,7 +39,7 @@ mode rather than a generic posting bypass.
 
 The stable **0.5.0** public facade, adapter contract v1 and the independently
 Production-qualified Django/PostgreSQL and SQLAlchemy/PostgreSQL adapters remain
-the compatibility baseline. **0.6.0b13 is still pre-1.0**: LOT-26 consumer
+the compatibility baseline. **0.6.0b14 is still pre-1.0**: LOT-26 consumer
 conversion is in progress; LOT-27 regulatory production qualification and the
 LOT-29/30 API freeze remain later roadmap steps.
 
@@ -535,3 +535,16 @@ BLOCKED evidence must carry a reason and cannot masquerade as an attested proof.
 Canonical CI validates this contract before MIG-13 readiness runs. The current
 records remain BLOCKED because no live-consumer artifacts have yet been supplied;
 therefore the existing retirement blockers remain intentionally unchanged.
+
+
+The `0.6.0b14` milestone closes the trust gap between a declared external
+`PASS` and a retirement-ready proof. PASS records must now reference a real file
+materialized beneath `tests/consumer/cfa_fra/live_evidence/`; canonical CI resolves
+that path safely, rejects traversal, reads the actual bytes and compares their
+SHA-256 with the manifest attestation.
+
+The MIG-13 retirement job no longer derives `identities_traceable` or
+`regulatory_authority_replaced` directly from manifest status. Those booleans are
+outputs of the cutover-evidence verification job. The current records remain
+BLOCKED, so no live artifact is fabricated and the existing retirement blockers
+remain unchanged.

@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0b14] - 2026-09-30
+
+### Added
+- Cryptographic verification for live CFA FRA cutover evidence artifacts.
+- Safe repository-local artifact resolution with path-traversal rejection.
+- Streaming SHA-256 verification against the exact bytes of every `PASS` artifact.
+- Canonical live-evidence materialization root under
+  `tests/consumer/cfa_fra/live_evidence/`.
+- Verified cutover CI outputs for:
+  - legacy identity traceability;
+  - regulatory-authority replacement.
+
+### Changed
+- Retirement evidence schema advances to v3 with an explicit artifact policy.
+- MIG-13 readiness consumes verified cutover job outputs instead of trusting manifest
+  `PASS` status directly.
+
+### Safety
+- Missing artifacts, checksum mismatch, absolute paths and `..` traversal fail closed.
+- BLOCKED records continue to require no fabricated artifact.
+- Current MIG-13 blockers remain consumer E2E, legacy identities and regulatory authority.
+
 ## [0.6.0b13] - 2026-09-30
 
 ### Added

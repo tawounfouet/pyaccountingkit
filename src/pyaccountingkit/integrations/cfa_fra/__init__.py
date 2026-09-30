@@ -33,6 +33,13 @@ from pyaccountingkit.integrations.cfa_fra.cutover_evidence import (
     ExternalCutoverEvidence,
     LiveCutoverEvidence,
 )
+from pyaccountingkit.integrations.cfa_fra.cutover_verification import (
+    CutoverArtifactVerificationError,
+    VerifiedExternalCutoverEvidence,
+    VerifiedLiveCutoverEvidence,
+    verify_external_cutover_evidence,
+    verify_live_cutover_evidence,
+)
 from pyaccountingkit.integrations.cfa_fra.golden import (
     ORACLE_MANIFEST_VERSION,
     ORACLE_TREE_SHA,
@@ -67,9 +74,14 @@ __all__ = [
     "ConsumerScenario",
     "ConsumerScenarioEvidence",
     "ConsumerScenarioStatus",
+    "CutoverArtifactVerificationError",
     "CutoverEvidenceStatus",
     "ExternalCutoverEvidence",
     "LiveCutoverEvidence",
+    "VerifiedExternalCutoverEvidence",
+    "VerifiedLiveCutoverEvidence",
+    "verify_external_cutover_evidence",
+    "verify_live_cutover_evidence",
     "StatementTargetParametersFactory",
     "build_target_only_consumer_bridge",
     "DivergenceCategory",

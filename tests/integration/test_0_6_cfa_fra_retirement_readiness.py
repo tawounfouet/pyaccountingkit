@@ -22,8 +22,9 @@ def _manifest() -> dict[str, object]:
 def test_retirement_manifest_requires_target_only_routing() -> None:
     payload = _manifest()
 
-    assert payload["schema_version"] == "2"
+    assert payload["schema_version"] == "3"
     assert payload["routing_profile"] == "target_only"
+    assert payload["artifact_policy"]["sha256_verified"] is True
     assert MigrationRouting.target_only().is_target_only() is True
 
 

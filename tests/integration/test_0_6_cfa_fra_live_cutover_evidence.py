@@ -8,9 +8,11 @@ from pathlib import Path
 import pytest
 
 from pyaccountingkit.integrations.cfa_fra import (
+    CutoverArtifactVerificationError,
     CutoverEvidenceStatus,
     ExternalCutoverEvidence,
     LiveCutoverEvidence,
+    verify_live_cutover_evidence,
 )
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -21,18 +23,28 @@ def _manifest() -> dict[str, object]:
     return json.loads(MANIFEST.read_text(encoding="utf-8"))
 
 
-def test_live_cutover_manifest_uses_attestable_schema_v2() -> None:
+def test_live_cutover_manifest_uses_verified_schema_v3() -> None:
     payload = _manifest()
 
-    assert payload["schema_version"] == "2"
+    assert payload["schema_version"] == "3"
     assert payload["routing_profile"] == "target_only"
     external = payload["external_evidence"]
     assert isinstance(external, dict)
 
     evidence = LiveCutoverEvidence.from_mapping(external)
+    artifact_policy = payload["artifact_policy"]
+    assert artifact_policy == {
+        "root": "tests/consumer/cfa_fra/live_evidence",
+        "require_local_materialization": True,
+        "sha256_verified": True,
+    }
+    verified = verify_live_cutover_evidence(
+        evidence,
+        artifact_root=ROOT / artifact_policy["root"],
+    )
 
-    assert evidence.identities_traceable is False
-    assert evidence.regulatory_authority_replaced is False
+    assert verified.identities_traceable is False
+    assert verified.regulatory_authority_replaced is False
 
 
 def test_current_external_evidence_is_blocked_not_fabricated() -> None:
@@ -72,15 +84,29 @@ def test_passing_external_evidence_requires_full_attestation() -> None:
     assert evidence.status is CutoverEvidenceStatus.PASS
     assert evidence.green is True
 
+    with pytest.raises(CutoverArtifactVerificationError):
+        verify_live_cutover_evidence(
+            LiveCutoverEvidence(
+                legacy_identities=evidence,
+                regulatory_authority=evidence,
+            ),
+            artifact_root=ROOT / "tests" / "consumer" / "cfa_fra" / "live_evidence",
+        )
+
 
 def test_expected_blockers_match_current_external_evidence_state() -> None:
     payload = _manifest()
     external = payload["external_evidence"]
     assert isinstance(external, dict)
     evidence = LiveCutoverEvidence.from_mapping(external)
+    artifact_policy = payload["artifact_policy"]
+    verified = verify_live_cutover_evidence(
+        evidence,
+        artifact_root=ROOT / artifact_policy["root"],
+    )
     blockers = set(payload["expected_blockers"])
 
-    assert ("evidence:legacy-identities" in blockers) is (not evidence.identities_traceable)
+    assert ("evidence:legacy-identities" in blockers) is (not verified.identities_traceable)
     assert ("evidence:regulatory-authority" in blockers) is (
-        not evidence.regulatory_authority_replaced
+        not verified.regulatory_authority_replaced
     )

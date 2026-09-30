@@ -12,9 +12,12 @@ from typing import cast
 
 from pyaccountingkit.integrations.cfa_fra import (
     CutoverArtifactVerificationError,
+    CutoverEvidenceStatus,
     LEGACY_IDENTITIES_SCHEMA,
     LiveCutoverEvidence,
     REGULATORY_AUTHORITY_SCHEMA,
+    parse_cutover_artifact,
+    resolve_cutover_artifact_path,
     VerifiedExternalCutoverEvidence,
     VerifiedLiveCutoverEvidence,
     verify_live_cutover_evidence,
@@ -105,6 +108,10 @@ def validate() -> tuple[list[str], VerifiedLiveCutoverEvidence | None, Path | No
         violations.append(str(exc))
         artifact_root = None
 
+    consumer = payload.get("consumer")
+    if not isinstance(consumer, str) or not consumer.strip():
+        violations.append("live cutover evidence must define a non-empty consumer")
+
     raw_external = payload.get("external_evidence")
     if not isinstance(raw_external, dict):
         return [*violations, "external_evidence must be a JSON object"], None, artifact_root
@@ -134,6 +141,24 @@ def validate() -> tuple[list[str], VerifiedLiveCutoverEvidence | None, Path | No
 
     if verified is None:
         return violations, verified, artifact_root
+
+    if isinstance(consumer, str) and artifact_root is not None:
+        for key, record in (
+            ("legacy_identities", evidence.legacy_identities),
+            ("regulatory_authority", evidence.regulatory_authority),
+        ):
+            if record.status is not CutoverEvidenceStatus.PASS:
+                continue
+            artifact = record.artifact
+            if artifact is None:
+                violations.append(f"{key}: PASS evidence is missing artifact path")
+                continue
+            path = resolve_cutover_artifact_path(artifact_root, artifact)
+            parsed = parse_cutover_artifact(key, path)
+            if parsed.consumer != consumer:
+                violations.append(
+                    f"{key}: artifact consumer must match retirement manifest consumer"
+                )
 
     expected = set(cast(list[str], raw_expected))
     if not verified.identities_traceable and "evidence:legacy-identities" not in expected:

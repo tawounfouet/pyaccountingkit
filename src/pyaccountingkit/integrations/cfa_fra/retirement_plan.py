@@ -181,7 +181,9 @@ def build_legacy_retirement_plan(
         action = _ACTIONS[disposition]
         if disposition is LegacyRetirementDisposition.FROZEN_ORACLE:
             if action is not LegacyRetirementAction.PRESERVE_FROZEN_ORACLE:
-                raise LegacyRetirementPlanError("frozen oracle may never receive a destructive action")
+                raise LegacyRetirementPlanError(
+                    "frozen oracle may never receive a destructive action"
+                )
 
         items.append(
             LegacyRetirementPlanItem(

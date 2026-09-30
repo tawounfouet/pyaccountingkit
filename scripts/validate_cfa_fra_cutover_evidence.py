@@ -132,10 +132,7 @@ def validate() -> tuple[list[str], VerifiedLiveCutoverEvidence | None, Path | No
         and "evidence:regulatory-authority" not in expected
     ):
         violations.append("unverified regulatory evidence must keep regulatory-authority blocker")
-    if (
-        verified.regulatory_authority_replaced
-        and "evidence:regulatory-authority" in expected
-    ):
+    if verified.regulatory_authority_replaced and "evidence:regulatory-authority" in expected:
         violations.append("verified regulatory evidence must remove regulatory-authority blocker")
 
     return violations, verified, artifact_root

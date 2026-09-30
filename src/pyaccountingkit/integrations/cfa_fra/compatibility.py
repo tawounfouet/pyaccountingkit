@@ -89,6 +89,20 @@ class MigrationRouting:
     def read_backend_for(self, operation: str) -> ReadBackend:
         return self.read_routes.get(operation, ReadBackend.LEGACY)
 
+    def remaining_legacy_mutations(self) -> tuple[str, ...]:
+        return tuple(
+            operation
+            for operation in sorted(_MUTATION_OPERATIONS)
+            if self.mutation_backend_for(operation) is MutationBackend.LEGACY
+        )
+
+    def remaining_legacy_reads(self) -> tuple[str, ...]:
+        return tuple(
+            operation
+            for operation in sorted(_READ_OPERATIONS)
+            if self.read_backend_for(operation) is ReadBackend.LEGACY
+        )
+
 
 @dataclass(frozen=True, slots=True)
 class DualRunObservation:

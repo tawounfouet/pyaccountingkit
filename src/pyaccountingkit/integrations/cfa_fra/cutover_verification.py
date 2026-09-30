@@ -7,6 +7,11 @@ import hmac
 from dataclasses import dataclass
 from pathlib import Path, PurePosixPath
 
+from pyaccountingkit.integrations.cfa_fra.cutover_artifact_schema import (
+    CutoverArtifactKey,
+    CutoverArtifactSchemaError,
+    parse_cutover_artifact,
+)
 from pyaccountingkit.integrations.cfa_fra.cutover_evidence import (
     CutoverEvidenceStatus,
     ExternalCutoverEvidence,
@@ -48,7 +53,7 @@ class VerifiedLiveCutoverEvidence:
         return self.regulatory_authority.green
 
 
-def _safe_artifact_path(root: Path, artifact: str) -> Path:
+def resolve_cutover_artifact_path(root: Path, artifact: str) -> Path:
     candidate = PurePosixPath(artifact)
     if candidate.is_absolute() or ".." in candidate.parts:
         raise CutoverArtifactVerificationError(
@@ -78,6 +83,7 @@ def _sha256_file(path: Path) -> str:
 
 def attest_external_cutover_artifact(
     *,
+    key: CutoverArtifactKey,
     artifact: str,
     artifact_root: Path,
     source: str,
@@ -85,11 +91,15 @@ def attest_external_cutover_artifact(
     producer: str,
 ) -> ExternalCutoverEvidence:
     """Create a PASS attestation from real artifact bytes, never from a supplied digest."""
-    path = _safe_artifact_path(artifact_root, artifact)
+    path = resolve_cutover_artifact_path(artifact_root, artifact)
     if not path.is_file():
         raise CutoverArtifactVerificationError(
             f"cutover evidence artifact does not exist: {artifact}"
         )
+    try:
+        parse_cutover_artifact(key, path)
+    except CutoverArtifactSchemaError as exc:
+        raise CutoverArtifactVerificationError(str(exc)) from exc
 
     evidence = ExternalCutoverEvidence(
         status=CutoverEvidenceStatus.PASS,
@@ -99,7 +109,11 @@ def attest_external_cutover_artifact(
         observed_at=observed_at,
         producer=producer,
     )
-    verified = verify_external_cutover_evidence(evidence, artifact_root=artifact_root)
+    verified = verify_external_cutover_evidence(
+        evidence,
+        artifact_root=artifact_root,
+        key=key,
+    )
     if not verified.green:
         raise CutoverArtifactVerificationError("freshly attested cutover artifact did not verify")
     return evidence
@@ -109,6 +123,7 @@ def verify_external_cutover_evidence(
     evidence: ExternalCutoverEvidence,
     *,
     artifact_root: Path,
+    key: CutoverArtifactKey | None = None,
 ) -> VerifiedExternalCutoverEvidence:
     """Verify one PASS artifact or preserve an explicit BLOCKED record."""
     if evidence.status is CutoverEvidenceStatus.BLOCKED:
@@ -130,6 +145,11 @@ def verify_external_cutover_evidence(
     actual_sha256 = _sha256_file(path)
     if not hmac.compare_digest(actual_sha256, expected_sha256):
         raise CutoverArtifactVerificationError(f"cutover evidence SHA-256 mismatch for {artifact}")
+    if key is not None:
+        try:
+            parse_cutover_artifact(key, path)
+        except CutoverArtifactSchemaError as exc:
+            raise CutoverArtifactVerificationError(str(exc)) from exc
 
     return VerifiedExternalCutoverEvidence(
         evidence=evidence,
@@ -148,10 +168,12 @@ def verify_live_cutover_evidence(
         legacy_identities=verify_external_cutover_evidence(
             evidence.legacy_identities,
             artifact_root=artifact_root,
+            key="legacy_identities",
         ),
         regulatory_authority=verify_external_cutover_evidence(
             evidence.regulatory_authority,
             artifact_root=artifact_root,
+            key="regulatory_authority",
         ),
     )
 
@@ -161,6 +183,7 @@ __all__ = [
     "attest_external_cutover_artifact",
     "VerifiedExternalCutoverEvidence",
     "VerifiedLiveCutoverEvidence",
+    "resolve_cutover_artifact_path",
     "verify_external_cutover_evidence",
     "verify_live_cutover_evidence",
 ]

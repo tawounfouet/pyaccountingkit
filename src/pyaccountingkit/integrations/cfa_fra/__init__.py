@@ -28,6 +28,11 @@ from pyaccountingkit.integrations.cfa_fra.consumer_qualification import (
     ConsumerScenarioEvidence,
     ConsumerScenarioStatus,
 )
+from pyaccountingkit.integrations.cfa_fra.cutover_evidence import (
+    CutoverEvidenceStatus,
+    ExternalCutoverEvidence,
+    LiveCutoverEvidence,
+)
 from pyaccountingkit.integrations.cfa_fra.golden import (
     ORACLE_MANIFEST_VERSION,
     ORACLE_TREE_SHA,
@@ -62,6 +67,9 @@ __all__ = [
     "ConsumerScenario",
     "ConsumerScenarioEvidence",
     "ConsumerScenarioStatus",
+    "CutoverEvidenceStatus",
+    "ExternalCutoverEvidence",
+    "LiveCutoverEvidence",
     "StatementTargetParametersFactory",
     "build_target_only_consumer_bridge",
     "DivergenceCategory",

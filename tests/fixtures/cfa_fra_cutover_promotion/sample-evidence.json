@@ -1,0 +1,6 @@
+{
+  "kind": "test-fixture",
+  "purpose": "exercise cutover evidence promotion without claiming live CFA FRA proof",
+  "legacy_id": "legacy-42",
+  "target_id": "target-42"
+}

@@ -78,7 +78,7 @@ def _authority_payload() -> dict[str, object]:
     return {
         "schema": "cfa_fra_regulatory_authority_cutover/v1",
         "kind": "regulatory_authority_cutover",
-        "consumer": "CFA FRA",
+        "consumer": "CFA FRA test consumer",
         "observed_at": "2026-09-30T12:30:00Z",
         "provider": {"name": "PyAccountingKit", "version": "0.6.0b16"},
         "routing_profile": "target_only",

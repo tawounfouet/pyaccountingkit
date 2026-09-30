@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+from pathlib import Path
 
 import pytest
 
@@ -95,7 +96,7 @@ def _authority_payload() -> dict[str, object]:
     }
 
 
-def _write_json(path, payload: dict[str, object]) -> bytes:
+def _write_json(path: Path, payload: dict[str, object]) -> bytes:
     encoded = (json.dumps(payload, sort_keys=True) + "\n").encode()
     path.write_bytes(encoded)
     return encoded

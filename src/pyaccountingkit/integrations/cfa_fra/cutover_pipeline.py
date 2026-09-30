@@ -10,6 +10,7 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from typing import cast
 
 from pyaccountingkit.integrations.cfa_fra.cutover_artifact_schema import (
     CutoverArtifactKey,
@@ -168,50 +169,42 @@ def apply_cutover_evidence_pipeline(
             "explicit overwrite is required"
         )
 
-    target.parent.mkdir(parents=True, exist_ok=True)
-    parse_payload = json.loads(plan.artifact_payload)
-    if not isinstance(parse_payload, dict):
-        raise CutoverEvidencePipelineError("planned artifact payload must be a JSON object")
-
-    descriptor, temporary = tempfile.mkstemp(
-        dir=target.parent,
-        prefix=f".{target.name}.",
-        suffix=".tmp",
-        text=True,
-    )
-    temporary_path = Path(temporary)
-    try:
-        with os.fdopen(descriptor, "w", encoding="utf-8") as handle:
-            handle.write(plan.artifact_payload)
-            handle.flush()
-            os.fsync(handle.fileno())
-        parse_cutover_artifact(plan.key, temporary_path)
+    with TemporaryDirectory(prefix="pyaccountingkit-cutover-apply-") as directory:
+        staging_root = Path(directory)
+        staged = resolve_cutover_artifact_path(staging_root, plan.artifact)
+        staged.parent.mkdir(parents=True, exist_ok=True)
+        staged.write_text(plan.artifact_payload, encoding="utf-8")
+        parse_cutover_artifact(plan.key, staged)
 
         promotion = promote_cutover_evidence(
             current_manifest,
             key=plan.key,
-            artifact_root=temporary_path.parent,
-            artifact=temporary_path.name,
+            artifact_root=staging_root,
+            artifact=plan.artifact,
             source=evidence_source,
             observed_at=observed_at,
             producer=producer,
         )
 
-        planned_record = plan.candidate_manifest["external_evidence"]
-        applied_record = promotion.manifest["external_evidence"]
-        if planned_record != applied_record:
-            raise CutoverEvidencePipelineError(
-                "promotion result differs from reviewed dry-run plan"
-            )
-        if promotion.evidence.sha256 != plan.artifact_sha256:
-            raise CutoverEvidencePipelineError(
-                "generated artifact digest differs from reviewed dry-run plan"
-            )
+    planned_external = cast(
+        Mapping[str, object],
+        plan.candidate_manifest["external_evidence"],
+    )
+    applied_external = cast(
+        Mapping[str, object],
+        promotion.manifest["external_evidence"],
+    )
+    if planned_external != applied_external:
+        raise CutoverEvidencePipelineError(
+            "promotion result differs from reviewed dry-run plan"
+        )
+    if promotion.evidence.sha256 != plan.artifact_sha256:
+        raise CutoverEvidencePipelineError(
+            "generated artifact digest differs from reviewed dry-run plan"
+        )
 
-        temporary_path.replace(target)
-    finally:
-        if temporary_path.exists():
-            temporary_path.unlink()
+    _write_atomic(target, plan.artifact_payload)
+    parse_cutover_artifact(plan.key, target)
 
     manifest_payload = json.dumps(
         promotion.manifest,

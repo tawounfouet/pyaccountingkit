@@ -15,8 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Per-operation migration routing with explicit `LEGACY` and `PYACCOUNTINGKIT` backends.
 - Read-side dual-run observations for safe shadow comparison of trial balance, statements,
   controls and other selected queries.
-- `LegacyIdentityMap` and immutable `LegacyIdentityLink` records preserving historical
-  CFA FRA IDs, target IDs, source identity and optional source checksum.
+- `LegacyIdentityStoreProtocol`, `LegacyIdentityMap` and immutable `LegacyIdentityLink`
+  records preserving historical CFA FRA IDs, target IDs, source identity and optional checksum.
+- Fail-closed `LegacyRetirementGate` requiring all routes to be migrated, dual-run to be
+  disabled and parity/adapter/consumer/identity evidence to be green before legacy removal.
 
 ### Changed
 - CFA FRA migration status moves from golden-baseline qualification to consumer conversion.

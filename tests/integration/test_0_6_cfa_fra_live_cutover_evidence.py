@@ -80,9 +80,7 @@ def test_expected_blockers_match_current_external_evidence_state() -> None:
     evidence = LiveCutoverEvidence.from_mapping(external)
     blockers = set(payload["expected_blockers"])
 
-    assert ("evidence:legacy-identities" in blockers) is (
-        not evidence.identities_traceable
-    )
+    assert ("evidence:legacy-identities" in blockers) is (not evidence.identities_traceable)
     assert ("evidence:regulatory-authority" in blockers) is (
         not evidence.regulatory_authority_replaced
     )

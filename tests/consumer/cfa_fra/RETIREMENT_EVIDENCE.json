@@ -1,0 +1,22 @@
+{
+  "schema_version": "1",
+  "consumer": "CFA FRA Django MVP Sprint 7",
+  "routing_profile": "target_only",
+  "external_evidence": {
+    "legacy_identities": {
+      "green": false,
+      "source": "live-consumer-cutover",
+      "reason": "The framework provides LegacyIdentityStoreProtocol, but no live CFA FRA persisted identity-migration evidence has been supplied yet."
+    },
+    "regulatory_authority": {
+      "green": false,
+      "source": "live-consumer-cutover",
+      "reason": "The frozen Sprint-7 consumer still queries local FrameworkAccount tables; live delegation to AccountingApplication.references is not yet proven."
+    }
+  },
+  "expected_blockers": [
+    "evidence:consumer-e2e",
+    "evidence:legacy-identities",
+    "evidence:regulatory-authority"
+  ]
+}

@@ -17,6 +17,14 @@ from pyaccountingkit.integrations.cfa_fra.consumer import (
     ConsumerContextFactory,
     StatementTargetParametersFactory,
 )
+from pyaccountingkit.integrations.cfa_fra.consumer_qualification import (
+    CFAFRAConsumerQualificationError,
+    ConsumerQualification,
+    ConsumerQualificationDecision,
+    ConsumerScenario,
+    ConsumerScenarioEvidence,
+    ConsumerScenarioStatus,
+)
 from pyaccountingkit.integrations.cfa_fra.golden import (
     ORACLE_MANIFEST_VERSION,
     ORACLE_TREE_SHA,
@@ -42,7 +50,13 @@ __all__ = [
     "CFAFRAConsumerMappingError",
     "CFAFRADjangoConsumerBridge",
     "CFAFRAMigrationRouteError",
+    "CFAFRAConsumerQualificationError",
     "ConsumerContextFactory",
+    "ConsumerQualification",
+    "ConsumerQualificationDecision",
+    "ConsumerScenario",
+    "ConsumerScenarioEvidence",
+    "ConsumerScenarioStatus",
     "StatementTargetParametersFactory",
     "DivergenceCategory",
     "DualRunObservation",

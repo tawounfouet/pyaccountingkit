@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0b4] - 2026-09-30
+
+### Added
+- Executable CFA FRA consumer-cutover evidence for the ten mandatory Gate Consumer scenarios:
+  login, organization context, FEC import, journal, ledger, balance, financial statements,
+  controls, closing and exports.
+- Deterministic `ConsumerQualificationDecision` distinguishing passed, failed, blocked and
+  missing consumer scenarios.
+- Fail-closed consumer evidence validation: duplicate scenarios are rejected and every
+  non-passing result requires an explicit explanation.
+
+### Safety
+- `0.6.0b4` does not claim the external CFA FRA consumer is already green; it defines the
+  evidence contract that the consumer smoke/E2E suite must satisfy.
+- Legacy retirement can only consume a green consumer qualification after all ten scenarios
+  have explicit PASS evidence.
+
 ## [0.6.0b3] - 2026-09-30
 
 ### Added

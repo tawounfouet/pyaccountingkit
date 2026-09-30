@@ -119,6 +119,11 @@ signatures. The `0.6.0b3` slice adds the real Sprint-6 financial-statement signa
 an explicit `StatementTargetParametersFactory`: the consumer must supply canonical source and
 mapping-set inputs, and legacy ORM objects are rejected if they leak back into the public call.
 
+The `0.6.0b4` slice makes the Gate Consumer executable as a framework-neutral evidence
+contract. It requires explicit PASS evidence for login, organization context, FEC import,
+journal, ledger, balance, financial statements, controls, closing and exports. Missing,
+failed or blocked evidence keeps `consumer_e2e_green` false and therefore blocks retirement.
+
 ### L26-C — retirement
 
 Only after parity and consumer gates are green:

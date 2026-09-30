@@ -11,10 +11,16 @@ from pathlib import Path
 from typing import cast
 
 from pyaccountingkit.integrations.cfa_fra import (
+    LEGACY_IDENTITIES_SCHEMA,
+    REGULATORY_AUTHORITY_SCHEMA,
+    CutoverArtifactKey,
     CutoverArtifactVerificationError,
+    CutoverEvidenceStatus,
     LiveCutoverEvidence,
     VerifiedExternalCutoverEvidence,
     VerifiedLiveCutoverEvidence,
+    parse_cutover_artifact,
+    resolve_cutover_artifact_path,
     verify_live_cutover_evidence,
 )
 
@@ -39,6 +45,18 @@ def _artifact_root(payload: Mapping[str, object]) -> Path:
         raise ValueError("artifact_policy must require local materialization")
     if policy.get("sha256_verified") is not True:
         raise ValueError("artifact_policy must require SHA-256 verification")
+    if policy.get("content_schema_verified") is not True:
+        raise ValueError("artifact_policy must require semantic content-schema verification")
+
+    raw_schemas = policy.get("schemas")
+    expected_schemas = {
+        "legacy_identities": LEGACY_IDENTITIES_SCHEMA,
+        "regulatory_authority": REGULATORY_AUTHORITY_SCHEMA,
+    }
+    if raw_schemas != expected_schemas:
+        raise ValueError(
+            "artifact_policy.schemas must match the qualified CFA FRA evidence schemas"
+        )
 
     root = (ROOT / raw_root).resolve()
     try:
@@ -80,8 +98,8 @@ def validate() -> tuple[list[str], VerifiedLiveCutoverEvidence | None, Path | No
     violations: list[str] = []
     payload = _load()
 
-    if payload.get("schema_version") != "3":
-        violations.append("live cutover evidence must use schema_version='3'")
+    if payload.get("schema_version") != "4":
+        violations.append("live cutover evidence must use schema_version='4'")
     if payload.get("routing_profile") != "target_only":
         violations.append("live cutover evidence requires target_only routing")
 
@@ -90,6 +108,10 @@ def validate() -> tuple[list[str], VerifiedLiveCutoverEvidence | None, Path | No
     except ValueError as exc:
         violations.append(str(exc))
         artifact_root = None
+
+    consumer = payload.get("consumer")
+    if not isinstance(consumer, str) or not consumer.strip():
+        violations.append("live cutover evidence must define a non-empty consumer")
 
     raw_external = payload.get("external_evidence")
     if not isinstance(raw_external, dict):
@@ -120,6 +142,24 @@ def validate() -> tuple[list[str], VerifiedLiveCutoverEvidence | None, Path | No
 
     if verified is None:
         return violations, verified, artifact_root
+
+    if isinstance(consumer, str) and artifact_root is not None:
+        for key, record in (
+            ("legacy_identities", evidence.legacy_identities),
+            ("regulatory_authority", evidence.regulatory_authority),
+        ):
+            if record.status is not CutoverEvidenceStatus.PASS:
+                continue
+            artifact = record.artifact
+            if artifact is None:
+                violations.append(f"{key}: PASS evidence is missing artifact path")
+                continue
+            path = resolve_cutover_artifact_path(artifact_root, artifact)
+            parsed = parse_cutover_artifact(cast(CutoverArtifactKey, key), path)
+            if parsed.consumer != consumer:
+                violations.append(
+                    f"{key}: artifact consumer must match retirement manifest consumer"
+                )
 
     expected = set(cast(list[str], raw_expected))
     if not verified.identities_traceable and "evidence:legacy-identities" not in expected:
@@ -163,7 +203,10 @@ def main() -> int:
     print("CFA FRA live cutover evidence: PASS")
     print(f"Legacy identities verified: {evidence.identities_traceable}")
     print(f"Regulatory authority verified: {evidence.regulatory_authority_replaced}")
-    print("PASS records require real local artifact bytes matching the declared SHA-256")
+    print(
+        "PASS records require real local artifact bytes, matching SHA-256 "
+        "and the qualified semantic schema"
+    )
     return 0
 
 

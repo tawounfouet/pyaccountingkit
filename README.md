@@ -10,7 +10,7 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit **0.6.0b15** is the LOT-26 CFA FRA Live Cutover Evidence Promotion beta.
+PyAccountingKit **0.6.0b16** is the LOT-26 CFA FRA Cutover Artifact Schemas beta.
 
 LOT-26 turns the frozen LOT-25 CFA FRA behavioral baseline into an executable
 migration boundary. The temporary `CFAFRACompatibilityAdapter` lets the Django
@@ -39,7 +39,7 @@ mode rather than a generic posting bypass.
 
 The stable **0.5.0** public facade, adapter contract v1 and the independently
 Production-qualified Django/PostgreSQL and SQLAlchemy/PostgreSQL adapters remain
-the compatibility baseline. **0.6.0b15 is still pre-1.0**: LOT-26 consumer
+the compatibility baseline. **0.6.0b16 is still pre-1.0**: LOT-26 consumer
 conversion is in progress; LOT-27 regulatory production qualification and the
 LOT-29/30 API freeze remain later roadmap steps.
 
@@ -560,3 +560,14 @@ matching retirement blocker and prints the candidate manifest.
 The command is a dry-run by default. Persisting the promotion requires explicit
 `--write`, uses an atomic file replacement and refuses to overwrite an evidence
 record that is already `PASS`.
+
+
+The `0.6.0b16` milestone adds semantic schemas for the two live-cutover artifacts.
+A matching SHA-256 is no longer enough. Legacy-identity evidence must prove a complete
+CFA_FRA_LEGACY -> PYACCOUNTINGKIT mapping with zero unresolved identities; regulatory
+authority evidence must prove target-only routing, disabled local `FrameworkAccount`
+authority, non-authoritative local seed commands, delegated `effective_plan` resolution and
+sample provider-backed reference resolutions.
+
+Canonical verification and evidence promotion both enforce these schemas, and promoted
+artifacts must name the same consumer as the retirement manifest.

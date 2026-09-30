@@ -15,13 +15,18 @@ FIXTURE = ROOT / "tests" / "fixtures" / "cfa_fra_cutover_promotion" / "sample-ev
 
 def _manifest() -> dict[str, object]:
     return {
-        "schema_version": "3",
-        "consumer": "CFA FRA promotion CLI test",
+        "schema_version": "4",
+        "consumer": "CFA FRA test consumer",
         "routing_profile": "target_only",
         "artifact_policy": {
             "root": "tests/fixtures/cfa_fra_cutover_promotion",
             "require_local_materialization": True,
             "sha256_verified": True,
+            "content_schema_verified": True,
+            "schemas": {
+                "legacy_identities": "cfa_fra_legacy_identity_migration/v1",
+                "regulatory_authority": "cfa_fra_regulatory_authority_cutover/v1",
+            },
         },
         "external_evidence": {
             "legacy_identities": {

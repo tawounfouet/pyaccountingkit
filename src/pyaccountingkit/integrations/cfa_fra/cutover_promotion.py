@@ -6,8 +6,14 @@ from collections.abc import Mapping
 from copy import deepcopy
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Literal, cast
+from typing import cast
 
+from pyaccountingkit.integrations.cfa_fra.cutover_artifact_schema import (
+    LEGACY_IDENTITIES_SCHEMA,
+    REGULATORY_AUTHORITY_SCHEMA,
+    CutoverArtifactKey,
+    parse_cutover_artifact,
+)
 from pyaccountingkit.integrations.cfa_fra.cutover_evidence import (
     CutoverEvidenceStatus,
     ExternalCutoverEvidence,
@@ -15,10 +21,11 @@ from pyaccountingkit.integrations.cfa_fra.cutover_evidence import (
 )
 from pyaccountingkit.integrations.cfa_fra.cutover_verification import (
     attest_external_cutover_artifact,
+    resolve_cutover_artifact_path,
     verify_live_cutover_evidence,
 )
 
-CutoverEvidenceKey = Literal["legacy_identities", "regulatory_authority"]
+CutoverEvidenceKey = CutoverArtifactKey
 
 _BLOCKERS: dict[CutoverEvidenceKey, str] = {
     "legacy_identities": "evidence:legacy-identities",
@@ -53,10 +60,27 @@ def promote_cutover_evidence(
     producer: str,
 ) -> CutoverEvidencePromotion:
     """Promote one blocked proof to PASS using a digest derived from real bytes."""
-    if manifest.get("schema_version") != "3":
-        raise ValueError("cutover evidence promotion requires schema_version='3'")
+    if manifest.get("schema_version") != "4":
+        raise ValueError("cutover evidence promotion requires schema_version='4'")
     if manifest.get("routing_profile") != "target_only":
         raise ValueError("cutover evidence promotion requires target_only routing")
+
+    raw_policy = manifest.get("artifact_policy")
+    if not isinstance(raw_policy, dict):
+        raise ValueError("cutover evidence promotion requires artifact_policy")
+    policy = cast(Mapping[str, object], raw_policy)
+    if policy.get("content_schema_verified") is not True:
+        raise ValueError("cutover evidence promotion requires content-schema verification")
+    expected_schemas = {
+        "legacy_identities": LEGACY_IDENTITIES_SCHEMA,
+        "regulatory_authority": REGULATORY_AUTHORITY_SCHEMA,
+    }
+    if policy.get("schemas") != expected_schemas:
+        raise ValueError("cutover evidence promotion requires qualified artifact schemas")
+
+    consumer = manifest.get("consumer")
+    if not isinstance(consumer, str) or not consumer.strip():
+        raise ValueError("cutover evidence promotion requires a consumer identity")
 
     raw_external = manifest.get("external_evidence")
     if not isinstance(raw_external, dict):
@@ -71,12 +95,18 @@ def promote_cutover_evidence(
         raise ValueError(f"cutover evidence record {key!r} is already PASS")
 
     evidence = attest_external_cutover_artifact(
+        key=key,
         artifact=artifact,
         artifact_root=artifact_root,
         source=source,
         observed_at=observed_at,
         producer=producer,
     )
+
+    artifact_path = resolve_cutover_artifact_path(artifact_root, artifact)
+    parsed_artifact = parse_cutover_artifact(key, artifact_path)
+    if parsed_artifact.consumer != consumer:
+        raise ValueError("cutover artifact consumer must match the retirement evidence consumer")
 
     promoted = deepcopy(dict(manifest))
     promoted_external = cast(dict[str, object], promoted["external_evidence"])

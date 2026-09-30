@@ -7,6 +7,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0b16] - 2026-09-30
+
+### Added
+- Semantic schema `cfa_fra_legacy_identity_migration/v1`.
+- Semantic schema `cfa_fra_regulatory_authority_cutover/v1`.
+- Typed parsers for legacy identity migration and regulatory authority cutover artifacts.
+- Artifact-level checks for:
+  - complete identity coverage with zero unresolved records;
+  - unique legacy identity mappings;
+  - CFA_FRA_LEGACY -> PYACCOUNTINGKIT system binding;
+  - target-only regulatory routing;
+  - disabled local `FrameworkAccount` authority;
+  - non-authoritative local regulatory seed commands;
+  - delegated `effective_plan`;
+  - non-empty provider-backed sample resolutions;
+  - PyAccountingKit as the target reference provider.
+- Retirement evidence schema v4 with explicit content-schema policy.
+
+### Changed
+- Cryptographically valid PASS artifacts are now also semantically validated.
+- Evidence promotion rejects schema-invalid artifacts and artifacts produced for a different
+  consumer.
+- MIG-13 can consume external proof booleans only after both SHA-256 and business-schema
+  verification succeed.
+
+### Safety
+- Arbitrary JSON with a valid digest cannot satisfy a live-cutover proof.
+- The canonical BLOCKED evidence remains unchanged; no live evidence is fabricated.
+
 ## [0.6.0b15] - 2026-09-30
 
 ### Added

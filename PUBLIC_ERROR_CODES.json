@@ -97,5 +97,5 @@
     "SUBLEDGER_RECONCILIATION_FAILED": "SubledgerReconciliationError",
     "WRITE_OFF_POLICY_REQUIRED": "WriteOffPolicyRequiredError"
   },
-  "version": "0.6.0b15"
+  "version": "0.6.0b16"
 }

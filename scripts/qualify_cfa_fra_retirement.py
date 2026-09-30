@@ -81,8 +81,7 @@ def qualify(
     evidence = LegacyRetirementEvidence(
         golden_parity_green=_job_green(test_result),
         production_adapters_green=(
-            _job_green(django_adapter_result)
-            and _job_green(sqlalchemy_adapter_result)
+            _job_green(django_adapter_result) and _job_green(sqlalchemy_adapter_result)
         ),
         consumer_e2e_green=consumer_e2e_green,
         identities_traceable=_external_green(manifest, "legacy_identities"),

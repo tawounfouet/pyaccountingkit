@@ -142,6 +142,13 @@ canonical organization/fiscal-year identity is enforced, and control-set/scope p
 provided through an explicit consumer factory. `controls` remains BLOCKED in Gate Consumer
 until the real CFA FRA dashboard delegates through this bridge.
 
+The `0.6.0b8` slice adds the target-only closing consumer bridge. Sprint 7 contains
+`ClosingRun`/`ClosingEntryLink` persistence placeholders but no executable closing service,
+so no legacy mutation path is fabricated. `close_period` must route to PyAccountingKit,
+the period identity is resolved canonically, and the consumer provides control-run,
+trial-balance and optional opening-balance inputs through an explicit closing parameter
+factory. `closing` remains BLOCKED until the actual consumer delegates through this bridge.
+
 ### L26-C — retirement
 
 Only after parity and consumer gates are green:

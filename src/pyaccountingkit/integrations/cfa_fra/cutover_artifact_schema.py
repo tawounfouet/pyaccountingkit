@@ -85,6 +85,17 @@ class LegacyIdentityMigrationArtifact:
                 "legacy identity artifact kind must be 'legacy_identity_migration'"
             )
 
+        source_system = _string(payload, "source_system")
+        target_system = _string(payload, "target_system")
+        if source_system != "CFA_FRA_LEGACY":
+            raise CutoverArtifactSchemaError(
+                "legacy identity artifact source_system must be 'CFA_FRA_LEGACY'"
+            )
+        if target_system != "PYACCOUNTINGKIT":
+            raise CutoverArtifactSchemaError(
+                "legacy identity artifact target_system must be 'PYACCOUNTINGKIT'"
+            )
+
         raw_summary = _mapping(payload.get("summary"), "summary")
         total = _integer(raw_summary, "total_legacy_records")
         mapped = _integer(raw_summary, "mapped_records")
@@ -119,13 +130,19 @@ class LegacyIdentityMigrationArtifact:
                     f"mappings[{index}].source_checksum must be sha256:<64 lowercase hex>"
                 )
 
+            source = _string(item, "source")
+            if source != source_system:
+                raise CutoverArtifactSchemaError(
+                    f"mappings[{index}].source must equal artifact source_system"
+                )
+
             links.append(
                 LegacyIdentityLink(
                     legacy_type=key[0],
                     legacy_id=key[1],
                     target_type=_string(item, "target_type"),
                     target_id=_string(item, "target_id"),
-                    source=_string(item, "source"),
+                    source=source,
                     source_checksum=cast(str | None, checksum),
                 )
             )
@@ -138,8 +155,8 @@ class LegacyIdentityMigrationArtifact:
         return cls(
             consumer=_string(payload, "consumer"),
             generated_at=_utc_timestamp(payload, "generated_at"),
-            source_system=_string(payload, "source_system"),
-            target_system=_string(payload, "target_system"),
+            source_system=source_system,
+            target_system=target_system,
             links=tuple(links),
         )
 
@@ -225,10 +242,16 @@ class RegulatoryAuthorityCutoverArtifact:
                 )
             )
 
+        provider_name = _string(provider, "name")
+        if provider_name != "PyAccountingKit":
+            raise CutoverArtifactSchemaError(
+                "regulatory authority provider.name must be 'PyAccountingKit'"
+            )
+
         return cls(
             consumer=_string(payload, "consumer"),
             observed_at=_utc_timestamp(payload, "observed_at"),
-            provider_name=_string(provider, "name"),
+            provider_name=provider_name,
             provider_version=_string(provider, "version"),
             resolutions=tuple(resolutions),
         )

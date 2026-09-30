@@ -233,3 +233,12 @@ traceability with zero unresolved records. `regulatory_authority` must prove tar
 routing, disabled local authority, delegated effective-plan resolution and provider-backed
 sample references. SHA verification remains necessary but is no longer sufficient; canonical
 verification and controlled promotion require both cryptographic and semantic validity.
+
+
+The `0.6.0b17` slice adds evidence producers on top of the b16 schemas. Legacy identity
+proofs are generated from an identity-store snapshot and an independent expected legacy
+population count, so an incomplete migrated set cannot silently describe itself as complete.
+Regulatory-authority proofs are generated only from an observed target-only state with the
+PyAccountingKit provider, disabled local authority, delegated effective-plan resolution and
+provider-backed samples. Generation is deterministic, dry-run by default, schema-validated
+before write and does not itself promote the retirement manifest.

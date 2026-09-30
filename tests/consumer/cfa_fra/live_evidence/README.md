@@ -50,3 +50,28 @@ and prove target-only routing, disabled local accounting authority, delegated
 `effective_plan` and at least one provider-backed reference resolution.
 
 A correct file hash alone is not evidence of either condition.
+
+
+## Generation workflow
+
+b17 separates **observation sources** from **evidence artifacts**.
+
+Use the generator with an exported source observation:
+
+```bash
+python scripts/generate_cfa_fra_cutover_artifact.py \
+  legacy_identities \
+  --source identity-source.json \
+  --artifact legacy-identities.json
+```
+
+The default is a dry-run. Add `--write` to materialize the artifact beneath the configured
+artifact root. Replacing an existing artifact additionally requires `--overwrite`.
+
+For identity evidence, `expected_legacy_records` must come from an independent legacy
+population count; it is not inferred from the migrated mappings. For regulatory authority,
+the observation must already demonstrate target-only routing and replacement of local
+reference authority.
+
+Generation does **not** edit `RETIREMENT_EVIDENCE.json`. Promotion remains a separate,
+reviewable action through `promote_cfa_fra_cutover_evidence.py`.

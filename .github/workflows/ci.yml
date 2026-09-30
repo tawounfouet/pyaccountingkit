@@ -209,6 +209,9 @@ jobs:
   cutover-evidence:
     name: CFA FRA live cutover evidence
     runs-on: ubuntu-latest
+    outputs:
+      identities_traceable: ${{ steps.cutover-state.outputs.identities_traceable }}
+      regulatory_authority_replaced: ${{ steps.cutover-state.outputs.regulatory_authority_replaced }}
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
@@ -219,8 +222,17 @@ jobs:
           cache-dependency-path: pyproject.toml
       - name: Install development tooling
         run: python -m pip install -e ".[dev]"
-      - name: Validate live cutover evidence contract
-        run: python scripts/validate_cfa_fra_cutover_evidence.py
+      - name: Validate and verify live cutover evidence
+        run: >-
+          python scripts/validate_cfa_fra_cutover_evidence.py
+          --output build/cfa_fra_cutover_evidence.json
+      - name: Expose verified cutover state
+        id: cutover-state
+        run: |
+          identities="$(python -c 'import json; print(str(json.load(open("build/cfa_fra_cutover_evidence.json"))["identities_traceable"]).lower())')"
+          authority="$(python -c 'import json; print(str(json.load(open("build/cfa_fra_cutover_evidence.json"))["regulatory_authority_replaced"]).lower())')"
+          echo "identities_traceable=$identities" >> "$GITHUB_OUTPUT"
+          echo "regulatory_authority_replaced=$authority" >> "$GITHUB_OUTPUT"
 
   retirement-readiness:
     name: CFA FRA retirement readiness
@@ -244,6 +256,8 @@ jobs:
           --django-adapter-result "${{ needs.postgresql.result }}"
           --sqlalchemy-adapter-result "${{ needs.sqlalchemy-postgresql.result }}"
           --consumer-e2e-green "${{ needs.consumer-evidence.outputs.consumer_e2e_green }}"
+          --identities-traceable "${{ needs.cutover-evidence.outputs.identities_traceable }}"
+          --regulatory-authority-replaced "${{ needs.cutover-evidence.outputs.regulatory_authority_replaced }}"
           --output build/cfa_fra_retirement_readiness.json
 
   release-qualification:

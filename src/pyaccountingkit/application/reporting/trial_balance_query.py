@@ -44,9 +44,7 @@ class TrialBalanceQuery:
         with self._uow_factory.open() as uow:
             entries = uow.entries.list_by_period(period_id)
             included_types = self._included_entry_types(snapshot)
-            scoped_entries = tuple(
-                entry for entry in entries if entry.entry_type in included_types
-            )
+            scoped_entries = tuple(entry for entry in entries if entry.entry_type in included_types)
             lines = self._aggregate(scoped_entries)
         return TrialBalance.build(
             period_id,
@@ -80,9 +78,7 @@ class TrialBalanceQuery:
         snapshot: TrialBalanceSnapshot,
     ) -> frozenset[EntryType]:
         if snapshot is TrialBalanceSnapshot.BEFORE_ADJUSTMENTS:
-            return frozenset(
-                {EntryType.OPENING, EntryType.NORMAL, EntryType.REVERSAL}
-            )
+            return frozenset({EntryType.OPENING, EntryType.NORMAL, EntryType.REVERSAL})
         if snapshot is TrialBalanceSnapshot.ADJUSTED:
             return frozenset(
                 {

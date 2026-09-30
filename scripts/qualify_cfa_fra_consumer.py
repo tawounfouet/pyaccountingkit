@@ -61,6 +61,47 @@ def _run_pytest(resource: Path, targets: Sequence[str]) -> tuple[bool, str]:
     return False, f"bundled CFA FRA pytest exited with {result.returncode}"
 
 
+def _run_login_flow(resource: Path) -> tuple[bool, str]:
+    script = """
+import os
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.test")
+import django
+django.setup()
+from django.contrib.auth import get_user_model
+from django.core.management import call_command
+from django.test import Client
+from django.urls import reverse
+
+call_command("migrate", verbosity=0, interactive=False)
+user = get_user_model().objects.create_user(
+    username="consumer-login",
+    email="consumer-login@example.com",
+    password="secret1234",
+)
+client = Client()
+login_url = reverse("login")
+get_response = client.get(login_url)
+assert get_response.status_code == 200
+post_response = client.post(
+    login_url,
+    {"username": user.username, "password": "secret1234"},
+)
+assert post_response.status_code == 302
+assert client.session.get("_auth_user_id") == str(user.pk)
+"""
+    command = [sys.executable, "-c", script]
+    print("+ request-level Django login smoke", flush=True)
+    result = subprocess.run(
+        command,
+        cwd=resource,
+        check=False,
+        text=True,
+    )
+    if result.returncode == 0:
+        return True, "bundled CFA FRA request-level login flow passed"
+    return False, f"bundled CFA FRA login flow exited with {result.returncode}"
+
+
 def build_evidence() -> tuple[ConsumerScenarioEvidence, ...]:
     matrix = _load_matrix()
     oracle = cast(Mapping[str, object], matrix["oracle"])
@@ -89,6 +130,27 @@ def build_evidence() -> tuple[ConsumerScenarioEvidence, ...]:
                     status=ConsumerScenarioStatus.BLOCKED,
                     source=f"cfa-fra-sprint7:{tree_sha}",
                     detail=reason,
+                )
+            )
+            continue
+
+        if mode == "django_login":
+            raw_sources = item.get("source_files")
+            if not isinstance(raw_sources, list) or not raw_sources:
+                raise ValueError("login evidence requires source files")
+            sources = tuple(str(source) for source in raw_sources)
+            passed, detail = _run_login_flow(resource)
+            evidence.append(
+                ConsumerScenarioEvidence(
+                    scenario=scenario,
+                    status=(
+                        ConsumerScenarioStatus.PASS
+                        if passed
+                        else ConsumerScenarioStatus.FAIL
+                    ),
+                    source="cfa-fra-sprint7:request-level-login",
+                    detail=None if passed else detail,
+                    evidence_checksum=_target_checksum(resource, sources),
                 )
             )
             continue
@@ -146,7 +208,7 @@ def qualify(output: Path | None = None) -> int:
     evidence = build_evidence()
     report = _report(evidence)
 
-    expected_blocked = ["closing", "controls", "login"]
+    expected_blocked = ["closing", "controls"]
     if report["failed"] or report["missing"]:
         print(json.dumps(report, indent=2, sort_keys=True), file=sys.stderr)
         return 1

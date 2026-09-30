@@ -192,9 +192,7 @@ def main() -> int:
     print("Production adapter gates: Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16")
     print("Consumer gate: bundled CFA FRA Sprint-7 executable evidence")
     print("Retirement inventory: live-consumer deletion/rewire/migration classification")
-    print(
-        "Cutover evidence: cryptographically verified consumer/identity/reference artifacts"
-    )
+    print("Cutover evidence: cryptographically verified consumer/identity/reference artifacts")
     print("Cutover pipeline: reviewed plan/apply execution on isolated fixture evidence")
     print("Retirement gate: MIG-13 readiness with explicit blocker evidence")
     print("Security jobs: audit, sast")

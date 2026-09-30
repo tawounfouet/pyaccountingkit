@@ -12,6 +12,7 @@ from typing import Literal, cast
 
 from pyaccountingkit.integrations.cfa_fra.compatibility import LegacyIdentityLink
 from pyaccountingkit.integrations.cfa_fra.consumer_qualification import (
+    CFAFRAConsumerQualificationError,
     ConsumerQualification,
     ConsumerScenario,
     ConsumerScenarioEvidence,
@@ -139,7 +140,10 @@ class ConsumerE2ECutoverArtifact:
                 )
             )
 
-        qualification = ConsumerQualification(tuple(evidence))
+        try:
+            qualification = ConsumerQualification(tuple(evidence))
+        except CFAFRAConsumerQualificationError as exc:
+            raise CutoverArtifactSchemaError(str(exc)) from exc
         decision = qualification.evaluate()
         if not decision.green:
             raise CutoverArtifactSchemaError(

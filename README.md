@@ -10,7 +10,7 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit **0.6.0b8** is the LOT-26 CFA FRA Closing Consumer Bridge beta.
+PyAccountingKit **0.6.0b9** is the LOT-26 CFA FRA Reference Authority beta.
 
 LOT-26 turns the frozen LOT-25 CFA FRA behavioral baseline into an executable
 migration boundary. The temporary `CFAFRACompatibilityAdapter` lets the Django
@@ -39,7 +39,7 @@ mode rather than a generic posting bypass.
 
 The stable **0.5.0** public facade, adapter contract v1 and the independently
 Production-qualified Django/PostgreSQL and SQLAlchemy/PostgreSQL adapters remain
-the compatibility baseline. **0.6.0b8 is still pre-1.0**: LOT-26 consumer
+the compatibility baseline. **0.6.0b9 is still pre-1.0**: LOT-26 consumer
 conversion is in progress; LOT-27 regulatory production qualification and the
 LOT-29/30 API freeze remain later roadmap steps.
 
@@ -49,14 +49,14 @@ read operations may dual-run for comparison while returning only the configured
 primary result. `LegacyIdentityMap` keeps historical IDs and source provenance
 traceable during the transition.
 
-The `0.6.0b8` migration bridge adds a target-only closing path to
-`AccountingApplication.closing.close`. It maps the consumer period to its
-canonical identity and requires an explicit closing-parameter factory for the
-control runs, trial-balance evidence and optional opening-balance coordinates.
-Legacy closing execution is rejected because Sprint 7 has only persistence
-placeholders and no executable closing engine. The external consumer evidence
-therefore keeps `closing` BLOCKED until the real consumer delegates through
-this bridge. Login and controls remain explicit retirement blockers as well.
+The `0.6.0b9` migration bridge adds MIG-11 reference-authority replacement:
+`effective_plan` must delegate to `AccountingApplication.references` and may
+neither fall back to nor dual-run against CFA FRA's local `FrameworkAccount`
+tables. The legacy-retirement gate now requires explicit
+`regulatory_authority_replaced` evidence in addition to parity, production
+adapters, consumer E2E and identity traceability. The frozen Sprint-7 consumer
+still reads `FrameworkAccount` directly, so this milestone provides the target
+bridge and retirement guard without falsely claiming consumer cutover.
 
 The bundled Sprint 7 oracle explicitly schedules its Regulatory Controls &
 Closing Package for Sprint 8. LOT-25 therefore records the missing executable

@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import cast
 
 from pyaccountingkit.integrations.cfa_fra.cutover_artifact_schema import (
+    CONSUMER_E2E_SCHEMA,
     LEGACY_IDENTITIES_SCHEMA,
     REGULATORY_AUTHORITY_SCHEMA,
     CutoverArtifactKey,
@@ -28,6 +29,7 @@ from pyaccountingkit.integrations.cfa_fra.cutover_verification import (
 CutoverEvidenceKey = CutoverArtifactKey
 
 _BLOCKERS: dict[CutoverEvidenceKey, str] = {
+    "consumer_e2e": "evidence:consumer-e2e",
     "legacy_identities": "evidence:legacy-identities",
     "regulatory_authority": "evidence:regulatory-authority",
 }
@@ -60,8 +62,8 @@ def promote_cutover_evidence(
     producer: str,
 ) -> CutoverEvidencePromotion:
     """Promote one blocked proof to PASS using a digest derived from real bytes."""
-    if manifest.get("schema_version") != "4":
-        raise ValueError("cutover evidence promotion requires schema_version='4'")
+    if manifest.get("schema_version") != "5":
+        raise ValueError("cutover evidence promotion requires schema_version='5'")
     if manifest.get("routing_profile") != "target_only":
         raise ValueError("cutover evidence promotion requires target_only routing")
 
@@ -72,6 +74,7 @@ def promote_cutover_evidence(
     if policy.get("content_schema_verified") is not True:
         raise ValueError("cutover evidence promotion requires content-schema verification")
     expected_schemas = {
+        "consumer_e2e": CONSUMER_E2E_SCHEMA,
         "legacy_identities": LEGACY_IDENTITIES_SCHEMA,
         "regulatory_authority": REGULATORY_AUTHORITY_SCHEMA,
     }
@@ -127,6 +130,8 @@ def promote_cutover_evidence(
 
     live = LiveCutoverEvidence.from_mapping(cast(Mapping[str, object], promoted_external))
     verified = verify_live_cutover_evidence(live, artifact_root=artifact_root)
+    if key == "consumer_e2e" and not verified.consumer_e2e_green:
+        raise RuntimeError("promoted consumer E2E evidence did not verify")
     if key == "legacy_identities" and not verified.identities_traceable:
         raise RuntimeError("promoted identity evidence did not verify")
     if key == "regulatory_authority" and not verified.regulatory_authority_replaced:

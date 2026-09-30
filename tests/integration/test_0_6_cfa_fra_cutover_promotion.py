@@ -15,7 +15,7 @@ FIXTURE = ROOT / "tests" / "fixtures" / "cfa_fra_cutover_promotion" / "sample-ev
 
 def _manifest() -> dict[str, object]:
     return {
-        "schema_version": "4",
+        "schema_version": "5",
         "consumer": "CFA FRA test consumer",
         "routing_profile": "target_only",
         "artifact_policy": {
@@ -24,11 +24,17 @@ def _manifest() -> dict[str, object]:
             "sha256_verified": True,
             "content_schema_verified": True,
             "schemas": {
+                "consumer_e2e": "cfa_fra_consumer_e2e_cutover/v1",
                 "legacy_identities": "cfa_fra_legacy_identity_migration/v1",
                 "regulatory_authority": "cfa_fra_regulatory_authority_cutover/v1",
             },
         },
         "external_evidence": {
+            "consumer_e2e": {
+                "status": "BLOCKED",
+                "source": "live-consumer-cutover",
+                "reason": "consumer E2E not yet proven",
+            },
             "legacy_identities": {
                 "status": "BLOCKED",
                 "source": "live-consumer-cutover",

@@ -11,9 +11,21 @@ from pathlib import Path
 from typing import Literal, cast
 
 from pyaccountingkit.integrations.cfa_fra.compatibility import LegacyIdentityLink
+from pyaccountingkit.integrations.cfa_fra.consumer_qualification import (
+    CFAFRAConsumerQualificationError,
+    ConsumerQualification,
+    ConsumerScenario,
+    ConsumerScenarioEvidence,
+    ConsumerScenarioStatus,
+)
 
-CutoverArtifactKey = Literal["legacy_identities", "regulatory_authority"]
+CutoverArtifactKey = Literal[
+    "consumer_e2e",
+    "legacy_identities",
+    "regulatory_authority",
+]
 
+CONSUMER_E2E_SCHEMA = "cfa_fra_consumer_e2e_cutover/v1"
 LEGACY_IDENTITIES_SCHEMA = "cfa_fra_legacy_identity_migration/v1"
 REGULATORY_AUTHORITY_SCHEMA = "cfa_fra_regulatory_authority_cutover/v1"
 
@@ -63,6 +75,85 @@ def _utc_timestamp(payload: Mapping[str, object], field: str) -> str:
     if offset is None or offset.total_seconds() != 0:
         raise CutoverArtifactSchemaError(f"{field} must be UTC")
     return value
+
+
+@dataclass(frozen=True, slots=True)
+class ConsumerE2ECutoverArtifact:
+    """Evidence that every mandatory CFA FRA consumer scenario passes live."""
+
+    consumer: str
+    observed_at: str
+    environment: str
+    producer: str
+    evidence: tuple[ConsumerScenarioEvidence, ...]
+
+    @classmethod
+    def from_mapping(cls, payload: Mapping[str, object]) -> ConsumerE2ECutoverArtifact:
+        if payload.get("schema") != CONSUMER_E2E_SCHEMA:
+            raise CutoverArtifactSchemaError(
+                f"consumer E2E artifact schema must be {CONSUMER_E2E_SCHEMA!r}"
+            )
+        if payload.get("kind") != "consumer_e2e_cutover":
+            raise CutoverArtifactSchemaError(
+                "consumer E2E artifact kind must be 'consumer_e2e_cutover'"
+            )
+        if payload.get("routing_profile") != "target_only":
+            raise CutoverArtifactSchemaError(
+                "consumer E2E PASS evidence requires target_only routing"
+            )
+
+        raw_scenarios = payload.get("scenarios")
+        if not isinstance(raw_scenarios, list) or not raw_scenarios:
+            raise CutoverArtifactSchemaError("consumer E2E artifact must contain scenario evidence")
+
+        evidence: list[ConsumerScenarioEvidence] = []
+        for index, raw in enumerate(raw_scenarios):
+            item = _mapping(raw, f"scenarios[{index}]")
+            raw_scenario = _string(item, "scenario")
+            raw_status = _string(item, "status")
+            source = _string(item, "source")
+            checksum = _string(item, "evidence_checksum")
+            if _SHA256_PREFIXED.fullmatch(checksum) is None:
+                raise CutoverArtifactSchemaError(
+                    f"scenarios[{index}].evidence_checksum must be sha256:<64 lowercase hex>"
+                )
+            try:
+                scenario = ConsumerScenario(raw_scenario)
+                status = ConsumerScenarioStatus(raw_status)
+            except ValueError as exc:
+                raise CutoverArtifactSchemaError(
+                    f"scenarios[{index}] contains an invalid scenario or status"
+                ) from exc
+            if status is not ConsumerScenarioStatus.PASS:
+                raise CutoverArtifactSchemaError(
+                    f"scenarios[{index}] must be PASS for retirement evidence"
+                )
+            evidence.append(
+                ConsumerScenarioEvidence(
+                    scenario=scenario,
+                    status=status,
+                    source=source,
+                    evidence_checksum=checksum,
+                )
+            )
+
+        try:
+            qualification = ConsumerQualification(tuple(evidence))
+        except CFAFRAConsumerQualificationError as exc:
+            raise CutoverArtifactSchemaError(str(exc)) from exc
+        decision = qualification.evaluate()
+        if not decision.green:
+            raise CutoverArtifactSchemaError(
+                "consumer E2E artifact must contain exactly one PASS for every mandatory scenario"
+            )
+
+        return cls(
+            consumer=_string(payload, "consumer"),
+            observed_at=_utc_timestamp(payload, "observed_at"),
+            environment=_string(payload, "environment"),
+            producer=_string(payload, "producer"),
+            evidence=qualification.evidence(),
+        )
 
 
 @dataclass(frozen=True, slots=True)
@@ -251,7 +342,11 @@ class RegulatoryAuthorityCutoverArtifact:
         )
 
 
-CutoverArtifact = LegacyIdentityMigrationArtifact | RegulatoryAuthorityCutoverArtifact
+CutoverArtifact = (
+    ConsumerE2ECutoverArtifact
+    | LegacyIdentityMigrationArtifact
+    | RegulatoryAuthorityCutoverArtifact
+)
 
 
 def parse_cutover_artifact(
@@ -267,6 +362,8 @@ def parse_cutover_artifact(
         ) from exc
 
     payload = _mapping(raw, "artifact")
+    if key == "consumer_e2e":
+        return ConsumerE2ECutoverArtifact.from_mapping(payload)
     if key == "legacy_identities":
         return LegacyIdentityMigrationArtifact.from_mapping(payload)
     return RegulatoryAuthorityCutoverArtifact.from_mapping(payload)
@@ -276,6 +373,8 @@ __all__ = [
     "CutoverArtifact",
     "CutoverArtifactKey",
     "CutoverArtifactSchemaError",
+    "CONSUMER_E2E_SCHEMA",
+    "ConsumerE2ECutoverArtifact",
     "LEGACY_IDENTITIES_SCHEMA",
     "LegacyIdentityMigrationArtifact",
     "REGULATORY_AUTHORITY_SCHEMA",

@@ -41,8 +41,13 @@ class VerifiedExternalCutoverEvidence:
 class VerifiedLiveCutoverEvidence:
     """Verified external proof set consumed by MIG-13 readiness."""
 
+    consumer_e2e: VerifiedExternalCutoverEvidence
     legacy_identities: VerifiedExternalCutoverEvidence
     regulatory_authority: VerifiedExternalCutoverEvidence
+
+    @property
+    def consumer_e2e_green(self) -> bool:
+        return self.consumer_e2e.green
 
     @property
     def identities_traceable(self) -> bool:
@@ -165,6 +170,11 @@ def verify_live_cutover_evidence(
 ) -> VerifiedLiveCutoverEvidence:
     """Verify every live-cutover proof before exposing retirement booleans."""
     return VerifiedLiveCutoverEvidence(
+        consumer_e2e=verify_external_cutover_evidence(
+            evidence.consumer_e2e,
+            artifact_root=artifact_root,
+            key="consumer_e2e",
+        ),
         legacy_identities=verify_external_cutover_evidence(
             evidence.legacy_identities,
             artifact_root=artifact_root,

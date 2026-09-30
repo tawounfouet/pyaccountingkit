@@ -7,6 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0b19] - 2026-09-30
+
+### Added
+- Live consumer E2E cutover schema `cfa_fra_consumer_e2e_cutover/v1`.
+- Typed `ConsumerE2ECutoverArtifact`.
+- First-class `consumer_e2e` support in generation, verification, promotion and reviewed
+  cutover pipeline planning/application.
+- Consumer E2E source fixture covering all ten mandatory retirement scenarios.
+- Schema, generation, promotion and pipeline qualification tests for live consumer evidence.
+
+### Changed
+- Retirement evidence advances to schema v5 with three external records:
+  `consumer_e2e`, `legacy_identities` and `regulatory_authority`.
+- A live consumer E2E PASS requires exactly one PASS result for every mandatory scenario and a
+  canonical SHA-256 provenance checksum for every scenario.
+- MIG-13 retirement now consumes the verified live `consumer_e2e_green` output from the
+  cutover-evidence job.
+- The bundled Sprint-7 consumer evidence remains a canonical non-regression gate but no longer
+  acts as the live retirement signal.
+- The isolated cutover pipeline CI gate now proves all three external evidence promotions.
+
+### Safety
+- The canonical consumer E2E record remains BLOCKED until real live evidence is supplied.
+- No Sprint-7 blocker is hidden or rewritten; the frozen baseline continues to report its
+  login, controls and closing gaps.
+- No live evidence is fabricated and the canonical MIG-13 decision remains blocked.
+
 ## [0.6.0b18] - 2026-09-30
 
 ### Added

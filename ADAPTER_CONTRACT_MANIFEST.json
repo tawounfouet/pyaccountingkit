@@ -184,5 +184,5 @@
       "reference_adapter": "InMemoryUnitOfWork"
     }
   },
-  "version": "0.6.0b18"
+  "version": "0.6.0b19"
 }

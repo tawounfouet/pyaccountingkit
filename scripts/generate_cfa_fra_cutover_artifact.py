@@ -70,7 +70,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "key",
-        choices=("legacy_identities", "regulatory_authority"),
+        choices=("consumer_e2e", "legacy_identities", "regulatory_authority"),
     )
     parser.add_argument("--source", type=Path, required=True)
     parser.add_argument("--artifact", required=True)

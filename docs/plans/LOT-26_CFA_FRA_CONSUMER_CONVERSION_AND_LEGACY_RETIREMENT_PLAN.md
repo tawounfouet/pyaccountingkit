@@ -252,3 +252,12 @@ the retirement manifest became stale, the artifact already exists without explic
 the digest changed or the promoted manifest differs from the plan. Canonical CI proves both
 identity and regulatory transitions against isolated fixture state without promoting live
 CFA FRA evidence.
+
+
+The `0.6.0b19` slice turns consumer E2E into the third attestable live-cutover artifact.
+The schema requires exactly one PASS for each of the ten Gate Consumer scenarios and a
+canonical provenance checksum per scenario. The frozen Sprint-7 harness remains a baseline
+non-regression gate, while MIG-13 now takes its `consumer_e2e_green` retirement signal from
+verified live evidence. Generation, cryptographic verification, promotion and the reviewed
+plan/apply pipeline all accept `consumer_e2e`; canonical live state remains BLOCKED until
+real consumer evidence is supplied.

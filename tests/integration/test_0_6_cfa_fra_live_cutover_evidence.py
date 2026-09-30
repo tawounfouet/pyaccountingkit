@@ -23,10 +23,10 @@ def _manifest() -> dict[str, object]:
     return json.loads(MANIFEST.read_text(encoding="utf-8"))
 
 
-def test_live_cutover_manifest_uses_verified_schema_v4() -> None:
+def test_live_cutover_manifest_uses_verified_schema_v5() -> None:
     payload = _manifest()
 
-    assert payload["schema_version"] == "4"
+    assert payload["schema_version"] == "5"
     assert payload["routing_profile"] == "target_only"
     external = payload["external_evidence"]
     assert isinstance(external, dict)
@@ -39,6 +39,7 @@ def test_live_cutover_manifest_uses_verified_schema_v4() -> None:
         "sha256_verified": True,
         "content_schema_verified": True,
         "schemas": {
+            "consumer_e2e": "cfa_fra_consumer_e2e_cutover/v1",
             "legacy_identities": "cfa_fra_legacy_identity_migration/v1",
             "regulatory_authority": "cfa_fra_regulatory_authority_cutover/v1",
         },
@@ -48,6 +49,7 @@ def test_live_cutover_manifest_uses_verified_schema_v4() -> None:
         artifact_root=ROOT / artifact_policy["root"],
     )
 
+    assert verified.consumer_e2e_green is False
     assert verified.identities_traceable is False
     assert verified.regulatory_authority_replaced is False
 
@@ -57,7 +59,7 @@ def test_current_external_evidence_is_blocked_not_fabricated() -> None:
     external = payload["external_evidence"]
 
     assert isinstance(external, dict)
-    for key in ("legacy_identities", "regulatory_authority"):
+    for key in ("consumer_e2e", "legacy_identities", "regulatory_authority"):
         record = external[key]
         assert record["status"] == "BLOCKED"
         assert record["reason"]
@@ -92,6 +94,7 @@ def test_passing_external_evidence_requires_full_attestation() -> None:
     with pytest.raises(CutoverArtifactVerificationError):
         verify_live_cutover_evidence(
             LiveCutoverEvidence(
+                consumer_e2e=evidence,
                 legacy_identities=evidence,
                 regulatory_authority=evidence,
             ),
@@ -111,6 +114,7 @@ def test_expected_blockers_match_current_external_evidence_state() -> None:
     )
     blockers = set(payload["expected_blockers"])
 
+    assert ("evidence:consumer-e2e" in blockers) is (not verified.consumer_e2e_green)
     assert ("evidence:legacy-identities" in blockers) is (not verified.identities_traceable)
     assert ("evidence:regulatory-authority" in blockers) is (
         not verified.regulatory_authority_replaced

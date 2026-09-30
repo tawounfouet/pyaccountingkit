@@ -16,7 +16,7 @@ from pyaccountingkit.integrations.cfa_fra import (
 
 def _manifest() -> dict[str, object]:
     return {
-        "schema_version": "4",
+        "schema_version": "5",
         "consumer": "CFA FRA test consumer",
         "routing_profile": "target_only",
         "artifact_policy": {
@@ -25,11 +25,17 @@ def _manifest() -> dict[str, object]:
             "sha256_verified": True,
             "content_schema_verified": True,
             "schemas": {
+                "consumer_e2e": "cfa_fra_consumer_e2e_cutover/v1",
                 "legacy_identities": "cfa_fra_legacy_identity_migration/v1",
                 "regulatory_authority": "cfa_fra_regulatory_authority_cutover/v1",
             },
         },
         "external_evidence": {
+            "consumer_e2e": {
+                "status": "BLOCKED",
+                "source": "live-consumer-cutover",
+                "reason": "consumer E2E not yet proven",
+            },
             "legacy_identities": {
                 "status": "BLOCKED",
                 "source": "live-consumer-cutover",
@@ -45,6 +51,39 @@ def _manifest() -> dict[str, object]:
             "evidence:consumer-e2e",
             "evidence:legacy-identities",
             "evidence:regulatory-authority",
+        ],
+    }
+
+
+def _consumer_payload() -> dict[str, object]:
+    scenarios = (
+        "login",
+        "organization_context",
+        "fec_import",
+        "journal",
+        "ledger",
+        "balance",
+        "financial_statements",
+        "controls",
+        "closing",
+        "exports",
+    )
+    return {
+        "schema": "cfa_fra_consumer_e2e_cutover/v1",
+        "kind": "consumer_e2e_cutover",
+        "consumer": "CFA FRA test consumer",
+        "observed_at": "2026-09-30T16:00:00Z",
+        "environment": "production",
+        "producer": "cfa-fra-live-e2e",
+        "routing_profile": "target_only",
+        "scenarios": [
+            {
+                "scenario": scenario,
+                "status": "PASS",
+                "source": f"live:{scenario}",
+                "evidence_checksum": "sha256:" + ("a" * 64),
+            }
+            for scenario in scenarios
         ],
     }
 
@@ -100,6 +139,28 @@ def _write_json(path: Path, payload: dict[str, object]) -> bytes:
     encoded = (json.dumps(payload, sort_keys=True) + "\n").encode()
     path.write_bytes(encoded)
     return encoded
+
+
+def test_consumer_e2e_promotion_removes_only_consumer_blocker(tmp_path) -> None:
+    artifact = tmp_path / "consumer-e2e.json"
+    _write_json(artifact, _consumer_payload())
+
+    result = promote_cutover_evidence(
+        _manifest(),
+        key="consumer_e2e",
+        artifact_root=tmp_path,
+        artifact=artifact.name,
+        source="live-consumer-cutover",
+        observed_at="2026-09-30T16:00:00Z",
+        producer="cfa-fra-cutover-pipeline",
+    )
+
+    assert result.removed_blocker == "evidence:consumer-e2e"
+    assert result.manifest["external_evidence"]["consumer_e2e"]["status"] == "PASS"
+    assert result.manifest["expected_blockers"] == [
+        "evidence:legacy-identities",
+        "evidence:regulatory-authority",
+    ]
 
 
 def test_promotion_computes_digest_and_removes_only_matching_blocker(tmp_path) -> None:

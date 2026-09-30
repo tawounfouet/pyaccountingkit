@@ -97,7 +97,42 @@ def test_artifact_path_traversal_is_rejected(tmp_path, artifact: str) -> None:
         )
 
 
-def test_live_evidence_is_green_only_after_both_artifacts_verify(tmp_path) -> None:
+def test_live_evidence_is_green_only_after_all_artifacts_verify(tmp_path) -> None:
+    consumer_payload = (
+        json.dumps(
+            {
+                "schema": "cfa_fra_consumer_e2e_cutover/v1",
+                "kind": "consumer_e2e_cutover",
+                "consumer": "CFA FRA",
+                "observed_at": "2026-09-30T12:00:00Z",
+                "environment": "production",
+                "producer": "cfa-fra-live-e2e",
+                "routing_profile": "target_only",
+                "scenarios": [
+                    {
+                        "scenario": scenario,
+                        "status": "PASS",
+                        "source": f"live:{scenario}",
+                        "evidence_checksum": "sha256:" + ("a" * 64),
+                    }
+                    for scenario in [
+                        "login",
+                        "organization_context",
+                        "fec_import",
+                        "journal",
+                        "ledger",
+                        "balance",
+                        "financial_statements",
+                        "controls",
+                        "closing",
+                        "exports",
+                    ]
+                ],
+            },
+            sort_keys=True,
+        )
+        + "\n"
+    ).encode()
     identity_payload = (
         json.dumps(
             {
@@ -151,11 +186,16 @@ def test_live_evidence_is_green_only_after_both_artifacts_verify(tmp_path) -> No
         )
         + "\n"
     ).encode()
+    (tmp_path / "consumer-e2e.json").write_bytes(consumer_payload)
     (tmp_path / "identities.json").write_bytes(identity_payload)
     (tmp_path / "authority.json").write_bytes(authority_payload)
 
     verified = verify_live_cutover_evidence(
         LiveCutoverEvidence(
+            consumer_e2e=_passing(
+                artifact="consumer-e2e.json",
+                payload=consumer_payload,
+            ),
             legacy_identities=_passing(
                 artifact="identities.json",
                 payload=identity_payload,
@@ -168,6 +208,7 @@ def test_live_evidence_is_green_only_after_both_artifacts_verify(tmp_path) -> No
         artifact_root=tmp_path,
     )
 
+    assert verified.consumer_e2e_green is True
     assert verified.identities_traceable is True
     assert verified.regulatory_authority_replaced is True
 
@@ -181,6 +222,7 @@ def test_live_verification_rejects_checksum_valid_but_semantically_wrong_artifac
     with pytest.raises(CutoverArtifactVerificationError):
         verify_live_cutover_evidence(
             LiveCutoverEvidence(
+                consumer_e2e=_blocked(),
                 legacy_identities=_passing(
                     artifact="identities.json",
                     payload=payload,

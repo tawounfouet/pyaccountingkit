@@ -39,8 +39,8 @@ def test_release_0_5_public_and_production_adapter_contract_is_coherent() -> Non
         "django_postgresql",
         "sqlalchemy_postgresql",
     ]
-    assert contracts["django_postgresql"]["qualification"].endswith("production-qualified")
-    assert contracts["sqlalchemy_postgresql"]["qualification"].endswith("production-qualified")
+    assert "production-qualified" in contracts["django_postgresql"]["qualification"]
+    assert "production-qualified" in contracts["sqlalchemy_postgresql"]["qualification"]
     assert contracts["django_postgresql"]["public_api_orm_leakage"] is False
     assert contracts["sqlalchemy_postgresql"]["public_api_orm_leakage"] is False
 

@@ -124,9 +124,7 @@ def test_statement_target_route_preserves_signature_but_uses_explicit_public_inp
     date_parameter: str,
 ) -> None:
     bridge, target, legacy = _bridge(
-        MigrationRouting(
-            read_routes={"financial_statements": ReadBackend.PYACCOUNTINGKIT}
-        )
+        MigrationRouting(read_routes={"financial_statements": ReadBackend.PYACCOUNTINGKIT})
     )
     organization = _LegacyObject("org-1")
     fiscal_year = _LegacyObject("fy-2026")
@@ -183,9 +181,7 @@ def test_statement_target_route_requires_explicit_parameter_factory() -> None:
         legacy_accounting=None,
         legacy_imports=None,
         legacy_reporting=None,
-        routing=MigrationRouting(
-            read_routes={"financial_statements": ReadBackend.PYACCOUNTINGKIT}
-        ),
+        routing=MigrationRouting(read_routes={"financial_statements": ReadBackend.PYACCOUNTINGKIT}),
         context_factory=_context,
         identities=LegacyIdentityMap(),
     )
@@ -215,9 +211,7 @@ def test_statement_parameter_factory_cannot_leak_legacy_objects() -> None:
         }
 
     bridge, target, _ = _bridge(
-        MigrationRouting(
-            read_routes={"financial_statements": ReadBackend.PYACCOUNTINGKIT}
-        ),
+        MigrationRouting(read_routes={"financial_statements": ReadBackend.PYACCOUNTINGKIT}),
         parameter_factory=unsafe_factory,
     )
 
@@ -247,9 +241,7 @@ def test_statement_parameter_factory_cannot_override_context_or_statement_kind()
         }
 
     bridge, _, _ = _bridge(
-        MigrationRouting(
-            read_routes={"financial_statements": ReadBackend.PYACCOUNTINGKIT}
-        ),
+        MigrationRouting(read_routes={"financial_statements": ReadBackend.PYACCOUNTINGKIT}),
         parameter_factory=context_factory,
     )
     with pytest.raises(CFAFRAConsumerMappingError, match="must not override"):
@@ -269,9 +261,7 @@ def test_statement_parameter_factory_cannot_override_context_or_statement_kind()
         return {"statement": "balance_sheet", "source": {}, "mapping_set": {}}
 
     bridge, _, _ = _bridge(
-        MigrationRouting(
-            read_routes={"financial_statements": ReadBackend.PYACCOUNTINGKIT}
-        ),
+        MigrationRouting(read_routes={"financial_statements": ReadBackend.PYACCOUNTINGKIT}),
         parameter_factory=wrong_statement_factory,
     )
     with pytest.raises(CFAFRAConsumerMappingError, match="expected 'income_statement'"):

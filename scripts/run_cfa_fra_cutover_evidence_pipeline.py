@@ -67,11 +67,16 @@ def _apply(args: argparse.Namespace) -> int:
     manifest_path = args.manifest.resolve()
     manifest = _load_mapping(manifest_path)
     plan = pipeline_plan_from_mapping(_load_mapping(args.plan))
+    artifact_root = (
+        args.artifact_root.resolve()
+        if args.artifact_root is not None
+        else _artifact_root(manifest)
+    )
     promotion = apply_cutover_evidence_pipeline(
         plan,
         current_manifest=manifest,
         manifest_path=manifest_path,
-        artifact_root=_artifact_root(manifest),
+        artifact_root=artifact_root,
         overwrite_artifact=args.overwrite_artifact,
     )
     print(f"Applied evidence plan: {plan.key}")
@@ -84,6 +89,7 @@ def _apply(args: argparse.Namespace) -> int:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
+    parser.add_argument("--artifact-root", type=Path)
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     plan = subparsers.add_parser("plan")

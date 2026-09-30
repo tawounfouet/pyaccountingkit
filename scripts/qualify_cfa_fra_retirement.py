@@ -13,7 +13,6 @@ from typing import cast
 from pyaccountingkit.integrations.cfa_fra import (
     LegacyRetirementEvidence,
     LegacyRetirementGate,
-    LiveCutoverEvidence,
     MigrationRouting,
 )
 
@@ -41,28 +40,22 @@ def _job_green(result: str) -> bool:
     return result.strip().lower() == "success"
 
 
-def _external_evidence(manifest: Mapping[str, object]) -> LiveCutoverEvidence:
-    raw_external = manifest.get("external_evidence")
-    if not isinstance(raw_external, dict):
-        raise ValueError("retirement manifest must define external_evidence")
-    return LiveCutoverEvidence.from_mapping(raw_external)
-
-
 def qualify(
     *,
     test_result: str,
     django_adapter_result: str,
     sqlalchemy_adapter_result: str,
     consumer_e2e_green: bool,
+    identities_traceable: bool,
+    regulatory_authority_replaced: bool,
     output: Path | None = None,
 ) -> int:
     manifest = _load_manifest()
-    if manifest.get("schema_version") != "2":
-        raise ValueError("MIG-13 retirement evidence must use schema_version='2'")
+    if manifest.get("schema_version") != "3":
+        raise ValueError("MIG-13 retirement evidence must use schema_version='3'")
     if manifest.get("routing_profile") != "target_only":
         raise ValueError("MIG-13 retirement requires routing_profile='target_only'")
 
-    live_evidence = _external_evidence(manifest)
     routing = MigrationRouting.target_only()
     if not routing.is_target_only():
         raise RuntimeError("target-only routing profile unexpectedly exposes legacy paths")
@@ -73,8 +66,8 @@ def qualify(
             _job_green(django_adapter_result) and _job_green(sqlalchemy_adapter_result)
         ),
         consumer_e2e_green=consumer_e2e_green,
-        identities_traceable=live_evidence.identities_traceable,
-        regulatory_authority_replaced=live_evidence.regulatory_authority_replaced,
+        identities_traceable=identities_traceable,
+        regulatory_authority_replaced=regulatory_authority_replaced,
     )
     decision = LegacyRetirementGate().evaluate(routing, evidence)
 
@@ -131,6 +124,8 @@ def main() -> int:
     parser.add_argument("--django-adapter-result", required=True)
     parser.add_argument("--sqlalchemy-adapter-result", required=True)
     parser.add_argument("--consumer-e2e-green", required=True)
+    parser.add_argument("--identities-traceable", required=True)
+    parser.add_argument("--regulatory-authority-replaced", required=True)
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
     return qualify(
@@ -138,6 +133,8 @@ def main() -> int:
         django_adapter_result=args.django_adapter_result,
         sqlalchemy_adapter_result=args.sqlalchemy_adapter_result,
         consumer_e2e_green=_parse_bool(args.consumer_e2e_green),
+        identities_traceable=_parse_bool(args.identities_traceable),
+        regulatory_authority_replaced=_parse_bool(args.regulatory_authority_replaced),
         output=args.output,
     )
 

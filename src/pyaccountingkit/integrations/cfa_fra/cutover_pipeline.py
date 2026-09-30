@@ -44,6 +44,9 @@ class CutoverEvidencePipelinePlan:
     artifact_sha256: str
     source_manifest_sha256: str
     removed_blocker: str
+    evidence_source: str
+    observed_at: str
+    producer: str
     candidate_manifest: dict[str, object]
 
 
@@ -121,7 +124,75 @@ def plan_cutover_evidence_pipeline(
         artifact_sha256=promotion.evidence.sha256 or "",
         source_manifest_sha256=manifest_sha256(manifest),
         removed_blocker=promotion.removed_blocker,
+        evidence_source=evidence_source,
+        observed_at=observed_at,
+        producer=producer,
         candidate_manifest=promotion.manifest,
+    )
+
+
+def pipeline_plan_payload(plan: CutoverEvidencePipelinePlan) -> dict[str, object]:
+    """Serialize one reviewed plan for a separate apply step."""
+    return {
+        "schema_version": "1",
+        "key": plan.key,
+        "artifact": plan.artifact,
+        "artifact_payload": plan.artifact_payload,
+        "artifact_sha256": plan.artifact_sha256,
+        "source_manifest_sha256": plan.source_manifest_sha256,
+        "removed_blocker": plan.removed_blocker,
+        "evidence_source": plan.evidence_source,
+        "observed_at": plan.observed_at,
+        "producer": plan.producer,
+        "candidate_manifest": plan.candidate_manifest,
+    }
+
+
+def pipeline_plan_from_mapping(payload: Mapping[str, object]) -> CutoverEvidencePipelinePlan:
+    """Load and validate a serialized pipeline plan."""
+    if payload.get("schema_version") != "1":
+        raise CutoverEvidencePipelineError("cutover pipeline plan must use schema_version='1'")
+
+    key = payload.get("key")
+    if key not in {"legacy_identities", "regulatory_authority"}:
+        raise CutoverEvidencePipelineError("cutover pipeline plan has an invalid evidence key")
+
+    string_fields = (
+        "artifact",
+        "artifact_payload",
+        "artifact_sha256",
+        "source_manifest_sha256",
+        "removed_blocker",
+        "evidence_source",
+        "observed_at",
+        "producer",
+    )
+    values: dict[str, str] = {}
+    for field in string_fields:
+        value = payload.get(field)
+        if not isinstance(value, str) or not value:
+            raise CutoverEvidencePipelineError(
+                f"cutover pipeline plan field {field!r} must be a non-empty string"
+            )
+        values[field] = value
+
+    candidate = payload.get("candidate_manifest")
+    if not isinstance(candidate, dict):
+        raise CutoverEvidencePipelineError(
+            "cutover pipeline plan candidate_manifest must be a JSON object"
+        )
+
+    return CutoverEvidencePipelinePlan(
+        key=cast(CutoverArtifactKey, key),
+        artifact=values["artifact"],
+        artifact_payload=values["artifact_payload"],
+        artifact_sha256=values["artifact_sha256"],
+        source_manifest_sha256=values["source_manifest_sha256"],
+        removed_blocker=values["removed_blocker"],
+        evidence_source=values["evidence_source"],
+        observed_at=values["observed_at"],
+        producer=values["producer"],
+        candidate_manifest=cast(dict[str, object], candidate),
     )
 
 
@@ -151,9 +222,6 @@ def apply_cutover_evidence_pipeline(
     current_manifest: Mapping[str, object],
     manifest_path: Path,
     artifact_root: Path,
-    evidence_source: str,
-    observed_at: str,
-    producer: str,
     overwrite_artifact: bool = False,
 ) -> CutoverEvidencePromotion:
     """Apply a previously reviewed plan with stale-plan and overwrite protection."""
@@ -181,9 +249,9 @@ def apply_cutover_evidence_pipeline(
             key=plan.key,
             artifact_root=staging_root,
             artifact=plan.artifact,
-            source=evidence_source,
-            observed_at=observed_at,
-            producer=producer,
+            source=plan.evidence_source,
+            observed_at=plan.observed_at,
+            producer=plan.producer,
         )
 
     planned_external = cast(
@@ -220,5 +288,7 @@ __all__ = [
     "CutoverEvidencePipelinePlan",
     "apply_cutover_evidence_pipeline",
     "manifest_sha256",
+    "pipeline_plan_from_mapping",
+    "pipeline_plan_payload",
     "plan_cutover_evidence_pipeline",
 ]

@@ -38,6 +38,7 @@ def _green_evidence(**overrides: bool) -> LegacyRetirementEvidence:
         "production_adapters_green": True,
         "consumer_e2e_green": True,
         "identities_traceable": True,
+        "regulatory_authority_replaced": True,
     }
     values.update(overrides)
     return LegacyRetirementEvidence(**values)
@@ -72,6 +73,16 @@ def test_retirement_is_blocked_when_consumer_e2e_is_not_green() -> None:
         LegacyRetirementGate().require_ready(routing, evidence)
 
     assert raised.value.blockers == ("evidence:consumer-e2e",)
+
+
+def test_retirement_is_blocked_until_regulatory_authority_is_replaced() -> None:
+    routing = _all_target_routing()
+    evidence = _green_evidence(regulatory_authority_replaced=False)
+
+    decision = LegacyRetirementGate().evaluate(routing, evidence)
+
+    assert decision.ready is False
+    assert decision.blockers == ("evidence:regulatory-authority",)
 
 
 def test_retirement_is_allowed_only_after_routes_and_all_evidence_are_green() -> None:

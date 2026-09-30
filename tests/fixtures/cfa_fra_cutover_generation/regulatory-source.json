@@ -1,0 +1,20 @@
+{
+  "consumer": "CFA FRA generation test consumer",
+  "observed_at": "2026-09-30T13:00:00Z",
+  "provider": {
+    "name": "PyAccountingKit",
+    "version": "0.6.0b17"
+  },
+  "routing_profile": "target_only",
+  "local_framework_account_authority": false,
+  "local_seed_commands_authoritative": false,
+  "effective_plan_delegated": true,
+  "sample_resolutions": [
+    {
+      "standard_id": "SYSCOHADA",
+      "edition": "2017",
+      "reference_key": "101000",
+      "target_reference_id": "reference-101000"
+    }
+  ]
+}

@@ -33,6 +33,10 @@ ConsumerContextFactory = Callable[
     [object, Mapping[str, object] | None],
     CommandContext,
 ]
+StatementTargetParametersFactory = Callable[
+    [str, object, object, object | None, bool],
+    Mapping[str, object],
+]
 
 
 def _legacy_object_id(value: object) -> str:
@@ -58,11 +62,13 @@ class CFAFRADjangoConsumerBridge:
         "_legacy_accounting",
         "_legacy_imports",
         "_legacy_reporting",
+        "_legacy_statements",
         "_routing",
         "_context_factory",
         "_identities",
         "_comparator",
         "_observation_sink",
+        "_statement_parameters_factory",
     )
 
     def __init__(
@@ -72,21 +78,25 @@ class CFAFRADjangoConsumerBridge:
         legacy_accounting: object | None,
         legacy_imports: object | None,
         legacy_reporting: object | None,
+        legacy_statements: object | None = None,
         routing: MigrationRouting,
         context_factory: ConsumerContextFactory,
         identities: LegacyIdentityStoreProtocol,
         comparator: DualRunComparator = lambda legacy, target: legacy == target,
         observation_sink: ObservationSink = lambda observation: None,
+        statement_parameters_factory: StatementTargetParametersFactory | None = None,
     ) -> None:
         self._application = application
         self._legacy_accounting = legacy_accounting
         self._legacy_imports = legacy_imports
         self._legacy_reporting = legacy_reporting
+        self._legacy_statements = legacy_statements
         self._routing = routing
         self._context_factory = context_factory
         self._identities = identities
         self._comparator = comparator
         self._observation_sink = observation_sink
+        self._statement_parameters_factory = statement_parameters_factory
 
     def post_journal_entry(
         self,
@@ -233,6 +243,201 @@ class CFAFRADjangoConsumerBridge:
             return legacy_result
         return target_result
 
+    def build_income_statement(
+        self,
+        *,
+        organization: object,
+        fiscal_year: object,
+        end_date: object | None = None,
+        include_comparative: bool = True,
+        user: object | None = None,
+        audit_metadata: Mapping[str, object] | None = None,
+    ) -> object:
+        """Preserve the Sprint-6 income-statement service signature."""
+        return self._statement_read(
+            legacy_operation="build_income_statement",
+            statement="income_statement",
+            organization=organization,
+            fiscal_year=fiscal_year,
+            cutoff=end_date,
+            cutoff_parameter="end_date",
+            include_comparative=include_comparative,
+            user=user,
+            audit_metadata=audit_metadata,
+        )
+
+    def build_balance_sheet(
+        self,
+        *,
+        organization: object,
+        fiscal_year: object,
+        as_of_date: object | None = None,
+        include_comparative: bool = True,
+        user: object | None = None,
+        audit_metadata: Mapping[str, object] | None = None,
+    ) -> object:
+        """Preserve the Sprint-6 balance-sheet service signature."""
+        return self._statement_read(
+            legacy_operation="build_balance_sheet",
+            statement="balance_sheet",
+            organization=organization,
+            fiscal_year=fiscal_year,
+            cutoff=as_of_date,
+            cutoff_parameter="as_of_date",
+            include_comparative=include_comparative,
+            user=user,
+            audit_metadata=audit_metadata,
+        )
+
+    def build_cash_flow_statement(
+        self,
+        *,
+        organization: object,
+        fiscal_year: object,
+        end_date: object | None = None,
+        include_comparative: bool = True,
+        user: object | None = None,
+        audit_metadata: Mapping[str, object] | None = None,
+    ) -> object:
+        """Preserve the Sprint-6 cash-flow service signature."""
+        return self._statement_read(
+            legacy_operation="build_cash_flow_statement",
+            statement="cash_flow",
+            organization=organization,
+            fiscal_year=fiscal_year,
+            cutoff=end_date,
+            cutoff_parameter="end_date",
+            include_comparative=include_comparative,
+            user=user,
+            audit_metadata=audit_metadata,
+        )
+
+    def _statement_read(
+        self,
+        *,
+        legacy_operation: str,
+        statement: str,
+        organization: object,
+        fiscal_year: object,
+        cutoff: object | None,
+        cutoff_parameter: str,
+        include_comparative: bool,
+        user: object | None,
+        audit_metadata: Mapping[str, object] | None,
+    ) -> object:
+        legacy_parameters: dict[str, object] = {
+            "organization": organization,
+            "fiscal_year": fiscal_year,
+            "include_comparative": include_comparative,
+        }
+        if cutoff is not None:
+            legacy_parameters[cutoff_parameter] = cutoff
+
+        backend = self._routing.read_backend_for("financial_statements")
+        if "financial_statements" not in self._routing.dual_run_reads:
+            if backend is ReadBackend.LEGACY:
+                return self._legacy_call(
+                    self._legacy_statements,
+                    legacy_operation,
+                    **legacy_parameters,
+                )
+            return self._target_statement(
+                statement=statement,
+                organization=organization,
+                fiscal_year=fiscal_year,
+                cutoff=cutoff,
+                include_comparative=include_comparative,
+                user=user,
+                audit_metadata=audit_metadata,
+            )
+
+        legacy_result = self._legacy_call(
+            self._legacy_statements,
+            legacy_operation,
+            **legacy_parameters,
+        )
+        target_result = self._target_statement(
+            statement=statement,
+            organization=organization,
+            fiscal_year=fiscal_year,
+            cutoff=cutoff,
+            include_comparative=include_comparative,
+            user=user,
+            audit_metadata=audit_metadata,
+        )
+        self._observation_sink(
+            DualRunObservation(
+                operation="financial_statements",
+                primary_backend=backend,
+                matched=self._comparator(legacy_result, target_result),
+            )
+        )
+        if backend is ReadBackend.LEGACY:
+            return legacy_result
+        return target_result
+
+    def _target_statement(
+        self,
+        *,
+        statement: str,
+        organization: object,
+        fiscal_year: object,
+        cutoff: object | None,
+        include_comparative: bool,
+        user: object | None,
+        audit_metadata: Mapping[str, object] | None,
+    ) -> object:
+        factory = self._statement_parameters_factory
+        if factory is None:
+            raise CFAFRAConsumerMappingError(
+                "target financial-statement routing requires a statement parameter factory"
+            )
+        parameters = dict(
+            factory(
+                statement,
+                organization,
+                fiscal_year,
+                cutoff,
+                include_comparative,
+            )
+        )
+        if "context" in parameters:
+            raise CFAFRAConsumerMappingError(
+                "statement parameter factory must not override CommandContext"
+            )
+        configured_statement = parameters.setdefault("statement", statement)
+        if configured_statement != statement:
+            raise CFAFRAConsumerMappingError(
+                f"statement parameter factory returned {configured_statement!r}, "
+                f"expected {statement!r}"
+            )
+        self._reject_legacy_inputs(
+            parameters,
+            forbidden=(organization, fiscal_year),
+        )
+        return self._application.statements.build(
+            **parameters,
+            context=self._context_factory(user, audit_metadata),
+        )
+
+    @classmethod
+    def _reject_legacy_inputs(
+        cls,
+        value: object,
+        *,
+        forbidden: tuple[object, ...],
+    ) -> None:
+        if any(value is item for item in forbidden):
+            raise CFAFRAConsumerMappingError(
+                "statement parameter factory leaked a legacy consumer object"
+            )
+        if isinstance(value, Mapping):
+            for item in value.values():
+                cls._reject_legacy_inputs(item, forbidden=forbidden)
+        elif isinstance(value, (tuple, list, set, frozenset)):
+            for item in value:
+                cls._reject_legacy_inputs(item, forbidden=forbidden)
+
     def _target_trial_balance(
         self,
         *,
@@ -287,4 +492,5 @@ __all__ = [
     "CFAFRAConsumerMappingError",
     "CFAFRADjangoConsumerBridge",
     "ConsumerContextFactory",
+    "StatementTargetParametersFactory",
 ]

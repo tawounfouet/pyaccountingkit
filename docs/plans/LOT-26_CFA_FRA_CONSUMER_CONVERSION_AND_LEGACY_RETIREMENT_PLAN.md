@@ -114,9 +114,10 @@ Conflicting remaps fail closed. Re-registering the exact same mapping is idempot
 - switch regulatory lookup to provider-backed public references;
 - add consumer E2E/smoke evidence.
 
-The first `0.6.0b2` slice covers actual posting, reversal, FEC execution and trial-balance
-selector signatures. Financial statements follow only after their explicit public source and
-mapping-set dependencies can be supplied without fabricating a translation.
+The `0.6.0b2` slice covers actual posting, reversal, FEC execution and trial-balance selector
+signatures. The `0.6.0b3` slice adds the real Sprint-6 financial-statement signatures through
+an explicit `StatementTargetParametersFactory`: the consumer must supply canonical source and
+mapping-set inputs, and legacy ORM objects are rejected if they leak back into the public call.
 
 ### L26-C — retirement
 

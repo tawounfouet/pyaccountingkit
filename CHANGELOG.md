@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0b3] - 2026-09-30
+
+### Added
+- CFA FRA financial-statement consumer conversion for the real Sprint-6 signatures:
+  `build_income_statement`, `build_balance_sheet` and `build_cash_flow_statement`.
+- `StatementTargetParametersFactory` requiring the consumer to supply explicit public
+  statement inputs such as canonical entity identity, trial-balance source and mapping set.
+- Fail-closed guards preventing the parameter factory from leaking legacy organization/fiscal
+  year objects, overriding `CommandContext` or changing the requested statement kind.
+- Read-side financial-statement dual-run using the same shadow-only observation model as ledger
+  migration.
+
+### Boundaries
+- The bridge does not infer or fabricate a statement source or mapping set from Django ORM state.
+- The consumer remains responsible for assembling those explicit target-side dependencies.
+- The frozen CFA FRA Sprint-7 oracle remains unchanged.
+
 ## [0.6.0b2] - 2026-09-30
 
 ### Added

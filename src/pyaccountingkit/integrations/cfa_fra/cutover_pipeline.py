@@ -197,7 +197,7 @@ def pipeline_plan_from_mapping(payload: Mapping[str, object]) -> CutoverEvidence
         raise CutoverEvidencePipelineError("cutover pipeline plan must use schema_version='1'")
 
     key = payload.get("key")
-    if key not in {"legacy_identities", "regulatory_authority"}:
+    if key not in {"consumer_e2e", "legacy_identities", "regulatory_authority"}:
         raise CutoverEvidencePipelineError("cutover pipeline plan has an invalid evidence key")
 
     string_fields = (

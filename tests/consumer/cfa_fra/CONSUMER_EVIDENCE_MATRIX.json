@@ -64,7 +64,7 @@
     {
       "scenario": "closing",
       "mode": "blocked",
-      "reason": "Sprint 7 contains only the closing placeholder; the executable Regulatory Controls & Closing Package is scheduled for Sprint 8."
+      "reason": "Sprint 7 contains ClosingRun persistence placeholders but no executable closing service; PyAccountingKit now provides a target-only closing consumer bridge, but the frozen consumer is not delegated through it."
     },
     {
       "scenario": "exports",

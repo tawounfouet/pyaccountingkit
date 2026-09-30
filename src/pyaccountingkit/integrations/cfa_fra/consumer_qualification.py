@@ -82,7 +82,8 @@ class ConsumerQualification:
         self._evidence = by_scenario
 
     def evidence(self) -> tuple[ConsumerScenarioEvidence, ...]:
-        return tuple(self._evidence[key] for key in sorted(self._evidence, key=lambda item: item.value))
+        ordered = sorted(self._evidence, key=lambda item: item.value)
+        return tuple(self._evidence[key] for key in ordered)
 
     def evaluate(self) -> ConsumerQualificationDecision:
         present = set(self._evidence)

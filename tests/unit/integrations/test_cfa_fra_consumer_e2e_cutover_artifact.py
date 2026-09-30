@@ -74,9 +74,7 @@ def test_consumer_e2e_artifact_requires_all_ten_live_passes() -> None:
 @pytest.mark.parametrize("missing", ["login", "controls", "closing"])
 def test_consumer_e2e_artifact_rejects_missing_scenario(missing: str) -> None:
     payload = _payload()
-    payload["scenarios"] = [
-        item for item in _scenarios() if item["scenario"] != missing
-    ]
+    payload["scenarios"] = [item for item in _scenarios() if item["scenario"] != missing]
 
     with pytest.raises(CutoverArtifactSchemaError, match="exactly one PASS"):
         ConsumerE2ECutoverArtifact.from_mapping(payload)

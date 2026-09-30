@@ -101,9 +101,7 @@ def attest_external_cutover_artifact(
     )
     verified = verify_external_cutover_evidence(evidence, artifact_root=artifact_root)
     if not verified.green:
-        raise CutoverArtifactVerificationError(
-            "freshly attested cutover artifact did not verify"
-        )
+        raise CutoverArtifactVerificationError("freshly attested cutover artifact did not verify")
     return evidence
 
 

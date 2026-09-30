@@ -23,10 +23,10 @@ def _manifest() -> dict[str, object]:
     return json.loads(MANIFEST.read_text(encoding="utf-8"))
 
 
-def test_live_cutover_manifest_uses_verified_schema_v3() -> None:
+def test_live_cutover_manifest_uses_verified_schema_v4() -> None:
     payload = _manifest()
 
-    assert payload["schema_version"] == "3"
+    assert payload["schema_version"] == "4"
     assert payload["routing_profile"] == "target_only"
     external = payload["external_evidence"]
     assert isinstance(external, dict)
@@ -37,6 +37,11 @@ def test_live_cutover_manifest_uses_verified_schema_v3() -> None:
         "root": "tests/consumer/cfa_fra/live_evidence",
         "require_local_materialization": True,
         "sha256_verified": True,
+        "content_schema_verified": True,
+        "schemas": {
+            "legacy_identities": "cfa_fra_legacy_identity_migration/v1",
+            "regulatory_authority": "cfa_fra_regulatory_authority_cutover/v1",
+        },
     }
     verified = verify_live_cutover_evidence(
         evidence,

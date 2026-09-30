@@ -51,8 +51,8 @@ def qualify(
     output: Path | None = None,
 ) -> int:
     manifest = _load_manifest()
-    if manifest.get("schema_version") != "4":
-        raise ValueError("MIG-13 retirement evidence must use schema_version='4'")
+    if manifest.get("schema_version") != "5":
+        raise ValueError("MIG-13 retirement evidence must use schema_version='5'")
     if manifest.get("routing_profile") != "target_only":
         raise ValueError("MIG-13 retirement requires routing_profile='target_only'")
 

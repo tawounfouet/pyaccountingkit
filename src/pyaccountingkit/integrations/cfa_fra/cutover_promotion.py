@@ -94,13 +94,6 @@ def promote_cutover_evidence(
     if current_evidence.status is CutoverEvidenceStatus.PASS:
         raise ValueError(f"cutover evidence record {key!r} is already PASS")
 
-    artifact_path = resolve_cutover_artifact_path(artifact_root, artifact)
-    parsed_artifact = parse_cutover_artifact(key, artifact_path)
-    if parsed_artifact.consumer != consumer:
-        raise ValueError(
-            "cutover artifact consumer must match the retirement evidence consumer"
-        )
-
     evidence = attest_external_cutover_artifact(
         key=key,
         artifact=artifact,
@@ -109,6 +102,13 @@ def promote_cutover_evidence(
         observed_at=observed_at,
         producer=producer,
     )
+
+    artifact_path = resolve_cutover_artifact_path(artifact_root, artifact)
+    parsed_artifact = parse_cutover_artifact(key, artifact_path)
+    if parsed_artifact.consumer != consumer:
+        raise ValueError(
+            "cutover artifact consumer must match the retirement evidence consumer"
+        )
 
     promoted = deepcopy(dict(manifest))
     promoted_external = cast(dict[str, object], promoted["external_evidence"])

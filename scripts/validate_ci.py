@@ -38,6 +38,7 @@ def validate_ci_text(text: str) -> list[str]:
             "sqlalchemy-postgresql:\n",
             "consumer-evidence:\n",
             "retirement-inventory:\n",
+            "cutover-evidence:\n",
             "retirement-readiness:\n",
             "release-qualification:\n",
             "ci-gate:\n",
@@ -58,14 +59,15 @@ def validate_ci_text(text: str) -> list[str]:
             "python scripts/qualify_cfa_fra_consumer.py",
             "consumer_e2e_green: ${{ steps.consumer-state.outputs.consumer_e2e_green }}",
             "python scripts/validate_cfa_fra_retirement_inventory.py",
+            "python scripts/validate_cfa_fra_cutover_evidence.py",
             "python scripts/qualify_cfa_fra_retirement.py",
             "resources/cfa_fra_django_mvp_sprint_7/pyproject.toml",
             "python scripts/qualify_release.py --release-candidate",
             "startsWith(github.head_ref, 'release/')",
             (
                 "[quality, test, package, postgresql, sqlalchemy-postgresql, "
-                "consumer-evidence, retirement-inventory, retirement-readiness, "
-                "release-qualification]"
+                "consumer-evidence, retirement-inventory, cutover-evidence, "
+                "retirement-readiness, release-qualification]"
             ),
             "if: ${{ always() }}",
             "QUALITY_RESULT: ${{ needs.quality.result }}",
@@ -75,19 +77,20 @@ def validate_ci_text(text: str) -> list[str]:
             "SQLALCHEMY_POSTGRESQL_RESULT: ${{ needs.sqlalchemy-postgresql.result }}",
             "CONSUMER_EVIDENCE_RESULT: ${{ needs.consumer-evidence.result }}",
             "RETIREMENT_INVENTORY_RESULT: ${{ needs.retirement-inventory.result }}",
+            "CUTOVER_EVIDENCE_RESULT: ${{ needs.cutover-evidence.result }}",
             "RETIREMENT_READINESS_RESULT: ${{ needs.retirement-readiness.result }}",
             "RELEASE_QUALIFICATION_RESULT: ${{ needs.release-qualification.result }}",
         ),
         label="CI",
     )
 
-    if text.count("actions/checkout@v7") != 9:
-        violations.append("CI: expected exactly nine actions/checkout@v7 uses")
-    if text.count("actions/setup-python@v7") != 9:
-        violations.append("CI: expected exactly nine actions/setup-python@v7 uses")
-    if text.count("cache: pip") != 9:
+    if text.count("actions/checkout@v7") != 10:
+        violations.append("CI: expected exactly ten actions/checkout@v7 uses")
+    if text.count("actions/setup-python@v7") != 10:
+        violations.append("CI: expected exactly ten actions/setup-python@v7 uses")
+    if text.count("cache: pip") != 10:
         violations.append("CI: every Python execution job must enable pip cache")
-    if text.count("cache-dependency-path:") != 9:
+    if text.count("cache-dependency-path:") != 10:
         violations.append("CI: every Python execution job must define a pip cache key")
     if text.count("python scripts/verify_package.py") != 1:
         violations.append("CI: package verification must execute exactly once")
@@ -164,14 +167,15 @@ def main() -> int:
     print("CI workflow validation: PASS")
     print(
         "Canonical jobs: quality, test, package, postgresql, sqlalchemy-postgresql, "
-        "consumer-evidence, retirement-inventory, retirement-readiness, "
-        "release-qualification, ci-gate"
+        "consumer-evidence, retirement-inventory, cutover-evidence, "
+        "retirement-readiness, release-qualification, ci-gate"
     )
     print("Supported Python matrix: 3.11, 3.12, 3.13")
     print("Qualified suites: unit, property, contract, integration, golden, replay, concurrency")
     print("Production adapter gates: Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16")
     print("Consumer gate: bundled CFA FRA Sprint-7 executable evidence")
     print("Retirement inventory: live-consumer deletion/rewire/migration classification")
+    print("Cutover evidence: attestable external identity/reference proofs")
     print("Retirement gate: MIG-13 readiness with explicit blocker evidence")
     print("Security jobs: audit, sast")
     return 0

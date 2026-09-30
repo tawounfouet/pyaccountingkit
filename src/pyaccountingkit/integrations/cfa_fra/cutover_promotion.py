@@ -9,7 +9,10 @@ from pathlib import Path
 from typing import cast
 
 from pyaccountingkit.integrations.cfa_fra.cutover_artifact_schema import (
+    LEGACY_IDENTITIES_SCHEMA,
+    REGULATORY_AUTHORITY_SCHEMA,
     CutoverArtifactKey,
+    parse_cutover_artifact,
 )
 from pyaccountingkit.integrations.cfa_fra.cutover_evidence import (
     CutoverEvidenceStatus,
@@ -18,6 +21,7 @@ from pyaccountingkit.integrations.cfa_fra.cutover_evidence import (
 )
 from pyaccountingkit.integrations.cfa_fra.cutover_verification import (
     attest_external_cutover_artifact,
+    resolve_cutover_artifact_path,
     verify_live_cutover_evidence,
 )
 
@@ -61,6 +65,23 @@ def promote_cutover_evidence(
     if manifest.get("routing_profile") != "target_only":
         raise ValueError("cutover evidence promotion requires target_only routing")
 
+    raw_policy = manifest.get("artifact_policy")
+    if not isinstance(raw_policy, dict):
+        raise ValueError("cutover evidence promotion requires artifact_policy")
+    policy = cast(Mapping[str, object], raw_policy)
+    if policy.get("content_schema_verified") is not True:
+        raise ValueError("cutover evidence promotion requires content-schema verification")
+    expected_schemas = {
+        "legacy_identities": LEGACY_IDENTITIES_SCHEMA,
+        "regulatory_authority": REGULATORY_AUTHORITY_SCHEMA,
+    }
+    if policy.get("schemas") != expected_schemas:
+        raise ValueError("cutover evidence promotion requires qualified artifact schemas")
+
+    consumer = manifest.get("consumer")
+    if not isinstance(consumer, str) or not consumer.strip():
+        raise ValueError("cutover evidence promotion requires a consumer identity")
+
     raw_external = manifest.get("external_evidence")
     if not isinstance(raw_external, dict):
         raise ValueError("cutover evidence manifest must define external_evidence")
@@ -72,6 +93,13 @@ def promote_cutover_evidence(
     current_evidence = ExternalCutoverEvidence.from_mapping(cast(Mapping[str, object], current))
     if current_evidence.status is CutoverEvidenceStatus.PASS:
         raise ValueError(f"cutover evidence record {key!r} is already PASS")
+
+    artifact_path = resolve_cutover_artifact_path(artifact_root, artifact)
+    parsed_artifact = parse_cutover_artifact(key, artifact_path)
+    if parsed_artifact.consumer != consumer:
+        raise ValueError(
+            "cutover artifact consumer must match the retirement evidence consumer"
+        )
 
     evidence = attest_external_cutover_artifact(
         key=key,

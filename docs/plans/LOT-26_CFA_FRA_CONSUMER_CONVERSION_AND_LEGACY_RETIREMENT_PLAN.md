@@ -101,7 +101,8 @@ Conflicting remaps fail closed. Re-registering the exact same mapping is idempot
 - compatibility adapter;
 - per-operation mutation/read routing;
 - read-side dual-run observation;
-- legacy identity map;
+- injectable legacy identity store with an in-memory reference implementation;
+- fail-closed legacy-retirement gate;
 - framework-neutral consumer contract tests.
 
 ### L26-B — consumer delegation
@@ -138,7 +139,8 @@ Only after parity and consumer gates are green:
 - [ ] accounting services delegate to PyAccountingKit;
 - [ ] regulatory authority replaced by provider;
 - [ ] read-side dual-run evidence available where useful;
-- [ ] historical IDs/provenance traceable;
+- [ ] historical IDs/provenance traceable through an injectable identity store;
 - [ ] consumer smoke/E2E green;
+- [ ] retirement gate proves no remaining legacy route or active dual-run;
 - [ ] legacy engine removed/deactivated only after parity;
 - [ ] `0.6.0` stable cross-lot qualification green.

@@ -56,6 +56,36 @@ def _manifest() -> dict[str, object]:
     }
 
 
+def _consumer_source() -> dict[str, object]:
+    scenarios = (
+        "login",
+        "organization_context",
+        "fec_import",
+        "journal",
+        "ledger",
+        "balance",
+        "financial_statements",
+        "controls",
+        "closing",
+        "exports",
+    )
+    return {
+        "consumer": "CFA FRA generation test consumer",
+        "observed_at": "2026-09-30T16:00:00Z",
+        "environment": "production",
+        "producer": "cfa-fra-live-e2e",
+        "scenarios": [
+            {
+                "scenario": scenario,
+                "status": "PASS",
+                "source": f"live:{scenario}",
+                "evidence_checksum": "sha256:" + ("b" * 64),
+            }
+            for scenario in scenarios
+        ],
+    }
+
+
 def _identity_source() -> dict[str, object]:
     return {
         "consumer": "CFA FRA generation test consumer",
@@ -83,6 +113,24 @@ def _plan():
         observed_at="2026-09-30T15:00:00Z",
         producer="cfa-fra-cutover-pipeline",
     )
+
+
+def test_pipeline_plans_consumer_e2e_as_first_class_evidence() -> None:
+    plan = plan_cutover_evidence_pipeline(
+        _manifest(),
+        key="consumer_e2e",
+        source_observation=_consumer_source(),
+        artifact="consumer-e2e.json",
+        evidence_source="live-consumer-cutover",
+        observed_at="2026-09-30T16:00:00Z",
+        producer="cfa-fra-cutover-pipeline",
+    )
+
+    assert plan.removed_blocker == "evidence:consumer-e2e"
+    assert plan.candidate_manifest["expected_blockers"] == [
+        "evidence:legacy-identities",
+        "evidence:regulatory-authority",
+    ]
 
 
 def test_pipeline_plan_round_trips_and_removes_only_matching_blocker() -> None:

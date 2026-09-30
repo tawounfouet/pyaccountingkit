@@ -10,7 +10,7 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit **0.6.0b6** is the LOT-26 CFA FRA Login Gap Qualification beta.
+PyAccountingKit **0.6.0b7** is the LOT-26 CFA FRA Controls Consumer Bridge beta.
 
 LOT-26 turns the frozen LOT-25 CFA FRA behavioral baseline into an executable
 migration boundary. The temporary `CFAFRACompatibilityAdapter` lets the Django
@@ -39,7 +39,7 @@ mode rather than a generic posting bypass.
 
 The stable **0.5.0** public facade, adapter contract v1 and the independently
 Production-qualified Django/PostgreSQL and SQLAlchemy/PostgreSQL adapters remain
-the compatibility baseline. **0.6.0b6 is still pre-1.0**: LOT-26 consumer
+the compatibility baseline. **0.6.0b7 is still pre-1.0**: LOT-26 consumer
 conversion is in progress; LOT-27 regulatory production qualification and the
 LOT-29/30 API freeze remain later roadmap steps.
 
@@ -49,14 +49,13 @@ read operations may dual-run for comparison while returning only the configured
 primary result. `LegacyIdentityMap` keeps historical IDs and source provenance
 traceable during the transition.
 
-The `0.6.0b6` consumer gate keeps the bundled CFA FRA Sprint-7 Django test
-harness in canonical CI and adds an external request-level login smoke without
-modifying the frozen snapshot. Authentication itself is proven: a real GET/POST
-through Django `LoginView` creates an authenticated session when an explicit
-safe `next` URL is supplied. The default post-login flow remains BLOCKED because
-the snapshot configures `LOGIN_REDIRECT_URL = "dashboard"` while the actual
-namespaced route is `analytics:dashboard`. Login, controls and closing therefore
-remain explicit retirement blockers.
+The `0.6.0b7` migration bridge now has a target-only controls path to
+`AccountingApplication.controls.run`. It maps CFA FRA organization/fiscal-year
+identities to canonical IDs, requires an explicit control-parameter factory, and
+rejects legacy ORM leakage, legacy execution and dual-run because Sprint 7 has no
+executable controls engine to compare. The external consumer evidence therefore
+keeps `controls` BLOCKED until the CFA FRA dashboard is actually delegated to
+this bridge. Login and closing remain the other explicit retirement blockers.
 
 The bundled Sprint 7 oracle explicitly schedules its Regulatory Controls &
 Closing Package for Sprint 8. LOT-25 therefore records the missing executable

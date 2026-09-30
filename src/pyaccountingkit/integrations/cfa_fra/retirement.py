@@ -23,6 +23,7 @@ class LegacyRetirementEvidence:
     production_adapters_green: bool
     consumer_e2e_green: bool
     identities_traceable: bool
+    regulatory_authority_replaced: bool
 
 
 @dataclass(frozen=True, slots=True)
@@ -58,6 +59,8 @@ class LegacyRetirementGate:
             blockers.append("evidence:consumer-e2e")
         if not evidence.identities_traceable:
             blockers.append("evidence:legacy-identities")
+        if not evidence.regulatory_authority_replaced:
+            blockers.append("evidence:regulatory-authority")
 
         normalized = tuple(sorted(blockers))
         return LegacyRetirementDecision(ready=not normalized, blockers=normalized)

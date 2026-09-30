@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0b9] - 2026-09-30
+
+### Added
+- Target-only CFA FRA `effective_plan` bridge delegating accounting-reference authority to
+  `AccountingApplication.references.get_effective_plan`.
+- Retirement evidence now includes an explicit `regulatory_authority_replaced` proof.
+- `LegacyRetirementGate` emits `evidence:regulatory-authority` until that proof is green.
+
+### Safety
+- MIG-11 refuses fallback to CFA FRA's local `FrameworkAccount` authority.
+- Reference-authority dual-run is rejected rather than comparing incompatible local ORM rows
+  with canonical provider results.
+- The frozen Sprint-7 consumer still uses local referential tables, so this beta does not claim
+  final consumer replacement or retirement readiness.
+
 ## [0.6.0b8] - 2026-09-30
 
 ### Added

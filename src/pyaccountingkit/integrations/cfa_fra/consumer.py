@@ -352,6 +352,32 @@ class CFAFRADjangoConsumerBridge:
             context=self._context_factory(user, audit_metadata),
         )
 
+    def effective_plan(
+        self,
+        *,
+        standard_id: str,
+        edition: str,
+        user: object | None = None,
+        audit_metadata: Mapping[str, object] | None = None,
+    ) -> object:
+        """Replace CFA FRA local reference authority with the canonical provider."""
+        backend = self._routing.read_backend_for("effective_plan")
+        if backend is ReadBackend.LEGACY:
+            raise CFAFRAMigrationRouteError(
+                "CFA FRA local FrameworkAccount authority is not valid after MIG-11; "
+                "effective_plan must be routed to PyAccountingKit"
+            )
+        if "effective_plan" in self._routing.dual_run_reads:
+            raise CFAFRAMigrationRouteError(
+                "effective_plan cannot dual-run against the local CFA FRA reference tables"
+            )
+
+        return self._application.references.get_effective_plan(
+            standard_id=standard_id,
+            edition=edition,
+            context=self._context_factory(user, audit_metadata),
+        )
+
     def build_income_statement(
         self,
         *,

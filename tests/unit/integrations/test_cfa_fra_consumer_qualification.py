@@ -130,6 +130,7 @@ def test_retirement_gate_can_consume_cutover_green_state_without_bypassing_route
             production_adapters_green=True,
             consumer_e2e_green=consumer_green,
             identities_traceable=True,
+            regulatory_authority_replaced=True,
         ),
     )
 
@@ -153,6 +154,7 @@ def test_retirement_stays_blocked_when_consumer_cutover_is_not_green() -> None:
             production_adapters_green=True,
             consumer_e2e_green=qualification.evaluate().green,
             identities_traceable=True,
+            regulatory_authority_replaced=True,
         ),
     )
 

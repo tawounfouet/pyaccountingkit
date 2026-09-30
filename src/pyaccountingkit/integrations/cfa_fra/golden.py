@@ -312,7 +312,7 @@ class GoldenFixture:
             fixture_checksum=self.checksum,
             mismatches=mismatches,
             unregistered_mismatches=unregistered,
-            accepted_divergence_ids=cast(tuple[str, ...], accepted),
+            accepted_divergence_ids=accepted,
         )
 
     @classmethod

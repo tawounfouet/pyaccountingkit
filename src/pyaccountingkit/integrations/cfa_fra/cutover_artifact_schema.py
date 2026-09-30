@@ -104,9 +104,7 @@ class ConsumerE2ECutoverArtifact:
 
         raw_scenarios = payload.get("scenarios")
         if not isinstance(raw_scenarios, list) or not raw_scenarios:
-            raise CutoverArtifactSchemaError(
-                "consumer E2E artifact must contain scenario evidence"
-            )
+            raise CutoverArtifactSchemaError("consumer E2E artifact must contain scenario evidence")
 
         evidence: list[ConsumerScenarioEvidence] = []
         for index, raw in enumerate(raw_scenarios):
@@ -117,8 +115,7 @@ class ConsumerE2ECutoverArtifact:
             checksum = _string(item, "evidence_checksum")
             if _SHA256_PREFIXED.fullmatch(checksum) is None:
                 raise CutoverArtifactSchemaError(
-                    f"scenarios[{index}].evidence_checksum must be "
-                    "sha256:<64 lowercase hex>"
+                    f"scenarios[{index}].evidence_checksum must be sha256:<64 lowercase hex>"
                 )
             try:
                 scenario = ConsumerScenario(raw_scenario)
@@ -147,8 +144,7 @@ class ConsumerE2ECutoverArtifact:
         decision = qualification.evaluate()
         if not decision.green:
             raise CutoverArtifactSchemaError(
-                "consumer E2E artifact must contain exactly one PASS "
-                "for every mandatory scenario"
+                "consumer E2E artifact must contain exactly one PASS for every mandatory scenario"
             )
 
         return cls(

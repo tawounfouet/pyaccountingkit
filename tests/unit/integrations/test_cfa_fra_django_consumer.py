@@ -338,9 +338,7 @@ def test_trial_balance_dual_run_keeps_legacy_primary_and_maps_read_ids() -> None
 
 def test_consumer_object_without_primary_key_fails_closed() -> None:
     bridge, _, _, _, _, _, _ = _bridge(
-        MigrationRouting(
-            mutation_routes={"post_entry": MutationBackend.PYACCOUNTINGKIT}
-        )
+        MigrationRouting(mutation_routes={"post_entry": MutationBackend.PYACCOUNTINGKIT})
     )
 
     with pytest.raises(CFAFRAConsumerMappingError, match="no usable pk/id"):

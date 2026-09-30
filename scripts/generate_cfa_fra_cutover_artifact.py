@@ -13,6 +13,8 @@ from typing import cast
 
 from pyaccountingkit.integrations.cfa_fra import (
     CutoverArtifactGenerationError,
+    CutoverArtifactKey,
+    GeneratedCutoverArtifact,
     LegacyIdentityLink,
     LegacyIdentityMap,
     MigrationRouting,
@@ -63,7 +65,7 @@ def _mapping(value: object, field: str) -> Mapping[str, object]:
     return cast(Mapping[str, object], value)
 
 
-def _identity_source(payload: Mapping[str, object]):
+def _identity_source(payload: Mapping[str, object]) -> GeneratedCutoverArtifact:
     raw_links = payload.get("links")
     if not isinstance(raw_links, list):
         raise CutoverArtifactGenerationError("links must be a JSON array")
@@ -95,7 +97,7 @@ def _identity_source(payload: Mapping[str, object]):
     )
 
 
-def _regulatory_source(payload: Mapping[str, object]):
+def _regulatory_source(payload: Mapping[str, object]) -> GeneratedCutoverArtifact:
     provider = _mapping(payload.get("provider"), "provider")
     raw_resolutions = payload.get("sample_resolutions")
     if not isinstance(raw_resolutions, list):
@@ -118,7 +120,11 @@ def _regulatory_source(payload: Mapping[str, object]):
     )
 
     routing_profile = _string(payload, "routing_profile")
-    routing = MigrationRouting.target_only() if routing_profile == "target_only" else MigrationRouting()
+    routing = (
+        MigrationRouting.target_only()
+        if routing_profile == "target_only"
+        else MigrationRouting()
+    )
 
     return generate_regulatory_authority_artifact(
         consumer=_string(payload, "consumer"),
@@ -143,7 +149,7 @@ def _regulatory_source(payload: Mapping[str, object]):
 
 def _write_validated(
     *,
-    key: str,
+    key: CutoverArtifactKey,
     payload: str,
     artifact_root: Path,
     artifact: str,
@@ -168,7 +174,7 @@ def _write_validated(
             handle.write(payload)
             handle.flush()
             os.fsync(handle.fileno())
-        parse_cutover_artifact(cast("CutoverArtifactKey", key), temporary_path)
+        parse_cutover_artifact(key, temporary_path)
         temporary_path.replace(target)
     finally:
         if temporary_path.exists():
@@ -211,7 +217,7 @@ def main() -> int:
         return 0
 
     target = _write_validated(
-        key=args.key,
+        key=cast(CutoverArtifactKey, args.key),
         payload=payload,
         artifact_root=args.artifact_root.resolve(),
         artifact=args.artifact,

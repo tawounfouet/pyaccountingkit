@@ -66,9 +66,7 @@ def test_retirement_plan_rejects_mutable_oracle_policy() -> None:
 
 
 def test_retirement_plan_payload_never_contains_execute_instruction() -> None:
-    payload = retirement_plan_payload(
-        build_legacy_retirement_plan(_load(INVENTORY), _load(READY))
-    )
+    payload = retirement_plan_payload(build_legacy_retirement_plan(_load(INVENTORY), _load(READY)))
     rendered = json.dumps(payload)
 
     assert payload["schema_version"] == "1"

@@ -136,7 +136,7 @@ def verify_external_cutover_evidence(
             "passing cutover evidence is missing artifact coordinates"
         )
 
-    path = _safe_artifact_path(artifact_root, artifact)
+    path = resolve_cutover_artifact_path(artifact_root, artifact)
     if not path.is_file():
         raise CutoverArtifactVerificationError(
             f"cutover evidence artifact does not exist: {artifact}"

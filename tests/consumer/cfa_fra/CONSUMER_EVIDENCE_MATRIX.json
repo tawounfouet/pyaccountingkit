@@ -1,0 +1,73 @@
+{
+  "oracle": {
+    "name": "CFA FRA Django MVP Sprint 7",
+    "resource_path": "resources/cfa_fra_django_mvp_sprint_7",
+    "tree_sha": "07d4880534d2e2239e19fd4ef4139de70b56773a"
+  },
+  "scenarios": [
+    {
+      "scenario": "login",
+      "mode": "blocked",
+      "reason": "Sprint 7 has user creation and force_login coverage but no dedicated request-level login-flow test."
+    },
+    {
+      "scenario": "organization_context",
+      "mode": "pytest",
+      "pytest_targets": [
+        "apps/organizations/tests/test_views.py"
+      ]
+    },
+    {
+      "scenario": "fec_import",
+      "mode": "pytest",
+      "pytest_targets": [
+        "apps/imports/tests/test_sprint4_fec_pipeline.py"
+      ]
+    },
+    {
+      "scenario": "journal",
+      "mode": "pytest",
+      "pytest_targets": [
+        "apps/accounting/tests/test_sprint3_workflow.py"
+      ]
+    },
+    {
+      "scenario": "ledger",
+      "mode": "pytest",
+      "pytest_targets": [
+        "apps/reporting/tests/test_sprint5_ledger_trial_balance.py"
+      ]
+    },
+    {
+      "scenario": "balance",
+      "mode": "pytest",
+      "pytest_targets": [
+        "apps/reporting/tests/test_sprint5_ledger_trial_balance.py"
+      ]
+    },
+    {
+      "scenario": "financial_statements",
+      "mode": "pytest",
+      "pytest_targets": [
+        "apps/financial_statements/tests/test_sprint6_financial_statements.py"
+      ]
+    },
+    {
+      "scenario": "controls",
+      "mode": "blocked",
+      "reason": "Sprint 7 contains controls models/views but no executable controls service or dedicated consumer test."
+    },
+    {
+      "scenario": "closing",
+      "mode": "blocked",
+      "reason": "Sprint 7 contains only the closing placeholder; the executable Regulatory Controls & Closing Package is scheduled for Sprint 8."
+    },
+    {
+      "scenario": "exports",
+      "mode": "pytest",
+      "pytest_targets": [
+        "apps/financial_statements/tests/test_sprint7_regulatory_exports.py"
+      ]
+    }
+  ]
+}

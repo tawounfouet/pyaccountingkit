@@ -29,12 +29,12 @@ from pyaccountingkit.integrations.cfa_fra.consumer_qualification import (
     ConsumerScenarioStatus,
 )
 from pyaccountingkit.integrations.cfa_fra.cutover_artifact_schema import (
+    LEGACY_IDENTITIES_SCHEMA,
+    REGULATORY_AUTHORITY_SCHEMA,
     CutoverArtifact,
     CutoverArtifactKey,
     CutoverArtifactSchemaError,
-    LEGACY_IDENTITIES_SCHEMA,
     LegacyIdentityMigrationArtifact,
-    REGULATORY_AUTHORITY_SCHEMA,
     RegulatoryAuthorityCutoverArtifact,
     RegulatoryAuthorityResolution,
     parse_cutover_artifact,

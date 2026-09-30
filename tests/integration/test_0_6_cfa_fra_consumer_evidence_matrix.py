@@ -29,7 +29,7 @@ def test_sprint7_known_gaps_remain_explicit_and_retirement_blocking() -> None:
     evidence = []
     for item in payload["scenarios"]:
         scenario = ConsumerScenario(item["scenario"])
-        if item["mode"] == "blocked":
+        if item["mode"] in {"blocked", "django_login"}:
             evidence.append(
                 ConsumerScenarioEvidence(
                     scenario=scenario,

@@ -16,13 +16,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   verifies the authenticated session.
 - Login evidence is checksummed against the frozen URL configuration and login template.
 
-### Changed
-- Gate Consumer executable status advances from seven PASS scenarios to eight.
-- The known blocker set is reduced to `controls` and `closing`.
+### Findings
+- Request-level authentication succeeds and creates a valid session when the request supplies
+  an explicit safe `next` URL.
+- The frozen default post-login flow is not release-ready: `LOGIN_REDIRECT_URL = "dashboard"`
+  cannot be reversed because the actual route is namespaced as `analytics:dashboard`.
+- Login therefore remains BLOCKED alongside controls and closing; the gap is now executable
+  and precisely classified rather than inferred from missing tests.
 
 ### Boundary
 - No file under `resources/cfa_fra_django_mvp_sprint_7/` is modified.
-- Consumer E2E remains not-green until controls and closing have executable delegated evidence.
+- Consumer E2E remains not-green until login redirect, controls and closing are resolved.
 
 ## [0.6.0b5] - 2026-09-30
 

@@ -67,7 +67,7 @@ def validate_ci_text(text: str) -> list[str]:
             ),
             '--identities-traceable "${{ needs.cutover-evidence.outputs.identities_traceable }}"',
             (
-                '--regulatory-authority-replaced '
+                "--regulatory-authority-replaced "
                 '"${{ needs.cutover-evidence.outputs.regulatory_authority_replaced }}"'
             ),
             "python scripts/qualify_cfa_fra_retirement.py",

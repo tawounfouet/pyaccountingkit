@@ -10,7 +10,7 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit **0.6.0b11** is the LOT-26 CFA FRA MIG-13 Retirement Readiness beta.
+PyAccountingKit **0.6.0b12** is the LOT-26 CFA FRA Legacy Retirement Inventory beta.
 
 LOT-26 turns the frozen LOT-25 CFA FRA behavioral baseline into an executable
 migration boundary. The temporary `CFAFRACompatibilityAdapter` lets the Django
@@ -39,7 +39,7 @@ mode rather than a generic posting bypass.
 
 The stable **0.5.0** public facade, adapter contract v1 and the independently
 Production-qualified Django/PostgreSQL and SQLAlchemy/PostgreSQL adapters remain
-the compatibility baseline. **0.6.0b11 is still pre-1.0**: LOT-26 consumer
+the compatibility baseline. **0.6.0b12 is still pre-1.0**: LOT-26 consumer
 conversion is in progress; LOT-27 regulatory production qualification and the
 LOT-29/30 API freeze remain later roadmap steps.
 
@@ -513,3 +513,14 @@ The current expected retirement blockers are intentionally explicit:
 `evidence:regulatory-authority`. A change to that blocker set fails CI until the
 retirement evidence manifest is reviewed, preventing silent or accidental legacy
 engine deletion.
+
+
+The `0.6.0b12` milestone makes the legacy-retirement scope machine-readable.
+The frozen Sprint-7 source is classified into duplicate engine code to retire,
+Django consumer endpoints to rewire, persistence/provenance to migrate, consumer
+concerns to keep, and frozen tests to retain as behavioral oracle evidence.
+
+The inventory always applies to **live consumer equivalents**, never to the
+bundled oracle itself. Canonical CI validates the inventory before MIG-13
+readiness is evaluated, so missing or contradictory retirement scope blocks
+the retirement decision.

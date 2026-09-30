@@ -190,9 +190,25 @@ jobs:
           value="$(python -c 'import json; print(str(json.load(open("build/cfa_fra_consumer_evidence.json"))["consumer_e2e_green"]).lower())')"
           echo "consumer_e2e_green=$value" >> "$GITHUB_OUTPUT"
 
+  retirement-inventory:
+    name: CFA FRA retirement inventory
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install development tooling
+        run: python -m pip install -e ".[dev]"
+      - name: Validate legacy-retirement inventory
+        run: python scripts/validate_cfa_fra_retirement_inventory.py
+
   retirement-readiness:
     name: CFA FRA retirement readiness
-    needs: [test, postgresql, sqlalchemy-postgresql, consumer-evidence]
+    needs: [test, postgresql, sqlalchemy-postgresql, consumer-evidence, retirement-inventory]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -234,7 +250,7 @@ jobs:
     name: Canonical CI gate
     if: ${{ always() }}
     needs:
-      [quality, test, package, postgresql, sqlalchemy-postgresql, consumer-evidence, retirement-readiness, release-qualification]
+      [quality, test, package, postgresql, sqlalchemy-postgresql, consumer-evidence, retirement-inventory, retirement-readiness, release-qualification]
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -246,6 +262,7 @@ jobs:
           POSTGRESQL_RESULT: ${{ needs.postgresql.result }}
           SQLALCHEMY_POSTGRESQL_RESULT: ${{ needs.sqlalchemy-postgresql.result }}
           CONSUMER_EVIDENCE_RESULT: ${{ needs.consumer-evidence.result }}
+          RETIREMENT_INVENTORY_RESULT: ${{ needs.retirement-inventory.result }}
           RETIREMENT_READINESS_RESULT: ${{ needs.retirement-readiness.result }}
           RELEASE_QUALIFICATION_RESULT: ${{ needs.release-qualification.result }}
         run: |
@@ -255,5 +272,6 @@ jobs:
           test "$POSTGRESQL_RESULT" = "success"
           test "$SQLALCHEMY_POSTGRESQL_RESULT" = "success"
           test "$CONSUMER_EVIDENCE_RESULT" = "success"
+          test "$RETIREMENT_INVENTORY_RESULT" = "success"
           test "$RETIREMENT_READINESS_RESULT" = "success"
           test "$RELEASE_QUALIFICATION_RESULT" = "success" || test "$RELEASE_QUALIFICATION_RESULT" = "skipped"

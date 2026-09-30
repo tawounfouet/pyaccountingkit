@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0b12] - 2026-09-30
+
+### Added
+- Machine-readable CFA FRA legacy-retirement inventory bound to the frozen Sprint-7 oracle.
+- Explicit retirement dispositions:
+  - `RETIRE_ENGINE`;
+  - `REWIRE_CONSUMER`;
+  - `MIGRATE_PERSISTENCE`;
+  - `KEEP_CONSUMER`;
+  - `FROZEN_ORACLE`.
+- Canonical retirement-inventory validator checking source anchors, duplicate paths, category
+  invariants and coverage of critical accounting engine/read/persistence surfaces.
+- Dedicated `CFA FRA retirement inventory` CI job, required before MIG-13 readiness.
+
+### Safety
+- The inventory never authorizes mutation of the bundled Sprint-7 oracle.
+- Retirement dispositions apply only to live-consumer equivalents.
+- Django views/forms cannot be classified as engine code for deletion.
+- Historical persistence is explicitly migration/archival work, not deletion-by-default.
+- Frozen parity and consumer tests remain oracle evidence after live legacy retirement.
+
 ## [0.6.0b11] - 2026-09-30
 
 ### Added

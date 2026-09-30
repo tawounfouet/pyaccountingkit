@@ -168,6 +168,11 @@ proofs for persisted legacy identities and regulatory-authority replacement. The
 decision is expected to remain BLOCKED on consumer E2E, live identity migration and live
 reference-authority cutover; any silent change to that blocker set fails qualification.
 
+The `0.6.0b12` slice freezes the retirement scope itself. A machine-readable inventory
+classifies live-consumer equivalents as duplicate engine code to retire, Django endpoints to
+rewire, persistence/provenance to migrate, application concerns to keep, or frozen oracle
+evidence. Canonical CI validates this inventory before the MIG-13 readiness job can run.
+
 ### L26-C — retirement
 
 Only after parity and consumer gates are green:

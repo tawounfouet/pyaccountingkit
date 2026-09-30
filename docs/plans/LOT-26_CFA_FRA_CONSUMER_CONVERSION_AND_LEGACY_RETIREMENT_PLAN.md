@@ -126,9 +126,12 @@ failed or blocked evidence keeps `consumer_e2e_green` false and therefore blocks
 
 The `0.6.0b5` slice executes the frozen Sprint-7 Django test harness in canonical CI.
 Organization context, FEC, journal, ledger/balance, financial statements and exports are
-backed by real upstream pytest suites. Login, controls and closing remain explicit BLOCKED
-evidence; the CI gate verifies that the executable scenarios stay green and that the known
-gap set does not silently change.
+backed by real upstream pytest suites.
+
+The `0.6.0b6` slice adds request-level login evidence externally to the frozen resource:
+the runner initializes the snapshot's SQLite test settings, exercises the configured Django
+`LoginView`, and verifies session authentication. The known BLOCKED set is therefore reduced
+to controls and closing.
 
 ### L26-C — retirement
 

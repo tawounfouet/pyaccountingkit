@@ -11,7 +11,7 @@ from collections.abc import Callable, Mapping
 from dataclasses import dataclass, field
 from enum import StrEnum
 from types import MappingProxyType
-from typing import cast
+from typing import Protocol, cast
 
 from pyaccountingkit.public.application import AccountingApplication
 from pyaccountingkit.public.context import CommandContext
@@ -136,8 +136,24 @@ class LegacyIdentityLink:
                 raise ValueError("legacy identity fields must not be empty")
 
 
+class LegacyIdentityStoreProtocol(Protocol):
+    """Persistence contract for historical CFA FRA identity mappings."""
+
+    def register(self, link: LegacyIdentityLink) -> LegacyIdentityLink:
+        """Persist one idempotent legacy-to-target identity link."""
+        ...
+
+    def resolve(self, legacy_type: str, legacy_id: str) -> LegacyIdentityLink | None:
+        """Resolve one historical identity if it has been migrated."""
+        ...
+
+    def snapshot(self) -> tuple[LegacyIdentityLink, ...]:
+        """Return deterministic migration evidence."""
+        ...
+
+
 class LegacyIdentityMap:
-    """In-memory migration artifact preserving historical identity traceability."""
+    """In-memory reference store preserving historical identity traceability."""
 
     def __init__(self, links: tuple[LegacyIdentityLink, ...] = ()) -> None:
         self._links: dict[tuple[str, str], LegacyIdentityLink] = {}
@@ -180,6 +196,8 @@ def _ignore_observation(observation: DualRunObservation) -> None:
 class CFAFRACompatibilityAdapter:
     """Temporary old-signature facade delegating CFA FRA into AccountingApplication."""
 
+    identities: LegacyIdentityStoreProtocol
+
     __slots__ = (
         "_application",
         "_legacy_service",
@@ -199,7 +217,7 @@ class CFAFRACompatibilityAdapter:
         context_factory: ContextFactory,
         comparator: DualRunComparator = _default_comparator,
         observation_sink: ObservationSink = _ignore_observation,
-        identities: LegacyIdentityMap | None = None,
+        identities: LegacyIdentityStoreProtocol | None = None,
     ) -> None:
         self._application = application
         self._legacy_service = legacy_service
@@ -428,6 +446,7 @@ __all__ = [
     "DualRunObservation",
     "LegacyIdentityLink",
     "LegacyIdentityMap",
+    "LegacyIdentityStoreProtocol",
     "MigrationRouting",
     "MutationBackend",
     "ReadBackend",

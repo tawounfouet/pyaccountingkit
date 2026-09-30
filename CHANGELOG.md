@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0b13] - 2026-09-30
+
+### Added
+- Attestable live-cutover evidence model for external CFA FRA migration proofs.
+- `PASS` evidence requires:
+  - artifact reference;
+  - lowercase SHA-256 digest;
+  - UTC ISO-8601 observation timestamp;
+  - producer identity.
+- `BLOCKED` evidence requires an explicit reason and remains non-green.
+- Retirement evidence manifest schema v2 replacing editable external boolean flags.
+- Dedicated `CFA FRA live cutover evidence` CI job required before MIG-13 readiness.
+
+### Changed
+- MIG-13 readiness now derives identity-traceability and regulatory-authority booleans from
+  validated evidence records instead of reading booleans directly from JSON.
+
+### Safety
+- Current external records remain `BLOCKED`; this release does not fabricate live cutover
+  evidence.
+- A passing external record without provenance metadata or a valid SHA-256 fails closed.
+- The blocker list must stay coherent with the attested evidence state.
+
 ## [0.6.0b12] - 2026-09-30
 
 ### Added

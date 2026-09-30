@@ -173,6 +173,12 @@ classifies live-consumer equivalents as duplicate engine code to retire, Django 
 rewire, persistence/provenance to migrate, application concerns to keep, or frozen oracle
 evidence. Canonical CI validates this inventory before the MIG-13 readiness job can run.
 
+The `0.6.0b13` slice hardens the external evidence boundary. Live identity-migration and
+regulatory-authority proofs use an attestable schema: PASS requires an artifact reference,
+SHA-256 digest, UTC observation timestamp and producer; BLOCKED requires a reason. MIG-13
+readiness derives its booleans from these validated records, preventing a bare JSON boolean
+from authorizing legacy retirement.
+
 ### L26-C — retirement
 
 Only after parity and consumer gates are green:

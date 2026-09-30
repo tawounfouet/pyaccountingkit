@@ -21,6 +21,12 @@ from pyaccountingkit.integrations.cfa_fra.golden import (
     ParityResult,
     load_golden_fixture,
 )
+from pyaccountingkit.integrations.cfa_fra.retirement import (
+    LegacyRetirementBlockedError,
+    LegacyRetirementDecision,
+    LegacyRetirementEvidence,
+    LegacyRetirementGate,
+)
 
 __all__ = [
     "ORACLE_MANIFEST_VERSION",
@@ -34,6 +40,10 @@ __all__ = [
     "IntentionalDivergence",
     "LegacyIdentityLink",
     "LegacyIdentityMap",
+    "LegacyRetirementBlockedError",
+    "LegacyRetirementDecision",
+    "LegacyRetirementEvidence",
+    "LegacyRetirementGate",
     "MigrationRouting",
     "MutationBackend",
     "ParityMismatch",

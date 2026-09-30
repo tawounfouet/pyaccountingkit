@@ -211,3 +211,10 @@ Only after parity and consumer gates are green:
 - [ ] retirement gate proves no remaining legacy route or active dual-run;
 - [ ] legacy engine removed/deactivated only after parity;
 - [ ] `0.6.0` stable cross-lot qualification green.
+
+
+The `0.6.0b14` slice makes external evidence cryptographically consumable by MIG-13.
+A syntactically valid `PASS` is no longer sufficient: its artifact must be materialized
+under the configured repository-local evidence root, resolve without path traversal and
+match the declared SHA-256. The cutover-evidence CI job exposes only these verified booleans
+to retirement-readiness; direct manifest status can no longer authorize legacy deletion.

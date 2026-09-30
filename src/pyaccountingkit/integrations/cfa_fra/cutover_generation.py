@@ -248,8 +248,7 @@ def generate_cutover_artifact_from_mapping(
         if not isinstance(raw_scenarios, list):
             raise CutoverArtifactGenerationError("scenarios must be a JSON array")
         scenarios = [
-            dict(_mapping(raw, f"scenarios[{index}]"))
-            for index, raw in enumerate(raw_scenarios)
+            dict(_mapping(raw, f"scenarios[{index}]")) for index, raw in enumerate(raw_scenarios)
         ]
         return generate_consumer_e2e_artifact(
             consumer=_string(payload, "consumer"),

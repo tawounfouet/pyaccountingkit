@@ -13,6 +13,7 @@ from typing import cast
 from pyaccountingkit.integrations.cfa_fra import (
     LegacyRetirementEvidence,
     LegacyRetirementGate,
+    LiveCutoverEvidence,
     MigrationRouting,
 )
 
@@ -40,26 +41,11 @@ def _job_green(result: str) -> bool:
     return result.strip().lower() == "success"
 
 
-def _external_green(
-    manifest: Mapping[str, object],
-    key: str,
-) -> bool:
+def _external_evidence(manifest: Mapping[str, object]) -> LiveCutoverEvidence:
     raw_external = manifest.get("external_evidence")
     if not isinstance(raw_external, dict):
         raise ValueError("retirement manifest must define external_evidence")
-    external = cast(Mapping[str, object], raw_external)
-    raw_record = external.get(key)
-    if not isinstance(raw_record, dict):
-        raise ValueError(f"retirement evidence {key!r} is missing")
-    record = cast(Mapping[str, object], raw_record)
-    value = record.get("green")
-    if not isinstance(value, bool):
-        raise ValueError(f"retirement evidence {key!r}.green must be boolean")
-    if not value:
-        reason = record.get("reason")
-        if not isinstance(reason, str) or not reason.strip():
-            raise ValueError(f"blocked retirement evidence {key!r} requires a reason")
-    return value
+    return LiveCutoverEvidence.from_mapping(raw_external)
 
 
 def qualify(
@@ -71,9 +57,12 @@ def qualify(
     output: Path | None = None,
 ) -> int:
     manifest = _load_manifest()
+    if manifest.get("schema_version") != "2":
+        raise ValueError("MIG-13 retirement evidence must use schema_version='2'")
     if manifest.get("routing_profile") != "target_only":
         raise ValueError("MIG-13 retirement requires routing_profile='target_only'")
 
+    live_evidence = _external_evidence(manifest)
     routing = MigrationRouting.target_only()
     if not routing.is_target_only():
         raise RuntimeError("target-only routing profile unexpectedly exposes legacy paths")
@@ -84,11 +73,8 @@ def qualify(
             _job_green(django_adapter_result) and _job_green(sqlalchemy_adapter_result)
         ),
         consumer_e2e_green=consumer_e2e_green,
-        identities_traceable=_external_green(manifest, "legacy_identities"),
-        regulatory_authority_replaced=_external_green(
-            manifest,
-            "regulatory_authority",
-        ),
+        identities_traceable=live_evidence.identities_traceable,
+        regulatory_authority_replaced=live_evidence.regulatory_authority_replaced,
     )
     decision = LegacyRetirementGate().evaluate(routing, evidence)
 

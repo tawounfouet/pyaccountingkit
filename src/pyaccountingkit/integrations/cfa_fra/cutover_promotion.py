@@ -106,9 +106,7 @@ def promote_cutover_evidence(
     artifact_path = resolve_cutover_artifact_path(artifact_root, artifact)
     parsed_artifact = parse_cutover_artifact(key, artifact_path)
     if parsed_artifact.consumer != consumer:
-        raise ValueError(
-            "cutover artifact consumer must match the retirement evidence consumer"
-        )
+        raise ValueError("cutover artifact consumer must match the retirement evidence consumer")
 
     promoted = deepcopy(dict(manifest))
     promoted_external = cast(dict[str, object], promoted["external_evidence"])

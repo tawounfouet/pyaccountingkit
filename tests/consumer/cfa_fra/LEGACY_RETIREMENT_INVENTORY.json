@@ -1,0 +1,210 @@
+{
+  "schema_version": "1",
+  "oracle": {
+    "name": "CFA FRA Django MVP Sprint 7",
+    "resource_path": "resources/cfa_fra_django_mvp_sprint_7",
+    "tree_sha": "07d4880534d2e2239e19fd4ef4139de70b56773a"
+  },
+  "policy": {
+    "snapshot_is_immutable": true,
+    "applies_to": "live-consumer-equivalents",
+    "retirement_requires_mig13_ready": true
+  },
+  "components": [
+    {
+      "path": "apps/accounting/services.py",
+      "disposition": "RETIRE_ENGINE",
+      "reason": "Duplicate journal-entry validation, posting and reversal business logic is replaced by AccountingApplication.entries."
+    },
+    {
+      "path": "apps/accounting/selectors.py",
+      "disposition": "RETIRE_ENGINE",
+      "reason": "Duplicate accounting read-model selectors are replaced by canonical ledger/reference queries."
+    },
+    {
+      "path": "apps/imports/services.py",
+      "disposition": "RETIRE_ENGINE",
+      "reason": "Duplicate FEC parsing/execution accounting engine is replaced by AccountingApplication.imports."
+    },
+    {
+      "path": "apps/reporting/selectors.py",
+      "disposition": "RETIRE_ENGINE",
+      "reason": "Duplicate journal, ledger and trial-balance computation is replaced by AccountingApplication.ledger."
+    },
+    {
+      "path": "apps/financial_statements/services.py",
+      "disposition": "RETIRE_ENGINE",
+      "reason": "Duplicate statement computation and accounting mappings are replaced by AccountingApplication.statements."
+    },
+    {
+      "path": "apps/financial_statements/regulatory.py",
+      "disposition": "RETIRE_ENGINE",
+      "reason": "Duplicate regulatory statement computation is replaced by provider-backed PyAccountingKit reporting/reference capabilities."
+    },
+    {
+      "path": "apps/referentials/management/commands/_seed_framework.py",
+      "disposition": "RETIRE_ENGINE",
+      "reason": "Local regulatory-account bootstrap must no longer establish accounting authority after provider cutover."
+    },
+    {
+      "path": "apps/referentials/management/commands/seed_ifrs.py",
+      "disposition": "RETIRE_ENGINE",
+      "reason": "Local regulatory seed command is not an authority after provider cutover."
+    },
+    {
+      "path": "apps/referentials/management/commands/seed_regulatory_framework.py",
+      "disposition": "RETIRE_ENGINE",
+      "reason": "Local regulatory seed command is not an authority after provider cutover."
+    },
+    {
+      "path": "apps/referentials/management/commands/seed_syscohada.py",
+      "disposition": "RETIRE_ENGINE",
+      "reason": "Local SYSCOHADA seed command is not an authority after provider cutover."
+    },
+    {
+      "path": "apps/accounting/views.py",
+      "disposition": "REWIRE_CONSUMER",
+      "reason": "Django HTTP, permission and messaging concerns remain consumer-side while accounting operations delegate through the bridge."
+    },
+    {
+      "path": "apps/imports/views.py",
+      "disposition": "REWIRE_CONSUMER",
+      "reason": "Upload/UI workflow remains Django consumer responsibility while FEC execution delegates to PyAccountingKit."
+    },
+    {
+      "path": "apps/reporting/views.py",
+      "disposition": "REWIRE_CONSUMER",
+      "reason": "Django presentation remains consumer-side while ledger and trial-balance reads delegate to PyAccountingKit."
+    },
+    {
+      "path": "apps/financial_statements/views.py",
+      "disposition": "REWIRE_CONSUMER",
+      "reason": "Statement pages remain consumer-side while statement computation delegates to PyAccountingKit."
+    },
+    {
+      "path": "apps/financial_statements/regulatory_views.py",
+      "disposition": "REWIRE_CONSUMER",
+      "reason": "Regulatory presentation/export endpoints remain consumer concerns but may not compute accounting results locally."
+    },
+    {
+      "path": "apps/controls/views.py",
+      "disposition": "REWIRE_CONSUMER",
+      "reason": "Controls dashboard remains a Django concern and must delegate execution through the controls bridge."
+    },
+    {
+      "path": "apps/closing/views.py",
+      "disposition": "REWIRE_CONSUMER",
+      "reason": "Closing UI remains a Django concern and must delegate execution through the closing bridge."
+    },
+    {
+      "path": "apps/referentials/views.py",
+      "disposition": "REWIRE_CONSUMER",
+      "reason": "Reference browsing may remain consumer-side but must no longer treat FrameworkAccount as canonical accounting authority."
+    },
+    {
+      "path": "apps/accounting/models.py",
+      "disposition": "MIGRATE_PERSISTENCE",
+      "reason": "Historical journal/account identities and provenance require migration or read-only archival before duplicate persistence is removed."
+    },
+    {
+      "path": "apps/imports/models.py",
+      "disposition": "MIGRATE_PERSISTENCE",
+      "reason": "FEC batch/source provenance must remain traceable across cutover."
+    },
+    {
+      "path": "apps/reporting/models.py",
+      "disposition": "MIGRATE_PERSISTENCE",
+      "reason": "Historical reporting snapshots require an explicit retention or migration decision."
+    },
+    {
+      "path": "apps/financial_statements/models.py",
+      "disposition": "MIGRATE_PERSISTENCE",
+      "reason": "Statement configuration/mapping provenance must be migrated or archived before local accounting authority is retired."
+    },
+    {
+      "path": "apps/referentials/models.py",
+      "disposition": "MIGRATE_PERSISTENCE",
+      "reason": "FrameworkAccount and regulatory mappings require archival/provenance treatment while authority moves to providers."
+    },
+    {
+      "path": "apps/controls/models.py",
+      "disposition": "MIGRATE_PERSISTENCE",
+      "reason": "Control-run history must remain traceable after execution moves to PyAccountingKit."
+    },
+    {
+      "path": "apps/closing/models.py",
+      "disposition": "MIGRATE_PERSISTENCE",
+      "reason": "Closing-run history and status require explicit migration/retention before legacy persistence disappears."
+    },
+    {
+      "path": "apps/accounting/forms.py",
+      "disposition": "KEEP_CONSUMER",
+      "reason": "Django form binding and validation presentation are consumer concerns; accounting invariants must delegate."
+    },
+    {
+      "path": "apps/imports/forms.py",
+      "disposition": "KEEP_CONSUMER",
+      "reason": "Upload and mapping forms remain consumer UX concerns."
+    },
+    {
+      "path": "apps/reporting/forms.py",
+      "disposition": "KEEP_CONSUMER",
+      "reason": "Report filter forms remain consumer UX concerns."
+    },
+    {
+      "path": "apps/financial_statements/forms.py",
+      "disposition": "KEEP_CONSUMER",
+      "reason": "Statement filter/configuration forms remain consumer UX concerns."
+    },
+    {
+      "path": "apps/organizations/services.py",
+      "disposition": "KEEP_CONSUMER",
+      "reason": "Organization context and membership are application concerns outside the accounting engine."
+    },
+    {
+      "path": "apps/organizations/permissions.py",
+      "disposition": "KEEP_CONSUMER",
+      "reason": "Django consumer authorization policy remains outside PyAccountingKit."
+    },
+    {
+      "path": "apps/organizations/mixins.py",
+      "disposition": "KEEP_CONSUMER",
+      "reason": "Request-scoped organization selection remains a Django consumer concern."
+    },
+    {
+      "path": "apps/users/models.py",
+      "disposition": "KEEP_CONSUMER",
+      "reason": "Authentication/user persistence is not part of the accounting engine."
+    },
+    {
+      "path": "apps/accounting/tests/test_sprint3_workflow.py",
+      "disposition": "FROZEN_ORACLE",
+      "reason": "Frozen behavioral evidence for journal workflow parity."
+    },
+    {
+      "path": "apps/imports/tests/test_sprint4_fec_pipeline.py",
+      "disposition": "FROZEN_ORACLE",
+      "reason": "Frozen behavioral evidence for FEC parity."
+    },
+    {
+      "path": "apps/reporting/tests/test_sprint5_ledger_trial_balance.py",
+      "disposition": "FROZEN_ORACLE",
+      "reason": "Frozen behavioral evidence for ledger/trial-balance parity."
+    },
+    {
+      "path": "apps/financial_statements/tests/test_sprint6_financial_statements.py",
+      "disposition": "FROZEN_ORACLE",
+      "reason": "Frozen behavioral evidence for financial-statement parity."
+    },
+    {
+      "path": "apps/financial_statements/tests/test_sprint7_regulatory_exports.py",
+      "disposition": "FROZEN_ORACLE",
+      "reason": "Frozen behavioral evidence for regulatory export parity."
+    },
+    {
+      "path": "apps/organizations/tests/test_views.py",
+      "disposition": "FROZEN_ORACLE",
+      "reason": "Frozen consumer evidence for organization context."
+    }
+  ]
+}

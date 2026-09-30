@@ -76,6 +76,35 @@ def _sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def attest_external_cutover_artifact(
+    *,
+    artifact: str,
+    artifact_root: Path,
+    source: str,
+    observed_at: str,
+    producer: str,
+) -> ExternalCutoverEvidence:
+    """Create a PASS attestation from real artifact bytes, never from a supplied digest."""
+    path = _safe_artifact_path(artifact_root, artifact)
+    if not path.is_file():
+        raise CutoverArtifactVerificationError(
+            f"cutover evidence artifact does not exist: {artifact}"
+        )
+
+    evidence = ExternalCutoverEvidence(
+        status=CutoverEvidenceStatus.PASS,
+        source=source,
+        artifact=artifact,
+        sha256=_sha256_file(path),
+        observed_at=observed_at,
+        producer=producer,
+    )
+    verified = verify_external_cutover_evidence(evidence, artifact_root=artifact_root)
+    if not verified.green:
+        raise CutoverArtifactVerificationError("freshly attested cutover artifact did not verify")
+    return evidence
+
+
 def verify_external_cutover_evidence(
     evidence: ExternalCutoverEvidence,
     *,
@@ -129,6 +158,7 @@ def verify_live_cutover_evidence(
 
 __all__ = [
     "CutoverArtifactVerificationError",
+    "attest_external_cutover_artifact",
     "VerifiedExternalCutoverEvidence",
     "VerifiedLiveCutoverEvidence",
     "verify_external_cutover_evidence",

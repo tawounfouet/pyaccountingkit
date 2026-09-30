@@ -218,3 +218,10 @@ A syntactically valid `PASS` is no longer sufficient: its artifact must be mater
 under the configured repository-local evidence root, resolve without path traversal and
 match the declared SHA-256. The cutover-evidence CI job exposes only these verified booleans
 to retirement-readiness; direct manifest status can no longer authorize legacy deletion.
+
+
+The `0.6.0b15` slice adds the controlled evidence-promotion path. A live artifact must
+already exist beneath the configured evidence root; the promotion API derives its SHA-256
+from those bytes, creates and re-verifies the PASS attestation, and removes only the matching
+MIG-13 evidence blocker. The CLI is dry-run by default and requires explicit `--write` for
+atomic manifest replacement, preventing handwritten digests and accidental promotion.

@@ -280,18 +280,10 @@ def test_fec_pipeline_matches_cfa_fra_golden() -> None:
 
     actual = {
         "raw_record_count": len(parsed.records),
-        "source_line_numbers": [
-            record.source_line_number for record in parsed.records
-        ],
-        "raw_rows_preserved": all(
-            len(record.raw_fields) == 18 for record in parsed.records
-        ),
-        "row_checksums_present": all(
-            record.row_checksum is not None for record in parsed.records
-        ),
-        "normalized_entry_keys": [
-            record.source_entry_key.value for record in normalized
-        ],
+        "source_line_numbers": [record.source_line_number for record in parsed.records],
+        "raw_rows_preserved": all(len(record.raw_fields) == 18 for record in parsed.records),
+        "row_checksums_present": all(record.row_checksum is not None for record in parsed.records),
+        "normalized_entry_keys": [record.source_entry_key.value for record in normalized],
         "group_count": len(groups),
         "group_balanced": all(group.balanced for group in groups),
         "total_debit": report.total_debit,
@@ -383,9 +375,7 @@ def test_trial_balance_variants_match_cfa_fra_golden() -> None:
         TrialBalanceSnapshot.BEFORE_ADJUSTMENTS.value: _balances(
             query, TrialBalanceSnapshot.BEFORE_ADJUSTMENTS
         ),
-        TrialBalanceSnapshot.ADJUSTED.value: _balances(
-            query, TrialBalanceSnapshot.ADJUSTED
-        ),
+        TrialBalanceSnapshot.ADJUSTED.value: _balances(query, TrialBalanceSnapshot.ADJUSTED),
         TrialBalanceSnapshot.POST_CLOSING.value: _balances(
             query, TrialBalanceSnapshot.POST_CLOSING
         ),

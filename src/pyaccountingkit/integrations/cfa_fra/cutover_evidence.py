@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
+import re
 from collections.abc import Mapping
 from dataclasses import dataclass
 from datetime import datetime
 from enum import StrEnum
-import re
 
 _SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 

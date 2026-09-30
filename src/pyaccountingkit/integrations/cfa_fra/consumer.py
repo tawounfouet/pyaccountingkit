@@ -43,9 +43,7 @@ def _legacy_object_id(value: object) -> str:
             token = str(candidate).strip()
             if token:
                 return token
-    raise CFAFRAConsumerMappingError(
-        f"legacy object {type(value).__name__!r} has no usable pk/id"
-    )
+    raise CFAFRAConsumerMappingError(f"legacy object {type(value).__name__!r} has no usable pk/id")
 
 
 class CFAFRADjangoConsumerBridge:
@@ -154,10 +152,7 @@ class CFAFRADjangoConsumerBridge:
         audit_metadata: Mapping[str, object] | None = None,
     ) -> object:
         """Preserve CFA FRA's FEC execution signature with canonical batch identity."""
-        if (
-            self._routing.mutation_backend_for("execute_fec_import")
-            is MutationBackend.LEGACY
-        ):
+        if self._routing.mutation_backend_for("execute_fec_import") is MutationBackend.LEGACY:
             return self._legacy_call(
                 self._legacy_imports,
                 "execute_fec_import",
@@ -278,9 +273,7 @@ class CFAFRADjangoConsumerBridge:
         **parameters: object,
     ) -> object:
         if service is None:
-            raise CFAFRAMigrationRouteError(
-                f"legacy CFA FRA service unavailable for {operation!r}"
-            )
+            raise CFAFRAMigrationRouteError(f"legacy CFA FRA service unavailable for {operation!r}")
         candidate = getattr(service, operation, None)
         if not callable(candidate):
             raise CFAFRAMigrationRouteError(

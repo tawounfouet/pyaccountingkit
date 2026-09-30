@@ -1,5 +1,5 @@
 {
-  "schema_version": "2",
+  "schema_version": "3",
   "consumer": "CFA FRA Django MVP Sprint 7",
   "routing_profile": "target_only",
   "external_evidence": {
@@ -18,5 +18,10 @@
     "evidence:consumer-e2e",
     "evidence:legacy-identities",
     "evidence:regulatory-authority"
-  ]
+  ],
+  "artifact_policy": {
+    "root": "tests/consumer/cfa_fra/live_evidence",
+    "require_local_materialization": true,
+    "sha256_verified": true
+  }
 }

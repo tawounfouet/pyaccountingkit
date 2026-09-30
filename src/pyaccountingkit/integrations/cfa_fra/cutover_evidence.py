@@ -14,7 +14,7 @@ _SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 class CutoverEvidenceStatus(StrEnum):
     """Status of one externally produced live-cutover proof."""
 
-    PASS = "PASS"
+    PASS = "PASS"  # nosec B105 - evidence status label, not a credential
     BLOCKED = "BLOCKED"
 
 
@@ -55,15 +55,17 @@ class ExternalCutoverEvidence:
             if value is None or not value.strip():
                 raise ValueError(f"passing cutover evidence requires {name}")
 
-        assert self.sha256 is not None
-        if _SHA256_RE.fullmatch(self.sha256) is None:
+        sha256 = self.sha256
+        observed_at = self.observed_at
+        if sha256 is None or observed_at is None:
+            raise ValueError("passing cutover evidence attestation is incomplete")
+        if _SHA256_RE.fullmatch(sha256) is None:
             raise ValueError("cutover evidence sha256 must be 64 lowercase hex characters")
 
-        assert self.observed_at is not None
-        if not self.observed_at.endswith("Z"):
+        if not observed_at.endswith("Z"):
             raise ValueError("cutover evidence observed_at must be an explicit UTC timestamp")
         try:
-            datetime.fromisoformat(self.observed_at.removesuffix("Z") + "+00:00")
+            datetime.fromisoformat(observed_at.removesuffix("Z") + "+00:00")
         except ValueError as exc:
             raise ValueError("cutover evidence observed_at must be ISO-8601") from exc
 

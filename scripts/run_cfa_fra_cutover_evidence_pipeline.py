@@ -43,6 +43,9 @@ def _artifact_root(manifest: Mapping[str, object]) -> Path:
 def _plan(args: argparse.Namespace) -> int:
     manifest = _load_mapping(args.manifest)
     source = _load_mapping(args.source)
+    artifact_root = (
+        args.artifact_root.resolve() if args.artifact_root is not None else _artifact_root(manifest)
+    )
     plan = plan_cutover_evidence_pipeline(
         manifest,
         key=cast(CutoverArtifactKey, args.key),
@@ -51,6 +54,7 @@ def _plan(args: argparse.Namespace) -> int:
         evidence_source=args.evidence_source,
         observed_at=args.observed_at,
         producer=args.producer,
+        existing_artifact_root=artifact_root,
     )
     payload = json.dumps(pipeline_plan_payload(plan), indent=2, sort_keys=False) + "\n"
     print(payload, end="")
@@ -67,9 +71,7 @@ def _apply(args: argparse.Namespace) -> int:
     manifest = _load_mapping(manifest_path)
     plan = pipeline_plan_from_mapping(_load_mapping(args.plan))
     artifact_root = (
-        args.artifact_root.resolve()
-        if args.artifact_root is not None
-        else _artifact_root(manifest)
+        args.artifact_root.resolve() if args.artifact_root is not None else _artifact_root(manifest)
     )
     promotion = apply_cutover_evidence_pipeline(
         plan,

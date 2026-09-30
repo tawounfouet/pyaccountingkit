@@ -25,9 +25,11 @@ Chaque plan correspond à un jalon de release sémantique clair, définit les lo
 
 ## Lot actif / qualification
 
+- [`LOT-26_CFA_FRA_CONSUMER_CONVERSION_AND_LEGACY_RETIREMENT_PLAN.md`](LOT-26_CFA_FRA_CONSUMER_CONVERSION_AND_LEGACY_RETIREMENT_PLAN.md)
+  — LOT-26 actif : conversion CFA FRA en consumer de `AccountingApplication`, strangler par service,
+  feature switch mutations, dual-run lecture et traçabilité des identités historiques.
 - [`LOT-25_CFA_FRA_GOLDEN_BASELINE_IMPLEMENTATION_PLAN.md`](LOT-25_CFA_FRA_GOLDEN_BASELINE_IMPLEMENTATION_PLAN.md)
-  — LOT-25 actif : baseline CFA FRA Sprint 7, fixtures golden checksummées et qualification
-  de parité vers `0.6.0a1`.
+  — LOT-25 qualifié en `0.6.0a1` : baseline CFA FRA Sprint 7 et parité golden.
 - [`cfa_fra/01_CFA_FRA_COMPONENT_INVENTORY.md`](cfa_fra/01_CFA_FRA_COMPONENT_INVENTORY.md)
   — inventaire des composants et stratégie EXTRACT/REWRITE/ADAPTER/GOLDEN.
 - [`cfa_fra/02_CFA_FRA_GOLDEN_SCENARIO_INVENTORY.md`](cfa_fra/02_CFA_FRA_GOLDEN_SCENARIO_INVENTORY.md)

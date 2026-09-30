@@ -62,8 +62,8 @@ def promote_cutover_evidence(
     producer: str,
 ) -> CutoverEvidencePromotion:
     """Promote one blocked proof to PASS using a digest derived from real bytes."""
-    if manifest.get("schema_version") != "4":
-        raise ValueError("cutover evidence promotion requires schema_version='4'")
+    if manifest.get("schema_version") != "5":
+        raise ValueError("cutover evidence promotion requires schema_version='5'")
     if manifest.get("routing_profile") != "target_only":
         raise ValueError("cutover evidence promotion requires target_only routing")
 

@@ -11,7 +11,6 @@ from typing import cast
 
 from pyaccountingkit.integrations.cfa_fra import (
     CutoverArtifactKey,
-    CutoverEvidencePipelinePlan,
     apply_cutover_evidence_pipeline,
     pipeline_plan_from_mapping,
     pipeline_plan_payload,

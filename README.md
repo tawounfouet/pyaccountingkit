@@ -10,7 +10,7 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit **0.6.0b19** is the LOT-26 CFA FRA Consumer E2E Cutover Evidence beta.
+PyAccountingKit **0.6.0b20** is the LOT-26 CFA FRA Legacy Retirement Plan beta.
 
 LOT-26 turns the frozen LOT-25 CFA FRA behavioral baseline into an executable
 migration boundary. The temporary `CFAFRACompatibilityAdapter` lets the Django
@@ -39,7 +39,7 @@ mode rather than a generic posting bypass.
 
 The stable **0.5.0** public facade, adapter contract v1 and the independently
 Production-qualified Django/PostgreSQL and SQLAlchemy/PostgreSQL adapters remain
-the compatibility baseline. **0.6.0b19 is still pre-1.0**: LOT-26 consumer
+the compatibility baseline. **0.6.0b20 is still pre-1.0**: LOT-26 consumer
 conversion is in progress; LOT-27 regulatory production qualification and the
 LOT-29/30 API freeze remain later roadmap steps.
 
@@ -617,3 +617,22 @@ The generic generation, promotion and reviewed plan/apply pipeline accept `consu
 a third evidence key. Canonical live consumer evidence remains BLOCKED until a real artifact is
 supplied; the isolated fixture pipeline proves that all three external blockers can be cleared
 without modifying canonical live evidence.
+
+
+The `0.6.0b20` milestone makes L26-C retirement planning executable without making
+retirement itself automatic. A deterministic plan can be built only from a MIG-13 readiness
+report with `ready=true`, target-only routing, no calculated or expected blockers, and all
+five evidence gates green.
+
+The plan fingerprints both the retirement inventory and the readiness report, then maps every
+inventory component to one non-executing action:
+
+- duplicate accounting engines -> `RETIRE_DUPLICATE_ENGINE`;
+- Django endpoints -> `VERIFY_CONSUMER_REWIRED`;
+- historical state -> `PRESERVE_OR_MIGRATE_PERSISTENCE`;
+- consumer-owned concerns -> `KEEP_CONSUMER_CONCERN`;
+- frozen Sprint-7 evidence -> `PRESERVE_FROZEN_ORACLE`.
+
+The planner never mutates the bundled oracle and never executes deletion. Canonical CI
+qualifies the planner only against isolated MIG-13-ready fixture evidence; the real live
+retirement state remains blocked until genuine CFA FRA proofs are supplied.

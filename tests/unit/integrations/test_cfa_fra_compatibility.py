@@ -134,9 +134,7 @@ def test_mutation_switch_calls_pyaccountingkit_and_never_legacy() -> None:
     adapter = CFAFRACompatibilityAdapter(
         app,
         legacy_service=legacy,
-        routing=MigrationRouting(
-            mutation_routes={"post_entry": MutationBackend.PYACCOUNTINGKIT}
-        ),
+        routing=MigrationRouting(mutation_routes={"post_entry": MutationBackend.PYACCOUNTINGKIT}),
         context_factory=_context,
     )
 
@@ -164,9 +162,7 @@ def test_unspecified_mutation_stays_legacy_and_does_not_touch_target() -> None:
     result = adapter.reverse_entry(entry_id="entry-42", user=_User(8))
 
     assert result == "legacy:reverse_entry"
-    assert legacy.calls == [
-        ("reverse_entry", {"entry_id": "entry-42", "user": _User(8)})
-    ]
+    assert legacy.calls == [("reverse_entry", {"entry_id": "entry-42", "user": _User(8)})]
     assert services["entries"].calls == []
 
 
@@ -186,8 +182,7 @@ def test_dual_run_read_returns_legacy_primary_and_observes_target() -> None:
         ),
         context_factory=_context,
         comparator=lambda legacy_result, target_result: (
-            legacy_result == {"balance": "100"}
-            and target_result == "target:trial_balance"
+            legacy_result == {"balance": "100"} and target_result == "target:trial_balance"
         ),
         observation_sink=observations.append,
     )
@@ -236,9 +231,7 @@ def test_regulatory_effective_plan_delegates_to_public_reference_provider_bounda
     adapter = CFAFRACompatibilityAdapter(
         app,
         legacy_service=None,
-        routing=MigrationRouting(
-            read_routes={"effective_plan": ReadBackend.PYACCOUNTINGKIT}
-        ),
+        routing=MigrationRouting(read_routes={"effective_plan": ReadBackend.PYACCOUNTINGKIT}),
         context_factory=_context,
     )
 
@@ -293,14 +286,10 @@ def test_legacy_identity_map_is_traceable_idempotent_and_conflict_safe() -> None
 
 def test_migration_routing_rejects_unknown_or_mutating_dual_run_routes() -> None:
     with pytest.raises(CFAFRAMigrationRouteError):
-        MigrationRouting(
-            mutation_routes={"typo_post": MutationBackend.PYACCOUNTINGKIT}
-        )
+        MigrationRouting(mutation_routes={"typo_post": MutationBackend.PYACCOUNTINGKIT})
 
     with pytest.raises(CFAFRAMigrationRouteError):
-        MigrationRouting(
-            read_routes={"typo_read": ReadBackend.PYACCOUNTINGKIT}
-        )
+        MigrationRouting(read_routes={"typo_read": ReadBackend.PYACCOUNTINGKIT})
 
     with pytest.raises(CFAFRAMigrationRouteError):
         MigrationRouting(dual_run_reads=frozenset({"post_entry"}))

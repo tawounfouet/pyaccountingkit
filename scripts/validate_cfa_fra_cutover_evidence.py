@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import cast
 
 from pyaccountingkit.integrations.cfa_fra import (
+    CutoverArtifactKey,
     CutoverArtifactVerificationError,
     CutoverEvidenceStatus,
     LEGACY_IDENTITIES_SCHEMA,
@@ -154,7 +155,7 @@ def validate() -> tuple[list[str], VerifiedLiveCutoverEvidence | None, Path | No
                 violations.append(f"{key}: PASS evidence is missing artifact path")
                 continue
             path = resolve_cutover_artifact_path(artifact_root, artifact)
-            parsed = parse_cutover_artifact(key, path)
+            parsed = parse_cutover_artifact(cast(CutoverArtifactKey, key), path)
             if parsed.consumer != consumer:
                 violations.append(
                     f"{key}: artifact consumer must match retirement manifest consumer"

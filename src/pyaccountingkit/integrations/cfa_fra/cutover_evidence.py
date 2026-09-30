@@ -106,22 +106,31 @@ class ExternalCutoverEvidence:
 class LiveCutoverEvidence:
     """External evidence required by MIG-13 in addition to canonical CI."""
 
+    consumer_e2e: ExternalCutoverEvidence
     legacy_identities: ExternalCutoverEvidence
     regulatory_authority: ExternalCutoverEvidence
 
     @classmethod
     def from_mapping(cls, payload: Mapping[str, object]) -> LiveCutoverEvidence:
         """Parse the required external evidence set from a manifest mapping."""
+        raw_consumer = payload.get("consumer_e2e")
         raw_identities = payload.get("legacy_identities")
         raw_authority = payload.get("regulatory_authority")
+        if not isinstance(raw_consumer, dict):
+            raise ValueError("consumer_e2e cutover evidence is missing")
         if not isinstance(raw_identities, dict):
             raise ValueError("legacy_identities cutover evidence is missing")
         if not isinstance(raw_authority, dict):
             raise ValueError("regulatory_authority cutover evidence is missing")
         return cls(
+            consumer_e2e=ExternalCutoverEvidence.from_mapping(raw_consumer),
             legacy_identities=ExternalCutoverEvidence.from_mapping(raw_identities),
             regulatory_authority=ExternalCutoverEvidence.from_mapping(raw_authority),
         )
+
+    @property
+    def consumer_e2e_green(self) -> bool:
+        return self.consumer_e2e.green
 
     @property
     def identities_traceable(self) -> bool:

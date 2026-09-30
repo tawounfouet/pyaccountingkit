@@ -1,0 +1,22 @@
+{
+  "consumer": "CFA FRA generation test consumer",
+  "generated_at": "2026-09-30T13:00:00Z",
+  "expected_legacy_records": 2,
+  "links": [
+    {
+      "legacy_type": "JournalEntry",
+      "legacy_id": "legacy-2",
+      "target_type": "JournalEntry",
+      "target_id": "target-2",
+      "source": "CFA_FRA_LEGACY"
+    },
+    {
+      "legacy_type": "JournalEntry",
+      "legacy_id": "legacy-1",
+      "target_type": "JournalEntry",
+      "target_id": "target-1",
+      "source": "CFA_FRA_LEGACY",
+      "source_checksum": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  ]
+}

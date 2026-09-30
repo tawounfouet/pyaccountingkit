@@ -38,14 +38,8 @@ def test_retirement_planner_cli_emits_reviewable_non_executing_plan(tmp_path) ->
     payload = json.loads(output.read_text(encoding="utf-8"))
     assert payload["schema_version"] == "1"
     assert len(payload["items"]) == 39
-    assert any(
-        item["action"] == "RETIRE_DUPLICATE_ENGINE"
-        for item in payload["items"]
-    )
-    assert any(
-        item["action"] == "PRESERVE_FROZEN_ORACLE"
-        for item in payload["items"]
-    )
+    assert any(item["action"] == "RETIRE_DUPLICATE_ENGINE" for item in payload["items"])
+    assert any(item["action"] == "PRESERVE_FROZEN_ORACLE" for item in payload["items"])
 
 
 def test_retirement_planner_cli_rejects_blocked_readiness(tmp_path) -> None:

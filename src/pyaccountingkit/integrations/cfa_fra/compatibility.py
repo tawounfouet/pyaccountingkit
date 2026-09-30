@@ -88,13 +88,9 @@ class MigrationRouting:
         """Return the final cutover profile with no legacy or shadow route."""
         return cls(
             mutation_routes={
-                operation: MutationBackend.PYACCOUNTINGKIT
-                for operation in _MUTATION_OPERATIONS
+                operation: MutationBackend.PYACCOUNTINGKIT for operation in _MUTATION_OPERATIONS
             },
-            read_routes={
-                operation: ReadBackend.PYACCOUNTINGKIT
-                for operation in _READ_OPERATIONS
-            },
+            read_routes={operation: ReadBackend.PYACCOUNTINGKIT for operation in _READ_OPERATIONS},
         )
 
     def mutation_backend_for(self, operation: str) -> MutationBackend:

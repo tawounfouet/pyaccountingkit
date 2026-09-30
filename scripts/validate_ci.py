@@ -91,6 +91,7 @@ def validate_ci_text(text: str) -> list[str]:
             "RETIREMENT_INVENTORY_RESULT: ${{ needs.retirement-inventory.result }}",
             "CUTOVER_EVIDENCE_RESULT: ${{ needs.cutover-evidence.result }}",
             "CUTOVER_PIPELINE_RESULT: ${{ needs.cutover-pipeline.result }}",
+            'test "$CUTOVER_PIPELINE_RESULT" = "success"',
             "RETIREMENT_READINESS_RESULT: ${{ needs.retirement-readiness.result }}",
             "RELEASE_QUALIFICATION_RESULT: ${{ needs.release-qualification.result }}",
         ),

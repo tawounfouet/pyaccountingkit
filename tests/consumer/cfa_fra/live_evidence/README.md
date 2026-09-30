@@ -26,3 +26,27 @@ python scripts/promote_cfa_fra_cutover_evidence.py \
 This is a dry-run and prints the candidate manifest. Re-run with `--write` only after
 reviewing the generated attestation. The command computes the digest from the file itself,
 verifies the resulting PASS and removes only the corresponding blocker.
+
+
+## Required artifact schemas
+
+A promoted identity artifact must declare:
+
+```text
+schema = cfa_fra_legacy_identity_migration/v1
+kind   = legacy_identity_migration
+```
+
+and provide complete legacy-to-target mappings with `unresolved_records = 0`.
+
+A promoted regulatory-authority artifact must declare:
+
+```text
+schema = cfa_fra_regulatory_authority_cutover/v1
+kind   = regulatory_authority_cutover
+```
+
+and prove target-only routing, disabled local accounting authority, delegated
+`effective_plan` and at least one provider-backed reference resolution.
+
+A correct file hash alone is not evidence of either condition.

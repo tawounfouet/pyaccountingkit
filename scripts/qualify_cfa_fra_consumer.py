@@ -78,7 +78,7 @@ user = get_user_model().objects.create_user(
     email="consumer-login@example.com",
     password="secret1234",
 )
-client = Client()
+client = Client(HTTP_HOST="localhost")
 login_url = reverse("login")
 get_response = client.get(login_url)
 assert get_response.status_code == 200

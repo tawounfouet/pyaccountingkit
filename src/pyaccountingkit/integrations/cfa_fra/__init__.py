@@ -15,6 +15,7 @@ from pyaccountingkit.integrations.cfa_fra.consumer import (
     CFAFRAConsumerMappingError,
     CFAFRADjangoConsumerBridge,
     ConsumerContextFactory,
+    ControlTargetParametersFactory,
     StatementTargetParametersFactory,
 )
 from pyaccountingkit.integrations.cfa_fra.consumer_qualification import (
@@ -52,6 +53,7 @@ __all__ = [
     "CFAFRAMigrationRouteError",
     "CFAFRAConsumerQualificationError",
     "ConsumerContextFactory",
+    "ControlTargetParametersFactory",
     "ConsumerQualification",
     "ConsumerQualificationDecision",
     "ConsumerScenario",

@@ -7,6 +7,7 @@ from dataclasses import dataclass
 
 from pyaccountingkit.integrations.cfa_fra.compatibility import (
     LegacyIdentityLink,
+    LegacyIdentityMap,
     LegacyIdentityStoreProtocol,
     MigrationRouting,
 )

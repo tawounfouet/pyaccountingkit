@@ -122,10 +122,7 @@ class LegacyIdentityMap:
         return self._links.get((legacy_type, legacy_id))
 
     def snapshot(self) -> tuple[LegacyIdentityLink, ...]:
-        return tuple(
-            self._links[key]
-            for key in sorted(self._links)
-        )
+        return tuple(self._links[key] for key in sorted(self._links))
 
 
 ContextFactory = Callable[[object], CommandContext]
@@ -383,9 +380,7 @@ class CFAFRACompatibilityAdapter:
             )
         candidate = getattr(self._legacy_service, operation, None)
         if not callable(candidate):
-            raise CFAFRAMigrationRouteError(
-                f"legacy operation {operation!r} is unavailable"
-            )
+            raise CFAFRAMigrationRouteError(f"legacy operation {operation!r} is unavailable")
         call = cast(LegacyCall, candidate)
         return call(**dict(parameters))
 

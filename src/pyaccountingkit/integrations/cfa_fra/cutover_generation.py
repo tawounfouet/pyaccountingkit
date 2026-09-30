@@ -73,9 +73,7 @@ def generate_legacy_identity_artifact(
 ) -> GeneratedCutoverArtifact:
     """Generate complete identity evidence from a migrated identity-store snapshot."""
     if expected_legacy_records <= 0:
-        raise CutoverArtifactGenerationError(
-            "expected_legacy_records must be greater than zero"
-        )
+        raise CutoverArtifactGenerationError("expected_legacy_records must be greater than zero")
 
     links = tuple(
         sorted(

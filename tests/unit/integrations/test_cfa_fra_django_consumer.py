@@ -182,9 +182,7 @@ def _bridge(
 
 def test_post_journal_entry_maps_legacy_object_to_canonical_id_only() -> None:
     bridge, entries, _, _, legacy_accounting, _, _ = _bridge(
-        MigrationRouting(
-            mutation_routes={"post_entry": MutationBackend.PYACCOUNTINGKIT}
-        )
+        MigrationRouting(mutation_routes={"post_entry": MutationBackend.PYACCOUNTINGKIT})
     )
     entry = _LegacyObject("entry-legacy")
 
@@ -233,9 +231,7 @@ def test_legacy_post_keeps_exact_historical_signature_and_objects() -> None:
 
 def test_reverse_maps_both_entry_and_period_before_public_call() -> None:
     bridge, entries, _, _, legacy_accounting, _, _ = _bridge(
-        MigrationRouting(
-            mutation_routes={"reverse_entry": MutationBackend.PYACCOUNTINGKIT}
-        )
+        MigrationRouting(mutation_routes={"reverse_entry": MutationBackend.PYACCOUNTINGKIT})
     )
 
     result = bridge.reverse_journal_entry(
@@ -257,9 +253,7 @@ def test_reverse_maps_both_entry_and_period_before_public_call() -> None:
 
 def test_execute_fec_import_uses_public_batch_id_contract() -> None:
     bridge, _, imports, _, _, legacy_imports, _ = _bridge(
-        MigrationRouting(
-            mutation_routes={"execute_fec_import": MutationBackend.PYACCOUNTINGKIT}
-        )
+        MigrationRouting(mutation_routes={"execute_fec_import": MutationBackend.PYACCOUNTINGKIT})
     )
 
     result = bridge.execute_fec_import(
@@ -280,9 +274,7 @@ def test_missing_identity_fails_before_target_mutation() -> None:
         legacy_accounting=_LegacyAccounting(),
         legacy_imports=None,
         legacy_reporting=None,
-        routing=MigrationRouting(
-            mutation_routes={"post_entry": MutationBackend.PYACCOUNTINGKIT}
-        ),
+        routing=MigrationRouting(mutation_routes={"post_entry": MutationBackend.PYACCOUNTINGKIT}),
         context_factory=_context,
         identities=LegacyIdentityMap(),
     )

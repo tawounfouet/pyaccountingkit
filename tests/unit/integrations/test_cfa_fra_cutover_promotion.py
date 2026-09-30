@@ -52,7 +52,7 @@ def _identity_payload() -> dict[str, object]:
     return {
         "schema": "cfa_fra_legacy_identity_migration/v1",
         "kind": "legacy_identity_migration",
-        "consumer": "CFA FRA",
+        "consumer": "CFA FRA test consumer",
         "generated_at": "2026-09-30T12:30:00Z",
         "source_system": "CFA_FRA_LEGACY",
         "target_system": "PYACCOUNTINGKIT",
@@ -198,6 +198,24 @@ def test_promotion_requires_corresponding_blocker_before_state_change(tmp_path) 
     with pytest.raises(ValueError, match="expected blocker"):
         promote_cutover_evidence(
             manifest,
+            key="legacy_identities",
+            artifact_root=tmp_path,
+            artifact=artifact.name,
+            source="live-consumer-cutover",
+            observed_at="2026-09-30T12:30:00Z",
+            producer="cfa-fra-cutover-pipeline",
+        )
+
+
+def test_promotion_rejects_artifact_for_another_consumer(tmp_path) -> None:
+    artifact = tmp_path / "identity-other-consumer.json"
+    payload = _identity_payload()
+    payload["consumer"] = "Another Consumer"
+    _write_json(artifact, payload)
+
+    with pytest.raises(ValueError, match="artifact consumer"):
+        promote_cutover_evidence(
+            _manifest(),
             key="legacy_identities",
             artifact_root=tmp_path,
             artifact=artifact.name,

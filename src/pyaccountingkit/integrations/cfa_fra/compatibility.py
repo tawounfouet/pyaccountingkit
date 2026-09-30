@@ -11,6 +11,7 @@ from collections.abc import Callable, Mapping
 from dataclasses import dataclass, field
 from enum import StrEnum
 from types import MappingProxyType
+from typing import cast
 
 from pyaccountingkit.public.application import AccountingApplication
 from pyaccountingkit.public.context import CommandContext
@@ -131,6 +132,7 @@ ContextFactory = Callable[[object], CommandContext]
 DualRunComparator = Callable[[object, object], bool]
 ObservationSink = Callable[[DualRunObservation], None]
 TargetCall = Callable[[CommandContext], object]
+LegacyCall = Callable[..., object]
 
 
 def _default_comparator(legacy: object, target: object) -> bool:
@@ -384,7 +386,8 @@ class CFAFRACompatibilityAdapter:
             raise CFAFRAMigrationRouteError(
                 f"legacy operation {operation!r} is unavailable"
             )
-        return candidate(**dict(parameters))
+        call = cast(LegacyCall, candidate)
+        return call(**dict(parameters))
 
 
 __all__ = [

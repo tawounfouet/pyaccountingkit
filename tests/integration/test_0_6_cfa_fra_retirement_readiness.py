@@ -22,7 +22,7 @@ def _manifest() -> dict[str, object]:
 def test_retirement_manifest_requires_target_only_routing() -> None:
     payload = _manifest()
 
-    assert payload["schema_version"] == "1"
+    assert payload["schema_version"] == "2"
     assert payload["routing_profile"] == "target_only"
     assert MigrationRouting.target_only().is_target_only() is True
 
@@ -32,8 +32,8 @@ def test_current_retirement_manifest_records_only_real_external_blockers() -> No
     external = payload["external_evidence"]
 
     assert isinstance(external, dict)
-    assert external["legacy_identities"]["green"] is False
-    assert external["regulatory_authority"]["green"] is False
+    assert external["legacy_identities"]["status"] == "BLOCKED"
+    assert external["regulatory_authority"]["status"] == "BLOCKED"
     assert tuple(payload["expected_blockers"]) == (
         "evidence:consumer-e2e",
         "evidence:legacy-identities",

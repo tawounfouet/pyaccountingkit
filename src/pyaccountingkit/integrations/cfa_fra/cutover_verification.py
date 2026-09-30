@@ -100,9 +100,7 @@ def verify_external_cutover_evidence(
 
     actual_sha256 = _sha256_file(path)
     if not hmac.compare_digest(actual_sha256, expected_sha256):
-        raise CutoverArtifactVerificationError(
-            f"cutover evidence SHA-256 mismatch for {artifact}"
-        )
+        raise CutoverArtifactVerificationError(f"cutover evidence SHA-256 mismatch for {artifact}")
 
     return VerifiedExternalCutoverEvidence(
         evidence=evidence,

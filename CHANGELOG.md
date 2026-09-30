@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0b5] - 2026-09-30
+
+### Added
+- Canonical CI job executing the bundled CFA FRA Sprint-7 Django consumer test harness on
+  Python 3.12 with its native SQLite test settings.
+- Machine-readable consumer evidence matrix binding Gate Consumer scenarios to real upstream
+  pytest files.
+- Executable evidence for organization context, FEC import, journal workflow, ledger/balance,
+  financial statements and regulatory exports.
+
+### Qualification boundary
+- Login remains BLOCKED because the frozen snapshot has user creation and `force_login`
+  coverage but no dedicated request-level login-flow test.
+- Controls remain BLOCKED because Sprint 7 exposes models/views but no executable controls
+  service test.
+- Closing remains BLOCKED because the executable Regulatory Controls & Closing Package is
+  explicitly scheduled for Sprint 8.
+- The consumer evidence CI job must pass, but `consumer_e2e_green` intentionally remains
+  false while any of those blockers exists.
+
 ## [0.6.0b4] - 2026-09-30
 
 ### Added

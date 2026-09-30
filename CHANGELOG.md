@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0b7] - 2026-09-30
+
+### Added
+- Target-only CFA FRA controls consumer bridge delegating to
+  `AccountingApplication.controls.run`.
+- `ControlTargetParametersFactory` for explicit control-set/scope mapping while canonical
+  organization and fiscal-year identities come from the migration identity store.
+- Fail-closed validation preventing `CommandContext` overrides, conflicting canonical IDs
+  and leakage of legacy ORM objects into the public controls boundary.
+
+### Safety
+- The bridge refuses legacy controls execution because Sprint 7 contains no executable legacy
+  controls service.
+- Controls dual-run is rejected for the same reason; no comparison baseline is fabricated.
+- Gate Consumer keeps `controls` BLOCKED until the actual CFA FRA consumer dashboard delegates
+  through this bridge and produces executable smoke/E2E evidence.
+
 ## [0.6.0b6] - 2026-09-30
 
 ### Added

@@ -66,9 +66,7 @@ def promote_cutover_evidence(
     current = external.get(key)
     if not isinstance(current, dict):
         raise ValueError(f"cutover evidence record {key!r} is missing")
-    current_evidence = ExternalCutoverEvidence.from_mapping(
-        cast(Mapping[str, object], current)
-    )
+    current_evidence = ExternalCutoverEvidence.from_mapping(cast(Mapping[str, object], current))
     if current_evidence.status is CutoverEvidenceStatus.PASS:
         raise ValueError(f"cutover evidence record {key!r} is already PASS")
 
@@ -97,9 +95,7 @@ def promote_cutover_evidence(
         item for item in cast(list[str], raw_expected) if item != blocker
     ]
 
-    live = LiveCutoverEvidence.from_mapping(
-        cast(Mapping[str, object], promoted_external)
-    )
+    live = LiveCutoverEvidence.from_mapping(cast(Mapping[str, object], promoted_external))
     verified = verify_live_cutover_evidence(live, artifact_root=artifact_root)
     if key == "legacy_identities" and not verified.identities_traceable:
         raise RuntimeError("promoted identity evidence did not verify")

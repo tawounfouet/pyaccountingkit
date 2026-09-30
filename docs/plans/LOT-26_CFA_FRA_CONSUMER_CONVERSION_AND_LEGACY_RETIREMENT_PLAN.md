@@ -225,3 +225,11 @@ already exist beneath the configured evidence root; the promotion API derives it
 from those bytes, creates and re-verifies the PASS attestation, and removes only the matching
 MIG-13 evidence blocker. The CLI is dry-run by default and requires explicit `--write` for
 atomic manifest replacement, preventing handwritten digests and accidental promotion.
+
+
+The `0.6.0b16` slice adds semantic contracts for the two external cutover artifacts.
+`legacy_identities` must prove complete, unique CFA FRA-to-PyAccountingKit identity
+traceability with zero unresolved records. `regulatory_authority` must prove target-only
+routing, disabled local authority, delegated effective-plan resolution and provider-backed
+sample references. SHA verification remains necessary but is no longer sufficient; canonical
+verification and controlled promotion require both cryptographic and semantic validity.

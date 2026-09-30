@@ -102,3 +102,20 @@ python scripts/run_cfa_fra_cutover_evidence_pipeline.py \
 The apply step verifies that the current retirement manifest still matches the fingerprint
 captured by the plan. Any intervening change requires a new plan. It also recomputes the
 promotion result and requires it to match the reviewed candidate manifest exactly.
+
+
+## Consumer E2E evidence
+
+b19 adds:
+
+```text
+schema = cfa_fra_consumer_e2e_cutover/v1
+kind   = consumer_e2e_cutover
+```
+
+The artifact must contain exactly one PASS result for all ten mandatory Gate Consumer
+scenarios, each with a `sha256:<64 lowercase hex>` provenance checksum. Missing, duplicate,
+BLOCKED or FAIL scenarios invalidate the artifact.
+
+The bundled Sprint-7 test harness remains useful as frozen regression evidence, but a live
+consumer artifact is the retirement proof consumed by MIG-13.

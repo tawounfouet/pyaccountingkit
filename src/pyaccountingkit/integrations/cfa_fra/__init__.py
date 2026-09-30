@@ -18,6 +18,7 @@ from pyaccountingkit.integrations.cfa_fra.consumer import (
     ConsumerContextFactory,
     ControlTargetParametersFactory,
     StatementTargetParametersFactory,
+    build_target_only_consumer_bridge,
 )
 from pyaccountingkit.integrations.cfa_fra.consumer_qualification import (
     CFAFRAConsumerQualificationError,
@@ -62,6 +63,7 @@ __all__ = [
     "ConsumerScenarioEvidence",
     "ConsumerScenarioStatus",
     "StatementTargetParametersFactory",
+    "build_target_only_consumer_bridge",
     "DivergenceCategory",
     "DualRunObservation",
     "GoldenCategory",

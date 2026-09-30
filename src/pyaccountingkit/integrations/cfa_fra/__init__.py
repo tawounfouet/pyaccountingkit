@@ -11,6 +11,11 @@ from pyaccountingkit.integrations.cfa_fra.compatibility import (
     MutationBackend,
     ReadBackend,
 )
+from pyaccountingkit.integrations.cfa_fra.consumer import (
+    CFAFRAConsumerMappingError,
+    CFAFRADjangoConsumerBridge,
+    ConsumerContextFactory,
+)
 from pyaccountingkit.integrations.cfa_fra.golden import (
     ORACLE_MANIFEST_VERSION,
     ORACLE_TREE_SHA,
@@ -33,7 +38,10 @@ __all__ = [
     "ORACLE_MANIFEST_VERSION",
     "ORACLE_TREE_SHA",
     "CFAFRACompatibilityAdapter",
+    "CFAFRAConsumerMappingError",
+    "CFAFRADjangoConsumerBridge",
     "CFAFRAMigrationRouteError",
+    "ConsumerContextFactory",
     "DivergenceCategory",
     "DualRunObservation",
     "GoldenCategory",

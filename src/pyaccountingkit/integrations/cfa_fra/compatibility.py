@@ -281,7 +281,7 @@ class CFAFRACompatibilityAdapter:
             user,
             legacy_parameters,
             lambda context: self._application.imports.execute(
-                import_id=import_id,
+                batch_id=import_id,
                 context=context,
                 **parameters,
             ),

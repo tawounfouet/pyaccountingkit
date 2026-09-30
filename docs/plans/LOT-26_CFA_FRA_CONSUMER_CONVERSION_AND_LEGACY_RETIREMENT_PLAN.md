@@ -105,12 +105,18 @@ Conflicting remaps fail closed. Re-registering the exact same mapping is idempot
 - fail-closed legacy-retirement gate;
 - framework-neutral consumer contract tests.
 
-### L26-B — consumer delegation
+### L26-B — consumer delegation / 0.6.0b2+
 
+- preserve the real CFA FRA service signatures at the consumer boundary;
+- translate legacy ORM identities through `LegacyIdentityStoreProtocol`;
 - convert CFA FRA accounting services service-by-service;
 - keep views/forms/permissions/HTMX in CFA FRA;
 - switch regulatory lookup to provider-backed public references;
 - add consumer E2E/smoke evidence.
+
+The first `0.6.0b2` slice covers actual posting, reversal, FEC execution and trial-balance
+selector signatures. Financial statements follow only after their explicit public source and
+mapping-set dependencies can be supplied without fabricating a translation.
 
 ### L26-C — retirement
 

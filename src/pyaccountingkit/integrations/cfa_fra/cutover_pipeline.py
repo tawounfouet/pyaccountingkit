@@ -289,8 +289,7 @@ def apply_cutover_evidence_pipeline(
     target = resolve_cutover_artifact_path(artifact_root, plan.artifact)
     if target.exists() and not overwrite_artifact:
         raise CutoverEvidencePipelineError(
-            f"cutover artifact already exists: {plan.artifact}; "
-            "explicit overwrite is required"
+            f"cutover artifact already exists: {plan.artifact}; explicit overwrite is required"
         )
 
     with TemporaryDirectory(prefix="pyaccountingkit-cutover-apply-") as directory:
@@ -311,13 +310,9 @@ def apply_cutover_evidence_pipeline(
         )
 
     if promotion.manifest != plan.candidate_manifest:
-        raise CutoverEvidencePipelineError(
-            "promotion result differs from reviewed dry-run plan"
-        )
+        raise CutoverEvidencePipelineError("promotion result differs from reviewed dry-run plan")
     if promotion.removed_blocker != plan.removed_blocker:
-        raise CutoverEvidencePipelineError(
-            "removed blocker differs from reviewed dry-run plan"
-        )
+        raise CutoverEvidencePipelineError("removed blocker differs from reviewed dry-run plan")
     if promotion.evidence.sha256 != plan.artifact_sha256:
         raise CutoverEvidencePipelineError(
             "generated artifact digest differs from reviewed dry-run plan"
@@ -326,11 +321,14 @@ def apply_cutover_evidence_pipeline(
     _write_atomic(target, plan.artifact_payload)
     parse_cutover_artifact(plan.key, target)
 
-    manifest_payload = json.dumps(
-        promotion.manifest,
-        indent=2,
-        sort_keys=False,
-    ) + "\n"
+    manifest_payload = (
+        json.dumps(
+            promotion.manifest,
+            indent=2,
+            sort_keys=False,
+        )
+        + "\n"
+    )
     _write_atomic(manifest_path, manifest_payload)
     return promotion
 

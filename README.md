@@ -10,7 +10,7 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit **0.6.0b12** is the LOT-26 CFA FRA Legacy Retirement Inventory beta.
+PyAccountingKit **0.6.0b13** is the LOT-26 CFA FRA Live Cutover Evidence beta.
 
 LOT-26 turns the frozen LOT-25 CFA FRA behavioral baseline into an executable
 migration boundary. The temporary `CFAFRACompatibilityAdapter` lets the Django
@@ -39,7 +39,7 @@ mode rather than a generic posting bypass.
 
 The stable **0.5.0** public facade, adapter contract v1 and the independently
 Production-qualified Django/PostgreSQL and SQLAlchemy/PostgreSQL adapters remain
-the compatibility baseline. **0.6.0b12 is still pre-1.0**: LOT-26 consumer
+the compatibility baseline. **0.6.0b13 is still pre-1.0**: LOT-26 consumer
 conversion is in progress; LOT-27 regulatory production qualification and the
 LOT-29/30 API freeze remain later roadmap steps.
 
@@ -524,3 +524,14 @@ The inventory always applies to **live consumer equivalents**, never to the
 bundled oracle itself. Canonical CI validates the inventory before MIG-13
 readiness is evaluated, so missing or contradictory retirement scope blocks
 the retirement decision.
+
+
+The `0.6.0b13` milestone upgrades live cutover proof from editable booleans
+to an attestable evidence contract. External PASS evidence for legacy identity
+migration or regulatory-authority replacement must carry an artifact reference,
+a lowercase SHA-256 digest, an explicit UTC observation timestamp and a producer.
+BLOCKED evidence must carry a reason and cannot masquerade as an attested proof.
+
+Canonical CI validates this contract before MIG-13 readiness runs. The current
+records remain BLOCKED because no live-consumer artifacts have yet been supplied;
+therefore the existing retirement blockers remain intentionally unchanged.

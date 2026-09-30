@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0b8] - 2026-09-30
+
+### Added
+- Target-only CFA FRA closing consumer bridge delegating the single-writer mutation to
+  `AccountingApplication.closing.close`.
+- `ClosingTargetParametersFactory` for explicit control-run, trial-balance and optional
+  opening-balance inputs while canonical period identity comes from the migration identity
+  store.
+- Fail-closed validation preventing `CommandContext` overrides, conflicting period identity
+  and leakage of the legacy period object into the public closing boundary.
+
+### Safety
+- The bridge refuses legacy closing execution because Sprint 7 contains no executable closing
+  service.
+- Mutation dual-write remains structurally impossible through `MigrationRouting`.
+- Gate Consumer keeps `closing` BLOCKED until the actual CFA FRA consumer delegates through
+  this bridge and produces executable smoke/E2E evidence.
+
 ## [0.6.0b7] - 2026-09-30
 
 ### Added

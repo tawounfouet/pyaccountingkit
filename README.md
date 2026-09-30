@@ -10,7 +10,7 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit **0.6.0b3** is the LOT-26 CFA FRA Statement Consumer Conversion beta.
+PyAccountingKit **0.6.0b4** is the LOT-26 CFA FRA Consumer Cutover Qualification beta.
 
 LOT-26 turns the frozen LOT-25 CFA FRA behavioral baseline into an executable
 migration boundary. The temporary `CFAFRACompatibilityAdapter` lets the Django
@@ -39,7 +39,7 @@ mode rather than a generic posting bypass.
 
 The stable **0.5.0** public facade, adapter contract v1 and the independently
 Production-qualified Django/PostgreSQL and SQLAlchemy/PostgreSQL adapters remain
-the compatibility baseline. **0.6.0b3 is still pre-1.0**: LOT-26 consumer
+the compatibility baseline. **0.6.0b4 is still pre-1.0**: LOT-26 consumer
 conversion is in progress; LOT-27 regulatory production qualification and the
 LOT-29/30 API freeze remain later roadmap steps.
 
@@ -48,6 +48,12 @@ mutation selects either the legacy CFA FRA engine or PyAccountingKit. Selected
 read operations may dual-run for comparison while returning only the configured
 primary result. `LegacyIdentityMap` keeps historical IDs and source provenance
 traceable during the transition.
+
+The `0.6.0b4` cutover evidence model makes the consumer gate executable without
+importing Django into the toolkit. It requires explicit evidence for login,
+organization context, FEC import, journal, ledger, balance, financial statements,
+controls, closing and exports. Missing, failed or blocked scenarios keep legacy
+retirement fail-closed.
 
 The bundled Sprint 7 oracle explicitly schedules its Regulatory Controls &
 Closing Package for Sprint 8. LOT-25 therefore records the missing executable

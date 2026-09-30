@@ -75,9 +75,7 @@ def _identity_source(payload: Mapping[str, object]) -> GeneratedCutoverArtifact:
         item = _mapping(raw, f"links[{index}]")
         checksum = item.get("source_checksum")
         if checksum is not None and not isinstance(checksum, str):
-            raise CutoverArtifactGenerationError(
-                f"links[{index}].source_checksum must be a string"
-            )
+            raise CutoverArtifactGenerationError(f"links[{index}].source_checksum must be a string")
         links.append(
             LegacyIdentityLink(
                 legacy_type=_string(item, "legacy_type"),
@@ -121,9 +119,7 @@ def _regulatory_source(payload: Mapping[str, object]) -> GeneratedCutoverArtifac
 
     routing_profile = _string(payload, "routing_profile")
     routing = (
-        MigrationRouting.target_only()
-        if routing_profile == "target_only"
-        else MigrationRouting()
+        MigrationRouting.target_only() if routing_profile == "target_only" else MigrationRouting()
     )
 
     return generate_regulatory_authority_artifact(
@@ -205,9 +201,7 @@ def main() -> int:
 
     source = _load(args.source)
     generated = (
-        _identity_source(source)
-        if args.key == "legacy_identities"
-        else _regulatory_source(source)
+        _identity_source(source) if args.key == "legacy_identities" else _regulatory_source(source)
     )
     payload = json.dumps(generation_payload(generated), indent=2, sort_keys=True) + "\n"
     print(payload, end="")

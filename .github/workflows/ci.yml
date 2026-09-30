@@ -234,6 +234,68 @@ jobs:
           echo "identities_traceable=$identities" >> "$GITHUB_OUTPUT"
           echo "regulatory_authority_replaced=$authority" >> "$GITHUB_OUTPUT"
 
+  cutover-pipeline:
+    name: CFA FRA cutover evidence pipeline
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install development tooling
+        run: python -m pip install -e ".[dev]"
+      - name: Prepare isolated retirement manifest
+        run: >-
+          mkdir -p build/cfa_fra_cutover_pipeline &&
+          cp tests/fixtures/cfa_fra_cutover_pipeline/RETIREMENT_EVIDENCE.json
+          build/cfa_fra_cutover_pipeline/RETIREMENT_EVIDENCE.json
+      - name: Plan identity evidence transition
+        run: >-
+          python scripts/run_cfa_fra_cutover_evidence_pipeline.py
+          --manifest build/cfa_fra_cutover_pipeline/RETIREMENT_EVIDENCE.json
+          plan legacy_identities
+          --source tests/fixtures/cfa_fra_cutover_generation/identity-source.json
+          --artifact legacy-identities.json
+          --evidence-source ci-cutover-pipeline
+          --observed-at 2026-09-30T15:00:00Z
+          --producer github-actions
+          --plan-output build/cfa_fra_cutover_pipeline/identity-plan.json
+      - name: Apply reviewed identity plan
+        run: >-
+          python scripts/run_cfa_fra_cutover_evidence_pipeline.py
+          --manifest build/cfa_fra_cutover_pipeline/RETIREMENT_EVIDENCE.json
+          --artifact-root build/cfa_fra_cutover_pipeline/live_evidence
+          apply
+          --plan build/cfa_fra_cutover_pipeline/identity-plan.json
+      - name: Plan regulatory authority transition
+        run: >-
+          python scripts/run_cfa_fra_cutover_evidence_pipeline.py
+          --manifest build/cfa_fra_cutover_pipeline/RETIREMENT_EVIDENCE.json
+          plan regulatory_authority
+          --source tests/fixtures/cfa_fra_cutover_generation/regulatory-source.json
+          --artifact regulatory-authority.json
+          --evidence-source ci-cutover-pipeline
+          --observed-at 2026-09-30T15:00:00Z
+          --producer github-actions
+          --plan-output build/cfa_fra_cutover_pipeline/authority-plan.json
+      - name: Apply reviewed regulatory plan
+        run: >-
+          python scripts/run_cfa_fra_cutover_evidence_pipeline.py
+          --manifest build/cfa_fra_cutover_pipeline/RETIREMENT_EVIDENCE.json
+          --artifact-root build/cfa_fra_cutover_pipeline/live_evidence
+          apply
+          --plan build/cfa_fra_cutover_pipeline/authority-plan.json
+      - name: Require only consumer E2E blocker after fixture pipeline
+        run: >-
+          python -c
+          "import json; p=json.load(open('build/cfa_fra_cutover_pipeline/RETIREMENT_EVIDENCE.json'));
+          assert p['expected_blockers'] == ['evidence:consumer-e2e'];
+          assert p['external_evidence']['legacy_identities']['status'] == 'PASS';
+          assert p['external_evidence']['regulatory_authority']['status'] == 'PASS'"
+
   retirement-readiness:
     name: CFA FRA retirement readiness
     needs:
@@ -281,7 +343,7 @@ jobs:
     name: Canonical CI gate
     if: ${{ always() }}
     needs:
-      [quality, test, package, postgresql, sqlalchemy-postgresql, consumer-evidence, retirement-inventory, cutover-evidence, retirement-readiness, release-qualification]
+      [quality, test, package, postgresql, sqlalchemy-postgresql, consumer-evidence, retirement-inventory, cutover-evidence, cutover-pipeline, retirement-readiness, release-qualification]
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -295,6 +357,7 @@ jobs:
           CONSUMER_EVIDENCE_RESULT: ${{ needs.consumer-evidence.result }}
           RETIREMENT_INVENTORY_RESULT: ${{ needs.retirement-inventory.result }}
           CUTOVER_EVIDENCE_RESULT: ${{ needs.cutover-evidence.result }}
+          CUTOVER_PIPELINE_RESULT: ${{ needs.cutover-pipeline.result }}
           RETIREMENT_READINESS_RESULT: ${{ needs.retirement-readiness.result }}
           RELEASE_QUALIFICATION_RESULT: ${{ needs.release-qualification.result }}
         run: |
@@ -306,5 +369,6 @@ jobs:
           test "$CONSUMER_EVIDENCE_RESULT" = "success"
           test "$RETIREMENT_INVENTORY_RESULT" = "success"
           test "$CUTOVER_EVIDENCE_RESULT" = "success"
+          test "$CUTOVER_PIPELINE_RESULT" = "success"
           test "$RETIREMENT_READINESS_RESULT" = "success"
           test "$RELEASE_QUALIFICATION_RESULT" = "success" || test "$RELEASE_QUALIFICATION_RESULT" = "skipped"

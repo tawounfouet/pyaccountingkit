@@ -7,9 +7,9 @@ import json
 import pytest
 
 from pyaccountingkit.integrations.cfa_fra import (
-    CutoverArtifactSchemaError,
     LEGACY_IDENTITIES_SCHEMA,
     REGULATORY_AUTHORITY_SCHEMA,
+    CutoverArtifactSchemaError,
     LegacyIdentityMigrationArtifact,
     RegulatoryAuthorityCutoverArtifact,
     parse_cutover_artifact,

@@ -1,0 +1,68 @@
+{
+  "consumer": "CFA FRA generation test consumer",
+  "observed_at": "2026-09-30T16:00:00Z",
+  "environment": "production",
+  "producer": "cfa-fra-live-e2e",
+  "scenarios": [
+    {
+      "scenario": "login",
+      "status": "PASS",
+      "source": "live:login",
+      "evidence_checksum": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "scenario": "organization_context",
+      "status": "PASS",
+      "source": "live:organization_context",
+      "evidence_checksum": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+    },
+    {
+      "scenario": "fec_import",
+      "status": "PASS",
+      "source": "live:fec_import",
+      "evidence_checksum": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+    },
+    {
+      "scenario": "journal",
+      "status": "PASS",
+      "source": "live:journal",
+      "evidence_checksum": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+    },
+    {
+      "scenario": "ledger",
+      "status": "PASS",
+      "source": "live:ledger",
+      "evidence_checksum": "sha256:4444444444444444444444444444444444444444444444444444444444444444"
+    },
+    {
+      "scenario": "balance",
+      "status": "PASS",
+      "source": "live:balance",
+      "evidence_checksum": "sha256:5555555555555555555555555555555555555555555555555555555555555555"
+    },
+    {
+      "scenario": "financial_statements",
+      "status": "PASS",
+      "source": "live:financial_statements",
+      "evidence_checksum": "sha256:6666666666666666666666666666666666666666666666666666666666666666"
+    },
+    {
+      "scenario": "controls",
+      "status": "PASS",
+      "source": "live:controls",
+      "evidence_checksum": "sha256:7777777777777777777777777777777777777777777777777777777777777777"
+    },
+    {
+      "scenario": "closing",
+      "status": "PASS",
+      "source": "live:closing",
+      "evidence_checksum": "sha256:8888888888888888888888888888888888888888888888888888888888888888"
+    },
+    {
+      "scenario": "exports",
+      "status": "PASS",
+      "source": "live:exports",
+      "evidence_checksum": "sha256:9999999999999999999999999999999999999999999999999999999999999999"
+    }
+  ]
+}

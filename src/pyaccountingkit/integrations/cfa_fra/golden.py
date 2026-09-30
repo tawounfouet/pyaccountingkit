@@ -61,13 +61,8 @@ def _normalize(value: object, *, path: str) -> object:
             normalized[raw_key] = _normalize(item, path=f"{path}.{raw_key}")
         return MappingProxyType(normalized)
     if isinstance(value, Sequence) and not isinstance(value, (str, bytes, bytearray)):
-        return tuple(
-            _normalize(item, path=f"{path}[{index}]")
-            for index, item in enumerate(value)
-        )
-    raise TypeError(
-        f"unsupported golden fixture value {type(value).__name__} at {path}"
-    )
+        return tuple(_normalize(item, path=f"{path}[{index}]") for index, item in enumerate(value))
+    raise TypeError(f"unsupported golden fixture value {type(value).__name__} at {path}")
 
 
 def _freeze_mapping(value: Mapping[str, object], *, path: str) -> Mapping[str, object]:
@@ -140,9 +135,7 @@ class IntentionalDivergence:
     @classmethod
     def from_dict(cls, payload: Mapping[str, object]) -> IntentionalDivergence:
         raw_paths = payload.get("paths")
-        if not isinstance(raw_paths, Sequence) or isinstance(
-            raw_paths, (str, bytes, bytearray)
-        ):
+        if not isinstance(raw_paths, Sequence) or isinstance(raw_paths, (str, bytes, bytearray)):
             raise ValueError("paths must be a sequence of JSON paths")
         paths = tuple(str(path) for path in raw_paths)
         return cls(
@@ -150,9 +143,7 @@ class IntentionalDivergence:
             category=DivergenceCategory(_required_str(payload, "category")),
             paths=paths,
             oracle_behavior=_required_str(payload, "oracle_behavior"),
-            pyaccountingkit_behavior=_required_str(
-                payload, "pyaccountingkit_behavior"
-            ),
+            pyaccountingkit_behavior=_required_str(payload, "pyaccountingkit_behavior"),
             rationale=_required_str(payload, "rationale"),
             migration_impact=_required_str(payload, "migration_impact"),
             reference=_required_str(payload, "reference"),
@@ -307,9 +298,7 @@ class GoldenFixture:
             )
             for path, expected, actual_value in raw
         )
-        unregistered = tuple(
-            mismatch for mismatch in mismatches if mismatch.divergence_id is None
-        )
+        unregistered = tuple(mismatch for mismatch in mismatches if mismatch.divergence_id is None)
         accepted = tuple(
             sorted(
                 {
@@ -337,18 +326,14 @@ class GoldenFixture:
         for item in raw_divergences:
             if not isinstance(item, Mapping):
                 raise ValueError("each divergence must be a mapping")
-            divergences.append(
-                IntentionalDivergence.from_dict(cast(Mapping[str, object], item))
-            )
+            divergences.append(IntentionalDivergence.from_dict(cast(Mapping[str, object], item)))
         return cls(
             scenario_id=_required_str(payload, "scenario_id"),
             category=GoldenCategory(_required_str(payload, "category")),
             inputs=_mapping(payload, "inputs"),
             expected=_mapping(payload, "expected"),
             oracle_tree_sha=_required_str(payload, "oracle_tree_sha"),
-            oracle_manifest_version=_required_str(
-                payload, "oracle_manifest_version"
-            ),
+            oracle_manifest_version=_required_str(payload, "oracle_manifest_version"),
             divergences=tuple(divergences),
         )
 

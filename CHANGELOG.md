@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0b6] - 2026-09-30
+
+### Added
+- Request-level CFA FRA login evidence executed against the frozen Sprint-7 Django application.
+- The evidence runner migrates the snapshot's SQLite test database, creates a real user,
+  GETs the configured `/login/` route, POSTs credentials through Django `LoginView`, and
+  verifies the authenticated session.
+- Login evidence is checksummed against the frozen URL configuration and login template.
+
+### Changed
+- Gate Consumer executable status advances from seven PASS scenarios to eight.
+- The known blocker set is reduced to `controls` and `closing`.
+
+### Boundary
+- No file under `resources/cfa_fra_django_mvp_sprint_7/` is modified.
+- Consumer E2E remains not-green until controls and closing have executable delegated evidence.
+
 ## [0.6.0b5] - 2026-09-30
 
 ### Added

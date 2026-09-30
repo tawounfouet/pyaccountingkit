@@ -28,7 +28,7 @@ class ConsumerScenario(StrEnum):
 class ConsumerScenarioStatus(StrEnum):
     """Observed qualification status for one consumer scenario."""
 
-    PASS = "PASS"
+    PASS = "PASS"  # nosec B105 - qualification status label, not a credential
     FAIL = "FAIL"
     BLOCKED = "BLOCKED"
 

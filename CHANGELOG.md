@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0b10] - 2026-09-30
+
+### Added
+- `MigrationRouting.target_only()` as the explicit final CFA FRA cutover profile.
+- `MigrationRouting.is_target_only()` to make absence of legacy and shadow routes
+  directly testable.
+- `build_target_only_consumer_bridge(...)`, which constructs the real CFA FRA consumer
+  bridge without accepting any legacy accounting/import/reporting/statement service.
+
+### Safety
+- The target-only factory routes every migrated mutation and read to PyAccountingKit.
+- No dual-run read is present in the final cutover profile.
+- MIG-13 retirement remains blocked by the existing evidence gates until consumer E2E,
+  identity traceability and regulatory-authority replacement are all proven.
+
 ## [0.6.0b9] - 2026-09-30
 
 ### Added

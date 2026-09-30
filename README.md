@@ -10,7 +10,7 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit **0.6.0b9** is the LOT-26 CFA FRA Reference Authority beta.
+PyAccountingKit **0.6.0b10** is the LOT-26 CFA FRA Target-Only Cutover beta.
 
 LOT-26 turns the frozen LOT-25 CFA FRA behavioral baseline into an executable
 migration boundary. The temporary `CFAFRACompatibilityAdapter` lets the Django
@@ -39,7 +39,7 @@ mode rather than a generic posting bypass.
 
 The stable **0.5.0** public facade, adapter contract v1 and the independently
 Production-qualified Django/PostgreSQL and SQLAlchemy/PostgreSQL adapters remain
-the compatibility baseline. **0.6.0b9 is still pre-1.0**: LOT-26 consumer
+the compatibility baseline. **0.6.0b10 is still pre-1.0**: LOT-26 consumer
 conversion is in progress; LOT-27 regulatory production qualification and the
 LOT-29/30 API freeze remain later roadmap steps.
 
@@ -492,3 +492,11 @@ The detailed coding-agent rules are maintained in `AGENTS.md`.
 ## License
 
 MIT
+
+
+The `0.6.0b10` cutover profile adds `MigrationRouting.target_only()` and
+`build_target_only_consumer_bridge(...)`. This final-mode bridge accepts no
+legacy service dependencies, exposes no shadow dual-run and routes every migrated
+accounting operation to PyAccountingKit. It is the structural profile required
+before MIG-13 can retire duplicate engine code; external consumer evidence must
+still be green before that retirement is allowed.

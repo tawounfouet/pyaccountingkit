@@ -58,6 +58,31 @@ def _legacy_object_id(value: object) -> str:
     raise CFAFRAConsumerMappingError(f"legacy object {type(value).__name__!r} has no usable pk/id")
 
 
+def build_target_only_consumer_bridge(
+    application: AccountingApplication,
+    *,
+    context_factory: ConsumerContextFactory,
+    identities: LegacyIdentityStoreProtocol,
+    statement_parameters_factory: StatementTargetParametersFactory | None = None,
+    control_parameters_factory: ControlTargetParametersFactory | None = None,
+    closing_parameters_factory: ClosingTargetParametersFactory | None = None,
+) -> CFAFRADjangoConsumerBridge:
+    """Build the final CFA FRA cutover bridge with all legacy paths disabled."""
+    return CFAFRADjangoConsumerBridge(
+        application,
+        legacy_accounting=None,
+        legacy_imports=None,
+        legacy_reporting=None,
+        legacy_statements=None,
+        routing=MigrationRouting.target_only(),
+        context_factory=context_factory,
+        identities=identities,
+        statement_parameters_factory=statement_parameters_factory,
+        control_parameters_factory=control_parameters_factory,
+        closing_parameters_factory=closing_parameters_factory,
+    )
+
+
 class CFAFRADjangoConsumerBridge:
     """Preserve selected CFA FRA service signatures while delegating to the kit.
 
@@ -624,6 +649,7 @@ class CFAFRADjangoConsumerBridge:
 
 
 __all__ = [
+    "build_target_only_consumer_bridge",
     "CFAFRAConsumerMappingError",
     "CFAFRADjangoConsumerBridge",
     "ClosingTargetParametersFactory",

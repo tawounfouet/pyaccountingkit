@@ -156,6 +156,12 @@ fallback and dual-run against CFA FRA's local `FrameworkAccount` authority fail 
 legacy retirement until the consumer has actually stopped treating its local referential
 tables as accounting authority.
 
+The `0.6.0b10` slice defines the final MIG-12 cutover profile. `MigrationRouting.target_only()`
+routes every mutation/read to PyAccountingKit with no shadow reads, and
+`build_target_only_consumer_bridge(...)` constructs a consumer bridge that accepts no legacy
+service dependencies. This makes the no-fallback state structural before MIG-13 deletion is
+considered.
+
 ### L26-C — retirement
 
 Only after parity and consumer gates are green:

@@ -35,6 +35,14 @@ class ReadBackend(StrEnum):
     PYACCOUNTINGKIT = "PYACCOUNTINGKIT"
 
 
+_MUTATION_OPERATIONS = frozenset(
+    {"post_entry", "reverse_entry", "execute_fec_import", "close_period"}
+)
+_READ_OPERATIONS = frozenset(
+    {"trial_balance", "financial_statements", "run_controls", "effective_plan"}
+)
+
+
 @dataclass(frozen=True, slots=True)
 class MigrationRouting:
     """Per-operation strangler routing.
@@ -48,6 +56,21 @@ class MigrationRouting:
     dual_run_reads: frozenset[str] = field(default_factory=frozenset)
 
     def __post_init__(self) -> None:
+        unknown_mutations = set(self.mutation_routes) - _MUTATION_OPERATIONS
+        unknown_reads = set(self.read_routes) - _READ_OPERATIONS
+        invalid_dual_reads = set(self.dual_run_reads) - _READ_OPERATIONS
+        if unknown_mutations:
+            raise CFAFRAMigrationRouteError(
+                f"unknown CFA FRA mutation routes: {sorted(unknown_mutations)!r}"
+            )
+        if unknown_reads:
+            raise CFAFRAMigrationRouteError(
+                f"unknown CFA FRA read routes: {sorted(unknown_reads)!r}"
+            )
+        if invalid_dual_reads:
+            raise CFAFRAMigrationRouteError(
+                f"dual-run is restricted to known reads: {sorted(invalid_dual_reads)!r}"
+            )
         object.__setattr__(
             self,
             "mutation_routes",

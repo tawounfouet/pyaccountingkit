@@ -149,6 +149,13 @@ the period identity is resolved canonically, and the consumer provides control-r
 trial-balance and optional opening-balance inputs through an explicit closing parameter
 factory. `closing` remains BLOCKED until the actual consumer delegates through this bridge.
 
+The `0.6.0b9` slice implements MIG-11 on the framework side. The real Django bridge exposes
+a target-only `effective_plan` operation backed by `AccountingApplication.references`;
+fallback and dual-run against CFA FRA's local `FrameworkAccount` authority fail closed.
+`LegacyRetirementEvidence` now requires `regulatory_authority_replaced=True`, preventing
+legacy retirement until the consumer has actually stopped treating its local referential
+tables as accounting authority.
+
 ### L26-C — retirement
 
 Only after parity and consumer gates are green:

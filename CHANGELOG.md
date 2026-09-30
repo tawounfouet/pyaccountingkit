@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0b17] - 2026-09-30
+
+### Added
+- Deterministic legacy-identity cutover artifact generator.
+- Deterministic regulatory-authority cutover artifact generator.
+- `RegulatoryAuthorityObservation` as the framework-neutral observed-state input.
+- Controlled `generate_cfa_fra_cutover_artifact.py` CLI.
+- Dry-run generation by default with explicit `--write` and `--overwrite` controls.
+- Source-observation fixtures and API/CLI qualification tests.
+
+### Safety
+- Identity generation requires an independently supplied expected legacy population count and
+  fails when the migrated identity snapshot is incomplete.
+- Regulatory generation requires target-only routing, PyAccountingKit provider authority,
+  disabled local authority, delegated effective-plan resolution and sampled provider-backed
+  references.
+- Generated artifacts are semantically parsed before atomic materialization.
+- Source observations are not automatically promoted to PASS and canonical live evidence
+  remains BLOCKED until real consumer evidence is supplied.
+
 ## [0.6.0b16] - 2026-09-30
 
 ### Added

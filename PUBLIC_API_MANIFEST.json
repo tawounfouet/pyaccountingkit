@@ -15,7 +15,7 @@
       "require_optional_dependency",
       "runtime_capabilities"
     ],
-    "note": "The 0.5 line exposes the framework-neutral LOT-21 user facade and the separate LOT-22 adapter-author extension API on adapter contract v1. Django/PostgreSQL and SQLAlchemy/PostgreSQL are Production-qualified without freezing the full pre-1.0 Python API.",
+    "note": "The 0.6 alpha line preserves the stable LOT-21..24 public facade and adapter contract v1 while LOT-25 adds CFA FRA behavioral golden parity. Django/PostgreSQL and SQLAlchemy/PostgreSQL remain Production-qualified; the full pre-1.0 Python API is not frozen yet.",
     "public_package_exports": [
       "AccountingApplication",
       "AdapterContractMismatchError",
@@ -55,7 +55,7 @@
       "Money",
       "__version__"
     ],
-    "stability": "pre-1.0-stable-release",
+    "stability": "pre-1.0-prerelease",
     "stable_exports": [
       "AccountingApplication",
       "CommandContext",
@@ -64,5 +64,5 @@
       "Money"
     ]
   },
-  "version": "0.5.0"
+  "version": "0.6.0a1"
 }

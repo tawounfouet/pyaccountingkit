@@ -7,10 +7,15 @@ from datetime import date
 import pytest
 
 from pyaccountingkit.core.currency import EUR
-from pyaccountingkit.core.errors import EmptyEntryError, UnbalancedEntryError, ZeroLineError
+from pyaccountingkit.core.errors import (
+    EmptyEntryError,
+    InvalidEntryStateError,
+    UnbalancedEntryError,
+    ZeroLineError,
+)
 from pyaccountingkit.core.identifiers import EntryId, JournalId, PeriodId
 from pyaccountingkit.core.money import Money
-from pyaccountingkit.domain.journals.journal_entry import EntryStatus, JournalEntry
+from pyaccountingkit.domain.journals.journal_entry import EntryStatus, EntryType, JournalEntry
 from pyaccountingkit.domain.journals.journal_line import JournalLine
 
 
@@ -36,10 +41,36 @@ def _balanced_entry() -> JournalEntry:
     )
 
 
-def test_valid_entry_is_draft() -> None:
+def test_valid_entry_is_draft_normal_and_balanced() -> None:
     entry = _balanced_entry()
     assert entry.status is EntryStatus.DRAFT
+    assert entry.entry_type is EntryType.NORMAL
     assert entry.is_balanced()
+
+
+def test_validate_returns_immutable_validated_copy_and_preserves_type() -> None:
+    entry = JournalEntry(
+        id=EntryId("opening"),
+        journal_id=JournalId("j_vente"),
+        period_id=PeriodId("p_2024"),
+        entry_date=date(2024, 1, 1),
+        description="opening",
+        lines=(
+            _line(debit="100.00", account="512"),
+            _line(credit="100.00", account="101"),
+        ),
+        entry_type=EntryType.OPENING,
+    )
+    validated = entry.validate()
+    assert entry.status is EntryStatus.DRAFT
+    assert validated.status is EntryStatus.VALIDATED
+    assert validated.entry_type is EntryType.OPENING
+
+
+def test_validate_rejects_non_draft_entry() -> None:
+    validated = _balanced_entry().validate()
+    with pytest.raises(InvalidEntryStateError):
+        validated.validate()
 
 
 def test_journal_line_rejects_zero_zero_at_construction() -> None:

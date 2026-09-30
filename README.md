@@ -10,25 +10,40 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit **0.5.0** is the stable Public API & Production Adapters milestone.
+PyAccountingKit **0.6.0a1** is the LOT-25 CFA FRA Golden Baseline & Parity
+Qualification milestone.
 
-The release closes LOT-21 through LOT-24:
+LOT-25 freezes the bundled CFA FRA Django MVP Sprint 7 snapshot as a behavioral
+oracle and executes normalized golden parity for:
 
 ```text
-LOT-21  framework-neutral AccountingApplication / public DTO boundary
-LOT-22  adapter-author extension API + adapter contract v1
-LOT-23  Django/PostgreSQL Production adapter
-LOT-24  SQLAlchemy/PostgreSQL Production adapter
+posting / validated-before-posted lifecycle
+reversal / original REVERSED state
+French FEC ingestion and lineage
+ledger / trial-balance variants
+income statement / balance sheet / cash flow
 ```
 
-Both persistence adapters are independently Production-qualified against **PostgreSQL 16** and
-remain mandatory Canonical CI gates. The core package is ORM-neutral; persistence is optional
-through `pyaccountingkit[django]` or `pyaccountingkit[sqlalchemy]`.
+The golden baseline is runtime-independent, checksummed and fail-closed on
+unregistered differences. CFA FRA remains evidence for migration behavior, not
+a runtime dependency and not a regulatory source of truth.
 
-Stable `0.5.0` preserves the qualified 0.4 subledger/financial-analysis line and the stable
-0.3 imports/reporting/replay line. This is a stable **pre-1.0** milestone: adapter contract v1
-and the documented public facade are qualified, while the broader Python API freeze remains
-reserved for LOT-29/LOT-30.
+LOT-25 also materializes the canonical journal `EntryType` vocabulary
+(`OPENING`, `NORMAL`, `ADJUSTING`, `CLOSING`, `REVERSAL`) through the
+domain and both PostgreSQL persistence adapters. Normal posting now requires a
+`VALIDATED` entry; trusted already-posted history remains an explicit import
+mode rather than a generic posting bypass.
+
+The stable **0.5.0** public facade, adapter contract v1 and the independently
+Production-qualified Django/PostgreSQL and SQLAlchemy/PostgreSQL adapters remain
+the compatibility baseline. **0.6.0a1 is still pre-1.0**: LOT-26 consumer
+conversion, LOT-27 regulatory production qualification and the LOT-29/30 API
+freeze remain later roadmap steps.
+
+The bundled Sprint 7 oracle explicitly schedules its Regulatory Controls &
+Closing Package for Sprint 8. LOT-25 therefore records the missing executable
+legacy closing oracle as a checksummed evidence gap rather than claiming parity
+for behavior that is not present in the source snapshot.
 
 ## Core guarantees
 

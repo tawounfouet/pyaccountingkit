@@ -9,7 +9,7 @@ from pyaccountingkit.core.currency import EUR, Currency
 from pyaccountingkit.core.identifiers import AccountId, PeriodId
 from pyaccountingkit.core.money import Money
 from pyaccountingkit.domain.charts.chart import CompanyChartOfAccounts
-from pyaccountingkit.domain.journals.journal_entry import JournalEntry
+from pyaccountingkit.domain.journals.journal_entry import EntryType, JournalEntry
 from pyaccountingkit.domain.journals.journal_line import JournalLine
 from pyaccountingkit.domain.reporting.balance_line import AccountBalanceLine
 from pyaccountingkit.domain.reporting.trial_balance import (
@@ -43,7 +43,9 @@ class TrialBalanceQuery:
         """Return the verified trial balance of one period."""
         with self._uow_factory.open() as uow:
             entries = uow.entries.list_by_period(period_id)
-            lines = self._aggregate(entries)
+            included_types = self._included_entry_types(snapshot)
+            scoped_entries = tuple(entry for entry in entries if entry.entry_type in included_types)
+            lines = self._aggregate(scoped_entries)
         return TrialBalance.build(
             period_id,
             snapshot,
@@ -70,6 +72,23 @@ class TrialBalanceQuery:
                     if matches:
                         matching.append((entry.id, line))
             return tuple(matching)
+
+    @staticmethod
+    def _included_entry_types(
+        snapshot: TrialBalanceSnapshot,
+    ) -> frozenset[EntryType]:
+        if snapshot is TrialBalanceSnapshot.BEFORE_ADJUSTMENTS:
+            return frozenset({EntryType.OPENING, EntryType.NORMAL, EntryType.REVERSAL})
+        if snapshot is TrialBalanceSnapshot.ADJUSTED:
+            return frozenset(
+                {
+                    EntryType.OPENING,
+                    EntryType.NORMAL,
+                    EntryType.ADJUSTING,
+                    EntryType.REVERSAL,
+                }
+            )
+        return frozenset(EntryType)
 
     def _aggregate(
         self,

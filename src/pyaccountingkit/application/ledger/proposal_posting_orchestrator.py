@@ -96,7 +96,7 @@ class ProposalPostingOrchestrator:
             entry_date=proposal.accounting_date,
             description=description or self._description_for(proposal),
             lines=lines,
-        )
+        ).validate()
         posting_result = self._posting_orchestrator.post(entry, actor_id=actor_id)
         checksum = proposal.checksum()
         first_resolution = resolved_accounts[0]

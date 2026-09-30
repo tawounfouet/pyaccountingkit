@@ -58,6 +58,7 @@ class JournalEntryModel(models.Model):
     )
     entry_date = models.DateField(db_index=True)
     description = models.TextField()
+    entry_type = models.CharField(max_length=16, default="NORMAL", db_index=True)
     status = models.CharField(max_length=16, db_index=True)
     posted_at = models.DateTimeField(null=True, blank=True)
     reversal_of = models.ForeignKey(

@@ -53,8 +53,8 @@ def test_competing_uows_reject_stale_entry_revision() -> None:
         revision_a = uow_a.entries.get_revision(EntryId("e1"))
         revision_b = uow_b.entries.get_revision(EntryId("e1"))
 
-        posted_a = entry_a.freeze(datetime(2026, 1, 2, 10, 0, tzinfo=UTC))
-        posted_b = entry_b.freeze(datetime(2026, 1, 2, 11, 0, tzinfo=UTC))
+        posted_a = entry_a.validate().freeze(datetime(2026, 1, 2, 10, 0, tzinfo=UTC))
+        posted_b = entry_b.validate().freeze(datetime(2026, 1, 2, 11, 0, tzinfo=UTC))
         uow_a.entries.save(posted_a, revision_a)
         uow_b.entries.save(posted_b, revision_b)
 

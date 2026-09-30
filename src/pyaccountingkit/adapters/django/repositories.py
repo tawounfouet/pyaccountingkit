@@ -71,6 +71,7 @@ class DjangoJournalEntryRepository:
                         period_id=str(entry.period_id),
                         entry_date=entry.entry_date,
                         description=entry.description,
+                        entry_type=entry.entry_type.value,
                         status=entry.status.value,
                         posted_at=entry.posted_at,
                         reversal_of_id=(
@@ -133,7 +134,10 @@ class DjangoJournalEntryRepository:
     def list_by_period(self, period_id: PeriodId) -> Sequence[JournalEntry]:
         rows = (
             JournalEntryModel.objects.using(self._using)
-            .filter(period_id=str(period_id), status=EntryStatus.POSTED.value)
+            .filter(
+                period_id=str(period_id),
+                status__in=(EntryStatus.POSTED.value, EntryStatus.REVERSED.value),
+            )
             .order_by("entry_date", "id")
         )
         return tuple(entry_to_domain(row, using=self._using) for row in rows)
@@ -141,7 +145,10 @@ class DjangoJournalEntryRepository:
     def list_by_journal(self, journal_id: JournalId) -> Sequence[JournalEntry]:
         rows = (
             JournalEntryModel.objects.using(self._using)
-            .filter(journal_id=str(journal_id), status=EntryStatus.POSTED.value)
+            .filter(
+                journal_id=str(journal_id),
+                status__in=(EntryStatus.POSTED.value, EntryStatus.REVERSED.value),
+            )
             .order_by("entry_date", "id")
         )
         return tuple(entry_to_domain(row, using=self._using) for row in rows)

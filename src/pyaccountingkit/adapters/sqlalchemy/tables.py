@@ -72,6 +72,7 @@ class JournalEntryTable(Base):
     )
     entry_date: Mapped[date] = mapped_column(Date, index=True)
     description: Mapped[str] = mapped_column(Text)
+    entry_type: Mapped[str] = mapped_column(String(16), default="NORMAL", index=True)
     status: Mapped[str] = mapped_column(String(16), index=True)
     posted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     reversal_of_id: Mapped[str | None] = mapped_column(

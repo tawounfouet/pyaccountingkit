@@ -28,6 +28,7 @@
     "ENTRY_ALREADY_POSTED": "EntryAlreadyPostedError",
     "ENTRY_ALREADY_REVERSED": "AlreadyReversedError",
     "ENTRY_EMPTY": "EmptyEntryError",
+    "ENTRY_INVALID_STATE": "InvalidEntryStateError",
     "ENTRY_NOT_FOUND": "EntryNotFoundError",
     "ENTRY_NOT_POSTED": "EntryNotPostedError",
     "ENTRY_UNBALANCED": "UnbalancedEntryError",
@@ -96,5 +97,5 @@
     "SUBLEDGER_RECONCILIATION_FAILED": "SubledgerReconciliationError",
     "WRITE_OFF_POLICY_REQUIRED": "WriteOffPolicyRequiredError"
   },
-  "version": "0.5.0"
+  "version": "0.6.0a1"
 }

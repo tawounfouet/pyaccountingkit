@@ -25,18 +25,17 @@ Chaque plan correspond à un jalon de release sémantique clair, définit les lo
 
 ## Lot actif / qualification
 
+- [`LOT-25_CFA_FRA_GOLDEN_BASELINE_IMPLEMENTATION_PLAN.md`](LOT-25_CFA_FRA_GOLDEN_BASELINE_IMPLEMENTATION_PLAN.md)
+  — LOT-25 actif : baseline CFA FRA Sprint 7, fixtures golden checksummées et qualification
+  de parité vers `0.6.0a1`.
+- [`cfa_fra/01_CFA_FRA_COMPONENT_INVENTORY.md`](cfa_fra/01_CFA_FRA_COMPONENT_INVENTORY.md)
+  — inventaire des composants et stratégie EXTRACT/REWRITE/ADAPTER/GOLDEN.
+- [`cfa_fra/02_CFA_FRA_GOLDEN_SCENARIO_INVENTORY.md`](cfa_fra/02_CFA_FRA_GOLDEN_SCENARIO_INVENTORY.md)
+  — catalogue des scénarios de parité.
+- [`cfa_fra/03_CFA_FRA_BEHAVIORAL_BASELINE.md`](cfa_fra/03_CFA_FRA_BEHAVIORAL_BASELINE.md)
+  — baseline comportementale figée et frontières de migration.
 - [`RELEASE_0.5.0_STABLE_PROMOTION_PLAN.md`](RELEASE_0.5.0_STABLE_PROMOTION_PLAN.md)
-  — promotion stable metadata-only de la ligne LOT-21..24 vers `0.5.0`.
-- [`RELEASE_0.5.0_RC1_CROSS_LOT_QUALIFICATION_PLAN.md`](RELEASE_0.5.0_RC1_CROSS_LOT_QUALIFICATION_PLAN.md)
-  — qualification transverse LOT-21 + LOT-22 + LOT-23 + LOT-24 validée en `0.5.0rc1`.
-- [`LOT-24_SQLALCHEMY_POSTGRESQL_ADAPTER_IMPLEMENTATION_PLAN.md`](LOT-24_SQLALCHEMY_POSTGRESQL_ADAPTER_IMPLEMENTATION_PLAN.md)
-  — LOT-24 SQLAlchemy/PostgreSQL Production adapter qualifié en `0.5.0b2`.
-- [`LOT-23_DJANGO_POSTGRESQL_ADAPTER_IMPLEMENTATION_PLAN.md`](LOT-23_DJANGO_POSTGRESQL_ADAPTER_IMPLEMENTATION_PLAN.md)
-  — LOT-23 Django/PostgreSQL Production adapter qualifié en `0.5.0b1`.
-- [`LOT-22_EXTENSION_API_MANIFESTS_COMPATIBILITY_IMPLEMENTATION_PLAN.md`](LOT-22_EXTENSION_API_MANIFESTS_COMPATIBILITY_IMPLEMENTATION_PLAN.md)
-  — LOT-22 Extension API / manifests / compatibility contracts qualifié en `0.5.0a2`.
-- [`LOT-21_PUBLIC_API_FACADE_IMPLEMENTATION_PLAN.md`](LOT-21_PUBLIC_API_FACADE_IMPLEMENTATION_PLAN.md)
-  — LOT-21 Public API Facade qualifié en `0.5.0a1`.
+  — dernière ligne stable complète : LOT-21..24 en `0.5.0`.
 
 ## 2. Graphe d'Ordonnancement & Chemin Critique
 

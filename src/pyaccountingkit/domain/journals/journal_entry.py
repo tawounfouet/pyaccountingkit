@@ -14,6 +14,7 @@ from enum import StrEnum
 from pyaccountingkit.core.errors import (
     EmptyEntryError,
     EntryAlreadyPostedError,
+    InvalidEntryStateError,
     UnbalancedEntryError,
 )
 from pyaccountingkit.core.identifiers import EntryId, JournalId, PeriodId
@@ -28,6 +29,16 @@ class EntryStatus(StrEnum):
     REVERSED = "REVERSED"
 
 
+class EntryType(StrEnum):
+    """Accounting classification independent from Journal type."""
+
+    OPENING = "OPENING"
+    NORMAL = "NORMAL"
+    ADJUSTING = "ADJUSTING"
+    CLOSING = "CLOSING"
+    REVERSAL = "REVERSAL"
+
+
 @dataclass(frozen=True)
 class JournalEntry:
     """Écriture comptable respectant la règle de la partie double."""
@@ -38,6 +49,7 @@ class JournalEntry:
     entry_date: date
     description: str
     lines: tuple[JournalLine, ...]
+    entry_type: EntryType = EntryType.NORMAL
     status: EntryStatus = EntryStatus.DRAFT
     posted_at: datetime | None = None
     reversal_of_id: EntryId | None = None
@@ -78,11 +90,36 @@ class JournalEntry:
                 f"débit {self.total_debit()} ≠ crédit {self.total_credit()}"
             )
 
+    def validate(self) -> JournalEntry:
+        """Return the immutable VALIDATED form of one DRAFT entry."""
+        if self.status is not EntryStatus.DRAFT:
+            raise InvalidEntryStateError(
+                f"Écriture {self.id} ({self.status.value}) ne peut pas être validée"
+            )
+        self.validate_balance()
+        return JournalEntry(
+            id=self.id,
+            journal_id=self.journal_id,
+            period_id=self.period_id,
+            entry_date=self.entry_date,
+            description=self.description,
+            lines=self.lines,
+            entry_type=self.entry_type,
+            status=EntryStatus.VALIDATED,
+            posted_at=self.posted_at,
+            reversal_of_id=self.reversal_of_id,
+            reversed_by_id=self.reversed_by_id,
+        )
+
     def freeze(self, posted_at: datetime) -> JournalEntry:
         """Return a POSTED copy stamped with the canonical posting time."""
-        if self.status is not EntryStatus.DRAFT and self.status is not EntryStatus.VALIDATED:
+        if self.status is EntryStatus.DRAFT:
+            raise InvalidEntryStateError(
+                f"Écriture {self.id} doit être VALIDATED avant comptabilisation"
+            )
+        if self.status is not EntryStatus.VALIDATED:
             raise EntryAlreadyPostedError(
-                f"Écriture {self.id} non-DRAFT ({self.status.value}) ne peut être postée"
+                f"Écriture {self.id} ({self.status.value}) ne peut être comptabilisée"
             )
         return JournalEntry(
             id=self.id,
@@ -91,6 +128,7 @@ class JournalEntry:
             entry_date=self.entry_date,
             description=self.description,
             lines=self.lines,
+            entry_type=self.entry_type,
             status=EntryStatus.POSTED,
             posted_at=posted_at,
             reversal_of_id=self.reversal_of_id,

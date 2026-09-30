@@ -183,7 +183,7 @@ def test_post_rejected_after_close() -> None:
         _chart_resolver(),
         PostingService(clock=FrozenClock(NOW)),
     )
-    first = posting.post(_balanced_draft("e1"), actor_id="u1")
+    first = posting.post(_balanced_draft("e1").validate(), actor_id="u1")
     assert first.posted_entry.status is EntryStatus.POSTED
     orchestrator.close_period(
         PeriodId("p_2024_12"),
@@ -191,7 +191,7 @@ def test_post_rejected_after_close() -> None:
         trial_balance=_tb(),
     )
     with pytest.raises(PeriodClosedError):
-        posting.post(_balanced_draft("e2"), actor_id="u1")
+        posting.post(_balanced_draft("e2").validate(), actor_id="u1")
     assert EntryId("e2") not in store.entries
 
 

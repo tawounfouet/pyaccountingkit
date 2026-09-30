@@ -1,0 +1,35 @@
+{
+  "scenario_id": "CFA-TB-001-003",
+  "category": "LEDGER",
+  "oracle_tree_sha": "07d4880534d2e2239e19fd4ef4139de70b56773a",
+  "oracle_manifest_version": "0.8.0",
+  "inputs": {
+    "currency": "XAF",
+    "entries": [
+      {"type": "OPENING", "debit_account": "57110000", "credit_account": "10110000", "amount": "1000"},
+      {"type": "NORMAL", "debit_account": "66100000", "credit_account": "57110000", "amount": "200"},
+      {"type": "ADJUSTING", "debit_account": "66100000", "credit_account": "40810000", "amount": "50"},
+      {"type": "CLOSING", "debit_account": "10110000", "credit_account": "66100000", "amount": "250"}
+    ]
+  },
+  "expected": {
+    "BEFORE_ADJUSTMENTS": {
+      "10110000": "-1000",
+      "57110000": "800",
+      "66100000": "200"
+    },
+    "ADJUSTED": {
+      "10110000": "-1000",
+      "40810000": "-50",
+      "57110000": "800",
+      "66100000": "250"
+    },
+    "POST_CLOSING": {
+      "10110000": "-750",
+      "40810000": "-50",
+      "57110000": "800",
+      "66100000": "0"
+    }
+  },
+  "divergences": []
+}

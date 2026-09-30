@@ -108,7 +108,7 @@ class ImportExecutionService:
             entry_date=entry_plan.accounting_date,
             description=entry_plan.description or f"Import {entry_plan.source_entry_key.value}",
             lines=lines,
-        )
+        ).validate()
 
     @staticmethod
     def _entry_id(plan: ImportPlan, entry_plan: ImportEntryPlan) -> EntryId:

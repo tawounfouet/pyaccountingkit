@@ -123,7 +123,7 @@ def _entry(entry_id: str, debit_account: str = "401000") -> JournalEntry:
                 credit=Money.from_str("10.00", EUR),
             ),
         ),
-    )
+    ).validate()
 
 
 def test_post_many_rolls_back_all_entries_if_one_entry_fails() -> None:

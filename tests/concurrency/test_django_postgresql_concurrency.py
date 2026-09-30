@@ -129,7 +129,7 @@ def _seed(*, posted: bool = False) -> DjangoUnitOfWorkFactory:
     factory = DjangoUnitOfWorkFactory(clock=FrozenClock(NOW))
     entry = _entry()
     if posted:
-        entry = entry.freeze(NOW)
+        entry = entry.validate().freeze(NOW)
     with factory.open() as uow:
         uow.journals.add(_journal())
         uow.periods.add(_period())
@@ -186,7 +186,7 @@ def test_competing_optimistic_saves_allow_exactly_one_revision_winner() -> None:
             entry = repository.get(EntryId("entry:1"))
             revision = repository.get_revision(EntryId("entry:1"))
             barrier.wait(timeout=5)
-            repository.save(entry.freeze(NOW.replace(hour=hour)), revision)
+            repository.save(entry.validate().freeze(NOW.replace(hour=hour)), revision)
             return "saved"
         except RevisionConflictError:
             return "conflict"
@@ -248,7 +248,7 @@ def test_double_reversal_commits_one_reversal_and_replays_the_other_request() ->
     assert sorted(replayed for _, replayed in results) == [False, True]
     assert JournalEntryModel.objects.filter(reversal_of_id="entry:1").count() == 1
     original = JournalEntryModel.objects.get(pk="entry:1")
-    assert original.status == EntryStatus.POSTED.value
+    assert original.status == EntryStatus.REVERSED.value
     assert original.reversed_by_id == "entry:reversal"
 
 
@@ -288,7 +288,7 @@ def test_close_vs_post_serializes_on_period_lock_and_rejects_late_post() -> None
                 PostingService(clock=FrozenClock(NOW)),
             )
             try:
-                orchestrator.post(_entry("entry:late"), actor_id="tester")
+                orchestrator.post(_entry("entry:late").validate(), actor_id="tester")
             except PeriodClosedError:
                 return "closed"
             return "posted"

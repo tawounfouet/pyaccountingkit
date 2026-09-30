@@ -7,6 +7,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0a1] - 2026-09-29
+
+### Added
+- LOT-25 checksummed CFA FRA Sprint 7 behavioral baseline with pinned oracle tree and manifest
+  coordinates.
+- Component inventory, golden scenario inventory and behavioral baseline required by the CFA FRA
+  extraction/migration specification.
+- Framework-neutral deterministic golden fixture model with exact Decimal-safe serialization,
+  semantic checksums, fail-closed parity comparison and classified intentional divergences.
+- Executable CFA FRA golden parity for posting/reversal, French FEC ingestion, the three
+  trial-balance variants, income statement, balance sheet and cash flow.
+- Canonical journal `EntryType` values: `OPENING`, `NORMAL`, `ADJUSTING`, `CLOSING`
+  and `REVERSAL`, persisted by both Production PostgreSQL adapters.
+- Django and Alembic migrations extending the stable 0.5 persistence schema with journal
+  entry type.
+
+### Changed
+- Normal ledger posting now enforces `DRAFT -> VALIDATED -> POSTED`; direct ordinary
+  `DRAFT -> POSTED` is rejected.
+- Proposal and reviewed import execution explicitly validate materialized entries before the
+  canonical `PostingOrchestrator` path.
+- Reversal now marks the original journal entry `REVERSED` while preserving it in historical
+  ledger queries so the original and posted reversal economically offset one another.
+- Trial-balance queries now enforce the CFA FRA-preserved entry-type semantics for
+  `BEFORE_ADJUSTMENTS`, `ADJUSTED` and `POST_CLOSING`.
+- Public error evidence now includes `ENTRY_INVALID_STATE`.
+
+### Boundaries
+- CFA FRA is a migration behavioral oracle, not a runtime dependency or regulatory authority.
+- The literal legacy `REV-` numbering convention and `JOD -> ADJUSTING` convention are not
+  promoted to universal accounting invariants.
+- LOT-27 remains responsible for regulatory Production qualification.
+- The bundled Sprint 7 oracle does not contain the planned Sprint 8 Closing Package; LOT-25
+  records that absence explicitly and does not fabricate executable closing parity.
+
+
 ## [0.5.0] - 2026-09-23
 
 ### Stable

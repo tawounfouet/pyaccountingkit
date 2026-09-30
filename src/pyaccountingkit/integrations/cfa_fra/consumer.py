@@ -41,6 +41,10 @@ ControlTargetParametersFactory = Callable[
     [object, object],
     Mapping[str, object],
 ]
+ClosingTargetParametersFactory = Callable[
+    [object],
+    Mapping[str, object],
+]
 
 
 def _legacy_object_id(value: object) -> str:
@@ -74,6 +78,7 @@ class CFAFRADjangoConsumerBridge:
         "_observation_sink",
         "_statement_parameters_factory",
         "_control_parameters_factory",
+        "_closing_parameters_factory",
     )
 
     def __init__(
@@ -91,6 +96,7 @@ class CFAFRADjangoConsumerBridge:
         observation_sink: ObservationSink = lambda observation: None,
         statement_parameters_factory: StatementTargetParametersFactory | None = None,
         control_parameters_factory: ControlTargetParametersFactory | None = None,
+        closing_parameters_factory: ClosingTargetParametersFactory | None = None,
     ) -> None:
         self._application = application
         self._legacy_accounting = legacy_accounting
@@ -104,6 +110,7 @@ class CFAFRADjangoConsumerBridge:
         self._observation_sink = observation_sink
         self._statement_parameters_factory = statement_parameters_factory
         self._control_parameters_factory = control_parameters_factory
+        self._closing_parameters_factory = closing_parameters_factory
 
     def post_journal_entry(
         self,
@@ -249,6 +256,45 @@ class CFAFRADjangoConsumerBridge:
         if backend is ReadBackend.LEGACY:
             return legacy_result
         return target_result
+
+    def close_period(
+        self,
+        *,
+        period: object,
+        user: object | None = None,
+        audit_metadata: Mapping[str, object] | None = None,
+    ) -> object:
+        """Delegate period close to PyAccountingKit as a single-writer mutation."""
+        if self._routing.mutation_backend_for("close_period") is MutationBackend.LEGACY:
+            raise CFAFRAMigrationRouteError(
+                "frozen Sprint-7 CFA FRA has no executable closing service; "
+                "close_period must be routed to PyAccountingKit"
+            )
+
+        factory = self._closing_parameters_factory
+        if factory is None:
+            raise CFAFRAConsumerMappingError(
+                "target closing routing requires a closing parameter factory"
+            )
+        parameters = dict(factory(period))
+        if "context" in parameters:
+            raise CFAFRAConsumerMappingError(
+                "closing parameter factory must not override CommandContext"
+            )
+
+        period_id = self._target_id("AccountingPeriod", period)
+        configured_period = parameters.setdefault("period_id", period_id)
+        if configured_period != period_id:
+            raise CFAFRAConsumerMappingError(
+                f"closing parameter factory returned period_id {configured_period!r}, "
+                f"expected {period_id!r}"
+            )
+
+        self._reject_legacy_inputs(parameters, forbidden=(period,))
+        return self._application.closing.close(
+            **parameters,
+            context=self._context_factory(user, audit_metadata),
+        )
 
     def run_controls(
         self,
@@ -554,6 +600,7 @@ class CFAFRADjangoConsumerBridge:
 __all__ = [
     "CFAFRAConsumerMappingError",
     "CFAFRADjangoConsumerBridge",
+    "ClosingTargetParametersFactory",
     "ConsumerContextFactory",
     "ControlTargetParametersFactory",
     "StatementTargetParametersFactory",

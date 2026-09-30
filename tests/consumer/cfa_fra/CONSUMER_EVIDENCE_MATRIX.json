@@ -7,8 +7,11 @@
   "scenarios": [
     {
       "scenario": "login",
-      "mode": "blocked",
-      "reason": "Sprint 7 has user creation and force_login coverage but no dedicated request-level login-flow test."
+      "mode": "django_login",
+      "source_files": [
+        "config/urls.py",
+        "templates/registration/login.html"
+      ]
     },
     {
       "scenario": "organization_context",

@@ -33,6 +33,11 @@ from pyaccountingkit.integrations.cfa_fra.cutover_evidence import (
     ExternalCutoverEvidence,
     LiveCutoverEvidence,
 )
+from pyaccountingkit.integrations.cfa_fra.cutover_promotion import (
+    CutoverEvidenceKey,
+    CutoverEvidencePromotion,
+    promote_cutover_evidence,
+)
 from pyaccountingkit.integrations.cfa_fra.cutover_verification import (
     CutoverArtifactVerificationError,
     VerifiedExternalCutoverEvidence,
@@ -75,14 +80,18 @@ __all__ = [
     "ConsumerScenarioEvidence",
     "ConsumerScenarioStatus",
     "CutoverArtifactVerificationError",
+    "CutoverEvidenceKey",
+    "CutoverEvidencePromotion",
     "CutoverEvidenceStatus",
     "ExternalCutoverEvidence",
     "LiveCutoverEvidence",
     "VerifiedExternalCutoverEvidence",
     "VerifiedLiveCutoverEvidence",
+    "promote_cutover_evidence",
     "verify_external_cutover_evidence",
     "verify_live_cutover_evidence",
     "StatementTargetParametersFactory",
+    "attest_external_cutover_artifact",
     "build_target_only_consumer_bridge",
     "DivergenceCategory",
     "DualRunObservation",

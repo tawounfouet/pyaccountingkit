@@ -60,6 +60,16 @@ def validate_ci_text(text: str) -> list[str]:
             "consumer_e2e_green: ${{ steps.consumer-state.outputs.consumer_e2e_green }}",
             "python scripts/validate_cfa_fra_retirement_inventory.py",
             "python scripts/validate_cfa_fra_cutover_evidence.py",
+            "identities_traceable: ${{ steps.cutover-state.outputs.identities_traceable }}",
+            (
+                "regulatory_authority_replaced: "
+                "${{ steps.cutover-state.outputs.regulatory_authority_replaced }}"
+            ),
+            '--identities-traceable "${{ needs.cutover-evidence.outputs.identities_traceable }}"',
+            (
+                '--regulatory-authority-replaced '
+                '"${{ needs.cutover-evidence.outputs.regulatory_authority_replaced }}"'
+            ),
             "python scripts/qualify_cfa_fra_retirement.py",
             "resources/cfa_fra_django_mvp_sprint_7/pyproject.toml",
             "python scripts/qualify_release.py --release-candidate",
@@ -175,7 +185,7 @@ def main() -> int:
     print("Production adapter gates: Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16")
     print("Consumer gate: bundled CFA FRA Sprint-7 executable evidence")
     print("Retirement inventory: live-consumer deletion/rewire/migration classification")
-    print("Cutover evidence: attestable external identity/reference proofs")
+    print("Cutover evidence: cryptographically verified external identity/reference artifacts")
     print("Retirement gate: MIG-13 readiness with explicit blocker evidence")
     print("Security jobs: audit, sast")
     return 0

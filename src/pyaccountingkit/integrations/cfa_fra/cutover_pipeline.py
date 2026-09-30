@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import shutil
 import tempfile
 from collections.abc import Mapping
 from dataclasses import dataclass
@@ -15,6 +16,10 @@ from typing import cast
 from pyaccountingkit.integrations.cfa_fra.cutover_artifact_schema import (
     CutoverArtifactKey,
     parse_cutover_artifact,
+)
+from pyaccountingkit.integrations.cfa_fra.cutover_evidence import (
+    CutoverEvidenceStatus,
+    ExternalCutoverEvidence,
 )
 from pyaccountingkit.integrations.cfa_fra.cutover_generation import (
     GeneratedCutoverArtifact,
@@ -68,6 +73,41 @@ def _artifact_payload(generated: GeneratedCutoverArtifact) -> str:
     return json.dumps(generation_payload(generated), indent=2, sort_keys=True) + "\n"
 
 
+def _stage_existing_pass_artifacts(
+    manifest: Mapping[str, object],
+    *,
+    source_root: Path,
+    staging_root: Path,
+) -> None:
+    raw_external = manifest.get("external_evidence")
+    if not isinstance(raw_external, dict):
+        raise CutoverEvidencePipelineError(
+            "retirement manifest must define external_evidence"
+        )
+
+    for raw in raw_external.values():
+        if not isinstance(raw, dict):
+            raise CutoverEvidencePipelineError(
+                "retirement evidence records must be JSON objects"
+            )
+        evidence = ExternalCutoverEvidence.from_mapping(raw)
+        if evidence.status is not CutoverEvidenceStatus.PASS:
+            continue
+        if evidence.artifact is None:
+            raise CutoverEvidencePipelineError(
+                "existing PASS evidence must declare an artifact"
+            )
+
+        source = resolve_cutover_artifact_path(source_root, evidence.artifact)
+        if not source.is_file():
+            raise CutoverEvidencePipelineError(
+                f"existing PASS artifact is missing: {evidence.artifact}"
+            )
+        target = resolve_cutover_artifact_path(staging_root, evidence.artifact)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, target)
+
+
 def _simulate_promotion(
     manifest: Mapping[str, object],
     *,
@@ -77,9 +117,16 @@ def _simulate_promotion(
     source: str,
     observed_at: str,
     producer: str,
+    existing_artifact_root: Path | None,
 ) -> CutoverEvidencePromotion:
     with TemporaryDirectory(prefix="pyaccountingkit-cutover-plan-") as directory:
         root = Path(directory)
+        if existing_artifact_root is not None:
+            _stage_existing_pass_artifacts(
+                manifest,
+                source_root=existing_artifact_root,
+                staging_root=root,
+            )
         candidate = resolve_cutover_artifact_path(root, artifact)
         candidate.parent.mkdir(parents=True, exist_ok=True)
         candidate.write_text(payload, encoding="utf-8")
@@ -104,6 +151,7 @@ def plan_cutover_evidence_pipeline(
     evidence_source: str,
     observed_at: str,
     producer: str,
+    existing_artifact_root: Path | None = None,
 ) -> CutoverEvidencePipelinePlan:
     """Generate, validate and simulate promotion without mutating durable state."""
     generated = generate_cutover_artifact_from_mapping(key, source_observation)
@@ -116,6 +164,7 @@ def plan_cutover_evidence_pipeline(
         source=evidence_source,
         observed_at=observed_at,
         producer=producer,
+        existing_artifact_root=existing_artifact_root,
     )
     return CutoverEvidencePipelinePlan(
         key=key,

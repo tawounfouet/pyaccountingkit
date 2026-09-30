@@ -233,7 +233,7 @@ def pipeline_plan_from_mapping(payload: Mapping[str, object]) -> CutoverEvidence
         )
 
     return CutoverEvidencePipelinePlan(
-        key=cast(CutoverArtifactKey, key),
+        key=key,
         artifact=values["artifact"],
         artifact_payload=values["artifact_payload"],
         artifact_sha256=values["artifact_sha256"],

@@ -14,6 +14,7 @@ from pyaccountingkit.integrations.cfa_fra import (
     LegacyIdentityMap,
     MigrationRouting,
     ReadBackend,
+    StatementTargetParametersFactory,
 )
 
 
@@ -89,7 +90,7 @@ def _bridge(
     target_result: object = "target-statement",
     legacy_result: object = "legacy-statement",
     observations: list[DualRunObservation] | None = None,
-    parameter_factory=_safe_parameters,
+    parameter_factory: StatementTargetParametersFactory = _safe_parameters,
 ) -> tuple[CFAFRADjangoConsumerBridge, _StatementsTarget, _LegacyStatements]:
     target = _StatementsTarget(target_result)
     legacy = _LegacyStatements(legacy_result)

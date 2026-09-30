@@ -59,7 +59,8 @@ def _utc_timestamp(payload: Mapping[str, object], field: str) -> str:
         parsed = datetime.fromisoformat(value[:-1] + "+00:00")
     except ValueError as exc:
         raise CutoverArtifactSchemaError(f"{field} must be ISO-8601") from exc
-    if parsed.utcoffset() is None or parsed.utcoffset().total_seconds() != 0:
+    offset = parsed.utcoffset()
+    if offset is None or offset.total_seconds() != 0:
         raise CutoverArtifactSchemaError(f"{field} must be UTC")
     return value
 
@@ -143,7 +144,7 @@ class LegacyIdentityMigrationArtifact:
                     target_type=_string(item, "target_type"),
                     target_id=_string(item, "target_id"),
                     source=source,
-                    source_checksum=cast(str | None, checksum),
+                    source_checksum=checksum,
                 )
             )
 

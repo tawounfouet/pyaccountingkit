@@ -24,6 +24,33 @@ class CutoverArtifactGenerationError(ValueError):
     """Raised when source observations cannot support a qualified artifact."""
 
 
+def _mapping(value: object, field: str) -> Mapping[str, object]:
+    if not isinstance(value, dict):
+        raise CutoverArtifactGenerationError(f"{field} must be a JSON object")
+    return value
+
+
+def _string(payload: Mapping[str, object], field: str) -> str:
+    value = payload.get(field)
+    if not isinstance(value, str) or not value.strip():
+        raise CutoverArtifactGenerationError(f"{field} must be a non-empty string")
+    return value
+
+
+def _integer(payload: Mapping[str, object], field: str) -> int:
+    value = payload.get(field)
+    if not isinstance(value, int) or isinstance(value, bool):
+        raise CutoverArtifactGenerationError(f"{field} must be an integer")
+    return value
+
+
+def _boolean(payload: Mapping[str, object], field: str) -> bool:
+    value = payload.get(field)
+    if not isinstance(value, bool):
+        raise CutoverArtifactGenerationError(f"{field} must be boolean")
+    return value
+
+
 @dataclass(frozen=True, slots=True)
 class RegulatoryAuthorityObservation:
     """Observed consumer state required to generate authority-cutover evidence."""
@@ -180,6 +207,88 @@ def generate_regulatory_authority_artifact(
     return GeneratedCutoverArtifact(key="regulatory_authority", payload=payload)
 
 
+def generate_cutover_artifact_from_mapping(
+    key: CutoverArtifactKey,
+    payload: Mapping[str, object],
+) -> GeneratedCutoverArtifact:
+    """Generate one cutover artifact from a structured observation snapshot."""
+    if key == "legacy_identities":
+        raw_links = payload.get("links")
+        if not isinstance(raw_links, list):
+            raise CutoverArtifactGenerationError("links must be a JSON array")
+
+        links: list[LegacyIdentityLink] = []
+        for index, raw in enumerate(raw_links):
+            item = _mapping(raw, f"links[{index}]")
+            checksum = item.get("source_checksum")
+            if checksum is not None and not isinstance(checksum, str):
+                raise CutoverArtifactGenerationError(
+                    f"links[{index}].source_checksum must be a string"
+                )
+            links.append(
+                LegacyIdentityLink(
+                    legacy_type=_string(item, "legacy_type"),
+                    legacy_id=_string(item, "legacy_id"),
+                    target_type=_string(item, "target_type"),
+                    target_id=_string(item, "target_id"),
+                    source=_string(item, "source"),
+                    source_checksum=checksum,
+                )
+            )
+
+        return generate_legacy_identity_artifact(
+            consumer=_string(payload, "consumer"),
+            generated_at=_string(payload, "generated_at"),
+            identities=LegacyIdentityMap(tuple(links)),
+            expected_legacy_records=_integer(payload, "expected_legacy_records"),
+        )
+
+    provider = _mapping(payload.get("provider"), "provider")
+    raw_resolutions = payload.get("sample_resolutions")
+    if not isinstance(raw_resolutions, list):
+        raise CutoverArtifactGenerationError("sample_resolutions must be a JSON array")
+
+    resolutions = tuple(
+        RegulatoryAuthorityResolution(
+            standard_id=_string(_mapping(raw, f"sample_resolutions[{index}]"), "standard_id"),
+            edition=_string(_mapping(raw, f"sample_resolutions[{index}]"), "edition"),
+            reference_key=_string(
+                _mapping(raw, f"sample_resolutions[{index}]"),
+                "reference_key",
+            ),
+            target_reference_id=_string(
+                _mapping(raw, f"sample_resolutions[{index}]"),
+                "target_reference_id",
+            ),
+        )
+        for index, raw in enumerate(raw_resolutions)
+    )
+    routing_profile = _string(payload, "routing_profile")
+    routing = (
+        MigrationRouting.target_only() if routing_profile == "target_only" else MigrationRouting()
+    )
+
+    return generate_regulatory_authority_artifact(
+        consumer=_string(payload, "consumer"),
+        observed_at=_string(payload, "observed_at"),
+        observation=RegulatoryAuthorityObservation(
+            provider_name=_string(provider, "name"),
+            provider_version=_string(provider, "version"),
+            routing=routing,
+            local_framework_account_authority=_boolean(
+                payload,
+                "local_framework_account_authority",
+            ),
+            local_seed_commands_authoritative=_boolean(
+                payload,
+                "local_seed_commands_authoritative",
+            ),
+            effective_plan_delegated=_boolean(payload, "effective_plan_delegated"),
+            resolutions=resolutions,
+        ),
+    )
+
+
 def generation_payload(
     artifact: GeneratedCutoverArtifact,
 ) -> dict[str, object]:
@@ -191,6 +300,7 @@ __all__ = [
     "CutoverArtifactGenerationError",
     "GeneratedCutoverArtifact",
     "RegulatoryAuthorityObservation",
+    "generate_cutover_artifact_from_mapping",
     "generate_legacy_identity_artifact",
     "generate_regulatory_authority_artifact",
     "generation_payload",

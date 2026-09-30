@@ -162,6 +162,12 @@ routes every mutation/read to PyAccountingKit with no shadow reads, and
 service dependencies. This makes the no-fallback state structural before MIG-13 deletion is
 considered.
 
+The `0.6.0b11` slice makes MIG-13 readiness executable in canonical CI. It composes the
+exact Python/adapters/consumer job results with target-only routing plus explicit external
+proofs for persisted legacy identities and regulatory-authority replacement. The current
+decision is expected to remain BLOCKED on consumer E2E, live identity migration and live
+reference-authority cutover; any silent change to that blocker set fails qualification.
+
 ### L26-C — retirement
 
 Only after parity and consumer gates are green:

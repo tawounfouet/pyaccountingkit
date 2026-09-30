@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0b11] - 2026-09-30
+
+### Added
+- Machine-readable MIG-13 retirement evidence manifest for the CFA FRA consumer.
+- `qualify_cfa_fra_retirement.py` combining exact CI results with
+  `MigrationRouting.target_only()` and external cutover evidence.
+- Canonical `CFA FRA retirement readiness` CI job chained after:
+  - the Python qualification matrix;
+  - Django/PostgreSQL qualification;
+  - SQLAlchemy/PostgreSQL qualification;
+  - CFA FRA consumer evidence.
+- Consumer-evidence job output exposing its actual `consumer_e2e_green` state to downstream
+  retirement qualification.
+
+### Safety
+- A successful readiness job does not mean retirement is ready; it means the current
+  readiness decision is internally coherent and its blocker set is explicit.
+- Current MIG-13 blockers are `evidence:consumer-e2e`,
+  `evidence:legacy-identities` and `evidence:regulatory-authority`.
+- Any blocker added, removed or silently changed makes the readiness qualifier fail until
+  the evidence manifest is reviewed.
+
 ## [0.6.0b10] - 2026-09-30
 
 ### Added

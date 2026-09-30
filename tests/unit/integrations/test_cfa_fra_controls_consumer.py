@@ -98,9 +98,7 @@ def _bridge(
 
 def test_controls_target_route_maps_consumer_identity_and_never_leaks_orm_objects() -> None:
     bridge, target = _bridge(
-        routing=MigrationRouting(
-            read_routes={"run_controls": ReadBackend.PYACCOUNTINGKIT}
-        )
+        routing=MigrationRouting(read_routes={"run_controls": ReadBackend.PYACCOUNTINGKIT})
     )
     organization = _LegacyObject("org-1")
     fiscal_year = _LegacyObject("fy-2026")
@@ -157,9 +155,7 @@ def test_controls_dual_run_fails_closed_without_legacy_comparator_source() -> No
 
 def test_controls_target_route_requires_explicit_parameter_factory() -> None:
     bridge, target = _bridge(
-        routing=MigrationRouting(
-            read_routes={"run_controls": ReadBackend.PYACCOUNTINGKIT}
-        ),
+        routing=MigrationRouting(read_routes={"run_controls": ReadBackend.PYACCOUNTINGKIT}),
         parameter_factory=None,
     )
 
@@ -181,9 +177,7 @@ def test_controls_factory_cannot_override_context_or_canonical_identity() -> Non
         return {"control_set": "YEAR_END", "context": object()}
 
     bridge, _ = _bridge(
-        routing=MigrationRouting(
-            read_routes={"run_controls": ReadBackend.PYACCOUNTINGKIT}
-        ),
+        routing=MigrationRouting(read_routes={"run_controls": ReadBackend.PYACCOUNTINGKIT}),
         parameter_factory=unsafe_context,
     )
     with pytest.raises(CFAFRAConsumerMappingError, match="must not override"):
@@ -200,9 +194,7 @@ def test_controls_factory_cannot_override_context_or_canonical_identity() -> Non
         return {"control_set": "YEAR_END", "entity_id": "other-entity"}
 
     bridge, _ = _bridge(
-        routing=MigrationRouting(
-            read_routes={"run_controls": ReadBackend.PYACCOUNTINGKIT}
-        ),
+        routing=MigrationRouting(read_routes={"run_controls": ReadBackend.PYACCOUNTINGKIT}),
         parameter_factory=wrong_entity,
     )
     with pytest.raises(CFAFRAConsumerMappingError, match="expected 'entity-1'"):
@@ -224,9 +216,7 @@ def test_controls_factory_cannot_leak_legacy_objects() -> None:
         }
 
     bridge, target = _bridge(
-        routing=MigrationRouting(
-            read_routes={"run_controls": ReadBackend.PYACCOUNTINGKIT}
-        ),
+        routing=MigrationRouting(read_routes={"run_controls": ReadBackend.PYACCOUNTINGKIT}),
         parameter_factory=leaking_factory,
     )
 

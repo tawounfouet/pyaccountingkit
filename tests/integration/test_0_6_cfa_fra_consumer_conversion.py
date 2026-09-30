@@ -98,9 +98,7 @@ def test_release_0_6_metadata_and_legacy_runtime_boundary_are_coherent() -> None
     version = str(pyproject["project"]["version"])
     assert version in {"0.6.0b1", "0.6.0rc1", "0.6.0"}
 
-    public_manifest = json.loads(
-        (ROOT / "PUBLIC_API_MANIFEST.json").read_text(encoding="utf-8")
-    )
+    public_manifest = json.loads((ROOT / "PUBLIC_API_MANIFEST.json").read_text(encoding="utf-8"))
     adapter_manifest = json.loads(
         (ROOT / "ADAPTER_CONTRACT_MANIFEST.json").read_text(encoding="utf-8")
     )

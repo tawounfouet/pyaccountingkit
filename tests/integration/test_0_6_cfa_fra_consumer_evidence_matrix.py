@@ -55,8 +55,8 @@ def test_sprint7_known_gaps_remain_explicit_and_retirement_blocking() -> None:
     assert decision.blocked == (
         ConsumerScenario.CLOSING,
         ConsumerScenario.CONTROLS,
+        ConsumerScenario.LOGIN,
     )
-    assert ConsumerScenario.LOGIN in decision.passed
 
 
 def test_every_pytest_evidence_target_exists_in_frozen_resource() -> None:

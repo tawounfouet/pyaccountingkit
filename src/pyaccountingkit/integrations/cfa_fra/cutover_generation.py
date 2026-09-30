@@ -12,8 +12,10 @@ from pyaccountingkit.integrations.cfa_fra.compatibility import (
     MigrationRouting,
 )
 from pyaccountingkit.integrations.cfa_fra.cutover_artifact_schema import (
+    CONSUMER_E2E_SCHEMA,
     LEGACY_IDENTITIES_SCHEMA,
     REGULATORY_AUTHORITY_SCHEMA,
+    ConsumerE2ECutoverArtifact,
     CutoverArtifactKey,
     LegacyIdentityMigrationArtifact,
     RegulatoryAuthorityCutoverArtifact,
@@ -90,6 +92,34 @@ def _identity_record(link: LegacyIdentityLink) -> dict[str, object]:
     if link.source_checksum is not None:
         record["source_checksum"] = link.source_checksum
     return record
+
+
+def generate_consumer_e2e_artifact(
+    *,
+    consumer: str,
+    observed_at: str,
+    environment: str,
+    producer: str,
+    scenarios: list[Mapping[str, object]],
+) -> GeneratedCutoverArtifact:
+    """Generate live consumer E2E evidence from structured scenario observations."""
+    payload: dict[str, object] = {
+        "schema": CONSUMER_E2E_SCHEMA,
+        "kind": "consumer_e2e_cutover",
+        "consumer": consumer,
+        "observed_at": observed_at,
+        "environment": environment,
+        "producer": producer,
+        "routing_profile": "target_only",
+        "scenarios": [dict(item) for item in scenarios],
+    }
+
+    try:
+        ConsumerE2ECutoverArtifact.from_mapping(payload)
+    except ValueError as exc:
+        raise CutoverArtifactGenerationError(str(exc)) from exc
+
+    return GeneratedCutoverArtifact(key="consumer_e2e", payload=payload)
 
 
 def generate_legacy_identity_artifact(
@@ -213,6 +243,22 @@ def generate_cutover_artifact_from_mapping(
     payload: Mapping[str, object],
 ) -> GeneratedCutoverArtifact:
     """Generate one cutover artifact from a structured observation snapshot."""
+    if key == "consumer_e2e":
+        raw_scenarios = payload.get("scenarios")
+        if not isinstance(raw_scenarios, list):
+            raise CutoverArtifactGenerationError("scenarios must be a JSON array")
+        scenarios = [
+            dict(_mapping(raw, f"scenarios[{index}]"))
+            for index, raw in enumerate(raw_scenarios)
+        ]
+        return generate_consumer_e2e_artifact(
+            consumer=_string(payload, "consumer"),
+            observed_at=_string(payload, "observed_at"),
+            environment=_string(payload, "environment"),
+            producer=_string(payload, "producer"),
+            scenarios=scenarios,
+        )
+
     if key == "legacy_identities":
         raw_links = payload.get("links")
         if not isinstance(raw_links, list):
@@ -301,6 +347,7 @@ __all__ = [
     "CutoverArtifactGenerationError",
     "GeneratedCutoverArtifact",
     "RegulatoryAuthorityObservation",
+    "generate_consumer_e2e_artifact",
     "generate_cutover_artifact_from_mapping",
     "generate_legacy_identity_artifact",
     "generate_regulatory_authority_artifact",

@@ -188,8 +188,7 @@ class RegulatoryAuthorityCutoverArtifact:
     ) -> RegulatoryAuthorityCutoverArtifact:
         if payload.get("schema") != REGULATORY_AUTHORITY_SCHEMA:
             raise CutoverArtifactSchemaError(
-                f"regulatory authority artifact schema must be "
-                f"{REGULATORY_AUTHORITY_SCHEMA!r}"
+                f"regulatory authority artifact schema must be {REGULATORY_AUTHORITY_SCHEMA!r}"
             )
         if payload.get("kind") != "regulatory_authority_cutover":
             raise CutoverArtifactSchemaError(
@@ -200,17 +199,13 @@ class RegulatoryAuthorityCutoverArtifact:
                 "regulatory authority PASS evidence requires target_only routing"
             )
         if _boolean(payload, "local_framework_account_authority") is not False:
-            raise CutoverArtifactSchemaError(
-                "local FrameworkAccount authority must be disabled"
-            )
+            raise CutoverArtifactSchemaError("local FrameworkAccount authority must be disabled")
         if _boolean(payload, "local_seed_commands_authoritative") is not False:
             raise CutoverArtifactSchemaError(
                 "local regulatory seed commands must not remain authoritative"
             )
         if _boolean(payload, "effective_plan_delegated") is not True:
-            raise CutoverArtifactSchemaError(
-                "effective_plan must be delegated to PyAccountingKit"
-            )
+            raise CutoverArtifactSchemaError("effective_plan must be delegated to PyAccountingKit")
 
         provider = _mapping(payload.get("provider"), "provider")
         raw_resolutions = payload.get("sample_resolutions")
@@ -229,9 +224,7 @@ class RegulatoryAuthorityCutoverArtifact:
                 _string(item, "reference_key"),
             )
             if key in seen:
-                raise CutoverArtifactSchemaError(
-                    "duplicate regulatory authority sample resolution"
-                )
+                raise CutoverArtifactSchemaError("duplicate regulatory authority sample resolution")
             seen.add(key)
             resolutions.append(
                 RegulatoryAuthorityResolution(

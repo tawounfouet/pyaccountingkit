@@ -289,3 +289,18 @@ def test_legacy_identity_map_is_traceable_idempotent_and_conflict_safe() -> None
                 target_id="entry-other",
             )
         )
+
+
+def test_migration_routing_rejects_unknown_or_mutating_dual_run_routes() -> None:
+    with pytest.raises(CFAFRAMigrationRouteError):
+        MigrationRouting(
+            mutation_routes={"typo_post": MutationBackend.PYACCOUNTINGKIT}
+        )
+
+    with pytest.raises(CFAFRAMigrationRouteError):
+        MigrationRouting(
+            read_routes={"typo_read": ReadBackend.PYACCOUNTINGKIT}
+        )
+
+    with pytest.raises(CFAFRAMigrationRouteError):
+        MigrationRouting(dual_run_reads=frozenset({"post_entry"}))

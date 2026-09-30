@@ -294,6 +294,11 @@ def apply_cutover_evidence_pipeline(
 
     with TemporaryDirectory(prefix="pyaccountingkit-cutover-apply-") as directory:
         staging_root = Path(directory)
+        _stage_existing_pass_artifacts(
+            current_manifest,
+            source_root=artifact_root,
+            staging_root=staging_root,
+        )
         staged = resolve_cutover_artifact_path(staging_root, plan.artifact)
         staged.parent.mkdir(parents=True, exist_ok=True)
         staged.write_text(plan.artifact_payload, encoding="utf-8")

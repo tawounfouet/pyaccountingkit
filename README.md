@@ -10,7 +10,7 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit **0.6.0b18** is the LOT-26 CFA FRA Cutover Evidence Pipeline beta.
+PyAccountingKit **0.6.0b19** is the LOT-26 CFA FRA Consumer E2E Cutover Evidence beta.
 
 LOT-26 turns the frozen LOT-25 CFA FRA behavioral baseline into an executable
 migration boundary. The temporary `CFAFRACompatibilityAdapter` lets the Django
@@ -39,7 +39,7 @@ mode rather than a generic posting bypass.
 
 The stable **0.5.0** public facade, adapter contract v1 and the independently
 Production-qualified Django/PostgreSQL and SQLAlchemy/PostgreSQL adapters remain
-the compatibility baseline. **0.6.0b18 is still pre-1.0**: LOT-26 consumer
+the compatibility baseline. **0.6.0b19 is still pre-1.0**: LOT-26 consumer
 conversion is in progress; LOT-27 regulatory production qualification and the
 LOT-29/30 API freeze remain later roadmap steps.
 
@@ -600,3 +600,20 @@ than silently authorizing retirement.
 
 Canonical CI executes the complete plan/apply pipeline on isolated fixture evidence for both
 legacy identities and regulatory authority, while the real CFA FRA evidence remains BLOCKED.
+
+
+The `0.6.0b19` milestone makes live consumer E2E a first-class MIG-13 cutover artifact.
+`cfa_fra_consumer_e2e_cutover/v1` requires exactly one PASS for each of the ten mandatory
+consumer scenarios: login, organization context, FEC import, journal, ledger, balance,
+financial statements, controls, closing and exports. Every scenario carries a canonical
+`sha256:<64 lowercase hex>` provenance checksum.
+
+The bundled Sprint-7 consumer still runs in canonical CI as a frozen non-regression baseline,
+but its known login/controls/closing gaps no longer define the retirement signal. MIG-13 now
+consumes `consumer_e2e_green` from the same cryptographically verified live cutover evidence
+boundary as identity traceability and regulatory-authority replacement.
+
+The generic generation, promotion and reviewed plan/apply pipeline accept `consumer_e2e` as
+a third evidence key. Canonical live consumer evidence remains BLOCKED until a real artifact is
+supplied; the isolated fixture pipeline proves that all three external blockers can be cleared
+without modifying canonical live evidence.

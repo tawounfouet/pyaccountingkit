@@ -80,9 +80,11 @@ def test_live_cutover_aggregate_exposes_retirement_booleans() -> None:
     )
 
     evidence = LiveCutoverEvidence(
+        consumer_e2e=blocked,
         legacy_identities=blocked,
         regulatory_authority=passed,
     )
 
+    assert evidence.consumer_e2e_green is False
     assert evidence.identities_traceable is False
     assert evidence.regulatory_authority_replaced is True

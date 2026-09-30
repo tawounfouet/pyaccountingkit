@@ -176,6 +176,13 @@ def pipeline_plan_from_mapping(payload: Mapping[str, object]) -> CutoverEvidence
             )
         values[field] = value
 
+    for field in ("artifact_sha256", "source_manifest_sha256"):
+        value = values[field]
+        if len(value) != 64 or any(character not in "0123456789abcdef" for character in value):
+            raise CutoverEvidencePipelineError(
+                f"cutover pipeline plan field {field!r} must be lowercase SHA-256"
+            )
+
     candidate = payload.get("candidate_manifest")
     if not isinstance(candidate, dict):
         raise CutoverEvidencePipelineError(
@@ -254,17 +261,13 @@ def apply_cutover_evidence_pipeline(
             producer=plan.producer,
         )
 
-    planned_external = cast(
-        Mapping[str, object],
-        plan.candidate_manifest["external_evidence"],
-    )
-    applied_external = cast(
-        Mapping[str, object],
-        promotion.manifest["external_evidence"],
-    )
-    if planned_external != applied_external:
+    if promotion.manifest != plan.candidate_manifest:
         raise CutoverEvidencePipelineError(
             "promotion result differs from reviewed dry-run plan"
+        )
+    if promotion.removed_blocker != plan.removed_blocker:
+        raise CutoverEvidencePipelineError(
+            "removed blocker differs from reviewed dry-run plan"
         )
     if promotion.evidence.sha256 != plan.artifact_sha256:
         raise CutoverEvidencePipelineError(

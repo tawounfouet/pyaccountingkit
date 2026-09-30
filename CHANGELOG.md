@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0b2] - 2026-09-30
+
+### Added
+- `CFAFRADjangoConsumerBridge` preserving the real Sprint-7 CFA FRA service signatures for
+  `post_journal_entry`, `reverse_journal_entry`, `execute_fec_import` and
+  `trial_balance_rows` while delegating migrated operations to `AccountingApplication`.
+- Duck-typed legacy object identity extraction with no Django runtime import.
+- Explicit legacy-to-canonical identity translation through `LegacyIdentityStoreProtocol`.
+- Consumer mapping failures that fail closed before any target-side mutation when a legacy
+  identity has not been migrated.
+
+### Changed
+- The generic FEC compatibility route now follows the documented public import contract and
+  delegates with `batch_id`.
+- The trial-balance consumer bridge maps CFA FRA Organization/FiscalYear identities before
+  invoking the public ledger namespace.
+- The LOT-26 migration now reflects the actual historical CFA FRA service names and signatures,
+  rather than only the normalized migration-map examples.
+
+### Boundaries
+- Frozen Sprint-7 oracle files remain unchanged.
+- Django ORM objects never cross the PyAccountingKit public boundary.
+- Financial-statement consumer conversion remains a later slice because the public statement
+  contract requires explicit trial-balance source and mapping-set inputs; no translation is
+  fabricated in this beta.
+
 ## [0.6.0b1] - 2026-09-30
 
 ### Added

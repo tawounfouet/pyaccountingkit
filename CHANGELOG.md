@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0b15] - 2026-09-30
+
+### Added
+- Controlled live-cutover evidence promotion API.
+- `attest_external_cutover_artifact(...)` computes the SHA-256 from real artifact bytes.
+- `promote_cfa_fra_cutover_evidence.py` for promoting one external proof from BLOCKED to PASS.
+- Dry-run by default, with explicit `--write` required for manifest mutation.
+- Atomic manifest replacement on write.
+- Promotion tests covering digest derivation, blocker removal, missing artifacts, duplicate
+  promotion, dry-run behavior and explicit persistence.
+
+### Safety
+- Operators never supply the SHA-256 manually during promotion.
+- An already-PASS proof cannot be overwritten by the promotion path.
+- Promotion removes only the blocker bound to the promoted evidence key.
+- The generated PASS is immediately re-verified against the artifact bytes before it can be
+  returned or written.
+
 ## [0.6.0b14] - 2026-09-30
 
 ### Added

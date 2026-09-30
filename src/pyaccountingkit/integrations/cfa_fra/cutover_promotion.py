@@ -6,8 +6,11 @@ from collections.abc import Mapping
 from copy import deepcopy
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Literal, cast
+from typing import cast
 
+from pyaccountingkit.integrations.cfa_fra.cutover_artifact_schema import (
+    CutoverArtifactKey,
+)
 from pyaccountingkit.integrations.cfa_fra.cutover_evidence import (
     CutoverEvidenceStatus,
     ExternalCutoverEvidence,
@@ -18,7 +21,7 @@ from pyaccountingkit.integrations.cfa_fra.cutover_verification import (
     verify_live_cutover_evidence,
 )
 
-CutoverEvidenceKey = Literal["legacy_identities", "regulatory_authority"]
+CutoverEvidenceKey = CutoverArtifactKey
 
 _BLOCKERS: dict[CutoverEvidenceKey, str] = {
     "legacy_identities": "evidence:legacy-identities",
@@ -71,6 +74,7 @@ def promote_cutover_evidence(
         raise ValueError(f"cutover evidence record {key!r} is already PASS")
 
     evidence = attest_external_cutover_artifact(
+        key=key,
         artifact=artifact,
         artifact_root=artifact_root,
         source=source,

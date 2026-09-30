@@ -11,7 +11,8 @@
       "source_files": [
         "config/urls.py",
         "templates/registration/login.html"
-      ]
+      ],
+      "reason": "Authentication succeeds with a safe explicit next URL, but frozen LOGIN_REDIRECT_URL='dashboard' cannot reverse; the actual route is 'analytics:dashboard'."
     },
     {
       "scenario": "organization_context",

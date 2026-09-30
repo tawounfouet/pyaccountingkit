@@ -109,11 +109,7 @@ def build_evidence() -> tuple[ConsumerScenarioEvidence, ...]:
         evidence.append(
             ConsumerScenarioEvidence(
                 scenario=scenario,
-                status=(
-                    ConsumerScenarioStatus.PASS
-                    if passed
-                    else ConsumerScenarioStatus.FAIL
-                ),
+                status=(ConsumerScenarioStatus.PASS if passed else ConsumerScenarioStatus.FAIL),
                 source=f"cfa-fra-sprint7:{','.join(targets)}",
                 detail=None if passed else detail,
                 evidence_checksum=_target_checksum(resource, targets),

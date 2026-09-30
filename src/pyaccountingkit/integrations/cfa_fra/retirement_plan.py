@@ -112,8 +112,7 @@ def _require_ready(readiness: Mapping[str, object]) -> None:
     missing = tuple(name for name in required if evidence.get(name) is not True)
     if missing:
         raise LegacyRetirementPlanError(
-            "retirement planning requires every evidence gate green: "
-            + ", ".join(missing)
+            "retirement planning requires every evidence gate green: " + ", ".join(missing)
         )
 
 
@@ -145,9 +144,7 @@ def build_legacy_retirement_plan(
     if policy.get("snapshot_is_immutable") is not True:
         raise LegacyRetirementPlanError("retirement plan requires immutable frozen oracle")
     if policy.get("applies_to") != "live-consumer-equivalents":
-        raise LegacyRetirementPlanError(
-            "retirement plan may target live-consumer-equivalents only"
-        )
+        raise LegacyRetirementPlanError("retirement plan may target live-consumer-equivalents only")
     if policy.get("retirement_requires_mig13_ready") is not True:
         raise LegacyRetirementPlanError("retirement inventory must require MIG-13 readiness")
 

@@ -10,7 +10,7 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit **0.6.0b10** is the LOT-26 CFA FRA Target-Only Cutover beta.
+PyAccountingKit **0.6.0b11** is the LOT-26 CFA FRA MIG-13 Retirement Readiness beta.
 
 LOT-26 turns the frozen LOT-25 CFA FRA behavioral baseline into an executable
 migration boundary. The temporary `CFAFRACompatibilityAdapter` lets the Django
@@ -39,7 +39,7 @@ mode rather than a generic posting bypass.
 
 The stable **0.5.0** public facade, adapter contract v1 and the independently
 Production-qualified Django/PostgreSQL and SQLAlchemy/PostgreSQL adapters remain
-the compatibility baseline. **0.6.0b10 is still pre-1.0**: LOT-26 consumer
+the compatibility baseline. **0.6.0b11 is still pre-1.0**: LOT-26 consumer
 conversion is in progress; LOT-27 regulatory production qualification and the
 LOT-29/30 API freeze remain later roadmap steps.
 
@@ -500,3 +500,16 @@ legacy service dependencies, exposes no shadow dual-run and routes every migrate
 accounting operation to PyAccountingKit. It is the structural profile required
 before MIG-13 can retire duplicate engine code; external consumer evidence must
 still be green before that retirement is allowed.
+
+
+The `0.6.0b11` milestone makes MIG-13 readiness a canonical CI decision.
+The new retirement-readiness gate runs only after the Python qualification matrix,
+both PostgreSQL adapters and CFA FRA consumer evidence. It combines those exact-run
+results with the target-only routing profile and explicit external evidence for
+legacy identity migration and regulatory-authority cutover.
+
+The current expected retirement blockers are intentionally explicit:
+`evidence:consumer-e2e`, `evidence:legacy-identities` and
+`evidence:regulatory-authority`. A change to that blocker set fails CI until the
+retirement evidence manifest is reviewed, preventing silent or accidental legacy
+engine deletion.

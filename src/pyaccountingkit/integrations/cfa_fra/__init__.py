@@ -41,8 +41,8 @@ from pyaccountingkit.integrations.cfa_fra.cutover_promotion import (
 from pyaccountingkit.integrations.cfa_fra.cutover_verification import (
     CutoverArtifactVerificationError,
     VerifiedExternalCutoverEvidence,
-    attest_external_cutover_artifact,
     VerifiedLiveCutoverEvidence,
+    attest_external_cutover_artifact,
     verify_external_cutover_evidence,
     verify_live_cutover_evidence,
 )

@@ -83,6 +83,20 @@ class MigrationRouting:
         )
         object.__setattr__(self, "dual_run_reads", frozenset(self.dual_run_reads))
 
+    @classmethod
+    def target_only(cls) -> MigrationRouting:
+        """Return the final cutover profile with no legacy or shadow route."""
+        return cls(
+            mutation_routes={
+                operation: MutationBackend.PYACCOUNTINGKIT
+                for operation in _MUTATION_OPERATIONS
+            },
+            read_routes={
+                operation: ReadBackend.PYACCOUNTINGKIT
+                for operation in _READ_OPERATIONS
+            },
+        )
+
     def mutation_backend_for(self, operation: str) -> MutationBackend:
         return self.mutation_routes.get(operation, MutationBackend.LEGACY)
 
@@ -101,6 +115,14 @@ class MigrationRouting:
             operation
             for operation in sorted(_READ_OPERATIONS)
             if self.read_backend_for(operation) is ReadBackend.LEGACY
+        )
+
+    def is_target_only(self) -> bool:
+        """Return whether the routing is safe for final legacy retirement."""
+        return (
+            not self.remaining_legacy_mutations()
+            and not self.remaining_legacy_reads()
+            and not self.dual_run_reads
         )
 
 

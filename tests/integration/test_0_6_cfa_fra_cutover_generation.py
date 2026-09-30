@@ -8,6 +8,7 @@ import sys
 from pathlib import Path
 
 from pyaccountingkit.integrations.cfa_fra import (
+    ConsumerE2ECutoverArtifact,
     LegacyIdentityMigrationArtifact,
     RegulatoryAuthorityCutoverArtifact,
     parse_cutover_artifact,
@@ -43,6 +44,30 @@ def _command(
     if overwrite:
         command.append("--overwrite")
     return command
+
+
+def test_consumer_e2e_generator_cli_materializes_valid_artifact(tmp_path) -> None:
+    result = subprocess.run(
+        _command(
+            "consumer_e2e",
+            FIXTURES / "consumer-e2e-source.json",
+            artifact_root=tmp_path,
+            artifact="consumer-e2e.json",
+            write=True,
+        ),
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 0, result.stdout + result.stderr
+    parsed = parse_cutover_artifact(
+        "consumer_e2e",
+        tmp_path / "consumer-e2e.json",
+    )
+    assert isinstance(parsed, ConsumerE2ECutoverArtifact)
+    assert len(parsed.evidence) == 10
 
 
 def test_identity_generator_cli_is_dry_run_by_default(tmp_path) -> None:

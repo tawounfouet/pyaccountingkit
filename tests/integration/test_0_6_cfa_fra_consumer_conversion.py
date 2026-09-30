@@ -109,6 +109,7 @@ def test_release_0_6_metadata_and_legacy_runtime_boundary_are_coherent() -> None
         "0.6.0b10",
         "0.6.0b11",
         "0.6.0b12",
+        "0.6.0b13",
         "0.6.0rc1",
         "0.6.0",
     }

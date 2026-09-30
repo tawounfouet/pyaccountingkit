@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from collections.abc import Mapping
 from dataclasses import dataclass
 from datetime import datetime
@@ -15,6 +16,8 @@ CutoverArtifactKey = Literal["legacy_identities", "regulatory_authority"]
 
 LEGACY_IDENTITIES_SCHEMA = "cfa_fra_legacy_identity_migration/v1"
 REGULATORY_AUTHORITY_SCHEMA = "cfa_fra_regulatory_authority_cutover/v1"
+
+_SHA256_PREFIXED = re.compile(r"^sha256:[0-9a-f]{64}$")
 
 
 class CutoverArtifactSchemaError(ValueError):
@@ -110,10 +113,10 @@ class LegacyIdentityMigrationArtifact:
 
             checksum = item.get("source_checksum")
             if checksum is not None and (
-                not isinstance(checksum, str) or not checksum.startswith("sha256:")
+                not isinstance(checksum, str) or _SHA256_PREFIXED.fullmatch(checksum) is None
             ):
                 raise CutoverArtifactSchemaError(
-                    f"mappings[{index}].source_checksum must use sha256: prefix"
+                    f"mappings[{index}].source_checksum must be sha256:<64 lowercase hex>"
                 )
 
             links.append(

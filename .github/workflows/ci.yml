@@ -210,6 +210,7 @@ jobs:
     name: CFA FRA live cutover evidence
     runs-on: ubuntu-latest
     outputs:
+      consumer_e2e_green: ${{ steps.cutover-state.outputs.consumer_e2e_green }}
       identities_traceable: ${{ steps.cutover-state.outputs.identities_traceable }}
       regulatory_authority_replaced: ${{ steps.cutover-state.outputs.regulatory_authority_replaced }}
     timeout-minutes: 10
@@ -229,8 +230,10 @@ jobs:
       - name: Expose verified cutover state
         id: cutover-state
         run: |
+          consumer="$(python -c 'import json; print(str(json.load(open("build/cfa_fra_cutover_evidence.json"))["consumer_e2e_green"]).lower())')"
           identities="$(python -c 'import json; print(str(json.load(open("build/cfa_fra_cutover_evidence.json"))["identities_traceable"]).lower())')"
           authority="$(python -c 'import json; print(str(json.load(open("build/cfa_fra_cutover_evidence.json"))["regulatory_authority_replaced"]).lower())')"
+          echo "consumer_e2e_green=$consumer" >> "$GITHUB_OUTPUT"
           echo "identities_traceable=$identities" >> "$GITHUB_OUTPUT"
           echo "regulatory_authority_replaced=$authority" >> "$GITHUB_OUTPUT"
 
@@ -290,11 +293,31 @@ jobs:
           --artifact-root build/cfa_fra_cutover_pipeline/live_evidence
           apply
           --plan build/cfa_fra_cutover_pipeline/authority-plan.json
-      - name: Require only consumer E2E blocker after fixture pipeline
+      - name: Plan consumer E2E transition
+        run: >-
+          python scripts/run_cfa_fra_cutover_evidence_pipeline.py
+          --manifest build/cfa_fra_cutover_pipeline/RETIREMENT_EVIDENCE.json
+          --artifact-root build/cfa_fra_cutover_pipeline/live_evidence
+          plan consumer_e2e
+          --source tests/fixtures/cfa_fra_cutover_generation/consumer-e2e-source.json
+          --artifact consumer-e2e.json
+          --evidence-source ci-cutover-pipeline
+          --observed-at 2026-09-30T16:00:00Z
+          --producer github-actions
+          --plan-output build/cfa_fra_cutover_pipeline/consumer-e2e-plan.json
+      - name: Apply reviewed consumer E2E plan
+        run: >-
+          python scripts/run_cfa_fra_cutover_evidence_pipeline.py
+          --manifest build/cfa_fra_cutover_pipeline/RETIREMENT_EVIDENCE.json
+          --artifact-root build/cfa_fra_cutover_pipeline/live_evidence
+          apply
+          --plan build/cfa_fra_cutover_pipeline/consumer-e2e-plan.json
+      - name: Require all external fixture blockers cleared
         run: >-
           python -c
           "import json; p=json.load(open('build/cfa_fra_cutover_pipeline/RETIREMENT_EVIDENCE.json'));
-          assert p['expected_blockers'] == ['evidence:consumer-e2e'];
+          assert p['expected_blockers'] == [];
+          assert p['external_evidence']['consumer_e2e']['status'] == 'PASS';
           assert p['external_evidence']['legacy_identities']['status'] == 'PASS';
           assert p['external_evidence']['regulatory_authority']['status'] == 'PASS'"
 
@@ -319,7 +342,7 @@ jobs:
           --test-result "${{ needs.test.result }}"
           --django-adapter-result "${{ needs.postgresql.result }}"
           --sqlalchemy-adapter-result "${{ needs.sqlalchemy-postgresql.result }}"
-          --consumer-e2e-green "${{ needs.consumer-evidence.outputs.consumer_e2e_green }}"
+          --consumer-e2e-green "${{ needs.cutover-evidence.outputs.consumer_e2e_green }}"
           --identities-traceable "${{ needs.cutover-evidence.outputs.identities_traceable }}"
           --regulatory-authority-replaced "${{ needs.cutover-evidence.outputs.regulatory_authority_replaced }}"
           --output build/cfa_fra_retirement_readiness.json

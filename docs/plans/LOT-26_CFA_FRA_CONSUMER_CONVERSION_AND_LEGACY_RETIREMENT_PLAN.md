@@ -135,6 +135,13 @@ consumer defect in the frozen configuration: `LOGIN_REDIRECT_URL = "dashboard"` 
 resolve because the route is namespaced as `analytics:dashboard`. Login remains BLOCKED
 until the consumer fixes that redirect, alongside controls and closing.
 
+The `0.6.0b7` slice adds the target-only controls consumer bridge. Sprint 7 has controls
+persistence objects and a dashboard but no executable legacy controls service, so the bridge
+does not invent one: `run_controls` must route to PyAccountingKit, dual-run is forbidden,
+canonical organization/fiscal-year identity is enforced, and control-set/scope parameters are
+provided through an explicit consumer factory. `controls` remains BLOCKED in Gate Consumer
+until the real CFA FRA dashboard delegates through this bridge.
+
 ### L26-C — retirement
 
 Only after parity and consumer gates are green:

@@ -37,6 +37,10 @@ StatementTargetParametersFactory = Callable[
     [str, object, object, object | None, bool],
     Mapping[str, object],
 ]
+ControlTargetParametersFactory = Callable[
+    [object, object],
+    Mapping[str, object],
+]
 
 
 def _legacy_object_id(value: object) -> str:
@@ -69,6 +73,7 @@ class CFAFRADjangoConsumerBridge:
         "_comparator",
         "_observation_sink",
         "_statement_parameters_factory",
+        "_control_parameters_factory",
     )
 
     def __init__(
@@ -85,6 +90,7 @@ class CFAFRADjangoConsumerBridge:
         comparator: DualRunComparator = lambda legacy, target: legacy == target,
         observation_sink: ObservationSink = lambda observation: None,
         statement_parameters_factory: StatementTargetParametersFactory | None = None,
+        control_parameters_factory: ControlTargetParametersFactory | None = None,
     ) -> None:
         self._application = application
         self._legacy_accounting = legacy_accounting
@@ -97,6 +103,7 @@ class CFAFRADjangoConsumerBridge:
         self._comparator = comparator
         self._observation_sink = observation_sink
         self._statement_parameters_factory = statement_parameters_factory
+        self._control_parameters_factory = control_parameters_factory
 
     def post_journal_entry(
         self,
@@ -242,6 +249,62 @@ class CFAFRADjangoConsumerBridge:
         if backend is ReadBackend.LEGACY:
             return legacy_result
         return target_result
+
+    def run_controls(
+        self,
+        *,
+        organization: object,
+        fiscal_year: object,
+        user: object | None = None,
+        audit_metadata: Mapping[str, object] | None = None,
+    ) -> object:
+        """Delegate Sprint-7 controls to PyAccountingKit without inventing a legacy engine."""
+        backend = self._routing.read_backend_for("run_controls")
+        if backend is ReadBackend.LEGACY:
+            raise CFAFRAMigrationRouteError(
+                "frozen Sprint-7 CFA FRA has no executable controls service; "
+                "run_controls must be routed to PyAccountingKit"
+            )
+        if "run_controls" in self._routing.dual_run_reads:
+            raise CFAFRAMigrationRouteError(
+                "run_controls cannot dual-run because Sprint-7 has no executable legacy "
+                "controls service"
+            )
+
+        factory = self._control_parameters_factory
+        if factory is None:
+            raise CFAFRAConsumerMappingError(
+                "target controls routing requires a control parameter factory"
+            )
+        parameters = dict(factory(organization, fiscal_year))
+        if "context" in parameters:
+            raise CFAFRAConsumerMappingError(
+                "control parameter factory must not override CommandContext"
+            )
+
+        entity_id = self._target_id("Organization", organization)
+        fiscal_year_id = self._target_id("FiscalYear", fiscal_year)
+        configured_entity = parameters.setdefault("entity_id", entity_id)
+        configured_fiscal_year = parameters.setdefault("fiscal_year_id", fiscal_year_id)
+        if configured_entity != entity_id:
+            raise CFAFRAConsumerMappingError(
+                f"control parameter factory returned entity_id {configured_entity!r}, "
+                f"expected {entity_id!r}"
+            )
+        if configured_fiscal_year != fiscal_year_id:
+            raise CFAFRAConsumerMappingError(
+                "control parameter factory returned fiscal_year_id "
+                f"{configured_fiscal_year!r}, expected {fiscal_year_id!r}"
+            )
+
+        self._reject_legacy_inputs(
+            parameters,
+            forbidden=(organization, fiscal_year),
+        )
+        return self._application.controls.run(
+            **parameters,
+            context=self._context_factory(user, audit_metadata),
+        )
 
     def build_income_statement(
         self,
@@ -429,7 +492,7 @@ class CFAFRADjangoConsumerBridge:
     ) -> None:
         if any(value is item for item in forbidden):
             raise CFAFRAConsumerMappingError(
-                "statement parameter factory leaked a legacy consumer object"
+                "consumer parameter factory leaked a legacy consumer object"
             )
         if isinstance(value, Mapping):
             for item in value.values():
@@ -492,5 +555,6 @@ __all__ = [
     "CFAFRAConsumerMappingError",
     "CFAFRADjangoConsumerBridge",
     "ConsumerContextFactory",
+    "ControlTargetParametersFactory",
     "StatementTargetParametersFactory",
 ]

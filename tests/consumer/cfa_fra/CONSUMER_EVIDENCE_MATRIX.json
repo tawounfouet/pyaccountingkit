@@ -59,7 +59,7 @@
     {
       "scenario": "controls",
       "mode": "blocked",
-      "reason": "Sprint 7 contains controls models/views but no executable controls service or dedicated consumer test."
+      "reason": "Sprint 7 contains controls models/views but no executable controls service; PyAccountingKit now provides a target-only controls consumer bridge, but the frozen dashboard is not delegated through it."
     },
     {
       "scenario": "closing",

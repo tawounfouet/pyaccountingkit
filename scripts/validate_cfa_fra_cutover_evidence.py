@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import cast
 
 from pyaccountingkit.integrations.cfa_fra import (
+    CONSUMER_E2E_SCHEMA,
     LEGACY_IDENTITIES_SCHEMA,
     REGULATORY_AUTHORITY_SCHEMA,
     CutoverArtifactKey,
@@ -50,6 +51,7 @@ def _artifact_root(payload: Mapping[str, object]) -> Path:
 
     raw_schemas = policy.get("schemas")
     expected_schemas = {
+        "consumer_e2e": CONSUMER_E2E_SCHEMA,
         "legacy_identities": LEGACY_IDENTITIES_SCHEMA,
         "regulatory_authority": REGULATORY_AUTHORITY_SCHEMA,
     }
@@ -85,9 +87,11 @@ def _report(
 ) -> dict[str, object]:
     return {
         "artifact_root": str(artifact_root.relative_to(ROOT)),
+        "consumer_e2e_green": evidence.consumer_e2e_green,
         "identities_traceable": evidence.identities_traceable,
         "regulatory_authority_replaced": evidence.regulatory_authority_replaced,
         "records": {
+            "consumer_e2e": _verified_record(evidence.consumer_e2e),
             "legacy_identities": _verified_record(evidence.legacy_identities),
             "regulatory_authority": _verified_record(evidence.regulatory_authority),
         },
@@ -98,8 +102,8 @@ def validate() -> tuple[list[str], VerifiedLiveCutoverEvidence | None, Path | No
     violations: list[str] = []
     payload = _load()
 
-    if payload.get("schema_version") != "4":
-        violations.append("live cutover evidence must use schema_version='4'")
+    if payload.get("schema_version") != "5":
+        violations.append("live cutover evidence must use schema_version='5'")
     if payload.get("routing_profile") != "target_only":
         violations.append("live cutover evidence requires target_only routing")
 
@@ -145,6 +149,7 @@ def validate() -> tuple[list[str], VerifiedLiveCutoverEvidence | None, Path | No
 
     if isinstance(consumer, str) and artifact_root is not None:
         for key, record in (
+            ("consumer_e2e", evidence.consumer_e2e),
             ("legacy_identities", evidence.legacy_identities),
             ("regulatory_authority", evidence.regulatory_authority),
         ):
@@ -162,6 +167,11 @@ def validate() -> tuple[list[str], VerifiedLiveCutoverEvidence | None, Path | No
                 )
 
     expected = set(cast(list[str], raw_expected))
+    if not verified.consumer_e2e_green and "evidence:consumer-e2e" not in expected:
+        violations.append("unverified consumer E2E evidence must keep consumer-e2e blocker")
+    if verified.consumer_e2e_green and "evidence:consumer-e2e" in expected:
+        violations.append("verified consumer E2E evidence must remove consumer-e2e blocker")
+
     if not verified.identities_traceable and "evidence:legacy-identities" not in expected:
         violations.append("unverified identity evidence must keep legacy-identities blocker")
     if verified.identities_traceable and "evidence:legacy-identities" in expected:
@@ -201,6 +211,7 @@ def main() -> int:
 
     print(payload, end="")
     print("CFA FRA live cutover evidence: PASS")
+    print(f"Consumer E2E verified: {evidence.consumer_e2e_green}")
     print(f"Legacy identities verified: {evidence.identities_traceable}")
     print(f"Regulatory authority verified: {evidence.regulatory_authority_replaced}")
     print(

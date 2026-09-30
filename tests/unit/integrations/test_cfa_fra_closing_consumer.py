@@ -92,9 +92,7 @@ def _bridge(
 
 def test_closing_target_route_is_single_writer_and_uses_canonical_period_identity() -> None:
     bridge, target = _bridge(
-        routing=MigrationRouting(
-            mutation_routes={"close_period": MutationBackend.PYACCOUNTINGKIT}
-        )
+        routing=MigrationRouting(mutation_routes={"close_period": MutationBackend.PYACCOUNTINGKIT})
     )
     period = _LegacyObject("period-2026-12")
 
@@ -127,9 +125,7 @@ def test_closing_legacy_route_fails_closed_without_inventing_sprint7_service() -
 
 def test_closing_target_route_requires_explicit_parameter_factory() -> None:
     bridge, target = _bridge(
-        routing=MigrationRouting(
-            mutation_routes={"close_period": MutationBackend.PYACCOUNTINGKIT}
-        ),
+        routing=MigrationRouting(mutation_routes={"close_period": MutationBackend.PYACCOUNTINGKIT}),
         parameter_factory=None,
     )
 
@@ -145,9 +141,7 @@ def test_closing_factory_cannot_override_context_or_canonical_period() -> None:
         return {"context": object()}
 
     bridge, _ = _bridge(
-        routing=MigrationRouting(
-            mutation_routes={"close_period": MutationBackend.PYACCOUNTINGKIT}
-        ),
+        routing=MigrationRouting(mutation_routes={"close_period": MutationBackend.PYACCOUNTINGKIT}),
         parameter_factory=unsafe_context,
     )
     with pytest.raises(CFAFRAConsumerMappingError, match="must not override"):
@@ -158,9 +152,7 @@ def test_closing_factory_cannot_override_context_or_canonical_period() -> None:
         return {"period_id": "other-period"}
 
     bridge, _ = _bridge(
-        routing=MigrationRouting(
-            mutation_routes={"close_period": MutationBackend.PYACCOUNTINGKIT}
-        ),
+        routing=MigrationRouting(mutation_routes={"close_period": MutationBackend.PYACCOUNTINGKIT}),
         parameter_factory=wrong_period,
     )
     with pytest.raises(CFAFRAConsumerMappingError, match="expected 'target-period-2026-12'"):
@@ -175,9 +167,7 @@ def test_closing_factory_cannot_leak_legacy_period_object() -> None:
         }
 
     bridge, target = _bridge(
-        routing=MigrationRouting(
-            mutation_routes={"close_period": MutationBackend.PYACCOUNTINGKIT}
-        ),
+        routing=MigrationRouting(mutation_routes={"close_period": MutationBackend.PYACCOUNTINGKIT}),
         parameter_factory=leaking_factory,
     )
 

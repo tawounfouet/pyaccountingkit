@@ -4,11 +4,13 @@ from __future__ import annotations
 
 import pytest
 
-from pyaccountingkit.integrations.cfa_fra import (
+from pyaccountingkit.integrations.cfa_fra.cutover_artifact_schema import (
     CONSUMER_E2E_SCHEMA,
     ConsumerE2ECutoverArtifact,
-    CutoverArtifactGenerationError,
     CutoverArtifactSchemaError,
+)
+from pyaccountingkit.integrations.cfa_fra.cutover_generation import (
+    CutoverArtifactGenerationError,
     generate_consumer_e2e_artifact,
 )
 

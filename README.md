@@ -10,7 +10,7 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit **0.6.0b6** is the LOT-26 CFA FRA Login Consumer Evidence beta.
+PyAccountingKit **0.6.0b6** is the LOT-26 CFA FRA Login Gap Qualification beta.
 
 LOT-26 turns the frozen LOT-25 CFA FRA behavioral baseline into an executable
 migration boundary. The temporary `CFAFRACompatibilityAdapter` lets the Django
@@ -51,9 +51,12 @@ traceable during the transition.
 
 The `0.6.0b6` consumer gate keeps the bundled CFA FRA Sprint-7 Django test
 harness in canonical CI and adds an external request-level login smoke without
-modifying the frozen snapshot. Login now performs a real GET/POST against the
-snapshot's Django `LoginView` and verifies the authenticated session. Controls
-and closing remain the only explicit blockers.
+modifying the frozen snapshot. Authentication itself is proven: a real GET/POST
+through Django `LoginView` creates an authenticated session when an explicit
+safe `next` URL is supplied. The default post-login flow remains BLOCKED because
+the snapshot configures `LOGIN_REDIRECT_URL = "dashboard"` while the actual
+namespaced route is `analytics:dashboard`. Login, controls and closing therefore
+remain explicit retirement blockers.
 
 The bundled Sprint 7 oracle explicitly schedules its Regulatory Controls &
 Closing Package for Sprint 8. LOT-25 therefore records the missing executable

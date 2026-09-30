@@ -10,11 +10,14 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit **0.6.0a1** is the LOT-25 CFA FRA Golden Baseline & Parity
-Qualification milestone.
+PyAccountingKit **0.6.0b1** is the LOT-26 CFA FRA Consumer Conversion beta.
 
-LOT-25 freezes the bundled CFA FRA Django MVP Sprint 7 snapshot as a behavioral
-oracle and executes normalized golden parity for:
+LOT-26 turns the frozen LOT-25 CFA FRA behavioral baseline into an executable
+migration boundary. The temporary `CFAFRACompatibilityAdapter` lets the Django
+consumer move service-by-service to `AccountingApplication` while keeping
+mutations single-writer and allowing selected reads to shadow both engines.
+
+LOT-25 remains the behavioral oracle baseline and executes normalized golden parity for:
 
 ```text
 posting / validated-before-posted lifecycle
@@ -36,9 +39,15 @@ mode rather than a generic posting bypass.
 
 The stable **0.5.0** public facade, adapter contract v1 and the independently
 Production-qualified Django/PostgreSQL and SQLAlchemy/PostgreSQL adapters remain
-the compatibility baseline. **0.6.0a1 is still pre-1.0**: LOT-26 consumer
-conversion, LOT-27 regulatory production qualification and the LOT-29/30 API
-freeze remain later roadmap steps.
+the compatibility baseline. **0.6.0b1 is still pre-1.0**: LOT-26 consumer
+conversion is in progress; LOT-27 regulatory production qualification and the
+LOT-29/30 API freeze remain later roadmap steps.
+
+The LOT-26 migration contract forbids mutation dual-write. Each accounting
+mutation selects either the legacy CFA FRA engine or PyAccountingKit. Selected
+read operations may dual-run for comparison while returning only the configured
+primary result. `LegacyIdentityMap` keeps historical IDs and source provenance
+traceable during the transition.
 
 The bundled Sprint 7 oracle explicitly schedules its Regulatory Controls &
 Closing Package for Sprint 8. LOT-25 therefore records the missing executable

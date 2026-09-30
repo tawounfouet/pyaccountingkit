@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0b1] - 2026-09-30
+
+### Added
+- LOT-26 `CFAFRACompatibilityAdapter` as a temporary strangler facade from historical CFA FRA
+  service signatures into the framework-neutral `AccountingApplication` public API.
+- Per-operation migration routing with explicit `LEGACY` and `PYACCOUNTINGKIT` backends.
+- Read-side dual-run observations for safe shadow comparison of trial balance, statements,
+  controls and other selected queries.
+- `LegacyIdentityStoreProtocol`, `LegacyIdentityMap` and immutable `LegacyIdentityLink`
+  records preserving historical CFA FRA IDs, target IDs, source identity and optional checksum.
+- Fail-closed `LegacyRetirementGate` requiring all routes to be migrated, dual-run to be
+  disabled and parity/adapter/consumer/identity evidence to be green before legacy removal.
+
+### Changed
+- CFA FRA migration status moves from golden-baseline qualification to consumer conversion.
+- Provider-backed `references.get_effective_plan` is the migration path away from local
+  regulatory authority.
+- Public API manifest wording now records the LOT-26 beta consumer-conversion boundary.
+
+### Safety
+- There is deliberately no mutation dual-write mode: posting, reversal, FEC execution and
+  closing select exactly one backend.
+- Unspecified routes remain on the legacy backend, preventing accidental cutover.
+- Dual-run is read-only shadow evidence and never changes the configured primary result.
+- Legacy engine retirement remains blocked until consumer parity and smoke/E2E gates are green.
+
 ## [0.6.0a1] - 2026-09-29
 
 ### Added

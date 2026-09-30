@@ -36,10 +36,11 @@ def build_payload() -> dict[str, object]:
             "extension_exports": extension_exports,
             "adapter_contract_version": str(ADAPTER_CONTRACT_VERSION),
             "note": (
-                "The 0.6 alpha line preserves the stable LOT-21..24 public facade and "
-                "adapter contract v1 while LOT-25 adds CFA FRA behavioral golden parity. "
-                "Django/PostgreSQL and SQLAlchemy/PostgreSQL remain Production-qualified; "
-                "the full pre-1.0 Python API is not frozen yet."
+                "The 0.6 beta line preserves the stable LOT-21..24 public facade and "
+                "adapter contract v1, retains LOT-25 CFA FRA golden parity, and adds the "
+                "LOT-26 consumer-conversion strangler boundary. Django/PostgreSQL and "
+                "SQLAlchemy/PostgreSQL remain Production-qualified; the full pre-1.0 "
+                "Python API is not frozen yet."
             ),
         },
     }

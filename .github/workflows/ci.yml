@@ -160,6 +160,38 @@ jobs:
           tests/concurrency/test_sqlalchemy_postgresql_concurrency.py
           -v --tb=short
 
+  consumer-bootstrap:
+    name: CFA FRA standalone consumer bootstrap
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install development tooling
+        run: python -m pip install -e ".[dev]"
+      - name: Review deterministic standalone bootstrap
+        run: >-
+          python scripts/bootstrap_cfa_fra_live_consumer.py
+          --destination build/cfa_fra_live_consumer_seed
+      - name: Materialize isolated standalone bootstrap
+        run: >-
+          python scripts/bootstrap_cfa_fra_live_consumer.py
+          --destination build/cfa_fra_live_consumer_seed
+          --write
+      - name: Require bootstrap provenance and safe initial state
+        run: >-
+          python -c
+          "import json;
+          p=json.load(open('build/cfa_fra_live_consumer_seed/PYACCOUNTINGKIT_CONSUMER_BOOTSTRAP.json'));
+          assert p['source']['oracle_tree_sha']=='07d4880534d2e2239e19fd4ef4139de70b56773a';
+          assert p['framework_requirement']=='pyaccountingkit>=0.6.0b25,<0.7';
+          assert p['binding_state']=='UNBOUND_UNTIL_PUBLISHED';
+          assert p['cutover_state']=='NOT_STARTED'"
+
   consumer-binding:
     name: CFA FRA live consumer binding
     runs-on: ubuntu-latest
@@ -498,7 +530,7 @@ jobs:
   release-qualification:
     name: Extended release qualification
     if: ${{ startsWith(github.head_ref, 'release/') }}
-    needs: [test, postgresql, sqlalchemy-postgresql, cutover-evidence, consumer-binding]
+    needs: [test, postgresql, sqlalchemy-postgresql, cutover-evidence, consumer-bootstrap, consumer-binding]
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -565,7 +597,7 @@ jobs:
     name: Canonical CI gate
     if: ${{ always() }}
     needs:
-      [quality, test, package, postgresql, sqlalchemy-postgresql, consumer-binding, consumer-evidence, retirement-inventory, cutover-evidence, cutover-pipeline, retirement-plan, retirement-execution, retirement-completion, retirement-readiness, release-qualification]
+      [quality, test, package, postgresql, sqlalchemy-postgresql, consumer-bootstrap, consumer-binding, consumer-evidence, retirement-inventory, cutover-evidence, cutover-pipeline, retirement-plan, retirement-execution, retirement-completion, retirement-readiness, release-qualification]
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -576,6 +608,7 @@ jobs:
           PACKAGE_RESULT: ${{ needs.package.result }}
           POSTGRESQL_RESULT: ${{ needs.postgresql.result }}
           SQLALCHEMY_POSTGRESQL_RESULT: ${{ needs.sqlalchemy-postgresql.result }}
+          CONSUMER_BOOTSTRAP_RESULT: ${{ needs.consumer-bootstrap.result }}
           CONSUMER_BINDING_RESULT: ${{ needs.consumer-binding.result }}
           CONSUMER_EVIDENCE_RESULT: ${{ needs.consumer-evidence.result }}
           RETIREMENT_INVENTORY_RESULT: ${{ needs.retirement-inventory.result }}
@@ -592,6 +625,7 @@ jobs:
           test "$PACKAGE_RESULT" = "success"
           test "$POSTGRESQL_RESULT" = "success"
           test "$SQLALCHEMY_POSTGRESQL_RESULT" = "success"
+          test "$CONSUMER_BOOTSTRAP_RESULT" = "success"
           test "$CONSUMER_BINDING_RESULT" = "success"
           test "$CONSUMER_EVIDENCE_RESULT" = "success"
           test "$RETIREMENT_INVENTORY_RESULT" = "success"

@@ -39,9 +39,7 @@ def _git(root: Path, *args: str, allow_ancestor_false: bool = False) -> tuple[in
         capture_output=True,
         text=True,
     )
-    if completed.returncode != 0 and not (
-        allow_ancestor_false and completed.returncode == 1
-    ):
+    if completed.returncode != 0 and not (allow_ancestor_false and completed.returncode == 1):
         detail = completed.stderr.strip() or completed.stdout.strip() or "git command failed"
         raise ConsumerBindingAdvancementError(detail)
     return completed.returncode, completed.stdout.strip()

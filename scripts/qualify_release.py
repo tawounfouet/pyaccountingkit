@@ -242,7 +242,7 @@ def _validate_cfa_fra_0_6_rc1_completion() -> None:
     if bootstrap_source.get("oracle_manifest_version") != "0.8.0":
         raise QualificationError("CFA FRA consumer bootstrap must target oracle manifest 0.8.0")
     framework_requirement = bootstrap_target.get("framework_requirement")
-    if framework_requirement != "pyaccountingkit>=0.6.0b25,<0.7":
+    if framework_requirement != "pyaccountingkit>=0.6.0b26,<0.7":
         raise QualificationError("CFA FRA consumer bootstrap framework requirement drifted")
     if bootstrap_target.get("binding_after_bootstrap") != "UNBOUND_UNTIL_PUBLISHED":
         raise QualificationError("CFA FRA consumer bootstrap may not auto-bind a repository")

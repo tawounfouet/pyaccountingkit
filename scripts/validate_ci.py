@@ -89,7 +89,7 @@ def validate_ci_text(text: str) -> list[str]:
             "consumer_repository_bound",
             "tests/consumer/cfa_fra/CONSUMER_BINDING.json",
             "startsWith(github.head_ref, 'release/')",
-            "needs: [test, postgresql, sqlalchemy-postgresql, cutover-evidence]",
+            "needs: [test, postgresql, sqlalchemy-postgresql, cutover-evidence, consumer-binding]",
             "build/cfa_fra_live_retirement_readiness.json",
             "tests/consumer/cfa_fra/live_evidence/legacy-retirement-plan.json",
             "tests/consumer/cfa_fra/live_evidence/legacy-retirement-execution.json",

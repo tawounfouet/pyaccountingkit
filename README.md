@@ -10,7 +10,7 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit **0.6.0b20** is the LOT-26 CFA FRA Legacy Retirement Plan beta.
+PyAccountingKit **0.6.0b21** is the LOT-26 CFA FRA Legacy Retirement Execution Verification beta.
 
 LOT-26 turns the frozen LOT-25 CFA FRA behavioral baseline into an executable
 migration boundary. The temporary `CFAFRACompatibilityAdapter` lets the Django
@@ -39,7 +39,7 @@ mode rather than a generic posting bypass.
 
 The stable **0.5.0** public facade, adapter contract v1 and the independently
 Production-qualified Django/PostgreSQL and SQLAlchemy/PostgreSQL adapters remain
-the compatibility baseline. **0.6.0b20 is still pre-1.0**: LOT-26 consumer
+the compatibility baseline. **0.6.0b21 is still pre-1.0**: LOT-26 consumer
 conversion is in progress; LOT-27 regulatory production qualification and the
 LOT-29/30 API freeze remain later roadmap steps.
 
@@ -48,6 +48,15 @@ mutation selects either the legacy CFA FRA engine or PyAccountingKit. Selected
 read operations may dual-run for comparison while returning only the configured
 primary result. `LegacyIdentityMap` keeps historical IDs and source provenance
 traceable during the transition.
+
+The `0.6.0b21` L26-C slice verifies externally executed legacy retirement without
+turning PyAccountingKit into a consumer-repository mutation tool. Verification rebuilds
+the exact b20 retirement plan from the current inventory and MIG-13 readiness, requires
+the reviewed plan fingerprint to remain unchanged, requires one checksummed post-cutover
+observation for each of the 39 inventoried components, and checks the expected state for
+every retirement/rewire/preservation action. The execution evidence must identify a live
+consumer revision distinct from the frozen oracle tree. A successful verification emits
+a deterministic receipt; it never deletes or rewrites consumer or oracle files.
 
 The `0.6.0b9` migration bridge adds MIG-11 reference-authority replacement:
 `effective_plan` must delegate to `AccountingApplication.references` and may

@@ -352,6 +352,53 @@ jobs:
           assert sum(i['action']=='KEEP_CONSUMER_CONCERN' for i in items)==8;
           assert sum(i['action']=='PRESERVE_FROZEN_ORACLE' for i in items)==6"
 
+  retirement-execution:
+    name: CFA FRA legacy retirement execution verification
+    needs: [retirement-plan]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install development tooling
+        run: python -m pip install -e ".[dev]"
+      - name: Rebuild isolated reviewed retirement plan
+        run: >-
+          python scripts/plan_cfa_fra_legacy_retirement.py
+          --readiness tests/fixtures/cfa_fra_retirement_plan/RETIREMENT_READINESS_READY.json
+          --output build/cfa_fra_legacy_retirement_plan.json
+      - name: Build isolated post-retirement observations
+        run: >-
+          python -c
+          "import hashlib,json,pathlib;
+          p=json.load(open('build/cfa_fra_legacy_retirement_plan.json'));
+          states={'RETIRE_DUPLICATE_ENGINE':'RETIRED','VERIFY_CONSUMER_REWIRED':'REWIRED','PRESERVE_OR_MIGRATE_PERSISTENCE':'PRESERVED','KEEP_CONSUMER_CONCERN':'PRESENT','PRESERVE_FROZEN_ORACLE':'PRESERVED'};
+          obs=[{'path':i['path'],'state':states[i['action']],'source':'isolated-ci-fixture','evidence_checksum':'sha256:'+hashlib.sha256((i['path']+':'+states[i['action']]).encode()).hexdigest()} for i in p['items']];
+          e={'schema_version':'1','plan_sha256':p['plan_sha256'],'consumer_revision':'isolated-ready-fixture-after-retirement','observations':obs};
+          pathlib.Path('build/cfa_fra_retirement_execution_evidence.json').write_text(json.dumps(e,indent=2)+'\\n')"
+      - name: Verify isolated external retirement execution
+        run: >-
+          python scripts/verify_cfa_fra_legacy_retirement_execution.py
+          --readiness tests/fixtures/cfa_fra_retirement_plan/RETIREMENT_READINESS_READY.json
+          --plan build/cfa_fra_legacy_retirement_plan.json
+          --evidence build/cfa_fra_retirement_execution_evidence.json
+          --output build/cfa_fra_retirement_execution_receipt.json
+      - name: Require complete verified retirement receipt
+        run: >-
+          python -c
+          "import json; r=json.load(open('build/cfa_fra_retirement_execution_receipt.json'));
+          obs=r['observations'];
+          assert r['verified'] is True;
+          assert len(obs)==39;
+          assert sum(i['state']=='RETIRED' for i in obs)==10;
+          assert sum(i['state']=='REWIRED' for i in obs)==8;
+          assert sum(i['state']=='PRESERVED' for i in obs)==13;
+          assert sum(i['state']=='PRESENT' for i in obs)==8"
+
   retirement-readiness:
     name: CFA FRA retirement readiness
     needs:
@@ -399,7 +446,7 @@ jobs:
     name: Canonical CI gate
     if: ${{ always() }}
     needs:
-      [quality, test, package, postgresql, sqlalchemy-postgresql, consumer-evidence, retirement-inventory, cutover-evidence, cutover-pipeline, retirement-plan, retirement-readiness, release-qualification]
+      [quality, test, package, postgresql, sqlalchemy-postgresql, consumer-evidence, retirement-inventory, cutover-evidence, cutover-pipeline, retirement-plan, retirement-execution, retirement-readiness, release-qualification]
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -415,6 +462,7 @@ jobs:
           CUTOVER_EVIDENCE_RESULT: ${{ needs.cutover-evidence.result }}
           CUTOVER_PIPELINE_RESULT: ${{ needs.cutover-pipeline.result }}
           RETIREMENT_PLAN_RESULT: ${{ needs.retirement-plan.result }}
+          RETIREMENT_EXECUTION_RESULT: ${{ needs.retirement-execution.result }}
           RETIREMENT_READINESS_RESULT: ${{ needs.retirement-readiness.result }}
           RELEASE_QUALIFICATION_RESULT: ${{ needs.release-qualification.result }}
         run: |
@@ -428,5 +476,6 @@ jobs:
           test "$CUTOVER_EVIDENCE_RESULT" = "success"
           test "$CUTOVER_PIPELINE_RESULT" = "success"
           test "$RETIREMENT_PLAN_RESULT" = "success"
+          test "$RETIREMENT_EXECUTION_RESULT" = "success"
           test "$RETIREMENT_READINESS_RESULT" = "success"
           test "$RELEASE_QUALIFICATION_RESULT" = "success" || test "$RELEASE_QUALIFICATION_RESULT" = "skipped"

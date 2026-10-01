@@ -272,3 +272,15 @@ for verification, persistence for preservation/migration, consumer-owned concern
 and every frozen-oracle test anchor for immutable preservation. Canonical CI qualifies this
 planning capability against isolated READY fixture evidence while real live CFA FRA retirement
 remains blocked.
+
+The `0.6.0b21` slice adds a fail-closed verification boundary for retirement work executed
+outside PyAccountingKit in the live CFA FRA consumer repository. The verifier rebuilds the exact
+retirement plan from the current inventory/readiness inputs, rejects stale or substituted plans,
+requires a live consumer revision distinct from the frozen oracle tree, and requires exactly one
+checksummed post-cutover observation for every planned component. Duplicate engines must be
+observed `RETIRED`, consumer endpoints `REWIRED`, persistence and frozen-oracle evidence
+`PRESERVED`, and consumer-owned concerns `PRESENT`. A successful verification produces a
+deterministic receipt; the framework still performs no deletion or repository mutation itself.
+Canonical CI proves this contract only with isolated READY evidence and synthetic observations,
+so the real CFA FRA retirement remains blocked until live evidence is supplied.
+\n

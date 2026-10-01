@@ -96,6 +96,14 @@ from pyaccountingkit.integrations.cfa_fra.retirement import (
     LegacyRetirementEvidence,
     LegacyRetirementGate,
 )
+from pyaccountingkit.integrations.cfa_fra.retirement_execution import (
+    LegacyRetirementExecutionError,
+    LegacyRetirementExecutionObservation,
+    LegacyRetirementExecutionReceipt,
+    LegacyRetirementObservedState,
+    retirement_execution_receipt_payload,
+    verify_legacy_retirement_execution,
+)
 from pyaccountingkit.integrations.cfa_fra.retirement_plan import (
     LegacyRetirementAction,
     LegacyRetirementDisposition,
@@ -164,7 +172,9 @@ __all__ = [
     "attest_external_cutover_artifact",
     "build_legacy_retirement_plan",
     "build_target_only_consumer_bridge",
+    "retirement_execution_receipt_payload",
     "retirement_plan_payload",
+    "verify_legacy_retirement_execution",
     "DivergenceCategory",
     "DualRunObservation",
     "GoldenCategory",
@@ -174,6 +184,10 @@ __all__ = [
     "LegacyIdentityMap",
     "LegacyIdentityStoreProtocol",
     "LegacyRetirementAction",
+    "LegacyRetirementExecutionError",
+    "LegacyRetirementExecutionObservation",
+    "LegacyRetirementExecutionReceipt",
+    "LegacyRetirementObservedState",
     "LegacyRetirementBlockedError",
     "LegacyRetirementDecision",
     "LegacyRetirementDisposition",

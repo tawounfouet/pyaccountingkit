@@ -41,6 +41,7 @@ def validate_ci_text(text: str) -> list[str]:
             "cutover-evidence:\n",
             "cutover-pipeline:\n",
             "retirement-plan:\n",
+            "retirement-execution:\n",
             "retirement-readiness:\n",
             "release-qualification:\n",
             "ci-gate:\n",
@@ -65,6 +66,7 @@ def validate_ci_text(text: str) -> list[str]:
             "python scripts/validate_cfa_fra_cutover_evidence.py",
             "python scripts/run_cfa_fra_cutover_evidence_pipeline.py",
             "python scripts/plan_cfa_fra_legacy_retirement.py",
+            "python scripts/verify_cfa_fra_legacy_retirement_execution.py",
             "identities_traceable: ${{ steps.cutover-state.outputs.identities_traceable }}",
             (
                 "regulatory_authority_replaced: "
@@ -83,7 +85,7 @@ def validate_ci_text(text: str) -> list[str]:
             (
                 "[quality, test, package, postgresql, sqlalchemy-postgresql, "
                 "consumer-evidence, retirement-inventory, cutover-evidence, "
-                "cutover-pipeline, retirement-plan, retirement-readiness, "
+                "cutover-pipeline, retirement-plan, retirement-execution, retirement-readiness, "
                 "release-qualification]"
             ),
             "if: ${{ always() }}",
@@ -99,19 +101,21 @@ def validate_ci_text(text: str) -> list[str]:
             'test "$CUTOVER_PIPELINE_RESULT" = "success"',
             "RETIREMENT_PLAN_RESULT: ${{ needs.retirement-plan.result }}",
             'test "$RETIREMENT_PLAN_RESULT" = "success"',
+            "RETIREMENT_EXECUTION_RESULT: ${{ needs.retirement-execution.result }}",
+            'test "$RETIREMENT_EXECUTION_RESULT" = "success"',
             "RETIREMENT_READINESS_RESULT: ${{ needs.retirement-readiness.result }}",
             "RELEASE_QUALIFICATION_RESULT: ${{ needs.release-qualification.result }}",
         ),
         label="CI",
     )
 
-    if text.count("actions/checkout@v7") != 12:
-        violations.append("CI: expected exactly twelve actions/checkout@v7 uses")
-    if text.count("actions/setup-python@v7") != 12:
-        violations.append("CI: expected exactly twelve actions/setup-python@v7 uses")
-    if text.count("cache: pip") != 12:
+    if text.count("actions/checkout@v7") != 13:
+        violations.append("CI: expected exactly thirteen actions/checkout@v7 uses")
+    if text.count("actions/setup-python@v7") != 13:
+        violations.append("CI: expected exactly thirteen actions/setup-python@v7 uses")
+    if text.count("cache: pip") != 13:
         violations.append("CI: every Python execution job must enable pip cache")
-    if text.count("cache-dependency-path:") != 12:
+    if text.count("cache-dependency-path:") != 13:
         violations.append("CI: every Python execution job must define a pip cache key")
     if text.count("python scripts/verify_package.py") != 1:
         violations.append("CI: package verification must execute exactly once")
@@ -190,7 +194,7 @@ def main() -> int:
     print(
         "Canonical jobs: quality, test, package, postgresql, sqlalchemy-postgresql, "
         "consumer-evidence, retirement-inventory, cutover-evidence, "
-        "cutover-pipeline, retirement-plan, retirement-readiness, "
+        "cutover-pipeline, retirement-plan, retirement-execution, retirement-readiness, "
         "release-qualification, ci-gate"
     )
     print("Supported Python matrix: 3.11, 3.12, 3.13")
@@ -201,6 +205,7 @@ def main() -> int:
     print("Cutover evidence: cryptographically verified consumer/identity/reference artifacts")
     print("Cutover pipeline: reviewed plan/apply execution on isolated fixture evidence")
     print("Retirement plan: deterministic non-executing L26-C actions after MIG-13 READY")
+    print("Retirement execution: exact-plan post-cutover verification with immutable oracle guard")
     print("Retirement gate: MIG-13 readiness with explicit blocker evidence")
     print("Security jobs: audit, sast")
     return 0

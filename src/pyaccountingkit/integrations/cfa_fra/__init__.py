@@ -96,6 +96,12 @@ from pyaccountingkit.integrations.cfa_fra.retirement import (
     LegacyRetirementEvidence,
     LegacyRetirementGate,
 )
+from pyaccountingkit.integrations.cfa_fra.retirement_completion import (
+    LegacyRetirementCompletion,
+    LegacyRetirementCompletionError,
+    complete_legacy_retirement,
+    retirement_completion_payload,
+)
 from pyaccountingkit.integrations.cfa_fra.retirement_execution import (
     LegacyRetirementExecutionError,
     LegacyRetirementExecutionObservation,
@@ -172,6 +178,8 @@ __all__ = [
     "attest_external_cutover_artifact",
     "build_legacy_retirement_plan",
     "build_target_only_consumer_bridge",
+    "complete_legacy_retirement",
+    "retirement_completion_payload",
     "retirement_execution_receipt_payload",
     "retirement_plan_payload",
     "verify_legacy_retirement_execution",
@@ -184,6 +192,8 @@ __all__ = [
     "LegacyIdentityMap",
     "LegacyIdentityStoreProtocol",
     "LegacyRetirementAction",
+    "LegacyRetirementCompletion",
+    "LegacyRetirementCompletionError",
     "LegacyRetirementExecutionError",
     "LegacyRetirementExecutionObservation",
     "LegacyRetirementExecutionReceipt",

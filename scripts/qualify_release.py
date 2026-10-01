@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import subprocess
 import sys
 import time
@@ -47,6 +48,22 @@ _VERSIONED_RC_EVIDENCE: dict[str, tuple[str, ...]] = {
         "tests/contract/test_corporate_finance_boundary.py",
         "tests/integration/test_0_3_import_reporting_pipeline.py",
         "tests/replay/test_0_3_release_pipeline_replay.py",
+    ),
+    "0.6.0rc1": (
+        "tests/integration/test_0_6_cfa_fra_consumer_conversion.py",
+        "tests/integration/test_0_6_cfa_fra_live_cutover_evidence.py",
+        "tests/integration/test_0_6_cfa_fra_retirement_readiness.py",
+        "tests/integration/test_0_6_cfa_fra_retirement_plan.py",
+        "tests/integration/test_0_6_cfa_fra_retirement_execution.py",
+        "tests/integration/test_0_6_cfa_fra_retirement_completion.py",
+        "tests/golden/cfa_fra/BASELINE.json",
+        "tests/consumer/cfa_fra/RETIREMENT_EVIDENCE.json",
+        "tests/consumer/cfa_fra/live_evidence/consumer-e2e.json",
+        "tests/consumer/cfa_fra/live_evidence/legacy-identities.json",
+        "tests/consumer/cfa_fra/live_evidence/regulatory-authority.json",
+        "tests/consumer/cfa_fra/live_evidence/legacy-retirement-plan.json",
+        "tests/consumer/cfa_fra/live_evidence/legacy-retirement-execution.json",
+        "tests/consumer/cfa_fra/live_evidence/legacy-retirement-completion.json",
     ),
 }
 
@@ -170,6 +187,88 @@ def validate_release_candidate_contract(
         joined = ", ".join(missing_evidence)
         raise QualificationError(
             f"release-candidate {version} is missing required evidence: {joined}"
+        )
+
+    if version == "0.6.0rc1":
+        _validate_cfa_fra_0_6_rc1_completion()
+
+
+def _validate_cfa_fra_0_6_rc1_completion() -> None:
+    """Require a semantically complete canonical L26-C proof for 0.6.0rc1."""
+    completion_path = (
+        ROOT
+        / "tests"
+        / "consumer"
+        / "cfa_fra"
+        / "live_evidence"
+        / "legacy-retirement-completion.json"
+    )
+    inventory_path = ROOT / "tests" / "consumer" / "cfa_fra" / "LEGACY_RETIREMENT_INVENTORY.json"
+
+    try:
+        completion = json.loads(completion_path.read_text(encoding="utf-8"))
+        inventory = json.loads(inventory_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise QualificationError(f"invalid CFA FRA RC1 JSON evidence: {exc}") from exc
+
+    if not isinstance(completion, dict):
+        raise QualificationError("CFA FRA RC1 completion evidence must be a JSON object")
+    if not isinstance(inventory, dict):
+        raise QualificationError("CFA FRA retirement inventory must be a JSON object")
+
+    required_values = {
+        "schema_version": "1",
+        "status": "COMPLETE",
+        "ready_for_0_6_rc1": True,
+        "routing_target_only": True,
+    }
+    for key, expected in required_values.items():
+        if completion.get(key) != expected:
+            raise QualificationError(
+                f"CFA FRA RC1 completion evidence requires {key}={expected!r}"
+            )
+
+    raw_oracle = inventory.get("oracle")
+    if not isinstance(raw_oracle, dict):
+        raise QualificationError("CFA FRA retirement inventory oracle is missing")
+    oracle_tree_sha = raw_oracle.get("tree_sha")
+    if not isinstance(oracle_tree_sha, str) or not oracle_tree_sha:
+        raise QualificationError("CFA FRA retirement inventory oracle tree_sha is missing")
+    if completion.get("oracle_tree_sha") != oracle_tree_sha:
+        raise QualificationError("CFA FRA RC1 completion oracle tree does not match inventory")
+
+    consumer_revision = completion.get("consumer_revision")
+    if not isinstance(consumer_revision, str) or not consumer_revision.strip():
+        raise QualificationError("CFA FRA RC1 completion requires a live consumer revision")
+    if consumer_revision == oracle_tree_sha:
+        raise QualificationError(
+            "CFA FRA RC1 completion may not target the frozen oracle revision"
+        )
+
+    sha256_pattern = re.compile(r"^[0-9a-f]{64}$")
+    for key in (
+        "plan_sha256",
+        "execution_receipt_sha256",
+        "inventory_sha256",
+        "readiness_sha256",
+        "completion_sha256",
+    ):
+        value = completion.get(key)
+        if not isinstance(value, str) or sha256_pattern.fullmatch(value) is None:
+            raise QualificationError(
+                f"CFA FRA RC1 completion requires lowercase SHA-256 field {key}"
+            )
+
+    expected_counts = {
+        "RETIRE_DUPLICATE_ENGINE": 10,
+        "VERIFY_CONSUMER_REWIRED": 8,
+        "PRESERVE_OR_MIGRATE_PERSISTENCE": 7,
+        "KEEP_CONSUMER_CONCERN": 8,
+        "PRESERVE_FROZEN_ORACLE": 6,
+    }
+    if completion.get("action_counts") != expected_counts:
+        raise QualificationError(
+            "CFA FRA RC1 completion action counts do not match the reviewed retirement inventory"
         )
 
 

@@ -80,6 +80,48 @@ def test_profile_rejects_duplicate_capability_claims() -> None:
         )
 
 
+def test_profile_rejects_mixed_release_coordinates() -> None:
+    qualification = RegulatoryCapabilityQualification(
+        standard_ref="fr-pcg:2026",
+        capability_code=RegulatoryCapabilityCode.STRUCTURE,
+        provider_version="0.7.1",
+        dataset_release="0.7.0",
+        framework_version="0.7.0a1",
+        status=RegulatoryCapabilityStatus.VALIDATED,
+    )
+
+    with pytest.raises(ValueError, match="dataset_release"):
+        RegulatoryFrameworkIntegrationProfile(
+            profile_id="pcg",
+            standard_ref="fr-pcg:2026",
+            provider_id="regulatory-accounting-data-framework",
+            dataset_release="0.7.1",
+            tested_framework_version="0.7.0a1",
+            capabilities=(qualification,),
+        )
+
+
+def test_profile_rejects_mixed_framework_versions() -> None:
+    qualification = RegulatoryCapabilityQualification(
+        standard_ref="fr-pcg:2026",
+        capability_code=RegulatoryCapabilityCode.STRUCTURE,
+        provider_version="0.7.1",
+        dataset_release="0.7.1",
+        framework_version="0.7.0a2",
+        status=RegulatoryCapabilityStatus.VALIDATED,
+    )
+
+    with pytest.raises(ValueError, match="framework_version"):
+        RegulatoryFrameworkIntegrationProfile(
+            profile_id="pcg",
+            standard_ref="fr-pcg:2026",
+            provider_id="regulatory-accounting-data-framework",
+            dataset_release="0.7.1",
+            tested_framework_version="0.7.0a1",
+            capabilities=(qualification,),
+        )
+
+
 def test_forbidden_inference_never_allows_auto_inference() -> None:
     with pytest.raises(ValueError, match="cannot allow automatic inference"):
         RegulatoryCapabilityQualification(

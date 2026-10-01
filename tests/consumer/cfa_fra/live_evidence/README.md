@@ -147,6 +147,34 @@ The generated seed is deliberately not live evidence. It remains
 `UNBOUND_UNTIL_PUBLISHED` with cutover `NOT_STARTED` until it has its own reviewed repository
 identity and real cutover observations.
 
+## Verified consumer publication handoff
+
+After the standalone seed has been initialized and published as its own Git repository, review
+the exact publication before changing the canonical binding:
+
+```bash
+python scripts/run_cfa_fra_consumer_publication.py \
+  plan \
+  --consumer-root ../cfa-fra-live \
+  --repository OWNER/cfa-fra-live \
+  --observed-at 2026-10-01T07:00:00Z \
+  --producer manual-review \
+  --plan-output publication-plan.json
+```
+
+Then apply the reviewed plan. The first apply is a dry-run:
+
+```bash
+python scripts/run_cfa_fra_consumer_publication.py \
+  apply \
+  --consumer-root ../cfa-fra-live \
+  --plan publication-plan.json
+```
+
+Only an explicit `--write` promotes `CONSUMER_BINDING.json` to BOUND. Apply fails if the
+consumer HEAD, origin, branch, worktree, bootstrap provenance or canonical binding changed after
+review.
+
 ## Live consumer repository binding
 
 Before producing release-grade live evidence, bind the actual consumer in

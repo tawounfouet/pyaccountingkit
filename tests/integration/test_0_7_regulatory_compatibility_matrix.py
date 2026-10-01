@@ -60,10 +60,7 @@ def test_committed_matrix_preserves_nonprofit_review_required_mapping() -> None:
     payload = json.loads(
         (ROOT / "REGULATORY_COMPATIBILITY_MATRIX.json").read_text(encoding="utf-8")
     )
-    profiles = {
-        profile["standard_ref"]: profile
-        for profile in payload["regulatory_frameworks"]
-    }
+    profiles = {profile["standard_ref"]: profile for profile in payload["regulatory_frameworks"]}
     mapping = profiles["fr-nonprofit:2026"]["capabilities"]["REPORTING_ACCOUNT_MAPPINGS"]
     assert mapping["status"] == Status.REVIEW_REQUIRED.value
     assert mapping["executable"] is False

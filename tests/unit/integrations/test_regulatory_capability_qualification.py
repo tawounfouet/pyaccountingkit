@@ -46,7 +46,7 @@ def test_support_level_is_derived_per_capability() -> None:
 
 
 def test_non_executable_status_cannot_claim_execution() -> None:
-    with pytest.raises(ValueError, match="must be non-executable"):
+    with pytest.raises(ValueError, match="may execute"):
         _qualification(
             RegulatoryCapabilityStatus.REVIEW_REQUIRED,
             executable=True,

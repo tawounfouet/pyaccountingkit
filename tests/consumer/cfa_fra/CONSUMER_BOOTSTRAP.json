@@ -8,7 +8,7 @@
   },
   "target": {
     "kind": "standalone_consumer_seed",
-    "framework_requirement": "pyaccountingkit>=0.6.0b25,<0.7",
+    "framework_requirement": "pyaccountingkit>=0.6.0b26,<0.7",
     "binding_after_bootstrap": "UNBOUND_UNTIL_PUBLISHED",
     "cutover_state_after_bootstrap": "NOT_STARTED"
   },

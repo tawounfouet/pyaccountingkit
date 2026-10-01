@@ -171,7 +171,7 @@ def _write_0_6_rc1_required_evidence(
             }
             if binding_status == "BOUND":
                 payload["binding"] = {
-                    "schema": "cfa_fra_live_consumer_binding/v1",
+                    "schema": "cfa_fra_live_consumer_binding/v2",
                     "kind": "live_consumer_repository_binding",
                     "consumer": "CFA FRA Django MVP Sprint 7",
                     "repository": "tawounfouet/cfa-fra-live",
@@ -181,6 +181,8 @@ def _write_0_6_rc1_required_evidence(
                     "environment": "production",
                     "observed_at": "2026-10-01T06:00:00Z",
                     "producer": "release-test",
+                    "bootstrap_sha256": "c" * 64,
+                    "publication_sha256": "d" * 64,
                 }
             else:
                 payload["reason"] = "repository identity not supplied"
@@ -198,7 +200,7 @@ def _write_0_6_rc1_required_evidence(
                         },
                         "target": {
                             "kind": "standalone_consumer_seed",
-                            "framework_requirement": "pyaccountingkit>=0.6.0b25,<0.7",
+                            "framework_requirement": "pyaccountingkit>=0.6.0b26,<0.7",
                             "binding_after_bootstrap": "UNBOUND_UNTIL_PUBLISHED",
                             "cutover_state_after_bootstrap": "NOT_STARTED",
                         },

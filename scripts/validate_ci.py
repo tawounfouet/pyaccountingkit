@@ -37,6 +37,7 @@ def validate_ci_text(text: str) -> list[str]:
             "postgresql:\n",
             "sqlalchemy-postgresql:\n",
             "consumer-bootstrap:\n",
+            "consumer-publication:\n",
             "consumer-binding:\n",
             "consumer-evidence:\n",
             "retirement-inventory:\n",
@@ -88,6 +89,10 @@ def validate_ci_text(text: str) -> list[str]:
             "python scripts/bootstrap_cfa_fra_live_consumer.py",
             "PYACCOUNTINGKIT_CONSUMER_BOOTSTRAP.json",
             "UNBOUND_UNTIL_PUBLISHED",
+            "python scripts/run_cfa_fra_consumer_publication.py",
+            "CFA FRA consumer publication handoff",
+            "publication_sha256",
+            "bootstrap_sha256",
             "python scripts/validate_cfa_fra_consumer_binding.py",
             "--require-bound",
             "consumer_repository_bound",
@@ -103,8 +108,8 @@ def validate_ci_text(text: str) -> list[str]:
             "assert generated == committed",
             (
                 "[quality, test, package, postgresql, sqlalchemy-postgresql, "
-                "consumer-bootstrap, consumer-binding, consumer-evidence, retirement-inventory, "
-                "cutover-evidence, "
+                "consumer-bootstrap, consumer-publication, consumer-binding, consumer-evidence, "
+                "retirement-inventory, cutover-evidence, "
                 "cutover-pipeline, retirement-plan, retirement-execution, retirement-completion, "
                 "retirement-readiness, release-qualification]"
             ),
@@ -116,6 +121,8 @@ def validate_ci_text(text: str) -> list[str]:
             "SQLALCHEMY_POSTGRESQL_RESULT: ${{ needs.sqlalchemy-postgresql.result }}",
             "CONSUMER_BOOTSTRAP_RESULT: ${{ needs.consumer-bootstrap.result }}",
             'test "$CONSUMER_BOOTSTRAP_RESULT" = "success"',
+            "CONSUMER_PUBLICATION_RESULT: ${{ needs.consumer-publication.result }}",
+            'test "$CONSUMER_PUBLICATION_RESULT" = "success"',
             "CONSUMER_BINDING_RESULT: ${{ needs.consumer-binding.result }}",
             'test "$CONSUMER_BINDING_RESULT" = "success"',
             "CONSUMER_EVIDENCE_RESULT: ${{ needs.consumer-evidence.result }}",
@@ -135,13 +142,13 @@ def validate_ci_text(text: str) -> list[str]:
         label="CI",
     )
 
-    if text.count("actions/checkout@v7") != 16:
-        violations.append("CI: expected exactly sixteen actions/checkout@v7 uses")
-    if text.count("actions/setup-python@v7") != 16:
-        violations.append("CI: expected exactly sixteen actions/setup-python@v7 uses")
-    if text.count("cache: pip") != 16:
+    if text.count("actions/checkout@v7") != 17:
+        violations.append("CI: expected exactly seventeen actions/checkout@v7 uses")
+    if text.count("actions/setup-python@v7") != 17:
+        violations.append("CI: expected exactly seventeen actions/setup-python@v7 uses")
+    if text.count("cache: pip") != 17:
         violations.append("CI: every Python execution job must enable pip cache")
-    if text.count("cache-dependency-path:") != 16:
+    if text.count("cache-dependency-path:") != 17:
         violations.append("CI: every Python execution job must define a pip cache key")
     if text.count("python scripts/verify_package.py") != 1:
         violations.append("CI: package verification must execute exactly once")
@@ -227,6 +234,7 @@ def main() -> int:
     print("Qualified suites: unit, property, contract, integration, golden, replay, concurrency")
     print("Production adapter gates: Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16")
     print("Consumer bootstrap: deterministic standalone seed from immutable Sprint-7 oracle")
+    print("Consumer publication: reviewed Git provenance handoff before BOUND")
     print("Consumer binding: explicit live repository identity, UNBOUND allowed outside RC")
     print("Consumer gate: bundled CFA FRA Sprint-7 executable evidence")
     print("Retirement inventory: live-consumer deletion/rewire/migration classification")

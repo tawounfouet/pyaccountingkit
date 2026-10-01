@@ -188,9 +188,73 @@ jobs:
           "import json;
           p=json.load(open('build/cfa_fra_live_consumer_seed/PYACCOUNTINGKIT_CONSUMER_BOOTSTRAP.json'));
           assert p['source']['oracle_tree_sha']=='07d4880534d2e2239e19fd4ef4139de70b56773a';
-          assert p['framework_requirement']=='pyaccountingkit>=0.6.0b25,<0.7';
+          assert p['framework_requirement']=='pyaccountingkit>=0.6.0b26,<0.7';
           assert p['binding_state']=='UNBOUND_UNTIL_PUBLISHED';
           assert p['cutover_state']=='NOT_STARTED'"
+
+  consumer-publication:
+    name: CFA FRA consumer publication handoff
+    needs: [consumer-bootstrap]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install development tooling
+        run: python -m pip install -e ".[dev]"
+      - name: Materialize isolated standalone consumer
+        run: >-
+          python scripts/bootstrap_cfa_fra_live_consumer.py
+          --destination build/cfa_fra_published_consumer
+          --write
+      - name: Publish isolated Git identity
+        run: |
+          git -C build/cfa_fra_published_consumer init -b main
+          git -C build/cfa_fra_published_consumer config user.email "qualification@example.invalid"
+          git -C build/cfa_fra_published_consumer config user.name "Qualification"
+          git -C build/cfa_fra_published_consumer add .
+          git -C build/cfa_fra_published_consumer commit -m "Bootstrap standalone CFA FRA consumer"
+          git -C build/cfa_fra_published_consumer remote add origin https://github.com/tawounfouet/cfa-fra-live
+      - name: Prepare isolated canonical binding
+        run: >-
+          cp tests/consumer/cfa_fra/CONSUMER_BINDING.json
+          build/cfa_fra_consumer_binding.json
+      - name: Plan reviewed publication handoff
+        run: >-
+          python scripts/run_cfa_fra_consumer_publication.py
+          --binding build/cfa_fra_consumer_binding.json
+          plan
+          --consumer-root build/cfa_fra_published_consumer
+          --repository tawounfouet/cfa-fra-live
+          --observed-at 2026-10-01T07:00:00Z
+          --producer github-actions
+          --plan-output build/cfa_fra_consumer_publication_plan.json
+      - name: Apply reviewed publication handoff
+        run: >-
+          python scripts/run_cfa_fra_consumer_publication.py
+          --binding build/cfa_fra_consumer_binding.json
+          apply
+          --consumer-root build/cfa_fra_published_consumer
+          --plan build/cfa_fra_consumer_publication_plan.json
+          --write
+      - name: Require verified BOUND v2 publication identity
+        run: >-
+          python scripts/validate_cfa_fra_consumer_binding.py
+          --binding build/cfa_fra_consumer_binding.json
+          --require-bound
+          --output build/cfa_fra_verified_publication_binding.json
+      - name: Require publication provenance fingerprints
+        run: >-
+          python -c
+          "import json;
+          p=json.load(open('build/cfa_fra_verified_publication_binding.json'));
+          assert p['bound'] is True;
+          assert len(p['bootstrap_sha256'])==64;
+          assert len(p['publication_sha256'])==64"
 
   consumer-binding:
     name: CFA FRA live consumer binding
@@ -597,7 +661,7 @@ jobs:
     name: Canonical CI gate
     if: ${{ always() }}
     needs:
-      [quality, test, package, postgresql, sqlalchemy-postgresql, consumer-bootstrap, consumer-binding, consumer-evidence, retirement-inventory, cutover-evidence, cutover-pipeline, retirement-plan, retirement-execution, retirement-completion, retirement-readiness, release-qualification]
+      [quality, test, package, postgresql, sqlalchemy-postgresql, consumer-bootstrap, consumer-publication, consumer-binding, consumer-evidence, retirement-inventory, cutover-evidence, cutover-pipeline, retirement-plan, retirement-execution, retirement-completion, retirement-readiness, release-qualification]
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -609,6 +673,7 @@ jobs:
           POSTGRESQL_RESULT: ${{ needs.postgresql.result }}
           SQLALCHEMY_POSTGRESQL_RESULT: ${{ needs.sqlalchemy-postgresql.result }}
           CONSUMER_BOOTSTRAP_RESULT: ${{ needs.consumer-bootstrap.result }}
+          CONSUMER_PUBLICATION_RESULT: ${{ needs.consumer-publication.result }}
           CONSUMER_BINDING_RESULT: ${{ needs.consumer-binding.result }}
           CONSUMER_EVIDENCE_RESULT: ${{ needs.consumer-evidence.result }}
           RETIREMENT_INVENTORY_RESULT: ${{ needs.retirement-inventory.result }}
@@ -626,6 +691,7 @@ jobs:
           test "$POSTGRESQL_RESULT" = "success"
           test "$SQLALCHEMY_POSTGRESQL_RESULT" = "success"
           test "$CONSUMER_BOOTSTRAP_RESULT" = "success"
+          test "$CONSUMER_PUBLICATION_RESULT" = "success"
           test "$CONSUMER_BINDING_RESULT" = "success"
           test "$CONSUMER_EVIDENCE_RESULT" = "success"
           test "$RETIREMENT_INVENTORY_RESULT" = "success"

@@ -74,6 +74,8 @@ def main() -> int:
                 "environment": state.binding.environment,
                 "observed_at": state.binding.observed_at,
                 "producer": state.binding.producer,
+                "bootstrap_sha256": state.binding.bootstrap_sha256,
+                "publication_sha256": state.binding.publication_sha256,
                 "binding_sha256": state.binding.binding_sha256,
             }
         )

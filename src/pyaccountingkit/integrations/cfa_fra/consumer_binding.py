@@ -10,10 +10,11 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import cast
 
-LIVE_CONSUMER_BINDING_SCHEMA = "cfa_fra_live_consumer_binding/v1"
+LIVE_CONSUMER_BINDING_SCHEMA = "cfa_fra_live_consumer_binding/v2"
 
 _REPOSITORY = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
 _GIT_SHA = re.compile(r"^[0-9a-f]{40}$")
+_SHA256 = re.compile(r"^[0-9a-f]{64}$")
 
 
 class LiveConsumerBindingError(ValueError):
@@ -62,6 +63,8 @@ class LiveConsumerBinding:
     environment: str
     observed_at: str
     producer: str
+    bootstrap_sha256: str
+    publication_sha256: str
     binding_sha256: str
 
     @classmethod
@@ -97,6 +100,16 @@ class LiveConsumerBinding:
         environment = _string(payload, "environment")
         observed_at = _utc_timestamp(payload, "observed_at")
         producer = _string(payload, "producer")
+        bootstrap_sha256 = _string(payload, "bootstrap_sha256")
+        publication_sha256 = _string(payload, "publication_sha256")
+        if _SHA256.fullmatch(bootstrap_sha256) is None:
+            raise LiveConsumerBindingError(
+                "bootstrap_sha256 must be 64 lowercase hexadecimal characters"
+            )
+        if _SHA256.fullmatch(publication_sha256) is None:
+            raise LiveConsumerBindingError(
+                "publication_sha256 must be 64 lowercase hexadecimal characters"
+            )
 
         body: dict[str, object] = {
             "schema": LIVE_CONSUMER_BINDING_SCHEMA,
@@ -109,6 +122,8 @@ class LiveConsumerBinding:
             "environment": environment,
             "observed_at": observed_at,
             "producer": producer,
+            "bootstrap_sha256": bootstrap_sha256,
+            "publication_sha256": publication_sha256,
         }
         return cls(
             consumer=consumer,
@@ -119,6 +134,8 @@ class LiveConsumerBinding:
             environment=environment,
             observed_at=observed_at,
             producer=producer,
+            bootstrap_sha256=bootstrap_sha256,
+            publication_sha256=publication_sha256,
             binding_sha256=hashlib.sha256(_canonical_bytes(body)).hexdigest(),
         )
 

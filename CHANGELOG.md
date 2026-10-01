@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0b22] - 2026-10-01
+
+### Added
+- Final L26-C `LegacyRetirementCompletion` proof.
+- `complete_legacy_retirement(...)` fail-closed completion gate.
+- Deterministic completion fingerprint sealing inventory, readiness, plan, execution receipt
+  and live consumer revision.
+- Explicit `status=COMPLETE`, target-only routing and `ready_for_0_6_rc1=true` output.
+- `qualify_cfa_fra_legacy_retirement_completion.py` CLI.
+- Canonical CI gate qualifying the completion contract after b21 execution verification.
+
+### Safety
+- Completion revalidates current MIG-13 readiness and refuses non-target-only routing or blockers.
+- The execution evidence is reverified rather than trusting a hand-constructed receipt.
+- The frozen oracle revision remains forbidden as a retirement target.
+- Canonical live CFA FRA completion is not claimed; isolated READY fixture evidence qualifies
+  only the completion mechanism.
+
 ## [0.6.0b21] - 2026-10-01
 
 ### Added

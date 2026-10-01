@@ -10,7 +10,7 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit **0.6.0b25** is the LOT-26 CFA FRA Standalone Consumer Bootstrap beta.
+PyAccountingKit **0.6.0b26** is the LOT-26 CFA FRA Verified Consumer Publication Handoff beta.
 
 LOT-26 turns the frozen LOT-25 CFA FRA behavioral baseline into an executable
 migration boundary. The temporary `CFAFRACompatibilityAdapter` lets the Django
@@ -39,7 +39,7 @@ mode rather than a generic posting bypass.
 
 The stable **0.5.0** public facade, adapter contract v1 and the independently
 Production-qualified Django/PostgreSQL and SQLAlchemy/PostgreSQL adapters remain
-the compatibility baseline. **0.6.0b25 is still pre-1.0**: LOT-26 consumer
+the compatibility baseline. **0.6.0b26 is still pre-1.0**: LOT-26 consumer
 conversion is in progress; LOT-27 regulatory production qualification and the
 LOT-29/30 API freeze remain later roadmap steps.
 
@@ -91,6 +91,13 @@ SHA, adds the compatible PyAccountingKit dependency, fixes the already-proven na
 redirect defect, and writes a deterministic provenance manifest. The bootstrap never mutates the
 oracle, publishes a GitHub repository, binds `CONSUMER_BINDING.json`, or promotes cutover
 evidence automatically.
+
+The `0.6.0b26` slice closes the publication-to-binding gap. A standalone consumer can be
+bound only through a reviewed plan/apply handoff that inspects a clean top-level Git repository,
+verifies its GitHub `origin`, default branch and exact HEAD revision, revalidates the embedded
+bootstrap provenance against the frozen oracle, and seals both bootstrap and publication SHA-256
+fingerprints into the binding. Binding schema v2 therefore makes the publication provenance
+part of the canonical repository identity instead of an out-of-band assumption.
 
 The `0.6.0b9` migration bridge adds MIG-11 reference-authority replacement:
 `effective_plan` must delegate to `AccountingApplication.references` and may

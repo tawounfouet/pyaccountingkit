@@ -58,6 +58,7 @@ _VERSIONED_RC_EVIDENCE: dict[str, tuple[str, ...]] = {
         "tests/integration/test_0_6_cfa_fra_retirement_completion.py",
         "tests/golden/cfa_fra/BASELINE.json",
         "tests/consumer/cfa_fra/RETIREMENT_EVIDENCE.json",
+        "tests/consumer/cfa_fra/CONSUMER_BINDING.json",
         "tests/consumer/cfa_fra/live_evidence/consumer-e2e.json",
         "tests/consumer/cfa_fra/live_evidence/legacy-identities.json",
         "tests/consumer/cfa_fra/live_evidence/regulatory-authority.json",
@@ -204,10 +205,12 @@ def _validate_cfa_fra_0_6_rc1_completion() -> None:
         / "legacy-retirement-completion.json"
     )
     inventory_path = ROOT / "tests" / "consumer" / "cfa_fra" / "LEGACY_RETIREMENT_INVENTORY.json"
+    binding_path = ROOT / "tests" / "consumer" / "cfa_fra" / "CONSUMER_BINDING.json"
 
     try:
         completion = json.loads(completion_path.read_text(encoding="utf-8"))
         inventory = json.loads(inventory_path.read_text(encoding="utf-8"))
+        binding_state = json.loads(binding_path.read_text(encoding="utf-8"))
     except json.JSONDecodeError as exc:
         raise QualificationError(f"invalid CFA FRA RC1 JSON evidence: {exc}") from exc
 
@@ -215,6 +218,15 @@ def _validate_cfa_fra_0_6_rc1_completion() -> None:
         raise QualificationError("CFA FRA RC1 completion evidence must be a JSON object")
     if not isinstance(inventory, dict):
         raise QualificationError("CFA FRA retirement inventory must be a JSON object")
+    if not isinstance(binding_state, dict):
+        raise QualificationError("CFA FRA consumer binding must be a JSON object")
+    if binding_state.get("status") != "BOUND":
+        raise QualificationError("CFA FRA 0.6.0rc1 requires a BOUND live consumer repository")
+    raw_binding = binding_state.get("binding")
+    if not isinstance(raw_binding, dict):
+        raise QualificationError("CFA FRA BOUND consumer state requires binding metadata")
+    if raw_binding.get("environment") != "production":
+        raise QualificationError("CFA FRA 0.6.0rc1 consumer binding must target production")
 
     required_values = {
         "schema_version": "1",
@@ -240,6 +252,12 @@ def _validate_cfa_fra_0_6_rc1_completion() -> None:
         raise QualificationError("CFA FRA RC1 completion requires a live consumer revision")
     if consumer_revision == oracle_tree_sha:
         raise QualificationError("CFA FRA RC1 completion may not target the frozen oracle revision")
+
+    binding_revision = raw_binding.get("revision_sha")
+    if binding_revision != consumer_revision:
+        raise QualificationError(
+            "CFA FRA consumer binding revision must match retirement completion revision"
+        )
 
     sha256_pattern = re.compile(r"^[0-9a-f]{64}$")
     for key in (

@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0b26] - 2026-10-01
+
+### Added
+- Verified standalone-consumer publication inspection over a real Git working tree.
+- GitHub origin normalization for HTTPS and SSH remotes.
+- Clean-worktree, top-level repository, default-branch and exact HEAD revision checks.
+- Bootstrap provenance revalidation against the immutable Sprint-7 oracle and current bootstrap
+  requirement.
+- Side-effect-free publication `plan` followed by stale-state-safe `apply`.
+- Binding schema `cfa_fra_live_consumer_binding/v2` with mandatory
+  `bootstrap_sha256` and `publication_sha256`.
+- Canonical CI proof of bootstrap -> Git publication -> reviewed binding promotion.
+
+### Safety
+- Publication planning requires canonical state `UNBOUND`.
+- A repository change after review invalidates the plan.
+- A canonical binding change after review invalidates the plan.
+- Dry-run remains the default for apply; canonical mutation requires explicit `--write`.
+- The isolated CI publication is qualification evidence only and never changes the canonical
+  live binding.
+
 ## [0.6.0b25] - 2026-10-01
 
 ### Added

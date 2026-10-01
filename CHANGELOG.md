@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0b27] - 2026-10-01
+
+### Added
+- Reviewed `BOUND(old revision) -> BOUND(new revision)` consumer binding advancement.
+- Explicit Git ancestry proof requiring the previously bound revision to be an ancestor of the
+  observed revision.
+- Stable repository, canonical URL, default branch, environment and bootstrap-provenance checks
+  across revision advancement.
+- Side-effect-free advancement planning and stale-state-safe apply.
+- Dedicated CI proof covering publication, initial binding, descendant consumer commit and
+  canonical re-attestation.
+
+### Safety
+- Revision rollback and divergent-history rebinding fail closed.
+- A no-op advancement to the currently bound SHA is rejected.
+- Repository substitution, branch changes, environment drift and bootstrap provenance drift are
+  rejected.
+- Binding mutation still requires explicit `--write`.
+- The bootstrap baseline remains `pyaccountingkit>=0.6.0b26,<0.7`; b27 does not invalidate a
+  consumer seed already published from the qualified b26 bootstrap.
+
 ## [0.6.0b26] - 2026-10-01
 
 ### Added

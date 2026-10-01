@@ -175,6 +175,33 @@ Only an explicit `--write` promotes `CONSUMER_BINDING.json` to BOUND. Apply fail
 consumer HEAD, origin, branch, worktree, bootstrap provenance or canonical binding changed after
 review.
 
+## Bound revision advancement
+
+After the consumer is BOUND, every reviewed cutover/retirement commit that must become the
+canonical live revision is advanced explicitly:
+
+```bash
+python scripts/run_cfa_fra_consumer_binding_advancement.py \
+  plan \
+  --consumer-root ../cfa-fra-live \
+  --observed-at 2026-10-01T08:00:00Z \
+  --producer manual-review \
+  --plan-output binding-advancement-plan.json
+```
+
+Review the plan, then dry-run apply:
+
+```bash
+python scripts/run_cfa_fra_consumer_binding_advancement.py \
+  apply \
+  --consumer-root ../cfa-fra-live \
+  --plan binding-advancement-plan.json
+```
+
+Only `--write` advances `CONSUMER_BINDING.json`. The previous bound SHA must be an ancestor
+of the new HEAD; repository, branch, environment and bootstrap provenance are immutable across
+the transition.
+
 ## Live consumer repository binding
 
 Before producing release-grade live evidence, bind the actual consumer in

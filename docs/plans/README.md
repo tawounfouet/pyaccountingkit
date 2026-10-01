@@ -26,9 +26,10 @@ Chaque plan correspond à un jalon de release sémantique clair, définit les lo
 ## Lot actif / qualification
 
 - [`LOT-26_CFA_FRA_CONSUMER_CONVERSION_AND_LEGACY_RETIREMENT_PLAN.md`](LOT-26_CFA_FRA_CONSUMER_CONVERSION_AND_LEGACY_RETIREMENT_PLAN.md)
-  — LOT-26 actif : `0.6.0b26` vérifie le handoff de publication du consumer
-  standalone vers un dépôt GitHub propre et scelle sa provenance dans le binding v2.
-  Le cutover live et le retirement réel restent nécessaires avant `0.6.0rc1`.
+  — LOT-26 actif : `0.6.0b27` autorise l'avancement contrôlé du binding consumer
+  vers des révisions descendantes sans changer de repository, branche, environnement ni
+  provenance bootstrap. Le cutover live et le retirement réel restent nécessaires avant
+  `0.6.0rc1`.
 - [`LOT-25_CFA_FRA_GOLDEN_BASELINE_IMPLEMENTATION_PLAN.md`](LOT-25_CFA_FRA_GOLDEN_BASELINE_IMPLEMENTATION_PLAN.md)
   — LOT-25 qualifié en `0.6.0a1` : baseline CFA FRA Sprint 7 et parité golden.
 - [`cfa_fra/01_CFA_FRA_COMPONENT_INVENTORY.md`](cfa_fra/01_CFA_FRA_COMPONENT_INVENTORY.md)

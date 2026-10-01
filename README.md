@@ -10,7 +10,7 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit **0.6.0b21** is the LOT-26 CFA FRA Legacy Retirement Execution Verification beta.
+PyAccountingKit **0.6.0b22** is the LOT-26 CFA FRA Legacy Retirement Completion beta.
 
 LOT-26 turns the frozen LOT-25 CFA FRA behavioral baseline into an executable
 migration boundary. The temporary `CFAFRACompatibilityAdapter` lets the Django
@@ -39,7 +39,7 @@ mode rather than a generic posting bypass.
 
 The stable **0.5.0** public facade, adapter contract v1 and the independently
 Production-qualified Django/PostgreSQL and SQLAlchemy/PostgreSQL adapters remain
-the compatibility baseline. **0.6.0b21 is still pre-1.0**: LOT-26 consumer
+the compatibility baseline. **0.6.0b22 is still pre-1.0**: LOT-26 consumer
 conversion is in progress; LOT-27 regulatory production qualification and the
 LOT-29/30 API freeze remain later roadmap steps.
 
@@ -57,6 +57,14 @@ observation for each of the 39 inventoried components, and checks the expected s
 every retirement/rewire/preservation action. The execution evidence must identify a live
 consumer revision distinct from the frozen oracle tree. A successful verification emits
 a deterministic receipt; it never deletes or rewrites consumer or oracle files.
+
+The `0.6.0b22` slice seals those guarantees into an explicit L26-C completion gate.
+Completion revalidates the current target-only MIG-13 readiness, the reviewed retirement
+plan and the b21 execution evidence together. Only a still-current, blocker-free plan with
+verified post-retirement observations can produce `status=COMPLETE` and
+`ready_for_0_6_rc1=true`. The completion proof fingerprints the inventory, readiness,
+plan, execution receipt and live consumer revision. Canonical live completion remains
+unavailable until the real CFA FRA external evidence and retirement observations exist.
 
 The `0.6.0b9` migration bridge adds MIG-11 reference-authority replacement:
 `effective_plan` must delegate to `AccountingApplication.references` and may

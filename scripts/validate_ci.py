@@ -234,6 +234,7 @@ def main() -> int:
     print("Qualified suites: unit, property, contract, integration, golden, replay, concurrency")
     print("Production adapter gates: Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16")
     print("Consumer bootstrap: deterministic standalone seed from immutable Sprint-7 oracle")
+    print("Consumer publication: reviewed Git provenance handoff before BOUND")
     print("Consumer binding: explicit live repository identity, UNBOUND allowed outside RC")
     print("Consumer gate: bundled CFA FRA Sprint-7 executable evidence")
     print("Retirement inventory: live-consumer deletion/rewire/migration classification")

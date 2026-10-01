@@ -473,6 +473,7 @@ jobs:
   release-qualification:
     name: Extended release qualification
     if: ${{ startsWith(github.head_ref, 'release/') }}
+    needs: [test, postgresql, sqlalchemy-postgresql, cutover-evidence]
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -484,6 +485,37 @@ jobs:
           cache-dependency-path: pyproject.toml
       - name: Install development tooling
         run: python -m pip install -e ".[dev]"
+      - name: Rebuild canonical live MIG-13 readiness
+        run: >-
+          python scripts/qualify_cfa_fra_retirement.py
+          --test-result "${{ needs.test.result }}"
+          --django-adapter-result "${{ needs.postgresql.result }}"
+          --sqlalchemy-adapter-result "${{ needs.sqlalchemy-postgresql.result }}"
+          --consumer-e2e-green "${{ needs.cutover-evidence.outputs.consumer_e2e_green }}"
+          --identities-traceable "${{ needs.cutover-evidence.outputs.identities_traceable }}"
+          --regulatory-authority-replaced "${{ needs.cutover-evidence.outputs.regulatory_authority_replaced }}"
+          --output build/cfa_fra_live_retirement_readiness.json
+      - name: Require canonical live MIG-13 READY
+        run: >-
+          python -c
+          "import json; r=json.load(open('build/cfa_fra_live_retirement_readiness.json'));
+          assert r['ready'] is True;
+          assert r['blockers'] == [];
+          assert r['expected_blockers'] == []"
+      - name: Revalidate canonical live L26-C completion
+        run: >-
+          python scripts/qualify_cfa_fra_legacy_retirement_completion.py
+          --readiness build/cfa_fra_live_retirement_readiness.json
+          --plan tests/consumer/cfa_fra/live_evidence/legacy-retirement-plan.json
+          --execution-evidence tests/consumer/cfa_fra/live_evidence/legacy-retirement-execution.json
+          --output build/cfa_fra_live_retirement_completion.json
+      - name: Require committed completion proof to match regenerated live proof
+        run: >-
+          python -c
+          "import json;
+          generated=json.load(open('build/cfa_fra_live_retirement_completion.json'));
+          committed=json.load(open('tests/consumer/cfa_fra/live_evidence/legacy-retirement-completion.json'));
+          assert generated == committed"
       - name: Run release-candidate qualification
         run: python scripts/qualify_release.py --release-candidate
 

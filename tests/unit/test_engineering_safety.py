@@ -138,6 +138,121 @@ def test_release_candidate_contract_requires_versioned_0_5_evidence(
         module.validate_release_candidate_contract(skip_tests=False, skip_package=False)
 
 
+def _write_0_6_rc1_required_evidence(
+    module: object,
+    root: Path,
+    *,
+    skip: str | None = None,
+    completion: dict[str, object] | None = None,
+) -> None:
+    for relative in ("tests/integration", "tests/golden", "tests/replay", "tests/concurrency"):
+        directory = root / relative
+        directory.mkdir(parents=True, exist_ok=True)
+        (directory / "test_present.py").write_text("def test_present(): pass\n", encoding="utf-8")
+
+    required = module._VERSIONED_RC_EVIDENCE["0.6.0rc1"]
+    for relative in required:
+        if relative == skip:
+            continue
+        path = root / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        if relative == "tests/consumer/cfa_fra/live_evidence/legacy-retirement-completion.json":
+            payload = completion if completion is not None else {}
+            path.write_text(json.dumps(payload), encoding="utf-8")
+        elif path.suffix == ".json":
+            path.write_text("{}\n", encoding="utf-8")
+        else:
+            path.write_text("def test_release_evidence(): pass\n", encoding="utf-8")
+
+    inventory = (
+        root / "tests" / "consumer" / "cfa_fra" / "LEGACY_RETIREMENT_INVENTORY.json"
+    )
+    inventory.parent.mkdir(parents=True, exist_ok=True)
+    inventory.write_text(
+        json.dumps(
+            {
+                "oracle": {
+                    "tree_sha": "07d4880534d2e2239e19fd4ef4139de70b56773a",
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+
+
+def test_release_candidate_contract_requires_versioned_0_6_live_evidence(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    module = _load_qualifier()
+    missing = "tests/consumer/cfa_fra/live_evidence/legacy-retirement-completion.json"
+    _write_0_6_rc1_required_evidence(module, tmp_path, skip=missing)
+
+    monkeypatch.setattr(module, "ROOT", tmp_path)
+    monkeypatch.setattr(module, "project_version", lambda: "0.6.0rc1")
+    with pytest.raises(module.QualificationError, match="0.6.0rc1.*missing required evidence"):
+        module.validate_release_candidate_contract(skip_tests=False, skip_package=False)
+
+
+def test_release_candidate_contract_rejects_non_complete_0_6_evidence(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    module = _load_qualifier()
+    _write_0_6_rc1_required_evidence(
+        module,
+        tmp_path,
+        completion={
+            "schema_version": "1",
+            "status": "BLOCKED",
+            "ready_for_0_6_rc1": False,
+            "routing_target_only": True,
+        },
+    )
+
+    monkeypatch.setattr(module, "ROOT", tmp_path)
+    monkeypatch.setattr(module, "project_version", lambda: "0.6.0rc1")
+    with pytest.raises(module.QualificationError, match="requires status='COMPLETE'"):
+        module.validate_release_candidate_contract(skip_tests=False, skip_package=False)
+
+
+def test_release_candidate_contract_accepts_complete_0_6_evidence(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    module = _load_qualifier()
+    oracle = "07d4880534d2e2239e19fd4ef4139de70b56773a"
+    digest = "a" * 64
+    _write_0_6_rc1_required_evidence(
+        module,
+        tmp_path,
+        completion={
+            "schema_version": "1",
+            "status": "COMPLETE",
+            "ready_for_0_6_rc1": True,
+            "routing_target_only": True,
+            "oracle_tree_sha": oracle,
+            "consumer_revision": "live-consumer-post-retirement-revision",
+            "plan_sha256": digest,
+            "execution_receipt_sha256": digest,
+            "inventory_sha256": digest,
+            "readiness_sha256": digest,
+            "completion_sha256": digest,
+            "action_counts": {
+                "RETIRE_DUPLICATE_ENGINE": 10,
+                "VERIFY_CONSUMER_REWIRED": 8,
+                "PRESERVE_OR_MIGRATE_PERSISTENCE": 7,
+                "KEEP_CONSUMER_CONCERN": 8,
+                "PRESERVE_FROZEN_ORACLE": 6,
+            },
+        },
+    )
+
+    monkeypatch.setattr(module, "ROOT", tmp_path)
+    monkeypatch.setattr(module, "project_version", lambda: "0.6.0rc1")
+    module.validate_release_candidate_contract(skip_tests=False, skip_package=False)
+
+
 def test_manifest_gate_rejects_version_drift(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,

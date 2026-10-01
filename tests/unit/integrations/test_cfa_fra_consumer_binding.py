@@ -27,6 +27,8 @@ def _bound_payload() -> dict[str, object]:
             "environment": "production",
             "observed_at": "2026-10-01T06:00:00Z",
             "producer": "cfa-fra-cutover",
+            "bootstrap_sha256": "b" * 64,
+            "publication_sha256": "c" * 64,
         },
     }
 
@@ -53,6 +55,8 @@ def test_bound_state_has_deterministic_repository_identity() -> None:
     assert state.binding is not None
     assert state.binding.repository == "tawounfouet/cfa-fra-live"
     assert state.binding.revision_sha == "a" * 40
+    assert state.binding.bootstrap_sha256 == "b" * 64
+    assert state.binding.publication_sha256 == "c" * 64
     assert len(state.binding.binding_sha256) == 64
 
 
@@ -73,6 +77,16 @@ def test_binding_rejects_non_git_revision() -> None:
     binding["revision_sha"] = "not-a-sha"
 
     with pytest.raises(LiveConsumerBindingError, match="40 lowercase hexadecimal"):
+        parse_live_consumer_binding_state(payload)
+
+
+def test_binding_rejects_missing_publication_provenance() -> None:
+    payload = _bound_payload()
+    binding = payload["binding"]
+    assert isinstance(binding, dict)
+    binding.pop("publication_sha256")
+
+    with pytest.raises(LiveConsumerBindingError, match="publication_sha256"):
         parse_live_consumer_binding_state(payload)
 
 

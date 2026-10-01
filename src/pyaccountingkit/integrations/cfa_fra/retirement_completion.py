@@ -52,17 +52,11 @@ def complete_legacy_retirement(
 ) -> LegacyRetirementCompletion:
     """Seal L26-C only when current readiness and verified execution still match exactly."""
     if readiness.get("routing_target_only") is not True:
-        raise LegacyRetirementCompletionError(
-            "retirement completion requires target-only routing"
-        )
+        raise LegacyRetirementCompletionError("retirement completion requires target-only routing")
     if readiness.get("ready") is not True:
-        raise LegacyRetirementCompletionError(
-            "retirement completion requires MIG-13 ready=true"
-        )
+        raise LegacyRetirementCompletionError("retirement completion requires MIG-13 ready=true")
     if readiness.get("blockers") != [] or readiness.get("expected_blockers") != []:
-        raise LegacyRetirementCompletionError(
-            "retirement completion requires empty blocker sets"
-        )
+        raise LegacyRetirementCompletionError("retirement completion requires empty blocker sets")
 
     current_plan = build_legacy_retirement_plan(inventory, readiness)
     if current_plan != plan:
@@ -89,10 +83,7 @@ def complete_legacy_retirement(
             "retirement completion may not target the frozen oracle revision"
         )
 
-    counts = tuple(
-        (action, len(plan.by_action(action)))
-        for action in LegacyRetirementAction
-    )
+    counts = tuple((action, len(plan.by_action(action))) for action in LegacyRetirementAction)
     body: dict[str, object] = {
         "oracle_tree_sha": plan.oracle_tree_sha,
         "consumer_revision": receipt.consumer_revision,
@@ -102,10 +93,7 @@ def complete_legacy_retirement(
         "readiness_sha256": plan.readiness_sha256,
         "routing_target_only": True,
         "ready_for_0_6_rc1": True,
-        "action_counts": {
-            action.value: count
-            for action, count in counts
-        },
+        "action_counts": {action.value: count for action, count in counts},
     }
     return LegacyRetirementCompletion(
         oracle_tree_sha=plan.oracle_tree_sha,
@@ -135,10 +123,7 @@ def retirement_completion_payload(
         "inventory_sha256": completion.inventory_sha256,
         "readiness_sha256": completion.readiness_sha256,
         "completion_sha256": completion.completion_sha256,
-        "action_counts": {
-            action.value: count
-            for action, count in completion.action_counts
-        },
+        "action_counts": {action.value: count for action, count in completion.action_counts},
     }
 
 

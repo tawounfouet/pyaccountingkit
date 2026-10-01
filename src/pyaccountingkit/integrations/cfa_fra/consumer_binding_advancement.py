@@ -183,7 +183,9 @@ def apply_consumer_binding_advancement_plan(
 
     current_binding_sha256 = plan_payload.get("current_binding_sha256")
     if current_binding_sha256 != _sha256_mapping(current_binding):
-        raise ConsumerBindingAdvancementError("canonical consumer binding changed after plan review")
+        raise ConsumerBindingAdvancementError(
+            "canonical consumer binding changed after plan review"
+        )
     if plan_payload.get("from_revision_sha") != current.revision_sha:
         raise ConsumerBindingAdvancementError("bound consumer revision changed after plan review")
 

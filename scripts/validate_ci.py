@@ -36,6 +36,7 @@ def validate_ci_text(text: str) -> list[str]:
             "package:\n",
             "postgresql:\n",
             "sqlalchemy-postgresql:\n",
+            "regulatory-qualification:\n",
             "consumer-bootstrap:\n",
             "consumer-publication:\n",
             "consumer-binding-advancement:\n",
@@ -64,6 +65,10 @@ def validate_ci_text(text: str) -> list[str]:
             "tests/integration/test_sqlalchemy_postgresql_adapter.py",
             "tests/concurrency/test_sqlalchemy_postgresql_concurrency.py",
             "python scripts/check_sqlalchemy_metadata.py",
+            "python scripts/generate_regulatory_compatibility_matrix.py --check",
+            "Regulatory capability qualification",
+            "tests/golden/regulatory/test_lot27_capability_profiles.py",
+            "tests/integration/test_0_7_regulatory_compatibility_matrix.py",
             "python scripts/qualify_cfa_fra_consumer.py",
             "consumer_e2e_green: ${{ steps.consumer-state.outputs.consumer_e2e_green }}",
             "consumer_e2e_green: ${{ steps.cutover-state.outputs.consumer_e2e_green }}",
@@ -111,7 +116,8 @@ def validate_ci_text(text: str) -> list[str]:
             "assert generated == committed",
             (
                 "[quality, test, package, postgresql, sqlalchemy-postgresql, "
-                "consumer-bootstrap, consumer-publication, consumer-binding-advancement, "
+                "regulatory-qualification, consumer-bootstrap, consumer-publication, "
+                "consumer-binding-advancement, "
                 "consumer-binding, consumer-evidence, retirement-inventory, cutover-evidence, "
                 "cutover-pipeline, retirement-plan, retirement-execution, retirement-completion, "
                 "retirement-readiness, release-qualification]"
@@ -122,6 +128,8 @@ def validate_ci_text(text: str) -> list[str]:
             "PACKAGE_RESULT: ${{ needs.package.result }}",
             "POSTGRESQL_RESULT: ${{ needs.postgresql.result }}",
             "SQLALCHEMY_POSTGRESQL_RESULT: ${{ needs.sqlalchemy-postgresql.result }}",
+            "REGULATORY_QUALIFICATION_RESULT: ${{ needs.regulatory-qualification.result }}",
+            'test "$REGULATORY_QUALIFICATION_RESULT" = "success"',
             "CONSUMER_BOOTSTRAP_RESULT: ${{ needs.consumer-bootstrap.result }}",
             'test "$CONSUMER_BOOTSTRAP_RESULT" = "success"',
             "CONSUMER_PUBLICATION_RESULT: ${{ needs.consumer-publication.result }}",
@@ -147,13 +155,13 @@ def validate_ci_text(text: str) -> list[str]:
         label="CI",
     )
 
-    if text.count("actions/checkout@v7") != 18:
-        violations.append("CI: expected exactly eighteen actions/checkout@v7 uses")
-    if text.count("actions/setup-python@v7") != 18:
-        violations.append("CI: expected exactly eighteen actions/setup-python@v7 uses")
-    if text.count("cache: pip") != 18:
+    if text.count("actions/checkout@v7") != 19:
+        violations.append("CI: expected exactly nineteen actions/checkout@v7 uses")
+    if text.count("actions/setup-python@v7") != 19:
+        violations.append("CI: expected exactly nineteen actions/setup-python@v7 uses")
+    if text.count("cache: pip") != 19:
         violations.append("CI: every Python execution job must enable pip cache")
-    if text.count("cache-dependency-path:") != 18:
+    if text.count("cache-dependency-path:") != 19:
         violations.append("CI: every Python execution job must define a pip cache key")
     if text.count("python scripts/verify_package.py") != 1:
         violations.append("CI: package verification must execute exactly once")
@@ -231,13 +239,14 @@ def main() -> int:
     print("CI workflow validation: PASS")
     print(
         "Canonical jobs: quality, test, package, postgresql, sqlalchemy-postgresql, "
-        "consumer-evidence, retirement-inventory, cutover-evidence, "
+        "regulatory-qualification, consumer-evidence, retirement-inventory, cutover-evidence, "
         "cutover-pipeline, retirement-plan, retirement-execution, retirement-completion, "
         "retirement-readiness, release-qualification, ci-gate"
     )
     print("Supported Python matrix: 3.11, 3.12, 3.13")
     print("Qualified suites: unit, property, contract, integration, golden, replay, concurrency")
     print("Production adapter gates: Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16")
+    print("Regulatory qualification: capability-scoped LOT-27 profiles and golden safety")
     print("Consumer bootstrap: deterministic standalone seed from immutable Sprint-7 oracle")
     print("Consumer publication: reviewed Git provenance handoff before BOUND")
     print("Consumer binding advancement: monotonic descendant revision re-attestation")

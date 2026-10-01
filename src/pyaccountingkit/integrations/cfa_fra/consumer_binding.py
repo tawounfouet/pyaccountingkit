@@ -65,7 +65,7 @@ class LiveConsumerBinding:
     binding_sha256: str
 
     @classmethod
-    def from_mapping(cls, payload: Mapping[str, object]) -> "LiveConsumerBinding":
+    def from_mapping(cls, payload: Mapping[str, object]) -> LiveConsumerBinding:
         if payload.get("schema") != LIVE_CONSUMER_BINDING_SCHEMA:
             raise LiveConsumerBindingError(
                 f"consumer binding schema must be {LIVE_CONSUMER_BINDING_SCHEMA!r}"
@@ -90,7 +90,9 @@ class LiveConsumerBinding:
         default_branch = _string(payload, "default_branch")
         revision_sha = _string(payload, "revision_sha")
         if _GIT_SHA.fullmatch(revision_sha) is None:
-            raise LiveConsumerBindingError("revision_sha must be 40 lowercase hexadecimal characters")
+            raise LiveConsumerBindingError(
+                "revision_sha must be 40 lowercase hexadecimal characters"
+            )
 
         environment = _string(payload, "environment")
         observed_at = _utc_timestamp(payload, "observed_at")

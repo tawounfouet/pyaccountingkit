@@ -10,7 +10,7 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit **0.6.0b23** is the LOT-26 CFA FRA RC1 Live Cutover Enforcement beta.
+PyAccountingKit **0.6.0b24** is the LOT-26 CFA FRA Live Consumer Repository Binding beta.
 
 LOT-26 turns the frozen LOT-25 CFA FRA behavioral baseline into an executable
 migration boundary. The temporary `CFAFRACompatibilityAdapter` lets the Django
@@ -39,7 +39,7 @@ mode rather than a generic posting bypass.
 
 The stable **0.5.0** public facade, adapter contract v1 and the independently
 Production-qualified Django/PostgreSQL and SQLAlchemy/PostgreSQL adapters remain
-the compatibility baseline. **0.6.0b23 is still pre-1.0**: LOT-26 consumer
+the compatibility baseline. **0.6.0b24 is still pre-1.0**: LOT-26 consumer
 conversion is in progress; LOT-27 regulatory production qualification and the
 LOT-29/30 API freeze remain later roadmap steps.
 
@@ -74,6 +74,14 @@ revalidates the live retirement completion and compares the regenerated proof wi
 canonical proof before `qualify_release.py --release-candidate` is allowed to run. Isolated
 READY fixtures can therefore qualify the mechanism on normal development branches but can no
 longer qualify the 0.6 release candidate itself.
+
+The `0.6.0b24` slice removes the remaining ambiguity around the external consumer itself.
+`CONSUMER_BINDING.json` now records an explicit `BOUND` or `UNBOUND` repository identity.
+A bound consumer identifies the canonical GitHub `owner/name`, repository URL, default branch,
+exact 40-character revision SHA, environment, observation time and producer. Normal beta CI
+accepts an explicit `UNBOUND` state without pretending the repository is known. The
+`0.6.0rc1` gate requires a production `BOUND` state and requires its revision to equal the
+revision sealed by the retirement completion proof.
 
 The `0.6.0b9` migration bridge adds MIG-11 reference-authority replacement:
 `effective_plan` must delegate to `AccountingApplication.references` and may

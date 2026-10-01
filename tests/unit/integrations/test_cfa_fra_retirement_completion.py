@@ -90,7 +90,7 @@ def test_completion_rejects_non_target_only_readiness() -> None:
     plan, inventory, readiness, evidence = _fixture()
     readiness["routing_target_only"] = False
 
-    with pytest.raises(Exception, match="target-only routing"):
+    with pytest.raises(LegacyRetirementCompletionError, match="target-only routing"):
         complete_legacy_retirement(plan, inventory, readiness, evidence)
 
 

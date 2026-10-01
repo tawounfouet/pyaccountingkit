@@ -100,12 +100,16 @@ class RegulatoryCapabilityQualification:
         }:
             raise ValueError("only EXECUTABLE/PRODUCTION_QUALIFIED capability may execute")
 
-        if self.status in {
-            RegulatoryCapabilityStatus.NOT_ASSERTED,
-            RegulatoryCapabilityStatus.CANDIDATE,
-            RegulatoryCapabilityStatus.REVIEW_REQUIRED,
-            RegulatoryCapabilityStatus.FORBIDDEN_INFERENCE,
-        } and self.executable:
+        if (
+            self.status
+            in {
+                RegulatoryCapabilityStatus.NOT_ASSERTED,
+                RegulatoryCapabilityStatus.CANDIDATE,
+                RegulatoryCapabilityStatus.REVIEW_REQUIRED,
+                RegulatoryCapabilityStatus.FORBIDDEN_INFERENCE,
+            }
+            and self.executable
+        ):
             raise ValueError(f"{self.status.value} capability must be non-executable")
 
         if (

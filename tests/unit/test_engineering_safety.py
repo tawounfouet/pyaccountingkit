@@ -428,6 +428,7 @@ def test_manifest_gate_rejects_version_drift(
         "scripts/generate_public_api_manifest.py",
         "scripts/generate_error_codes_manifest.py",
         "scripts/generate_adapter_contract_manifest.py",
+        "scripts/generate_regulatory_compatibility_matrix.py",
     ),
 )
 def test_generated_manifests_are_committed_deterministically(script: str) -> None:

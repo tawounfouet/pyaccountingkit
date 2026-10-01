@@ -5,7 +5,6 @@ from __future__ import annotations
 import hashlib
 import json
 import re
-import subprocess
 from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
@@ -35,6 +34,18 @@ _GIT_SHA = re.compile(r"^[0-9a-f]{40}$")
 
 class ConsumerPublicationError(RuntimeError):
     """Raised when standalone-consumer publication cannot be proven safely."""
+
+
+@dataclass(frozen=True, slots=True)
+class ConsumerRepositoryObservation:
+    """External Git observation supplied to the framework-neutral verifier."""
+
+    repository_is_top_level: bool
+    worktree_clean: bool
+    revision_sha: str
+    current_branch: str
+    origin: str
+    bootstrap_manifest: Mapping[str, object]
 
 
 @dataclass(frozen=True, slots=True)
@@ -76,19 +87,6 @@ def _sha256_mapping(payload: Mapping[str, object]) -> str:
     return hashlib.sha256(_canonical_bytes(payload)).hexdigest()
 
 
-def _git(root: Path, *args: str) -> str:
-    completed = subprocess.run(
-        ["git", "-C", str(root), *args],
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-    if completed.returncode != 0:
-        detail = completed.stderr.strip() or completed.stdout.strip() or "git command failed"
-        raise ConsumerPublicationError(detail)
-    return completed.stdout.strip()
-
-
 def _normalize_github_origin(origin: str) -> tuple[str, str]:
     value = origin.strip()
     if value.startswith("https://github.com/"):
@@ -104,22 +102,10 @@ def _normalize_github_origin(origin: str) -> tuple[str, str]:
     return repository, f"https://github.com/{repository}"
 
 
-def _load_bootstrap_manifest(
-    consumer_root: Path,
+def _verify_bootstrap_manifest(
+    payload: Mapping[str, object],
     source_root: Path,
-) -> tuple[dict[str, object], str]:
-    path = consumer_root / "PYACCOUNTINGKIT_CONSUMER_BOOTSTRAP.json"
-    try:
-        raw_bytes = path.read_bytes()
-        payload = json.loads(raw_bytes.decode("utf-8"))
-    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
-        raise ConsumerPublicationError(
-            "published consumer bootstrap manifest is missing or invalid"
-        ) from exc
-    if not isinstance(payload, dict):
-        raise ConsumerPublicationError(
-            "published consumer bootstrap manifest must be a JSON object"
-        )
+) -> tuple[str, str]:
     if payload.get("schema") != CONSUMER_BOOTSTRAP_SCHEMA:
         raise ConsumerPublicationError("published consumer bootstrap schema is invalid")
     if payload.get("kind") != "standalone_consumer_seed":
@@ -131,16 +117,22 @@ def _load_bootstrap_manifest(
     if source.get("oracle_tree_sha") != ORACLE_TREE_SHA:
         raise ConsumerPublicationError("published consumer bootstrap oracle tree does not match")
     if source.get("oracle_manifest_version") != ORACLE_MANIFEST_VERSION:
-        raise ConsumerPublicationError("published consumer bootstrap oracle manifest does not match")
+        raise ConsumerPublicationError(
+            "published consumer bootstrap oracle manifest does not match"
+        )
 
     framework_requirement = payload.get("framework_requirement")
     if framework_requirement != DEFAULT_FRAMEWORK_REQUIREMENT:
         raise ConsumerPublicationError("published consumer framework requirement is not current")
 
     if payload.get("binding_state") != "UNBOUND_UNTIL_PUBLISHED":
-        raise ConsumerPublicationError("published consumer seed must still declare pre-binding state")
+        raise ConsumerPublicationError(
+            "published consumer seed must still declare pre-binding state"
+        )
     if payload.get("cutover_state") != "NOT_STARTED":
-        raise ConsumerPublicationError("published consumer seed must still declare pre-cutover state")
+        raise ConsumerPublicationError(
+            "published consumer seed must still declare pre-cutover state"
+        )
 
     expected_plan = plan_live_consumer_bootstrap(
         source_root,
@@ -153,7 +145,7 @@ def _load_bootstrap_manifest(
     if not isinstance(bootstrap_sha256, str) or _SHA256.fullmatch(bootstrap_sha256) is None:
         raise ConsumerPublicationError("published consumer bootstrap fingerprint is invalid")
 
-    return cast(dict[str, object], payload), hashlib.sha256(raw_bytes).hexdigest()
+    return bootstrap_sha256, _sha256_mapping(payload)
 
 
 def publication_payload(publication: PublishedConsumerRepository) -> dict[str, object]:
@@ -174,8 +166,8 @@ def publication_payload(publication: PublishedConsumerRepository) -> dict[str, o
     }
 
 
-def inspect_published_consumer_repository(
-    consumer_root: Path,
+def verify_published_consumer_repository(
+    observation: ConsumerRepositoryObservation,
     source_root: Path,
     *,
     repository: str,
@@ -184,37 +176,34 @@ def inspect_published_consumer_repository(
     observed_at: str,
     producer: str,
 ) -> PublishedConsumerRepository:
-    """Verify Git identity plus immutable bootstrap provenance of a published consumer."""
-    root = consumer_root.resolve()
-    if not root.is_dir():
-        raise ConsumerPublicationError("published consumer root does not exist")
-
-    top_level = Path(_git(root, "rev-parse", "--show-toplevel")).resolve()
-    if top_level != root:
+    """Verify an external Git observation plus immutable bootstrap provenance."""
+    if not observation.repository_is_top_level:
         raise ConsumerPublicationError("consumer root must be the top-level Git repository")
-
-    if _git(root, "status", "--porcelain"):
+    if not observation.worktree_clean:
         raise ConsumerPublicationError("published consumer working tree must be clean")
 
-    revision_sha = _git(root, "rev-parse", "HEAD")
+    revision_sha = observation.revision_sha
     if _GIT_SHA.fullmatch(revision_sha) is None:
         raise ConsumerPublicationError("published consumer HEAD is not a canonical Git SHA")
     if revision_sha == ORACLE_TREE_SHA:
-        raise ConsumerPublicationError("published consumer revision may not equal frozen oracle tree")
+        raise ConsumerPublicationError(
+            "published consumer revision may not equal frozen oracle tree"
+        )
+    if observation.current_branch != default_branch:
+        raise ConsumerPublicationError(
+            "published consumer must be checked out on its default branch"
+        )
 
-    current_branch = _git(root, "branch", "--show-current")
-    if current_branch != default_branch:
-        raise ConsumerPublicationError("published consumer must be checked out on its default branch")
-
-    origin_repository, origin_url = _normalize_github_origin(
-        _git(root, "remote", "get-url", "origin")
-    )
+    origin_repository, origin_url = _normalize_github_origin(observation.origin)
     if origin_repository != repository:
-        raise ConsumerPublicationError("published consumer origin does not match reviewed repository")
+        raise ConsumerPublicationError(
+            "published consumer origin does not match reviewed repository"
+        )
 
-    bootstrap, bootstrap_manifest_sha256 = _load_bootstrap_manifest(root, source_root)
-    bootstrap_sha256 = cast(str, bootstrap["bootstrap_sha256"])
-
+    bootstrap_sha256, bootstrap_manifest_sha256 = _verify_bootstrap_manifest(
+        observation.bootstrap_manifest,
+        source_root,
+    )
     body: dict[str, object] = {
         "schema": CONSUMER_PUBLICATION_SCHEMA,
         "kind": "published_consumer_repository",
@@ -228,25 +217,23 @@ def inspect_published_consumer_repository(
         "bootstrap_sha256": bootstrap_sha256,
         "bootstrap_manifest_sha256": bootstrap_manifest_sha256,
     }
-    binding = LiveConsumerBinding.from_mapping(
+    publication_sha256 = _sha256_mapping(body)
+    LiveConsumerBinding.from_mapping(
         {
             "schema": LIVE_CONSUMER_BINDING_SCHEMA,
             "kind": "live_consumer_repository_binding",
             "consumer": "CFA FRA Django MVP Sprint 7",
-            **{key: body[key] for key in (
-                "repository",
-                "repository_url",
-                "default_branch",
-                "revision_sha",
-                "environment",
-                "observed_at",
-                "producer",
-                "bootstrap_sha256",
-            )},
-            "publication_sha256": _sha256_mapping(body),
+            "repository": repository,
+            "repository_url": origin_url,
+            "default_branch": default_branch,
+            "revision_sha": revision_sha,
+            "environment": environment,
+            "observed_at": observed_at,
+            "producer": producer,
+            "bootstrap_sha256": bootstrap_sha256,
+            "publication_sha256": publication_sha256,
         }
     )
-    publication_sha256 = binding.publication_sha256
 
     return PublishedConsumerRepository(
         repository=repository,
@@ -287,7 +274,7 @@ def _candidate_binding_state(publication: PublishedConsumerRepository) -> dict[s
 
 
 def plan_consumer_publication(
-    consumer_root: Path,
+    observation: ConsumerRepositoryObservation,
     source_root: Path,
     current_binding: Mapping[str, object],
     *,
@@ -302,8 +289,8 @@ def plan_consumer_publication(
     if state.bound:
         raise ConsumerPublicationError("publication plan requires canonical consumer state UNBOUND")
 
-    publication = inspect_published_consumer_repository(
-        consumer_root,
+    publication = verify_published_consumer_repository(
+        observation,
         source_root,
         repository=repository,
         default_branch=default_branch,
@@ -312,14 +299,15 @@ def plan_consumer_publication(
         producer=producer,
     )
     candidate = _candidate_binding_state(publication)
+    current_binding_sha256 = _sha256_mapping(current_binding)
     core = {
         "schema": CONSUMER_PUBLICATION_PLAN_SCHEMA,
-        "current_binding_sha256": _sha256_mapping(current_binding),
+        "current_binding_sha256": current_binding_sha256,
         "publication": publication_payload(publication),
         "candidate_binding_state": candidate,
     }
     return ConsumerPublicationPlan(
-        current_binding_sha256=cast(str, core["current_binding_sha256"]),
+        current_binding_sha256=current_binding_sha256,
         publication=publication,
         candidate_binding_state=candidate,
         plan_sha256=_sha256_mapping(core),
@@ -339,7 +327,7 @@ def publication_plan_payload(plan: ConsumerPublicationPlan) -> dict[str, object]
 
 def apply_consumer_publication_plan(
     plan_payload: Mapping[str, object],
-    consumer_root: Path,
+    observation: ConsumerRepositoryObservation,
     source_root: Path,
     current_binding: Mapping[str, object],
 ) -> dict[str, object]:
@@ -374,10 +362,12 @@ def apply_consumer_publication_plan(
         "producer",
     ):
         if not isinstance(raw_publication.get(field), str):
-            raise ConsumerPublicationError(f"consumer publication plan field {field} is invalid")
+            raise ConsumerPublicationError(
+                f"consumer publication plan field {field} is invalid"
+            )
 
-    fresh = inspect_published_consumer_repository(
-        consumer_root,
+    fresh = verify_published_consumer_repository(
+        observation,
         source_root,
         repository=cast(str, raw_publication["repository"]),
         default_branch=cast(str, raw_publication["default_branch"]),
@@ -399,10 +389,11 @@ __all__ = [
     "CONSUMER_PUBLICATION_SCHEMA",
     "ConsumerPublicationError",
     "ConsumerPublicationPlan",
+    "ConsumerRepositoryObservation",
     "PublishedConsumerRepository",
     "apply_consumer_publication_plan",
-    "inspect_published_consumer_repository",
     "plan_consumer_publication",
     "publication_payload",
     "publication_plan_payload",
+    "verify_published_consumer_repository",
 ]

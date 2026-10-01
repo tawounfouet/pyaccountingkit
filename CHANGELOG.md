@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0b24] - 2026-10-01
+
+### Added
+- Canonical CFA FRA live-consumer repository binding schema.
+- Explicit `BOUND` / `UNBOUND` repository identity state.
+- Repository binding validation for canonical GitHub `owner/name`, URL, branch, exact commit SHA,
+  environment, observation time and producer.
+- `validate_cfa_fra_consumer_binding.py` CLI and canonical CI job/output.
+- `0.6.0rc1` requirement for a production BOUND consumer repository.
+- Release correlation between the bound repository revision and the retirement completion revision.
+
+### Safety
+- The current canonical consumer remains explicitly `UNBOUND`; no repository is guessed.
+- The frozen Sprint-7 oracle cannot be used as the live consumer revision.
+- Beta CI may validate an UNBOUND state, but a release branch cannot promote `0.6.0rc1` while
+  the consumer repository identity is unknown.
+- AMIFOND remains a separate project that has adopted CFA-FRA patterns; it is not declared to be
+  the LOT-26 live consumer without explicit evidence.
+
 ## [0.6.0b23] - 2026-10-01
 
 ### Added

@@ -1,0 +1,6 @@
+{
+  "schema_version": "1",
+  "status": "UNBOUND",
+  "consumer": "CFA FRA Django MVP Sprint 7",
+  "reason": "No verified GitHub repository identity has been supplied for the live CFA FRA consumer. The bundled Sprint-7 resource remains a frozen oracle only."
+}

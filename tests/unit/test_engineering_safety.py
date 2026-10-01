@@ -144,6 +144,7 @@ def _write_0_6_rc1_required_evidence(
     *,
     skip: str | None = None,
     completion: dict[str, object] | None = None,
+    binding_status: str = "BOUND",
 ) -> None:
     for relative in ("tests/integration", "tests/golden", "tests/replay", "tests/concurrency"):
         directory = root / relative
@@ -158,6 +159,31 @@ def _write_0_6_rc1_required_evidence(
         path.parent.mkdir(parents=True, exist_ok=True)
         if relative == "tests/consumer/cfa_fra/live_evidence/legacy-retirement-completion.json":
             payload = completion if completion is not None else {}
+            path.write_text(json.dumps(payload), encoding="utf-8")
+        elif relative == "tests/consumer/cfa_fra/CONSUMER_BINDING.json":
+            revision = (
+                completion.get("consumer_revision") if completion is not None else None
+            ) or "b" * 40
+            payload: dict[str, object] = {
+                "schema_version": "1",
+                "status": binding_status,
+                "consumer": "CFA FRA Django MVP Sprint 7",
+            }
+            if binding_status == "BOUND":
+                payload["binding"] = {
+                    "schema": "cfa_fra_live_consumer_binding/v1",
+                    "kind": "live_consumer_repository_binding",
+                    "consumer": "CFA FRA Django MVP Sprint 7",
+                    "repository": "tawounfouet/cfa-fra-live",
+                    "repository_url": "https://github.com/tawounfouet/cfa-fra-live",
+                    "default_branch": "main",
+                    "revision_sha": revision,
+                    "environment": "production",
+                    "observed_at": "2026-10-01T06:00:00Z",
+                    "producer": "release-test",
+                }
+            else:
+                payload["reason"] = "repository identity not supplied"
             path.write_text(json.dumps(payload), encoding="utf-8")
         elif path.suffix == ".json":
             path.write_text("{}\n", encoding="utf-8")
@@ -214,6 +240,48 @@ def test_release_candidate_contract_rejects_non_complete_0_6_evidence(
         module.validate_release_candidate_contract(skip_tests=False, skip_package=False)
 
 
+def test_release_candidate_contract_rejects_unbound_0_6_consumer(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    module = _load_qualifier()
+    oracle = "07d4880534d2e2239e19fd4ef4139de70b56773a"
+    digest = "a" * 64
+    _write_0_6_rc1_required_evidence(
+        module,
+        tmp_path,
+        binding_status="UNBOUND",
+        completion={
+            "schema_version": "1",
+            "status": "COMPLETE",
+            "ready_for_0_6_rc1": True,
+            "routing_target_only": True,
+            "oracle_tree_sha": oracle,
+            "consumer_revision": "b" * 40,
+            "plan_sha256": digest,
+            "execution_receipt_sha256": digest,
+            "inventory_sha256": digest,
+            "readiness_sha256": digest,
+            "completion_sha256": digest,
+            "action_counts": {
+                "RETIRE_DUPLICATE_ENGINE": 10,
+                "VERIFY_CONSUMER_REWIRED": 8,
+                "PRESERVE_OR_MIGRATE_PERSISTENCE": 7,
+                "KEEP_CONSUMER_CONCERN": 8,
+                "PRESERVE_FROZEN_ORACLE": 6,
+            },
+        },
+    )
+
+    monkeypatch.setattr(module, "ROOT", tmp_path)
+    monkeypatch.setattr(module, "project_version", lambda: "0.6.0rc1")
+    with pytest.raises(
+        module.QualificationError,
+        match="requires a BOUND live consumer repository",
+    ):
+        module.validate_release_candidate_contract(skip_tests=False, skip_package=False)
+
+
 def test_release_candidate_contract_accepts_complete_0_6_evidence(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
@@ -230,7 +298,7 @@ def test_release_candidate_contract_accepts_complete_0_6_evidence(
             "ready_for_0_6_rc1": True,
             "routing_target_only": True,
             "oracle_tree_sha": oracle,
-            "consumer_revision": "live-consumer-post-retirement-revision",
+            "consumer_revision": "b" * 40,
             "plan_sha256": digest,
             "execution_receipt_sha256": digest,
             "inventory_sha256": digest,

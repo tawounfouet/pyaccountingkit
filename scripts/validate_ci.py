@@ -36,6 +36,7 @@ def validate_ci_text(text: str) -> list[str]:
             "package:\n",
             "postgresql:\n",
             "sqlalchemy-postgresql:\n",
+            "consumer-binding:\n",
             "consumer-evidence:\n",
             "retirement-inventory:\n",
             "cutover-evidence:\n",
@@ -83,8 +84,12 @@ def validate_ci_text(text: str) -> list[str]:
             "python scripts/qualify_cfa_fra_retirement.py",
             "resources/cfa_fra_django_mvp_sprint_7/pyproject.toml",
             "python scripts/qualify_release.py --release-candidate",
+            "python scripts/validate_cfa_fra_consumer_binding.py",
+            "--require-bound",
+            "consumer_repository_bound",
+            "tests/consumer/cfa_fra/CONSUMER_BINDING.json",
             "startsWith(github.head_ref, 'release/')",
-            "needs: [test, postgresql, sqlalchemy-postgresql, cutover-evidence]",
+            "needs: [test, postgresql, sqlalchemy-postgresql, cutover-evidence, consumer-binding]",
             "build/cfa_fra_live_retirement_readiness.json",
             "tests/consumer/cfa_fra/live_evidence/legacy-retirement-plan.json",
             "tests/consumer/cfa_fra/live_evidence/legacy-retirement-execution.json",
@@ -93,7 +98,7 @@ def validate_ci_text(text: str) -> list[str]:
             "assert generated == committed",
             (
                 "[quality, test, package, postgresql, sqlalchemy-postgresql, "
-                "consumer-evidence, retirement-inventory, cutover-evidence, "
+                "consumer-binding, consumer-evidence, retirement-inventory, cutover-evidence, "
                 "cutover-pipeline, retirement-plan, retirement-execution, retirement-completion, "
                 "retirement-readiness, release-qualification]"
             ),
@@ -103,6 +108,8 @@ def validate_ci_text(text: str) -> list[str]:
             "PACKAGE_RESULT: ${{ needs.package.result }}",
             "POSTGRESQL_RESULT: ${{ needs.postgresql.result }}",
             "SQLALCHEMY_POSTGRESQL_RESULT: ${{ needs.sqlalchemy-postgresql.result }}",
+            "CONSUMER_BINDING_RESULT: ${{ needs.consumer-binding.result }}",
+            'test "$CONSUMER_BINDING_RESULT" = "success"',
             "CONSUMER_EVIDENCE_RESULT: ${{ needs.consumer-evidence.result }}",
             "RETIREMENT_INVENTORY_RESULT: ${{ needs.retirement-inventory.result }}",
             "CUTOVER_EVIDENCE_RESULT: ${{ needs.cutover-evidence.result }}",
@@ -120,13 +127,13 @@ def validate_ci_text(text: str) -> list[str]:
         label="CI",
     )
 
-    if text.count("actions/checkout@v7") != 14:
-        violations.append("CI: expected exactly fourteen actions/checkout@v7 uses")
-    if text.count("actions/setup-python@v7") != 14:
-        violations.append("CI: expected exactly fourteen actions/setup-python@v7 uses")
-    if text.count("cache: pip") != 14:
+    if text.count("actions/checkout@v7") != 15:
+        violations.append("CI: expected exactly fifteen actions/checkout@v7 uses")
+    if text.count("actions/setup-python@v7") != 15:
+        violations.append("CI: expected exactly fifteen actions/setup-python@v7 uses")
+    if text.count("cache: pip") != 15:
         violations.append("CI: every Python execution job must enable pip cache")
-    if text.count("cache-dependency-path:") != 14:
+    if text.count("cache-dependency-path:") != 15:
         violations.append("CI: every Python execution job must define a pip cache key")
     if text.count("python scripts/verify_package.py") != 1:
         violations.append("CI: package verification must execute exactly once")
@@ -211,6 +218,7 @@ def main() -> int:
     print("Supported Python matrix: 3.11, 3.12, 3.13")
     print("Qualified suites: unit, property, contract, integration, golden, replay, concurrency")
     print("Production adapter gates: Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16")
+    print("Consumer binding: explicit live repository identity, UNBOUND allowed outside RC")
     print("Consumer gate: bundled CFA FRA Sprint-7 executable evidence")
     print("Retirement inventory: live-consumer deletion/rewire/migration classification")
     print("Cutover evidence: cryptographically verified consumer/identity/reference artifacts")
@@ -218,7 +226,10 @@ def main() -> int:
     print("Retirement plan: deterministic non-executing L26-C actions after MIG-13 READY")
     print("Retirement execution: exact-plan post-cutover verification with immutable oracle guard")
     print("Retirement completion: sealed L26-C proof eligible for 0.6.0rc1 qualification")
-    print("RC1 live gate: release/* must revalidate canonical live readiness and completion")
+    print(
+        "RC1 live gate:",
+        "release/* requires bound consumer repository plus live readiness/completion",
+    )
     print("Retirement gate: MIG-13 readiness with explicit blocker evidence")
     print("Security jobs: audit, sast")
     return 0

@@ -84,6 +84,13 @@ def validate_ci_text(text: str) -> list[str]:
             "resources/cfa_fra_django_mvp_sprint_7/pyproject.toml",
             "python scripts/qualify_release.py --release-candidate",
             "startsWith(github.head_ref, 'release/')",
+            "needs: [test, postgresql, sqlalchemy-postgresql, cutover-evidence]",
+            "build/cfa_fra_live_retirement_readiness.json",
+            "tests/consumer/cfa_fra/live_evidence/legacy-retirement-plan.json",
+            "tests/consumer/cfa_fra/live_evidence/legacy-retirement-execution.json",
+            "tests/consumer/cfa_fra/live_evidence/legacy-retirement-completion.json",
+            "assert r['ready'] is True",
+            "assert generated == committed",
             (
                 "[quality, test, package, postgresql, sqlalchemy-postgresql, "
                 "consumer-evidence, retirement-inventory, cutover-evidence, "
@@ -211,6 +218,7 @@ def main() -> int:
     print("Retirement plan: deterministic non-executing L26-C actions after MIG-13 READY")
     print("Retirement execution: exact-plan post-cutover verification with immutable oracle guard")
     print("Retirement completion: sealed L26-C proof eligible for 0.6.0rc1 qualification")
+    print("RC1 live gate: release/* must revalidate canonical live readiness and completion")
     print("Retirement gate: MIG-13 readiness with explicit blocker evidence")
     print("Security jobs: audit, sast")
     return 0

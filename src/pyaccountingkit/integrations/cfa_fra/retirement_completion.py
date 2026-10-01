@@ -51,11 +51,6 @@ def complete_legacy_retirement(
     execution_evidence: Mapping[str, object],
 ) -> LegacyRetirementCompletion:
     """Seal L26-C only when current readiness and verified execution still match exactly."""
-    current_plan = build_legacy_retirement_plan(inventory, readiness)
-    if current_plan != plan:
-        raise LegacyRetirementCompletionError(
-            "retirement completion requires the current reviewed retirement plan"
-        )
     if readiness.get("routing_target_only") is not True:
         raise LegacyRetirementCompletionError(
             "retirement completion requires target-only routing"
@@ -67,6 +62,12 @@ def complete_legacy_retirement(
     if readiness.get("blockers") != [] or readiness.get("expected_blockers") != []:
         raise LegacyRetirementCompletionError(
             "retirement completion requires empty blocker sets"
+        )
+
+    current_plan = build_legacy_retirement_plan(inventory, readiness)
+    if current_plan != plan:
+        raise LegacyRetirementCompletionError(
+            "retirement completion requires the current reviewed retirement plan"
         )
 
     receipt = verify_legacy_retirement_execution(

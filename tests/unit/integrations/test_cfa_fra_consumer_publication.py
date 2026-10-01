@@ -11,6 +11,7 @@ import pytest
 from pyaccountingkit.integrations.cfa_fra import (
     ORACLE_TREE_SHA,
     ConsumerPublicationError,
+    ConsumerRepositoryObservation,
     apply_consumer_publication_plan,
     apply_live_consumer_bootstrap,
     plan_consumer_publication,
@@ -45,6 +46,21 @@ def _published_consumer(tmp_path: Path) -> Path:
     return target
 
 
+def _observation(consumer: Path) -> ConsumerRepositoryObservation:
+    manifest = json.loads(
+        (consumer / "PYACCOUNTINGKIT_CONSUMER_BOOTSTRAP.json").read_text(encoding="utf-8")
+    )
+    assert isinstance(manifest, dict)
+    return ConsumerRepositoryObservation(
+        repository_is_top_level=True,
+        worktree_clean=not bool(_git(consumer, "status", "--porcelain")),
+        revision_sha=_git(consumer, "rev-parse", "HEAD"),
+        current_branch=_git(consumer, "branch", "--show-current"),
+        origin=_git(consumer, "remote", "get-url", "origin"),
+        bootstrap_manifest=manifest,
+    )
+
+
 def _unbound() -> dict[str, object]:
     return {
         "schema_version": "1",
@@ -57,7 +73,7 @@ def _unbound() -> dict[str, object]:
 def test_publication_plan_binds_exact_clean_git_revision(tmp_path: Path) -> None:
     consumer = _published_consumer(tmp_path)
     plan = plan_consumer_publication(
-        consumer,
+        _observation(consumer),
         SOURCE,
         _unbound(),
         repository="tawounfouet/cfa-fra-live",
@@ -82,7 +98,7 @@ def test_publication_rejects_wrong_origin(tmp_path: Path) -> None:
 
     with pytest.raises(ConsumerPublicationError, match="origin does not match"):
         plan_consumer_publication(
-            consumer,
+            _observation(consumer),
             SOURCE,
             _unbound(),
             repository="tawounfouet/not-the-consumer",
@@ -99,7 +115,7 @@ def test_publication_rejects_dirty_worktree(tmp_path: Path) -> None:
 
     with pytest.raises(ConsumerPublicationError, match="working tree must be clean"):
         plan_consumer_publication(
-            consumer,
+            _observation(consumer),
             SOURCE,
             _unbound(),
             repository="tawounfouet/cfa-fra-live",
@@ -114,7 +130,7 @@ def test_apply_rejects_repo_changed_after_review(tmp_path: Path) -> None:
     consumer = _published_consumer(tmp_path)
     current = _unbound()
     plan = plan_consumer_publication(
-        consumer,
+        _observation(consumer),
         SOURCE,
         current,
         repository="tawounfouet/cfa-fra-live",
@@ -130,14 +146,19 @@ def test_apply_rejects_repo_changed_after_review(tmp_path: Path) -> None:
     _git(consumer, "commit", "-m", "Change after publication review")
 
     with pytest.raises(ConsumerPublicationError, match="changed after plan review"):
-        apply_consumer_publication_plan(payload, consumer, SOURCE, current)
+        apply_consumer_publication_plan(
+            payload,
+            _observation(consumer),
+            SOURCE,
+            current,
+        )
 
 
 def test_apply_rejects_binding_changed_after_review(tmp_path: Path) -> None:
     consumer = _published_consumer(tmp_path)
     current = _unbound()
     plan = plan_consumer_publication(
-        consumer,
+        _observation(consumer),
         SOURCE,
         current,
         repository="tawounfouet/cfa-fra-live",
@@ -152,7 +173,7 @@ def test_apply_rejects_binding_changed_after_review(tmp_path: Path) -> None:
     with pytest.raises(ConsumerPublicationError, match="binding changed"):
         apply_consumer_publication_plan(
             publication_plan_payload(plan),
-            consumer,
+            _observation(consumer),
             SOURCE,
             changed,
         )

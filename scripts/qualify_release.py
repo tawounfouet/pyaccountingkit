@@ -354,6 +354,10 @@ def qualify(
         ("scripts/generate_public_api_manifest.py", "Public API manifest generation"),
         ("scripts/generate_error_codes_manifest.py", "Public error manifest generation"),
         ("scripts/generate_adapter_contract_manifest.py", "Adapter contract manifest generation"),
+        (
+            "scripts/generate_regulatory_compatibility_matrix.py",
+            "Regulatory compatibility matrix generation",
+        ),
     ):
         results.append(
             run_command(

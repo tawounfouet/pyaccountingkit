@@ -10,12 +10,17 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit **0.6.0b27** is the LOT-26 CFA FRA Consumer Binding Revision Advancement beta.
+PyAccountingKit **0.7.0a1** is the LOT-27 Regulatory Capability Qualification alpha.
 
 LOT-26 turns the frozen LOT-25 CFA FRA behavioral baseline into an executable
 migration boundary. The temporary `CFAFRACompatibilityAdapter` lets the Django
 consumer move service-by-service to `AccountingApplication` while keeping
 mutations single-writer and allowing selected reads to shadow both engines.
+
+LOT-27 replaces broad regulatory support claims with capability-scoped qualification records.
+`REGULATORY_COMPATIBILITY_MATRIX.json` is now generated from explicit profiles for PCG 2026,
+France Non-Profit 2026, SYSCOHADA 2017, OHADA EBNL 2023 and CEMAC PCEMF 2010. Unsupported or
+review-required capabilities remain fail-closed rather than being inferred from dataset presence.
 
 LOT-25 remains the behavioral oracle baseline and executes normalized golden parity for:
 
@@ -39,9 +44,9 @@ mode rather than a generic posting bypass.
 
 The stable **0.5.0** public facade, adapter contract v1 and the independently
 Production-qualified Django/PostgreSQL and SQLAlchemy/PostgreSQL adapters remain
-the compatibility baseline. **0.6.0b27 is still pre-1.0**: LOT-26 consumer
-conversion is in progress; LOT-27 regulatory production qualification and the
-LOT-29/30 API freeze remain later roadmap steps.
+the compatibility baseline. **0.7.0a1 is still pre-1.0**. LOT-27 regulatory production
+qualification is now being developed in parallel while the external CFA FRA live-consumer work
+required to close LOT-26 remains intentionally deferred. This does not declare `0.6.0` stable.
 
 The LOT-26 migration contract forbids mutation dual-write. Each accounting
 mutation selects either the legacy CFA FRA engine or PyAccountingKit. Selected

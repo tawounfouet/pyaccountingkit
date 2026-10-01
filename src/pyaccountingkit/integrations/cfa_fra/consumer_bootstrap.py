@@ -14,7 +14,7 @@ from pyaccountingkit.integrations.cfa_fra.golden import (
 )
 
 CONSUMER_BOOTSTRAP_SCHEMA = "cfa_fra_live_consumer_bootstrap/v1"
-DEFAULT_FRAMEWORK_REQUIREMENT = "pyaccountingkit>=0.6.0b25,<0.7"
+DEFAULT_FRAMEWORK_REQUIREMENT = "pyaccountingkit>=0.6.0b26,<0.7"
 _LOGIN_REDIRECT_FROM = 'LOGIN_REDIRECT_URL = "dashboard"'
 _LOGIN_REDIRECT_TO = 'LOGIN_REDIRECT_URL = "analytics:dashboard"'
 

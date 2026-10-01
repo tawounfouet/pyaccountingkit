@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0b23] - 2026-10-01
+
+### Added
+- Versioned `0.6.0rc1` release-evidence contract.
+- Mandatory live CFA FRA cutover artifacts for consumer E2E, legacy identities and regulatory
+  authority.
+- Mandatory reviewed live retirement plan, execution evidence and completion proof.
+- Semantic RC validation of completion status, routing profile, live consumer revision,
+  fingerprints and 39-component action counts.
+- Release-branch CI revalidation of canonical MIG-13 readiness and L26-C completion before
+  `qualify_release.py --release-candidate`.
+
+### Safety
+- Isolated READY fixtures remain valid for mechanism qualification but cannot satisfy the
+  `0.6.0rc1` release gate.
+- Release qualification fails while any canonical live cutover blocker remains.
+- Release qualification regenerates the completion proof and requires exact equality with the
+  committed canonical completion artifact.
+- No unrelated GitHub repository is treated as the live CFA FRA consumer without an explicit,
+  verifiable repository identity.
+
 ## [0.6.0b22] - 2026-10-01
 
 ### Added

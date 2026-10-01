@@ -119,3 +119,34 @@ BLOCKED or FAIL scenarios invalidate the artifact.
 
 The bundled Sprint-7 test harness remains useful as frozen regression evidence, but a live
 consumer artifact is the retirement proof consumed by MIG-13.
+
+## 0.6.0rc1 live retirement materialization
+
+b23 makes the `release/*` qualification fail closed unless the canonical live cutover is
+materialized here. Before promoting `0.6.0rc1`, the directory must contain the three verified
+cutover artifacts referenced by `RETIREMENT_EVIDENCE.json` plus the reviewed L26-C retirement
+chain:
+
+```text
+consumer-e2e.json
+legacy-identities.json
+regulatory-authority.json
+
+legacy-retirement-plan.json
+legacy-retirement-execution.json
+legacy-retirement-completion.json
+```
+
+The plan must be generated only after canonical MIG-13 readiness is READY. Retirement itself is
+performed in the live consumer repository, never by PyAccountingKit. The execution file records
+the checksummed post-cutover observation for each of the 39 reviewed components. The completion
+file is generated from that exact plan and execution evidence.
+
+On a `release/*` pull request, CI reconstructs canonical live readiness from the actual test and
+PostgreSQL adapter results plus the three verified cutover records. It then revalidates the
+committed plan/execution evidence, regenerates the completion proof and requires the regenerated
+JSON to match `legacy-retirement-completion.json` exactly before release-candidate qualification
+can start.
+
+Do not copy fixture evidence from `tests/fixtures/` into this directory.
+\n

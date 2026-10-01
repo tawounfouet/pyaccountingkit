@@ -120,6 +120,28 @@ BLOCKED or FAIL scenarios invalidate the artifact.
 The bundled Sprint-7 test harness remains useful as frozen regression evidence, but a live
 consumer artifact is the retirement proof consumed by MIG-13.
 
+## Live consumer repository binding
+
+Before producing release-grade live evidence, bind the actual consumer in
+`../CONSUMER_BINDING.json`. Until that repository is verified, keep the canonical file
+`UNBOUND`.
+
+A release-grade BOUND state must pin:
+
+```text
+repository        owner/name
+repository_url    https://github.com/owner/name
+default_branch    exact branch name
+revision_sha      exact 40-character lowercase Git SHA
+environment       production
+observed_at       UTC timestamp
+producer          evidence producer identity
+```
+
+The release gate requires the bound `revision_sha` to match the revision sealed in
+`legacy-retirement-completion.json`. Do not infer the live repository from a related project
+or from code similarity.
+
 ## 0.6.0rc1 live retirement materialization
 
 b23 makes the `release/*` qualification fail closed unless the canonical live cutover is

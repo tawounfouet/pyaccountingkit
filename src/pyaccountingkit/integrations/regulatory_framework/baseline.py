@@ -68,13 +68,19 @@ def _production_structure(
         standard_ref,
         Code.STRUCTURE,
         Status.PRODUCTION_QUALIFIED,
-        evidence_refs=(dataset, "resources/regulatory-accounting-data-framework/PROJECT_MANIFEST.json"),
+        evidence_refs=(
+            dataset,
+            "resources/regulatory-accounting-data-framework/PROJECT_MANIFEST.json",
+        ),
         executable=True,
         test_suite="tests/golden/regulatory/test_lot27_capability_profiles.py",
         golden_refs=(golden,),
         reviewer=REVIEWER,
         qualified_at=QUALIFIED_AT,
-        notes="Structure is provider-backed, identity-preserving and covered by canonical golden tests.",
+        notes=(
+            "Structure is provider-backed, identity-preserving and covered by canonical "
+            "golden tests."
+        ),
     )
 
 
@@ -204,7 +210,10 @@ def baseline_profiles(
                         "syscohada_2017_v3_reporting.json",
                         "tests/golden/regulatory/test_syscohada_regulatory_reporting.py",
                     ),
-                    notes="Reporting structure is validated while account mappings remain reviewed.",
+                    notes=(
+                        "Reporting structure is validated while account mappings remain "
+                        "reviewed."
+                    ),
                 ),
                 _q(
                     framework_version,
@@ -355,7 +364,10 @@ def baseline_profiles(
                         "resources/regulatory-accounting-data-framework/datasets/reporting/"
                         "ebnl_2023_v3_reporting.json",
                     ),
-                    notes="Reporting artifact exists but PyAccountingKit execution is not asserted.",
+                    notes=(
+                        "Reporting artifact exists but PyAccountingKit execution is not "
+                        "asserted."
+                    ),
                 ),
                 _q(
                     framework_version,

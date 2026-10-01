@@ -20,6 +20,13 @@ from pyaccountingkit.integrations.cfa_fra.consumer import (
     StatementTargetParametersFactory,
     build_target_only_consumer_bridge,
 )
+from pyaccountingkit.integrations.cfa_fra.consumer_binding import (
+    LIVE_CONSUMER_BINDING_SCHEMA,
+    LiveConsumerBinding,
+    LiveConsumerBindingError,
+    LiveConsumerBindingState,
+    parse_live_consumer_binding_state,
+)
 from pyaccountingkit.integrations.cfa_fra.consumer_qualification import (
     CFAFRAConsumerQualificationError,
     ConsumerQualification,
@@ -170,6 +177,7 @@ __all__ = [
     "pipeline_plan_from_mapping",
     "pipeline_plan_payload",
     "plan_cutover_evidence_pipeline",
+    "parse_live_consumer_binding_state",
     "promote_cutover_evidence",
     "resolve_cutover_artifact_path",
     "verify_external_cutover_evidence",
@@ -189,7 +197,11 @@ __all__ = [
     "GoldenFixture",
     "IntentionalDivergence",
     "LegacyIdentityLink",
+    "LIVE_CONSUMER_BINDING_SCHEMA",
     "LegacyIdentityMap",
+    "LiveConsumerBinding",
+    "LiveConsumerBindingError",
+    "LiveConsumerBindingState",
     "LegacyIdentityStoreProtocol",
     "LegacyRetirementAction",
     "LegacyRetirementCompletion",

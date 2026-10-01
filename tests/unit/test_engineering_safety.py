@@ -164,9 +164,7 @@ def _write_0_6_rc1_required_evidence(
         else:
             path.write_text("def test_release_evidence(): pass\n", encoding="utf-8")
 
-    inventory = (
-        root / "tests" / "consumer" / "cfa_fra" / "LEGACY_RETIREMENT_INVENTORY.json"
-    )
+    inventory = root / "tests" / "consumer" / "cfa_fra" / "LEGACY_RETIREMENT_INVENTORY.json"
     inventory.parent.mkdir(parents=True, exist_ok=True)
     inventory.write_text(
         json.dumps(

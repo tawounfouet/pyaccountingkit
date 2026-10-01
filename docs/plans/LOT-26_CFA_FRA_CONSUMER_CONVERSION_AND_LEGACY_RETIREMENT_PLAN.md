@@ -305,3 +305,14 @@ proof and requires exact equality with the committed completion artifact before 
 Normal development CI may still use isolated READY fixtures to prove the mechanics, but fixture
 evidence is structurally incapable of promoting `0.6.0rc1`.
 \n
+
+The `0.6.0b24` slice adds a canonical live-consumer repository identity contract. A separate
+`CONSUMER_BINDING.json` remains `UNBOUND` until the actual CFA FRA consumer repository has
+been explicitly identified and a concrete production revision has been supplied. A BOUND record
+pins GitHub `owner/name`, canonical repository URL, default branch, exact 40-hex revision,
+environment, timestamp and producer. Normal CI validates either explicit state, while
+`release/*` requires BOUND and requires the bound revision to equal the revision sealed by the
+L26-C retirement completion proof. This prevents evidence from one codebase from being combined
+with retirement evidence from another and avoids treating AMIFOND or any other adjacent project
+as the consumer by inference.
+

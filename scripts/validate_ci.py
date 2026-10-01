@@ -38,6 +38,7 @@ def validate_ci_text(text: str) -> list[str]:
             "sqlalchemy-postgresql:\n",
             "consumer-bootstrap:\n",
             "consumer-publication:\n",
+            "consumer-binding-advancement:\n",
             "consumer-binding:\n",
             "consumer-evidence:\n",
             "retirement-inventory:\n",
@@ -90,7 +91,9 @@ def validate_ci_text(text: str) -> list[str]:
             "PYACCOUNTINGKIT_CONSUMER_BOOTSTRAP.json",
             "UNBOUND_UNTIL_PUBLISHED",
             "python scripts/run_cfa_fra_consumer_publication.py",
+            "python scripts/run_cfa_fra_consumer_binding_advancement.py",
             "CFA FRA consumer publication handoff",
+            "CFA FRA consumer binding revision advancement",
             "publication_sha256",
             "bootstrap_sha256",
             "python scripts/validate_cfa_fra_consumer_binding.py",
@@ -108,8 +111,8 @@ def validate_ci_text(text: str) -> list[str]:
             "assert generated == committed",
             (
                 "[quality, test, package, postgresql, sqlalchemy-postgresql, "
-                "consumer-bootstrap, consumer-publication, consumer-binding, consumer-evidence, "
-                "retirement-inventory, cutover-evidence, "
+                "consumer-bootstrap, consumer-publication, consumer-binding-advancement, "
+                "consumer-binding, consumer-evidence, retirement-inventory, cutover-evidence, "
                 "cutover-pipeline, retirement-plan, retirement-execution, retirement-completion, "
                 "retirement-readiness, release-qualification]"
             ),
@@ -123,6 +126,8 @@ def validate_ci_text(text: str) -> list[str]:
             'test "$CONSUMER_BOOTSTRAP_RESULT" = "success"',
             "CONSUMER_PUBLICATION_RESULT: ${{ needs.consumer-publication.result }}",
             'test "$CONSUMER_PUBLICATION_RESULT" = "success"',
+            "CONSUMER_BINDING_ADVANCEMENT_RESULT: ${{ needs.consumer-binding-advancement.result }}",
+            'test "$CONSUMER_BINDING_ADVANCEMENT_RESULT" = "success"',
             "CONSUMER_BINDING_RESULT: ${{ needs.consumer-binding.result }}",
             'test "$CONSUMER_BINDING_RESULT" = "success"',
             "CONSUMER_EVIDENCE_RESULT: ${{ needs.consumer-evidence.result }}",
@@ -142,13 +147,13 @@ def validate_ci_text(text: str) -> list[str]:
         label="CI",
     )
 
-    if text.count("actions/checkout@v7") != 17:
-        violations.append("CI: expected exactly seventeen actions/checkout@v7 uses")
-    if text.count("actions/setup-python@v7") != 17:
-        violations.append("CI: expected exactly seventeen actions/setup-python@v7 uses")
-    if text.count("cache: pip") != 17:
+    if text.count("actions/checkout@v7") != 18:
+        violations.append("CI: expected exactly eighteen actions/checkout@v7 uses")
+    if text.count("actions/setup-python@v7") != 18:
+        violations.append("CI: expected exactly eighteen actions/setup-python@v7 uses")
+    if text.count("cache: pip") != 18:
         violations.append("CI: every Python execution job must enable pip cache")
-    if text.count("cache-dependency-path:") != 17:
+    if text.count("cache-dependency-path:") != 18:
         violations.append("CI: every Python execution job must define a pip cache key")
     if text.count("python scripts/verify_package.py") != 1:
         violations.append("CI: package verification must execute exactly once")
@@ -235,6 +240,7 @@ def main() -> int:
     print("Production adapter gates: Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16")
     print("Consumer bootstrap: deterministic standalone seed from immutable Sprint-7 oracle")
     print("Consumer publication: reviewed Git provenance handoff before BOUND")
+    print("Consumer binding advancement: monotonic descendant revision re-attestation")
     print("Consumer binding: explicit live repository identity, UNBOUND allowed outside RC")
     print("Consumer gate: bundled CFA FRA Sprint-7 executable evidence")
     print("Retirement inventory: live-consumer deletion/rewire/migration classification")

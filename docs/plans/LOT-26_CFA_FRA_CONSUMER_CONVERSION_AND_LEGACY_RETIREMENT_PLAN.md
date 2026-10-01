@@ -294,3 +294,14 @@ execution-receipt SHA, consumer revision and action counts, and exposes
 state still cannot produce this completion proof while the three external cutover records remain
 BLOCKED; CI uses isolated READY evidence solely to qualify the completion gate.
 \n
+
+The `0.6.0b23` slice binds L26-C completion to the real `0.6.0rc1` release gate.
+`qualify_release.py` now defines explicit versioned RC evidence for the complete LOT-25/26
+line, including the three canonical live cutover artifacts and the reviewed retirement
+plan/execution/completion chain. On `release/*`, CI rebuilds MIG-13 readiness from the current
+test, Django/PostgreSQL, SQLAlchemy/PostgreSQL and verified cutover states, refuses any remaining
+blocker, revalidates the committed live plan and execution evidence, regenerates the completion
+proof and requires exact equality with the committed completion artifact before RC qualification.
+Normal development CI may still use isolated READY fixtures to prove the mechanics, but fixture
+evidence is structurally incapable of promoting `0.6.0rc1`.
+\n

@@ -14,6 +14,11 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from pathlib import Path
 
+from pyaccountingkit.integrations.cfa_fra import (
+    LiveConsumerBindingError,
+    parse_live_consumer_binding_state,
+)
+
 ROOT = Path(__file__).resolve().parents[1]
 
 _RC_TEST_SUITES: tuple[tuple[str, str], ...] = (
@@ -220,12 +225,14 @@ def _validate_cfa_fra_0_6_rc1_completion() -> None:
         raise QualificationError("CFA FRA retirement inventory must be a JSON object")
     if not isinstance(binding_state, dict):
         raise QualificationError("CFA FRA consumer binding must be a JSON object")
-    if binding_state.get("status") != "BOUND":
+    try:
+        consumer_binding_state = parse_live_consumer_binding_state(binding_state)
+    except LiveConsumerBindingError as exc:
+        raise QualificationError(f"invalid CFA FRA consumer binding: {exc}") from exc
+    if consumer_binding_state.binding is None:
         raise QualificationError("CFA FRA 0.6.0rc1 requires a BOUND live consumer repository")
-    raw_binding = binding_state.get("binding")
-    if not isinstance(raw_binding, dict):
-        raise QualificationError("CFA FRA BOUND consumer state requires binding metadata")
-    if raw_binding.get("environment") != "production":
+    live_binding = consumer_binding_state.binding
+    if live_binding.environment != "production":
         raise QualificationError("CFA FRA 0.6.0rc1 consumer binding must target production")
 
     required_values = {
@@ -253,7 +260,7 @@ def _validate_cfa_fra_0_6_rc1_completion() -> None:
     if consumer_revision == oracle_tree_sha:
         raise QualificationError("CFA FRA RC1 completion may not target the frozen oracle revision")
 
-    binding_revision = raw_binding.get("revision_sha")
+    binding_revision = live_binding.revision_sha
     if binding_revision != consumer_revision:
         raise QualificationError(
             "CFA FRA consumer binding revision must match retirement completion revision"

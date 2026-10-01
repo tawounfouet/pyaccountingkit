@@ -155,9 +155,7 @@ def baseline_profiles(
                     pcg,
                     Code.REPORTING_ACCOUNT_MAPPINGS,
                     Status.REVIEW_REQUIRED,
-                    evidence_refs=(
-                        "tests/golden/regulatory/test_pcg_regulatory_reporting.py",
-                    ),
+                    evidence_refs=("tests/golden/regulatory/test_pcg_regulatory_reporting.py",),
                     human_review_required=True,
                     notes="Reporting account hints remain candidate input, not statutory mapping.",
                 ),
@@ -211,8 +209,7 @@ def baseline_profiles(
                         "tests/golden/regulatory/test_syscohada_regulatory_reporting.py",
                     ),
                     notes=(
-                        "Reporting structure is validated while account mappings remain "
-                        "reviewed."
+                        "Reporting structure is validated while account mappings remain reviewed."
                     ),
                 ),
                 _q(
@@ -365,8 +362,7 @@ def baseline_profiles(
                         "ebnl_2023_v3_reporting.json",
                     ),
                     notes=(
-                        "Reporting artifact exists but PyAccountingKit execution is not "
-                        "asserted."
+                        "Reporting artifact exists but PyAccountingKit execution is not asserted."
                     ),
                 ),
                 _q(

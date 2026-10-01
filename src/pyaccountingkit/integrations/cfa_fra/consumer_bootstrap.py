@@ -89,7 +89,9 @@ def plan_live_consumer_bootstrap(
     if not source.is_dir():
         raise ConsumerBootstrapError(f"bootstrap source does not exist: {source}")
     if source_tree_sha != ORACLE_TREE_SHA:
-        raise ConsumerBootstrapError("bootstrap source tree SHA does not match frozen CFA FRA oracle")
+        raise ConsumerBootstrapError(
+            "bootstrap source tree SHA does not match frozen CFA FRA oracle"
+        )
 
     manifest = _load_json(source / "MANIFEST.json")
     if manifest.get("project") != "cfa_fra_django_mvp_sprint_7":

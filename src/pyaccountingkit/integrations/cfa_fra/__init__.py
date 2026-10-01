@@ -20,6 +20,13 @@ from pyaccountingkit.integrations.cfa_fra.consumer import (
     StatementTargetParametersFactory,
     build_target_only_consumer_bridge,
 )
+from pyaccountingkit.integrations.cfa_fra.consumer_binding import (
+    LIVE_CONSUMER_BINDING_SCHEMA,
+    LiveConsumerBinding,
+    LiveConsumerBindingError,
+    LiveConsumerBindingState,
+    parse_live_consumer_binding_state,
+)
 from pyaccountingkit.integrations.cfa_fra.consumer_bootstrap import (
     CONSUMER_BOOTSTRAP_SCHEMA,
     DEFAULT_FRAMEWORK_REQUIREMENT,
@@ -29,13 +36,6 @@ from pyaccountingkit.integrations.cfa_fra.consumer_bootstrap import (
     apply_live_consumer_bootstrap,
     consumer_bootstrap_manifest,
     plan_live_consumer_bootstrap,
-)
-from pyaccountingkit.integrations.cfa_fra.consumer_binding import (
-    LIVE_CONSUMER_BINDING_SCHEMA,
-    LiveConsumerBinding,
-    LiveConsumerBindingError,
-    LiveConsumerBindingState,
-    parse_live_consumer_binding_state,
 )
 from pyaccountingkit.integrations.cfa_fra.consumer_qualification import (
     CFAFRAConsumerQualificationError,

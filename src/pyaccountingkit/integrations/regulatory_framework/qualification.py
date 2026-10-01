@@ -186,6 +186,12 @@ class RegulatoryFrameworkIntegrationProfile:
         for qualification in self.capabilities:
             if qualification.standard_ref != self.standard_ref:
                 raise ValueError("capability standard_ref must match profile standard_ref")
+            if qualification.dataset_release != self.dataset_release:
+                raise ValueError("capability dataset_release must match profile dataset_release")
+            if qualification.framework_version != self.tested_framework_version:
+                raise ValueError(
+                    "capability framework_version must match profile tested_framework_version"
+                )
             if qualification.capability_code in codes:
                 raise ValueError(
                     f"duplicate capability {qualification.capability_code.value} in profile"

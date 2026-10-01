@@ -226,7 +226,10 @@ def main() -> int:
     print("Retirement plan: deterministic non-executing L26-C actions after MIG-13 READY")
     print("Retirement execution: exact-plan post-cutover verification with immutable oracle guard")
     print("Retirement completion: sealed L26-C proof eligible for 0.6.0rc1 qualification")
-    print("RC1 live gate: release/* requires bound consumer repository plus live readiness/completion")
+    print(
+        "RC1 live gate: release/* requires bound consumer repository plus "
+        "live readiness/completion"
+    )
     print("Retirement gate: MIG-13 readiness with explicit blocker evidence")
     print("Security jobs: audit, sast")
     return 0

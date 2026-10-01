@@ -224,9 +224,7 @@ def _validate_cfa_fra_0_6_rc1_completion() -> None:
     }
     for key, expected in required_values.items():
         if completion.get(key) != expected:
-            raise QualificationError(
-                f"CFA FRA RC1 completion evidence requires {key}={expected!r}"
-            )
+            raise QualificationError(f"CFA FRA RC1 completion evidence requires {key}={expected!r}")
 
     raw_oracle = inventory.get("oracle")
     if not isinstance(raw_oracle, dict):
@@ -241,9 +239,7 @@ def _validate_cfa_fra_0_6_rc1_completion() -> None:
     if not isinstance(consumer_revision, str) or not consumer_revision.strip():
         raise QualificationError("CFA FRA RC1 completion requires a live consumer revision")
     if consumer_revision == oracle_tree_sha:
-        raise QualificationError(
-            "CFA FRA RC1 completion may not target the frozen oracle revision"
-        )
+        raise QualificationError("CFA FRA RC1 completion may not target the frozen oracle revision")
 
     sha256_pattern = re.compile(r"^[0-9a-f]{64}$")
     for key in (

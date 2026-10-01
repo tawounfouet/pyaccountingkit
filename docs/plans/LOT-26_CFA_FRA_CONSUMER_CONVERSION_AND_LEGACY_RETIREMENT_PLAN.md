@@ -336,3 +336,13 @@ rechecks all three and fails closed on any repository or canonical-state drift. 
 requires both `bootstrap_sha256` and `publication_sha256`, so repository identity can no longer
 be separated from the provenance of the standalone seed that was actually published.
 
+The `0.6.0b27` slice closes the lifecycle gap after initial publication. A live consumer cannot
+remain pinned forever to its first published SHA because target-only rewiring, live evidence and
+L26-C retirement necessarily create later commits, while the RC gate requires the canonical
+binding revision to equal the revision sealed by retirement completion. Binding advancement is
+therefore explicit and monotonic: the current BOUND revision must be an ancestor of the newly
+observed clean HEAD, while repository identity, canonical GitHub URL, default branch, environment
+and bootstrap provenance remain unchanged. Advancement uses its own reviewed plan/apply workflow
+and fails closed on rollback, divergent history, no-op rebinding, repository substitution,
+provenance drift or any consumer/binding change after review.
+

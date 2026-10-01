@@ -46,9 +46,7 @@ def test_pcg_and_syscohada_structure_and_snapshots_are_production_qualified() ->
 
 
 def test_nonprofit_effective_plan_stats_and_reporting_safety_match_source() -> None:
-    manifest = json.loads(
-        (REGULATORY / "PROJECT_MANIFEST.json").read_text(encoding="utf-8")
-    )
+    manifest = json.loads((REGULATORY / "PROJECT_MANIFEST.json").read_text(encoding="utf-8"))
     stats = manifest["fr_nonprofit_2026"]["effective_plan"]
     assert stats == {
         "effective_accounts_or_groups": 901,
@@ -58,12 +56,9 @@ def test_nonprofit_effective_plan_stats_and_reporting_safety_match_source() -> N
     }
 
     reporting = json.loads(
-        (
-            REGULATORY
-            / "datasets"
-            / "reporting"
-            / "nonprofit_2026_v3_reporting.json"
-        ).read_text(encoding="utf-8")
+        (REGULATORY / "datasets" / "reporting" / "nonprofit_2026_v3_reporting.json").read_text(
+            encoding="utf-8"
+        )
     )
     assert reporting["mapping_policy"]["account_hints_executable"] is False
     assert reporting["mapping_policy"]["human_validation_required"] is True
@@ -79,10 +74,7 @@ def test_nonprofit_effective_plan_stats_and_reporting_safety_match_source() -> N
 def test_ohada_negative_constraints_forbid_false_inheritance() -> None:
     relations = json.loads(
         (
-            REGULATORY
-            / "datasets"
-            / "relations"
-            / "ohada_accounting_standard_relations.json"
+            REGULATORY / "datasets" / "relations" / "ohada_accounting_standard_relations.json"
         ).read_text(encoding="utf-8")
     )
     forbidden = {
@@ -114,9 +106,7 @@ def test_ohada_negative_constraints_forbid_false_inheritance() -> None:
 
 
 def test_neutral_concepts_do_not_create_bindings() -> None:
-    manifest = json.loads(
-        (REGULATORY / "PROJECT_MANIFEST.json").read_text(encoding="utf-8")
-    )
+    manifest = json.loads((REGULATORY / "PROJECT_MANIFEST.json").read_text(encoding="utf-8"))
     assert manifest["ohada_family"]["concept_bindings"] == 0
 
     profiles = _profiles()

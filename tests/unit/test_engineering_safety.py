@@ -275,7 +275,10 @@ def test_release_candidate_contract_rejects_unbound_0_6_consumer(
 
     monkeypatch.setattr(module, "ROOT", tmp_path)
     monkeypatch.setattr(module, "project_version", lambda: "0.6.0rc1")
-    with pytest.raises(module.QualificationError, match="requires a BOUND live consumer repository"):
+    with pytest.raises(
+        module.QualificationError,
+        match="requires a BOUND live consumer repository",
+    ):
         module.validate_release_candidate_contract(skip_tests=False, skip_package=False)
 
 

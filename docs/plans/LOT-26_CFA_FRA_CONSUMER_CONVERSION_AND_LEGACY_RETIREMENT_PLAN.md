@@ -284,3 +284,13 @@ deterministic receipt; the framework still performs no deletion or repository mu
 Canonical CI proves this contract only with isolated READY evidence and synthetic observations,
 so the real CFA FRA retirement remains blocked until live evidence is supplied.
 \n
+
+The `0.6.0b22` slice seals the L26-C completion contract after execution verification.
+`complete_legacy_retirement(...)` revalidates target-only MIG-13 readiness, empty blocker
+sets, the exact reviewed retirement plan and the full b21 execution evidence before emitting a
+deterministic completion proof. The proof seals inventory/readiness fingerprints, plan SHA,
+execution-receipt SHA, consumer revision and action counts, and exposes
+`ready_for_0_6_rc1=true` only when every condition remains true. The canonical live CFA FRA
+state still cannot produce this completion proof while the three external cutover records remain
+BLOCKED; CI uses isolated READY evidence solely to qualify the completion gate.
+\n

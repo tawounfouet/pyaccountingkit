@@ -173,7 +173,11 @@ class RegulatoryFrameworkIntegrationProfile:
     capabilities: tuple[RegulatoryCapabilityQualification, ...]
 
     def __post_init__(self) -> None:
-        if not self.profile_id.strip() or not self.standard_ref.strip() or not self.provider_id.strip():
+        if (
+            not self.profile_id.strip()
+            or not self.standard_ref.strip()
+            or not self.provider_id.strip()
+        ):
             raise ValueError("profile identity fields must be non-empty")
         if not self.dataset_release.strip() or not self.tested_framework_version.strip():
             raise ValueError("profile version fields must be non-empty")

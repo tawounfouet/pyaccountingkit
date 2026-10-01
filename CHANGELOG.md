@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0a1] - 2026-10-01
+
+### Added
+- Capability-scoped regulatory qualification model and support-level derivation.
+- `RegulatoryFrameworkIntegrationProfile` and auditable
+  `RegulatoryCapabilityQualification` records.
+- Canonical profiles for PCG 2026, France Non-Profit 2026, SYSCOHADA 2017, OHADA EBNL 2023
+  and CEMAC PCEMF 2010.
+- Deterministic generation of `REGULATORY_COMPATIBILITY_MATRIX.json`.
+- Dedicated LOT-27 golden qualification gate.
+
+### Qualified in this slice
+- PCG 2026 structure and snapshots: `PRODUCTION_QUALIFIED`.
+- SYSCOHADA 2017 structure and snapshots: `PRODUCTION_QUALIFIED`.
+
+### Safety
+- Non-Profit reporting account mappings remain `REVIEW_REQUIRED`.
+- EBNL/SYSCOHADA structural crosswalk evidence does not imply semantic equivalence.
+- EBNL and PCEMF inheritance inference is explicitly forbidden by current corpus constraints.
+- Missing PCEMF structure and missing concept bindings remain `NOT_ASSERTED`.
+- LOT-26 live CFA FRA evidence is still deferred; this alpha does not declare `0.6.0` stable.
+
 ## [0.6.0b27] - 2026-10-01
 
 ### Added

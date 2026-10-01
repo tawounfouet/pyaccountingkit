@@ -26,9 +26,9 @@ Chaque plan correspond à un jalon de release sémantique clair, définit les lo
 ## Lot actif / qualification
 
 - [`LOT-26_CFA_FRA_CONSUMER_CONVERSION_AND_LEGACY_RETIREMENT_PLAN.md`](LOT-26_CFA_FRA_CONSUMER_CONVERSION_AND_LEGACY_RETIREMENT_PLAN.md)
-  — LOT-26 actif : `0.6.0b21` vérifie de manière fail-closed l'exécution externe du
-  retirement L26-C contre le plan b20, les fingerprints inventory/readiness et les 39
-  postconditions, sans muter le consumer live ni l'oracle gelé.
+  — LOT-26 actif : `0.6.0b22` scelle la completion L26-C en revalidant readiness
+  target-only, plan b20 et preuve d'exécution b21 avant de déclarer l'éligibilité à
+  `0.6.0rc1`, sans prétendre que le retirement live est déjà réalisé.
 - [`LOT-25_CFA_FRA_GOLDEN_BASELINE_IMPLEMENTATION_PLAN.md`](LOT-25_CFA_FRA_GOLDEN_BASELINE_IMPLEMENTATION_PLAN.md)
   — LOT-25 qualifié en `0.6.0a1` : baseline CFA FRA Sprint 7 et parité golden.
 - [`cfa_fra/01_CFA_FRA_COMPONENT_INVENTORY.md`](cfa_fra/01_CFA_FRA_COMPONENT_INVENTORY.md)

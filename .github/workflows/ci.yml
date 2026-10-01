@@ -256,6 +256,93 @@ jobs:
           assert len(p['bootstrap_sha256'])==64;
           assert len(p['publication_sha256'])==64"
 
+  consumer-binding-advancement:
+    name: CFA FRA consumer binding revision advancement
+    needs: [consumer-publication]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install development tooling
+        run: python -m pip install -e ".[dev]"
+      - name: Materialize isolated standalone consumer
+        run: >-
+          python scripts/bootstrap_cfa_fra_live_consumer.py
+          --destination build/cfa_fra_advancing_consumer
+          --write
+      - name: Publish isolated Git identity
+        run: |
+          git -C build/cfa_fra_advancing_consumer init -b main
+          git -C build/cfa_fra_advancing_consumer config user.email "qualification@example.invalid"
+          git -C build/cfa_fra_advancing_consumer config user.name "Qualification"
+          git -C build/cfa_fra_advancing_consumer add .
+          git -C build/cfa_fra_advancing_consumer commit -m "Bootstrap standalone CFA FRA consumer"
+          git -C build/cfa_fra_advancing_consumer remote add origin https://github.com/tawounfouet/cfa-fra-live
+      - name: Prepare and bind isolated consumer
+        run: |
+          cp tests/consumer/cfa_fra/CONSUMER_BINDING.json build/cfa_fra_advancement_binding.json
+          python scripts/run_cfa_fra_consumer_publication.py \
+            --binding build/cfa_fra_advancement_binding.json \
+            plan \
+            --consumer-root build/cfa_fra_advancing_consumer \
+            --repository tawounfouet/cfa-fra-live \
+            --observed-at 2026-10-01T07:00:00Z \
+            --producer github-actions \
+            --plan-output build/cfa_fra_initial_publication_plan.json
+          python scripts/run_cfa_fra_consumer_publication.py \
+            --binding build/cfa_fra_advancement_binding.json \
+            apply \
+            --consumer-root build/cfa_fra_advancing_consumer \
+            --plan build/cfa_fra_initial_publication_plan.json \
+            --write
+      - name: Record initially bound revision
+        run: >-
+          python -c
+          "import json,pathlib;
+          b=json.load(open('build/cfa_fra_advancement_binding.json'));
+          pathlib.Path('build/cfa_fra_old_revision.txt').write_text(b['binding']['revision_sha']);
+          pathlib.Path('build/cfa_fra_old_bootstrap.txt').write_text(b['binding']['bootstrap_sha256'])"
+      - name: Create descendant cutover revision
+        run: |
+          printf '%s\n' 'target-only rewiring started' > build/cfa_fra_advancing_consumer/CUTOVER_PROGRESS.md
+          git -C build/cfa_fra_advancing_consumer add CUTOVER_PROGRESS.md
+          git -C build/cfa_fra_advancing_consumer commit -m "Start target-only rewiring"
+      - name: Plan reviewed binding advancement
+        run: >-
+          python scripts/run_cfa_fra_consumer_binding_advancement.py
+          --binding build/cfa_fra_advancement_binding.json
+          plan
+          --consumer-root build/cfa_fra_advancing_consumer
+          --observed-at 2026-10-01T08:00:00Z
+          --producer github-actions
+          --plan-output build/cfa_fra_binding_advancement_plan.json
+      - name: Apply reviewed binding advancement
+        run: >-
+          python scripts/run_cfa_fra_consumer_binding_advancement.py
+          --binding build/cfa_fra_advancement_binding.json
+          apply
+          --consumer-root build/cfa_fra_advancing_consumer
+          --plan build/cfa_fra_binding_advancement_plan.json
+          --write
+      - name: Require monotonic revision with stable identity provenance
+        run: >-
+          python -c
+          "import json,pathlib,subprocess;
+          b=json.load(open('build/cfa_fra_advancement_binding.json'));
+          old=pathlib.Path('build/cfa_fra_old_revision.txt').read_text();
+          old_bootstrap=pathlib.Path('build/cfa_fra_old_bootstrap.txt').read_text();
+          new=b['binding']['revision_sha'];
+          assert b['status']=='BOUND';
+          assert new != old;
+          assert b['binding']['repository']=='tawounfouet/cfa-fra-live';
+          assert b['binding']['bootstrap_sha256']==old_bootstrap;
+          assert subprocess.run(['git','-C','build/cfa_fra_advancing_consumer','merge-base','--is-ancestor',old,new]).returncode==0"
+
   consumer-binding:
     name: CFA FRA live consumer binding
     runs-on: ubuntu-latest
@@ -661,7 +748,7 @@ jobs:
     name: Canonical CI gate
     if: ${{ always() }}
     needs:
-      [quality, test, package, postgresql, sqlalchemy-postgresql, consumer-bootstrap, consumer-publication, consumer-binding, consumer-evidence, retirement-inventory, cutover-evidence, cutover-pipeline, retirement-plan, retirement-execution, retirement-completion, retirement-readiness, release-qualification]
+      [quality, test, package, postgresql, sqlalchemy-postgresql, consumer-bootstrap, consumer-publication, consumer-binding-advancement, consumer-binding, consumer-evidence, retirement-inventory, cutover-evidence, cutover-pipeline, retirement-plan, retirement-execution, retirement-completion, retirement-readiness, release-qualification]
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -674,6 +761,7 @@ jobs:
           SQLALCHEMY_POSTGRESQL_RESULT: ${{ needs.sqlalchemy-postgresql.result }}
           CONSUMER_BOOTSTRAP_RESULT: ${{ needs.consumer-bootstrap.result }}
           CONSUMER_PUBLICATION_RESULT: ${{ needs.consumer-publication.result }}
+          CONSUMER_BINDING_ADVANCEMENT_RESULT: ${{ needs.consumer-binding-advancement.result }}
           CONSUMER_BINDING_RESULT: ${{ needs.consumer-binding.result }}
           CONSUMER_EVIDENCE_RESULT: ${{ needs.consumer-evidence.result }}
           RETIREMENT_INVENTORY_RESULT: ${{ needs.retirement-inventory.result }}
@@ -692,6 +780,7 @@ jobs:
           test "$SQLALCHEMY_POSTGRESQL_RESULT" = "success"
           test "$CONSUMER_BOOTSTRAP_RESULT" = "success"
           test "$CONSUMER_PUBLICATION_RESULT" = "success"
+          test "$CONSUMER_BINDING_ADVANCEMENT_RESULT" = "success"
           test "$CONSUMER_BINDING_RESULT" = "success"
           test "$CONSUMER_EVIDENCE_RESULT" = "success"
           test "$RETIREMENT_INVENTORY_RESULT" = "success"

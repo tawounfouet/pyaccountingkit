@@ -46,7 +46,7 @@ def test_bound_binding_can_be_pinned_to_expected_revision(tmp_path: Path) -> Non
         "status": "BOUND",
         "consumer": "CFA FRA Django MVP Sprint 7",
         "binding": {
-            "schema": "cfa_fra_live_consumer_binding/v1",
+            "schema": "cfa_fra_live_consumer_binding/v2",
             "kind": "live_consumer_repository_binding",
             "consumer": "CFA FRA Django MVP Sprint 7",
             "repository": "tawounfouet/cfa-fra-live",
@@ -56,6 +56,8 @@ def test_bound_binding_can_be_pinned_to_expected_revision(tmp_path: Path) -> Non
             "environment": "production",
             "observed_at": "2026-10-01T06:00:00Z",
             "producer": "integration-test",
+            "bootstrap_sha256": "b" * 64,
+            "publication_sha256": "c" * 64,
         },
     }
     path = tmp_path / "binding.json"
@@ -80,3 +82,5 @@ def test_bound_binding_can_be_pinned_to_expected_revision(tmp_path: Path) -> Non
     assert result.returncode == 0, result.stdout + result.stderr
     assert '"bound": true' in result.stdout
     assert revision in result.stdout
+    assert '"bootstrap_sha256":' in result.stdout
+    assert '"publication_sha256":' in result.stdout

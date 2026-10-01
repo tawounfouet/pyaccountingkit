@@ -49,6 +49,6 @@ def test_bootstrap_cli_materializes_standalone_seed(tmp_path: Path) -> None:
     manifest = json.loads(
         (target / "PYACCOUNTINGKIT_CONSUMER_BOOTSTRAP.json").read_text(encoding="utf-8")
     )
-    assert manifest["framework_requirement"] == "pyaccountingkit>=0.6.0b25,<0.7"
+    assert manifest["framework_requirement"] == "pyaccountingkit>=0.6.0b26,<0.7"
     assert manifest["binding_state"] == "UNBOUND_UNTIL_PUBLISHED"
     assert "Canonical live consumer binding remains UNBOUND" in result.stdout

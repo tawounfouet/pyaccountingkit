@@ -64,6 +64,7 @@ _VERSIONED_RC_EVIDENCE: dict[str, tuple[str, ...]] = {
         "tests/golden/cfa_fra/BASELINE.json",
         "tests/consumer/cfa_fra/RETIREMENT_EVIDENCE.json",
         "tests/consumer/cfa_fra/CONSUMER_BINDING.json",
+        "tests/consumer/cfa_fra/CONSUMER_BOOTSTRAP.json",
         "tests/consumer/cfa_fra/live_evidence/consumer-e2e.json",
         "tests/consumer/cfa_fra/live_evidence/legacy-identities.json",
         "tests/consumer/cfa_fra/live_evidence/regulatory-authority.json",

@@ -12,6 +12,7 @@ from pyaccountingkit.integrations.cfa_fra import (
     LegacyRetirementAction,
     LegacyRetirementExecutionError,
     LegacyRetirementObservedState,
+    LegacyRetirementPlanError,
     build_legacy_retirement_plan,
     retirement_execution_receipt_payload,
     verify_legacy_retirement_execution,
@@ -74,7 +75,7 @@ def test_retirement_execution_rejects_plan_drift() -> None:
     plan, inventory, readiness, evidence = _evidence()
     readiness["evidence"]["consumer_e2e_green"] = False
 
-    with pytest.raises(Exception, match="every evidence gate green"):
+    with pytest.raises(LegacyRetirementPlanError, match="every evidence gate green"):
         verify_legacy_retirement_execution(plan, inventory, readiness, evidence)
 
 

@@ -42,6 +42,7 @@ def validate_ci_text(text: str) -> list[str]:
             "cutover-pipeline:\n",
             "retirement-plan:\n",
             "retirement-execution:\n",
+            "retirement-completion:\n",
             "retirement-readiness:\n",
             "release-qualification:\n",
             "ci-gate:\n",
@@ -67,6 +68,7 @@ def validate_ci_text(text: str) -> list[str]:
             "python scripts/run_cfa_fra_cutover_evidence_pipeline.py",
             "python scripts/plan_cfa_fra_legacy_retirement.py",
             "python scripts/verify_cfa_fra_legacy_retirement_execution.py",
+            "python scripts/qualify_cfa_fra_legacy_retirement_completion.py",
             "identities_traceable: ${{ steps.cutover-state.outputs.identities_traceable }}",
             (
                 "regulatory_authority_replaced: "
@@ -85,8 +87,8 @@ def validate_ci_text(text: str) -> list[str]:
             (
                 "[quality, test, package, postgresql, sqlalchemy-postgresql, "
                 "consumer-evidence, retirement-inventory, cutover-evidence, "
-                "cutover-pipeline, retirement-plan, retirement-execution, retirement-readiness, "
-                "release-qualification]"
+                "cutover-pipeline, retirement-plan, retirement-execution, retirement-completion, "
+                "retirement-readiness, release-qualification]"
             ),
             "if: ${{ always() }}",
             "QUALITY_RESULT: ${{ needs.quality.result }}",
@@ -103,19 +105,21 @@ def validate_ci_text(text: str) -> list[str]:
             'test "$RETIREMENT_PLAN_RESULT" = "success"',
             "RETIREMENT_EXECUTION_RESULT: ${{ needs.retirement-execution.result }}",
             'test "$RETIREMENT_EXECUTION_RESULT" = "success"',
+            "RETIREMENT_COMPLETION_RESULT: ${{ needs.retirement-completion.result }}",
+            'test "$RETIREMENT_COMPLETION_RESULT" = "success"',
             "RETIREMENT_READINESS_RESULT: ${{ needs.retirement-readiness.result }}",
             "RELEASE_QUALIFICATION_RESULT: ${{ needs.release-qualification.result }}",
         ),
         label="CI",
     )
 
-    if text.count("actions/checkout@v7") != 13:
-        violations.append("CI: expected exactly thirteen actions/checkout@v7 uses")
-    if text.count("actions/setup-python@v7") != 13:
-        violations.append("CI: expected exactly thirteen actions/setup-python@v7 uses")
-    if text.count("cache: pip") != 13:
+    if text.count("actions/checkout@v7") != 14:
+        violations.append("CI: expected exactly fourteen actions/checkout@v7 uses")
+    if text.count("actions/setup-python@v7") != 14:
+        violations.append("CI: expected exactly fourteen actions/setup-python@v7 uses")
+    if text.count("cache: pip") != 14:
         violations.append("CI: every Python execution job must enable pip cache")
-    if text.count("cache-dependency-path:") != 13:
+    if text.count("cache-dependency-path:") != 14:
         violations.append("CI: every Python execution job must define a pip cache key")
     if text.count("python scripts/verify_package.py") != 1:
         violations.append("CI: package verification must execute exactly once")
@@ -194,8 +198,8 @@ def main() -> int:
     print(
         "Canonical jobs: quality, test, package, postgresql, sqlalchemy-postgresql, "
         "consumer-evidence, retirement-inventory, cutover-evidence, "
-        "cutover-pipeline, retirement-plan, retirement-execution, retirement-readiness, "
-        "release-qualification, ci-gate"
+        "cutover-pipeline, retirement-plan, retirement-execution, retirement-completion, "
+        "retirement-readiness, release-qualification, ci-gate"
     )
     print("Supported Python matrix: 3.11, 3.12, 3.13")
     print("Qualified suites: unit, property, contract, integration, golden, replay, concurrency")
@@ -206,6 +210,7 @@ def main() -> int:
     print("Cutover pipeline: reviewed plan/apply execution on isolated fixture evidence")
     print("Retirement plan: deterministic non-executing L26-C actions after MIG-13 READY")
     print("Retirement execution: exact-plan post-cutover verification with immutable oracle guard")
+    print("Retirement completion: sealed L26-C proof eligible for 0.6.0rc1 qualification")
     print("Retirement gate: MIG-13 readiness with explicit blocker evidence")
     print("Security jobs: audit, sast")
     return 0

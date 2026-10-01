@@ -91,7 +91,8 @@ def test_retirement_execution_rejects_wrong_component_state() -> None:
     plan, inventory, readiness, evidence = _evidence()
     observations = evidence["observations"]
     assert isinstance(observations, list)
-    observations[0]["state"] = "PRESENT"
+    retired = next(item for item in observations if item["state"] == "RETIRED")
+    retired["state"] = "PRESENT"
 
     with pytest.raises(LegacyRetirementExecutionError, match="expected post-retirement state"):
         verify_legacy_retirement_execution(plan, inventory, readiness, evidence)

@@ -104,7 +104,7 @@ def validate_ci_text(text: str) -> list[str]:
             (
                 "[quality, test, package, postgresql, sqlalchemy-postgresql, "
                 "consumer-bootstrap, consumer-binding, consumer-evidence, retirement-inventory, "
-        "cutover-evidence, "
+                "cutover-evidence, "
                 "cutover-pipeline, retirement-plan, retirement-execution, retirement-completion, "
                 "retirement-readiness, release-qualification]"
             ),

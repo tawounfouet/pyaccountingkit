@@ -58,7 +58,10 @@ def main() -> int:
             raise LiveConsumerBindingError(
                 "live consumer revision may not equal the frozen oracle tree SHA"
             )
-        if args.expected_revision is not None and state.binding.revision_sha != args.expected_revision:
+        if (
+            args.expected_revision is not None
+            and state.binding.revision_sha != args.expected_revision
+        ):
             raise LiveConsumerBindingError(
                 "live consumer binding revision does not match expected retirement revision"
             )

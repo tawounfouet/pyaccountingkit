@@ -162,10 +162,8 @@ def _write_0_6_rc1_required_evidence(
             path.write_text(json.dumps(payload), encoding="utf-8")
         elif relative == "tests/consumer/cfa_fra/CONSUMER_BINDING.json":
             revision = (
-                completion.get("consumer_revision")
-                if completion is not None
-                else "b" * 40
-            )
+                completion.get("consumer_revision") if completion is not None else None
+            ) or "b" * 40
             payload: dict[str, object] = {
                 "schema_version": "1",
                 "status": binding_status,

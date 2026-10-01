@@ -362,9 +362,7 @@ def apply_consumer_publication_plan(
         "producer",
     ):
         if not isinstance(raw_publication.get(field), str):
-            raise ConsumerPublicationError(
-                f"consumer publication plan field {field} is invalid"
-            )
+            raise ConsumerPublicationError(f"consumer publication plan field {field} is invalid")
 
     fresh = verify_published_consumer_repository(
         observation,

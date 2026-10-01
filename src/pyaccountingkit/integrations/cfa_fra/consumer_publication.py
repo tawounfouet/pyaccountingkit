@@ -14,7 +14,6 @@ from typing import cast
 from pyaccountingkit.integrations.cfa_fra.consumer_binding import (
     LIVE_CONSUMER_BINDING_SCHEMA,
     LiveConsumerBinding,
-    LiveConsumerBindingError,
     parse_live_consumer_binding_state,
 )
 from pyaccountingkit.integrations.cfa_fra.consumer_bootstrap import (
@@ -114,9 +113,13 @@ def _load_bootstrap_manifest(
         raw_bytes = path.read_bytes()
         payload = json.loads(raw_bytes.decode("utf-8"))
     except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
-        raise ConsumerPublicationError("published consumer bootstrap manifest is missing or invalid") from exc
+        raise ConsumerPublicationError(
+            "published consumer bootstrap manifest is missing or invalid"
+        ) from exc
     if not isinstance(payload, dict):
-        raise ConsumerPublicationError("published consumer bootstrap manifest must be a JSON object")
+        raise ConsumerPublicationError(
+            "published consumer bootstrap manifest must be a JSON object"
+        )
     if payload.get("schema") != CONSUMER_BOOTSTRAP_SCHEMA:
         raise ConsumerPublicationError("published consumer bootstrap schema is invalid")
     if payload.get("kind") != "standalone_consumer_seed":
@@ -203,7 +206,9 @@ def inspect_published_consumer_repository(
     if current_branch != default_branch:
         raise ConsumerPublicationError("published consumer must be checked out on its default branch")
 
-    origin_repository, origin_url = _normalize_github_origin(_git(root, "remote", "get-url", "origin"))
+    origin_repository, origin_url = _normalize_github_origin(
+        _git(root, "remote", "get-url", "origin")
+    )
     if origin_repository != repository:
         raise ConsumerPublicationError("published consumer origin does not match reviewed repository")
 

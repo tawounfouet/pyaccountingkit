@@ -6,11 +6,13 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import subprocess
 import tempfile
 from pathlib import Path
 
 from pyaccountingkit.integrations.cfa_fra import (
     ConsumerPublicationError,
+    ConsumerRepositoryObservation,
     apply_consumer_publication_plan,
     plan_consumer_publication,
     publication_plan_payload,
@@ -26,6 +28,35 @@ def _load(path: Path) -> dict[str, object]:
     if not isinstance(raw, dict):
         raise ConsumerPublicationError(f"{path} must contain a JSON object")
     return raw
+
+
+def _git(root: Path, *args: str) -> str:
+    completed = subprocess.run(
+        ["git", "-C", str(root), *args],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if completed.returncode != 0:
+        detail = completed.stderr.strip() or completed.stdout.strip() or "git command failed"
+        raise ConsumerPublicationError(detail)
+    return completed.stdout.strip()
+
+
+def _observe(root: Path) -> ConsumerRepositoryObservation:
+    resolved = root.resolve()
+    if not resolved.is_dir():
+        raise ConsumerPublicationError("published consumer root does not exist")
+    top_level = Path(_git(resolved, "rev-parse", "--show-toplevel")).resolve()
+    manifest = _load(resolved / "PYACCOUNTINGKIT_CONSUMER_BOOTSTRAP.json")
+    return ConsumerRepositoryObservation(
+        repository_is_top_level=top_level == resolved,
+        worktree_clean=not bool(_git(resolved, "status", "--porcelain")),
+        revision_sha=_git(resolved, "rev-parse", "HEAD"),
+        current_branch=_git(resolved, "branch", "--show-current"),
+        origin=_git(resolved, "remote", "get-url", "origin"),
+        bootstrap_manifest=manifest,
+    )
 
 
 def _atomic_write(path: Path, payload: dict[str, object]) -> None:
@@ -66,10 +97,11 @@ def _parser() -> argparse.ArgumentParser:
 def main() -> int:
     args = _parser().parse_args()
     current = _load(args.binding)
+    observation = _observe(args.consumer_root)
 
     if args.command == "plan":
         plan = plan_consumer_publication(
-            args.consumer_root,
+            observation,
             SOURCE,
             current,
             repository=args.repository,
@@ -87,7 +119,7 @@ def main() -> int:
     plan_payload = _load(args.plan)
     candidate = apply_consumer_publication_plan(
         plan_payload,
-        args.consumer_root,
+        observation,
         SOURCE,
         current,
     )

@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0b21] - 2026-10-01
+
+### Added
+- Fail-closed verification contract for externally executed L26-C legacy retirement.
+- `LegacyRetirementObservedState`, execution observations and deterministic verified receipts.
+- Exact-plan revalidation against the current inventory and MIG-13 readiness fingerprints.
+- Per-component post-cutover state verification for all 39 retirement-plan items.
+- `verify_cfa_fra_legacy_retirement_execution.py` CLI.
+- Canonical CI gate qualifying execution verification against isolated READY evidence.
+
+### Safety
+- PyAccountingKit still performs no deletion or consumer-repository rewrite.
+- Execution evidence must target a live consumer revision distinct from the frozen oracle tree.
+- Every planned component must be observed exactly once with a checksummed evidence reference.
+- Duplicate engines must be `RETIRED`, rewired endpoints `REWIRED`, persistence/oracle
+  evidence `PRESERVED`, and consumer-owned concerns `PRESENT`.
+- Canonical live CFA FRA evidence remains BLOCKED; synthetic CI observations only qualify the
+  verification mechanism.
+
 ## [0.6.0b20] - 2026-10-01
 
 ### Added

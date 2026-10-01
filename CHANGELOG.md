@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0b25] - 2026-10-01
+
+### Added
+- Deterministic standalone CFA FRA consumer bootstrap from the immutable Sprint-7 oracle.
+- Exact Git-tree verification before bootstrap materialization.
+- `ConsumerBootstrapPlan`, `ConsumerBootstrapResult` and provenance manifest.
+- Repository command `bootstrap_cfa_fra_live_consumer.py` with dry-run by default and explicit
+  `--write` / `--overwrite`.
+- Automatic seed-only addition of `pyaccountingkit>=0.6.0b25,<0.7`.
+- Seed-only correction of the already-qualified login redirect defect from `dashboard` to
+  `analytics:dashboard`.
+- Canonical `CONSUMER_BOOTSTRAP.json` safety contract and dedicated CI qualification.
+- RC validation that the bootstrap is sourced from the frozen oracle and cannot auto-publish,
+  auto-bind or auto-promote cutover evidence.
+
+### Safety
+- No file under `resources/cfa_fra_django_mvp_sprint_7/` is modified.
+- Bootstrap output remains `UNBOUND_UNTIL_PUBLISHED` and `NOT_STARTED` for cutover.
+- Creating a standalone seed is not treated as live E2E, identity migration, regulatory cutover
+  or retirement evidence.
+- A real GitHub repository identity and revision are still required before `0.6.0rc1`.
+
 ## [0.6.0b24] - 2026-10-01
 
 ### Added

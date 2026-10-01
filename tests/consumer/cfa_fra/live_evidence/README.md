@@ -120,6 +120,33 @@ BLOCKED or FAIL scenarios invalidate the artifact.
 The bundled Sprint-7 test harness remains useful as frozen regression evidence, but a live
 consumer artifact is the retirement proof consumed by MIG-13.
 
+## Standalone consumer bootstrap
+
+When no separate live-consumer repository exists yet, generate a reviewed standalone seed from
+the frozen Sprint-7 oracle:
+
+```bash
+python scripts/bootstrap_cfa_fra_live_consumer.py \
+  --destination ../cfa-fra-live
+```
+
+The default is a dry-run. Materialization requires:
+
+```bash
+python scripts/bootstrap_cfa_fra_live_consumer.py \
+  --destination ../cfa-fra-live \
+  --write
+```
+
+The command verifies the current Git tree of the bundled oracle against the qualified LOT-25 SHA,
+copies the tree without modifying the source, adds the compatible PyAccountingKit dependency,
+fixes only the proven login redirect defect and writes
+`PYACCOUNTINGKIT_CONSUMER_BOOTSTRAP.json`.
+
+The generated seed is deliberately not live evidence. It remains
+`UNBOUND_UNTIL_PUBLISHED` with cutover `NOT_STARTED` until it has its own reviewed repository
+identity and real cutover observations.
+
 ## Live consumer repository binding
 
 Before producing release-grade live evidence, bind the actual consumer in

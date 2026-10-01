@@ -316,3 +316,13 @@ L26-C retirement completion proof. This prevents evidence from one codebase from
 with retirement evidence from another and avoids treating AMIFOND or any other adjacent project
 as the consumer by inference.
 
+The `0.6.0b25` slice closes the provenance gap discovered after b24: repository history proves
+that the Sprint-7 application was imported directly into PyAccountingKit as a historical oracle,
+while no separate canonical consumer repository origin is recorded. A deterministic bootstrap
+now prepares a standalone consumer seed from that immutable tree without changing it. The
+bootstrap verifies the exact oracle tree SHA, copies the application to an external destination,
+adds the compatible PyAccountingKit dependency, applies only the already-qualified login redirect
+fix, and writes a deterministic provenance manifest. It remains explicitly
+`UNBOUND_UNTIL_PUBLISHED` with cutover `NOT_STARTED`. Publication, repository binding,
+target-only rewiring, live evidence generation and retirement remain external reviewed steps.
+

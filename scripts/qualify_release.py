@@ -64,6 +64,7 @@ _VERSIONED_RC_EVIDENCE: dict[str, tuple[str, ...]] = {
         "tests/golden/cfa_fra/BASELINE.json",
         "tests/consumer/cfa_fra/RETIREMENT_EVIDENCE.json",
         "tests/consumer/cfa_fra/CONSUMER_BINDING.json",
+        "tests/consumer/cfa_fra/CONSUMER_BOOTSTRAP.json",
         "tests/consumer/cfa_fra/live_evidence/consumer-e2e.json",
         "tests/consumer/cfa_fra/live_evidence/legacy-identities.json",
         "tests/consumer/cfa_fra/live_evidence/regulatory-authority.json",
@@ -211,11 +212,13 @@ def _validate_cfa_fra_0_6_rc1_completion() -> None:
     )
     inventory_path = ROOT / "tests" / "consumer" / "cfa_fra" / "LEGACY_RETIREMENT_INVENTORY.json"
     binding_path = ROOT / "tests" / "consumer" / "cfa_fra" / "CONSUMER_BINDING.json"
+    bootstrap_path = ROOT / "tests" / "consumer" / "cfa_fra" / "CONSUMER_BOOTSTRAP.json"
 
     try:
         completion = json.loads(completion_path.read_text(encoding="utf-8"))
         inventory = json.loads(inventory_path.read_text(encoding="utf-8"))
         binding_state = json.loads(binding_path.read_text(encoding="utf-8"))
+        bootstrap_contract = json.loads(bootstrap_path.read_text(encoding="utf-8"))
     except json.JSONDecodeError as exc:
         raise QualificationError(f"invalid CFA FRA RC1 JSON evidence: {exc}") from exc
 
@@ -223,6 +226,37 @@ def _validate_cfa_fra_0_6_rc1_completion() -> None:
         raise QualificationError("CFA FRA RC1 completion evidence must be a JSON object")
     if not isinstance(inventory, dict):
         raise QualificationError("CFA FRA retirement inventory must be a JSON object")
+    if not isinstance(bootstrap_contract, dict):
+        raise QualificationError("CFA FRA consumer bootstrap contract must be a JSON object")
+    if bootstrap_contract.get("schema_version") != "1":
+        raise QualificationError("CFA FRA consumer bootstrap contract requires schema_version='1'")
+    bootstrap_source = bootstrap_contract.get("source")
+    bootstrap_target = bootstrap_contract.get("target")
+    bootstrap_safety = bootstrap_contract.get("safety")
+    if not isinstance(bootstrap_source, dict) or not isinstance(bootstrap_target, dict):
+        raise QualificationError("CFA FRA consumer bootstrap source/target contract is invalid")
+    if not isinstance(bootstrap_safety, dict):
+        raise QualificationError("CFA FRA consumer bootstrap safety contract is invalid")
+    if bootstrap_source.get("oracle_tree_sha") != "07d4880534d2e2239e19fd4ef4139de70b56773a":
+        raise QualificationError("CFA FRA consumer bootstrap must target the frozen oracle tree")
+    if bootstrap_source.get("oracle_manifest_version") != "0.8.0":
+        raise QualificationError("CFA FRA consumer bootstrap must target oracle manifest 0.8.0")
+    framework_requirement = bootstrap_target.get("framework_requirement")
+    if framework_requirement != "pyaccountingkit>=0.6.0b25,<0.7":
+        raise QualificationError("CFA FRA consumer bootstrap framework requirement drifted")
+    if bootstrap_target.get("binding_after_bootstrap") != "UNBOUND_UNTIL_PUBLISHED":
+        raise QualificationError("CFA FRA consumer bootstrap may not auto-bind a repository")
+    if bootstrap_target.get("cutover_state_after_bootstrap") != "NOT_STARTED":
+        raise QualificationError("CFA FRA consumer bootstrap may not auto-promote cutover state")
+    for field in (
+        "source_snapshot_mutation_allowed",
+        "automatic_github_publication",
+        "automatic_consumer_binding",
+        "automatic_cutover_evidence_promotion",
+    ):
+        if bootstrap_safety.get(field) is not False:
+            raise QualificationError(f"CFA FRA consumer bootstrap safety requires {field}=false")
+
     if not isinstance(binding_state, dict):
         raise QualificationError("CFA FRA consumer binding must be a JSON object")
     try:

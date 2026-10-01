@@ -1,0 +1,26 @@
+{
+  "schema_version": "1",
+  "consumer": "CFA FRA Django MVP Sprint 7",
+  "source": {
+    "resource_path": "resources/cfa_fra_django_mvp_sprint_7",
+    "oracle_tree_sha": "07d4880534d2e2239e19fd4ef4139de70b56773a",
+    "oracle_manifest_version": "0.8.0"
+  },
+  "target": {
+    "kind": "standalone_consumer_seed",
+    "framework_requirement": "pyaccountingkit>=0.6.0b25,<0.7",
+    "binding_after_bootstrap": "UNBOUND_UNTIL_PUBLISHED",
+    "cutover_state_after_bootstrap": "NOT_STARTED"
+  },
+  "reviewed_patches": [
+    "add_pyaccountingkit_dependency",
+    "fix_login_redirect_namespace",
+    "add_consumer_bootstrap_manifest"
+  ],
+  "safety": {
+    "source_snapshot_mutation_allowed": false,
+    "automatic_github_publication": false,
+    "automatic_consumer_binding": false,
+    "automatic_cutover_evidence_promotion": false
+  }
+}

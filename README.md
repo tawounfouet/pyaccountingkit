@@ -10,7 +10,7 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit **0.6.0b24** is the LOT-26 CFA FRA Live Consumer Repository Binding beta.
+PyAccountingKit **0.6.0b25** is the LOT-26 CFA FRA Standalone Consumer Bootstrap beta.
 
 LOT-26 turns the frozen LOT-25 CFA FRA behavioral baseline into an executable
 migration boundary. The temporary `CFAFRACompatibilityAdapter` lets the Django
@@ -39,7 +39,7 @@ mode rather than a generic posting bypass.
 
 The stable **0.5.0** public facade, adapter contract v1 and the independently
 Production-qualified Django/PostgreSQL and SQLAlchemy/PostgreSQL adapters remain
-the compatibility baseline. **0.6.0b24 is still pre-1.0**: LOT-26 consumer
+the compatibility baseline. **0.6.0b25 is still pre-1.0**: LOT-26 consumer
 conversion is in progress; LOT-27 regulatory production qualification and the
 LOT-29/30 API freeze remain later roadmap steps.
 
@@ -82,6 +82,15 @@ exact 40-character revision SHA, environment, observation time and producer. Nor
 accepts an explicit `UNBOUND` state without pretending the repository is known. The
 `0.6.0rc1` gate requires a production `BOUND` state and requires its revision to equal the
 revision sealed by the retirement completion proof.
+
+The `0.6.0b25` slice makes the next external step reproducible. Git history shows that the
+historic Sprint-7 application was imported directly into this repository as the behavioral
+oracle and no separate canonical GitHub consumer origin is recorded. The new standalone bootstrap
+therefore copies that immutable oracle into a separate destination, verifies the exact oracle tree
+SHA, adds the compatible PyAccountingKit dependency, fixes the already-proven namespaced login
+redirect defect, and writes a deterministic provenance manifest. The bootstrap never mutates the
+oracle, publishes a GitHub repository, binds `CONSUMER_BINDING.json`, or promotes cutover
+evidence automatically.
 
 The `0.6.0b9` migration bridge adds MIG-11 reference-authority replacement:
 `effective_plan` must delegate to `AccountingApplication.references` and may

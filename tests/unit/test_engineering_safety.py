@@ -185,6 +185,38 @@ def _write_0_6_rc1_required_evidence(
             else:
                 payload["reason"] = "repository identity not supplied"
             path.write_text(json.dumps(payload), encoding="utf-8")
+        elif relative == "tests/consumer/cfa_fra/CONSUMER_BOOTSTRAP.json":
+            path.write_text(
+                json.dumps(
+                    {
+                        "schema_version": "1",
+                        "consumer": "CFA FRA Django MVP Sprint 7",
+                        "source": {
+                            "resource_path": "resources/cfa_fra_django_mvp_sprint_7",
+                            "oracle_tree_sha": "07d4880534d2e2239e19fd4ef4139de70b56773a",
+                            "oracle_manifest_version": "0.8.0",
+                        },
+                        "target": {
+                            "kind": "standalone_consumer_seed",
+                            "framework_requirement": "pyaccountingkit>=0.6.0b25,<0.7",
+                            "binding_after_bootstrap": "UNBOUND_UNTIL_PUBLISHED",
+                            "cutover_state_after_bootstrap": "NOT_STARTED",
+                        },
+                        "reviewed_patches": [
+                            "add_pyaccountingkit_dependency",
+                            "fix_login_redirect_namespace",
+                            "add_consumer_bootstrap_manifest",
+                        ],
+                        "safety": {
+                            "source_snapshot_mutation_allowed": False,
+                            "automatic_github_publication": False,
+                            "automatic_consumer_binding": False,
+                            "automatic_cutover_evidence_promotion": False,
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
         elif path.suffix == ".json":
             path.write_text("{}\n", encoding="utf-8")
         else:
@@ -237,6 +269,48 @@ def test_release_candidate_contract_rejects_non_complete_0_6_evidence(
     monkeypatch.setattr(module, "ROOT", tmp_path)
     monkeypatch.setattr(module, "project_version", lambda: "0.6.0rc1")
     with pytest.raises(module.QualificationError, match="requires status='COMPLETE'"):
+        module.validate_release_candidate_contract(skip_tests=False, skip_package=False)
+
+
+def test_release_candidate_contract_rejects_unsafe_consumer_bootstrap(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    module = _load_qualifier()
+    oracle = "07d4880534d2e2239e19fd4ef4139de70b56773a"
+    digest = "a" * 64
+    _write_0_6_rc1_required_evidence(
+        module,
+        tmp_path,
+        completion={
+            "schema_version": "1",
+            "status": "COMPLETE",
+            "ready_for_0_6_rc1": True,
+            "routing_target_only": True,
+            "oracle_tree_sha": oracle,
+            "consumer_revision": "b" * 40,
+            "plan_sha256": digest,
+            "execution_receipt_sha256": digest,
+            "inventory_sha256": digest,
+            "readiness_sha256": digest,
+            "completion_sha256": digest,
+            "action_counts": {
+                "RETIRE_DUPLICATE_ENGINE": 10,
+                "VERIFY_CONSUMER_REWIRED": 8,
+                "PRESERVE_OR_MIGRATE_PERSISTENCE": 7,
+                "KEEP_CONSUMER_CONCERN": 8,
+                "PRESERVE_FROZEN_ORACLE": 6,
+            },
+        },
+    )
+    bootstrap = tmp_path / "tests" / "consumer" / "cfa_fra" / "CONSUMER_BOOTSTRAP.json"
+    payload = json.loads(bootstrap.read_text(encoding="utf-8"))
+    payload["safety"]["automatic_consumer_binding"] = True
+    bootstrap.write_text(json.dumps(payload), encoding="utf-8")
+
+    monkeypatch.setattr(module, "ROOT", tmp_path)
+    monkeypatch.setattr(module, "project_version", lambda: "0.6.0rc1")
+    with pytest.raises(module.QualificationError, match="automatic_consumer_binding=false"):
         module.validate_release_candidate_contract(skip_tests=False, skip_package=False)
 
 

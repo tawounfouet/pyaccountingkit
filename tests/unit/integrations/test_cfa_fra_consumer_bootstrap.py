@@ -24,7 +24,7 @@ def test_plan_matches_frozen_oracle_contract() -> None:
     assert plan.source_tree_sha == ORACLE_TREE_SHA
     assert plan.source_manifest_version == "0.8.0"
     assert plan.source_project_version == "0.8.0"
-    assert plan.framework_requirement == "pyaccountingkit>=0.6.0b25,<0.7"
+    assert plan.framework_requirement == "pyaccountingkit>=0.6.0b26,<0.7"
     assert plan.source_file_count > 100
     assert len(plan.bootstrap_sha256) == 64
 
@@ -39,7 +39,7 @@ def test_bootstrap_copies_without_mutating_oracle(tmp_path: Path) -> None:
 
     assert (SOURCE / "pyproject.toml").read_bytes() == source_pyproject
     assert (SOURCE / "config" / "settings" / "base.py").read_bytes() == source_settings
-    assert '"pyaccountingkit>=0.6.0b25,<0.7"' in (target / "pyproject.toml").read_text()
+    assert '"pyaccountingkit>=0.6.0b26,<0.7"' in (target / "pyproject.toml").read_text()
     settings = (target / "config" / "settings" / "base.py").read_text()
     assert 'LOGIN_REDIRECT_URL = "analytics:dashboard"' in settings
     manifest = json.loads(result.manifest_path.read_text())

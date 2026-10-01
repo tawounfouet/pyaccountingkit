@@ -326,3 +326,13 @@ fix, and writes a deterministic provenance manifest. It remains explicitly
 `UNBOUND_UNTIL_PUBLISHED` with cutover `NOT_STARTED`. Publication, repository binding,
 target-only rewiring, live evidence generation and retirement remain external reviewed steps.
 
+The `0.6.0b26` slice makes publication itself attestable before canonical binding. The
+publication handoff inspects the standalone consumer as an independent Git repository, requires a
+clean top-level checkout on the reviewed default branch, normalizes and matches the GitHub origin,
+pins the exact HEAD SHA, and revalidates `PYACCOUNTINGKIT_CONSUMER_BOOTSTRAP.json` against the
+frozen Sprint-7 oracle and current bootstrap plan. A side-effect-free `plan` seals the current
+UNBOUND binding fingerprint, verified publication payload and candidate BOUND state; `apply`
+rechecks all three and fails closed on any repository or canonical-state drift. Binding schema v2
+requires both `bootstrap_sha256` and `publication_sha256`, so repository identity can no longer
+be separated from the provenance of the standalone seed that was actually published.
+

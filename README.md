@@ -10,7 +10,7 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit **0.6.0b22** is the LOT-26 CFA FRA Legacy Retirement Completion beta.
+PyAccountingKit **0.6.0b23** is the LOT-26 CFA FRA RC1 Live Cutover Enforcement beta.
 
 LOT-26 turns the frozen LOT-25 CFA FRA behavioral baseline into an executable
 migration boundary. The temporary `CFAFRACompatibilityAdapter` lets the Django
@@ -39,7 +39,7 @@ mode rather than a generic posting bypass.
 
 The stable **0.5.0** public facade, adapter contract v1 and the independently
 Production-qualified Django/PostgreSQL and SQLAlchemy/PostgreSQL adapters remain
-the compatibility baseline. **0.6.0b22 is still pre-1.0**: LOT-26 consumer
+the compatibility baseline. **0.6.0b23 is still pre-1.0**: LOT-26 consumer
 conversion is in progress; LOT-27 regulatory production qualification and the
 LOT-29/30 API freeze remain later roadmap steps.
 
@@ -65,6 +65,15 @@ verified post-retirement observations can produce `status=COMPLETE` and
 `ready_for_0_6_rc1=true`. The completion proof fingerprints the inventory, readiness,
 plan, execution receipt and live consumer revision. Canonical live completion remains
 unavailable until the real CFA FRA external evidence and retirement observations exist.
+
+The `0.6.0b23` slice connects that completion contract to the actual release gate.
+`0.6.0rc1` now has versioned mandatory evidence, including all three live cutover artifacts
+and the reviewed plan/execution/completion chain. A `release/*` workflow rebuilds canonical
+MIG-13 readiness from the real CI and PostgreSQL-adapter results, requires no blockers,
+revalidates the live retirement completion and compares the regenerated proof with the committed
+canonical proof before `qualify_release.py --release-candidate` is allowed to run. Isolated
+READY fixtures can therefore qualify the mechanism on normal development branches but can no
+longer qualify the 0.6 release candidate itself.
 
 The `0.6.0b9` migration bridge adds MIG-11 reference-authority replacement:
 `effective_plan` must delegate to `AccountingApplication.references` and may

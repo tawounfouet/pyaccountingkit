@@ -30,6 +30,7 @@ def _write_project(root: Path, version: str) -> None:
         encoding="utf-8",
     )
 
+
 def _sealed_bundle(module: ModuleType, root: Path, *, version: str, tag: str, sha: str) -> Path:
     _write_project(root, version)
     bundle = root / "release-bundle"

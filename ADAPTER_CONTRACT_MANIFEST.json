@@ -135,7 +135,7 @@
       "overlay_replay": false,
       "port": "EffectivePlanReferenceProviderProtocol",
       "provider_resolved": true,
-      "qualification": "0.7.0a2-fr-nonprofit-effective-plan",
+      "qualification": "0.7.0a3-fr-nonprofit-effective-plan",
       "reference_adapter": "NonProfitFilesystemReferenceAdapter",
       "snapshot": "EffectivePlanSnapshot"
     },
@@ -203,5 +203,5 @@
       "reference_adapter": "InMemoryUnitOfWork"
     }
   },
-  "version": "0.7.0a2"
+  "version": "0.7.0a3"
 }

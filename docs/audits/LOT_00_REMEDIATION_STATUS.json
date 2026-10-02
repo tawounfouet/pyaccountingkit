@@ -1,0 +1,143 @@
+{
+  "schema_version": "1",
+  "lot": "LOT-00",
+  "title": "Repository Bootstrap & Architecture Safety Net - Remediation Closure",
+  "historical_target_version": "0.0.1",
+  "qualified_repository_version": "0.7.0b1",
+  "qualification_date": "2026-10-02",
+  "baseline_main": {
+    "sha": "0507087d6d9187892240b514728c7cb895610683",
+    "ci": {
+      "run_number": 532,
+      "run_id": 37027268622,
+      "status": "PASS",
+      "canonical_ci_gate": "PASS"
+    },
+    "security": {
+      "run_number": 535,
+      "run_id": 37027269205,
+      "status": "PASS",
+      "dependency_audit": "PASS",
+      "static_security_analysis": "PASS"
+    }
+  },
+  "sublots": [
+    {
+      "id": "LOT-00.1",
+      "name": "Documentation Traceability Cleanup",
+      "status": "COMPLETE",
+      "merge_sha": "64e4db862959956ae0cb64c2a7b1fc9c1436f6fd",
+      "evidence_files": []
+    },
+    {
+      "id": "LOT-00.2",
+      "name": "Version & Metadata Alignment",
+      "status": "COMPLETE",
+      "merge_sha": "64e4db862959956ae0cb64c2a7b1fc9c1436f6fd",
+      "evidence_files": []
+    },
+    {
+      "id": "LOT-00.3",
+      "name": "Repository & Scaffold Cleanup",
+      "status": "COMPLETE",
+      "merge_sha": "ca4643709e2ba06e38cc3c1f4deee4c6f7556c22",
+      "evidence_files": [
+        "docs/audits/2026-09-09_LOT_00_3_PLACEHOLDER_INVENTORY.md",
+        "docs/audits/2026-09-09_LOT_00_3_VALIDATION.md"
+      ]
+    },
+    {
+      "id": "LOT-00.4",
+      "name": "Engineering Safety",
+      "status": "COMPLETE",
+      "merge_sha": "04b74303e08e7695cd096a30b20064171ac73358",
+      "evidence_files": [
+        "docs/audits/2026-09-09_LOT_00_4_ENGINEERING_SAFETY_VALIDATION.md"
+      ]
+    },
+    {
+      "id": "LOT-00.5",
+      "name": "Bootstrap Test Suite",
+      "status": "COMPLETE",
+      "merge_sha": "7bcc0aa20d0c94c00abfe26f7798032a6f49afbd",
+      "evidence_files": [
+        "docs/audits/2026-09-09_LOT_00_5_BOOTSTRAP_TEST_SUITE_VALIDATION.md"
+      ]
+    },
+    {
+      "id": "LOT-00.6",
+      "name": "CI Hardening",
+      "status": "COMPLETE",
+      "merge_sha": "438d5106a6e78f0927d1b29e665f1b7f0a1bf96c",
+      "evidence_files": [
+        "docs/audits/2026-09-09_LOT_00_6_CI_HARDENING_VALIDATION.md"
+      ]
+    },
+    {
+      "id": "LOT-00.7",
+      "name": "Release Hardening",
+      "status": "COMPLETE",
+      "merge_sha": "fd3f0b5ce750f552dc5945f1b8e978fbe89e8f20",
+      "evidence_files": [
+        "docs/audits/2026-10-02_LOT_00_7_RELEASE_HARDENING_VALIDATION.md"
+      ]
+    },
+    {
+      "id": "LOT-00.8",
+      "name": "Resources & Governance",
+      "status": "COMPLETE",
+      "merge_sha": "0507087d6d9187892240b514728c7cb895610683",
+      "evidence_files": [
+        "docs/audits/2026-10-02_LOT_00_8_RESOURCES_AND_GOVERNANCE_VALIDATION.md"
+      ]
+    },
+    {
+      "id": "LOT-00.9",
+      "name": "Final Qualification",
+      "status": "BLOCKED_EXTERNAL_CONTROL",
+      "merge_sha": null,
+      "evidence_files": [
+        "docs/audits/2026-10-02_LOT_00_9_FINAL_QUALIFICATION.md"
+      ]
+    }
+  ],
+  "repository_controls": {
+    "architecture_gate": "PASS",
+    "manifest_coherence": "PASS",
+    "ci_contract": "PASS",
+    "security_workflow": "PASS",
+    "package_qualification": "PASS",
+    "release_hardening": "PASS",
+    "resource_governance": "PASS"
+  },
+  "external_controls": {
+    "main_branch": {
+      "branch": "main",
+      "required_protection": true,
+      "observed_protected": false,
+      "required_status_checks": [
+        "Canonical CI gate",
+        "Dependency audit",
+        "Static security analysis"
+      ],
+      "required_force_push_block": true,
+      "required_deletion_block": true,
+      "observation": "GitHub branch metadata reports protected=false on 2026-10-02."
+    }
+  },
+  "blockers": [
+    {
+      "id": "MAIN_BRANCH_PROTECTION_UNENFORCED",
+      "scope": "GITHUB_SERVER_SIDE",
+      "status": "OPEN",
+      "resolution": "Enable main branch protection or an equivalent ruleset requiring pull requests, canonical CI and security checks, while blocking force pushes and branch deletion."
+    }
+  ],
+  "release_claims": {
+    "tag_created_by_lot_00_9": false,
+    "github_release_created_by_lot_00_9": false,
+    "pypi_publication_claimed_by_lot_00_9": false,
+    "stable_0_7_0_claimed_by_lot_00_9": false
+  },
+  "overall_status": "BLOCKED_EXTERNAL_CONTROL"
+}

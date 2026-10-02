@@ -6,6 +6,7 @@ from pathlib import Path
 
 import pytest
 
+from pyaccountingkit import AccountingApplication
 from pyaccountingkit.adapters.regulatory.ohada import (
     OHADAStandardRelationFilesystemAdapter,
 )
@@ -17,7 +18,6 @@ from pyaccountingkit.domain.references.standard_relations import (
     StandardRelationInferenceError,
     StandardRelationType,
 )
-from pyaccountingkit import AccountingApplication
 
 RELATIONS = (
     Path(__file__).resolve().parents[3]

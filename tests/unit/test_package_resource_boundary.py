@@ -75,5 +75,5 @@ def test_hatch_sdist_configuration_excludes_resources_and_data() -> None:
     pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
 
     assert "[tool.hatch.build.targets.sdist]" in pyproject
-    assert '"/resources"' in pyproject
-    assert '"/data"' in pyproject
+    assert '"/resources/**"' in pyproject
+    assert '"/data/**"' in pyproject

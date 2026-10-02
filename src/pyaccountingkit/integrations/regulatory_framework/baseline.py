@@ -426,13 +426,46 @@ def baseline_profiles(
                     framework_version,
                     ebnl,
                     Code.REPORTING_STRUCTURE,
-                    Status.DISCOVERED,
+                    Status.VALIDATED,
+                    evidence_refs=(
+                        "resources/regulatory-accounting-data-framework/datasets/reporting/"
+                        "ebnl_2023_v3_reporting.json",
+                        "src/pyaccountingkit/adapters/regulatory/reporting.py",
+                    ),
+                    test_suite="tests/golden/regulatory/test_ebnl_reporting_registry.py",
+                    golden_refs=("tests/golden/regulatory/test_ebnl_reporting_registry.py",),
+                    notes=(
+                        "The 3-profile/13-statement source registry is provider-readable and "
+                        "validated as metadata; line-level models remain non-executable."
+                    ),
+                ),
+                _q(
+                    framework_version,
+                    ebnl,
+                    Code.REPORTING_ACCOUNT_MAPPINGS,
+                    Status.NOT_ASSERTED,
+                    human_review_required=True,
                     evidence_refs=(
                         "resources/regulatory-accounting-data-framework/datasets/reporting/"
                         "ebnl_2023_v3_reporting.json",
                     ),
                     notes=(
-                        "Reporting artifact exists but PyAccountingKit execution is not asserted."
+                        "The EBNL registry contains no exhaustively transcribed line-to-account "
+                        "mapping set; no mapping is inferred."
+                    ),
+                ),
+                _q(
+                    framework_version,
+                    ebnl,
+                    Code.EXPORTS,
+                    Status.NOT_ASSERTED,
+                    evidence_refs=(
+                        "resources/regulatory-accounting-data-framework/datasets/reporting/"
+                        "ebnl_2023_v3_reporting.json",
+                    ),
+                    notes=(
+                        "Source policy sets automatic_filing_generation=false and requires visual "
+                        "template verification; no EBNL filing renderer is qualified."
                     ),
                 ),
                 _q(

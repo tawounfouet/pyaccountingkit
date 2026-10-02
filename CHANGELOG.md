@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Governance
+- Added a machine-readable LOT-00 remediation closure record covering LOT-00.1 through LOT-00.9.
+- Added fail-closed validation preventing LOT-00 from being marked complete while GitHub reports
+  the `main` branch as unprotected.
+- Recorded the post-LOT-00.8 `main` CI/Security baseline without creating a tag, package
+  publication or stable `0.7.0` claim.
+
+
 ## [0.7.0b1] - 2026-10-02
 
 ### Added

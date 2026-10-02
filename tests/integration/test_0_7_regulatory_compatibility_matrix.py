@@ -8,6 +8,9 @@ import sys
 from pathlib import Path
 
 from pyaccountingkit.integrations.regulatory_framework import (
+    RegulatoryCapabilityCode as Code,
+)
+from pyaccountingkit.integrations.regulatory_framework import (
     RegulatoryCapabilityStatus as Status,
 )
 from pyaccountingkit.integrations.regulatory_framework import (
@@ -43,8 +46,8 @@ def test_unintegrated_standards_are_not_promoted_to_production() -> None:
 def test_nonprofit_effective_plan_and_snapshots_are_production_qualified() -> None:
     profiles = {profile.standard_ref: profile for profile in baseline_profiles("0.7.0a2")}
     assert profiles["fr-nonprofit:2026"].production_qualified_capabilities == (
-        profiles["fr-nonprofit:2026"].capabilities[0].capability_code,
-        profiles["fr-nonprofit:2026"].capabilities[-1].capability_code,
+        Code.EFFECTIVE_PLAN,
+        Code.SNAPSHOTS,
     )
 
 

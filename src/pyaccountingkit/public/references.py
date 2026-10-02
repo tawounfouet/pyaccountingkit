@@ -67,4 +67,45 @@ class ReferencesAPI(PublicNamespace):
         return self._invoke("create_snapshot", context=context, **parameters)
 
 
+    def relations_for(
+        self,
+        *,
+        context: CommandContext | None = None,
+        **parameters: object,
+    ) -> object:
+        """Execute the explicit `references.relations_for` public operation."""
+        return self._invoke("relations_for", context=context, **parameters)
+
+    def require_not_forbidden(
+        self,
+        *,
+        context: CommandContext | None = None,
+        **parameters: object,
+    ) -> object:
+        """Execute the explicit `references.require_not_forbidden` guard."""
+        return self._invoke("require_not_forbidden", context=context, **parameters)
+
+    def require_auto_inference_allowed(
+        self,
+        *,
+        context: CommandContext | None = None,
+        **parameters: object,
+    ) -> object:
+        """Execute the explicit `references.require_auto_inference_allowed` guard."""
+        return self._invoke(
+            "require_auto_inference_allowed",
+            context=context,
+            **parameters,
+        )
+
+    def can_auto_infer(
+        self,
+        *,
+        context: CommandContext | None = None,
+        **parameters: object,
+    ) -> object:
+        """Execute the explicit `references.can_auto_infer` public operation."""
+        return self._invoke("can_auto_infer", context=context, **parameters)
+
+
 __all__ = ["ReferencesAPI"]

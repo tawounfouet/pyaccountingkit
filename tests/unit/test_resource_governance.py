@@ -33,22 +33,14 @@ def _registry() -> dict[str, object]:
 def _stored_tree_lookup(data: dict[str, object]):
     bundles = data["bundles"]
     assert isinstance(bundles, list)
-    mapping = {
-        bundle["path"]: bundle["tree_sha"]
-        for bundle in bundles
-        if isinstance(bundle, dict)
-    }
+    mapping = {bundle["path"]: bundle["tree_sha"] for bundle in bundles if isinstance(bundle, dict)}
     return lambda path: str(mapping[path])
 
 
 def _resource_paths(data: dict[str, object]) -> set[str]:
     bundles = data["bundles"]
     assert isinstance(bundles, list)
-    return {
-        str(bundle["path"])
-        for bundle in bundles
-        if isinstance(bundle, dict)
-    }
+    return {str(bundle["path"]) for bundle in bundles if isinstance(bundle, dict)}
 
 
 def test_current_resource_governance_is_valid() -> None:
@@ -103,8 +95,7 @@ def test_third_party_bundle_cannot_claim_project_mit_status() -> None:
     regulatory = next(
         bundle
         for bundle in bundles
-        if isinstance(bundle, dict)
-        and bundle.get("id") == "regulatory-accounting-data-framework"
+        if isinstance(bundle, dict) and bundle.get("id") == "regulatory-accounting-data-framework"
     )
     regulatory["rights_status"] = "MIT"
 

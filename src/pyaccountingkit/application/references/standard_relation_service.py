@@ -25,7 +25,7 @@ class StandardRelationService:
         del context
         return self._provider.relations_for(subject_ref, relation_type)
 
-    def require_allowed(
+    def require_not_forbidden(
         self,
         *,
         subject_ref: str,
@@ -34,7 +34,22 @@ class StandardRelationService:
         context: object | None = None,
     ) -> None:
         del context
-        self._provider.require_allowed(subject_ref, relation_type, target_ref)
+        self._provider.require_not_forbidden(subject_ref, relation_type, target_ref)
+
+    def require_auto_inference_allowed(
+        self,
+        *,
+        subject_ref: str,
+        relation_type: StandardRelationType,
+        target_ref: str,
+        context: object | None = None,
+    ) -> None:
+        del context
+        self._provider.require_auto_inference_allowed(
+            subject_ref,
+            relation_type,
+            target_ref,
+        )
 
     def can_auto_infer(
         self,

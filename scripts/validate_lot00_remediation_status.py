@@ -60,7 +60,9 @@ def validate_status_data(data: object, *, root: Path = ROOT) -> list[str]:
 
     version = data.get("qualified_repository_version")
     if not isinstance(version, str) or _VERSION_RE.fullmatch(version) is None:
-        violations.append("qualified_repository_version must be a canonical prerelease/stable version")
+        violations.append(
+            "qualified_repository_version must be a canonical prerelease/stable version"
+        )
 
     baseline = data.get("baseline_main")
     if not isinstance(baseline, dict):
@@ -191,8 +193,14 @@ def validate_status_data(data: object, *, root: Path = ROOT) -> list[str]:
             violations.append("LOT-00.9 must be BLOCKED_EXTERNAL_CONTROL while main is unprotected")
     elif observed_protected is True:
         if "MAIN_BRANCH_PROTECTION_UNENFORCED" in blocker_ids:
-            violations.append("branch-protection blocker must be closed when protection is observed true")
-        if overall == "COMPLETE" and final_lot is not None and final_lot.get("status") != "COMPLETE":
+            violations.append(
+                "branch-protection blocker must be closed when protection is observed true"
+            )
+        if (
+            overall == "COMPLETE"
+            and final_lot is not None
+            and final_lot.get("status") != "COMPLETE"
+        ):
             violations.append("LOT-00.9 must be COMPLETE when overall_status is COMPLETE")
     else:
         violations.append("external_controls.main_branch.observed_protected must be boolean")

@@ -18,7 +18,7 @@ from pyaccountingkit.integrations.regulatory_framework.qualification import (
 PROVIDER_ID = "regulatory-accounting-data-framework"
 PROVIDER_VERSION = "0.7.1"
 DATASET_RELEASE = "0.7.1"
-QUALIFIED_AT = "2026-10-01T18:00:00Z"
+QUALIFIED_AT = "2026-10-02T07:45:00Z"
 REVIEWER = "PyAccountingKit LOT-27 canonical CI"
 
 
@@ -247,14 +247,21 @@ def baseline_profiles(
                     framework_version,
                     nonprofit,
                     Code.EFFECTIVE_PLAN,
-                    Status.VALIDATED,
+                    Status.PRODUCTION_QUALIFIED,
                     evidence_refs=(
                         "resources/regulatory-accounting-data-framework/datasets/structured/"
                         "nonprofit_2026_v1_effective_plan.json",
-                        "resources/regulatory-accounting-data-framework/PROJECT_MANIFEST.json",
+                        "src/pyaccountingkit/adapters/regulatory/nonprofit.py",
                     ),
-                    notes="Effective plan is validated upstream but not yet a production provider "
-                    "capability in PyAccountingKit.",
+                    executable=True,
+                    test_suite="tests/golden/regulatory/test_nonprofit_effective_plan.py",
+                    golden_refs=("tests/golden/regulatory/test_nonprofit_effective_plan.py",),
+                    reviewer=REVIEWER,
+                    qualified_at=QUALIFIED_AT,
+                    notes=(
+                        "Provider consumes the upstream resolved effective plan directly without "
+                        "replaying PCG plus overlays."
+                    ),
                 ),
                 _q(
                     framework_version,
@@ -264,8 +271,14 @@ def baseline_profiles(
                     evidence_refs=(
                         "resources/regulatory-accounting-data-framework/datasets/structured/"
                         "nonprofit_2026_v1_account_overlay.json",
+                        "src/pyaccountingkit/adapters/regulatory/nonprofit.py",
                     ),
-                    notes="Overlay provenance is available; automatic chart mutation is forbidden.",
+                    test_suite="tests/golden/regulatory/test_nonprofit_effective_plan.py",
+                    golden_refs=("tests/golden/regulatory/test_nonprofit_effective_plan.py",),
+                    notes=(
+                        "Overlay provenance is provider-readable for audit and explanation only; "
+                        "automatic chart mutation remains forbidden."
+                    ),
                 ),
                 _q(
                     framework_version,
@@ -294,8 +307,17 @@ def baseline_profiles(
                     framework_version,
                     nonprofit,
                     Code.SNAPSHOTS,
-                    Status.NOT_ASSERTED,
-                    notes="No production-qualified PyAccountingKit provider exists yet.",
+                    Status.PRODUCTION_QUALIFIED,
+                    evidence_refs=(
+                        "src/pyaccountingkit/domain/references/snapshots.py",
+                        "src/pyaccountingkit/adapters/regulatory/nonprofit.py",
+                    ),
+                    executable=True,
+                    test_suite="tests/golden/regulatory/test_nonprofit_effective_plan.py",
+                    golden_refs=("tests/golden/regulatory/test_nonprofit_effective_plan.py",),
+                    reviewer=REVIEWER,
+                    qualified_at=QUALIFIED_AT,
+                    notes="Resolved effective-plan snapshots are deterministic and replayable.",
                 ),
             ),
         ),

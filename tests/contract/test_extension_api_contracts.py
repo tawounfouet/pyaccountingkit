@@ -18,6 +18,7 @@ from pyaccountingkit.public.protocols import (
     SUPPORTED_ADAPTER_CONTRACT_VERSIONS,
     AccountingReferenceProviderProtocol,
     AdapterContractVersion,
+    EffectivePlanReferenceProviderProtocol,
     RegulatoryExporterProtocol,
     RegulatoryRendererProtocol,
     RuntimeCapabilities,
@@ -36,6 +37,7 @@ def test_extension_api_is_separate_from_root_user_api() -> None:
         "AdapterContractVersion",
         "UnitOfWorkFactoryProtocol",
         "AccountingReferenceProviderProtocol",
+        "EffectivePlanReferenceProviderProtocol",
         "RegulatoryRendererProtocol",
         "RegulatoryExporterProtocol",
     }
@@ -50,6 +52,7 @@ def test_extension_api_symbol_list_is_explicit() -> None:
         "SUPPORTED_ADAPTER_CONTRACT_VERSIONS",
         "AccountingReferenceProviderProtocol",
         "AdapterContractVersion",
+        "EffectivePlanReferenceProviderProtocol",
         "RegulatoryExporterProtocol",
         "RegulatoryRendererProtocol",
         "RuntimeCapabilities",
@@ -117,6 +120,10 @@ def test_public_protocols_are_framework_neutral_types() -> None:
     assert UnitOfWorkFactoryProtocol.__module__ == "pyaccountingkit.public.protocols.unit_of_work"
     assert (
         AccountingReferenceProviderProtocol.__module__
+        == "pyaccountingkit.public.protocols.references"
+    )
+    assert (
+        EffectivePlanReferenceProviderProtocol.__module__
         == "pyaccountingkit.public.protocols.references"
     )
     assert RegulatoryRendererProtocol.__module__ == "pyaccountingkit.public.protocols.reporting"

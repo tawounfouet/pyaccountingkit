@@ -46,6 +46,16 @@ DEFAULT_FULL_CAPABILITIES = ReferenceCapabilitySet(
     )
 )
 
+EBNL_STRUCTURE_CAPABILITIES = ReferenceCapabilitySet(
+    frozenset(
+        {
+            ReferenceCapability.NODE_LOOKUP,
+            ReferenceCapability.HIERARCHY,
+            ReferenceCapability.SNAPSHOTS,
+        }
+    )
+)
+
 NONPROFIT_EFFECTIVE_CAPABILITIES = ReferenceCapabilitySet(
     frozenset(
         {
@@ -60,5 +70,6 @@ __all__ = [
     "ReferenceCapability",
     "ReferenceCapabilitySet",
     "DEFAULT_FULL_CAPABILITIES",
+    "EBNL_STRUCTURE_CAPABILITIES",
     "NONPROFIT_EFFECTIVE_CAPABILITIES",
 ]

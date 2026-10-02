@@ -49,7 +49,14 @@ class StandardRelationProviderProtocol(Protocol):
         relation_type: StandardRelationType | None = None,
     ) -> tuple[StandardRelation, ...]: ...
 
-    def require_allowed(
+    def require_not_forbidden(
+        self,
+        subject_ref: str,
+        relation_type: StandardRelationType,
+        target_ref: str,
+    ) -> None: ...
+
+    def require_auto_inference_allowed(
         self,
         subject_ref: str,
         relation_type: StandardRelationType,

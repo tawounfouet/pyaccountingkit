@@ -96,7 +96,9 @@
       "name": "Final Qualification",
       "status": "BLOCKED_EXTERNAL_CONTROL",
       "merge_sha": null,
-      "evidence_files": []
+      "evidence_files": [
+        "docs/audits/2026-10-02_LOT_00_9_FINAL_QUALIFICATION.md"
+      ]
     }
   ],
   "repository_controls": {

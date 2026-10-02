@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0a3] - 2026-10-02
+
+### Added
+- `OHADA_EBNL` standard type and explicit `class_scope` reference-node type.
+- `EBNLFilesystemReferenceAdapter` over the reviewed 1,145-node OHADA EBNL 2023 graph.
+- `StandardRelation`, `StandardRelationRegister` and source-backed relation evidence model.
+- `ForbiddenStandardRelation` and typed fail-closed inference guards.
+- `OHADAStandardRelationFilesystemAdapter` for the canonical OHADA family relation dataset.
+- Public additive `StandardRelationProviderProtocol`.
+- `StandardRelationService` delegation through the public references namespace.
+- Golden qualification for EBNL class-9 scopes, duplicate source code `4555`, OHADA family
+  relations and negative constraints.
+
+### Qualified in this slice
+- `ohada-ebnl:2023 / STRUCTURE`: `PRODUCTION_QUALIFIED`.
+- `ohada-ebnl:2023 / SNAPSHOTS`: `PRODUCTION_QUALIFIED`.
+- OHADA family `RELATIONS` for SYSCOHADA, EBNL and PCEMF:
+  `PRODUCTION_QUALIFIED`.
+- EBNL/PCEMF inheritance guards remain `FORBIDDEN_INFERENCE` with runtime enforcement.
+
+### Safety
+- The duplicated EBNL code `4555` is never collapsed or guessed by code lookup.
+- `class_scope` nodes are preserved explicitly for the two class-9 scopes.
+- `non-forbidden` never means `auto-inferable`.
+- EBNL/SYSCOHADA crosswalk evidence remains `REVIEW_REQUIRED`.
+- PCEMF structure remains `NOT_ASSERTED`.
+- EBNL reporting remains outside production qualification.
+
 ## [0.7.0a2] - 2026-10-02
 
 ### Added

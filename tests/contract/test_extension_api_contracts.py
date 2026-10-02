@@ -130,8 +130,7 @@ def test_public_protocols_are_framework_neutral_types() -> None:
         == "pyaccountingkit.public.protocols.references"
     )
     assert (
-        StandardRelationProviderProtocol.__module__
-        == "pyaccountingkit.public.protocols.references"
+        StandardRelationProviderProtocol.__module__ == "pyaccountingkit.public.protocols.references"
     )
     assert RegulatoryRendererProtocol.__module__ == "pyaccountingkit.public.protocols.reporting"
     assert RegulatoryExporterProtocol.__module__ == "pyaccountingkit.public.protocols.reporting"

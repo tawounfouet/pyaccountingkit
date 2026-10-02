@@ -167,9 +167,7 @@ def validate_registry_data(
                 violations.append(str(exc))
             else:
                 if actual_tree != expected_tree:
-                    violations.append(
-                        f"{path}: tree SHA drifted: {actual_tree} != {expected_tree}"
-                    )
+                    violations.append(f"{path}: tree SHA drifted: {actual_tree} != {expected_tree}")
 
         manifest_path = bundle.get("manifest_path")
         if not isinstance(manifest_path, str):
@@ -193,13 +191,11 @@ def validate_registry_data(
         expected_version = bundle.get("manifest_version")
         if manifest.get("project") != expected_project:
             violations.append(
-                f"{manifest_path}: project {manifest.get('project')!r} "
-                f"!= {expected_project!r}"
+                f"{manifest_path}: project {manifest.get('project')!r} != {expected_project!r}"
             )
         if manifest.get("version") != expected_version:
             violations.append(
-                f"{manifest_path}: version {manifest.get('version')!r} "
-                f"!= {expected_version!r}"
+                f"{manifest_path}: version {manifest.get('version')!r} != {expected_version!r}"
             )
 
     missing = sorted(resource_directories - seen_paths)
@@ -253,10 +249,7 @@ def main() -> int:
     print("Resource governance validation: PASS")
     print(f"Governed resource bundles: {len(bundles)}")
     for bundle in bundles:
-        print(
-            f"- {bundle['id']}: {bundle['manifest_version']} "
-            f"[{bundle['rights_status']}]"
-        )
+        print(f"- {bundle['id']}: {bundle['manifest_version']} [{bundle['rights_status']}]")
     print("Wheel inclusion: FORBIDDEN")
     print("Runtime dependency: FORBIDDEN")
     return 0

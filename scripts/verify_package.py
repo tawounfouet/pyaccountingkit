@@ -98,6 +98,7 @@ def verify_sdist(sdist: Path, version: str) -> None:
         "pyproject.toml",
         "README.md",
         "LICENSE",
+        "THIRD_PARTY_NOTICES.md",
         "src/pyaccountingkit/__init__.py",
         "src/pyaccountingkit/py.typed",
     }
@@ -106,6 +107,14 @@ def verify_sdist(sdist: Path, version: str) -> None:
     missing = sorted(item for item in required_suffixes if prefix + item not in names)
     if missing:
         raise VerificationError(f"sdist missing required files: {missing}")
+
+    forbidden_prefixes = (
+        prefix + "resources/",
+        prefix + "data/",
+    )
+    leaked = sorted(name for name in names if name.startswith(forbidden_prefixes))
+    if leaked:
+        raise VerificationError(f"sdist contains repository-only content: {leaked[:10]}")
 
 
 def verify_isolated_import(wheel: Path, expected_version: str) -> None:

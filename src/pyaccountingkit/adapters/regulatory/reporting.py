@@ -48,13 +48,13 @@ class EBNLReportingRegistryAdapter:
 
     def _profile(self, payload: dict[str, object]) -> ReportingProfileDescriptor:
         legal_basis = payload["legal_basis"]
-        assert isinstance(legal_basis, dict)
+        if not isinstance(legal_basis, dict):\n            raise ValueError("reporting profile legal_basis must be an object")
         source = payload["source"]
-        assert isinstance(source, dict)
+        if not isinstance(source, dict):\n            raise ValueError("reporting profile source must be an object")
         statements = payload["statements"]
-        assert isinstance(statements, list)
+        if not isinstance(statements, list):\n            raise ValueError("reporting profile statements must be a list")
         thresholds = payload.get("eligibility_thresholds", [])
-        assert isinstance(thresholds, list)
+        if not isinstance(thresholds, list):\n            raise ValueError("reporting profile eligibility_thresholds must be a list")
         return ReportingProfileDescriptor(
             profile_id=str(payload["profile_id"]),
             label_source=str(payload["label_source"]),
@@ -76,7 +76,7 @@ class EBNLReportingRegistryAdapter:
 
     def _statement(self, payload: dict[str, object]) -> ReportingStatementDescriptor:
         source = payload["source"]
-        assert isinstance(source, dict)
+        if not isinstance(source, dict):\n            raise ValueError("reporting statement source must be an object")
         raw_range = payload.get("source_range")
         source_range = tuple(raw_range) if isinstance(raw_range, list) else None
         return ReportingStatementDescriptor(

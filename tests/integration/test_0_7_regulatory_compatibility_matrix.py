@@ -44,9 +44,7 @@ def test_ebnl_and_ohada_relation_capabilities_are_promoted_narrowly() -> None:
         Code.RELATIONS,
         Code.SNAPSHOTS,
     )
-    assert profiles["cemac-pcemf:2010"].production_qualified_capabilities == (
-        Code.RELATIONS,
-    )
+    assert profiles["cemac-pcemf:2010"].production_qualified_capabilities == (Code.RELATIONS,)
 
     pcemf = profiles["cemac-pcemf:2010"]
     assert pcemf.qualification_for(Code.STRUCTURE).status is Status.NOT_ASSERTED

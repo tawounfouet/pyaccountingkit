@@ -209,7 +209,14 @@ def validate_registry_data(
     if extra:
         violations.append(f"governance entries without resource directories: {extra}")
 
-    for required_file in ("LICENSE", "THIRD_PARTY_NOTICES.md", "resources/README.md"):
+    for required_file in (
+        "LICENSE",
+        "THIRD_PARTY_NOTICES.md",
+        "GOVERNANCE.md",
+        "resources/README.md",
+        ".github/CODEOWNERS",
+        ".github/pull_request_template.md",
+    ):
         if not (root / required_file).is_file():
             violations.append(f"required governance file missing: {required_file}")
 

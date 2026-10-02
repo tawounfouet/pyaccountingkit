@@ -230,6 +230,23 @@
     },
     {
       "capabilities": {
+        "CONCEPT_BINDINGS": {
+          "auto_inference_allowed": false,
+          "capability": "CONCEPT_BINDINGS",
+          "dataset_release": "0.7.1",
+          "evidence_refs": [],
+          "executable": false,
+          "framework_version": "0.7.0b2",
+          "golden_refs": [],
+          "human_review_required": false,
+          "notes": "No standard-specific concept binding is inferred.",
+          "provider_version": "0.7.1",
+          "qualified_at": null,
+          "reviewer": null,
+          "status": "NOT_ASSERTED",
+          "support_level": "NOT_ASSERTED",
+          "test_suite": null
+        },
         "CONCEPTS": {
           "auto_inference_allowed": false,
           "capability": "CONCEPTS",
@@ -247,23 +264,6 @@
           "reviewer": null,
           "status": "VALIDATED",
           "support_level": "REFERENCE_VALIDATED",
-          "test_suite": null
-        },
-        "CONCEPT_BINDINGS": {
-          "auto_inference_allowed": false,
-          "capability": "CONCEPT_BINDINGS",
-          "dataset_release": "0.7.1",
-          "evidence_refs": [],
-          "executable": false,
-          "framework_version": "0.7.0b2",
-          "golden_refs": [],
-          "human_review_required": false,
-          "notes": "No standard-specific concept binding is inferred.",
-          "provider_version": "0.7.1",
-          "qualified_at": null,
-          "reviewer": null,
-          "status": "NOT_ASSERTED",
-          "support_level": "NOT_ASSERTED",
           "test_suite": null
         },
         "REPORTING_ACCOUNT_MAPPINGS": {
@@ -399,6 +399,25 @@
           "support_level": "REVIEW_REQUIRED",
           "test_suite": null
         },
+        "EXPORTS": {
+          "auto_inference_allowed": false,
+          "capability": "EXPORTS",
+          "dataset_release": "0.7.1",
+          "evidence_refs": [
+            "resources/regulatory-accounting-data-framework/datasets/reporting/ebnl_2023_v3_reporting.json"
+          ],
+          "executable": false,
+          "framework_version": "0.7.0b2",
+          "golden_refs": [],
+          "human_review_required": false,
+          "notes": "Source policy sets automatic_filing_generation=false and requires visual template verification; no EBNL filing renderer is qualified.",
+          "provider_version": "0.7.1",
+          "qualified_at": null,
+          "reviewer": null,
+          "status": "NOT_ASSERTED",
+          "support_level": "NOT_ASSERTED",
+          "test_suite": null
+        },
         "NEGATIVE_CONSTRAINTS": {
           "auto_inference_allowed": false,
           "capability": "NEGATIVE_CONSTRAINTS",
@@ -444,9 +463,9 @@
           "support_level": "PRODUCTION_QUALIFIED",
           "test_suite": "tests/golden/regulatory/test_ohada_standard_relations.py"
         },
-        "REPORTING_STRUCTURE": {
+        "REPORTING_ACCOUNT_MAPPINGS": {
           "auto_inference_allowed": false,
-          "capability": "REPORTING_STRUCTURE",
+          "capability": "REPORTING_ACCOUNT_MAPPINGS",
           "dataset_release": "0.7.1",
           "evidence_refs": [
             "resources/regulatory-accounting-data-framework/datasets/reporting/ebnl_2023_v3_reporting.json"
@@ -454,14 +473,36 @@
           "executable": false,
           "framework_version": "0.7.0b2",
           "golden_refs": [],
-          "human_review_required": false,
-          "notes": "Reporting artifact exists but PyAccountingKit execution is not asserted.",
+          "human_review_required": true,
+          "notes": "The EBNL registry contains no exhaustively transcribed line-to-account mapping set; no mapping is inferred.",
           "provider_version": "0.7.1",
           "qualified_at": null,
           "reviewer": null,
-          "status": "DISCOVERED",
-          "support_level": "DISCOVERED",
+          "status": "NOT_ASSERTED",
+          "support_level": "NOT_ASSERTED",
           "test_suite": null
+        },
+        "REPORTING_STRUCTURE": {
+          "auto_inference_allowed": false,
+          "capability": "REPORTING_STRUCTURE",
+          "dataset_release": "0.7.1",
+          "evidence_refs": [
+            "resources/regulatory-accounting-data-framework/datasets/reporting/ebnl_2023_v3_reporting.json",
+            "src/pyaccountingkit/adapters/regulatory/reporting.py"
+          ],
+          "executable": false,
+          "framework_version": "0.7.0b2",
+          "golden_refs": [
+            "tests/golden/regulatory/test_ebnl_reporting_registry.py"
+          ],
+          "human_review_required": false,
+          "notes": "The 3-profile/13-statement source registry is provider-readable and validated as metadata; line-level models remain non-executable.",
+          "provider_version": "0.7.1",
+          "qualified_at": null,
+          "reviewer": null,
+          "status": "VALIDATED",
+          "support_level": "REFERENCE_VALIDATED",
+          "test_suite": "tests/golden/regulatory/test_ebnl_reporting_registry.py"
         },
         "SNAPSHOTS": {
           "auto_inference_allowed": false,

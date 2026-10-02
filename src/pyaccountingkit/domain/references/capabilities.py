@@ -1,4 +1,4 @@
-"""Reference capabilities — declared provider features (LOT-10)."""
+"""Reference capabilities — declared provider features (LOT-10 / LOT-27)."""
 
 from __future__ import annotations
 
@@ -13,6 +13,8 @@ class ReferenceCapability(StrEnum):
     CROSSWALKS = "CROSSWALKS"
     NEGATIVE_CONSTRAINTS = "NEGATIVE_CONSTRAINTS"
     CONCEPTS = "CONCEPTS"
+    EFFECTIVE_PLAN = "EFFECTIVE_PLAN"
+    OVERLAYS = "OVERLAYS"
 
 
 @dataclass(frozen=True, slots=True)
@@ -31,10 +33,32 @@ class ReferenceCapabilitySet:
         return ReferenceCapabilitySet(self.capabilities & other.capabilities)
 
 
-DEFAULT_FULL_CAPABILITIES = ReferenceCapabilitySet(frozenset(ReferenceCapability))
+DEFAULT_FULL_CAPABILITIES = ReferenceCapabilitySet(
+    frozenset(
+        {
+            ReferenceCapability.NODE_LOOKUP,
+            ReferenceCapability.HIERARCHY,
+            ReferenceCapability.SNAPSHOTS,
+            ReferenceCapability.CROSSWALKS,
+            ReferenceCapability.NEGATIVE_CONSTRAINTS,
+            ReferenceCapability.CONCEPTS,
+        }
+    )
+)
+
+NONPROFIT_EFFECTIVE_CAPABILITIES = ReferenceCapabilitySet(
+    frozenset(
+        {
+            ReferenceCapability.EFFECTIVE_PLAN,
+            ReferenceCapability.OVERLAYS,
+            ReferenceCapability.SNAPSHOTS,
+        }
+    )
+)
 
 __all__ = [
     "ReferenceCapability",
     "ReferenceCapabilitySet",
     "DEFAULT_FULL_CAPABILITIES",
+    "NONPROFIT_EFFECTIVE_CAPABILITIES",
 ]

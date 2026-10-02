@@ -1,4 +1,4 @@
-"""Reference snapshots — sealed, replayable captures of a standard (LOT-10)."""
+"""Reference snapshots — sealed, replayable regulatory captures."""
 
 from __future__ import annotations
 
@@ -6,13 +6,14 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
+from pyaccountingkit.domain.references.effective_plan import EffectiveAccountPlan
 from pyaccountingkit.domain.references.hierarchy import ReferenceHierarchy, ReferenceNode
 from pyaccountingkit.domain.traceability.trace import CanonicalHasher
 
 
 @dataclass(frozen=True, slots=True)
 class ReferenceSnapshot:
-    """Immutable, checksummed capture of one standard edition."""
+    """Immutable, checksummed capture of one structural standard edition."""
 
     standard_id: str
     edition: str
@@ -45,7 +46,6 @@ class ReferenceSnapshot:
         )
 
     def replay(self) -> ReferenceHierarchy:
-        """Deterministically rebuild the source hierarchy from the snapshot."""
         return ReferenceHierarchy(
             standard_id=self.standard_id,
             edition=self.edition,
@@ -53,7 +53,6 @@ class ReferenceSnapshot:
         )
 
     def verify(self) -> bool:
-        """Recompute the checksum; `captured_at` is intentionally excluded."""
         digest = self._digest(self.standard_id, self.edition, self.version, self.nodes)
         return digest == self.checksum
 
@@ -87,10 +86,56 @@ class ReferenceSnapshot:
         return CanonicalHasher.digest(payload)
 
 
+@dataclass(frozen=True, slots=True)
+class EffectivePlanSnapshot:
+    """Immutable snapshot of a provider-resolved effective account plan."""
+
+    standard_id: str
+    edition: str
+    version: str
+    checksum: str
+    captured_at: datetime
+    plan: EffectiveAccountPlan
+
+    @classmethod
+    def seal(
+        cls,
+        plan: EffectiveAccountPlan,
+        version: str,
+        captured_at: datetime,
+    ) -> EffectivePlanSnapshot:
+        if not version.strip():
+            raise ValueError("effective-plan snapshot version must be non-empty")
+        checksum = cls._digest(plan, version)
+        return cls(
+            standard_id=plan.standard_id,
+            edition=plan.edition,
+            version=version,
+            checksum=checksum,
+            captured_at=captured_at,
+            plan=plan,
+        )
+
+    def replay(self) -> EffectiveAccountPlan:
+        return self.plan
+
+    def verify(self) -> bool:
+        return self._digest(self.plan, self.version) == self.checksum
+
+    @staticmethod
+    def _digest(plan: EffectiveAccountPlan, version: str) -> str:
+        return CanonicalHasher.digest(
+            {
+                "version": version,
+                "plan": plan.canonical_payload(),
+            }
+        )
+
+
 def _stringify(value: object) -> str:
     if value is None:
         return "null"
     return str(value)
 
 
-__all__ = ["ReferenceSnapshot"]
+__all__ = ["EffectivePlanSnapshot", "ReferenceSnapshot"]

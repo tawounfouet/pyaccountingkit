@@ -10,7 +10,7 @@ Chaque plan correspond à un jalon de release sémantique clair, définit les lo
 
 | Plan | Intitulé & Périmètre | Lots Couverts | Release Cible | Statut & Prérequis |
 | :--- | :--- | :--- | :--- | :--- |
-| [`PLAN-00`](PLAN-00_REPOSITORY_BOOTSTRAP_0.0.1.md) | **Bootstrap du Repository & Outillage CI/CD** | `LOT-00` | `0.0.1` | Fondations techniques (G0) |
+| [`PLAN-00`](PLAN-00_REPOSITORY_BOOTSTRAP_0.0.1.md) | **Bootstrap du Repository & Outillage CI/CD** | `LOT-00` | `0.0.1` | Repository qualifié ; clôture `BLOCKED_EXTERNAL_CONTROL` sur protection de `main` |
 | [`PLAN-01`](PLAN-01_ACCOUNTING_CORE_0.1.0.md) | **Moteur Comptable Central & Invariants** | `LOT-01..09` | `0.1.0` | Prérequis : PLAN-00 |
 | [`PLAN-02`](PLAN-02_REFERENCES_CHARTS_POLICIES_0.2.0.md) | **Référentiels, Plans Comptables & Policies** | `LOT-10..13` | `0.2.0` | Prérequis : PLAN-01 |
 | [`PLAN-03`](PLAN-03_IMPORTS_REPORTING_0.3.0.md) | **Ingestion, FEC & États Financiers** | `LOT-14..17` | `0.3.0` | Prérequis : PLAN-01, PLAN-02 |

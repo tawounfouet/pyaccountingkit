@@ -10,7 +10,7 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit **0.7.0a2** is the LOT-27 France Non-Profit Effective Plan alpha.
+PyAccountingKit **0.7.0a3** is the LOT-27 OHADA EBNL and Standard Relations alpha.
 
 LOT-26 turns the frozen LOT-25 CFA FRA behavioral baseline into an executable
 migration boundary. The temporary `CFAFRACompatibilityAdapter` lets the Django
@@ -27,6 +27,13 @@ provider. PyAccountingKit consumes the upstream resolved 901-account plan direct
 replaying PCG plus 116 overlay deltas. Those deltas remain readable as source-backed audit and
 explanation evidence only. Effective-plan snapshots are deterministic and replayable; reporting
 account mappings remain `REVIEW_REQUIRED` and non-executable.
+
+The `0.7.0a3` slice production-qualifies the reviewed OHADA EBNL 2023 structure
+without collapsing source ambiguity. The 1,145-node graph preserves two explicit class-9 scopes
+and the duplicated source code `4555` as two occurrence identities. A dedicated OHADA relation
+provider exposes only source-declared standard-family edges and a fail-closed negative-constraint
+runtime. In particular, EBNL 2023 and PCEMF 2010 cannot be inferred to inherit from SYSCOHADA
+2017, and no relation becomes auto-inferable unless the corpus explicitly allows it.
 
 LOT-25 remains the behavioral oracle baseline and executes normalized golden parity for:
 
@@ -50,7 +57,7 @@ mode rather than a generic posting bypass.
 
 The stable **0.5.0** public facade, adapter contract v1 and the independently
 Production-qualified Django/PostgreSQL and SQLAlchemy/PostgreSQL adapters remain
-the compatibility baseline. **0.7.0a2 is still pre-1.0**. LOT-27 regulatory production
+the compatibility baseline. **0.7.0a3 is still pre-1.0**. LOT-27 regulatory production
 qualification is now being developed in parallel while the external CFA FRA live-consumer work
 required to close LOT-26 remains intentionally deferred. This does not declare `0.6.0` stable.
 

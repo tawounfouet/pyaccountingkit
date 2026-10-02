@@ -103,6 +103,10 @@ class ForbiddenStandardRelationError(ValueError):
     """Raised when a caller attempts an explicitly forbidden regulatory inference."""
 
 
+class StandardRelationInferenceError(ValueError):
+    """Raised when automatic inference lacks an explicit executable relation."""
+
+
 class StandardRelationRegister:
     """Immutable query and guard surface for one regulatory standard family."""
 
@@ -172,7 +176,7 @@ class StandardRelationRegister:
                 return constraint
         return None
 
-    def require_allowed(
+    def require_not_forbidden(
         self,
         subject_ref: str,
         relation_type: StandardRelationType,
@@ -190,11 +194,24 @@ class StandardRelationRegister:
         relation_type: StandardRelationType,
         target_ref: str,
     ) -> bool:
-        self.require_allowed(subject_ref, relation_type, target_ref)
+        if self.forbidden_constraint(subject_ref, relation_type, target_ref) is not None:
+            return False
         return any(
             relation.target_ref == target_ref and relation.auto_inference_allowed
             for relation in self.relations_for(subject_ref, relation_type)
         )
+
+    def require_auto_inference_allowed(
+        self,
+        subject_ref: str,
+        relation_type: StandardRelationType,
+        target_ref: str,
+    ) -> None:
+        self.require_not_forbidden(subject_ref, relation_type, target_ref)
+        if not self.can_auto_infer(subject_ref, relation_type, target_ref):
+            raise StandardRelationInferenceError(
+                "automatic regulatory relation inference is not explicitly allowed"
+            )
 
 
 __all__ = [
@@ -203,6 +220,7 @@ __all__ = [
     "RelationEvidenceSource",
     "StandardRelation",
     "StandardRelationEvidence",
+    "StandardRelationInferenceError",
     "StandardRelationRegister",
     "StandardRelationType",
 ]

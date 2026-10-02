@@ -184,9 +184,7 @@ class StandardRelationRegister:
     ) -> None:
         constraint = self.forbidden_constraint(subject_ref, relation_type, target_ref)
         if constraint is not None:
-            raise ForbiddenStandardRelationError(
-                f"{constraint.constraint_id}: {constraint.reason}"
-            )
+            raise ForbiddenStandardRelationError(f"{constraint.constraint_id}: {constraint.reason}")
 
     def can_auto_infer(
         self,

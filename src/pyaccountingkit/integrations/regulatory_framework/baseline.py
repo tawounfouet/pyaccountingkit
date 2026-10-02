@@ -371,7 +371,10 @@ def baseline_profiles(
                     golden_refs=("tests/golden/regulatory/test_ohada_standard_relations.py",),
                     reviewer=REVIEWER,
                     qualified_at=OHADA_QUALIFIED_AT,
-                    notes="Specialization relation is queryable and remains distinct from inheritance.",
+                    notes=(
+                        "Specialization relation is queryable and remains distinct from "
+                        "inheritance."
+                    ),
                 ),
                 _q(
                     framework_version,

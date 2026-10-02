@@ -379,6 +379,12 @@ def qualify(
     )
     results.append(
         run_command(
+            [sys.executable, "scripts/validate_lot00_remediation_status.py"],
+            label="LOT-00 remediation status",
+        )
+    )
+    results.append(
+        run_command(
             [sys.executable, "-m", "ruff", "check", "src", "tests", "scripts"],
             label="Ruff lint",
         )

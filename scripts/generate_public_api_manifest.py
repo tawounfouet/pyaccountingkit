@@ -38,8 +38,9 @@ def build_payload() -> dict[str, object]:
             "note": (
                 "The 0.7 alpha line preserves the stable LOT-21..24 public facade and "
                 "adapter contract v1 while adding capability-scoped regulatory qualification. "
-                "The effective-plan provider protocol is additive; LOT-26 live CFA FRA closure "
-                "remains deferred and the full pre-1.0 Python API is not frozen yet."
+                "Effective-plan and reference-relation provider protocols are additive; "
+                "LOT-26 live CFA FRA closure remains deferred and the full pre-1.0 Python API "
+                "is not frozen yet."
             ),
         },
     }

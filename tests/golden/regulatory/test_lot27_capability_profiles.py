@@ -18,7 +18,7 @@ REGULATORY = ROOT / "resources" / "regulatory-accounting-data-framework"
 
 
 def _profiles() -> dict[str, object]:
-    return {profile.standard_ref: profile for profile in baseline_profiles("0.7.0a2")}
+    return {profile.standard_ref: profile for profile in baseline_profiles("0.7.0a3")}
 
 
 def test_baseline_profiles_cover_the_five_reviewed_standard_refs() -> None:
@@ -84,6 +84,22 @@ def test_nonprofit_effective_plan_stats_and_reporting_safety_match_source() -> N
     assert overlays.executable is False
 
 
+def test_ebnl_structure_snapshots_and_ohada_relations_are_runtime_qualified() -> None:
+    profiles = _profiles()
+
+    ebnl = profiles["ohada-ebnl:2023"]
+    assert ebnl.qualification_for(Code.STRUCTURE).status is Status.PRODUCTION_QUALIFIED
+    assert ebnl.qualification_for(Code.SNAPSHOTS).status is Status.PRODUCTION_QUALIFIED
+    assert ebnl.qualification_for(Code.RELATIONS).status is Status.PRODUCTION_QUALIFIED
+
+    syscohada = profiles["ohada-syscohada:2017"]
+    assert syscohada.qualification_for(Code.RELATIONS).status is Status.PRODUCTION_QUALIFIED
+
+    pcemf = profiles["cemac-pcemf:2010"]
+    assert pcemf.qualification_for(Code.RELATIONS).status is Status.PRODUCTION_QUALIFIED
+    assert pcemf.qualification_for(Code.STRUCTURE).status is Status.NOT_ASSERTED
+
+
 def test_ohada_negative_constraints_forbid_false_inheritance() -> None:
     relations = json.loads(
         (
@@ -116,6 +132,7 @@ def test_ohada_negative_constraints_forbid_false_inheritance() -> None:
         assert qualification.status is Status.FORBIDDEN_INFERENCE
         assert qualification.auto_inference_allowed is False
         assert qualification.executable is False
+        assert qualification.test_suite == "tests/golden/regulatory/test_ebnl_and_ohada_relations.py"
 
 
 def test_neutral_concepts_do_not_create_bindings() -> None:

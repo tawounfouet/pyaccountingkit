@@ -230,23 +230,6 @@
     },
     {
       "capabilities": {
-        "CONCEPT_BINDINGS": {
-          "auto_inference_allowed": false,
-          "capability": "CONCEPT_BINDINGS",
-          "dataset_release": "0.7.1",
-          "evidence_refs": [],
-          "executable": false,
-          "framework_version": "0.7.0b2",
-          "golden_refs": [],
-          "human_review_required": false,
-          "notes": "No standard-specific concept binding is inferred.",
-          "provider_version": "0.7.1",
-          "qualified_at": null,
-          "reviewer": null,
-          "status": "NOT_ASSERTED",
-          "support_level": "NOT_ASSERTED",
-          "test_suite": null
-        },
         "CONCEPTS": {
           "auto_inference_allowed": false,
           "capability": "CONCEPTS",
@@ -264,6 +247,23 @@
           "reviewer": null,
           "status": "VALIDATED",
           "support_level": "REFERENCE_VALIDATED",
+          "test_suite": null
+        },
+        "CONCEPT_BINDINGS": {
+          "auto_inference_allowed": false,
+          "capability": "CONCEPT_BINDINGS",
+          "dataset_release": "0.7.1",
+          "evidence_refs": [],
+          "executable": false,
+          "framework_version": "0.7.0b2",
+          "golden_refs": [],
+          "human_review_required": false,
+          "notes": "No standard-specific concept binding is inferred.",
+          "provider_version": "0.7.1",
+          "qualified_at": null,
+          "reviewer": null,
+          "status": "NOT_ASSERTED",
+          "support_level": "NOT_ASSERTED",
           "test_suite": null
         },
         "REPORTING_ACCOUNT_MAPPINGS": {

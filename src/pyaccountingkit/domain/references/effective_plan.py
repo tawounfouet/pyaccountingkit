@@ -79,7 +79,11 @@ class EffectiveAccountPlan:
     statistics: Mapping[str, int] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
-        if not self.standard_id.strip() or not self.edition.strip() or not self.base_standard.strip():
+        if (
+            not self.standard_id.strip()
+            or not self.edition.strip()
+            or not self.base_standard.strip()
+        ):
             raise ValueError("effective plan coordinates must be non-empty")
         if not self.accounts:
             raise ValueError("effective plan must contain accounts")

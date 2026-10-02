@@ -26,7 +26,7 @@ Chaque plan correspond à un jalon de release sémantique clair, définit les lo
 ## Lot actif / qualification
 
 - [`LOT-27_REGULATORY_PRODUCTION_QUALIFICATION_PLAN.md`](LOT-27_REGULATORY_PRODUCTION_QUALIFICATION_PLAN.md)
-  — LOT-27 actif en parallèle : `0.7.0a3` productionise la structure OHADA EBNL 2023,
+  — LOT-27 actif en parallèle : `0.7.0b1` productionise la structure OHADA EBNL 2023,
   les relations de famille OHADA et les gardes d'inférence négative. Les crosswalks restent
   review-only. LOT-26 reste ouvert sur ses preuves live externes sans bloquer ce travail.
 - [`LOT-26_CFA_FRA_CONSUMER_CONVERSION_AND_LEGACY_RETIREMENT_PLAN.md`](LOT-26_CFA_FRA_CONSUMER_CONVERSION_AND_LEGACY_RETIREMENT_PLAN.md)

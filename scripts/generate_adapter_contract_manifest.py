@@ -201,7 +201,7 @@ def build_payload() -> dict[str, object]:
         "explicit_edges_only": True,
         "negative_constraints_fail_closed": True,
         "auto_inference_default": False,
-        "qualification": "0.7.0a3-ohada-relations-negative-constraints",
+        "qualification": "0.7.0b1-ohada-relations-negative-constraints",
     }
     contracts["contract"] = {
         "current_version": str(ADAPTER_CONTRACT_VERSION),

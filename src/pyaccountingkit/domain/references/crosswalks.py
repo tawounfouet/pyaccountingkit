@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from enum import StrEnum
 
 from pyaccountingkit.domain.references.standards import RegulatoryId
 
@@ -67,4 +68,71 @@ def _entry_key(entry: CrosswalkEntry) -> tuple[str, str, str, str]:
     )
 
 
-__all__ = ["CrosswalkEntry", "StandardCrosswalk"]
+# LOT-27 reviewed structural candidates are deliberately distinct from executable StandardCrosswalk.
+class CrosswalkCandidateStatus(StrEnum):
+    SYSCOHADA_ONLY_CODE = "syscohada_only_code"
+    EBNL_ONLY_CODE = "ebnl_only_code"
+    SAME_CODE_LABEL_VARIATION = "same_code_label_variation"
+    SAME_CODE_SAME_NORMALIZED_LABEL = "same_code_same_normalized_label"
+    AMBIGUOUS_EBNL_SOURCE_CODE = "ambiguous_ebnl_source_code"
+
+
+@dataclass(frozen=True, slots=True)
+class CrosswalkOccurrence:
+    record_id: str
+    label: str
+    page_pdf: int
+    source_group_context: str | None = None
+
+
+@dataclass(frozen=True, slots=True)
+class StructuralCrosswalkCandidate:
+    ref_code: str
+    status: CrosswalkCandidateStatus
+    syscohada_label: str | None
+    ebnl_occurrences: tuple[CrosswalkOccurrence, ...]
+    human_review_required: bool
+    semantic_equivalence_asserted: bool
+
+    @property
+    def executable(self) -> bool:
+        return False
+
+
+@dataclass(frozen=True, slots=True)
+class ReviewedStructuralCrosswalk:
+    comparison_id: str
+    relation_type: str
+    rows: tuple[StructuralCrosswalkCandidate, ...]
+    automatic_crosswalk_approval: bool
+    human_review_required_for_semantics: bool
+    inheritance_asserted: bool
+    semantic_equivalence_from_code_equality: bool
+
+    def __post_init__(self) -> None:
+        if self.automatic_crosswalk_approval:
+            raise ValueError("structural crosswalk cannot enable automatic approval")
+        if self.inheritance_asserted or self.semantic_equivalence_from_code_equality:
+            raise ValueError("structural evidence cannot assert semantic equivalence")
+        if any(row.semantic_equivalence_asserted for row in self.rows):
+            raise ValueError("structural crosswalk rows cannot assert semantic equivalence")
+
+    def candidates_for(self, ref_code: str) -> tuple[StructuralCrosswalkCandidate, ...]:
+        return tuple(row for row in self.rows if row.ref_code == ref_code)
+
+    def require_executable_mapping(self, ref_code: str) -> None:
+        if self.candidates_for(ref_code):
+            raise PermissionError(
+                f"{ref_code!r} is a structural candidate and requires reviewed semantic evidence"
+            )
+        raise KeyError(ref_code)
+
+
+__all__ = [
+    "CrosswalkCandidateStatus",
+    "CrosswalkEntry",
+    "CrosswalkOccurrence",
+    "ReviewedStructuralCrosswalk",
+    "StandardCrosswalk",
+    "StructuralCrosswalkCandidate",
+]

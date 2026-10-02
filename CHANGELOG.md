@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0b1] - 2026-10-02
+
+### Added
+- Reviewed EBNL 2023 / SYSCOHADA 2017 structural crosswalk candidate model.
+- Canonical filesystem provider for the source-backed structural-delta dataset.
+- Explicit candidate status taxonomy and source-occurrence provenance.
+- Fail-closed boundary between reviewed structural candidates and executable `StandardCrosswalk`.
+
+### Safety
+- Same-code and same-normalized-label candidates remain non-semantic and non-executable.
+- Automatic crosswalk approval, inheritance assertion and code-equality semantic inference remain disabled.
+- PCEMF/SYSCOHADA crosswalk support remains `NOT_ASSERTED`; no missing dataset is synthesized.
+- Existing PCEMF negative constraints continue to forbid inheritance inference.
+- LOT-26 live CFA FRA evidence remains intentionally deferred.
+
 ## [0.7.0a3] - 2026-10-02
 
 ### Added

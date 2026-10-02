@@ -1,7 +1,7 @@
 # LOT-27 — Regulatory Production Qualification
 
 **Target line:** `0.7.0`  
-**Current slice:** `0.7.0a3` — OHADA EBNL structure and relation runtime  
+**Current slice:** `0.7.0b1` — reviewed structural crosswalk runtime  
 **Upstream regulatory corpus:** `regulatory-accounting-data-framework 0.7.1`
 
 ## Objective
@@ -202,13 +202,18 @@ The LOT-27 golden suite verifies:
 - zero automatic concept bindings;
 - absence of global `SUPPORTED` claims.
 
+## 0.7.0b1 scope
+
+The beta slice makes the reviewed EBNL/SYSCOHADA structural delta queryable while keeping every
+candidate outside the executable mapping path. Code equality and normalized-label equality are
+evidence for review only, never semantic equivalence.
+
+PCEMF/SYSCOHADA safety is intentionally asymmetric: the bundled corpus contains no PCEMF
+crosswalk dataset, so `CROSSWALKS` remains `NOT_ASSERTED`. Existing source-backed negative
+constraints forbid PCEMF→SYSCOHADA inheritance inference. Missing evidence is never converted
+into a candidate or executable mapping.
+
 ## Deferred slices
-
-### 0.7.0b1
-
-- reviewed crosswalk model;
-- EBNL/SYSCOHADA and PCEMF/SYSCOHADA safety;
-- candidate vs executable mapping boundary.
 
 ### 0.7.0b2
 

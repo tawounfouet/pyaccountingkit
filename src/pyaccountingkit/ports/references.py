@@ -12,6 +12,11 @@ from pyaccountingkit.domain.references.hierarchy import ReferenceHierarchy, Refe
 from pyaccountingkit.domain.references.overlays import ReferenceOverlay
 from pyaccountingkit.domain.references.relations import ConstraintRegister
 from pyaccountingkit.domain.references.snapshots import EffectivePlanSnapshot, ReferenceSnapshot
+from pyaccountingkit.domain.references.standard_relations import (
+    ReferenceNegativeConstraint,
+    ReferenceRelation,
+    ReferenceRelationType,
+)
 from pyaccountingkit.domain.references.standards import StandardType
 
 
@@ -31,6 +36,26 @@ class AccountingReferenceProviderProtocol(Protocol):
     def constraints(self, standard: StandardType) -> ConstraintRegister: ...
 
     def concept_registry(self) -> ConceptRegistry: ...
+
+
+class ReferenceRelationProviderProtocol(Protocol):
+    """Provider for explicit standard relations and negative inference constraints."""
+
+    def relations_for(self, subject_ref: str) -> Sequence[ReferenceRelation]: ...
+
+    def negative_constraints_for(
+        self,
+        subject_ref: str,
+    ) -> Sequence[ReferenceNegativeConstraint]: ...
+
+    def require_auto_inference_allowed(
+        self,
+        subject_ref: str,
+        relation_type: ReferenceRelationType,
+        target_ref: str,
+    ) -> ReferenceRelation: ...
+
+    def capabilities(self, standard_ref: str) -> ReferenceCapabilitySet: ...
 
 
 class EffectivePlanReferenceProviderProtocol(Protocol):
@@ -53,4 +78,5 @@ class EffectivePlanReferenceProviderProtocol(Protocol):
 __all__ = [
     "AccountingReferenceProviderProtocol",
     "EffectivePlanReferenceProviderProtocol",
+    "ReferenceRelationProviderProtocol",
 ]

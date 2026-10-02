@@ -10,6 +10,9 @@ from pyaccountingkit.ports.references import (
 from pyaccountingkit.ports.references import (
     EffectivePlanReferenceProviderProtocol as _InternalEffectivePlanReferenceProviderProtocol,
 )
+from pyaccountingkit.ports.references import (
+    ReferenceRelationProviderProtocol as _InternalReferenceRelationProviderProtocol,
+)
 
 
 class AccountingReferenceProviderProtocol(
@@ -17,6 +20,13 @@ class AccountingReferenceProviderProtocol(
     Protocol,
 ):
     """Stable extension surface implemented by structural reference providers."""
+
+
+class ReferenceRelationProviderProtocol(
+    _InternalReferenceRelationProviderProtocol,
+    Protocol,
+):
+    """Extension surface for explicit regulatory standard relations."""
 
 
 class EffectivePlanReferenceProviderProtocol(
@@ -29,4 +39,5 @@ class EffectivePlanReferenceProviderProtocol(
 __all__ = [
     "AccountingReferenceProviderProtocol",
     "EffectivePlanReferenceProviderProtocol",
+    "ReferenceRelationProviderProtocol",
 ]

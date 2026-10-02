@@ -17,6 +17,7 @@ class StandardType(StrEnum):
     PCG_FRANCE = "PCG_FRANCE"
     PCG_ASSOCIATIONS = "PCG_ASSOCIATIONS"
     SYSCOHADA = "SYSCOHADA"
+    OHADA_EBNL = "OHADA_EBNL"
     IFRS = "IFRS"
 
     @property
@@ -45,6 +46,7 @@ class ReferenceNodeType(StrEnum):
 
     CLASS = "class"
     GROUP = "group"
+    CLASS_SCOPE = "class_scope"
     ACCOUNT = "account"
     ACCOUNT_RANGE = "account_range"
     GROUP_BUNDLE = "group_bundle"
@@ -54,6 +56,7 @@ _CANONICAL_IDS: dict[StandardType, str] = {
     StandardType.PCG_FRANCE: "fr-pcg",
     StandardType.PCG_ASSOCIATIONS: "fr-pcg-assoc",
     StandardType.SYSCOHADA: "syscohada",
+    StandardType.OHADA_EBNL: "ohada-ebnl",
     StandardType.IFRS: "ifrs",
 }
 

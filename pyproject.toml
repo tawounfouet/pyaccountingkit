@@ -42,8 +42,8 @@ packages = ["src/pyaccountingkit"]
 
 [tool.hatch.build.targets.sdist]
 exclude = [
-    "/resources",
-    "/data",
+    "/resources/**",
+    "/data/**",
 ]
 
 [tool.ruff]

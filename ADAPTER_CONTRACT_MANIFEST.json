@@ -56,6 +56,7 @@
       "current_version": "1",
       "extension_api": [
         "AccountingReferenceProviderProtocol",
+        "EffectivePlanReferenceProviderProtocol",
         "RegulatoryExporterProtocol",
         "RegulatoryRendererProtocol",
         "UnitOfWorkFactoryProtocol",
@@ -119,6 +120,24 @@
       ],
       "unit_of_work": "DjangoUnitOfWork",
       "unit_of_work_factory": "DjangoUnitOfWorkFactory"
+    },
+    "effective_plan_references": {
+      "coordinates": [
+        "standard_id",
+        "edition"
+      ],
+      "overlay_purpose": [
+        "audit",
+        "diagnostic",
+        "migration",
+        "explanation"
+      ],
+      "overlay_replay": false,
+      "port": "EffectivePlanReferenceProviderProtocol",
+      "provider_resolved": true,
+      "qualification": "0.7.0a2-fr-nonprofit-effective-plan",
+      "reference_adapter": "NonProfitFilesystemReferenceAdapter",
+      "snapshot": "EffectivePlanSnapshot"
     },
     "reference_reporting_model": {
       "coordinates": [
@@ -184,5 +203,5 @@
       "reference_adapter": "InMemoryUnitOfWork"
     }
   },
-  "version": "0.7.0a1"
+  "version": "0.7.0a2"
 }

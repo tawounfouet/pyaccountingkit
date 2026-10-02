@@ -8,6 +8,9 @@ import sys
 from pathlib import Path
 
 from pyaccountingkit.integrations.regulatory_framework import (
+    RegulatoryCapabilityCode as Code,
+)
+from pyaccountingkit.integrations.regulatory_framework import (
     RegulatoryCapabilityStatus as Status,
 )
 from pyaccountingkit.integrations.regulatory_framework import (
@@ -20,8 +23,8 @@ ROOT = Path(__file__).resolve().parents[2]
 
 def test_matrix_is_capability_scoped_and_never_global_supported_boolean() -> None:
     payload = regulatory_compatibility_matrix_payload(
-        "0.7.0a1",
-        baseline_profiles("0.7.0a1"),
+        "0.7.0a2",
+        baseline_profiles("0.7.0a2"),
     )
     assert payload["qualification_model"] == "capability-scoped/v1"
     profiles = payload["regulatory_frameworks"]
@@ -35,9 +38,17 @@ def test_matrix_is_capability_scoped_and_never_global_supported_boolean() -> Non
 
 
 def test_unintegrated_standards_are_not_promoted_to_production() -> None:
-    profiles = {profile.standard_ref: profile for profile in baseline_profiles("0.7.0a1")}
-    for standard_ref in ("fr-nonprofit:2026", "ohada-ebnl:2023", "cemac-pcemf:2010"):
+    profiles = {profile.standard_ref: profile for profile in baseline_profiles("0.7.0a2")}
+    for standard_ref in ("ohada-ebnl:2023", "cemac-pcemf:2010"):
         assert profiles[standard_ref].production_qualified_capabilities == ()
+
+
+def test_nonprofit_effective_plan_and_snapshots_are_production_qualified() -> None:
+    profiles = {profile.standard_ref: profile for profile in baseline_profiles("0.7.0a2")}
+    assert profiles["fr-nonprofit:2026"].production_qualified_capabilities == (
+        Code.EFFECTIVE_PLAN,
+        Code.SNAPSHOTS,
+    )
 
 
 def test_generated_matrix_is_committed_deterministically() -> None:

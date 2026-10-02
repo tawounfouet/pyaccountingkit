@@ -26,9 +26,9 @@ Chaque plan correspond à un jalon de release sémantique clair, définit les lo
 ## Lot actif / qualification
 
 - [`LOT-27_REGULATORY_PRODUCTION_QUALIFICATION_PLAN.md`](LOT-27_REGULATORY_PRODUCTION_QUALIFICATION_PLAN.md)
-  — LOT-27 actif en parallèle : `0.7.0a1` introduit la qualification réglementaire par capacité
-  et la matrice générée. LOT-26 reste ouvert sur ses preuves live externes sans bloquer ce travail
-  préparatoire.
+  — LOT-27 actif en parallèle : `0.7.0a2` productionise le plan effectif France Non-Profit 2026
+  tout en conservant les overlays comme provenance non exécutable. LOT-26 reste ouvert sur ses
+  preuves live externes sans bloquer ce travail.
 - [`LOT-26_CFA_FRA_CONSUMER_CONVERSION_AND_LEGACY_RETIREMENT_PLAN.md`](LOT-26_CFA_FRA_CONSUMER_CONVERSION_AND_LEGACY_RETIREMENT_PLAN.md)
   — LOT-26 actif : `0.6.0b27` autorise l'avancement contrôlé du binding consumer
   vers des révisions descendantes sans changer de repository, branche, environnement ni

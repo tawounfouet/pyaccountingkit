@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0a2] - 2026-10-02
+
+### Added
+- Provider-resolved `EffectiveAccountPlan`, `EffectiveReferenceAccount` and provenance model.
+- Read-only `ReferenceOverlay` / `ReferenceOverlayEntry` audit model.
+- `NonProfitFilesystemReferenceAdapter` for the upstream France Non-Profit 2026 corpus.
+- Deterministic, replayable `EffectivePlanSnapshot`.
+- Public additive `EffectivePlanReferenceProviderProtocol`.
+- `EffectivePlanReferenceService` delegation through `AccountingApplication.references`.
+- Golden qualification over the real 901-account effective plan and 116-entry overlay.
+
+### Qualified in this slice
+- `fr-nonprofit:2026 / EFFECTIVE_PLAN`: `PRODUCTION_QUALIFIED`.
+- `fr-nonprofit:2026 / SNAPSHOTS`: `PRODUCTION_QUALIFIED`.
+- `fr-nonprofit:2026 / OVERLAYS`: remains `VALIDATED` and non-executable.
+
+### Safety
+- PyAccountingKit consumes the resolved effective plan directly; it never rebuilds it by replaying
+  PCG plus overlay entries.
+- Overlay entries are provenance/audit evidence and expose no implicit `apply` path.
+- Non-Profit reporting account mappings remain `REVIEW_REQUIRED` and non-executable.
+- LOT-26 live CFA FRA publication/binding remains intentionally deferred.
+
 ## [0.7.0a1] - 2026-10-01
 
 ### Added

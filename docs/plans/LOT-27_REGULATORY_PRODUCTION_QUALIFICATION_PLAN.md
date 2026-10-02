@@ -1,7 +1,7 @@
 # LOT-27 — Regulatory Production Qualification
 
 **Target line:** `0.7.0`  
-**Current slice:** `0.7.0a1` — capability-scoped qualification foundation  
+**Current slice:** `0.7.0a2` — France Non-Profit effective-plan production provider  
 **Upstream regulatory corpus:** `regulatory-accounting-data-framework 0.7.1`
 
 ## Objective
@@ -84,6 +84,46 @@ The slice intentionally keeps:
 - missing PCEMF structure support at `NOT_ASSERTED`;
 - missing concept bindings at `NOT_ASSERTED`.
 
+## 0.7.0a2 scope
+
+The second slice productionizes `fr-nonprofit:2026` without duplicating the upstream
+regulatory resolution algorithm.
+
+The provider consumes the already-resolved upstream effective plan directly:
+
+```text
+fr-pcg:2026
+      +
+official Art. 320-2 extension
+      ↓ resolved upstream
+fr-nonprofit:2026 effective plan
+      ↓ consumed directly
+PyAccountingKit
+```
+
+Qualified evidence:
+
+- 901 effective accounts/groups;
+- 785 inherited accounts/groups;
+- 43 source-backed overrides;
+- 73 source-backed additions;
+- 116 overlay entries retained for provenance and explanation;
+- deterministic replayable effective-plan snapshots;
+- public additive `EffectivePlanReferenceProviderProtocol`.
+
+Capability status after this slice:
+
+```text
+EFFECTIVE_PLAN              PRODUCTION_QUALIFIED / executable
+SNAPSHOTS                   PRODUCTION_QUALIFIED / executable
+OVERLAYS                    VALIDATED / non-executable
+REPORTING_STRUCTURE         VALIDATED
+REPORTING_ACCOUNT_MAPPINGS  REVIEW_REQUIRED / non-executable
+```
+
+The overlay is **not** a runtime plan-building mechanism. PyAccountingKit never rebuilds the
+effective plan by replaying PCG plus overlay entries when the resolved plan exists.
+
 ## Generated compatibility matrix
 
 `REGULATORY_COMPATIBILITY_MATRIX.json` is generated deterministically from the canonical
@@ -108,13 +148,6 @@ The LOT-27 golden suite verifies:
 - absence of global `SUPPORTED` claims.
 
 ## Deferred slices
-
-### 0.7.0a2
-
-- production provider support for `fr-nonprofit:2026`;
-- effective-plan adapter contract;
-- overlay provenance contract;
-- snapshot qualification for Non-Profit.
 
 ### 0.7.0a3
 

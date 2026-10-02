@@ -18,7 +18,7 @@ REGULATORY = ROOT / "resources" / "regulatory-accounting-data-framework"
 
 
 def _profiles() -> dict[str, object]:
-    return {profile.standard_ref: profile for profile in baseline_profiles("0.7.0a1")}
+    return {profile.standard_ref: profile for profile in baseline_profiles("0.7.0a2")}
 
 
 def test_baseline_profiles_cover_the_five_reviewed_standard_refs() -> None:
@@ -69,6 +69,19 @@ def test_nonprofit_effective_plan_stats_and_reporting_safety_match_source() -> N
     assert mapping.status is Status.REVIEW_REQUIRED
     assert mapping.executable is False
     assert mapping.human_review_required is True
+
+    effective = profile.qualification_for(Code.EFFECTIVE_PLAN)
+    snapshots = profile.qualification_for(Code.SNAPSHOTS)
+    overlays = profile.qualification_for(Code.OVERLAYS)
+    assert effective is not None
+    assert snapshots is not None
+    assert overlays is not None
+    assert effective.status is Status.PRODUCTION_QUALIFIED
+    assert effective.executable is True
+    assert snapshots.status is Status.PRODUCTION_QUALIFIED
+    assert snapshots.executable is True
+    assert overlays.status is Status.VALIDATED
+    assert overlays.executable is False
 
 
 def test_ohada_negative_constraints_forbid_false_inheritance() -> None:

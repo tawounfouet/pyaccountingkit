@@ -184,11 +184,22 @@ _LEGACY_CONTRACTS: dict[str, object] = json.loads(r"""{
 
 def build_payload() -> dict[str, object]:
     contracts = dict(_LEGACY_CONTRACTS)
+    contracts["effective_plan_references"] = {
+        "port": "EffectivePlanReferenceProviderProtocol",
+        "reference_adapter": "NonProfitFilesystemReferenceAdapter",
+        "coordinates": ["standard_id", "edition"],
+        "provider_resolved": True,
+        "overlay_replay": False,
+        "overlay_purpose": ["audit", "diagnostic", "migration", "explanation"],
+        "snapshot": "EffectivePlanSnapshot",
+        "qualification": "0.7.0a2-fr-nonprofit-effective-plan",
+    }
     contracts["contract"] = {
         "current_version": str(ADAPTER_CONTRACT_VERSION),
         "supported_versions": [str(item) for item in SUPPORTED_ADAPTER_CONTRACT_VERSIONS],
         "extension_api": [
             "AccountingReferenceProviderProtocol",
+            "EffectivePlanReferenceProviderProtocol",
             "RegulatoryExporterProtocol",
             "RegulatoryRendererProtocol",
             "UnitOfWorkFactoryProtocol",

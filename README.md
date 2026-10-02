@@ -10,7 +10,7 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit **0.7.0a1** is the LOT-27 Regulatory Capability Qualification alpha.
+PyAccountingKit **0.7.0a2** is the LOT-27 France Non-Profit Effective Plan alpha.
 
 LOT-26 turns the frozen LOT-25 CFA FRA behavioral baseline into an executable
 migration boundary. The temporary `CFAFRACompatibilityAdapter` lets the Django
@@ -21,6 +21,12 @@ LOT-27 replaces broad regulatory support claims with capability-scoped qualifica
 `REGULATORY_COMPATIBILITY_MATRIX.json` is now generated from explicit profiles for PCG 2026,
 France Non-Profit 2026, SYSCOHADA 2017, OHADA EBNL 2023 and CEMAC PCEMF 2010. Unsupported or
 review-required capabilities remain fail-closed rather than being inferred from dataset presence.
+
+The `0.7.0a2` slice gives `fr-nonprofit:2026` a production-qualified effective-plan
+provider. PyAccountingKit consumes the upstream resolved 901-account plan directly instead of
+replaying PCG plus 116 overlay deltas. Those deltas remain readable as source-backed audit and
+explanation evidence only. Effective-plan snapshots are deterministic and replayable; reporting
+account mappings remain `REVIEW_REQUIRED` and non-executable.
 
 LOT-25 remains the behavioral oracle baseline and executes normalized golden parity for:
 
@@ -44,7 +50,7 @@ mode rather than a generic posting bypass.
 
 The stable **0.5.0** public facade, adapter contract v1 and the independently
 Production-qualified Django/PostgreSQL and SQLAlchemy/PostgreSQL adapters remain
-the compatibility baseline. **0.7.0a1 is still pre-1.0**. LOT-27 regulatory production
+the compatibility baseline. **0.7.0a2 is still pre-1.0**. LOT-27 regulatory production
 qualification is now being developed in parallel while the external CFA FRA live-consumer work
 required to close LOT-26 remains intentionally deferred. This does not declare `0.6.0` stable.
 

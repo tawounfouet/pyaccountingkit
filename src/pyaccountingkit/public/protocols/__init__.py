@@ -9,7 +9,10 @@ from pyaccountingkit.public.protocols.compatibility import (
     require_optional_dependency,
     runtime_capabilities,
 )
-from pyaccountingkit.public.protocols.references import AccountingReferenceProviderProtocol
+from pyaccountingkit.public.protocols.references import (
+    AccountingReferenceProviderProtocol,
+    EffectivePlanReferenceProviderProtocol,
+)
 from pyaccountingkit.public.protocols.reporting import (
     RegulatoryExporterProtocol,
     RegulatoryRendererProtocol,
@@ -23,6 +26,7 @@ __all__ = [
     "ADAPTER_CONTRACT_VERSION",
     "SUPPORTED_ADAPTER_CONTRACT_VERSIONS",
     "AccountingReferenceProviderProtocol",
+    "EffectivePlanReferenceProviderProtocol",
     "AdapterContractVersion",
     "RegulatoryExporterProtocol",
     "RegulatoryRendererProtocol",

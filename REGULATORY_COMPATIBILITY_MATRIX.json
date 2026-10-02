@@ -9,7 +9,7 @@
           "dataset_release": "0.7.1",
           "evidence_refs": [],
           "executable": false,
-          "framework_version": "0.7.0a2",
+          "framework_version": "0.7.0a3",
           "golden_refs": [],
           "human_review_required": false,
           "notes": "Neutral concepts do not create PCEMF bindings automatically.",
@@ -26,7 +26,7 @@
           "dataset_release": "0.7.1",
           "evidence_refs": [],
           "executable": false,
-          "framework_version": "0.7.0a2",
+          "framework_version": "0.7.0a3",
           "golden_refs": [],
           "human_review_required": true,
           "notes": "No executable crosswalk artifact is asserted in the bundled release.",
@@ -42,38 +42,44 @@
           "capability": "NEGATIVE_CONSTRAINTS",
           "dataset_release": "0.7.1",
           "evidence_refs": [
-            "resources/regulatory-accounting-data-framework/datasets/relations/ohada_accounting_standard_relations.json"
+            "resources/regulatory-accounting-data-framework/datasets/relations/ohada_accounting_standard_relations.json",
+            "src/pyaccountingkit/adapters/regulatory/ohada_relations.py"
           ],
           "executable": false,
-          "framework_version": "0.7.0a2",
-          "golden_refs": [],
+          "framework_version": "0.7.0a3",
+          "golden_refs": [
+            "tests/golden/regulatory/test_ebnl_and_ohada_relations.py"
+          ],
           "human_review_required": false,
-          "notes": "PCEMF 2010 cannot inherit from later SYSCOHADA 2017 without source.",
+          "notes": "Runtime guard enforces the temporal ban on PCEMF 2010 inheriting from SYSCOHADA 2017.",
           "provider_version": "0.7.1",
-          "qualified_at": null,
-          "reviewer": null,
+          "qualified_at": "2026-10-02T10:15:00Z",
+          "reviewer": "PyAccountingKit LOT-27 canonical CI",
           "status": "FORBIDDEN_INFERENCE",
           "support_level": "FORBIDDEN_INFERENCE",
-          "test_suite": null
+          "test_suite": "tests/golden/regulatory/test_ebnl_and_ohada_relations.py"
         },
         "RELATIONS": {
           "auto_inference_allowed": false,
           "capability": "RELATIONS",
           "dataset_release": "0.7.1",
           "evidence_refs": [
-            "resources/regulatory-accounting-data-framework/datasets/relations/ohada_accounting_standard_relations.json"
+            "resources/regulatory-accounting-data-framework/datasets/relations/ohada_accounting_standard_relations.json",
+            "src/pyaccountingkit/adapters/regulatory/ohada_relations.py"
           ],
-          "executable": false,
-          "framework_version": "0.7.0a2",
-          "golden_refs": [],
+          "executable": true,
+          "framework_version": "0.7.0a3",
+          "golden_refs": [
+            "tests/golden/regulatory/test_ebnl_and_ohada_relations.py"
+          ],
           "human_review_required": false,
-          "notes": "Sector specialization within OHADA accounting family is explicit.",
+          "notes": "Sector specialization is provider-backed; the reviewed crosswalk scope remains a separate human-review boundary.",
           "provider_version": "0.7.1",
-          "qualified_at": null,
-          "reviewer": null,
-          "status": "VALIDATED",
-          "support_level": "REFERENCE_VALIDATED",
-          "test_suite": null
+          "qualified_at": "2026-10-02T10:15:00Z",
+          "reviewer": "PyAccountingKit LOT-27 canonical CI",
+          "status": "PRODUCTION_QUALIFIED",
+          "support_level": "PRODUCTION_QUALIFIED",
+          "test_suite": "tests/golden/regulatory/test_ebnl_and_ohada_relations.py"
         },
         "STRUCTURE": {
           "auto_inference_allowed": false,
@@ -81,7 +87,7 @@
           "dataset_release": "0.7.1",
           "evidence_refs": [],
           "executable": false,
-          "framework_version": "0.7.0a2",
+          "framework_version": "0.7.0a3",
           "golden_refs": [],
           "human_review_required": false,
           "notes": "No PCEMF structure dataset is present in the reviewed bundled evidence.",
@@ -94,12 +100,14 @@
         }
       },
       "dataset_release": "0.7.1",
-      "production_qualified_capabilities": [],
+      "production_qualified_capabilities": [
+        "RELATIONS"
+      ],
       "profile_id": "regulatory-profile-cemac-pcemf-2010",
       "provider_id": "regulatory-accounting-data-framework",
       "qualification_scope": "CAPABILITY_SCOPED",
       "standard_ref": "cemac-pcemf:2010",
-      "tested_framework_version": "0.7.0a2"
+      "tested_framework_version": "0.7.0a3"
     },
     {
       "capabilities": {
@@ -112,7 +120,7 @@
             "src/pyaccountingkit/adapters/regulatory/nonprofit.py"
           ],
           "executable": true,
-          "framework_version": "0.7.0a2",
+          "framework_version": "0.7.0a3",
           "golden_refs": [
             "tests/golden/regulatory/test_nonprofit_effective_plan.py"
           ],
@@ -134,7 +142,7 @@
             "src/pyaccountingkit/adapters/regulatory/nonprofit.py"
           ],
           "executable": false,
-          "framework_version": "0.7.0a2",
+          "framework_version": "0.7.0a3",
           "golden_refs": [
             "tests/golden/regulatory/test_nonprofit_effective_plan.py"
           ],
@@ -155,7 +163,7 @@
             "resources/regulatory-accounting-data-framework/datasets/reporting/nonprofit_2026_v3_reporting.json"
           ],
           "executable": false,
-          "framework_version": "0.7.0a2",
+          "framework_version": "0.7.0a3",
           "golden_refs": [],
           "human_review_required": true,
           "notes": "Source explicitly sets account_hints_executable=false.",
@@ -174,7 +182,7 @@
             "resources/regulatory-accounting-data-framework/datasets/reporting/nonprofit_2026_v3_reporting.json"
           ],
           "executable": false,
-          "framework_version": "0.7.0a2",
+          "framework_version": "0.7.0a3",
           "golden_refs": [],
           "human_review_required": false,
           "notes": "Official statement structure is distinct from derived account hints.",
@@ -194,7 +202,7 @@
             "src/pyaccountingkit/adapters/regulatory/nonprofit.py"
           ],
           "executable": true,
-          "framework_version": "0.7.0a2",
+          "framework_version": "0.7.0a3",
           "golden_refs": [
             "tests/golden/regulatory/test_nonprofit_effective_plan.py"
           ],
@@ -217,7 +225,7 @@
       "provider_id": "regulatory-accounting-data-framework",
       "qualification_scope": "CAPABILITY_SCOPED",
       "standard_ref": "fr-nonprofit:2026",
-      "tested_framework_version": "0.7.0a2"
+      "tested_framework_version": "0.7.0a3"
     },
     {
       "capabilities": {
@@ -229,7 +237,7 @@
             "resources/regulatory-accounting-data-framework/datasets/concepts/accounting_core_concepts_v0.json"
           ],
           "executable": false,
-          "framework_version": "0.7.0a2",
+          "framework_version": "0.7.0a3",
           "golden_refs": [],
           "human_review_required": false,
           "notes": "Neutral concepts are navigation pivots, not accounting rules.",
@@ -246,7 +254,7 @@
           "dataset_release": "0.7.1",
           "evidence_refs": [],
           "executable": false,
-          "framework_version": "0.7.0a2",
+          "framework_version": "0.7.0a3",
           "golden_refs": [],
           "human_review_required": false,
           "notes": "No standard-specific concept binding is inferred.",
@@ -265,7 +273,7 @@
             "tests/golden/regulatory/test_pcg_regulatory_reporting.py"
           ],
           "executable": false,
-          "framework_version": "0.7.0a2",
+          "framework_version": "0.7.0a3",
           "golden_refs": [],
           "human_review_required": true,
           "notes": "Reporting account hints remain candidate input, not statutory mapping.",
@@ -285,7 +293,7 @@
             "tests/golden/regulatory/test_pcg_regulatory_reporting.py"
           ],
           "executable": false,
-          "framework_version": "0.7.0a2",
+          "framework_version": "0.7.0a3",
           "golden_refs": [],
           "human_review_required": false,
           "notes": "Official reporting structure is validated; LOT-27 does not infer automatic account mappings from source hints.",
@@ -305,7 +313,7 @@
             "src/pyaccountingkit/adapters/regulatory/_base.py"
           ],
           "executable": true,
-          "framework_version": "0.7.0a2",
+          "framework_version": "0.7.0a3",
           "golden_refs": [
             "tests/golden/regulatory/test_pcg_baseline.py"
           ],
@@ -327,7 +335,7 @@
             "resources/regulatory-accounting-data-framework/PROJECT_MANIFEST.json"
           ],
           "executable": true,
-          "framework_version": "0.7.0a2",
+          "framework_version": "0.7.0a3",
           "golden_refs": [
             "tests/golden/regulatory/test_pcg_baseline.py"
           ],
@@ -350,7 +358,7 @@
       "provider_id": "regulatory-accounting-data-framework",
       "qualification_scope": "CAPABILITY_SCOPED",
       "standard_ref": "fr-pcg:2026",
-      "tested_framework_version": "0.7.0a2"
+      "tested_framework_version": "0.7.0a3"
     },
     {
       "capabilities": {
@@ -360,7 +368,7 @@
           "dataset_release": "0.7.1",
           "evidence_refs": [],
           "executable": false,
-          "framework_version": "0.7.0a2",
+          "framework_version": "0.7.0a3",
           "golden_refs": [],
           "human_review_required": false,
           "notes": "Upstream OHADA family manifest reports zero concept bindings.",
@@ -379,7 +387,7 @@
             "resources/regulatory-accounting-data-framework/datasets/crosswalk/ebnl_2023_vs_syscohada_2017_structural_delta.json"
           ],
           "executable": false,
-          "framework_version": "0.7.0a2",
+          "framework_version": "0.7.0a3",
           "golden_refs": [],
           "human_review_required": true,
           "notes": "Structural delta is not semantic equivalence.",
@@ -395,38 +403,44 @@
           "capability": "NEGATIVE_CONSTRAINTS",
           "dataset_release": "0.7.1",
           "evidence_refs": [
-            "resources/regulatory-accounting-data-framework/datasets/relations/ohada_accounting_standard_relations.json"
+            "resources/regulatory-accounting-data-framework/datasets/relations/ohada_accounting_standard_relations.json",
+            "src/pyaccountingkit/adapters/regulatory/ohada_relations.py"
           ],
           "executable": false,
-          "framework_version": "0.7.0a2",
-          "golden_refs": [],
+          "framework_version": "0.7.0a3",
+          "golden_refs": [
+            "tests/golden/regulatory/test_ebnl_and_ohada_relations.py"
+          ],
           "human_review_required": false,
-          "notes": "EBNL 2023 -> SYSCOHADA 2017 inheritance inference is forbidden.",
+          "notes": "Runtime guard fails closed on EBNL 2023 -> SYSCOHADA 2017 inheritance; the forbidden inference itself remains non-executable.",
           "provider_version": "0.7.1",
-          "qualified_at": null,
-          "reviewer": null,
+          "qualified_at": "2026-10-02T10:15:00Z",
+          "reviewer": "PyAccountingKit LOT-27 canonical CI",
           "status": "FORBIDDEN_INFERENCE",
           "support_level": "FORBIDDEN_INFERENCE",
-          "test_suite": null
+          "test_suite": "tests/golden/regulatory/test_ebnl_and_ohada_relations.py"
         },
         "RELATIONS": {
           "auto_inference_allowed": false,
           "capability": "RELATIONS",
           "dataset_release": "0.7.1",
           "evidence_refs": [
-            "resources/regulatory-accounting-data-framework/datasets/relations/ohada_accounting_standard_relations.json"
+            "resources/regulatory-accounting-data-framework/datasets/relations/ohada_accounting_standard_relations.json",
+            "src/pyaccountingkit/adapters/regulatory/ohada_relations.py"
           ],
-          "executable": false,
-          "framework_version": "0.7.0a2",
-          "golden_refs": [],
+          "executable": true,
+          "framework_version": "0.7.0a3",
+          "golden_refs": [
+            "tests/golden/regulatory/test_ebnl_and_ohada_relations.py"
+          ],
           "human_review_required": false,
-          "notes": "Specialization relation is validated and is not inheritance.",
+          "notes": "Specialized-standard family relation is provider-backed and remains distinct from inheritance.",
           "provider_version": "0.7.1",
-          "qualified_at": null,
-          "reviewer": null,
-          "status": "VALIDATED",
-          "support_level": "REFERENCE_VALIDATED",
-          "test_suite": null
+          "qualified_at": "2026-10-02T10:15:00Z",
+          "reviewer": "PyAccountingKit LOT-27 canonical CI",
+          "status": "PRODUCTION_QUALIFIED",
+          "support_level": "PRODUCTION_QUALIFIED",
+          "test_suite": "tests/golden/regulatory/test_ebnl_and_ohada_relations.py"
         },
         "REPORTING_STRUCTURE": {
           "auto_inference_allowed": false,
@@ -436,7 +450,7 @@
             "resources/regulatory-accounting-data-framework/datasets/reporting/ebnl_2023_v3_reporting.json"
           ],
           "executable": false,
-          "framework_version": "0.7.0a2",
+          "framework_version": "0.7.0a3",
           "golden_refs": [],
           "human_review_required": false,
           "notes": "Reporting artifact exists but PyAccountingKit execution is not asserted.",
@@ -447,33 +461,62 @@
           "support_level": "DISCOVERED",
           "test_suite": null
         },
+        "SNAPSHOTS": {
+          "auto_inference_allowed": false,
+          "capability": "SNAPSHOTS",
+          "dataset_release": "0.7.1",
+          "evidence_refs": [
+            "src/pyaccountingkit/domain/references/snapshots.py",
+            "src/pyaccountingkit/adapters/regulatory/ebnl.py"
+          ],
+          "executable": true,
+          "framework_version": "0.7.0a3",
+          "golden_refs": [
+            "tests/golden/regulatory/test_ebnl_and_ohada_relations.py"
+          ],
+          "human_review_required": false,
+          "notes": "EBNL structural snapshots are deterministic and replayable.",
+          "provider_version": "0.7.1",
+          "qualified_at": "2026-10-02T10:15:00Z",
+          "reviewer": "PyAccountingKit LOT-27 canonical CI",
+          "status": "PRODUCTION_QUALIFIED",
+          "support_level": "PRODUCTION_QUALIFIED",
+          "test_suite": "tests/golden/regulatory/test_ebnl_and_ohada_relations.py"
+        },
         "STRUCTURE": {
           "auto_inference_allowed": false,
           "capability": "STRUCTURE",
           "dataset_release": "0.7.1",
           "evidence_refs": [
-            "resources/regulatory-accounting-data-framework/datasets/structured/ebnl_2023_v1_structure.json"
+            "resources/regulatory-accounting-data-framework/datasets/structured/ebnl_2023_v1_structure.json",
+            "src/pyaccountingkit/adapters/regulatory/ebnl.py"
           ],
-          "executable": false,
-          "framework_version": "0.7.0a2",
-          "golden_refs": [],
+          "executable": true,
+          "framework_version": "0.7.0a3",
+          "golden_refs": [
+            "tests/golden/regulatory/test_ebnl_and_ohada_relations.py"
+          ],
           "human_review_required": false,
-          "notes": "Corpus is structured but not exposed by a production PyAccountingKit provider yet.",
+          "notes": "The 1,145-node reviewed EBNL graph is provider-backed with class scopes and ambiguous source occurrence identities preserved.",
           "provider_version": "0.7.1",
-          "qualified_at": null,
-          "reviewer": null,
-          "status": "INGESTIBLE",
-          "support_level": "DISCOVERED",
-          "test_suite": null
+          "qualified_at": "2026-10-02T10:15:00Z",
+          "reviewer": "PyAccountingKit LOT-27 canonical CI",
+          "status": "PRODUCTION_QUALIFIED",
+          "support_level": "PRODUCTION_QUALIFIED",
+          "test_suite": "tests/golden/regulatory/test_ebnl_and_ohada_relations.py"
         }
       },
       "dataset_release": "0.7.1",
-      "production_qualified_capabilities": [],
+      "production_qualified_capabilities": [
+        "STRUCTURE",
+        "RELATIONS",
+        "SNAPSHOTS"
+      ],
       "profile_id": "regulatory-profile-ohada-ebnl-2023",
       "provider_id": "regulatory-accounting-data-framework",
       "qualification_scope": "CAPABILITY_SCOPED",
       "standard_ref": "ohada-ebnl:2023",
-      "tested_framework_version": "0.7.0a2"
+      "tested_framework_version": "0.7.0a3"
     },
     {
       "capabilities": {
@@ -482,19 +525,22 @@
           "capability": "RELATIONS",
           "dataset_release": "0.7.1",
           "evidence_refs": [
-            "resources/regulatory-accounting-data-framework/datasets/relations/ohada_accounting_standard_relations.json"
+            "resources/regulatory-accounting-data-framework/datasets/relations/ohada_accounting_standard_relations.json",
+            "src/pyaccountingkit/adapters/regulatory/ohada_relations.py"
           ],
-          "executable": false,
-          "framework_version": "0.7.0a2",
-          "golden_refs": [],
+          "executable": true,
+          "framework_version": "0.7.0a3",
+          "golden_refs": [
+            "tests/golden/regulatory/test_ebnl_and_ohada_relations.py"
+          ],
           "human_review_required": false,
-          "notes": "Family membership is explicit and does not imply inheritance.",
+          "notes": "Family membership is provider-backed and explicit; it never implies inheritance.",
           "provider_version": "0.7.1",
-          "qualified_at": null,
-          "reviewer": null,
-          "status": "VALIDATED",
-          "support_level": "REFERENCE_VALIDATED",
-          "test_suite": null
+          "qualified_at": "2026-10-02T10:15:00Z",
+          "reviewer": "PyAccountingKit LOT-27 canonical CI",
+          "status": "PRODUCTION_QUALIFIED",
+          "support_level": "PRODUCTION_QUALIFIED",
+          "test_suite": "tests/golden/regulatory/test_ebnl_and_ohada_relations.py"
         },
         "REPORTING_ACCOUNT_MAPPINGS": {
           "auto_inference_allowed": false,
@@ -504,7 +550,7 @@
             "tests/golden/regulatory/test_syscohada_regulatory_reporting.py"
           ],
           "executable": false,
-          "framework_version": "0.7.0a2",
+          "framework_version": "0.7.0a3",
           "golden_refs": [],
           "human_review_required": true,
           "notes": "Account hints are non-executable without validated mappings.",
@@ -524,7 +570,7 @@
             "tests/golden/regulatory/test_syscohada_regulatory_reporting.py"
           ],
           "executable": false,
-          "framework_version": "0.7.0a2",
+          "framework_version": "0.7.0a3",
           "golden_refs": [],
           "human_review_required": false,
           "notes": "Reporting structure is validated while account mappings remain reviewed.",
@@ -544,7 +590,7 @@
             "src/pyaccountingkit/adapters/regulatory/_base.py"
           ],
           "executable": true,
-          "framework_version": "0.7.0a2",
+          "framework_version": "0.7.0a3",
           "golden_refs": [
             "tests/golden/regulatory/test_syscohada_baseline.py"
           ],
@@ -566,7 +612,7 @@
             "resources/regulatory-accounting-data-framework/PROJECT_MANIFEST.json"
           ],
           "executable": true,
-          "framework_version": "0.7.0a2",
+          "framework_version": "0.7.0a3",
           "golden_refs": [
             "tests/golden/regulatory/test_syscohada_baseline.py"
           ],
@@ -583,18 +629,19 @@
       "dataset_release": "0.7.1",
       "production_qualified_capabilities": [
         "STRUCTURE",
-        "SNAPSHOTS"
+        "SNAPSHOTS",
+        "RELATIONS"
       ],
       "profile_id": "regulatory-profile-ohada-syscohada-2017",
       "provider_id": "regulatory-accounting-data-framework",
       "qualification_scope": "CAPABILITY_SCOPED",
       "standard_ref": "ohada-syscohada:2017",
-      "tested_framework_version": "0.7.0a2"
+      "tested_framework_version": "0.7.0a3"
     }
   ],
   "regulatory_source": {
     "provider_id": "regulatory-accounting-data-framework",
     "provider_version": "0.7.1"
   },
-  "version": "0.7.0a2"
+  "version": "0.7.0a3"
 }

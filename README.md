@@ -10,7 +10,7 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit **0.7.0b1** is the LOT-27 OHADA EBNL and Standard Relations alpha.
+PyAccountingKit **0.7.0b1** is the LOT-27 reviewed structural crosswalk beta.
 
 LOT-26 turns the frozen LOT-25 CFA FRA behavioral baseline into an executable
 migration boundary. The temporary `CFAFRACompatibilityAdapter` lets the Django
@@ -28,12 +28,14 @@ replaying PCG plus 116 overlay deltas. Those deltas remain readable as source-ba
 explanation evidence only. Effective-plan snapshots are deterministic and replayable; reporting
 account mappings remain `REVIEW_REQUIRED` and non-executable.
 
-The `0.7.0b1` slice production-qualifies the reviewed OHADA EBNL 2023 structure
+The `0.7.0a3` slice production-qualifies the reviewed OHADA EBNL 2023 structure
 without collapsing source ambiguity. The 1,145-node graph preserves two explicit class-9 scopes
 and the duplicated source code `4555` as two occurrence identities. A dedicated OHADA relation
 provider exposes only source-declared standard-family edges and a fail-closed negative-constraint
 runtime. In particular, EBNL 2023 and PCEMF 2010 cannot be inferred to inherit from SYSCOHADA
 2017, and no relation becomes auto-inferable unless the corpus explicitly allows it.
+
+The `0.7.0b1` slice adds a reviewed EBNL/SYSCOHADA structural crosswalk runtime. Structural candidates remain non-executable even when codes and normalized labels match. PCEMF/SYSCOHADA crosswalk support remains explicitly `NOT_ASSERTED`: no PCEMF crosswalk dataset is bundled, and the existing negative-relation guard forbids manufacturing inheritance or mappings from absence of evidence.
 
 LOT-25 remains the behavioral oracle baseline and executes normalized golden parity for:
 

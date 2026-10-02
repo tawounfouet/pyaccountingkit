@@ -23,8 +23,8 @@ ROOT = Path(__file__).resolve().parents[2]
 
 def test_matrix_is_capability_scoped_and_never_global_supported_boolean() -> None:
     payload = regulatory_compatibility_matrix_payload(
-        "0.7.0a3",
-        baseline_profiles("0.7.0a3"),
+        "0.7.0b1",
+        baseline_profiles("0.7.0b1"),
     )
     assert payload["qualification_model"] == "capability-scoped/v1"
     profiles = payload["regulatory_frameworks"]
@@ -38,7 +38,7 @@ def test_matrix_is_capability_scoped_and_never_global_supported_boolean() -> Non
 
 
 def test_ebnl_and_ohada_relation_capabilities_are_promoted_narrowly() -> None:
-    profiles = {profile.standard_ref: profile for profile in baseline_profiles("0.7.0a3")}
+    profiles = {profile.standard_ref: profile for profile in baseline_profiles("0.7.0b1")}
     assert profiles["ohada-ebnl:2023"].production_qualified_capabilities == (
         Code.STRUCTURE,
         Code.RELATIONS,
@@ -56,7 +56,7 @@ def test_ebnl_and_ohada_relation_capabilities_are_promoted_narrowly() -> None:
 
 
 def test_nonprofit_effective_plan_and_snapshots_are_production_qualified() -> None:
-    profiles = {profile.standard_ref: profile for profile in baseline_profiles("0.7.0a3")}
+    profiles = {profile.standard_ref: profile for profile in baseline_profiles("0.7.0b1")}
     assert profiles["fr-nonprofit:2026"].production_qualified_capabilities == (
         Code.EFFECTIVE_PLAN,
         Code.SNAPSHOTS,

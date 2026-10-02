@@ -1,0 +1,21 @@
+# Default repository ownership
+* @tawounfouet
+
+# Release, CI and security governance
+/.github/workflows/ @tawounfouet
+/scripts/prepare_release.py @tawounfouet
+/scripts/qualify_release.py @tawounfouet
+/scripts/verify_package.py @tawounfouet
+/scripts/validate_ci.py @tawounfouet
+
+# Resource, provenance and rights governance
+/resources/ @tawounfouet
+/RESOURCE_GOVERNANCE.json @tawounfouet
+/THIRD_PARTY_NOTICES.md @tawounfouet
+/GOVERNANCE.md @tawounfouet
+
+# Public and regulatory contracts
+/PUBLIC_API_MANIFEST.json @tawounfouet
+/PUBLIC_ERROR_CODES.json @tawounfouet
+/ADAPTER_CONTRACT_MANIFEST.json @tawounfouet
+/REGULATORY_COMPATIBILITY_MATRIX.json @tawounfouet

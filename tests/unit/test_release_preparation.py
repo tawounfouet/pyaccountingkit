@@ -26,14 +26,9 @@ def _load_release_module() -> ModuleType:
 
 def _write_project(root: Path, version: str) -> None:
     (root / "pyproject.toml").write_text(
-        (
-            "[project]\n"
-            'name = "pyaccountingkit"\n'
-            f'version = "{version}"\n'
-        ),
+        (f'[project]\nname = "pyaccountingkit"\nversion = "{version}"\n'),
         encoding="utf-8",
     )
-
 
 def _sealed_bundle(module: ModuleType, root: Path, *, version: str, tag: str, sha: str) -> Path:
     _write_project(root, version)
@@ -57,9 +52,7 @@ def _sealed_bundle(module: ModuleType, root: Path, *, version: str, tag: str, sh
         json.dumps(manifest, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )
-    checksums = "\n".join(
-        f"{item['sha256']}  {item['filename']}" for item in manifest["artifacts"]
-    )
+    checksums = "\n".join(f"{item['sha256']}  {item['filename']}" for item in manifest["artifacts"])
     (metadata / "SHA256SUMS").write_text(checksums + "\n", encoding="utf-8")
     return bundle
 

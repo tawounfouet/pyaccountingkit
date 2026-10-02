@@ -66,7 +66,6 @@ class ReferencesAPI(PublicNamespace):
         """Execute the explicit `references.create_snapshot` public operation."""
         return self._invoke("create_snapshot", context=context, **parameters)
 
-
     def relations_for(
         self,
         *,

@@ -194,12 +194,22 @@ def build_payload() -> dict[str, object]:
         "snapshot": "EffectivePlanSnapshot",
         "qualification": "0.7.0a2-fr-nonprofit-effective-plan",
     }
+    contracts["reference_relations"] = {
+        "port": "ReferenceRelationProviderProtocol",
+        "reference_adapter": "OHADARelationFilesystemAdapter",
+        "explicit_relations_only": True,
+        "negative_constraints_first_class": True,
+        "fail_closed_inference": True,
+        "automatic_inference_requires_provider_authorization": True,
+        "qualification": "0.7.0a3-ohada-relations",
+    }
     contracts["contract"] = {
         "current_version": str(ADAPTER_CONTRACT_VERSION),
         "supported_versions": [str(item) for item in SUPPORTED_ADAPTER_CONTRACT_VERSIONS],
         "extension_api": [
             "AccountingReferenceProviderProtocol",
             "EffectivePlanReferenceProviderProtocol",
+            "ReferenceRelationProviderProtocol",
             "RegulatoryExporterProtocol",
             "RegulatoryRendererProtocol",
             "UnitOfWorkFactoryProtocol",

@@ -21,6 +21,7 @@ DATASET_RELEASE = "0.7.1"
 QUALIFIED_AT = "2026-10-01T18:00:00Z"
 NONPROFIT_QUALIFIED_AT = "2026-10-02T07:45:00Z"
 REVIEWER = "PyAccountingKit LOT-27 canonical CI"
+A3_QUALIFIED_AT = "2026-10-02T10:15:00Z"
 
 
 def _q(
@@ -228,12 +229,21 @@ def baseline_profiles(
                     framework_version,
                     syscohada,
                     Code.RELATIONS,
-                    Status.VALIDATED,
+                    Status.PRODUCTION_QUALIFIED,
                     evidence_refs=(
                         "resources/regulatory-accounting-data-framework/datasets/relations/"
                         "ohada_accounting_standard_relations.json",
+                        "src/pyaccountingkit/adapters/regulatory/ohada_relations.py",
                     ),
-                    notes="Family membership is explicit and does not imply inheritance.",
+                    executable=True,
+                    test_suite="tests/golden/regulatory/test_ebnl_and_ohada_relations.py",
+                    golden_refs=("tests/golden/regulatory/test_ebnl_and_ohada_relations.py",),
+                    reviewer=REVIEWER,
+                    qualified_at=A3_QUALIFIED_AT,
+                    notes=(
+                        "Family membership is provider-backed and explicit; it never implies "
+                        "inheritance."
+                    ),
                 ),
             ),
         ),
@@ -333,24 +343,41 @@ def baseline_profiles(
                     framework_version,
                     ebnl,
                     Code.STRUCTURE,
-                    Status.INGESTIBLE,
+                    Status.PRODUCTION_QUALIFIED,
                     evidence_refs=(
                         "resources/regulatory-accounting-data-framework/datasets/structured/"
                         "ebnl_2023_v1_structure.json",
+                        "src/pyaccountingkit/adapters/regulatory/ebnl.py",
                     ),
-                    notes="Corpus is structured but not exposed by a production PyAccountingKit "
-                    "provider yet.",
+                    executable=True,
+                    test_suite="tests/golden/regulatory/test_ebnl_and_ohada_relations.py",
+                    golden_refs=("tests/golden/regulatory/test_ebnl_and_ohada_relations.py",),
+                    reviewer=REVIEWER,
+                    qualified_at=A3_QUALIFIED_AT,
+                    notes=(
+                        "The 1,145-node reviewed EBNL graph is provider-backed with class scopes "
+                        "and ambiguous source occurrence identities preserved."
+                    ),
                 ),
                 _q(
                     framework_version,
                     ebnl,
                     Code.RELATIONS,
-                    Status.VALIDATED,
+                    Status.PRODUCTION_QUALIFIED,
                     evidence_refs=(
                         "resources/regulatory-accounting-data-framework/datasets/relations/"
                         "ohada_accounting_standard_relations.json",
+                        "src/pyaccountingkit/adapters/regulatory/ohada_relations.py",
                     ),
-                    notes="Specialization relation is validated and is not inheritance.",
+                    executable=True,
+                    test_suite="tests/golden/regulatory/test_ebnl_and_ohada_relations.py",
+                    golden_refs=("tests/golden/regulatory/test_ebnl_and_ohada_relations.py",),
+                    reviewer=REVIEWER,
+                    qualified_at=A3_QUALIFIED_AT,
+                    notes=(
+                        "Specialized-standard family relation is provider-backed and remains "
+                        "distinct from inheritance."
+                    ),
                 ),
                 _q(
                     framework_version,
@@ -360,8 +387,32 @@ def baseline_profiles(
                     evidence_refs=(
                         "resources/regulatory-accounting-data-framework/datasets/relations/"
                         "ohada_accounting_standard_relations.json",
+                        "src/pyaccountingkit/adapters/regulatory/ohada_relations.py",
                     ),
-                    notes="EBNL 2023 -> SYSCOHADA 2017 inheritance inference is forbidden.",
+                    test_suite="tests/golden/regulatory/test_ebnl_and_ohada_relations.py",
+                    golden_refs=("tests/golden/regulatory/test_ebnl_and_ohada_relations.py",),
+                    reviewer=REVIEWER,
+                    qualified_at=A3_QUALIFIED_AT,
+                    notes=(
+                        "Runtime guard fails closed on EBNL 2023 -> SYSCOHADA 2017 inheritance; "
+                        "the forbidden inference itself remains non-executable."
+                    ),
+                ),
+                _q(
+                    framework_version,
+                    ebnl,
+                    Code.SNAPSHOTS,
+                    Status.PRODUCTION_QUALIFIED,
+                    evidence_refs=(
+                        "src/pyaccountingkit/domain/references/snapshots.py",
+                        "src/pyaccountingkit/adapters/regulatory/ebnl.py",
+                    ),
+                    executable=True,
+                    test_suite="tests/golden/regulatory/test_ebnl_and_ohada_relations.py",
+                    golden_refs=("tests/golden/regulatory/test_ebnl_and_ohada_relations.py",),
+                    reviewer=REVIEWER,
+                    qualified_at=A3_QUALIFIED_AT,
+                    notes="EBNL structural snapshots are deterministic and replayable.",
                 ),
                 _q(
                     framework_version,
@@ -415,12 +466,21 @@ def baseline_profiles(
                     framework_version,
                     pcemf,
                     Code.RELATIONS,
-                    Status.VALIDATED,
+                    Status.PRODUCTION_QUALIFIED,
                     evidence_refs=(
                         "resources/regulatory-accounting-data-framework/datasets/relations/"
                         "ohada_accounting_standard_relations.json",
+                        "src/pyaccountingkit/adapters/regulatory/ohada_relations.py",
                     ),
-                    notes="Sector specialization within OHADA accounting family is explicit.",
+                    executable=True,
+                    test_suite="tests/golden/regulatory/test_ebnl_and_ohada_relations.py",
+                    golden_refs=("tests/golden/regulatory/test_ebnl_and_ohada_relations.py",),
+                    reviewer=REVIEWER,
+                    qualified_at=A3_QUALIFIED_AT,
+                    notes=(
+                        "Sector specialization is provider-backed; the reviewed crosswalk scope "
+                        "remains a separate human-review boundary."
+                    ),
                 ),
                 _q(
                     framework_version,
@@ -430,8 +490,16 @@ def baseline_profiles(
                     evidence_refs=(
                         "resources/regulatory-accounting-data-framework/datasets/relations/"
                         "ohada_accounting_standard_relations.json",
+                        "src/pyaccountingkit/adapters/regulatory/ohada_relations.py",
                     ),
-                    notes="PCEMF 2010 cannot inherit from later SYSCOHADA 2017 without source.",
+                    test_suite="tests/golden/regulatory/test_ebnl_and_ohada_relations.py",
+                    golden_refs=("tests/golden/regulatory/test_ebnl_and_ohada_relations.py",),
+                    reviewer=REVIEWER,
+                    qualified_at=A3_QUALIFIED_AT,
+                    notes=(
+                        "Runtime guard enforces the temporal ban on PCEMF 2010 inheriting from "
+                        "SYSCOHADA 2017."
+                    ),
                 ),
                 _q(
                     framework_version,

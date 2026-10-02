@@ -196,7 +196,7 @@
       "explicit_edges_only": true,
       "negative_constraints_fail_closed": true,
       "port": "StandardRelationProviderProtocol",
-      "qualification": "0.7.0b1-ohada-relations-negative-constraints",
+      "qualification": "0.7.0b2-ohada-relations-negative-constraints",
       "reference_adapter": "OHADAStandardRelationFilesystemAdapter"
     },
     "unit_of_work": {
@@ -217,5 +217,5 @@
       "reference_adapter": "InMemoryUnitOfWork"
     }
   },
-  "version": "0.7.0b1"
+  "version": "0.7.0b2"
 }

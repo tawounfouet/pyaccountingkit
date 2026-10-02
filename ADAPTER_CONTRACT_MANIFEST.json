@@ -57,6 +57,7 @@
       "extension_api": [
         "AccountingReferenceProviderProtocol",
         "EffectivePlanReferenceProviderProtocol",
+        "ReferenceRelationProviderProtocol",
         "RegulatoryExporterProtocol",
         "RegulatoryRendererProtocol",
         "UnitOfWorkFactoryProtocol",
@@ -139,6 +140,15 @@
       "reference_adapter": "NonProfitFilesystemReferenceAdapter",
       "snapshot": "EffectivePlanSnapshot"
     },
+    "reference_relations": {
+      "automatic_inference_requires_provider_authorization": true,
+      "explicit_relations_only": true,
+      "fail_closed_inference": true,
+      "negative_constraints_first_class": true,
+      "port": "ReferenceRelationProviderProtocol",
+      "qualification": "0.7.0a3-ohada-relations",
+      "reference_adapter": "OHADARelationFilesystemAdapter"
+    },
     "reference_reporting_model": {
       "coordinates": [
         "reference_snapshot_id",
@@ -203,5 +213,5 @@
       "reference_adapter": "InMemoryUnitOfWork"
     }
   },
-  "version": "0.7.0a2"
+  "version": "0.7.0a3"
 }

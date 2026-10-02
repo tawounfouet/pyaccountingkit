@@ -1,7 +1,7 @@
 # LOT-27 — Regulatory Production Qualification
 
 **Target line:** `0.7.0`  
-**Current slice:** `0.7.0a2` — France Non-Profit effective-plan production provider  
+**Current slice:** `0.7.0a3` — OHADA EBNL structure and relation runtime  
 **Upstream regulatory corpus:** `regulatory-accounting-data-framework 0.7.1`
 
 ## Objective
@@ -124,6 +124,61 @@ REPORTING_ACCOUNT_MAPPINGS  REVIEW_REQUIRED / non-executable
 The overlay is **not** a runtime plan-building mechanism. PyAccountingKit never rebuilds the
 effective plan by replaying PCG plus overlay entries when the resolved plan exists.
 
+## 0.7.0a3 scope
+
+The third slice productionizes the OHADA EBNL 2023 structural graph and standard-family relation
+runtime without inventing semantic inheritance or account equivalence.
+
+Qualified structural evidence:
+
+- 1,145 graph nodes;
+- 9 root classes;
+- 2 explicit class-9 scopes;
+- 84 groups;
+- 1,050 account occurrence nodes;
+- 1,049 unique account codes;
+- duplicate source code `4555` preserved as `occ01` and `occ02`;
+- deterministic replayable structural snapshots.
+
+The standard-relation runtime consumes the canonical OHADA relation dataset directly:
+
+```text
+explicit relation edge
+      ↓
+queryable relation provider
+      ↓
+auto_inference_allowed flag
+
+negative constraint
+      ↓
+fail-closed runtime guard
+```
+
+No absence of prohibition is treated as permission to infer. Automatic inference requires an
+explicit relation whose `auto_inference_allowed` flag is true. The current OHADA corpus sets that
+flag to false for every relation.
+
+Capability status after this slice:
+
+```text
+ohada-ebnl:2023
+  STRUCTURE             PRODUCTION_QUALIFIED
+  SNAPSHOTS             PRODUCTION_QUALIFIED
+  RELATIONS             PRODUCTION_QUALIFIED
+  NEGATIVE_CONSTRAINTS  FORBIDDEN_INFERENCE / runtime-enforced
+  CROSSWALKS            REVIEW_REQUIRED
+  REPORTING_STRUCTURE   DISCOVERED
+
+ohada-syscohada:2017
+  RELATIONS             PRODUCTION_QUALIFIED
+
+cemac-pcemf:2010
+  RELATIONS             PRODUCTION_QUALIFIED
+  NEGATIVE_CONSTRAINTS  FORBIDDEN_INFERENCE / runtime-enforced
+  STRUCTURE             NOT_ASSERTED
+  CROSSWALKS            NOT_ASSERTED
+```
+
 ## Generated compatibility matrix
 
 `REGULATORY_COMPATIBILITY_MATRIX.json` is generated deterministically from the canonical
@@ -148,12 +203,6 @@ The LOT-27 golden suite verifies:
 - absence of global `SUPPORTED` claims.
 
 ## Deferred slices
-
-### 0.7.0a3
-
-- EBNL provider structure qualification;
-- OHADA relation provider;
-- negative-constraint runtime contract.
 
 ### 0.7.0b1
 

@@ -57,6 +57,7 @@
       "extension_api": [
         "AccountingReferenceProviderProtocol",
         "EffectivePlanReferenceProviderProtocol",
+        "StandardRelationProviderProtocol",
         "RegulatoryExporterProtocol",
         "RegulatoryRendererProtocol",
         "UnitOfWorkFactoryProtocol",
@@ -185,6 +186,19 @@
       "unit_of_work": "SessionUnitOfWork",
       "unit_of_work_factory": "SQLAlchemyUnitOfWorkFactory"
     },
+    "standard_relations": {
+      "auto_inference_default": false,
+      "coordinates": [
+        "subject_ref",
+        "relation_type",
+        "target_ref"
+      ],
+      "explicit_edges_only": true,
+      "negative_constraints_fail_closed": true,
+      "port": "StandardRelationProviderProtocol",
+      "qualification": "0.7.0a3-ohada-relations-negative-constraints",
+      "reference_adapter": "OHADAStandardRelationFilesystemAdapter"
+    },
     "unit_of_work": {
       "port": "UnitOfWorkProtocol",
       "production_adapters": [
@@ -203,5 +217,5 @@
       "reference_adapter": "InMemoryUnitOfWork"
     }
   },
-  "version": "0.7.0a2"
+  "version": "0.7.0a3"
 }

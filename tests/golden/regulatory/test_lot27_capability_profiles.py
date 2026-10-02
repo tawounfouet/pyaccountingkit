@@ -18,7 +18,7 @@ REGULATORY = ROOT / "resources" / "regulatory-accounting-data-framework"
 
 
 def _profiles() -> dict[str, object]:
-    return {profile.standard_ref: profile for profile in baseline_profiles("0.7.0a2")}
+    return {profile.standard_ref: profile for profile in baseline_profiles("0.7.0a3")}
 
 
 def test_baseline_profiles_cover_the_five_reviewed_standard_refs() -> None:
@@ -116,6 +116,34 @@ def test_ohada_negative_constraints_forbid_false_inheritance() -> None:
         assert qualification.status is Status.FORBIDDEN_INFERENCE
         assert qualification.auto_inference_allowed is False
         assert qualification.executable is False
+
+
+def test_ohada_ebnl_structure_relations_and_snapshots_are_production_qualified() -> None:
+    profile = _profiles()["ohada-ebnl:2023"]
+    assert profile.production_qualified_capabilities == (
+        Code.STRUCTURE,
+        Code.RELATIONS,
+        Code.SNAPSHOTS,
+    )
+    for capability in (Code.STRUCTURE, Code.RELATIONS, Code.SNAPSHOTS):
+        qualification = profile.qualification_for(capability)
+        assert qualification is not None
+        assert qualification.status is Status.PRODUCTION_QUALIFIED
+        assert qualification.executable is True
+
+
+def test_ohada_family_relations_are_production_qualified_without_enabling_inference() -> None:
+    profiles = _profiles()
+    for standard_ref in (
+        "ohada-syscohada:2017",
+        "ohada-ebnl:2023",
+        "cemac-pcemf:2010",
+    ):
+        relation = profiles[standard_ref].qualification_for(Code.RELATIONS)
+        assert relation is not None
+        assert relation.status is Status.PRODUCTION_QUALIFIED
+        assert relation.executable is True
+        assert relation.auto_inference_allowed is False
 
 
 def test_neutral_concepts_do_not_create_bindings() -> None:

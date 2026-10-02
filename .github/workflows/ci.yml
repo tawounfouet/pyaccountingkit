@@ -181,8 +181,12 @@ jobs:
           tests/unit/integrations/test_regulatory_capability_qualification.py
           tests/unit/domain/test_effective_reference_plan.py
           tests/unit/adapters/test_nonprofit_reference_adapter.py
+          tests/unit/domain/test_standard_relations.py
+          tests/unit/adapters/test_ohada_relation_adapter.py
           tests/golden/regulatory/test_lot27_capability_profiles.py
           tests/golden/regulatory/test_nonprofit_effective_plan.py
+          tests/golden/regulatory/test_ebnl_structure_provider.py
+          tests/golden/regulatory/test_ohada_standard_relations.py
           tests/integration/test_0_7_regulatory_compatibility_matrix.py
           -v --tb=short
       - name: Require five explicit regulatory profiles

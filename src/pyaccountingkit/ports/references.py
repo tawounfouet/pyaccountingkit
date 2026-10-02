@@ -12,6 +12,11 @@ from pyaccountingkit.domain.references.hierarchy import ReferenceHierarchy, Refe
 from pyaccountingkit.domain.references.overlays import ReferenceOverlay
 from pyaccountingkit.domain.references.relations import ConstraintRegister
 from pyaccountingkit.domain.references.snapshots import EffectivePlanSnapshot, ReferenceSnapshot
+from pyaccountingkit.domain.references.standard_relations import (
+    StandardRelation,
+    StandardRelationRegister,
+    StandardRelationType,
+)
 from pyaccountingkit.domain.references.standards import StandardType
 
 
@@ -31,6 +36,39 @@ class AccountingReferenceProviderProtocol(Protocol):
     def constraints(self, standard: StandardType) -> ConstraintRegister: ...
 
     def concept_registry(self) -> ConceptRegistry: ...
+
+
+class StandardRelationProviderProtocol(Protocol):
+    """Provider contract for explicit standard relations and inference guards."""
+
+    def relation_register(self) -> StandardRelationRegister: ...
+
+    def relations_for(
+        self,
+        subject_ref: str,
+        relation_type: StandardRelationType | None = None,
+    ) -> tuple[StandardRelation, ...]: ...
+
+    def require_not_forbidden(
+        self,
+        subject_ref: str,
+        relation_type: StandardRelationType,
+        target_ref: str,
+    ) -> None: ...
+
+    def require_auto_inference_allowed(
+        self,
+        subject_ref: str,
+        relation_type: StandardRelationType,
+        target_ref: str,
+    ) -> None: ...
+
+    def can_auto_infer(
+        self,
+        subject_ref: str,
+        relation_type: StandardRelationType,
+        target_ref: str,
+    ) -> bool: ...
 
 
 class EffectivePlanReferenceProviderProtocol(Protocol):
@@ -53,4 +91,5 @@ class EffectivePlanReferenceProviderProtocol(Protocol):
 __all__ = [
     "AccountingReferenceProviderProtocol",
     "EffectivePlanReferenceProviderProtocol",
+    "StandardRelationProviderProtocol",
 ]

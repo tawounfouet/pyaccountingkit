@@ -71,6 +71,10 @@ def validate_ci_text(text: str) -> list[str]:
             "tests/golden/regulatory/test_nonprofit_effective_plan.py",
             "tests/unit/adapters/test_nonprofit_reference_adapter.py",
             "tests/unit/domain/test_effective_reference_plan.py",
+            "tests/unit/domain/test_standard_relations.py",
+            "tests/unit/adapters/test_ohada_relation_adapter.py",
+            "tests/golden/regulatory/test_ebnl_structure_provider.py",
+            "tests/golden/regulatory/test_ohada_standard_relations.py",
             "tests/integration/test_0_7_regulatory_compatibility_matrix.py",
             "python scripts/qualify_cfa_fra_consumer.py",
             "consumer_e2e_green: ${{ steps.consumer-state.outputs.consumer_e2e_green }}",
@@ -251,7 +255,7 @@ def main() -> int:
     print("Production adapter gates: Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16")
     print(
         "Regulatory qualification: capability-scoped LOT-27 profiles, "
-        "Non-Profit effective plan and golden safety"
+        "Non-Profit effective plan, EBNL structure, OHADA relation guards and golden safety"
     )
     print("Consumer bootstrap: deterministic standalone seed from immutable Sprint-7 oracle")
     print("Consumer publication: reviewed Git provenance handoff before BOUND")

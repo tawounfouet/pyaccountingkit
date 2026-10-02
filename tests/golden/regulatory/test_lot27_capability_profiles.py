@@ -18,7 +18,7 @@ REGULATORY = ROOT / "resources" / "regulatory-accounting-data-framework"
 
 
 def _profiles() -> dict[str, object]:
-    return {profile.standard_ref: profile for profile in baseline_profiles("0.7.0b1")}
+    return {profile.standard_ref: profile for profile in baseline_profiles("0.7.0b2")}
 
 
 def test_baseline_profiles_cover_the_five_reviewed_standard_refs() -> None:
@@ -157,3 +157,27 @@ def test_neutral_concepts_do_not_create_bindings() -> None:
     assert pcemf_binding is not None
     assert ebnl_binding.status is Status.NOT_ASSERTED
     assert pcemf_binding.status is Status.NOT_ASSERTED
+
+
+def test_ebnl_reporting_metadata_is_validated_without_mapping_or_export_promotion() -> None:
+    profile = _profiles()["ohada-ebnl:2023"]
+
+    structure = profile.qualification_for(Code.REPORTING_STRUCTURE)
+    mappings = profile.qualification_for(Code.REPORTING_ACCOUNT_MAPPINGS)
+    exports = profile.qualification_for(Code.EXPORTS)
+
+    assert structure is not None
+    assert structure.status is Status.VALIDATED
+    assert structure.executable is False
+    assert structure.golden_refs == (
+        "tests/golden/regulatory/test_ebnl_reporting_registry.py",
+    )
+
+    assert mappings is not None
+    assert mappings.status is Status.NOT_ASSERTED
+    assert mappings.executable is False
+    assert mappings.human_review_required is True
+
+    assert exports is not None
+    assert exports.status is Status.NOT_ASSERTED
+    assert exports.executable is False

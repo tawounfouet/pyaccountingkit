@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0b2] - 2026-10-02
+
+### Added
+- Source-backed OHADA EBNL 2023 reporting registry provider.
+- Immutable reporting profile, statement, provenance and eligibility-threshold metadata.
+- Golden qualification for 3 profiles, 13 statement descriptors and 5 SMT threshold rules.
+
+### Qualified in this slice
+- `ohada-ebnl:2023 / REPORTING_STRUCTURE`: `VALIDATED`, deliberately non-executable.
+
+### Safety
+- Line-level reporting execution fails closed while source templates remain incompletely transcribed.
+- `REPORTING_ACCOUNT_MAPPINGS` remains `NOT_ASSERTED` and non-executable.
+- `EXPORTS` remains `NOT_ASSERTED`; no EBNL filing renderer is claimed.
+- Source policy `automatic_filing_generation=false` and visual verification requirement are preserved.
+
 ## [0.7.0b1] - 2026-10-02
 
 ### Added

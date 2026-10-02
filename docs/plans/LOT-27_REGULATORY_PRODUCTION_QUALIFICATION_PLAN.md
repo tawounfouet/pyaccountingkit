@@ -1,7 +1,7 @@
 # LOT-27 — Regulatory Production Qualification
 
 **Target line:** `0.7.0`  
-**Current slice:** `0.7.0b1` — reviewed structural crosswalk runtime  
+**Current slice:** `0.7.0b2` — reporting registry qualification  
 **Upstream regulatory corpus:** `regulatory-accounting-data-framework 0.7.1`
 
 ## Objective
@@ -213,13 +213,31 @@ crosswalk dataset, so `CROSSWALKS` remains `NOT_ASSERTED`. Existing source-backe
 constraints forbid PCEMF→SYSCOHADA inheritance inference. Missing evidence is never converted
 into a candidate or executable mapping.
 
-## Deferred slices
+## 0.7.0b2 scope
 
-### 0.7.0b2
+The second beta ingests the source-backed EBNL reporting registry without pretending that visual
+templates are exhaustively transcribed line-level models.
 
-- reporting-structure production qualification;
-- mapping-review evidence;
-- export capability qualification where actually supported.
+Qualified evidence:
+
+- 3 reporting profiles;
+- 13 statement descriptors;
+- 5 Minimal Cash System eligibility thresholds at 30,000,000 XAF;
+- source document/page/section and legal-basis provenance;
+- `automatic_filing_generation=false`;
+- `template_visual_verification_required=true`;
+- every statement remains `visual_template_bound_not_exhaustively_transcribed`.
+
+Capability boundary after this slice:
+
+```text
+REPORTING_STRUCTURE         VALIDATED / non-executable
+REPORTING_ACCOUNT_MAPPINGS NOT_ASSERTED / non-executable
+EXPORTS                     NOT_ASSERTED / non-executable
+```
+
+The registry provider is therefore production-safe as metadata ingestion, but it cannot be used
+as a line-level `ReferenceReportingModel`. Requests for such execution fail closed.
 
 ### 0.7.0rc1
 

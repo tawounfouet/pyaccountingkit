@@ -129,9 +129,7 @@ def parse_standard_relation_register(
     return StandardRelationRegister(
         family_id=_required_string(document, "family_id"),
         relations=tuple(_parse_relation(raw) for raw in raw_relations),
-        negative_constraints=tuple(
-            _parse_negative_constraint(raw) for raw in raw_constraints
-        ),
+        negative_constraints=tuple(_parse_negative_constraint(raw) for raw in raw_constraints),
     )
 
 
@@ -167,9 +165,7 @@ def _parse_negative_constraint(raw: object) -> ForbiddenStandardRelation:
         raise ValueError("negative constraint must be a JSON object")
     return ForbiddenStandardRelation(
         constraint_id=_required_string(raw, "constraint_id"),
-        relation_type=StandardRelationType(
-            _required_string(raw, "forbidden_relation_type")
-        ),
+        relation_type=StandardRelationType(_required_string(raw, "forbidden_relation_type")),
         subject_ref=_required_string(raw, "subject_ref"),
         target_ref=_required_string(raw, "target_ref"),
         reason=_required_string(raw, "reason"),

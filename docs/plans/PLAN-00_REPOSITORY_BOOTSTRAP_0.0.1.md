@@ -2,8 +2,61 @@
 
 > **Milestone cible** : Release `0.0.1`  
 > **Lot couvert** : `LOT-00`  
-> **Statut** : Cadrage & Socle initial  
+> **Statut** : Repository baseline qualifiée ; clôture globale `BLOCKED_EXTERNAL_CONTROL` tant que `main` n'est pas protégée côté GitHub  
 > **Document d'architecture parent** : [`specs/05_engineering-governance/11_PYACCOUNTINGKIT_TESTING_AND_QUALITY_STRATEGY.md`](../specs/05_engineering-governance/11_PYACCOUNTINGKIT_TESTING_AND_QUALITY_STRATEGY.md)
+
+---
+
+## 0. État de clôture du LOT-00 — 2026-10-02
+
+Le jalon `0.0.1` reste la **cible historique** de bootstrap de ce plan. Le dépôt réel a depuis
+progressé jusqu'à `0.7.0b1 / LOT-27`; la qualification finale du LOT-00 est donc exécutée sur
+l'état actuel du repository sans régression artificielle de version.
+
+La séquence de remédiation `LOT-00.1 → LOT-00.8` est terminée :
+
+```text
+LOT-00.1  Documentation Traceability Cleanup   COMPLETE
+LOT-00.2  Version & Metadata Alignment         COMPLETE
+LOT-00.3  Repository & Scaffold Cleanup        COMPLETE
+LOT-00.4  Engineering Safety                   COMPLETE
+LOT-00.5  Bootstrap Test Suite                 COMPLETE
+LOT-00.6  CI Hardening                         COMPLETE
+LOT-00.7  Release Hardening                    COMPLETE
+LOT-00.8  Resources & Governance               COMPLETE
+LOT-00.9  Final Qualification                  BLOCKED_EXTERNAL_CONTROL
+```
+
+Le HEAD `main` de référence `0507087d6d9187892240b514728c7cb895610683` a repassé
+`CI #532` et `Security #535` entièrement au vert après le merge de LOT-00.8, avec
+`Canonical CI gate = PASS`.
+
+Le blocker restant est externe au contenu Git du repository :
+
+```text
+GitHub main branch protection = false
+```
+
+La clôture complète de LOT-00 exige l'activation d'une protection/ruleset équivalente imposant les
+pull requests, le `Canonical CI gate`, les contrôles Security et l'interdiction des force-pushes
+et de la suppression de `main`.
+
+Le statut machine-readable est conservé dans :
+
+```text
+docs/audits/LOT_00_REMEDIATION_STATUS.json
+```
+
+et validé par :
+
+```bash
+python scripts/validate_lot00_remediation_status.py
+python scripts/validate_lot00_remediation_status.py --require-complete
+```
+
+La première commande vérifie la cohérence de la preuve. La seconde reste volontairement non-zéro
+tant que le contrôle GitHub externe n'est pas réellement satisfait. Aucun tag, aucune publication
+PyPI/GitHub Release et aucune promotion `0.7.0` stable ne sont produits par cette qualification.
 
 ---
 

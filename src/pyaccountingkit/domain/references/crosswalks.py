@@ -69,7 +69,6 @@ def _entry_key(entry: CrosswalkEntry) -> tuple[str, str, str, str]:
 
 
 
-
 # LOT-27 reviewed structural candidates are deliberately distinct from executable StandardCrosswalk.
 
 

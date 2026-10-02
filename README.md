@@ -712,3 +712,33 @@ inventory component to one non-executing action:
 The planner never mutates the bundled oracle and never executes deletion. Canonical CI
 qualifies the planner only against isolated MIG-13-ready fixture evidence; the real live
 retirement state remains blocked until genuine CFA FRA proofs are supplied.
+
+
+## Resource and licensing governance
+
+The root MIT license applies to the PyAccountingKit project material to the extent described by
+`LICENSE`. It must not be read as silently relicensing third-party, regulatory or practitioner
+source documents stored as repository evidence.
+
+The current resource snapshots are governed by:
+
+```text
+RESOURCE_GOVERNANCE.json
+THIRD_PARTY_NOTICES.md
+resources/README.md
+```
+
+Both the CFA FRA behavioral oracle and the regulatory accounting data snapshot are repository
+evidence only: they are not mandatory runtime dependencies and are forbidden from the
+PyAccountingKit wheel. The regulatory bundle intentionally carries a
+`MIXED_OR_UNASSERTED_REVIEW_REQUIRED` rights status because its embedded source documents do not
+declare one uniform license.
+
+Any change below a governed `resources/<bundle>/` directory must update the bundle fingerprint
+and provenance/rights review in the same pull request.
+
+Validation:
+
+```bash
+python scripts/validate_resource_governance.py
+```

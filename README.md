@@ -10,7 +10,7 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit **0.7.0b1** is the LOT-27 reviewed structural crosswalk beta.
+PyAccountingKit **0.7.0b2** is the LOT-27 reviewed structural crosswalk beta.
 
 LOT-26 turns the frozen LOT-25 CFA FRA behavioral baseline into an executable
 migration boundary. The temporary `CFAFRACompatibilityAdapter` lets the Django
@@ -35,7 +35,7 @@ provider exposes only source-declared standard-family edges and a fail-closed ne
 runtime. In particular, EBNL 2023 and PCEMF 2010 cannot be inferred to inherit from SYSCOHADA
 2017, and no relation becomes auto-inferable unless the corpus explicitly allows it.
 
-The `0.7.0b1` slice adds a reviewed EBNL/SYSCOHADA structural crosswalk runtime. Structural candidates remain non-executable even when codes and normalized labels match. PCEMF/SYSCOHADA crosswalk support remains explicitly `NOT_ASSERTED`: no PCEMF crosswalk dataset is bundled, and the existing negative-relation guard forbids manufacturing inheritance or mappings from absence of evidence.
+The `0.7.0b2` slice adds a reviewed EBNL/SYSCOHADA structural crosswalk runtime. Structural candidates remain non-executable even when codes and normalized labels match. PCEMF/SYSCOHADA crosswalk support remains explicitly `NOT_ASSERTED`: no PCEMF crosswalk dataset is bundled, and the existing negative-relation guard forbids manufacturing inheritance or mappings from absence of evidence.
 
 LOT-25 remains the behavioral oracle baseline and executes normalized golden parity for:
 
@@ -59,7 +59,7 @@ mode rather than a generic posting bypass.
 
 The stable **0.5.0** public facade, adapter contract v1 and the independently
 Production-qualified Django/PostgreSQL and SQLAlchemy/PostgreSQL adapters remain
-the compatibility baseline. **0.7.0b1 is still pre-1.0**. LOT-27 regulatory production
+the compatibility baseline. **0.7.0b2 is still pre-1.0**. LOT-27 regulatory production
 qualification is now being developed in parallel while the external CFA FRA live-consumer work
 required to close LOT-26 remains intentionally deferred. This does not declare `0.6.0` stable.
 

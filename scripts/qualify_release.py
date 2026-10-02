@@ -373,6 +373,12 @@ def qualify(
     )
     results.append(
         run_command(
+            [sys.executable, "scripts/validate_resource_governance.py"],
+            label="Resource governance",
+        )
+    )
+    results.append(
+        run_command(
             [sys.executable, "-m", "ruff", "check", "src", "tests", "scripts"],
             label="Ruff lint",
         )

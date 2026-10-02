@@ -1,0 +1,52 @@
+{
+  "schema_version": "1",
+  "policy": {
+    "project_license": "MIT",
+    "project_license_file": "LICENSE",
+    "third_party_notice_file": "THIRD_PARTY_NOTICES.md",
+    "package_inclusion": "FORBIDDEN",
+    "runtime_dependency": "FORBIDDEN",
+    "production_or_confidential_data": "FORBIDDEN",
+    "resource_change_requires": [
+      "provenance_review",
+      "rights_status_review",
+      "bundle_fingerprint_update",
+      "manifest_or_source_checksum_review",
+      "ci_governance_gate"
+    ]
+  },
+  "bundles": [
+    {
+      "id": "cfa-fra-sprint7-behavioral-oracle",
+      "path": "resources/cfa_fra_django_mvp_sprint_7",
+      "kind": "BEHAVIORAL_ORACLE",
+      "tree_sha": "07d4880534d2e2239e19fd4ef4139de70b56773a",
+      "manifest_path": "resources/cfa_fra_django_mvp_sprint_7/MANIFEST.json",
+      "manifest_project": "cfa_fra_django_mvp_sprint_7",
+      "manifest_version": "0.8.0",
+      "contains_third_party_sources": false,
+      "rights_status": "NO_SEPARATE_LICENSE_DECLARATION",
+      "redistribution_status": "REPOSITORY_REFERENCE_ONLY",
+      "package_inclusion": false,
+      "runtime_dependency": false,
+      "mutable_in_place": false,
+      "purpose": "Frozen behavioral oracle used for CFA FRA parity and migration evidence."
+    },
+    {
+      "id": "regulatory-accounting-data-framework",
+      "path": "resources/regulatory-accounting-data-framework",
+      "kind": "REGULATORY_REFERENCE_BUNDLE",
+      "tree_sha": "f6f05c8f2fe8397e4ebb80707ebeed6497e53e98",
+      "manifest_path": "resources/regulatory-accounting-data-framework/PROJECT_MANIFEST.json",
+      "manifest_project": "regulatory-accounting-data-framework",
+      "manifest_version": "0.7.1",
+      "contains_third_party_sources": true,
+      "rights_status": "MIXED_OR_UNASSERTED_REVIEW_REQUIRED",
+      "redistribution_status": "REVIEW_REQUIRED_BEFORE_EXTERNAL_REPACKAGING",
+      "package_inclusion": false,
+      "runtime_dependency": false,
+      "mutable_in_place": false,
+      "purpose": "Pinned regulatory source and derived-data snapshot used for qualification."
+    }
+  ]
+}

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from enum import StrEnum
 
 from pyaccountingkit.domain.references.standards import RegulatoryId
 
@@ -70,7 +71,6 @@ def _entry_key(entry: CrosswalkEntry) -> tuple[str, str, str, str]:
 
 
 # LOT-27 reviewed structural candidates are deliberately distinct from executable StandardCrosswalk.
-from enum import StrEnum
 
 
 class CrosswalkCandidateStatus(StrEnum):
@@ -78,6 +78,7 @@ class CrosswalkCandidateStatus(StrEnum):
     EBNL_ONLY_CODE = "ebnl_only_code"
     SAME_CODE_LABEL_VARIATION = "same_code_label_variation"
     SAME_CODE_SAME_NORMALIZED_LABEL = "same_code_same_normalized_label"
+    AMBIGUOUS_EBNL_SOURCE_CODE = "ambiguous_ebnl_source_code"
 
 
 @dataclass(frozen=True, slots=True)
@@ -131,4 +132,11 @@ class ReviewedStructuralCrosswalk:
         raise KeyError(ref_code)
 
 
-__all__ = ["CrosswalkEntry", "StandardCrosswalk", "CrosswalkCandidateStatus", "CrosswalkOccurrence", "StructuralCrosswalkCandidate", "ReviewedStructuralCrosswalk"]
+__all__ = [
+    "CrosswalkCandidateStatus",
+    "CrosswalkEntry",
+    "CrosswalkOccurrence",
+    "ReviewedStructuralCrosswalk",
+    "StandardCrosswalk",
+    "StructuralCrosswalkCandidate",
+]

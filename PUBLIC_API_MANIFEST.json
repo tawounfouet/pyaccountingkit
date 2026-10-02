@@ -10,13 +10,14 @@
       "RegulatoryRendererProtocol",
       "RuntimeCapabilities",
       "SUPPORTED_ADAPTER_CONTRACT_VERSIONS",
+      "StandardRelationProviderProtocol",
       "UnitOfWorkFactoryProtocol",
       "UnitOfWorkProtocol",
       "require_adapter_contract",
       "require_optional_dependency",
       "runtime_capabilities"
     ],
-    "note": "The 0.7 alpha line preserves the stable LOT-21..24 public facade and adapter contract v1 while adding capability-scoped regulatory qualification. The effective-plan provider protocol is additive; LOT-26 live CFA FRA closure remains deferred and the full pre-1.0 Python API is not frozen yet.",
+    "note": "The 0.7 alpha line preserves the stable LOT-21..24 public facade and adapter contract v1 while adding capability-scoped regulatory qualification. The effective-plan and standard-relation provider protocols are additive; LOT-26 live CFA FRA closure remains deferred and the full pre-1.0 Python API is not frozen yet.",
     "public_package_exports": [
       "AccountingApplication",
       "AdapterContractMismatchError",

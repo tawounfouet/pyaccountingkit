@@ -68,10 +68,7 @@ def _entry_key(entry: CrosswalkEntry) -> tuple[str, str, str, str]:
     )
 
 
-
 # LOT-27 reviewed structural candidates are deliberately distinct from executable StandardCrosswalk.
-
-
 class CrosswalkCandidateStatus(StrEnum):
     SYSCOHADA_ONLY_CODE = "syscohada_only_code"
     EBNL_ONLY_CODE = "ebnl_only_code"

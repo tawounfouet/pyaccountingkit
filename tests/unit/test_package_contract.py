@@ -46,6 +46,7 @@ def _write_sdist(path: Path, version: str) -> None:
         "pyproject.toml",
         "README.md",
         "LICENSE",
+        "THIRD_PARTY_NOTICES.md",
         "src/pyaccountingkit/__init__.py",
         "src/pyaccountingkit/py.typed",
     )

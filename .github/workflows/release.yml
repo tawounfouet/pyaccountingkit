@@ -5,20 +5,148 @@ on:
     tags:
       - "v*"
 
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  PIP_DISABLE_PIP_VERSION_CHECK: "1"
+  PYTHONUNBUFFERED: "1"
+
 jobs:
-  publish:
+  preflight:
+    name: Release preflight and qualification
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: write
+    timeout-minutes: 30
+    outputs:
+      version: ${{ steps.release-metadata.outputs.version }}
+      prerelease: ${{ steps.release-metadata.outputs.prerelease }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v7.0.0
         with:
           python-version: "3.12"
-      - run: pip install build
-      - run: python -m build
-      - uses: pypa/gh-action-pypi-publish@release/v1
-      - uses: softprops/action-gh-release@v2
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install release qualification tooling
+        run: python -m pip install -e ".[dev]"
+      - name: Refresh canonical main reference
+        run: git fetch origin main --no-tags
+      - name: Validate tag, version and main ancestry
+        id: release-metadata
+        run: >-
+          python scripts/prepare_release.py preflight
+          --tag "$GITHUB_REF_NAME"
+          --sha "$GITHUB_SHA"
+          --github-output "$GITHUB_OUTPUT"
+      - name: Run fail-closed publication qualification
+        run: python scripts/qualify_release.py --release-candidate
+
+  build:
+    name: Build immutable release bundle
+    needs: [preflight]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7.0.0
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install release build tooling
+        run: python -m pip install -e ".[dev]"
+      - name: Build, verify and seal distributions exactly once
+        run: >-
+          python scripts/prepare_release.py build
+          --bundle-dir release-bundle
+          --tag "$GITHUB_REF_NAME"
+          --sha "$GITHUB_SHA"
+      - name: Upload immutable release bundle
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: pyaccountingkit-release-${{ needs.preflight.outputs.version }}
+          path: release-bundle/
+          if-no-files-found: error
+          retention-days: 30
+          compression-level: 0
+
+  publish-pypi:
+    name: Publish exact bundle to PyPI
+    needs: [preflight, build]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: pypi
+      url: https://pypi.org/p/pyaccountingkit
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7.0.0
+        with:
+          python-version: "3.12"
+      - name: Download sealed release bundle
+        uses: actions/download-artifact@v8.0.1
+        with:
+          name: pyaccountingkit-release-${{ needs.preflight.outputs.version }}
+          path: release-bundle
+      - name: Reverify bundle before PyPI boundary
+        run: >-
+          python scripts/prepare_release.py verify
+          --bundle-dir release-bundle
+          --tag "$GITHUB_REF_NAME"
+          --sha "$GITHUB_SHA"
+      - name: Publish with PyPI Trusted Publishing
+        uses: pypa/gh-action-pypi-publish@v1.14.2
+        with:
+          packages-dir: release-bundle/dist/
+
+  github-release:
+    name: Publish GitHub Release from exact PyPI bundle
+    needs: [preflight, build, publish-pypi]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7.0.0
+        with:
+          python-version: "3.12"
+      - name: Download sealed release bundle
+        uses: actions/download-artifact@v8.0.1
+        with:
+          name: pyaccountingkit-release-${{ needs.preflight.outputs.version }}
+          path: release-bundle
+      - name: Reverify bundle before GitHub Release boundary
+        run: >-
+          python scripts/prepare_release.py verify
+          --bundle-dir release-bundle
+          --tag "$GITHUB_REF_NAME"
+          --sha "$GITHUB_SHA"
+      - name: Create immutable release record
+        uses: softprops/action-gh-release@v3.0.3
         with:
           generate_release_notes: true
+          prerelease: ${{ needs.preflight.outputs.prerelease == 'true' }}
+          fail_on_unmatched_files: true
+          files: |
+            release-bundle/dist/*
+            release-bundle/metadata/SHA256SUMS
+            release-bundle/metadata/RELEASE_QUALIFICATION_MANIFEST.json

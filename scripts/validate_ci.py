@@ -9,6 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CI_WORKFLOW = ROOT / ".github" / "workflows" / "ci.yml"
 SECURITY_WORKFLOW = ROOT / ".github" / "workflows" / "security.yml"
+RELEASE_WORKFLOW = ROOT / ".github" / "workflows" / "release.yml"
 TEST_COMMAND = (
     "python -m pytest tests/unit tests/property tests/contract tests/integration "
     "tests/golden tests/replay tests/concurrency -v --tb=short"
@@ -220,12 +221,85 @@ def validate_security_text(text: str) -> list[str]:
     return violations
 
 
+def validate_release_text(text: str) -> list[str]:
+    """Return contract violations for the publication workflow."""
+    violations = _missing_snippets(
+        text,
+        (
+            'tags:\n      - "v*"',
+            "permissions:\n  contents: read",
+            "concurrency:",
+            "cancel-in-progress: false",
+            "preflight:\n",
+            "build:\n",
+            "publish-pypi:\n",
+            "github-release:\n",
+            "fetch-depth: 0",
+            "persist-credentials: false",
+            "git fetch origin main --no-tags",
+            "python scripts/prepare_release.py preflight",
+            '--github-output "$GITHUB_OUTPUT"',
+            "python scripts/qualify_release.py --release-candidate",
+            "python scripts/prepare_release.py build",
+            "Build, verify and seal distributions exactly once",
+            "actions/upload-artifact@v7.0.1",
+            "actions/download-artifact@v8.0.1",
+            "environment:\n      name: pypi",
+            "id-token: write",
+            "pypa/gh-action-pypi-publish@v1.14.2",
+            "packages-dir: release-bundle/dist/",
+            "needs: [preflight, build, publish-pypi]",
+            "softprops/action-gh-release@v3.0.3",
+            "RELEASE_QUALIFICATION_MANIFEST.json",
+            "SHA256SUMS",
+        ),
+        label="Release",
+    )
+
+    expected_counts = (
+        ("actions/checkout@v7.0.1", 4),
+        ("actions/setup-python@v7.0.0", 4),
+        ("actions/upload-artifact@v7.0.1", 1),
+        ("actions/download-artifact@v8.0.1", 2),
+        ("python scripts/qualify_release.py --release-candidate", 1),
+        ("python scripts/prepare_release.py build", 1),
+        ("python scripts/prepare_release.py verify", 2),
+        ("pypa/gh-action-pypi-publish@v1.14.2", 1),
+        ("softprops/action-gh-release@v3.0.3", 1),
+    )
+    for snippet, expected in expected_counts:
+        actual = text.count(snippet)
+        if actual != expected:
+            violations.append(
+                f"Release: expected {expected} occurrence(s) of {snippet!r}, found {actual}"
+            )
+
+    forbidden = (
+        "actions/checkout@v4",
+        "actions/setup-python@v5",
+        "pypa/gh-action-pypi-publish@release/v1",
+        "softprops/action-gh-release@v2",
+        "python -m build",
+        "twine upload",
+        "skip-existing:",
+        "password:",
+        "repository-url:",
+        "cancel-in-progress: true",
+    )
+    for snippet in forbidden:
+        if snippet in text:
+            violations.append(f"Release: forbidden publication construct: {snippet}")
+
+    return violations
+
+
 def workflow_violations() -> list[str]:
     """Validate workflow files from the repository root."""
     violations: list[str] = []
     for path, validator in (
         (CI_WORKFLOW, validate_ci_text),
         (SECURITY_WORKFLOW, validate_security_text),
+        (RELEASE_WORKFLOW, validate_release_text),
     ):
         if not path.is_file():
             violations.append(f"workflow missing: {path.relative_to(ROOT)}")
@@ -274,6 +348,7 @@ def main() -> int:
     )
     print("Retirement gate: MIG-13 readiness with explicit blocker evidence")
     print("Security jobs: audit, sast")
+    print("Release pipeline: preflight, build-once, Trusted Publishing, GitHub Release")
     return 0
 
 

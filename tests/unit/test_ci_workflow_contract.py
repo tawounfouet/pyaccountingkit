@@ -70,3 +70,39 @@ def test_security_contract_rejects_legacy_action_generations() -> None:
 
     violations = module.validate_security_text(invalid)
     assert any("legacy Node-20" in item for item in violations)
+
+
+def test_release_contract_requires_fail_closed_qualification() -> None:
+    """Tag publication must remain behind the strongest repository qualifier."""
+    module = _load_validator()
+    text = module.RELEASE_WORKFLOW.read_text(encoding="utf-8")
+    invalid = text.replace(
+        "python scripts/qualify_release.py --release-candidate",
+        "echo qualification-skipped",
+    )
+
+    violations = module.validate_release_text(invalid)
+    assert any("release-candidate" in item for item in violations)
+
+
+def test_release_contract_rejects_secret_based_pypi_authentication() -> None:
+    """PyPI publication must remain OIDC-only with no stored password/token input."""
+    module = _load_validator()
+    text = module.RELEASE_WORKFLOW.read_text(encoding="utf-8")
+    invalid = text.replace(
+        "packages-dir: release-bundle/dist/",
+        "packages-dir: release-bundle/dist/\n          password: SECRET_TOKEN",
+    )
+
+    violations = module.validate_release_text(invalid)
+    assert any("password:" in item for item in violations)
+
+
+def test_release_contract_rejects_rebuild_after_bundle_sealing() -> None:
+    """Publication jobs must consume the sealed build rather than rebuild distributions."""
+    module = _load_validator()
+    text = module.RELEASE_WORKFLOW.read_text(encoding="utf-8")
+    invalid = text + "\n# regression\n# python -m build\n"
+
+    violations = module.validate_release_text(invalid)
+    assert any("python -m build" in item for item in violations)

@@ -43,9 +43,7 @@ def test_ebnl_structure_preserves_full_reviewed_graph() -> None:
 def test_ebnl_class_nine_scopes_remain_explicit_nodes() -> None:
     hierarchy = _provider().get_hierarchy(StandardType.OHADA_EBNL)
     scopes = tuple(
-        node
-        for node in hierarchy.all_nodes()
-        if node.node_type is ReferenceNodeType.CLASS_SCOPE
+        node for node in hierarchy.all_nodes() if node.node_type is ReferenceNodeType.CLASS_SCOPE
     )
     assert len(scopes) == 2
     assert {node.attributes["scope_id"] for node in scopes} == {

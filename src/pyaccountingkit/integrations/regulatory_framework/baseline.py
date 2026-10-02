@@ -18,7 +18,8 @@ from pyaccountingkit.integrations.regulatory_framework.qualification import (
 PROVIDER_ID = "regulatory-accounting-data-framework"
 PROVIDER_VERSION = "0.7.1"
 DATASET_RELEASE = "0.7.1"
-QUALIFIED_AT = "2026-10-02T07:45:00Z"
+QUALIFIED_AT = "2026-10-01T18:00:00Z"
+NONPROFIT_QUALIFIED_AT = "2026-10-02T07:45:00Z"
 REVIEWER = "PyAccountingKit LOT-27 canonical CI"
 
 
@@ -257,7 +258,7 @@ def baseline_profiles(
                     test_suite="tests/golden/regulatory/test_nonprofit_effective_plan.py",
                     golden_refs=("tests/golden/regulatory/test_nonprofit_effective_plan.py",),
                     reviewer=REVIEWER,
-                    qualified_at=QUALIFIED_AT,
+                    qualified_at=NONPROFIT_QUALIFIED_AT,
                     notes=(
                         "Provider consumes the upstream resolved effective plan directly without "
                         "replaying PCG plus overlays."
@@ -316,7 +317,7 @@ def baseline_profiles(
                     test_suite="tests/golden/regulatory/test_nonprofit_effective_plan.py",
                     golden_refs=("tests/golden/regulatory/test_nonprofit_effective_plan.py",),
                     reviewer=REVIEWER,
-                    qualified_at=QUALIFIED_AT,
+                    qualified_at=NONPROFIT_QUALIFIED_AT,
                     notes="Resolved effective-plan snapshots are deterministic and replayable.",
                 ),
             ),

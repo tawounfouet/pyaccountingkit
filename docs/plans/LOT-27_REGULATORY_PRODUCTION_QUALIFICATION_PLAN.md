@@ -1,7 +1,7 @@
 # LOT-27 — Regulatory Production Qualification
 
 **Target line:** `0.7.0`  
-**Current slice:** `0.7.0a3` — OHADA EBNL structure and relation runtime  
+**Current slice:** `0.7.0b1` — OHADA EBNL structure and relation runtime  
 **Upstream regulatory corpus:** `regulatory-accounting-data-framework 0.7.1`
 
 ## Objective
@@ -124,7 +124,7 @@ REPORTING_ACCOUNT_MAPPINGS  REVIEW_REQUIRED / non-executable
 The overlay is **not** a runtime plan-building mechanism. PyAccountingKit never rebuilds the
 effective plan by replaying PCG plus overlay entries when the resolved plan exists.
 
-## 0.7.0a3 scope
+## 0.7.0b1 scope
 
 The third slice productionizes the OHADA EBNL 2023 structural graph and standard-family relation
 runtime without inventing semantic inheritance or account equivalence.

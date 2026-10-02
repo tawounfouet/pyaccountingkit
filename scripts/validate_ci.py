@@ -238,7 +238,7 @@ def validate_release_text(text: str) -> list[str]:
             "persist-credentials: false",
             "git fetch origin main --no-tags",
             "python scripts/prepare_release.py preflight",
-            "--github-output \"$GITHUB_OUTPUT\"",
+            '--github-output "$GITHUB_OUTPUT"',
             "python scripts/qualify_release.py --release-candidate",
             "python scripts/prepare_release.py build",
             "Build, verify and seal distributions exactly once",

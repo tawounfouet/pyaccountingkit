@@ -180,9 +180,7 @@ def build_bundle(*, bundle_dir: Path, tag: str, sha: str, root: Path = ROOT) -> 
         json.dumps(manifest, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )
-    checksum_lines = [
-        f"{item['sha256']}  {item['filename']}" for item in manifest["artifacts"]
-    ]
+    checksum_lines = [f"{item['sha256']}  {item['filename']}" for item in manifest["artifacts"]]
     (metadata_dir / "SHA256SUMS").write_text(
         "\n".join(checksum_lines) + "\n",
         encoding="utf-8",
@@ -242,9 +240,9 @@ def verify_bundle(*, bundle_dir: Path, tag: str, sha: str, root: Path = ROOT) ->
     if raw_artifacts != expected_entries:
         raise ReleasePreparationError("release artifact digest/size manifest does not match bundle")
 
-    expected_checksums = "\n".join(
-        f"{item['sha256']}  {item['filename']}" for item in expected_entries
-    ) + "\n"
+    expected_checksums = (
+        "\n".join(f"{item['sha256']}  {item['filename']}" for item in expected_entries) + "\n"
+    )
     if checksum_path.read_text(encoding="utf-8") != expected_checksums:
         raise ReleasePreparationError("SHA256SUMS does not match release artifacts")
     return manifest

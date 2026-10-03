@@ -223,5 +223,5 @@
       "reference_adapter": "InMemoryUnitOfWork"
     }
   },
-  "version": "0.7.0rc1"
+  "version": "0.7.0"
 }

@@ -71,7 +71,8 @@ _VERSIONED_RC_EVIDENCE: dict[str, tuple[str, ...]] = {
         "tests/consumer/cfa_fra/live_evidence/legacy-retirement-plan.json",
         "tests/consumer/cfa_fra/live_evidence/legacy-retirement-execution.json",
         "tests/consumer/cfa_fra/live_evidence/legacy-retirement-completion.json",
-    ),    "0.7.0rc1": (
+    ),
+    "0.7.0rc1": (
         "tests/integration/test_0_7_regulatory_compatibility_matrix.py",
         "tests/golden/regulatory/test_lot27_capability_profiles.py",
         "tests/golden/regulatory/test_nonprofit_effective_plan.py",
@@ -81,7 +82,6 @@ _VERSIONED_RC_EVIDENCE: dict[str, tuple[str, ...]] = {
         "REGULATORY_COMPATIBILITY_MATRIX.json",
         "SNAPSHOT_SCHEMA_MANIFEST.json",
     ),
-
 }
 
 

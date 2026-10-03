@@ -164,7 +164,9 @@ def stable_gate_violations(*, root: Path = ROOT, target_version: str = '0.7.0') 
                 if immutable.get('required') is not True:
                     violations.append('GitHub release immutability must remain required')
                 if immutable.get('observed_enabled') is not True:
-                    violations.append('GitHub release immutability must be observed enabled before G5')
+                    violations.append(
+                        'GitHub release immutability must be observed enabled before G5'
+                    )
                 if immutable.get('status') != 'COMPLETE':
                     violations.append('G5 immutable-releases control must be COMPLETE')
             external_blockers = g5_external.get('blockers')

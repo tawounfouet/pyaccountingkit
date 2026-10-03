@@ -52,6 +52,7 @@ def validate_ci_text(text: str) -> list[str]:
             "retirement-readiness:\n",
             "release-qualification:\n",
             "regulatory-release-qualification:\n",
+            "stable-release-qualification:\n",
             "ci-gate:\n",
             "fail-fast: false",
             'python-version: ["3.11", "3.12", "3.13"]',
@@ -118,7 +119,9 @@ def validate_ci_text(text: str) -> list[str]:
             "consumer_repository_bound",
             "tests/consumer/cfa_fra/CONSUMER_BINDING.json",
             "startsWith(github.head_ref, 'release/0.6')",
-            "startsWith(github.head_ref, 'release/0.7')",
+            "startsWith(github.head_ref, 'release/0.7.0rc')",
+            "github.head_ref == 'release/0.7.0'",
+            "python scripts/validate_stable_gate.py",
             "needs: [test, postgresql, sqlalchemy-postgresql, cutover-evidence,",
             "consumer-bootstrap, consumer-binding]",
             "build/cfa_fra_live_retirement_readiness.json",
@@ -134,7 +137,7 @@ def validate_ci_text(text: str) -> list[str]:
                 "consumer-binding, consumer-evidence, retirement-inventory, cutover-evidence, "
                 "cutover-pipeline, retirement-plan, retirement-execution, retirement-completion, "
                 "retirement-readiness, release-qualification, "
-                "regulatory-release-qualification]"
+                "regulatory-release-qualification, stable-release-qualification]"
             ),
             "if: ${{ always() }}",
             "QUALITY_RESULT: ${{ needs.quality.result }}",
@@ -169,20 +172,26 @@ def validate_ci_text(text: str) -> list[str]:
                 "REGULATORY_RELEASE_QUALIFICATION_RESULT: "
                 "${{ needs.regulatory-release-qualification.result }}"
             ),
+            (
+                "STABLE_RELEASE_QUALIFICATION_RESULT: "
+                "${{ needs.stable-release-qualification.result }}"
+            ),
             "HEAD_REF: ${{ github.head_ref }}",
             'test "$REGULATORY_RELEASE_QUALIFICATION_RESULT" = "success"',
             'test "$REGULATORY_RELEASE_QUALIFICATION_RESULT" = "skipped"',
+            'test "$STABLE_RELEASE_QUALIFICATION_RESULT" = "success"',
+            'test "$STABLE_RELEASE_QUALIFICATION_RESULT" = "skipped"',
         ),
         label="CI",
     )
 
-    if text.count("actions/checkout@v7") != 20:
-        violations.append("CI: expected exactly twenty actions/checkout@v7 uses")
-    if text.count("actions/setup-python@v7") != 20:
-        violations.append("CI: expected exactly twenty actions/setup-python@v7 uses")
-    if text.count("cache: pip") != 20:
+    if text.count("actions/checkout@v7") != 21:
+        violations.append("CI: expected exactly twenty-one actions/checkout@v7 uses")
+    if text.count("actions/setup-python@v7") != 21:
+        violations.append("CI: expected exactly twenty-one actions/setup-python@v7 uses")
+    if text.count("cache: pip") != 21:
         violations.append("CI: every Python execution job must enable pip cache")
-    if text.count("cache-dependency-path:") != 20:
+    if text.count("cache-dependency-path:") != 21:
         violations.append("CI: every Python execution job must define a pip cache key")
     if text.count("if: ${{ !startsWith(github.head_ref, 'release/0.7') }}") != 12:
         violations.append("CI: every CFA FRA qualification job must skip release/0.7")
@@ -248,7 +257,9 @@ def validate_release_text(text: str) -> list[str]:
             "preflight:\n",
             "build:\n",
             "publish-pypi:\n",
+            "publication-smoke:\n",
             "github-release:\n",
+            "release-integrity:\n",
             "fetch-depth: 0",
             "persist-credentials: false",
             "git fetch origin main --no-tags",
@@ -263,8 +274,13 @@ def validate_release_text(text: str) -> list[str]:
             "id-token: write",
             "pypa/gh-action-pypi-publish@v1.14.2",
             "packages-dir: release-bundle/dist/",
-            "needs: [preflight, build, publish-pypi]",
+            "Verify exact PyPI publication",
+            "pyaccountingkit==${RELEASE_VERSION}",
+            "needs: [preflight, build, publish-pypi, publication-smoke]",
             "softprops/action-gh-release@v3.0.3",
+            "draft: true",
+            'gh release edit "$GITHUB_REF_NAME" --draft=false',
+            'gh release verify "$GITHUB_REF_NAME"',
             "RELEASE_QUALIFICATION_MANIFEST.json",
             "SHA256SUMS",
         ),
@@ -273,7 +289,7 @@ def validate_release_text(text: str) -> list[str]:
 
     expected_counts = (
         ("actions/checkout@v7.0.1", 4),
-        ("actions/setup-python@v7.0.0", 4),
+        ("actions/setup-python@v7.0.0", 5),
         ("actions/upload-artifact@v7.0.1", 1),
         ("actions/download-artifact@v8.0.1", 2),
         ("python scripts/qualify_release.py --release-candidate", 1),
@@ -361,10 +377,14 @@ def main() -> int:
         "RC1 live gate:",
         "release/0.6 requires bound consumer repository plus live readiness/completion",
     )
-    print("LOT-27 RC gate: release/0.7 uses regulatory GR/G4 evidence without CFA FRA jobs")
+    print("LOT-27 RC gate: release/0.7.0rc uses regulatory GR/G4 evidence without CFA FRA jobs")
+    print("LOT-27 stable gate: release/0.7.0 requires fail-closed G5 with 0 BLOCKER")
     print("Retirement gate: MIG-13 readiness with explicit blocker evidence")
     print("Security jobs: audit, sast")
-    print("Release pipeline: preflight, build-once, Trusted Publishing, GitHub Release")
+    print(
+        "Release pipeline: preflight, build-once, Trusted Publishing, PyPI smoke, "
+        "draft-to-published GitHub Release, immutable verification"
+    )
     return 0
 
 

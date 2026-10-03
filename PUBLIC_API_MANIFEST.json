@@ -17,7 +17,7 @@
       "require_optional_dependency",
       "runtime_capabilities"
     ],
-    "note": "The 0.7 prerelease line preserves the stable LOT-21..24 public facade and adapter contract v1 while adding capability-scoped regulatory qualification. The effective-plan and standard-relation provider protocols are additive; LOT-26 live CFA FRA closure remains deferred and the full pre-1.0 Python API is not frozen yet.",
+    "note": "The 0.7 release line preserves the stable LOT-21..24 public facade and adapter contract v1 while adding capability-scoped regulatory qualification. The effective-plan and standard-relation provider protocols are additive; LOT-26 live CFA FRA closure remains deferred and the full pre-1.0 Python API is not frozen yet.",
     "public_package_exports": [
       "AccountingApplication",
       "AdapterContractMismatchError",
@@ -57,7 +57,7 @@
       "Money",
       "__version__"
     ],
-    "stability": "pre-1.0-release-candidate",
+    "stability": "pre-1.0-stable-release",
     "stable_exports": [
       "AccountingApplication",
       "CommandContext",
@@ -66,5 +66,5 @@
       "Money"
     ]
   },
-  "version": "0.7.0rc1"
+  "version": "0.7.0"
 }

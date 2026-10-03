@@ -26,10 +26,10 @@ Chaque plan correspond à un jalon de release sémantique clair, définit les lo
 ## Lot actif / qualification
 
 - [`LOT-27_REGULATORY_PRODUCTION_QUALIFICATION_PLAN.md`](LOT-27_REGULATORY_PRODUCTION_QUALIFICATION_PLAN.md)
-  — LOT-27 en `0.7.0rc1` : qualification GR/G4 sur la voie dédiée `release/0.7*`.
-  Le capability set reste figé sur le baseline `b3` : mappings review-only, reporting EBNL
-  non-exécutable et exports non promus. LOT-26 reste ouvert sur ses preuves live externes sans
-  bloquer cette release candidate.
+  — LOT-27 `0.7.0rc1` GR/G4 qualifié ; G5 stable est maintenant outillé mais fail-closed.
+  `release/0.7.0` exige 0 BLOCKER, protection réelle de `main`, immutabilité des releases,
+  publication smoke et intégrité de release. Aucun `0.7.0` stable n’est déclaré tant que ces
+  contrôles externes ne sont pas effectivement fermés.
 - [`LOT-26_CFA_FRA_CONSUMER_CONVERSION_AND_LEGACY_RETIREMENT_PLAN.md`](LOT-26_CFA_FRA_CONSUMER_CONVERSION_AND_LEGACY_RETIREMENT_PLAN.md)
   — LOT-26 actif : `0.6.0b27` autorise l'avancement contrôlé du binding consumer
   vers des révisions descendantes sans changer de repository, branche, environnement ni
@@ -43,6 +43,8 @@ Chaque plan correspond à un jalon de release sémantique clair, définit les lo
   — catalogue des scénarios de parité.
 - [`cfa_fra/03_CFA_FRA_BEHAVIORAL_BASELINE.md`](cfa_fra/03_CFA_FRA_BEHAVIORAL_BASELINE.md)
   — baseline comportementale figée et frontières de migration.
+- [`RELEASE_0.7.0_STABLE_PROMOTION_PLAN.md`](RELEASE_0.7.0_STABLE_PROMOTION_PLAN.md)
+  — contrat G5 fail-closed pour la promotion `0.7.0` stable.
 - [`RELEASE_0.5.0_STABLE_PROMOTION_PLAN.md`](RELEASE_0.5.0_STABLE_PROMOTION_PLAN.md)
   — dernière ligne stable complète : LOT-21..24 en `0.5.0`.
 

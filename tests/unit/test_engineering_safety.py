@@ -395,8 +395,6 @@ def test_release_candidate_contract_accepts_complete_0_6_evidence(
     module.validate_release_candidate_contract(skip_tests=False, skip_package=False)
 
 
-
-
 def test_release_candidate_contract_rejects_unregistered_rc(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,

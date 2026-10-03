@@ -43,6 +43,8 @@ The `0.7.0b3` slice hardens the path to `0.7.0rc1` without promoting any additio
 
 The `0.7.0rc1` candidate freezes the `b3` regulatory capability set and exercises the dedicated `release/0.7*` GR/G4 path. It does not promote EBNL reporting, reporting-account mappings, crosswalk candidates, concept bindings or exports beyond their reviewed beta statuses, and it does not use deferred LOT-26 live CFA FRA evidence as a release prerequisite.
 
+`0.7.0rc1` is now GR/G4-qualified. The next stable gate is deliberately fail-closed: `release/0.7.0` must pass `scripts/validate_stable_gate.py`, and stable publication remains blocked while main-branch protection or GitHub release immutability is not positively attested. No `0.7.0` stable claim, tag or publication is made by this state.
+
 LOT-25 remains the behavioral oracle baseline and executes normalized golden parity for:
 
 ```text

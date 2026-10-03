@@ -57,7 +57,7 @@
       "Money",
       "__version__"
     ],
-    "stability": "pre-1.0-prerelease",
+    "stability": "pre-1.0-release-candidate",
     "stable_exports": [
       "AccountingApplication",
       "CommandContext",
@@ -66,5 +66,5 @@
       "Money"
     ]
   },
-  "version": "0.7.0b3"
+  "version": "0.7.0rc1"
 }

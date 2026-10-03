@@ -1,7 +1,7 @@
 # LOT-27 — Regulatory Production Qualification
 
 **Target line:** `0.7.0`  
-**Current slice:** `0.7.0b3` — release-candidate gate hardening  
+**Current slice:** `0.7.0rc1` — regulatory GR/G4 release candidate  
 **Upstream regulatory corpus:** `regulatory-accounting-data-framework 0.7.1`
 
 ## Objective
@@ -252,17 +252,17 @@ executable and fail-closed:
 
 No status in `REGULATORY_COMPATIBILITY_MATRIX.json` is promoted by this slice.
 
-### 0.7.0rc1 — next
+### 0.7.0rc1 — qualification candidate
 
 The release candidate must qualify **GR + G4** on the `0.7` release line. `G5` is
 reserved for the final stable `0.7.0` promotion and must not be claimed by the RC.
 
-Remaining RC promotion work after beta-3:
+RC qualification contract:
 
-- execute the dedicated `release/0.7*` path on an exact `0.7.0rc1` checkout;
-- require GR and G4 to remain green on that exact RC commit;
-- perform the final compatibility-matrix review;
-- confirm the sealed release-bundle qualification manifest is produced at publication time;
+- execute the dedicated `release/0.7*` path on this exact `0.7.0rc1` checkout;
+- require GR and G4 to remain green on the exact RC commit;
+- keep the compatibility matrix capability set identical to the qualified `b3` baseline;
+- require the sealed release-bundle qualification manifest at publication time;
 - promote zero unsupported capability.
 
 Only after `0.7.0rc1` satisfies G4 can the stable `0.7.0` line proceed to G5.

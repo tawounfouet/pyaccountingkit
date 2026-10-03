@@ -26,10 +26,10 @@ Chaque plan correspond à un jalon de release sémantique clair, définit les lo
 ## Lot actif / qualification
 
 - [`LOT-27_REGULATORY_PRODUCTION_QUALIFICATION_PLAN.md`](LOT-27_REGULATORY_PRODUCTION_QUALIFICATION_PLAN.md)
-  — LOT-27 actif en `0.7.0b3` : hardening des gates RC, registre d’évidence `0.7.0rc1`
-  fail-closed, gate GR exécutable, manifest des schémas snapshot et voie `release/0.7*`
-  découplée des jobs CFA FRA. Aucun nouveau capability réglementaire n’est promu. LOT-26 reste
-  ouvert sur ses preuves live externes sans bloquer ce travail.
+  — LOT-27 en `0.7.0rc1` : qualification GR/G4 sur la voie dédiée `release/0.7*`.
+  Le capability set reste figé sur le baseline `b3` : mappings review-only, reporting EBNL
+  non-exécutable et exports non promus. LOT-26 reste ouvert sur ses preuves live externes sans
+  bloquer cette release candidate.
 - [`LOT-26_CFA_FRA_CONSUMER_CONVERSION_AND_LEGACY_RETIREMENT_PLAN.md`](LOT-26_CFA_FRA_CONSUMER_CONVERSION_AND_LEGACY_RETIREMENT_PLAN.md)
   — LOT-26 actif : `0.6.0b27` autorise l'avancement contrôlé du binding consumer
   vers des révisions descendantes sans changer de repository, branche, environnement ni

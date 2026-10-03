@@ -84,6 +84,20 @@ def test_nonprofit_effective_plan_stats_and_reporting_safety_match_source() -> N
     assert overlays.executable is False
 
 
+def test_reporting_structure_is_qualified_only_for_materialized_frameworks() -> None:
+    profiles = _profiles()
+    for standard_ref in ("fr-pcg:2026", "ohada-syscohada:2017", "fr-nonprofit:2026"):
+        qualification = profiles[standard_ref].qualification_for(Code.REPORTING_STRUCTURE)
+        assert qualification is not None
+        assert qualification.status is Status.PRODUCTION_QUALIFIED
+        assert qualification.executable is True
+
+    ebnl = profiles["ohada-ebnl:2023"].qualification_for(Code.REPORTING_STRUCTURE)
+    assert ebnl is not None
+    assert ebnl.status is Status.DISCOVERED
+    assert ebnl.executable is False
+
+
 def test_ohada_negative_constraints_forbid_false_inheritance() -> None:
     relations = json.loads(
         (

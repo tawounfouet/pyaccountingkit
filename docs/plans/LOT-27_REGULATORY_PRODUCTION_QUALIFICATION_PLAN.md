@@ -213,9 +213,9 @@ crosswalk dataset, so `CROSSWALKS` remains `NOT_ASSERTED`. Existing source-backe
 constraints forbid PCEMF→SYSCOHADA inheritance inference. Missing evidence is never converted
 into a candidate or executable mapping.
 
-## Deferred slices
+## Beta and release-candidate slices
 
-### 0.7.0b2
+### 0.7.0b2 — implemented
 
 The beta-2 slice production-qualifies provider-backed reporting structure where the bundled
 regulatory corpus contains fully materialized line-level models:
@@ -236,11 +236,26 @@ marks its statement models as visually bound but not exhaustively transcribed at
 `REPORTING_ACCOUNT_MAPPINGS` remains `REVIEW_REQUIRED`. `EXPORTS` remains unpromoted until
 provider-backed regulatory export evidence exists.
 
-### 0.7.0rc1
+### 0.7.0rc1 — next
 
-- full GR/G4/G5 qualification;
-- compatibility matrix final review;
-- zero unsupported capability promotion.
+The release candidate must qualify **GR + G4** on the `0.7` release line. `G5` is
+reserved for the final stable `0.7.0` promotion and must not be claimed by the RC.
+
+Required RC hardening:
+
+- add an explicit versioned `0.7.0rc1` evidence contract to `scripts/qualify_release.py`;
+- fail closed when an unknown release-candidate version has no registered evidence contract;
+- split the `release/0.7` qualification path from LOT-26 CFA FRA live-consumer/cutover gates;
+- keep LOT-26 live evidence deferred without fabricating or silently satisfying it;
+- require GR invariants: source identities/checksums preserved, negative constraints preserved,
+  candidates never treated as executable, human-review flags preserved and no semantic inference
+  from code equality;
+- close the remaining G4 evidence gaps for docs build/check, release-qualification manifest and
+  snapshot-schema compatibility/diff (or an explicitly documented equivalent);
+- perform final compatibility-matrix review;
+- promote zero unsupported capability.
+
+Only after `0.7.0rc1` satisfies G4 can the stable `0.7.0` line proceed to G5.
 
 ## Relationship with LOT-26
 

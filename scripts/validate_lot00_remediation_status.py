@@ -231,6 +231,8 @@ def validate_status_data(data: object, *, root: Path = ROOT) -> list[str]:
         "scripts/verify_package.py",
         "scripts/prepare_release.py",
         "scripts/qualify_release.py",
+        "scripts/configure_main_branch_protection.py",
+        "docs/admin/MAIN_BRANCH_PROTECTION_CLOSURE.md",
     )
     for relative in required_files:
         if not (root / relative).is_file():

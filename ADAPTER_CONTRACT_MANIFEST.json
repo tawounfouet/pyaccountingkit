@@ -149,7 +149,13 @@
       ],
       "fail_closed": true,
       "port": "ReferenceReportingModelProviderProtocol",
-      "qualification": "0.3.0-stable-cross-lot-qualified",
+      "production_adapter": "RegulatoryReportingStructureFilesystemAdapter",
+      "provider_backed_frameworks": [
+        "PCG:2026",
+        "FR_NONPROFIT:2026",
+        "SYSCOHADA:2017"
+      ],
+      "qualification": "0.7.0b2-provider-backed-reporting-structures",
       "reference_adapter": "InMemoryReferenceReportingModelProvider",
       "resolution": "exact-only"
     },
@@ -217,5 +223,5 @@
       "reference_adapter": "InMemoryUnitOfWork"
     }
   },
-  "version": "0.7.0b1"
+  "version": "0.7.0b2"
 }

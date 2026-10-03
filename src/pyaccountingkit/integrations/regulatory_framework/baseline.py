@@ -21,6 +21,8 @@ DATASET_RELEASE = "0.7.1"
 QUALIFIED_AT = "2026-10-01T18:00:00Z"
 NONPROFIT_QUALIFIED_AT = "2026-10-02T07:45:00Z"
 OHADA_QUALIFIED_AT = "2026-10-02T10:30:00Z"
+REPORTING_QUALIFIED_AT = "2026-10-03T08:21:44Z"
+REPORTING_REVIEWER = "PyAccountingKit LOT-27 reporting qualification"
 REVIEWER = "PyAccountingKit LOT-27 canonical CI"
 
 
@@ -143,14 +145,19 @@ def baseline_profiles(
                     framework_version,
                     pcg,
                     Code.REPORTING_STRUCTURE,
-                    Status.VALIDATED,
+                    Status.PRODUCTION_QUALIFIED,
                     evidence_refs=(
                         "resources/regulatory-accounting-data-framework/datasets/reporting/"
                         "pcg_2026_v3_reporting.json",
-                        "tests/golden/regulatory/test_pcg_regulatory_reporting.py",
+                        "src/pyaccountingkit/adapters/regulatory/reporting.py",
                     ),
-                    notes="Official reporting structure is validated; LOT-27 does not infer "
-                    "automatic account mappings from source hints.",
+                    executable=True,
+                    test_suite="tests/golden/regulatory/test_reporting_structure_provider.py",
+                    golden_refs=("tests/golden/regulatory/test_reporting_structure_provider.py",),
+                    reviewer=REPORTING_REVIEWER,
+                    qualified_at=REPORTING_QUALIFIED_AT,
+                    notes="Official reporting structure is provider-backed; source mapping "
+                    "expressions remain non-executable review evidence.",
                 ),
                 _q(
                     framework_version,
@@ -204,15 +211,19 @@ def baseline_profiles(
                     framework_version,
                     syscohada,
                     Code.REPORTING_STRUCTURE,
-                    Status.VALIDATED,
+                    Status.PRODUCTION_QUALIFIED,
                     evidence_refs=(
                         "resources/regulatory-accounting-data-framework/datasets/reporting/"
                         "syscohada_2017_v3_reporting.json",
-                        "tests/golden/regulatory/test_syscohada_regulatory_reporting.py",
+                        "src/pyaccountingkit/adapters/regulatory/reporting.py",
                     ),
-                    notes=(
-                        "Reporting structure is validated while account mappings remain reviewed."
-                    ),
+                    executable=True,
+                    test_suite="tests/golden/regulatory/test_reporting_structure_provider.py",
+                    golden_refs=("tests/golden/regulatory/test_reporting_structure_provider.py",),
+                    reviewer=REPORTING_REVIEWER,
+                    qualified_at=REPORTING_QUALIFIED_AT,
+                    notes="Materialized SYSCOHADA reporting models are provider-backed while "
+                    "account mappings remain outside automatic execution.",
                 ),
                 _q(
                     framework_version,
@@ -292,12 +303,19 @@ def baseline_profiles(
                     framework_version,
                     nonprofit,
                     Code.REPORTING_STRUCTURE,
-                    Status.VALIDATED,
+                    Status.PRODUCTION_QUALIFIED,
                     evidence_refs=(
                         "resources/regulatory-accounting-data-framework/datasets/reporting/"
                         "nonprofit_2026_v3_reporting.json",
+                        "src/pyaccountingkit/adapters/regulatory/reporting.py",
                     ),
-                    notes="Official statement structure is distinct from derived account hints.",
+                    executable=True,
+                    test_suite="tests/golden/regulatory/test_reporting_structure_provider.py",
+                    golden_refs=("tests/golden/regulatory/test_reporting_structure_provider.py",),
+                    reviewer=REPORTING_REVIEWER,
+                    qualified_at=REPORTING_QUALIFIED_AT,
+                    notes="Official statement structure is provider-backed; all 33 derived "
+                    "account-hint lines remain human-reviewed and non-executable.",
                 ),
                 _q(
                     framework_version,

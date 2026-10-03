@@ -194,6 +194,12 @@ def build_payload() -> dict[str, object]:
         "snapshot": "EffectivePlanSnapshot",
         "qualification": "0.7.0a2-fr-nonprofit-effective-plan",
     }
+    contracts["reference_reporting_model"] = {
+        **dict(contracts["reference_reporting_model"]),
+        "production_adapter": "RegulatoryReportingStructureFilesystemAdapter",
+        "provider_backed_frameworks": ["PCG:2026", "FR_NONPROFIT:2026", "SYSCOHADA:2017"],
+        "qualification": "0.7.0b2-provider-backed-reporting-structures",
+    }
     contracts["standard_relations"] = {
         "port": "StandardRelationProviderProtocol",
         "reference_adapter": "OHADAStandardRelationFilesystemAdapter",

@@ -23,8 +23,8 @@ ROOT = Path(__file__).resolve().parents[2]
 
 def test_matrix_is_capability_scoped_and_never_global_supported_boolean() -> None:
     payload = regulatory_compatibility_matrix_payload(
-        "0.7.0b1",
-        baseline_profiles("0.7.0b1"),
+        "0.7.0b2",
+        baseline_profiles("0.7.0b2"),
     )
     assert payload["qualification_model"] == "capability-scoped/v1"
     profiles = payload["regulatory_frameworks"]
@@ -38,7 +38,7 @@ def test_matrix_is_capability_scoped_and_never_global_supported_boolean() -> Non
 
 
 def test_ebnl_and_ohada_relation_capabilities_are_promoted_narrowly() -> None:
-    profiles = {profile.standard_ref: profile for profile in baseline_profiles("0.7.0b1")}
+    profiles = {profile.standard_ref: profile for profile in baseline_profiles("0.7.0b2")}
     assert profiles["ohada-ebnl:2023"].production_qualified_capabilities == (
         Code.STRUCTURE,
         Code.RELATIONS,
@@ -56,11 +56,29 @@ def test_ebnl_and_ohada_relation_capabilities_are_promoted_narrowly() -> None:
 
 
 def test_nonprofit_effective_plan_and_snapshots_are_production_qualified() -> None:
-    profiles = {profile.standard_ref: profile for profile in baseline_profiles("0.7.0b1")}
+    profiles = {profile.standard_ref: profile for profile in baseline_profiles("0.7.0b2")}
     assert profiles["fr-nonprofit:2026"].production_qualified_capabilities == (
         Code.EFFECTIVE_PLAN,
+        Code.REPORTING_STRUCTURE,
         Code.SNAPSHOTS,
     )
+
+
+def test_reporting_structure_promotion_stays_narrow_and_fail_closed() -> None:
+    profiles = {profile.standard_ref: profile for profile in baseline_profiles("0.7.0b2")}
+
+    for standard_ref in ("fr-pcg:2026", "ohada-syscohada:2017", "fr-nonprofit:2026"):
+        profile = profiles[standard_ref]
+        structure = profile.qualification_for(Code.REPORTING_STRUCTURE)
+        mapping = profile.qualification_for(Code.REPORTING_ACCOUNT_MAPPINGS)
+        assert structure.status is Status.PRODUCTION_QUALIFIED
+        assert structure.executable is True
+        assert mapping.status is Status.REVIEW_REQUIRED
+        assert mapping.executable is False
+
+    ebnl = profiles["ohada-ebnl:2023"]
+    assert ebnl.qualification_for(Code.REPORTING_STRUCTURE).status is Status.DISCOVERED
+    assert ebnl.qualification_for(Code.REPORTING_STRUCTURE).executable is False
 
 
 def test_generated_matrix_is_committed_deterministically() -> None:

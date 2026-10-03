@@ -15,6 +15,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   publication or stable `0.7.0` claim.
 
 
+## [0.7.0b2] - 2026-10-03
+
+### Added
+- Provider-backed regulatory reporting structures over the existing exact-coordinate reporting port.
+- Production qualification for PCG 2026, SYSCOHADA 2017 and France Non-Profit 2026 reporting structure.
+- Golden coverage for source line counts, exact snapshot resolution and non-executable account hints.
+
+### Safety
+- Reporting account mappings remain `REVIEW_REQUIRED` and non-executable.
+- EBNL 2023 reporting remains non-executable because line-level transcription is not exhaustive.
+- Regulatory export capability is not promoted without provider-backed evidence.
+- LOT-26 live CFA FRA evidence remains intentionally deferred.
+
 ## [0.7.0b1] - 2026-10-02
 
 ### Added

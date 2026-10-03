@@ -11,6 +11,7 @@ from pyaccountingkit.domain.reporting.errors import RegulatoryReportingError
 
 
 class ReferenceReportingNodeType(StrEnum):
+    UNSPECIFIED = "UNSPECIFIED"
     DETAIL = "DETAIL"
     SUBTOTAL = "SUBTOTAL"
     TOTAL = "TOTAL"
@@ -19,6 +20,7 @@ class ReferenceReportingNodeType(StrEnum):
 
 
 class ReferenceReportingValueType(StrEnum):
+    UNSPECIFIED = "UNSPECIFIED"
     MONEY = "MONEY"
     TEXT = "TEXT"
 

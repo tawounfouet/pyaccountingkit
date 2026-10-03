@@ -136,9 +136,7 @@ def test_status_promotion_closes_only_the_external_blocker(
     final = next(item for item in promoted["sublots"] if item["id"] == "LOT-00.9")
     assert final["status"] == "COMPLETE"
     blocker = next(
-        item
-        for item in promoted["blockers"]
-        if item["id"] == "MAIN_BRANCH_PROTECTION_UNENFORCED"
+        item for item in promoted["blockers"] if item["id"] == "MAIN_BRANCH_PROTECTION_UNENFORCED"
     )
     assert blocker["status"] == "CLOSED"
     assert all(value is False for value in promoted["release_claims"].values())

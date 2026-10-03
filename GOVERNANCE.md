@@ -142,3 +142,20 @@ Target server-side settings for `main` are:
 The current server-side enforcement state must be verified independently before final
 qualification. Repository documentation must not claim that branch protection is active merely
 because CODEOWNERS or this document exists.
+
+
+## Main branch protection administration
+
+The canonical server-side closure procedure is versioned in:
+
+```text
+docs/admin/MAIN_BRANCH_PROTECTION_CLOSURE.md
+scripts/configure_main_branch_protection.py
+```
+
+The script uses GitHub's branch-protection REST API and requires an explicit fine-grained token with
+repository `Administration: write` permission. It is intentionally not wired to the normal CI
+`GITHUB_TOKEN`.
+
+LOT-00 may move from `BLOCKED_EXTERNAL_CONTROL` to `COMPLETE` only after the script's live
+`check` succeeds and the resulting status promotion is reviewed through a normal pull request.

@@ -227,6 +227,7 @@ def _parse_syscohada_statement(
         nodes=nodes,
     )
 
+
 def _parse_line(
     raw: object,
     *,
@@ -253,9 +254,10 @@ def _parse_line(
             if isinstance(mapping, dict) and isinstance(mapping.get("raw_expression"), str):
                 hints.append(mapping["raw_expression"])
 
-    code = str(raw.get("line_code") or raw.get("source_ref_code") or f"L{index:03d}")
+    node_id = _required_string(raw, "line_id")
+    code = str(raw.get("line_code") or raw.get("source_ref_code") or node_id)
     return ReferenceReportingNode(
-        node_id=_required_string(raw, "line_id"),
+        node_id=node_id,
         code=code,
         label=_required_string(raw, "label_source"),
         node_type=ReferenceReportingNodeType.UNSPECIFIED,

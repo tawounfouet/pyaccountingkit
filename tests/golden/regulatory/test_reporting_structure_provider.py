@@ -51,6 +51,12 @@ def test_nonprofit_reporting_structure_preserves_fail_closed_hint_policy(provide
     assert len(hinted) == 33
     assert all(node.human_validation_required for node in hinted)
     assert all(node.account_hints_executable is False for node in hinted)
+    assert all(
+        node.node_type is ReferenceReportingNodeType.UNSPECIFIED
+        and node.value_type is ReferenceReportingValueType.UNSPECIFIED
+        for model in models
+        for node in model.nodes
+    )
 
 
 def test_syscohada_reporting_structure_is_materialized(provider) -> None:
@@ -58,12 +64,6 @@ def test_syscohada_reporting_structure_is_materialized(provider) -> None:
     by_code = {model.model_code: len(model.nodes) for model in models}
     assert by_code == {"BALANCE": 48, "CASHFLOW": 23, "INCOME": 34, "NOTES": 46}
     assert all(node.account_hints_executable is False for model in models for node in model.nodes)
-    assert all(
-        node.node_type is ReferenceReportingNodeType.UNSPECIFIED
-        and node.value_type is ReferenceReportingValueType.UNSPECIFIED
-        for model in models
-        for node in model.nodes
-    )
     assert all(
         node.node_type is ReferenceReportingNodeType.UNSPECIFIED
         and node.value_type is ReferenceReportingValueType.UNSPECIFIED

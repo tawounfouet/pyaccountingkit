@@ -46,8 +46,7 @@ def test_gr_rejects_review_required_mapping_made_executable() -> None:
 
     violations = module.validate_payload(payload)
     assert any(
-        "REVIEW_REQUIRED capability must remain non-executable" in item
-        for item in violations
+        "REVIEW_REQUIRED capability must remain non-executable" in item for item in violations
     )
 
 

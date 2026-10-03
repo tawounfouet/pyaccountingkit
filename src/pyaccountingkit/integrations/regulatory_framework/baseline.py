@@ -22,6 +22,7 @@ QUALIFIED_AT = "2026-10-01T18:00:00Z"
 NONPROFIT_QUALIFIED_AT = "2026-10-02T07:45:00Z"
 OHADA_QUALIFIED_AT = "2026-10-02T10:30:00Z"
 REPORTING_QUALIFIED_AT = "2026-10-03T08:21:44Z"
+REPORTING_REVIEWER = "PyAccountingKit LOT-27 reporting qualification"
 REVIEWER = "PyAccountingKit LOT-27 canonical CI"
 
 
@@ -153,7 +154,7 @@ def baseline_profiles(
                     executable=True,
                     test_suite="tests/golden/regulatory/test_reporting_structure_provider.py",
                     golden_refs=("tests/golden/regulatory/test_reporting_structure_provider.py",),
-                    reviewer=REVIEWER,
+                    reviewer=REPORTING_REVIEWER,
                     qualified_at=REPORTING_QUALIFIED_AT,
                     notes="Official reporting structure is provider-backed; source mapping "
                     "expressions remain non-executable review evidence.",
@@ -219,7 +220,7 @@ def baseline_profiles(
                     executable=True,
                     test_suite="tests/golden/regulatory/test_reporting_structure_provider.py",
                     golden_refs=("tests/golden/regulatory/test_reporting_structure_provider.py",),
-                    reviewer=REVIEWER,
+                    reviewer=REPORTING_REVIEWER,
                     qualified_at=REPORTING_QUALIFIED_AT,
                     notes="Materialized SYSCOHADA reporting models are provider-backed while "
                     "account mappings remain outside automatic execution.",
@@ -311,7 +312,7 @@ def baseline_profiles(
                     executable=True,
                     test_suite="tests/golden/regulatory/test_reporting_structure_provider.py",
                     golden_refs=("tests/golden/regulatory/test_reporting_structure_provider.py",),
-                    reviewer=REVIEWER,
+                    reviewer=REPORTING_REVIEWER,
                     qualified_at=REPORTING_QUALIFIED_AT,
                     notes="Official statement structure is provider-backed; all 33 derived "
                     "account-hint lines remain human-reviewed and non-executable.",

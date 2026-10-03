@@ -15,6 +15,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   publication or stable `0.7.0` claim.
 
 
+## [0.7.0rc1] - 2026-10-03
+
+### Release candidate
+- Freezes the qualified LOT-27 `0.7.0b3` regulatory capability set.
+- Exercises the dedicated `release/0.7*` GR/G4 qualification path.
+- Requires versioned RC evidence, deterministic regulatory and snapshot-schema manifests,
+  active documentation validation, package qualification and the full Python/PostgreSQL matrix.
+
+### Safety
+- No additional regulatory capability is promoted by the RC metadata transition.
+- Reporting account mappings remain `REVIEW_REQUIRED` and non-executable.
+- OHADA EBNL reporting remains `DISCOVERED` and non-executable.
+- Regulatory exports remain unpromoted without provider-backed evidence.
+- LOT-26 live CFA FRA evidence remains deferred and is not fabricated for this RC.
+
 ## [0.7.0b3] - 2026-10-03
 
 ### Added

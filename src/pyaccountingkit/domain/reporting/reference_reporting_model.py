@@ -20,6 +20,7 @@ class ReferenceReportingNodeType(StrEnum):
 
 
 class ReferenceReportingValueType(StrEnum):
+    UNSPECIFIED = "UNSPECIFIED"
     MONEY = "MONEY"
     TEXT = "TEXT"
 

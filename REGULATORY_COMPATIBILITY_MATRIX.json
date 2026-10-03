@@ -223,8 +223,8 @@
       "dataset_release": "0.7.1",
       "production_qualified_capabilities": [
         "EFFECTIVE_PLAN",
-        "SNAPSHOTS",
-        "REPORTING_STRUCTURE"
+        "REPORTING_STRUCTURE",
+        "SNAPSHOTS"
       ],
       "profile_id": "regulatory-profile-fr-nonprofit-2026",
       "provider_id": "regulatory-accounting-data-framework",
@@ -641,8 +641,8 @@
       "production_qualified_capabilities": [
         "STRUCTURE",
         "SNAPSHOTS",
-        "RELATIONS",
-        "REPORTING_STRUCTURE"
+        "REPORTING_STRUCTURE",
+        "RELATIONS"
       ],
       "profile_id": "regulatory-profile-ohada-syscohada-2017",
       "provider_id": "regulatory-accounting-data-framework",

@@ -26,10 +26,10 @@ Chaque plan correspond à un jalon de release sémantique clair, définit les lo
 ## Lot actif / qualification
 
 - [`LOT-27_REGULATORY_PRODUCTION_QUALIFICATION_PLAN.md`](LOT-27_REGULATORY_PRODUCTION_QUALIFICATION_PLAN.md)
-  — LOT-27 actif en parallèle : `0.7.0b2` qualifie les structures de reporting provider-backed
-  pour PCG 2026, France Non-Profit 2026 et SYSCOHADA 2017. Les mappings de comptes restent
-  `REVIEW_REQUIRED`, le reporting EBNL reste `DISCOVERED` et les exports ne sont pas promus sans
-  preuve provider-backed. LOT-26 reste ouvert sur ses preuves live externes sans bloquer ce travail.
+  — LOT-27 actif en `0.7.0b3` : hardening des gates RC, registre d’évidence `0.7.0rc1`
+  fail-closed, gate GR exécutable, manifest des schémas snapshot et voie `release/0.7*`
+  découplée des jobs CFA FRA. Aucun nouveau capability réglementaire n’est promu. LOT-26 reste
+  ouvert sur ses preuves live externes sans bloquer ce travail.
 - [`LOT-26_CFA_FRA_CONSUMER_CONVERSION_AND_LEGACY_RETIREMENT_PLAN.md`](LOT-26_CFA_FRA_CONSUMER_CONVERSION_AND_LEGACY_RETIREMENT_PLAN.md)
   — LOT-26 actif : `0.6.0b27` autorise l'avancement contrôlé du binding consumer
   vers des révisions descendantes sans changer de repository, branche, environnement ni

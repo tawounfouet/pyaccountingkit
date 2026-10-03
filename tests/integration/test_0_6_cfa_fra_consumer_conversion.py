@@ -130,6 +130,7 @@ def test_release_0_6_metadata_and_legacy_runtime_boundary_are_coherent() -> None
         "0.7.0a2",
         "0.7.0b1",
         "0.7.0b2",
+        "0.7.0b3",
     }
 
     public_manifest = json.loads((ROOT / "PUBLIC_API_MANIFEST.json").read_text(encoding="utf-8"))

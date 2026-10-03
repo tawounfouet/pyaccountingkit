@@ -9,6 +9,7 @@ import pytest
 from pyaccountingkit.adapters.regulatory.reporting import (
     RegulatoryReportingStructureFilesystemAdapter,
 )
+from pyaccountingkit.domain.reporting.reference_reporting_model import ReferenceReportingNodeType
 
 ROOT = Path(__file__).resolve().parents[3]
 REPORTING = ROOT / "resources" / "regulatory-accounting-data-framework" / "datasets" / "reporting"
@@ -25,6 +26,11 @@ def test_pcg_reporting_structure_is_materialized_and_hints_are_review_only(provi
     assert sum(len(model.nodes) for model in models) == 158
     assert all(node.account_hints_executable is False for model in models for node in model.nodes)
     assert any(node.account_hints for model in models for node in model.nodes)
+    assert all(
+        node.node_type is ReferenceReportingNodeType.UNSPECIFIED
+        for model in models
+        for node in model.nodes
+    )
 
 
 def test_nonprofit_reporting_structure_preserves_fail_closed_hint_policy(provider) -> None:
@@ -42,6 +48,11 @@ def test_syscohada_reporting_structure_is_materialized(provider) -> None:
     by_code = {model.model_code: len(model.nodes) for model in models}
     assert by_code == {"BALANCE": 48, "CASHFLOW": 23, "INCOME": 34, "NOTES": 46}
     assert all(node.account_hints_executable is False for model in models for node in model.nodes)
+    assert all(
+        node.node_type is ReferenceReportingNodeType.UNSPECIFIED
+        for model in models
+        for node in model.nodes
+    )
 
 
 def test_provider_requires_exact_snapshot_coordinates(provider) -> None:

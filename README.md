@@ -10,7 +10,7 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit **0.7.0b2** is the LOT-27 provider-backed reporting structure beta.
+PyAccountingKit **0.7.0b3** is the LOT-27 release-candidate gate hardening beta.
 
 LOT-26 turns the frozen LOT-25 CFA FRA behavioral baseline into an executable
 migration boundary. The temporary `CFAFRACompatibilityAdapter` lets the Django
@@ -39,6 +39,8 @@ The `0.7.0b1` slice adds a reviewed EBNL/SYSCOHADA structural crosswalk runtime.
 
 The `0.7.0b2` slice production-qualifies provider-backed reporting structures for PCG 2026, France Non-Profit 2026 and SYSCOHADA 2017. Exact snapshot coordinates and source line identities are preserved without inventing reporting semantics: missing node and value categories remain explicitly `UNSPECIFIED`. Reporting account mappings stay `REVIEW_REQUIRED` and non-executable, OHADA EBNL 2023 reporting remains `DISCOVERED` because its line-level transcription is not exhaustive, and `EXPORTS` is not promoted without provider-backed evidence.
 
+The `0.7.0b3` slice hardens the path to `0.7.0rc1` without promoting any additional regulatory capability. Release-candidate evidence is versioned and fail-closed, `release/0.7*` skips the CFA FRA LOT-26 jobs and requires the dedicated LOT-27 GR/G4 path, active documentation is checked against package metadata, and `SNAPSHOT_SCHEMA_MANIFEST.json` makes public snapshot-shape drift executable evidence. The existing sealed release bundle manifest remains the publication qualification artifact.
+
 LOT-25 remains the behavioral oracle baseline and executes normalized golden parity for:
 
 ```text
@@ -61,7 +63,7 @@ mode rather than a generic posting bypass.
 
 The stable **0.5.0** public facade, adapter contract v1 and the independently
 Production-qualified Django/PostgreSQL and SQLAlchemy/PostgreSQL adapters remain
-the compatibility baseline. **0.7.0b2 is still pre-1.0**. LOT-27 regulatory production
+the compatibility baseline. **0.7.0b3 is still pre-1.0**. LOT-27 regulatory production
 qualification is now being developed in parallel while the external CFA FRA live-consumer work
 required to close LOT-26 remains intentionally deferred. This does not declare `0.6.0` stable.
 

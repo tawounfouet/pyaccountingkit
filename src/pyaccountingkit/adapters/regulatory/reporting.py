@@ -180,19 +180,20 @@ def _parse_syscohada_statement(
     raw_lines = raw.get("lines")
     if not isinstance(raw_lines, list) or not raw_lines:
         raise ValueError(f"SYSCOHADA {model_code} requires materialized lines")
+    if not all(isinstance(line, dict) for line in raw_lines):
+        raise ValueError(f"SYSCOHADA {model_code} lines must all be objects")
     nodes = tuple(
         ReferenceReportingNode(
             node_id=_required_string(line, "line_id"),
             code=_required_string(line, "source_ref_code"),
             label=_required_string(line, "label_source"),
-            node_type=_node_type(_required_string(line, "label_source")),
+            node_type=ReferenceReportingNodeType.DETAIL,
             order=index,
             human_validation_required=False,
             account_hints_executable=False,
             provenance=f"syscohada_2017_v3_reporting.json:{model_code}",
         )
         for index, line in enumerate(raw_lines, start=1)
-        if isinstance(line, dict)
     )
     return ReferenceReportingModel(
         model_id=f"syscohada2017:{model_code}",
@@ -236,20 +237,13 @@ def _parse_line(
         node_id=_required_string(raw, "line_id"),
         code=code,
         label=_required_string(raw, "label_source"),
-        node_type=_node_type(_required_string(raw, "label_source")),
+        node_type=ReferenceReportingNodeType.DETAIL,
         order=index,
         human_validation_required=policy_requires_review or bool(hints),
         account_hints_executable=False,
         account_hints=tuple(dict.fromkeys(hints)),
         provenance=provenance,
     )
-
-
-def _node_type(label: str) -> ReferenceReportingNodeType:
-    normalized = label.casefold()
-    if "total" in normalized or "résultat" in normalized or "resultat" in normalized:
-        return ReferenceReportingNodeType.TOTAL
-    return ReferenceReportingNodeType.DETAIL
 
 
 def _required_string(raw: Mapping[str, Any], key: str) -> str:

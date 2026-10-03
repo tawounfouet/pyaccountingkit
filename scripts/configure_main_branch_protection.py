@@ -58,10 +58,7 @@ def protection_payload() -> dict[str, Any]:
 
 
 def _api_url() -> str:
-    return (
-        f"https://api.github.com/repos/{OWNER}/{REPOSITORY}/"
-        f"branches/{BRANCH}/protection"
-    )
+    return f"https://api.github.com/repos/{OWNER}/{REPOSITORY}/branches/{BRANCH}/protection"
 
 
 def api_request(
@@ -236,11 +233,7 @@ def promote_lot00_status(protection: dict[str, Any]) -> None:
     if not isinstance(sublots, list):
         raise BranchProtectionError("LOT-00 status sublots must be a list")
     final = next(
-        (
-            item
-            for item in sublots
-            if isinstance(item, dict) and item.get("id") == "LOT-00.9"
-        ),
+        (item for item in sublots if isinstance(item, dict) and item.get("id") == "LOT-00.9"),
         None,
     )
     if final is None:

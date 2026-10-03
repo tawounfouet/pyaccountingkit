@@ -1,0 +1,26 @@
+{
+  "schema_version": "1",
+  "target_version": "0.7.0",
+  "controls": {
+    "immutable_releases": {
+      "required": true,
+      "observed_enabled": null,
+      "status": "UNVERIFIED",
+      "observation": "The connected GitHub capability cannot read or mutate the repository immutable-releases setting."
+    }
+  },
+  "blockers": [
+    {
+      "id": "IMMUTABLE_RELEASES_UNVERIFIED",
+      "scope": "GITHUB_SERVER_SIDE",
+      "status": "OPEN",
+      "resolution": "Enable GitHub release immutability for the repository, verify it is enabled, then re-attest this record before creating v0.7.0."
+    }
+  ],
+  "release_claims": {
+    "stable_0_7_0": false,
+    "tag_v0_7_0": false,
+    "pypi_0_7_0": false,
+    "github_release_0_7_0": false
+  }
+}

@@ -18,7 +18,7 @@ REGULATORY = ROOT / "resources" / "regulatory-accounting-data-framework"
 
 
 def _profiles() -> dict[str, object]:
-    return {profile.standard_ref: profile for profile in baseline_profiles("0.7.0b1")}
+    return {profile.standard_ref: profile for profile in baseline_profiles("0.7.0b2")}
 
 
 def test_baseline_profiles_cover_the_five_reviewed_standard_refs() -> None:

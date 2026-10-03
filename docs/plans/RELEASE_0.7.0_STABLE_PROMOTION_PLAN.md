@@ -50,7 +50,7 @@ publication smoke green
 
 The executable pre-tag gate is `python scripts/validate_stable_gate.py`.
 
-## Current external blocker
+## Current external blockers
 
 At the RC merge baseline, LOT-00 still records:
 
@@ -62,6 +62,8 @@ overall_status = BLOCKED_EXTERNAL_CONTROL
 Therefore the stable validator **must return non-zero** until GitHub main-branch protection (or an equivalent ruleset) has been enabled and the canonical LOT-00 status has been re-attested.
 
 No stable tag, PyPI publication or GitHub Release may be claimed while that blocker is open.
+
+G5 also records `IMMUTABLE_RELEASES_UNVERIFIED = OPEN` until GitHub release immutability is enabled and observed before `v0.7.0` is created. This control is intentionally separate because release immutability applies only to future releases.
 
 ## Migration impact
 

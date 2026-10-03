@@ -47,6 +47,9 @@ jobs:
           --github-output "$GITHUB_OUTPUT"
       - name: Run fail-closed publication qualification
         run: python scripts/qualify_release.py --release-candidate
+      - name: Enforce G5 for stable publication
+        if: ${{ steps.release-metadata.outputs.prerelease == 'false' }}
+        run: python scripts/validate_stable_gate.py
 
   build:
     name: Build immutable release bundle
@@ -115,9 +118,38 @@ jobs:
         with:
           packages-dir: release-bundle/dist/
 
+  publication-smoke:
+    name: Verify exact PyPI publication
+    needs: [preflight, publish-pypi]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/setup-python@v7.0.0
+        with:
+          python-version: "3.12"
+      - name: Install exact published version from PyPI
+        env:
+          RELEASE_VERSION: ${{ needs.preflight.outputs.version }}
+        run: |
+          for attempt in 1 2 3 4 5 6; do
+            if python -m pip install --no-cache-dir --upgrade "pyaccountingkit==${RELEASE_VERSION}"; then
+              break
+            fi
+            if [[ "$attempt" == "6" ]]; then
+              exit 1
+            fi
+            sleep 10
+          done
+      - name: Smoke installed release outside checkout
+        env:
+          RELEASE_VERSION: ${{ needs.preflight.outputs.version }}
+        run: |
+          cd "$RUNNER_TEMP"
+          python -c "import importlib.metadata as m; assert m.version('pyaccountingkit') == '${RELEASE_VERSION}'; import pyaccountingkit; assert pyaccountingkit.__version__ == '${RELEASE_VERSION}'"
+
   github-release:
     name: Publish GitHub Release from exact PyPI bundle
-    needs: [preflight, build, publish-pypi]
+    needs: [preflight, build, publish-pypi, publication-smoke]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -145,8 +177,26 @@ jobs:
         with:
           generate_release_notes: true
           prerelease: ${{ needs.preflight.outputs.prerelease == 'true' }}
+          draft: true
           fail_on_unmatched_files: true
           files: |
             release-bundle/dist/*
             release-bundle/metadata/SHA256SUMS
             release-bundle/metadata/RELEASE_QUALIFICATION_MANIFEST.json
+      - name: Publish fully populated release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release edit "$GITHUB_REF_NAME" --draft=false
+
+  release-integrity:
+    name: Verify immutable GitHub Release
+    needs: [github-release]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - name: Verify immutable release attestation
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release verify "$GITHUB_REF_NAME"

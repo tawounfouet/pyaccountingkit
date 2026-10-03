@@ -252,7 +252,7 @@ executable and fail-closed:
 
 No status in `REGULATORY_COMPATIBILITY_MATRIX.json` is promoted by this slice.
 
-### 0.7.0rc1 — qualification candidate
+### 0.7.0rc1 — qualified
 
 The release candidate must qualify **GR + G4** on the `0.7` release line. `G5` is
 reserved for the final stable `0.7.0` promotion and must not be claimed by the RC.
@@ -265,7 +265,7 @@ RC qualification contract:
 - require the sealed release-bundle qualification manifest at publication time;
 - promote zero unsupported capability.
 
-Only after `0.7.0rc1` satisfies G4 can the stable `0.7.0` line proceed to G5.
+`0.7.0rc1` satisfied GR + G4 on PR #68 / CI #570 / Security #573. The stable `0.7.0` line may now enter G5, but G5 remains blocked until `MAIN_BRANCH_PROTECTION_UNENFORCED` and `IMMUTABLE_RELEASES_UNVERIFIED` are both closed with real GitHub-side evidence. See `RELEASE_0.7.0_STABLE_PROMOTION_PLAN.md`.
 
 ## Relationship with LOT-26
 

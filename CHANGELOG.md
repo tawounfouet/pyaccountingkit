@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   the `main` branch as unprotected.
 - Recorded the post-LOT-00.8 `main` CI/Security baseline without creating a tag, package
   publication or stable `0.7.0` claim.
+- Added a fail-closed G5 stable validator, exact `release/0.7.0` CI job, RC1 qualification audit and stable promotion plan.
+- Added PyPI publication smoke plus draft-to-published GitHub Release flow and immutable-release verification.
+- Registered release immutability as an external G5 control; stable `0.7.0` remains blocked until both external controls are closed.
 
 
 ## [0.7.0rc1] - 2026-10-03

@@ -441,6 +441,7 @@ def test_release_candidate_contract_requires_versioned_0_7_evidence(
     with pytest.raises(module.QualificationError, match="0.7.0rc1.*missing required evidence"):
         module.validate_release_candidate_contract(skip_tests=False, skip_package=False)
 
+
 def test_manifest_gate_rejects_version_drift(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,

@@ -71,7 +71,17 @@ _VERSIONED_RC_EVIDENCE: dict[str, tuple[str, ...]] = {
         "tests/consumer/cfa_fra/live_evidence/legacy-retirement-plan.json",
         "tests/consumer/cfa_fra/live_evidence/legacy-retirement-execution.json",
         "tests/consumer/cfa_fra/live_evidence/legacy-retirement-completion.json",
+    ),    "0.7.0rc1": (
+        "tests/integration/test_0_7_regulatory_compatibility_matrix.py",
+        "tests/golden/regulatory/test_lot27_capability_profiles.py",
+        "tests/golden/regulatory/test_nonprofit_effective_plan.py",
+        "tests/golden/regulatory/test_ebnl_structure_provider.py",
+        "tests/golden/regulatory/test_ohada_standard_relations.py",
+        "tests/golden/regulatory/test_reporting_structure_provider.py",
+        "REGULATORY_COMPATIBILITY_MATRIX.json",
+        "SNAPSHOT_SCHEMA_MANIFEST.json",
     ),
+
 }
 
 
@@ -117,6 +127,7 @@ def validate_manifests() -> GateResult:
         ("PUBLIC_ERROR_CODES.json", "error_codes", dict),
         ("ADAPTER_CONTRACT_MANIFEST.json", "adapter_contracts", dict),
         ("REGULATORY_COMPATIBILITY_MATRIX.json", "regulatory_frameworks", list),
+        ("SNAPSHOT_SCHEMA_MANIFEST.json", "snapshots", dict),
     )
 
     for filename, payload_key, payload_type in specifications:
@@ -186,6 +197,10 @@ def validate_release_candidate_contract(
         )
 
     version = project_version()
+    if re.search(r"rc\\d+$", version) and version not in _VERSIONED_RC_EVIDENCE:
+        raise QualificationError(
+            f"release-candidate {version} has no registered evidence contract"
+        )
     required_evidence = _VERSIONED_RC_EVIDENCE.get(version, ())
     missing_evidence = [
         relative_path for relative_path in required_evidence if not (ROOT / relative_path).is_file()
@@ -358,6 +373,10 @@ def qualify(
             "scripts/generate_regulatory_compatibility_matrix.py",
             "Regulatory compatibility matrix generation",
         ),
+        (
+            "scripts/generate_snapshot_schema_manifest.py",
+            "Snapshot schema manifest generation",
+        ),
     ):
         results.append(
             run_command(
@@ -369,6 +388,18 @@ def qualify(
         run_command(
             [sys.executable, "scripts/validate_ci.py"],
             label="CI workflow contract",
+        )
+    )
+    results.append(
+        run_command(
+            [sys.executable, "scripts/validate_documentation.py"],
+            label="Documentation contract",
+        )
+    )
+    results.append(
+        run_command(
+            [sys.executable, "scripts/validate_regulatory_gate.py"],
+            label="Regulatory gate",
         )
     )
     results.append(

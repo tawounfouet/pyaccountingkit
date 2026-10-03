@@ -9,7 +9,10 @@ import pytest
 from pyaccountingkit.adapters.regulatory.reporting import (
     RegulatoryReportingStructureFilesystemAdapter,
 )
-from pyaccountingkit.domain.reporting.reference_reporting_model import ReferenceReportingNodeType
+from pyaccountingkit.domain.reporting.reference_reporting_model import (
+    ReferenceReportingNodeType,
+    ReferenceReportingValueType,
+)
 
 ROOT = Path(__file__).resolve().parents[3]
 REPORTING = ROOT / "resources" / "regulatory-accounting-data-framework" / "datasets" / "reporting"
@@ -23,11 +26,18 @@ def provider() -> RegulatoryReportingStructureFilesystemAdapter:
 def test_pcg_reporting_structure_is_materialized_and_hints_are_review_only(provider) -> None:
     models = provider.list_reporting_models(framework="PCG", edition="2026")
     assert len(models) == 4
+    assert {model.model_code for model in models} == {
+        "BALANCE_BASE",
+        "INCOME_BASE",
+        "BALANCE_ABREGE",
+        "INCOME_ABREGE",
+    }
     assert sum(len(model.nodes) for model in models) == 158
     assert all(node.account_hints_executable is False for model in models for node in model.nodes)
     assert any(node.account_hints for model in models for node in model.nodes)
     assert all(
         node.node_type is ReferenceReportingNodeType.UNSPECIFIED
+        and node.value_type is ReferenceReportingValueType.UNSPECIFIED
         for model in models
         for node in model.nodes
     )
@@ -50,6 +60,13 @@ def test_syscohada_reporting_structure_is_materialized(provider) -> None:
     assert all(node.account_hints_executable is False for model in models for node in model.nodes)
     assert all(
         node.node_type is ReferenceReportingNodeType.UNSPECIFIED
+        and node.value_type is ReferenceReportingValueType.UNSPECIFIED
+        for model in models
+        for node in model.nodes
+    )
+    assert all(
+        node.node_type is ReferenceReportingNodeType.UNSPECIFIED
+        and node.value_type is ReferenceReportingValueType.UNSPECIFIED
         for model in models
         for node in model.nodes
     )

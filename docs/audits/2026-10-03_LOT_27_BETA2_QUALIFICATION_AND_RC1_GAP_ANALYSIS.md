@@ -115,11 +115,16 @@ preconditions are CFA FRA / LOT-26 live-consumer and retirement checks.
 The canonical CI already exercises the full Python matrix, real PostgreSQL adapters,
 migration/concurrency suites, golden/replay suites, manifests and package verification.
 
-Before claiming G4 for `0.7.0rc1`, explicit evidence is still required for the roadmap items:
+The sealed release pipeline already produces and re-verifies
+`RELEASE_QUALIFICATION_MANIFEST.json`; no second committed manifest is required.
 
-- documentation build/check;
-- deterministic release-qualification manifest;
-- snapshot-schema compatibility/diff or a documented executable equivalent.
+The beta-3 hardening therefore makes the remaining pre-RC evidence executable:
+
+- active documentation/version and local-link validation;
+- deterministic snapshot-schema compatibility manifest;
+- explicit regulatory GR validation;
+- a dedicated `release/0.7*` qualification path that reaches the existing release machinery
+  without requiring LOT-26 CFA FRA live evidence.
 
 ### 5.4 GR
 

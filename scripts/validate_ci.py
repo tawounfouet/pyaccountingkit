@@ -51,6 +51,7 @@ def validate_ci_text(text: str) -> list[str]:
             "retirement-completion:\n",
             "retirement-readiness:\n",
             "release-qualification:\n",
+            "regulatory-release-qualification:\n",
             "ci-gate:\n",
             "fail-fast: false",
             'python-version: ["3.11", "3.12", "3.13"]',
@@ -67,6 +68,9 @@ def validate_ci_text(text: str) -> list[str]:
             "tests/concurrency/test_sqlalchemy_postgresql_concurrency.py",
             "python scripts/check_sqlalchemy_metadata.py",
             "python scripts/generate_regulatory_compatibility_matrix.py --check",
+            "python scripts/generate_snapshot_schema_manifest.py --check",
+            "python scripts/validate_documentation.py",
+            "python scripts/validate_regulatory_gate.py",
             "Regulatory capability qualification",
             "tests/golden/regulatory/test_lot27_capability_profiles.py",
             "tests/golden/regulatory/test_nonprofit_effective_plan.py",
@@ -113,7 +117,8 @@ def validate_ci_text(text: str) -> list[str]:
             "--require-bound",
             "consumer_repository_bound",
             "tests/consumer/cfa_fra/CONSUMER_BINDING.json",
-            "startsWith(github.head_ref, 'release/')",
+            "startsWith(github.head_ref, 'release/0.6')",
+            "startsWith(github.head_ref, 'release/0.7')",
             "needs: [test, postgresql, sqlalchemy-postgresql, cutover-evidence,",
             "consumer-bootstrap, consumer-binding]",
             "build/cfa_fra_live_retirement_readiness.json",
@@ -128,7 +133,8 @@ def validate_ci_text(text: str) -> list[str]:
                 "consumer-binding-advancement, "
                 "consumer-binding, consumer-evidence, retirement-inventory, cutover-evidence, "
                 "cutover-pipeline, retirement-plan, retirement-execution, retirement-completion, "
-                "retirement-readiness, release-qualification]"
+                "retirement-readiness, release-qualification, "
+                "regulatory-release-qualification]"
             ),
             "if: ${{ always() }}",
             "QUALITY_RESULT: ${{ needs.quality.result }}",
@@ -159,18 +165,27 @@ def validate_ci_text(text: str) -> list[str]:
             'test "$RETIREMENT_COMPLETION_RESULT" = "success"',
             "RETIREMENT_READINESS_RESULT: ${{ needs.retirement-readiness.result }}",
             "RELEASE_QUALIFICATION_RESULT: ${{ needs.release-qualification.result }}",
+            (
+                "REGULATORY_RELEASE_QUALIFICATION_RESULT: "
+                "${{ needs.regulatory-release-qualification.result }}"
+            ),
+            "HEAD_REF: ${{ github.head_ref }}",
+            'test "$REGULATORY_RELEASE_QUALIFICATION_RESULT" = "success"',
+            'test "$REGULATORY_RELEASE_QUALIFICATION_RESULT" = "skipped"',
         ),
         label="CI",
     )
 
-    if text.count("actions/checkout@v7") != 19:
-        violations.append("CI: expected exactly nineteen actions/checkout@v7 uses")
-    if text.count("actions/setup-python@v7") != 19:
-        violations.append("CI: expected exactly nineteen actions/setup-python@v7 uses")
-    if text.count("cache: pip") != 19:
+    if text.count("actions/checkout@v7") != 20:
+        violations.append("CI: expected exactly twenty actions/checkout@v7 uses")
+    if text.count("actions/setup-python@v7") != 20:
+        violations.append("CI: expected exactly twenty actions/setup-python@v7 uses")
+    if text.count("cache: pip") != 20:
         violations.append("CI: every Python execution job must enable pip cache")
-    if text.count("cache-dependency-path:") != 19:
+    if text.count("cache-dependency-path:") != 20:
         violations.append("CI: every Python execution job must define a pip cache key")
+    if text.count("if: ${{ !startsWith(github.head_ref, 'release/0.7') }}") != 12:
+        violations.append("CI: every CFA FRA qualification job must skip release/0.7")
     if text.count("python scripts/verify_package.py") != 1:
         violations.append("CI: package verification must execute exactly once")
     if text.count(TEST_COMMAND) != 1:
@@ -322,7 +337,7 @@ def main() -> int:
         "Canonical jobs: quality, test, package, postgresql, sqlalchemy-postgresql, "
         "regulatory-qualification, consumer-evidence, retirement-inventory, cutover-evidence, "
         "cutover-pipeline, retirement-plan, retirement-execution, retirement-completion, "
-        "retirement-readiness, release-qualification, ci-gate"
+        "retirement-readiness, release-qualification, regulatory-release-qualification, ci-gate"
     )
     print("Supported Python matrix: 3.11, 3.12, 3.13")
     print("Qualified suites: unit, property, contract, integration, golden, replay, concurrency")
@@ -344,8 +359,9 @@ def main() -> int:
     print("Retirement completion: sealed L26-C proof eligible for 0.6.0rc1 qualification")
     print(
         "RC1 live gate:",
-        "release/* requires bound consumer repository plus live readiness/completion",
+        "release/0.6 requires bound consumer repository plus live readiness/completion",
     )
+    print("LOT-27 RC gate: release/0.7 uses regulatory GR/G4 evidence without CFA FRA jobs")
     print("Retirement gate: MIG-13 readiness with explicit blocker evidence")
     print("Security jobs: audit, sast")
     print("Release pipeline: preflight, build-once, Trusted Publishing, GitHub Release")

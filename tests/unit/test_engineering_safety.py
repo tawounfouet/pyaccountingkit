@@ -395,6 +395,53 @@ def test_release_candidate_contract_accepts_complete_0_6_evidence(
     module.validate_release_candidate_contract(skip_tests=False, skip_package=False)
 
 
+def test_release_candidate_contract_rejects_unregistered_rc(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    module = _load_qualifier()
+    for relative in ("tests/integration", "tests/golden", "tests/replay", "tests/concurrency"):
+        directory = tmp_path / relative
+        directory.mkdir(parents=True, exist_ok=True)
+        (directory / "test_present.py").write_text(
+            "def test_present(): pass\n",
+            encoding="utf-8",
+        )
+
+    monkeypatch.setattr(module, "ROOT", tmp_path)
+    monkeypatch.setattr(module, "project_version", lambda: "9.9.9rc1")
+    with pytest.raises(module.QualificationError, match="no registered evidence contract"):
+        module.validate_release_candidate_contract(skip_tests=False, skip_package=False)
+
+
+def test_release_candidate_contract_requires_versioned_0_7_evidence(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    module = _load_qualifier()
+    for relative in ("tests/integration", "tests/golden", "tests/replay", "tests/concurrency"):
+        directory = tmp_path / relative
+        directory.mkdir(parents=True, exist_ok=True)
+        (directory / "test_present.py").write_text(
+            "def test_present(): pass\n",
+            encoding="utf-8",
+        )
+
+    required = module._VERSIONED_RC_EVIDENCE["0.7.0rc1"]
+    missing = "SNAPSHOT_SCHEMA_MANIFEST.json"
+    for relative in required:
+        if relative == missing:
+            continue
+        path = tmp_path / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("{}\n", encoding="utf-8")
+
+    monkeypatch.setattr(module, "ROOT", tmp_path)
+    monkeypatch.setattr(module, "project_version", lambda: "0.7.0rc1")
+    with pytest.raises(module.QualificationError, match="0.7.0rc1.*missing required evidence"):
+        module.validate_release_candidate_contract(skip_tests=False, skip_package=False)
+
+
 def test_manifest_gate_rejects_version_drift(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
@@ -413,6 +460,10 @@ def test_manifest_gate_rejects_version_drift(
             "version": "0.0.1",
             "regulatory_frameworks": [],
         },
+        "SNAPSHOT_SCHEMA_MANIFEST.json": {
+            "version": "0.0.1",
+            "snapshots": {},
+        },
     }
     for filename, payload in manifests.items():
         (tmp_path / filename).write_text(json.dumps(payload), encoding="utf-8")
@@ -429,6 +480,7 @@ def test_manifest_gate_rejects_version_drift(
         "scripts/generate_error_codes_manifest.py",
         "scripts/generate_adapter_contract_manifest.py",
         "scripts/generate_regulatory_compatibility_matrix.py",
+        "scripts/generate_snapshot_schema_manifest.py",
     ),
 )
 def test_generated_manifests_are_committed_deterministically(script: str) -> None:

@@ -1,0 +1,318 @@
+{
+  "enums": {
+    "ReportSnapshotFreshness": {
+      "module": "pyaccountingkit.domain.reporting.report_snapshot",
+      "values": [
+        "CURRENT",
+        "STALE"
+      ]
+    },
+    "ReportSnapshotStatus": {
+      "module": "pyaccountingkit.domain.reporting.report_snapshot",
+      "values": [
+        "DRAFT",
+        "VALIDATED",
+        "PUBLISHED",
+        "SUPERSEDED"
+      ]
+    },
+    "TrialBalanceSnapshot": {
+      "module": "pyaccountingkit.domain.reporting.trial_balance",
+      "values": [
+        "BEFORE_ADJUSTMENTS",
+        "ADJUSTED",
+        "POST_CLOSING"
+      ]
+    }
+  },
+  "schema_version": "1",
+  "snapshots": {
+    "AnalysisSnapshot": {
+      "fields": [
+        {
+          "name": "snapshot_id",
+          "type": "str"
+        },
+        {
+          "name": "accounting_entity_id",
+          "type": "EntityId"
+        },
+        {
+          "name": "period_id",
+          "type": "str"
+        },
+        {
+          "name": "as_of",
+          "type": "date"
+        },
+        {
+          "name": "source_type",
+          "type": "str"
+        },
+        {
+          "name": "source_ref",
+          "type": "str"
+        },
+        {
+          "name": "source_checksum",
+          "type": "str"
+        },
+        {
+          "name": "source_freshness",
+          "type": "str"
+        },
+        {
+          "name": "definition_set_id",
+          "type": "str"
+        },
+        {
+          "name": "definition_set_version",
+          "type": "str"
+        },
+        {
+          "name": "definition_set_checksum",
+          "type": "str"
+        },
+        {
+          "name": "analysis_result_checksum",
+          "type": "str"
+        },
+        {
+          "name": "indicator_checksums",
+          "type": "tuple[str, ...]"
+        },
+        {
+          "name": "ratio_checksums",
+          "type": "tuple[str, ...]"
+        },
+        {
+          "name": "trace_checksums",
+          "type": "tuple[str, ...]"
+        },
+        {
+          "name": "functional_balance_checksum",
+          "type": "str | None"
+        },
+        {
+          "name": "working_capital_checksum",
+          "type": "str | None"
+        },
+        {
+          "name": "trend_checksums",
+          "type": "tuple[str, ...]"
+        },
+        {
+          "name": "diagnostic_checksums",
+          "type": "tuple[str, ...]"
+        },
+        {
+          "name": "generated_at",
+          "type": "datetime"
+        },
+        {
+          "name": "checksum",
+          "type": "str"
+        }
+      ],
+      "frozen": true,
+      "module": "pyaccountingkit.domain.analysis.analysis_snapshot",
+      "slots": true
+    },
+    "EffectivePlanSnapshot": {
+      "fields": [
+        {
+          "name": "standard_id",
+          "type": "str"
+        },
+        {
+          "name": "edition",
+          "type": "str"
+        },
+        {
+          "name": "version",
+          "type": "str"
+        },
+        {
+          "name": "checksum",
+          "type": "str"
+        },
+        {
+          "name": "captured_at",
+          "type": "datetime"
+        },
+        {
+          "name": "plan",
+          "type": "EffectiveAccountPlan"
+        }
+      ],
+      "frozen": true,
+      "module": "pyaccountingkit.domain.references.snapshots",
+      "slots": true
+    },
+    "ReferenceSnapshot": {
+      "fields": [
+        {
+          "name": "standard_id",
+          "type": "str"
+        },
+        {
+          "name": "edition",
+          "type": "str"
+        },
+        {
+          "name": "version",
+          "type": "str"
+        },
+        {
+          "name": "checksum",
+          "type": "str"
+        },
+        {
+          "name": "captured_at",
+          "type": "datetime"
+        },
+        {
+          "name": "nodes",
+          "type": "tuple[ReferenceNode, ...]"
+        }
+      ],
+      "frozen": true,
+      "module": "pyaccountingkit.domain.references.snapshots",
+      "slots": true
+    },
+    "ReportSnapshot": {
+      "fields": [
+        {
+          "name": "snapshot_id",
+          "type": "str"
+        },
+        {
+          "name": "accounting_entity_id",
+          "type": "EntityId"
+        },
+        {
+          "name": "report_type",
+          "type": "FinancialStatementType"
+        },
+        {
+          "name": "source_period_id",
+          "type": "str"
+        },
+        {
+          "name": "source_checksum",
+          "type": "str"
+        },
+        {
+          "name": "statement_definition_id",
+          "type": "str"
+        },
+        {
+          "name": "statement_definition_version",
+          "type": "str"
+        },
+        {
+          "name": "statement_definition_checksum",
+          "type": "str"
+        },
+        {
+          "name": "mapping_set_id",
+          "type": "str"
+        },
+        {
+          "name": "mapping_set_version",
+          "type": "str"
+        },
+        {
+          "name": "mapping_set_checksum",
+          "type": "str"
+        },
+        {
+          "name": "result_checksum",
+          "type": "str"
+        },
+        {
+          "name": "as_of",
+          "type": "date"
+        },
+        {
+          "name": "created_at",
+          "type": "datetime"
+        },
+        {
+          "name": "status",
+          "type": "ReportSnapshotStatus"
+        },
+        {
+          "name": "lines",
+          "type": "tuple[ReportSnapshotLine, ...]"
+        },
+        {
+          "name": "checksum",
+          "type": "str"
+        }
+      ],
+      "frozen": true,
+      "module": "pyaccountingkit.domain.reporting.report_snapshot",
+      "slots": true
+    },
+    "ReportSnapshotLine": {
+      "fields": [
+        {
+          "name": "code",
+          "type": "str"
+        },
+        {
+          "name": "label",
+          "type": "str"
+        },
+        {
+          "name": "amount",
+          "type": "Money"
+        },
+        {
+          "name": "comparative_amount",
+          "type": "Money | None"
+        }
+      ],
+      "frozen": true,
+      "module": "pyaccountingkit.domain.reporting.report_snapshot",
+      "slots": true
+    },
+    "TrialBalance": {
+      "fields": [
+        {
+          "name": "period_id",
+          "type": "str"
+        },
+        {
+          "name": "snapshot",
+          "type": "TrialBalanceSnapshot"
+        },
+        {
+          "name": "lines",
+          "type": "tuple[AccountBalanceLine, ...]"
+        },
+        {
+          "name": "total_debit",
+          "type": "Money"
+        },
+        {
+          "name": "total_credit",
+          "type": "Money"
+        },
+        {
+          "name": "checksum",
+          "type": "str"
+        },
+        {
+          "name": "accounting_entity_id",
+          "type": "EntityId | None"
+        }
+      ],
+      "frozen": true,
+      "module": "pyaccountingkit.domain.reporting.trial_balance",
+      "slots": true
+    }
+  },
+  "version": "0.7.0b3"
+}

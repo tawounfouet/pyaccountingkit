@@ -147,6 +147,40 @@ def stable_gate_violations(*, root: Path = ROOT, target_version: str = '0.7.0') 
     if not rc_audit.is_file():
         violations.append('LOT-27 RC1 qualification audit is missing')
 
+    g5_external_path = root / 'docs/audits/G5_EXTERNAL_CONTROLS.json'
+    try:
+        g5_external = _load_json(g5_external_path)
+    except StableGateError as exc:
+        violations.append(str(exc))
+    else:
+        if not isinstance(g5_external, dict):
+            violations.append('G5 external controls must be a JSON object')
+        else:
+            controls = g5_external.get('controls')
+            immutable = controls.get('immutable_releases') if isinstance(controls, dict) else None
+            if not isinstance(immutable, dict):
+                violations.append('G5 immutable-releases control is missing')
+            else:
+                if immutable.get('required') is not True:
+                    violations.append('GitHub release immutability must remain required')
+                if immutable.get('observed_enabled') is not True:
+                    violations.append('GitHub release immutability must be observed enabled before G5')
+                if immutable.get('status') != 'COMPLETE':
+                    violations.append('G5 immutable-releases control must be COMPLETE')
+            external_blockers = g5_external.get('blockers')
+            if not isinstance(external_blockers, list):
+                violations.append('G5 external blocker registry must be a list')
+            else:
+                open_external = [
+                    str(item.get('id'))
+                    for item in external_blockers
+                    if isinstance(item, dict) and item.get('status') == 'OPEN'
+                ]
+                if open_external:
+                    violations.append(
+                        f"G5 external controls remain open: {', '.join(open_external)}"
+                    )
+
     manifest_names = (
         'PUBLIC_API_MANIFEST.json',
         'PUBLIC_ERROR_CODES.json',

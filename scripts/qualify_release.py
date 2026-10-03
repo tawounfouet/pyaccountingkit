@@ -197,7 +197,7 @@ def validate_release_candidate_contract(
         )
 
     version = project_version()
-    if re.search(r"rc\\d+$", version) and version not in _VERSIONED_RC_EVIDENCE:
+    if re.search(r"rc[0-9]+$", version) and version not in _VERSIONED_RC_EVIDENCE:
         raise QualificationError(f"release-candidate {version} has no registered evidence contract")
     required_evidence = _VERSIONED_RC_EVIDENCE.get(version, ())
     missing_evidence = [

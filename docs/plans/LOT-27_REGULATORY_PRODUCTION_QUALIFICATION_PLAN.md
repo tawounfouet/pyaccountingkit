@@ -1,7 +1,7 @@
 # LOT-27 — Regulatory Production Qualification
 
 **Target line:** `0.7.0`  
-**Current slice:** `0.7.0b2` — provider-backed reporting structure qualification  
+**Current slice:** `0.7.0b3` — release-candidate gate hardening  
 **Upstream regulatory corpus:** `regulatory-accounting-data-framework 0.7.1`
 
 ## Objective
@@ -236,23 +236,33 @@ marks its statement models as visually bound but not exhaustively transcribed at
 `REPORTING_ACCOUNT_MAPPINGS` remains `REVIEW_REQUIRED`. `EXPORTS` remains unpromoted until
 provider-backed regulatory export evidence exists.
 
+### 0.7.0b3 — implemented
+
+The beta-3 slice does not expand regulatory support. It makes the release-candidate boundary
+executable and fail-closed:
+
+- `0.7.0rc1` has an explicit versioned evidence contract;
+- an unregistered RC version fails qualification instead of falling back to zero evidence;
+- `release/0.7*` skips LOT-26 CFA FRA jobs and requires the dedicated LOT-27 release path;
+- `release/0.6*` retains its bound-consumer and live-retirement gates;
+- `scripts/validate_regulatory_gate.py` executes GR invariants against the committed matrix;
+- `scripts/validate_documentation.py` checks active release documentation and local links;
+- `SNAPSHOT_SCHEMA_MANIFEST.json` records deterministic public snapshot/dataclass and enum shape;
+- the existing sealed `RELEASE_QUALIFICATION_MANIFEST.json` remains the publication artifact.
+
+No status in `REGULATORY_COMPATIBILITY_MATRIX.json` is promoted by this slice.
+
 ### 0.7.0rc1 — next
 
 The release candidate must qualify **GR + G4** on the `0.7` release line. `G5` is
 reserved for the final stable `0.7.0` promotion and must not be claimed by the RC.
 
-Required RC hardening:
+Remaining RC promotion work after beta-3:
 
-- add an explicit versioned `0.7.0rc1` evidence contract to `scripts/qualify_release.py`;
-- fail closed when an unknown release-candidate version has no registered evidence contract;
-- split the `release/0.7` qualification path from LOT-26 CFA FRA live-consumer/cutover gates;
-- keep LOT-26 live evidence deferred without fabricating or silently satisfying it;
-- require GR invariants: source identities/checksums preserved, negative constraints preserved,
-  candidates never treated as executable, human-review flags preserved and no semantic inference
-  from code equality;
-- close the remaining G4 evidence gaps for docs build/check, release-qualification manifest and
-  snapshot-schema compatibility/diff (or an explicitly documented equivalent);
-- perform final compatibility-matrix review;
+- execute the dedicated `release/0.7*` path on an exact `0.7.0rc1` checkout;
+- require GR and G4 to remain green on that exact RC commit;
+- perform the final compatibility-matrix review;
+- confirm the sealed release-bundle qualification manifest is produced at publication time;
 - promote zero unsupported capability.
 
 Only after `0.7.0rc1` satisfies G4 can the stable `0.7.0` line proceed to G5.

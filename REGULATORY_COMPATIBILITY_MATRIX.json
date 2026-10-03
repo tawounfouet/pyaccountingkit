@@ -191,8 +191,8 @@
           "human_review_required": false,
           "notes": "Official statement structure is provider-backed; all 33 derived account-hint lines remain human-reviewed and non-executable.",
           "provider_version": "0.7.1",
-          "qualified_at": "2026-10-03T14:00:00Z",
-          "reviewer": "PyAccountingKit LOT-27 canonical CI",
+          "qualified_at": "2026-10-03T08:21:44Z",
+          "reviewer": "PyAccountingKit LOT-27 reporting qualification",
           "status": "PRODUCTION_QUALIFIED",
           "support_level": "PRODUCTION_QUALIFIED",
           "test_suite": "tests/golden/regulatory/test_reporting_structure_provider.py"
@@ -305,8 +305,8 @@
           "human_review_required": false,
           "notes": "Official reporting structure is provider-backed; source mapping expressions remain non-executable review evidence.",
           "provider_version": "0.7.1",
-          "qualified_at": "2026-10-03T14:00:00Z",
-          "reviewer": "PyAccountingKit LOT-27 canonical CI",
+          "qualified_at": "2026-10-03T08:21:44Z",
+          "reviewer": "PyAccountingKit LOT-27 reporting qualification",
           "status": "PRODUCTION_QUALIFIED",
           "support_level": "PRODUCTION_QUALIFIED",
           "test_suite": "tests/golden/regulatory/test_reporting_structure_provider.py"
@@ -586,8 +586,8 @@
           "human_review_required": false,
           "notes": "Materialized SYSCOHADA reporting models are provider-backed while account mappings remain outside automatic execution.",
           "provider_version": "0.7.1",
-          "qualified_at": "2026-10-03T14:00:00Z",
-          "reviewer": "PyAccountingKit LOT-27 canonical CI",
+          "qualified_at": "2026-10-03T08:21:44Z",
+          "reviewer": "PyAccountingKit LOT-27 reporting qualification",
           "status": "PRODUCTION_QUALIFIED",
           "support_level": "PRODUCTION_QUALIFIED",
           "test_suite": "tests/golden/regulatory/test_reporting_structure_provider.py"

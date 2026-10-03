@@ -187,6 +187,7 @@ jobs:
           tests/golden/regulatory/test_nonprofit_effective_plan.py
           tests/golden/regulatory/test_ebnl_structure_provider.py
           tests/golden/regulatory/test_ohada_standard_relations.py
+          tests/golden/regulatory/test_reporting_structure_provider.py
           tests/integration/test_0_7_regulatory_compatibility_matrix.py
           -v --tb=short
       - name: Require five explicit regulatory profiles

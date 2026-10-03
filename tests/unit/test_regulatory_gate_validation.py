@@ -45,7 +45,10 @@ def test_gr_rejects_review_required_mapping_made_executable() -> None:
     mapping["executable"] = True
 
     violations = module.validate_payload(payload)
-    assert any(\n        "REVIEW_REQUIRED capability must remain non-executable" in item\n        for item in violations\n    )
+    assert any(
+        "REVIEW_REQUIRED capability must remain non-executable" in item
+        for item in violations
+    )
 
 
 def test_gr_rejects_automatic_semantic_inference() -> None:

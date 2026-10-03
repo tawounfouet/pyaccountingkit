@@ -10,7 +10,7 @@ specific regulatory dataset.
 
 ## Status
 
-PyAccountingKit **0.7.0rc1** is the LOT-27 regulatory release candidate.
+PyAccountingKit **0.7.0** is the LOT-27 stable promotion candidate. It is not released while G5 external controls remain open.
 
 LOT-26 turns the frozen LOT-25 CFA FRA behavioral baseline into an executable
 migration boundary. The temporary `CFAFRACompatibilityAdapter` lets the Django
@@ -43,7 +43,7 @@ The `0.7.0b3` slice hardens the path to `0.7.0rc1` without promoting any additio
 
 The `0.7.0rc1` candidate freezes the `b3` regulatory capability set and exercises the dedicated `release/0.7*` GR/G4 path. It does not promote EBNL reporting, reporting-account mappings, crosswalk candidates, concept bindings or exports beyond their reviewed beta statuses, and it does not use deferred LOT-26 live CFA FRA evidence as a release prerequisite.
 
-`0.7.0rc1` is now GR/G4-qualified. The next stable gate is deliberately fail-closed: `release/0.7.0` must pass `scripts/validate_stable_gate.py`, and stable publication remains blocked while main-branch protection or GitHub release immutability is not positively attested. No `0.7.0` stable claim, tag or publication is made by this state.
+`0.7.0rc1` is GR/G4-qualified. The `0.7.0` stable promotion candidate is deliberately fail-closed: `release/0.7.0` must pass `scripts/validate_stable_gate.py`, and stable publication remains blocked while main-branch protection or GitHub release immutability is not positively attested. No `0.7.0` stable claim, tag or publication is made by this state.
 
 LOT-25 remains the behavioral oracle baseline and executes normalized golden parity for:
 

@@ -35,7 +35,9 @@ provider exposes only source-declared standard-family edges and a fail-closed ne
 runtime. In particular, EBNL 2023 and PCEMF 2010 cannot be inferred to inherit from SYSCOHADA
 2017, and no relation becomes auto-inferable unless the corpus explicitly allows it.
 
-The `0.7.0b2` slice adds a reviewed EBNL/SYSCOHADA structural crosswalk runtime. Structural candidates remain non-executable even when codes and normalized labels match. PCEMF/SYSCOHADA crosswalk support remains explicitly `NOT_ASSERTED`: no PCEMF crosswalk dataset is bundled, and the existing negative-relation guard forbids manufacturing inheritance or mappings from absence of evidence.
+The `0.7.0b1` slice adds a reviewed EBNL/SYSCOHADA structural crosswalk runtime. Structural candidates remain non-executable even when codes and normalized labels match. PCEMF/SYSCOHADA crosswalk support remains explicitly `NOT_ASSERTED`: no PCEMF crosswalk dataset is bundled, and the existing negative-relation guard forbids manufacturing inheritance or mappings from absence of evidence.
+
+The `0.7.0b2` slice production-qualifies provider-backed reporting structures for PCG 2026, France Non-Profit 2026 and SYSCOHADA 2017. Exact snapshot coordinates and source line identities are preserved without inventing reporting semantics: missing node and value categories remain explicitly `UNSPECIFIED`. Reporting account mappings stay `REVIEW_REQUIRED` and non-executable, OHADA EBNL 2023 reporting remains `DISCOVERED` because its line-level transcription is not exhaustive, and `EXPORTS` is not promoted without provider-backed evidence.
 
 LOT-25 remains the behavioral oracle baseline and executes normalized golden parity for:
 

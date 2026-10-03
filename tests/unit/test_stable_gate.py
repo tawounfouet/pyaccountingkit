@@ -82,6 +82,22 @@ def _fixture(root: Path, *, blocker: bool = False, version: str = '0.7.0') -> No
     )
 
     _write_json(
+        root / 'docs/audits/G5_EXTERNAL_CONTROLS.json',
+        {
+            'schema_version': '1',
+            'target_version': '0.7.0',
+            'controls': {
+                'immutable_releases': {
+                    'required': True,
+                    'observed_enabled': True,
+                    'status': 'COMPLETE',
+                }
+            },
+            'blockers': [],
+        },
+    )
+
+    _write_json(
         root / 'PUBLIC_API_MANIFEST.json',
         {
             'version': version,
@@ -181,3 +197,24 @@ def test_review_required_mapping_cannot_become_executable(tmp_path: Path) -> Non
     violations = module.stable_gate_violations(root=tmp_path)
 
     assert any('REVIEW_REQUIRED must remain non-executable' in item for item in violations)
+
+
+def test_unverified_release_immutability_fails_g5(tmp_path: Path) -> None:
+    module = _load_module()
+    _fixture(tmp_path)
+    path = tmp_path / 'docs/audits/G5_EXTERNAL_CONTROLS.json'
+    payload = json.loads(path.read_text(encoding='utf-8'))
+    payload['controls']['immutable_releases']['observed_enabled'] = None
+    payload['controls']['immutable_releases']['status'] = 'UNVERIFIED'
+    payload['blockers'] = [
+        {
+            'id': 'IMMUTABLE_RELEASES_UNVERIFIED',
+            'status': 'OPEN',
+        }
+    ]
+    _write_json(path, payload)
+
+    violations = module.stable_gate_violations(root=tmp_path)
+
+    assert any('release immutability must be observed enabled' in item for item in violations)
+    assert any('IMMUTABLE_RELEASES_UNVERIFIED' in item for item in violations)

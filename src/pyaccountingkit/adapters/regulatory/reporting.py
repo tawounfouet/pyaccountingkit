@@ -12,6 +12,7 @@ from pyaccountingkit.domain.reporting.reference_reporting_model import (
     ReferenceReportingModel,
     ReferenceReportingNode,
     ReferenceReportingNodeType,
+    ReferenceReportingValueType,
 )
 
 REPORTING_FILENAMES: Mapping[tuple[str, str], str] = {
@@ -137,7 +138,7 @@ def _parse_statement(
     if not isinstance(raw, dict):
         raise ValueError("reporting statement must be an object")
     statement_id = _required_string(raw, "statement_id")
-    model_code = str(raw.get("statement_type") or statement_id.rsplit(":", 1)[-1]).upper()
+    model_code = statement_id.rsplit(":", 1)[-1].upper()
     raw_lines = raw.get("lines")
     if not isinstance(raw_lines, list) or not raw_lines:
         raise ValueError(f"{statement_id} requires materialized lines")
@@ -175,26 +176,47 @@ def _parse_syscohada_statement(
     snapshot_id: str,
     snapshot_checksum: str,
 ) -> ReferenceReportingModel:
-    if not isinstance(raw, dict):
-        raise ValueError("SYSCOHADA reporting model must be an object")
-    raw_lines = raw.get("lines")
-    if not isinstance(raw_lines, list) or not raw_lines:
-        raise ValueError(f"SYSCOHADA {model_code} requires materialized lines")
-    if not all(isinstance(line, dict) for line in raw_lines):
-        raise ValueError(f"SYSCOHADA {model_code} lines must all be objects")
-    nodes = tuple(
-        ReferenceReportingNode(
-            node_id=_required_string(line, "line_id"),
-            code=_required_string(line, "source_ref_code"),
-            label=_required_string(line, "label_source"),
-            node_type=ReferenceReportingNodeType.UNSPECIFIED,
-            order=index,
-            human_validation_required=False,
-            account_hints_executable=False,
-            provenance=f"syscohada_2017_v3_reporting.json:{model_code}",
+    if model_code == "notes":
+        if not isinstance(raw, list) or not raw:
+            raise ValueError("SYSCOHADA notes require a non-empty materialized list")
+        if not all(isinstance(note, dict) for note in raw):
+            raise ValueError("SYSCOHADA notes must all be objects")
+        nodes = tuple(
+            ReferenceReportingNode(
+                node_id=_required_string(note, "note_id"),
+                code=_required_string(note, "note_id"),
+                label=_required_string(note, "label_source"),
+                node_type=ReferenceReportingNodeType.UNSPECIFIED,
+                order=index,
+                value_type=ReferenceReportingValueType.UNSPECIFIED,
+                human_validation_required=False,
+                account_hints_executable=False,
+                provenance="syscohada_2017_v3_reporting.json:notes",
+            )
+            for index, note in enumerate(raw, start=1)
         )
-        for index, line in enumerate(raw_lines, start=1)
-    )
+    else:
+        if not isinstance(raw, dict):
+            raise ValueError("SYSCOHADA reporting model must be an object")
+        raw_lines = raw.get("lines")
+        if not isinstance(raw_lines, list) or not raw_lines:
+            raise ValueError(f"SYSCOHADA {model_code} requires materialized lines")
+        if not all(isinstance(line, dict) for line in raw_lines):
+            raise ValueError(f"SYSCOHADA {model_code} lines must all be objects")
+        nodes = tuple(
+            ReferenceReportingNode(
+                node_id=_required_string(line, "line_id"),
+                code=_required_string(line, "line_id"),
+                label=_required_string(line, "label_source"),
+                node_type=ReferenceReportingNodeType.UNSPECIFIED,
+                order=index,
+                value_type=ReferenceReportingValueType.UNSPECIFIED,
+                human_validation_required=False,
+                account_hints_executable=False,
+                provenance=f"syscohada_2017_v3_reporting.json:{model_code}",
+            )
+            for index, line in enumerate(raw_lines, start=1)
+        )
     return ReferenceReportingModel(
         model_id=f"syscohada2017:{model_code}",
         model_code=model_code.upper(),
@@ -204,7 +226,6 @@ def _parse_syscohada_statement(
         reference_snapshot_checksum=snapshot_checksum,
         nodes=nodes,
     )
-
 
 def _parse_line(
     raw: object,
@@ -239,6 +260,7 @@ def _parse_line(
         label=_required_string(raw, "label_source"),
         node_type=ReferenceReportingNodeType.UNSPECIFIED,
         order=index,
+        value_type=ReferenceReportingValueType.UNSPECIFIED,
         human_validation_required=policy_requires_review or bool(hints),
         account_hints_executable=False,
         account_hints=tuple(dict.fromkeys(hints)),

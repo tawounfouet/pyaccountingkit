@@ -1,7 +1,7 @@
 # LOT-27 — Regulatory Production Qualification
 
 **Target line:** `0.7.0`  
-**Current slice:** `0.7.0b1` — reviewed structural crosswalk runtime  
+**Current slice:** `0.7.0b2` — provider-backed reporting structure qualification  
 **Upstream regulatory corpus:** `regulatory-accounting-data-framework 0.7.1`
 
 ## Objective
@@ -217,9 +217,24 @@ into a candidate or executable mapping.
 
 ### 0.7.0b2
 
-- reporting-structure production qualification;
-- mapping-review evidence;
-- export capability qualification where actually supported.
+The beta-2 slice production-qualifies provider-backed reporting structure where the bundled
+regulatory corpus contains fully materialized line-level models:
+
+- PCG 2026: 4 templates / 158 lines;
+- SYSCOHADA 2017: balance 48, income 34, cash-flow 23 and notes 46 lines;
+- France Non-Profit 2026: 4 templates / 160 lines, including 33 lines carrying review-only
+  account hints.
+
+The filesystem provider implements the existing exact-coordinate
+`ReferenceReportingModelProviderProtocol`. Dataset bytes pin the reference snapshot checksum.
+Account hints and PCG mapping expressions are preserved only as review evidence and are never
+made executable.
+
+OHADA EBNL 2023 remains non-executable for `REPORTING_STRUCTURE`: the source dataset explicitly
+marks its statement models as visually bound but not exhaustively transcribed at line level.
+
+`REPORTING_ACCOUNT_MAPPINGS` remains `REVIEW_REQUIRED`. `EXPORTS` remains unpromoted until
+provider-backed regulatory export evidence exists.
 
 ### 0.7.0rc1
 

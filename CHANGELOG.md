@@ -15,6 +15,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   publication or stable `0.7.0` claim.
 
 
+## [0.7.0b3] - 2026-10-03
+
+### Added
+- Fail-closed versioned evidence contract for the future `0.7.0rc1` release candidate.
+- Deterministic `SNAPSHOT_SCHEMA_MANIFEST.json` generation and compatibility checking.
+- Executable LOT-27 regulatory GR validation and active documentation validation.
+- Dedicated `release/0.7*` CI qualification path separated from LOT-26 CFA FRA release gates.
+
+### Safety
+- Unregistered RC versions fail qualification instead of silently using an empty evidence set.
+- `release/0.7*` skips CFA FRA LOT-26 jobs rather than fabricating live consumer evidence.
+- No regulatory capability status is promoted by this hardening slice.
+- The existing sealed release qualification manifest remains the publication artifact.
+
 ## [0.7.0b2] - 2026-10-03
 
 ### Added

@@ -34,6 +34,20 @@ export PYAK_GITHUB_ADMIN_TOKEN="<token>"
 
 Never commit or paste this token into repository files, issues, pull requests or workflow YAML.
 
+## One-command G5 closure
+
+When both external controls are ready to be administered, prefer the orchestrator:
+
+```bash
+python scripts/close_g5_external_controls.py close
+```
+
+It executes branch protection and release immutability in fail-closed order, verifies both live
+GitHub states before writing evidence, and never creates a tag, package publication or GitHub
+Release.
+
+Use the individual scripts below only for targeted diagnosis or partial administration.
+
 ## Apply and verify
 
 The canonical repository-side tool is:

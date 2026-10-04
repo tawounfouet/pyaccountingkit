@@ -87,9 +87,7 @@ def test_status_promotion_closes_only_immutability_blocker(
     assert immutable["status"] == "COMPLETE"
     assert immutable["enforced_by_owner"] is True
     blocker = next(
-        item
-        for item in promoted["blockers"]
-        if item["id"] == "IMMUTABLE_RELEASES_UNVERIFIED"
+        item for item in promoted["blockers"] if item["id"] == "IMMUTABLE_RELEASES_UNVERIFIED"
     )
     assert blocker["status"] == "CLOSED"
     assert all(value is False for value in promoted["release_claims"].values())

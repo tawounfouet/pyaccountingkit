@@ -65,6 +65,8 @@ No stable tag, PyPI publication or GitHub Release may be claimed while that bloc
 
 G5 also records `IMMUTABLE_RELEASES_UNVERIFIED = OPEN` until GitHub release immutability is enabled and observed before `v0.7.0` is created. This control is intentionally separate because release immutability applies only to future releases.
 
+The canonical closure path is executable: `scripts/configure_release_immutability.py apply` enables and verifies the GitHub setting, while `promote-status` re-reads the live state before closing the machine-readable blocker. Documentation alone cannot satisfy this control.
+
 ## Migration impact
 
 Migration impact: none.

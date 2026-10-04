@@ -187,8 +187,10 @@ def main(argv: list[str] | None = None) -> int:
         token = _token()
 
         if args.action == "apply":
-            api_request("PUT", token=token)
             state = api_request("GET", token=token)
+            if state.get("enabled") is not True:
+                api_request("PUT", token=token)
+                state = api_request("GET", token=token)
             result = print_check(state)
             if result != 0:
                 return result

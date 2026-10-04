@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 import importlib.util
+from io import BytesIO
 import json
 import sys
+import urllib.error
 from pathlib import Path
 from types import ModuleType
 
@@ -107,3 +109,44 @@ def test_missing_release_claims_fails_closed(
 
     with pytest.raises(module.ReleaseImmutabilityError, match="release_claims"):
         module.promote_g5_status(_enabled_state())
+
+
+def test_get_404_is_normalized_to_disabled(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    module = _load_module()
+
+    def fake_urlopen(request, timeout):
+        del request, timeout
+        raise urllib.error.HTTPError(
+            module._api_url(),
+            404,
+            "Not Found",
+            hdrs=None,
+            fp=BytesIO(b"{}"),
+        )
+
+    monkeypatch.setattr(module.urllib.request, "urlopen", fake_urlopen)
+
+    assert module.api_request("GET", token="test-token") == {
+        "enabled": False,
+        "enforced_by_owner": False,
+    }
+
+
+def test_apply_is_idempotent_when_already_enabled(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    module = _load_module()
+    calls: list[str] = []
+
+    def fake_request(method: str, *, token: str) -> dict[str, object]:
+        assert token == "test-token"
+        calls.append(method)
+        return _enabled_state(enforced_by_owner=True)
+
+    monkeypatch.setattr(module, "api_request", fake_request)
+    monkeypatch.setattr(module, "_token", lambda: "test-token")
+
+    assert module.main(["apply"]) == 0
+    assert calls == ["GET"]

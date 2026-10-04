@@ -141,6 +141,14 @@ def stable_gate_violations(*, root: Path = ROOT, target_version: str = "0.7.0") 
     if not rc_audit.is_file():
         violations.append("LOT-27 RC1 qualification audit is missing")
 
+    required_g5_tooling = (
+        "scripts/configure_release_immutability.py",
+        "docs/admin/RELEASE_IMMUTABILITY_CLOSURE.md",
+    )
+    for relative in required_g5_tooling:
+        if not (root / relative).is_file():
+            violations.append(f"required G5 administration tooling missing: {relative}")
+
     g5_external_path = root / "docs/audits/G5_EXTERNAL_CONTROLS.json"
     try:
         g5_external = _load_json(g5_external_path)

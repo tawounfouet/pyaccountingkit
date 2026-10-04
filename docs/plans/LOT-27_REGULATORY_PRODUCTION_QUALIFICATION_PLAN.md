@@ -1,7 +1,7 @@
 # LOT-27 — Regulatory Production Qualification
 
 **Target line:** `0.7.0`  
-**Current slice:** `0.7.0rc1` — regulatory GR/G4 release candidate  
+**Current slice:** `0.7.0` — G5 stable promotion candidate (externally blocked)  
 **Upstream regulatory corpus:** `regulatory-accounting-data-framework 0.7.1`
 
 ## Objective
@@ -273,3 +273,14 @@ LOT-26 remains externally incomplete because its canonical live CFA FRA consumer
 cutover evidence are deferred. LOT-27 development proceeds in parallel by explicit user decision.
 
 This does **not** retroactively declare `0.6.0` stable and does not fabricate LOT-26 evidence.
+
+### 0.7.0 — G5 stable promotion candidate
+
+The stable branch inherits the exact qualified `0.7.0rc1` capability set and changes release metadata only.
+
+G5 remains fail-closed until both external controls are actually closed:
+
+- `MAIN_BRANCH_PROTECTION_UNENFORCED`;
+- `IMMUTABLE_RELEASES_UNVERIFIED`.
+
+No stable tag, PyPI publication, GitHub Release or stable support expansion is claimed before those controls are proven.

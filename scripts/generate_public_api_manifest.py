@@ -36,7 +36,7 @@ def build_payload() -> dict[str, object]:
             "extension_exports": extension_exports,
             "adapter_contract_version": str(ADAPTER_CONTRACT_VERSION),
             "note": (
-                "The 0.7 prerelease line preserves the stable LOT-21..24 public facade and "
+                "The 0.7 release line preserves the stable LOT-21..24 public facade and "
                 "adapter contract v1 while adding capability-scoped regulatory qualification. "
                 "The effective-plan and standard-relation provider protocols are additive; "
                 "LOT-26 live CFA FRA closure remains deferred and the full pre-1.0 Python API "

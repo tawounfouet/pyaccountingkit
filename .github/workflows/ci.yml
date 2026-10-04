@@ -848,8 +848,6 @@ jobs:
           "import tomllib;
           p=tomllib.load(open('pyproject.toml','rb'));
           assert p['project']['version']=='0.7.0'"
-      - name: Require fail-closed G5 contract
-        run: python scripts/validate_stable_gate.py
       - name: Require deterministic LOT-27 stable evidence
         run: |
           python scripts/generate_regulatory_compatibility_matrix.py --check
@@ -858,6 +856,8 @@ jobs:
           python scripts/validate_regulatory_gate.py
       - name: Run stable release qualification
         run: python scripts/qualify_release.py --release-candidate
+      - name: Require fail-closed G5 external controls
+        run: python scripts/validate_stable_gate.py
 
   ci-gate:
     name: Canonical CI gate

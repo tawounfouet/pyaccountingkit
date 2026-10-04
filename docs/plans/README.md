@@ -25,6 +25,8 @@ Chaque plan correspond à un jalon de release sémantique clair, définit les lo
 
 ## Lot actif / qualification
 
+- LOT-27 `0.7.0` en promotion stable G5 fail-closed ; aucune release stable n’est déclarée tant que les contrôles externes restent ouverts.
+
 - [`LOT-27_REGULATORY_PRODUCTION_QUALIFICATION_PLAN.md`](LOT-27_REGULATORY_PRODUCTION_QUALIFICATION_PLAN.md)
   — LOT-27 `0.7.0rc1` GR/G4 qualifié ; G5 stable est maintenant outillé mais fail-closed.
   `release/0.7.0` exige 0 BLOCKER, protection réelle de `main`, immutabilité des releases,

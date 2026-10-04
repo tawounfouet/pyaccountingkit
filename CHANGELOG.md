@@ -20,6 +20,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added a fail-closed G5 external-control orchestrator that applies, verifies and promotes both GitHub controls without release side effects.
 
 
+## [0.7.0] - UNRELEASED (G5 BLOCKED)
+
+### Stable promotion candidate
+- Promotes only release identity and deterministic manifests from the qualified `0.7.0rc1` baseline.
+- Adds no domain behavior, adapter behavior or regulatory capability.
+- Requires the exact `release/0.7.0` G5 path before merge or publication.
+
+### Blocking controls
+- `MAIN_BRANCH_PROTECTION_UNENFORCED` remains open until GitHub reports `main` protected.
+- `IMMUTABLE_RELEASES_UNVERIFIED` remains open until release immutability is enabled and attested.
+- No `v0.7.0` tag, PyPI publication or GitHub stable release exists from this candidate.
+
 ## [0.7.0rc1] - 2026-10-03
 
 ### Release candidate

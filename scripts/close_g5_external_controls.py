@@ -28,9 +28,7 @@ def _run(script: Path, action: str) -> None:
     command = [sys.executable, str(script), action]
     result = subprocess.run(command, cwd=ROOT, check=False)
     if result.returncode != 0:
-        raise G5ClosureError(
-            f"{script.name} {action} failed with exit code {result.returncode}"
-        )
+        raise G5ClosureError(f"{script.name} {action} failed with exit code {result.returncode}")
 
 
 def check_controls() -> None:

@@ -3,10 +3,10 @@
 from __future__ import annotations
 
 import importlib.util
-from io import BytesIO
 import json
 import sys
 import urllib.error
+from io import BytesIO
 from pathlib import Path
 from types import ModuleType
 

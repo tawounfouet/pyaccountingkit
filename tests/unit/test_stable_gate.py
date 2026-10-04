@@ -49,6 +49,8 @@ def _fixture(root: Path, *, blocker: bool = False, version: str = "0.7.0") -> No
         ),
         "docs/plans/RELEASE_0.7.0_STABLE_PROMOTION_PLAN.md": "Migration impact: none\n",
         "docs/audits/2026-10-03_LOT_27_RC1_QUALIFICATION.md": "# RC1\n",
+        "scripts/configure_release_immutability.py": "#!/usr/bin/env python3\n",
+        "docs/admin/RELEASE_IMMUTABILITY_CLOSURE.md": "# Runbook\n",
     }
     for relative, body in documents.items():
         path = root / relative
@@ -216,3 +218,13 @@ def test_unverified_release_immutability_fails_g5(tmp_path: Path) -> None:
 
     assert any("release immutability must be observed enabled" in item for item in violations)
     assert any("IMMUTABLE_RELEASES_UNVERIFIED" in item for item in violations)
+
+
+def test_missing_release_immutability_tooling_fails_g5(tmp_path: Path) -> None:
+    module = _load_module()
+    _fixture(tmp_path)
+    (tmp_path / "scripts/configure_release_immutability.py").unlink()
+
+    violations = module.stable_gate_violations(root=tmp_path)
+
+    assert any("required G5 administration tooling missing" in item for item in violations)

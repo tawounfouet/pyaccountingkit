@@ -168,6 +168,7 @@ The canonical G5 closure procedure is versioned in:
 ```text
 docs/admin/RELEASE_IMMUTABILITY_CLOSURE.md
 scripts/configure_release_immutability.py
+scripts/close_g5_external_controls.py
 ```
 
 The script uses GitHub's immutable-releases REST API. A read-only `check` requires repository

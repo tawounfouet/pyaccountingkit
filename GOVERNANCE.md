@@ -159,3 +159,21 @@ repository `Administration: write` permission. It is intentionally not wired to 
 
 LOT-00 may move from `BLOCKED_EXTERNAL_CONTROL` to `COMPLETE` only after the script's live
 `check` succeeds and the resulting status promotion is reviewed through a normal pull request.
+
+
+## Release immutability administration
+
+The canonical G5 closure procedure is versioned in:
+
+```text
+docs/admin/RELEASE_IMMUTABILITY_CLOSURE.md
+scripts/configure_release_immutability.py
+```
+
+The script uses GitHub's immutable-releases REST API. A read-only `check` requires repository
+`Administration: read`; `apply` requires `Administration: write`. The token is intentionally
+provided out-of-band through `PYAK_GITHUB_ADMIN_TOKEN` and must never be committed.
+
+`IMMUTABLE_RELEASES_UNVERIFIED` may move to `CLOSED` only after a live positive GitHub
+observation. That status promotion does not create a tag, publish a package, create a GitHub
+Release, or change any stable-release claim.

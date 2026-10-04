@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added PyPI publication smoke plus draft-to-published GitHub Release flow and immutable-release verification.
 - Registered release immutability as an external G5 control; stable `0.7.0` remains blocked until both external controls are closed.
 - Added authenticated `check` / `apply` / `promote-status` tooling for GitHub release immutability so G5 can only close from live Administration API evidence.
+- Added a fail-closed G5 external-control orchestrator that applies, verifies and promotes both GitHub controls without release side effects.
 
 
 ## [0.7.0] - UNRELEASED (G5 BLOCKED)

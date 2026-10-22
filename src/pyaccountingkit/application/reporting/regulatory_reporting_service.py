@@ -133,10 +133,7 @@ class RegulatoryReportingService:
             current_contributions.update(
                 allocate_money_conservatively(
                     source.amount,
-                    tuple(
-                        (mapping.mapping_id, mapping.allocation)
-                        for mapping in source_mappings
-                    ),
+                    tuple((mapping.mapping_id, mapping.allocation) for mapping in source_mappings),
                 )
             )
             if source.comparative_amount is not None:
@@ -144,8 +141,7 @@ class RegulatoryReportingService:
                     allocate_money_conservatively(
                         source.comparative_amount,
                         tuple(
-                            (mapping.mapping_id, mapping.allocation)
-                            for mapping in source_mappings
+                            (mapping.mapping_id, mapping.allocation) for mapping in source_mappings
                         ),
                     )
                 )

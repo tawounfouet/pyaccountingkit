@@ -4683,12 +4683,11 @@ The first actionable delivery is no longer `LOT-00`.
 
 The repository has progressed to `0.7.0rc1` and the audit introduces a mandatory remediation overlay.
 
+REM-00 is now complete as the baseline/governance initialization lot.
+
 The immediate execution is :
 
 ```text
-REM-00
-Baseline & Remediation Registry
-    ↓
 REM-01
 Qualification & Workflow Reliability
     ↓
@@ -4696,36 +4695,49 @@ first REM-02 slice
 Identity / Entity Scope
 ```
 
-Immediate outputs :
+REM-00 canonical outputs now exist :
 
 ```text
-remediation status registry
-corrective regression tests
-HEAD-vs-audit-baseline comparison
+docs/plans/REMEDIATION_2026_10_PLAN.md
+docs/audits/REMEDIATION_2026_10_STATUS.json
+audit-vs-remediation-start comparison
+30-finding status registry
+exact-SHA evidence policy
+corrective-test-first convention
+```
+
+Immediate implementation outputs now expected :
+
+```text
 Nightly collection fix
-strict PostgreSQL qualification
-AccountId vs AccountCode regression
-cross-entity scope regression
+repository-aware release verification
+strict PostgreSQL fail-closed qualification
+then AccountId vs AccountCode regression/fix
+then cross-entity scope regression/fix
 ```
 
 The strategic roadmap `LOT-39..46` resumes after remediation and release requalification.
 
 ---
 
-# 98. Suggested REM-00 / REM-01 deliverables
+# 98. REM-00 completed / REM-01 active
+
+REM-00 completed artifacts :
 
 ```text
 docs/plans/REMEDIATION_2026_10_PLAN.md
-
 docs/audits/REMEDIATION_2026_10_STATUS.json
+```
 
-corrective regression tests
+REM-01 active deliverables :
 
+```text
+corrective regression tests for F25/F26/F27
 strict release qualification checks
-
 Nightly collection correction
-
+repository-aware verification
 exact-SHA PostgreSQL evidence contract
+required PostgreSQL skip => FAIL
 ```
 
 Corrective tests must assert expected behavior, not merely reproduce the faulty baseline.
@@ -4775,7 +4787,8 @@ CURRENT
     0.7.0rc1
 
 NOW
-    REM-00..REM-10
+    REM-01..REM-10
+    REM-00 DONE
     Audit remediation and requalification
 
 THEN
@@ -4813,7 +4826,8 @@ PyAccountingKit possède désormais deux horizons explicitement séparés :
 
 ```text
 TACTICAL
-REM-00..REM-10
+REM-00 DONE
+REM-01..REM-10 ACTIVE/PLANNED
 fix and prove the existing implementation
 ```
 
@@ -4840,15 +4854,14 @@ EVOLVE IT
 Le prochain travail concret est donc :
 
 ```text
-REM-00
-Baseline & Remediation Registry
-    ↓
 REM-01
 Qualification Reliability
     ↓
 REM-02
 Identity / Scope first slice
 ```
+
+REM-00 est fermé comme lot d'initialisation de gouvernance ; il n'a fermé aucun finding métier.
 
 et non la promotion immédiate de `0.7.0rc1` vers stable.
 

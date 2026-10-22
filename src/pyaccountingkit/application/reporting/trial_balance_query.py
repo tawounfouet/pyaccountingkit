@@ -50,6 +50,7 @@ class TrialBalanceQuery:
                 resource=f"period {period.id}",
             )
             entries = uow.entries.list_by_period(period_id)
+            self._validate_entry_journal_scope(uow, entries)
             included_types = self._included_entry_types(snapshot)
             scoped_entries = tuple(entry for entry in entries if entry.entry_type in included_types)
             lines = self._aggregate(scoped_entries)
@@ -75,6 +76,7 @@ class TrialBalanceQuery:
                 resource=f"period {period.id}",
             )
             entries = uow.entries.list_by_period(period_id)
+            self._validate_entry_journal_scope(uow, entries)
             matching: list[tuple[object, JournalLine]] = []
             for entry in entries:
                 for line in entry.lines:
@@ -85,6 +87,20 @@ class TrialBalanceQuery:
                     if matches:
                         matching.append((entry.id, line))
             return tuple(matching)
+
+    def _validate_entry_journal_scope(
+        self,
+        uow: object,
+        entries: Sequence[JournalEntry],
+    ) -> None:
+        """Reject historical rows whose journal belongs to another entity."""
+        for entry in entries:
+            journal = uow.journals.get(entry.journal_id)  # type: ignore[attr-defined]
+            require_same_entity(
+                self._chart.entity_id,
+                journal.entity_id,
+                resource=f"journal {journal.id}",
+            )
 
     @staticmethod
     def _included_entry_types(

@@ -432,7 +432,10 @@ def test_one_cent_allocation_is_conservative_across_statement_lines() -> None:
         ),
         effective_from=date(2026, 1, 1),
     )
-    source = _trial_balance(_line("100", "0.01", "0"))
+    source = _trial_balance(
+        _line("100", "0.01", "0"),
+        _line("999", "0", "0.01"),
+    )
 
     result = FinancialStatementEngine().build(
         FinancialStatementBuildRequest(
@@ -451,6 +454,7 @@ def test_one_cent_allocation_is_conservative_across_statement_lines() -> None:
         (item.contribution for item in contributions),
         Money.zero(EUR),
     ) == Money.from_str("0.01", EUR)
+
 
 def test_report_snapshot_is_content_deterministic_immutable_and_stale_aware() -> None:
     result = FinancialStatementEngine().build(_balance_sheet_request())

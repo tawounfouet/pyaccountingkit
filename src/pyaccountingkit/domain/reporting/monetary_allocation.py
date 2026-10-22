@@ -49,10 +49,7 @@ def allocate_money_conservatively(
 
     quantum = source.currency.subunit_exp
     raw = {key: source.amount * weight for key, weight in ordered}
-    allocated = {
-        key: amount.quantize(quantum, rounding=ROUND_DOWN)
-        for key, amount in raw.items()
-    }
+    allocated = {key: amount.quantize(quantum, rounding=ROUND_DOWN) for key, amount in raw.items()}
 
     allocated_total = sum(allocated.values(), Decimal("0"))
     residual = source.amount - allocated_total
@@ -77,10 +74,7 @@ def allocate_money_conservatively(
             key = ranked_keys[index % len(ranked_keys)]
             allocated[key] += step
 
-    result = {
-        key: Money(allocated[key], source.currency)
-        for key, _ in ordered
-    }
+    result = {key: Money(allocated[key], source.currency) for key, _ in ordered}
     result_total = sum((value.amount for value in result.values()), Decimal("0"))
     if result_total != source.amount:
         raise ArithmeticError(

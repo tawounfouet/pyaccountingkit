@@ -268,12 +268,14 @@ def test_close_vs_post_serializes_on_period_lock_and_rejects_late_post() -> None
                 period = uow.periods.get(PERIOD_ID)
                 period_locked.set()
                 time.sleep(0.25)
-                closed = (
-                    period.with_status(ClosingStatus.REVIEW)
-                    .with_status(ClosingStatus.CLOSING)
-                    .with_status(ClosingStatus.CLOSED)
-                )
-                uow.periods.save(closed)
+                current = period
+                for target in (
+                    ClosingStatus.REVIEW,
+                    ClosingStatus.CLOSING,
+                    ClosingStatus.CLOSED,
+                ):
+                    current = current.with_status(target)
+                    uow.periods.save(current)
                 uow.commit()
         finally:
             close_old_connections()

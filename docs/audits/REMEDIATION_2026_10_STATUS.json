@@ -116,7 +116,20 @@
       "next_slice": [
         "F03",
         "F04"
-      ]
+      ],
+      "second_slice": {
+        "implementation_pr": 78,
+        "pr_head_sha": "9cde1819f09264854512f342de05cb2ff1e0d935",
+        "merge_sha": "7d2f400b0cd6feac5dffc95161ec51b1eb23ced1",
+        "pr_ci_run_id": 39846479591,
+        "pr_security_run_id": 39846479765,
+        "pr_ci_status": "PASS",
+        "findings": [
+          "F03",
+          "F04"
+        ],
+        "status": "FIXED_UNVERIFIED"
+      }
     }
   },
   "lots": {
@@ -287,18 +300,33 @@
       "primary_remediation_lot": "REM-02",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "OPEN",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "7d2f400b0cd6feac5dffc95161ec51b1eb23ced1",
+      "corrective_tests": [
+        "tests/unit/application/test_import_execution_modes.py::test_import_plan_entity_blocks_cross_entity_accounting_mutation",
+        "tests/unit/application/test_import_execution_modes.py::test_import_plan_entity_bounds_all_or_nothing_posting_scope",
+        "tests/unit/application/test_import_execution_modes.py::test_import_plan_entity_bounds_per_item_posting_scope",
+        "tests/unit/application/test_import_execution_modes.py::test_import_plan_entity_bounds_chunked_posting_scope"
+      ],
+      "qualification_evidence": [
+        "PR #78 head 9cde1819f09264854512f342de05cb2ff1e0d935: CI run 39846479591 PASS",
+        "PR #78 head 9cde1819f09264854512f342de05cb2ff1e0d935: Security run 39846479765 PASS",
+        "PR #78 head 9cde1819f09264854512f342de05cb2ff1e0d935: Django/PostgreSQL qualification PASS",
+        "PR #78 head 9cde1819f09264854512f342de05cb2ff1e0d935: SQLAlchemy/PostgreSQL qualification PASS",
+        "PR #78 head 9cde1819f09264854512f342de05cb2ff1e0d935: Canonical CI gate PASS"
+      ],
       "affected_components": [
         "imports",
         "posting",
         "entity_scope"
       ],
-      "notes": []
+      "notes": [
+        "ImportExecutionService propagates ImportPlan.entity_id into canonical posting for all transaction modes.",
+        "Real regression proves a foreign journal/period cannot receive the import mutation.",
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+      ]
     },
     {
       "id": "F04",
@@ -308,18 +336,30 @@
       "primary_remediation_lot": "REM-02",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "OPEN",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "7d2f400b0cd6feac5dffc95161ec51b1eb23ced1",
+      "corrective_tests": [
+        "tests/unit/application/test_trial_balance_query.py::test_balance_rejects_period_from_another_entity_instead_of_relabelling_it",
+        "tests/unit/application/test_trial_balance_query.py::test_balance_rejects_posted_entry_from_foreign_entity_journal",
+        "tests/unit/application/test_trial_balance_query.py::test_drill_down_rejects_posted_entry_from_foreign_entity_journal"
+      ],
+      "qualification_evidence": [
+        "PR #78 head 9cde1819f09264854512f342de05cb2ff1e0d935: CI run 39846479591 PASS",
+        "PR #78 head 9cde1819f09264854512f342de05cb2ff1e0d935: Security run 39846479765 PASS",
+        "PR #78 head 9cde1819f09264854512f342de05cb2ff1e0d935: Canonical CI gate PASS"
+      ],
       "affected_components": [
         "ledger",
         "queries",
         "entity_scope"
       ],
-      "notes": []
+      "notes": [
+        "TrialBalanceQuery validates period entity and every referenced journal entity before aggregation/drill-down.",
+        "Foreign historical entries cannot be relabelled by the local chart.",
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+      ]
     },
     {
       "id": "F05",
@@ -896,5 +936,5 @@
     }
   ],
   "last_updated_on": "2026-10-22",
-  "last_updated_from_sha": "08594852870d9cdce0f4b6ced7877daf3b0d6eb3"
+  "last_updated_from_sha": "7d2f400b0cd6feac5dffc95161ec51b1eb23ced1"
 }

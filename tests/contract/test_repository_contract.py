@@ -7,7 +7,8 @@ Django adapters later).  Add a new factory to FACTORIES to extend coverage.
 
 from __future__ import annotations
 
-from datetime import date
+from dataclasses import replace
+from datetime import UTC, date, datetime
 
 import pytest
 
@@ -15,6 +16,7 @@ from pyaccountingkit.adapters.in_memory.unit_of_work import InMemoryUnitOfWorkFa
 from pyaccountingkit.core.currency import EUR
 from pyaccountingkit.core.errors import (
     EntryNotFoundError,
+    InvalidEntryStateError,
     RevisionConflictError,
 )
 from pyaccountingkit.core.identifiers import EntityId, EntryId, FiscalYearId, JournalId, PeriodId
@@ -127,6 +129,22 @@ def test_save_with_stale_revision_conflicts(name: str) -> None:
         posted = uow.entries.get(EntryId("entry_1"))
         with pytest.raises(RevisionConflictError):
             uow.entries.save(posted, Revision())
+        uow.rollback()
+
+
+@pytest.mark.parametrize("name", FACTORIES)
+def test_posted_entry_economics_are_immutable(name: str) -> None:
+    factory = _new_factory(name)
+    posted = _balanced_entry().validate().freeze(datetime(2024, 1, 15, 9, 0, tzinfo=UTC))
+
+    with factory.open() as uow:
+        uow.entries.add(posted)
+        uow.commit()
+
+    with factory.open() as uow:
+        revision = uow.entries.get_revision(posted.id)
+        with pytest.raises(InvalidEntryStateError, match="immutable"):
+            uow.entries.save(replace(posted, description="rewritten"), revision)
         uow.rollback()
 
 

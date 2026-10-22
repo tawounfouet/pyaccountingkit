@@ -1,0 +1,785 @@
+{
+  "schema_version": "1.0.0",
+  "project": "PyAccountingKit",
+  "registry_id": "REMEDIATION_2026_10",
+  "generated_on": "2026-10-22",
+  "package_version": "0.7.0rc1",
+  "audit": {
+    "baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+    "findings": [
+      "F01..F27",
+      "A01..A03"
+    ],
+    "total_findings": 30,
+    "severity_counts": {
+      "P1": 22,
+      "P2": 5,
+      "architecture_gap_unranked": 3
+    }
+  },
+  "remediation": {
+    "start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+    "registry_source_head_sha": "fd0e2731582d7bb8eb0b7aecae41d2417aa40be5",
+    "code_delta_from_audit_baseline": false,
+    "audit_to_remediation_start": {
+      "commits_ahead": 22,
+      "source_files_changed": 0,
+      "test_files_changed": 0,
+      "workflow_files_changed": 0,
+      "change_classification": "DOCUMENTATION_ONLY"
+    },
+    "execution_order": [
+      "REM-00",
+      "REM-01",
+      "REM-02",
+      "REM-03",
+      "REM-04",
+      "REM-06",
+      "REM-05",
+      "REM-07",
+      "REM-08",
+      "REM-09",
+      "REM-10"
+    ],
+    "allowed_statuses": [
+      "OPEN",
+      "IN_PROGRESS",
+      "FIXED_UNVERIFIED",
+      "VERIFIED",
+      "BLOCKED",
+      "NOT_IN_RELEASE_SCOPE"
+    ],
+    "stable_release_rules": {
+      "applicable_p1_open_blocks_release": true,
+      "required_postgresql_skip_blocks_release": true,
+      "evidence_must_match_candidate_sha": true,
+      "documentation_only_change_cannot_close_finding": true
+    }
+  },
+  "lots": {
+    "REM-00": {
+      "title": "Baseline / Registry / Corrective Test Conventions",
+      "findings": "ALL",
+      "status": "IN_PROGRESS"
+    },
+    "REM-01": {
+      "title": "Qualification Reliability",
+      "findings": [
+        "F25",
+        "F26",
+        "F27"
+      ],
+      "status": "PLANNED"
+    },
+    "REM-02": {
+      "title": "Identity / Scope / Read-Side",
+      "findings": [
+        "F01",
+        "F02",
+        "F03",
+        "F04",
+        "F13",
+        "F18"
+      ],
+      "status": "PLANNED"
+    },
+    "REM-03": {
+      "title": "Posting / Repositories / Idempotency",
+      "findings": [
+        "F10",
+        "F11",
+        "F23",
+        "F24"
+      ],
+      "status": "PLANNED"
+    },
+    "REM-04": {
+      "title": "Immutable Evidence / Durable Traceability",
+      "findings": [
+        "F14",
+        "F20",
+        "A03"
+      ],
+      "status": "PLANNED"
+    },
+    "REM-05": {
+      "title": "Closing / Opening Atomicity",
+      "findings": [
+        "F05",
+        "F06",
+        "F07",
+        "F08",
+        "F09"
+      ],
+      "status": "PLANNED"
+    },
+    "REM-06": {
+      "title": "Calculation / Checksums / Fidelity",
+      "findings": [
+        "F12",
+        "F15",
+        "F16",
+        "F21"
+      ],
+      "status": "PLANNED"
+    },
+    "REM-07": {
+      "title": "Safe References / Publication",
+      "findings": [
+        "F19",
+        "F22"
+      ],
+      "status": "PLANNED"
+    },
+    "REM-08": {
+      "title": "Public Contracts / Application Services",
+      "findings": [
+        "F17",
+        "A02"
+      ],
+      "status": "PLANNED"
+    },
+    "REM-09": {
+      "title": "Persistent Subledgers",
+      "findings": [
+        "A01"
+      ],
+      "status": "PLANNED"
+    },
+    "REM-10": {
+      "title": "Transverse Qualification / Release Decision",
+      "findings": "ALL_APPLICABLE",
+      "status": "PLANNED"
+    }
+  },
+  "findings": [
+    {
+      "id": "F01",
+      "finding_type": "finding",
+      "severity": "P1",
+      "title": "Posting confuses AccountId and account code",
+      "primary_remediation_lot": "REM-02",
+      "qualification_lot": "REM-10",
+      "release_scope": "IN_SCOPE",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "posting",
+        "charts",
+        "ledger"
+      ],
+      "notes": []
+    },
+    {
+      "id": "F02",
+      "finding_type": "finding",
+      "severity": "P1",
+      "title": "Proposal for entity A can be posted to entity B",
+      "primary_remediation_lot": "REM-02",
+      "qualification_lot": "REM-10",
+      "release_scope": "IN_SCOPE",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "posting",
+        "proposals",
+        "entity_scope"
+      ],
+      "notes": []
+    },
+    {
+      "id": "F03",
+      "finding_type": "finding",
+      "severity": "P1",
+      "title": "Import plan entity does not bound persisted mutation scope",
+      "primary_remediation_lot": "REM-02",
+      "qualification_lot": "REM-10",
+      "release_scope": "IN_SCOPE",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "imports",
+        "posting",
+        "entity_scope"
+      ],
+      "notes": []
+    },
+    {
+      "id": "F04",
+      "finding_type": "finding",
+      "severity": "P1",
+      "title": "Balance query can relabel entity B entries as entity A",
+      "primary_remediation_lot": "REM-02",
+      "qualification_lot": "REM-10",
+      "release_scope": "IN_SCOPE",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "ledger",
+        "queries",
+        "entity_scope"
+      ],
+      "notes": []
+    },
+    {
+      "id": "F05",
+      "finding_type": "finding",
+      "severity": "P1",
+      "title": "Closing gates accept ERROR or missing controls",
+      "primary_remediation_lot": "REM-05",
+      "qualification_lot": "REM-10",
+      "release_scope": "IN_SCOPE",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "closing",
+        "controls"
+      ],
+      "notes": []
+    },
+    {
+      "id": "F06",
+      "finding_type": "finding",
+      "severity": "P1",
+      "title": "Closing can accept foreign or stale balance evidence",
+      "primary_remediation_lot": "REM-05",
+      "qualification_lot": "REM-10",
+      "release_scope": "IN_SCOPE",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "closing",
+        "ledger",
+        "evidence"
+      ],
+      "notes": []
+    },
+    {
+      "id": "F07",
+      "finding_type": "finding",
+      "severity": "P1",
+      "title": "Opening entries can bypass posting and target scope rules",
+      "primary_remediation_lot": "REM-05",
+      "qualification_lot": "REM-10",
+      "release_scope": "IN_SCOPE",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "closing",
+        "opening",
+        "posting"
+      ],
+      "notes": []
+    },
+    {
+      "id": "F08",
+      "finding_type": "finding",
+      "severity": "P1",
+      "title": "Closing proof can be produced after accounting commit instead of atomically",
+      "primary_remediation_lot": "REM-05",
+      "qualification_lot": "REM-10",
+      "release_scope": "IN_SCOPE",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "closing",
+        "unit_of_work",
+        "evidence"
+      ],
+      "notes": []
+    },
+    {
+      "id": "F09",
+      "finding_type": "finding",
+      "severity": "P1",
+      "title": "InMemory UnitOfWork ignores conflicts on read-only resources",
+      "primary_remediation_lot": "REM-05",
+      "qualification_lot": "REM-10",
+      "release_scope": "IN_SCOPE",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "in_memory",
+        "unit_of_work",
+        "concurrency"
+      ],
+      "notes": []
+    },
+    {
+      "id": "F10",
+      "finding_type": "finding",
+      "severity": "P1",
+      "title": "Repositories allow rewriting POSTED economic content",
+      "primary_remediation_lot": "REM-03",
+      "qualification_lot": "REM-10",
+      "release_scope": "IN_SCOPE",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "repositories",
+        "journals",
+        "posting"
+      ],
+      "notes": []
+    },
+    {
+      "id": "F11",
+      "finding_type": "finding",
+      "severity": "P1",
+      "title": "Idempotency replay ignores semantic content or scope",
+      "primary_remediation_lot": "REM-03",
+      "qualification_lot": "REM-10",
+      "release_scope": "IN_SCOPE",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "idempotency",
+        "posting",
+        "unit_of_work"
+      ],
+      "notes": []
+    },
+    {
+      "id": "F12",
+      "finding_type": "finding",
+      "severity": "P1",
+      "title": "Proposal to JournalEntry conversion loses EntryType",
+      "primary_remediation_lot": "REM-06",
+      "qualification_lot": "REM-10",
+      "release_scope": "IN_SCOPE",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "proposals",
+        "journals"
+      ],
+      "notes": []
+    },
+    {
+      "id": "F13",
+      "finding_type": "finding",
+      "severity": "P1",
+      "title": "Ledger hard-codes EUR and mixes account code with account identity",
+      "primary_remediation_lot": "REM-02",
+      "qualification_lot": "REM-10",
+      "release_scope": "IN_SCOPE",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "ledger",
+        "money",
+        "account_identity"
+      ],
+      "notes": []
+    },
+    {
+      "id": "F14",
+      "finding_type": "finding",
+      "severity": "P1",
+      "title": "AuditEvent and OutboxRecord payloads are not deeply immutable",
+      "primary_remediation_lot": "REM-04",
+      "qualification_lot": "REM-10",
+      "release_scope": "IN_SCOPE",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "audit",
+        "outbox",
+        "traceability"
+      ],
+      "notes": []
+    },
+    {
+      "id": "F15",
+      "finding_type": "finding",
+      "severity": "P1",
+      "title": "Trial-balance checksum omits currency and account identity semantics",
+      "primary_remediation_lot": "REM-06",
+      "qualification_lot": "REM-10",
+      "release_scope": "IN_SCOPE",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "ledger",
+        "trial_balance",
+        "checksums"
+      ],
+      "notes": []
+    },
+    {
+      "id": "F16",
+      "finding_type": "finding",
+      "severity": "P1",
+      "title": "Settlement allocation rounds too early and can lose cents",
+      "primary_remediation_lot": "REM-06",
+      "qualification_lot": "REM-10",
+      "release_scope": "IN_SCOPE",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "subledgers",
+        "settlement",
+        "money"
+      ],
+      "notes": []
+    },
+    {
+      "id": "F17",
+      "finding_type": "finding",
+      "severity": "P2",
+      "title": "Adapter-neutrality guard can miss wrapped ORM leakage",
+      "primary_remediation_lot": "REM-08",
+      "qualification_lot": "REM-10",
+      "release_scope": "IN_SCOPE",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "public_api",
+        "architecture_guards",
+        "adapters"
+      ],
+      "notes": []
+    },
+    {
+      "id": "F18",
+      "finding_type": "finding",
+      "severity": "P2",
+      "title": "Company chart permits duplicate AccountId",
+      "primary_remediation_lot": "REM-02",
+      "qualification_lot": "REM-10",
+      "release_scope": "IN_SCOPE",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "charts",
+        "account_identity"
+      ],
+      "notes": []
+    },
+    {
+      "id": "F19",
+      "finding_type": "finding",
+      "severity": "P2",
+      "title": "Regulatory hierarchy permits cycles or mixed editions",
+      "primary_remediation_lot": "REM-07",
+      "qualification_lot": "REM-10",
+      "release_scope": "IN_SCOPE",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "references",
+        "regulatory"
+      ],
+      "notes": []
+    },
+    {
+      "id": "F20",
+      "finding_type": "finding",
+      "severity": "P1",
+      "title": "Regulatory snapshot can be mutated after sealing or replay",
+      "primary_remediation_lot": "REM-04",
+      "qualification_lot": "REM-10",
+      "release_scope": "IN_SCOPE",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "regulatory",
+        "snapshots",
+        "replay"
+      ],
+      "notes": []
+    },
+    {
+      "id": "F21",
+      "finding_type": "finding",
+      "severity": "P1",
+      "title": "Sign conventions can be applied twice",
+      "primary_remediation_lot": "REM-06",
+      "qualification_lot": "REM-10",
+      "release_scope": "IN_SCOPE",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "reporting",
+        "analysis",
+        "sign_conventions"
+      ],
+      "notes": []
+    },
+    {
+      "id": "F22",
+      "finding_type": "finding",
+      "severity": "P1",
+      "title": "FAIL report result can become PUBLISHED directly",
+      "primary_remediation_lot": "REM-07",
+      "qualification_lot": "REM-10",
+      "release_scope": "IN_SCOPE",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "reporting",
+        "publication",
+        "state_machine"
+      ],
+      "notes": []
+    },
+    {
+      "id": "F23",
+      "finding_type": "finding",
+      "severity": "P1",
+      "title": "PeriodRepository.save is too permissive and diverges across adapters",
+      "primary_remediation_lot": "REM-03",
+      "qualification_lot": "REM-10",
+      "release_scope": "IN_SCOPE",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "periods",
+        "repositories",
+        "adapters"
+      ],
+      "notes": []
+    },
+    {
+      "id": "F24",
+      "finding_type": "finding",
+      "severity": "P1",
+      "title": "Posting an already persisted VALIDATED entry fails",
+      "primary_remediation_lot": "REM-03",
+      "qualification_lot": "REM-10",
+      "release_scope": "IN_SCOPE",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "posting",
+        "journals",
+        "repositories"
+      ],
+      "notes": []
+    },
+    {
+      "id": "F25",
+      "finding_type": "finding",
+      "severity": "P2",
+      "title": "Nightly test collection is broken",
+      "primary_remediation_lot": "REM-01",
+      "qualification_lot": "REM-10",
+      "release_scope": "IN_SCOPE",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "ci",
+        "nightly",
+        "tests"
+      ],
+      "notes": []
+    },
+    {
+      "id": "F26",
+      "finding_type": "finding",
+      "severity": "P2",
+      "title": "Release verification lacks repository context",
+      "primary_remediation_lot": "REM-01",
+      "qualification_lot": "REM-10",
+      "release_scope": "IN_SCOPE",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "release",
+        "qualification",
+        "ci"
+      ],
+      "notes": []
+    },
+    {
+      "id": "F27",
+      "finding_type": "finding",
+      "severity": "P1",
+      "title": "RC qualification can pass while required PostgreSQL modules are skipped",
+      "primary_remediation_lot": "REM-01",
+      "qualification_lot": "REM-10",
+      "release_scope": "IN_SCOPE",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "release",
+        "postgresql",
+        "django",
+        "sqlalchemy",
+        "ci"
+      ],
+      "notes": []
+    },
+    {
+      "id": "A01",
+      "finding_type": "architecture_gap",
+      "severity": null,
+      "title": "Persistent subledger application chain is incomplete",
+      "primary_remediation_lot": "REM-09",
+      "qualification_lot": "REM-10",
+      "release_scope": "CONDITIONAL",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "subledgers",
+        "application",
+        "persistence"
+      ],
+      "notes": []
+    },
+    {
+      "id": "A02",
+      "finding_type": "architecture_gap",
+      "severity": null,
+      "title": "Public facade typed operational contracts are incomplete and error translation is split",
+      "primary_remediation_lot": "REM-08",
+      "qualification_lot": "REM-10",
+      "release_scope": "IN_SCOPE",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "public_api",
+        "application",
+        "errors"
+      ],
+      "notes": []
+    },
+    {
+      "id": "A03",
+      "finding_type": "architecture_gap",
+      "severity": null,
+      "title": "Proposal-to-execution trace is not durably persisted atomically",
+      "primary_remediation_lot": "REM-04",
+      "qualification_lot": "REM-10",
+      "release_scope": "IN_SCOPE",
+      "status": "OPEN",
+      "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
+      "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
+      "fix_sha": null,
+      "corrective_tests": [],
+      "qualification_evidence": [],
+      "affected_components": [
+        "traceability",
+        "proposals",
+        "unit_of_work"
+      ],
+      "notes": []
+    }
+  ]
+}

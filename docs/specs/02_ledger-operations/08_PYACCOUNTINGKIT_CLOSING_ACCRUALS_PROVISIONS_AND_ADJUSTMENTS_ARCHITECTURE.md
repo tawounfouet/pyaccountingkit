@@ -2925,6 +2925,27 @@ si l'Application Layer le permet.
 21. if year end, generate opening balance run
 ```
 
+Règles fail-closed de la décision de clôture :
+
+```text
+required blocking control
+    -> exactly one selected ControlRun
+    -> same period
+    -> PASS only
+
+supplied POST_CLOSING balance
+    -> target period
+    -> target accounting entity
+    -> fresh canonical checksum
+```
+
+Un contrôle `ERROR`, absent, ambigu ou provenant d'une autre période interdit la clôture.
+Une balance fournie par le caller ne constitue pas à elle seule une preuve de fraîcheur :
+elle doit être comparée à une balance `POST_CLOSING` fraîche issue de la source canonique.
+
+La détection d'un conflit apparu **après** cette lecture fraîche et **avant** le commit relève
+du contrôle de concurrence transactionnelle et doit être traitée séparément.
+
 ---
 
 # 172. `ClosingStage`

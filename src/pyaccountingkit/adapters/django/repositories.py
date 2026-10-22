@@ -63,6 +63,19 @@ class DjangoJournalEntryRepository:
     def save(self, entry: JournalEntry, expected_revision: Revision) -> None:
         try:
             with transaction.atomic(using=self._using):
+                current_model = (
+                    JournalEntryModel.objects.using(self._using)
+                    .select_for_update()
+                    .filter(pk=str(entry.id))
+                    .first()
+                )
+                if current_model is None or current_model.revision != int(expected_revision):
+                    raise RevisionConflictError(
+                        f"Entry {entry.id}: expected revision {expected_revision}"
+                    )
+                persisted = entry_to_domain(current_model, using=self._using)
+                persisted.assert_persistence_successor(entry)
+
                 updated = (
                     JournalEntryModel.objects.using(self._using)
                     .filter(pk=str(entry.id), revision=int(expected_revision))

@@ -15,7 +15,11 @@ from pyaccountingkit.application.closing.closing_orchestrator import ClosingOrch
 from pyaccountingkit.application.ledger.posting_orchestrator import PostingOrchestrator
 from pyaccountingkit.core.clock import FrozenClock
 from pyaccountingkit.core.currency import EUR
-from pyaccountingkit.core.errors import ControlFailureError, PeriodClosedError
+from pyaccountingkit.core.errors import (
+    ControlFailureError,
+    EntityScopeMismatchError,
+    PeriodClosedError,
+)
 from pyaccountingkit.core.identifiers import (
     AccountId,
     EntityId,
@@ -279,7 +283,7 @@ def test_closing_rejects_balance_for_another_period() -> None:
 def test_closing_rejects_balance_for_another_entity() -> None:
     orchestrator, _, store = _build()
 
-    with pytest.raises(Exception, match="closing balance belongs to entity"):
+    with pytest.raises(EntityScopeMismatchError, match="closing balance belongs to entity"):
         orchestrator.close_period(
             PeriodId("p_2024_12"),
             control_runs=[_control(ControlOutcome.PASS)],

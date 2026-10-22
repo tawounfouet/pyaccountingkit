@@ -191,6 +191,7 @@ class SQLAlchemyPeriodRepository:
             select(AccountingPeriodTable)
             .where(AccountingPeriodTable.id == str(period.id))
             .with_for_update()
+            .execution_options(populate_existing=True)
         )
         if current_row is None:
             raise PeriodNotFoundError(f"Period {period.id} not found")

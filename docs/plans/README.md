@@ -109,7 +109,7 @@ Les nouveaux lots stratégiques ne disposent pas encore tous d'un fichier `PLAN-
 
 ## Lot actif / qualification
 
-### Priorité active : `REM-06 → REM-10`
+### Priorité active : `REM-05 → REM-10`
 
 La priorité n'est plus la promotion directe de `LOT-27 / 0.7.0rc1`.
 
@@ -122,8 +122,8 @@ Le chantier courant est l'overlay de remédiation :
 | 3 | `REM-02` | Identités, scope et read-side — **IMPLEMENTED / QUALIFYING** | `F01,F02,F03,F04,F13,F18` |
 | 4 | `REM-03` | Cycle de posting, repositories, idempotence — **IMPLEMENTED / QUALIFYING** | `F10,F11,F23,F24` |
 | 5 | `REM-04` | Immutabilité et traces durables — **IMPLEMENTED / QUALIFYING** | `F14,F20,A03` |
-| 6 | `REM-06` | Calculs, classification et empreintes — **ACTIVE** | `F12,F15,F16,F21` |
-| 7 | `REM-05` | Clôture et à-nouveaux atomiques | `F05,F06,F07,F08,F09` |
+| 6 | `REM-06` | Calculs, classification et empreintes — **IMPLEMENTED / QUALIFYING** | `F12,F15,F16,F21` |
+| 7 | `REM-05` | Clôture et à-nouveaux atomiques — **ACTIVE** | `F05,F06,F07,F08,F09` |
 | 8 | `REM-07` | Références sûres et publication validée | `F19,F22` |
 | 9 | `REM-08` | Contrats publics et services applicatifs | `F17,A02` |
 | 10 | `REM-09` | Auxiliaires persistants | `A01` |
@@ -150,7 +150,8 @@ REM-01  IMPLEMENTED / QUALIFYING
 REM-02  IMPLEMENTED / QUALIFYING
 REM-03  IMPLEMENTED / QUALIFYING
 REM-04  IMPLEMENTED / QUALIFYING
-REM-06  ACTIVE
+REM-06  IMPLEMENTED / QUALIFYING
+REM-05  ACTIVE
 ```
 
 Preuves d'implémentation REM-04 :
@@ -162,7 +163,7 @@ PR #84  A03
 
 Les findings REM-04 restent `FIXED_UNVERIFIED` jusqu'à preuve de qualification sur le SHA exact de `main` et requalification transverse REM-10.
 
-Sorties attendues de REM-06 :
+Sorties implémentées de REM-06 :
 
 ```text
 F12 proposal-to-entry fidelity preserves EntryType
@@ -170,6 +171,18 @@ F15 trial-balance checksum includes account identity and currency semantics
 F16 allocation preserves cents without premature rounding
 F21 sign conventions cannot be applied twice
 ```
+
+Preuves d'implémentation REM-06 :
+
+```text
+PR #85  F12/F15
+PR #87  F16 (LOT-28R)
+PR #88  F21 (LOT-29R)
+```
+
+REM-06 est désormais `IMPLEMENTED / QUALIFYING`. Ses findings restent
+`FIXED_UNVERIFIED` jusqu'à preuve exact-main-SHA suffisante et requalification transverse
+`REM-10`. Le chantier actif passe à `REM-05`.
 
 
 ## 2. Graphe d'Ordonnancement & Chemin Critique

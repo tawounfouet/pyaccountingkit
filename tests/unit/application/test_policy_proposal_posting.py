@@ -18,8 +18,8 @@ from pyaccountingkit.application.ledger.proposal_posting_orchestrator import (
     ProposalPostingOrchestrator,
 )
 from pyaccountingkit.core.clock import FrozenClock
-from pyaccountingkit.core.errors import EntityScopeMismatchError
 from pyaccountingkit.core.currency import EUR
+from pyaccountingkit.core.errors import EntityScopeMismatchError
 from pyaccountingkit.core.identifiers import (
     AccountId,
     EntityId,

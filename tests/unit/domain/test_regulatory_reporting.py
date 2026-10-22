@@ -47,7 +47,12 @@ OTHER_ENTITY = EntityId("entity-b")
 AS_OF = date(2026, 12, 31)
 
 
-def _snapshot(*, status: ReportSnapshotStatus = ReportSnapshotStatus.PUBLISHED) -> ReportSnapshot:
+def _snapshot(
+    *,
+    status: ReportSnapshotStatus = ReportSnapshotStatus.PUBLISHED,
+    amount: str = "100",
+    comparative_amount: str = "80",
+) -> ReportSnapshot:
     return ReportSnapshot(
         snapshot_id="financial-snapshot-1",
         accounting_entity_id=ENTITY,
@@ -68,8 +73,8 @@ def _snapshot(*, status: ReportSnapshotStatus = ReportSnapshotStatus.PUBLISHED) 
             ReportSnapshotLine(
                 code="FS_ASSETS",
                 label="Assets",
-                amount=Money.from_str("100", EUR),
-                comparative_amount=Money.from_str("80", EUR),
+                amount=Money.from_str(amount, EUR),
+                comparative_amount=Money.from_str(comparative_amount, EUR),
             ),
         ),
         checksum="sealed-financial-snapshot-checksum",
@@ -224,3 +229,73 @@ def test_regulatory_report_checksum_is_deterministic() -> None:
 
     assert first.report.checksum == second.report.checksum
     assert first.validation.checksum == second.validation.checksum
+
+
+def test_regulatory_one_cent_allocation_is_conservative() -> None:
+    model = ReferenceReportingModel(
+        model_id="pcg-bs-model",
+        model_code="BALANCE_SHEET",
+        framework="PCG",
+        edition="2026",
+        reference_snapshot_id="ref-pcg-2026",
+        reference_snapshot_checksum="a" * 64,
+        nodes=(
+            ReferenceReportingNode(
+                node_id="assets-a",
+                code="REG_ASSETS_A",
+                label="Regulatory assets A",
+                node_type=ReferenceReportingNodeType.TOTAL,
+                order=1,
+                required=True,
+                human_validation_required=True,
+                account_hints_executable=False,
+            ),
+            ReferenceReportingNode(
+                node_id="assets-b",
+                code="REG_ASSETS_B",
+                label="Regulatory assets B",
+                node_type=ReferenceReportingNodeType.TOTAL,
+                order=2,
+                required=True,
+                human_validation_required=True,
+                account_hints_executable=False,
+            ),
+        ),
+    )
+    mappings = (
+        RegulatoryStatementMapping(
+            mapping_id="a-map",
+            statement_line_code="FS_ASSETS",
+            reference_node_id="assets-a",
+            allocation=Decimal("0.5"),
+            status=RegulatoryMappingStatus.VALIDATED,
+            provenance=RegulatoryMappingProvenance.MANUAL,
+            effective_from=date(2026, 1, 1),
+        ),
+        RegulatoryStatementMapping(
+            mapping_id="b-map",
+            statement_line_code="FS_ASSETS",
+            reference_node_id="assets-b",
+            allocation=Decimal("0.5"),
+            status=RegulatoryMappingStatus.VALIDATED,
+            provenance=RegulatoryMappingProvenance.MANUAL,
+            effective_from=date(2026, 1, 1),
+        ),
+    )
+    service = RegulatoryReportingService(InMemoryReferenceReportingModelProvider((model,)))
+
+    result = service.build(
+        snapshot=_snapshot(amount="0.01", comparative_amount="0.01"),
+        profile=_profile(),
+        mapping_set=_mapping_set(mappings=mappings),
+        model_code="BALANCE_SHEET",
+    )
+
+    current = result.report.node("REG_ASSETS_A").amount
+    current_b = result.report.node("REG_ASSETS_B").amount
+    comparative = result.report.node("REG_ASSETS_A").comparative_amount
+    comparative_b = result.report.node("REG_ASSETS_B").comparative_amount
+    assert current is not None and current_b is not None
+    assert comparative is not None and comparative_b is not None
+    assert current + current_b == Money.from_str("0.01", EUR)
+    assert comparative + comparative_b == Money.from_str("0.01", EUR)

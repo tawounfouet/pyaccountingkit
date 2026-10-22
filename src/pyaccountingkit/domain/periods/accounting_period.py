@@ -46,6 +46,38 @@ class AccountingPeriod:
                 f"[{self.start_date}, {self.end_date}]"
             )
 
+    def assert_persistence_successor(self, candidate: AccountingPeriod) -> None:
+        """Validate a repository update against immutable period identity and lifecycle."""
+        if candidate.id != self.id:
+            raise ValueError(
+                f"Période {self.id}: persistence successor has different identity {candidate.id}"
+            )
+
+        immutable_before = (
+            self.entity_id,
+            self.fiscal_year_id,
+            self.start_date,
+            self.end_date,
+        )
+        immutable_after = (
+            candidate.entity_id,
+            candidate.fiscal_year_id,
+            candidate.start_date,
+            candidate.end_date,
+        )
+        if immutable_after != immutable_before:
+            raise ValueError(
+                f"Période {self.id}: entity, fiscal year and date bounds are immutable"
+            )
+
+        if candidate.status is self.status:
+            return
+        if not self.status.can_transition_to(candidate.status):
+            raise ValueError(
+                f"Transition persistante invalide {self.status} -> {candidate.status} "
+                f"pour la période {self.id}"
+            )
+
     def with_status(self, status: ClosingStatus) -> AccountingPeriod:
         """Return a copy with a new closing status (periods are immutable)."""
         if not self.status.can_transition_to(status):

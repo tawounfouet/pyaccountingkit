@@ -4,7 +4,8 @@ from __future__ import annotations
 
 from decimal import Decimal
 
-from hypothesis import given, strategies as st
+from hypothesis import given
+from hypothesis import strategies as st
 
 from pyaccountingkit.core.currency import EUR, XAF, Currency
 from pyaccountingkit.core.money import Money

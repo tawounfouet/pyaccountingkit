@@ -109,7 +109,7 @@ Les nouveaux lots stratégiques ne disposent pas encore tous d'un fichier `PLAN-
 
 ## Lot actif / qualification
 
-### Priorité active : `REM-04 → REM-10`
+### Priorité active : `REM-06 → REM-10`
 
 La priorité n'est plus la promotion directe de `LOT-27 / 0.7.0rc1`.
 
@@ -121,8 +121,8 @@ Le chantier courant est l'overlay de remédiation :
 | 2 | `REM-01` | Qualification et workflows fiables — **IMPLEMENTED / QUALIFYING** | `F25,F26,F27` |
 | 3 | `REM-02` | Identités, scope et read-side — **IMPLEMENTED / QUALIFYING** | `F01,F02,F03,F04,F13,F18` |
 | 4 | `REM-03` | Cycle de posting, repositories, idempotence — **IMPLEMENTED / QUALIFYING** | `F10,F11,F23,F24` |
-| 5 | `REM-04` | Immutabilité et traces durables — **ACTIVE** | `F14,F20,A03` |
-| 6 | `REM-06` | Calculs, classification et empreintes | `F12,F15,F16,F21` |
+| 5 | `REM-04` | Immutabilité et traces durables — **IMPLEMENTED / QUALIFYING** | `F14,F20,A03` |
+| 6 | `REM-06` | Calculs, classification et empreintes — **ACTIVE** | `F12,F15,F16,F21` |
 | 7 | `REM-05` | Clôture et à-nouveaux atomiques | `F05,F06,F07,F08,F09` |
 | 8 | `REM-07` | Références sûres et publication validée | `F19,F22` |
 | 9 | `REM-08` | Contrats publics et services applicatifs | `F17,A02` |
@@ -149,24 +149,26 @@ REM-00  DONE
 REM-01  IMPLEMENTED / QUALIFYING
 REM-02  IMPLEMENTED / QUALIFYING
 REM-03  IMPLEMENTED / QUALIFYING
-REM-04  ACTIVE
+REM-04  IMPLEMENTED / QUALIFYING
+REM-06  ACTIVE
 ```
 
-Preuves d'implémentation REM-03 :
+Preuves d'implémentation REM-04 :
 
 ```text
-PR #80  F10/F24
-PR #81  F11/F23
+PR #83  F14/F20
+PR #84  A03
 ```
 
-Les quatre findings REM-03 restent `FIXED_UNVERIFIED` jusqu'à preuve de qualification sur le SHA exact de `main` et requalification transverse REM-10.
+Les findings REM-04 restent `FIXED_UNVERIFIED` jusqu'à preuve de qualification sur le SHA exact de `main` et requalification transverse REM-10.
 
-Sorties attendues de REM-04 :
+Sorties attendues de REM-06 :
 
 ```text
-F14 immutable audit/outbox payloads
-F20 sealed regulatory snapshot immutability/replay
-A03 durable atomic proposal-to-execution trace
+F12 proposal-to-entry fidelity preserves EntryType
+F15 trial-balance checksum includes account identity and currency semantics
+F16 allocation preserves cents without premature rounding
+F21 sign conventions cannot be applied twice
 ```
 
 

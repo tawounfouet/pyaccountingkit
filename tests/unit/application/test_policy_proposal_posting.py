@@ -5,6 +5,8 @@ from __future__ import annotations
 from datetime import UTC, date, datetime
 from decimal import Decimal
 
+import pytest
+
 from pyaccountingkit.adapters.in_memory.account_role_resolver import InMemoryAccountRoleResolver
 from pyaccountingkit.adapters.in_memory.company_chart_resolver import (
     InMemoryVersionedCompanyChartResolver,
@@ -16,6 +18,7 @@ from pyaccountingkit.application.ledger.proposal_posting_orchestrator import (
     ProposalPostingOrchestrator,
 )
 from pyaccountingkit.core.clock import FrozenClock
+from pyaccountingkit.core.errors import EntityScopeMismatchError
 from pyaccountingkit.core.currency import EUR
 from pyaccountingkit.core.identifiers import (
     AccountId,
@@ -51,6 +54,7 @@ from pyaccountingkit.domain.policies.proposal import (
 
 NOW = datetime(2026, 12, 31, 18, 0, tzinfo=UTC)
 ENTITY = EntityId("ent")
+OTHER_ENTITY = EntityId("other")
 
 
 def _chart() -> CompanyChartOfAccounts:
@@ -205,3 +209,105 @@ def test_measurement_to_proposal_to_posting() -> None:
     assert result.execution_trace.journal_entry_id == EntryId("e_dep_2026")
     assert store.audit_log[-1].entity_id == "ent"
     assert store.audit_log[-1].payload["chart_version"] == "v1"
+
+
+def test_proposal_cannot_post_into_journal_and_period_of_another_entity() -> None:
+    proposal = JournalEntryProposal(
+        entity_id=ENTITY,
+        accounting_date=date(2026, 12, 31),
+        entry_type="DEPRECIATION",
+        lines=(
+            JournalEntryLineProposal(
+                account_role=AccountRole.DEPRECIATION_EXPENSE_ACCOUNT,
+                side=DebitCredit.DEBIT,
+                amount=Money.from_str("100.00", EUR),
+            ),
+            JournalEntryLineProposal(
+                account_role=AccountRole.ACCUMULATED_DEPRECIATION_ACCOUNT,
+                side=DebitCredit.CREDIT,
+                amount=Money.from_str("100.00", EUR),
+            ),
+        ),
+    )
+
+    proposal_chart_resolver = _chart_resolver()
+    store = InMemoryStore()
+    factory = InMemoryUnitOfWorkFactory(store)
+    with factory.open() as uow:
+        uow.periods.add(
+            AccountingPeriod(
+                id=PeriodId("p_other"),
+                entity_id=OTHER_ENTITY,
+                fiscal_year_id=FiscalYearId("fy_other"),
+                start_date=date(2026, 12, 1),
+                end_date=date(2026, 12, 31),
+                status=ClosingStatus.OPEN,
+            )
+        )
+        uow.journals.add(
+            Journal(
+                id=JournalId("j_other"),
+                entity_id=OTHER_ENTITY,
+                code="OD",
+                label="Other entity journal",
+            )
+        )
+        uow.commit()
+
+    other_chart = CompanyChartOfAccounts(
+        entity_id=OTHER_ENTITY,
+        accounts=(
+            CompanyAccount(
+                id=AccountId("681100"),
+                entity_id=OTHER_ENTITY,
+                code="681100",
+                label="Other depreciation expense",
+                role=AccountRole.DEPRECIATION_EXPENSE_ACCOUNT,
+            ),
+            CompanyAccount(
+                id=AccountId("281500"),
+                entity_id=OTHER_ENTITY,
+                code="281500",
+                label="Other accumulated depreciation",
+                role=AccountRole.ACCUMULATED_DEPRECIATION_ACCOUNT,
+            ),
+        ),
+    )
+    other_config = CompanyChart(
+        chart_id="chart:other",
+        entity_id=OTHER_ENTITY,
+        code="STD-OTHER",
+        label="Other chart",
+        primary_standard="fr-pcg",
+        code_policy_id="numeric",
+        reference_snapshot_id="snap:other",
+        versions=(
+            CompanyChartVersion(
+                label="v1",
+                status=ChartStatus.ACTIVE,
+                effective_from=date(2026, 1, 1),
+            ),
+        ),
+    )
+    posting = PostingOrchestrator(
+        factory,
+        InMemoryVersionedCompanyChartResolver(other_config, {"v1": other_chart}),
+        PostingService(clock=FrozenClock(NOW)),
+    )
+    orchestrator = ProposalPostingOrchestrator(
+        account_role_resolver=InMemoryAccountRoleResolver(proposal_chart_resolver),
+        posting_orchestrator=posting,
+        entry_id_factory=lambda: EntryId("e_cross_entity"),
+    )
+
+    with pytest.raises(EntityScopeMismatchError):
+        orchestrator.post(
+            proposal,
+            journal_id=JournalId("j_other"),
+            period_id=PeriodId("p_other"),
+            actor_id="u1",
+        )
+
+    assert store.entries == {}
+    assert store.audit_log == []
+    assert store.outbox == []

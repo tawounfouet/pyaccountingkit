@@ -1,13 +1,29 @@
 """Transaction-mode and idempotent-ID qualification for generic import execution."""
 
 from dataclasses import replace
-from datetime import date
+from datetime import UTC, date, datetime
 from decimal import Decimal
 
+import pytest
+
+from pyaccountingkit.adapters.in_memory.company_chart_resolver import (
+    InMemoryVersionedCompanyChartResolver,
+)
+from pyaccountingkit.adapters.in_memory.store import InMemoryStore
+from pyaccountingkit.adapters.in_memory.unit_of_work import InMemoryUnitOfWorkFactory
 from pyaccountingkit.application.imports.execution import ImportExecutionService
+from pyaccountingkit.application.ledger.posting_orchestrator import PostingOrchestrator
+from pyaccountingkit.core.clock import FrozenClock
 from pyaccountingkit.application.ledger.posting_orchestrator import PostingResult
 from pyaccountingkit.core.currency import EUR
-from pyaccountingkit.core.identifiers import AccountId, EntityId, JournalId, PeriodId
+from pyaccountingkit.core.errors import EntityScopeMismatchError
+from pyaccountingkit.core.identifiers import (
+    AccountId,
+    EntityId,
+    FiscalYearId,
+    JournalId,
+    PeriodId,
+)
 from pyaccountingkit.domain.imports.batch import ImportTransactionMode
 from pyaccountingkit.domain.imports.import_plan import (
     ImportEntryPlan,
@@ -15,6 +31,17 @@ from pyaccountingkit.domain.imports.import_plan import (
     ImportPlannedLine,
 )
 from pyaccountingkit.domain.imports.normalized_record import SourceEntryKey
+from pyaccountingkit.domain.charts.account import CompanyAccount
+from pyaccountingkit.domain.charts.chart import CompanyChartOfAccounts
+from pyaccountingkit.domain.charts.company_chart import (
+    ChartStatus,
+    CompanyChart,
+    CompanyChartVersion,
+)
+from pyaccountingkit.domain.journals.journal import Journal
+from pyaccountingkit.domain.ledger.posting import PostingService
+from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
+from pyaccountingkit.domain.periods.closing_status import ClosingStatus
 
 
 class _FakePosting:
@@ -175,3 +202,78 @@ def test_same_source_across_new_batch_keeps_same_entry_ids() -> None:
     second = _execute(service, second_batch, mode=ImportTransactionMode.ALL_OR_NOTHING)
     assert plan.checksum != second_batch.checksum
     assert first.created_entry_ids == second.created_entry_ids
+
+
+def test_import_plan_entity_blocks_cross_entity_accounting_mutation() -> None:
+    plan = _plan()
+    other_entity = EntityId("entity-2")
+    store = InMemoryStore()
+    factory = InMemoryUnitOfWorkFactory(store)
+
+    with factory.open() as uow:
+        uow.periods.add(
+            AccountingPeriod(
+                id=PeriodId("p-2026-01"),
+                entity_id=other_entity,
+                fiscal_year_id=FiscalYearId("fy-2026"),
+                start_date=date(2026, 1, 1),
+                end_date=date(2026, 1, 31),
+                status=ClosingStatus.OPEN,
+            )
+        )
+        uow.journals.add(
+            Journal(
+                id=JournalId("j-ac"),
+                entity_id=other_entity,
+                code="AC",
+                label="Other entity purchases",
+            )
+        )
+        uow.commit()
+
+    chart = CompanyChartOfAccounts(
+        entity_id=other_entity,
+        accounts=(
+            CompanyAccount(
+                id=AccountId("401000"),
+                entity_id=other_entity,
+                code="401000",
+                label="Suppliers",
+            ),
+            CompanyAccount(
+                id=AccountId("512000"),
+                entity_id=other_entity,
+                code="512000",
+                label="Bank",
+            ),
+        ),
+    )
+    config = CompanyChart(
+        chart_id="chart:entity-2",
+        entity_id=other_entity,
+        code="STD",
+        label="Other entity chart",
+        primary_standard="fr-pcg",
+        code_policy_id="numeric",
+        reference_snapshot_id="snap:entity-2",
+        versions=(
+            CompanyChartVersion(
+                label="v1",
+                status=ChartStatus.ACTIVE,
+                effective_from=date(2026, 1, 1),
+            ),
+        ),
+    )
+    posting = PostingOrchestrator(
+        factory,
+        InMemoryVersionedCompanyChartResolver(config, {"v1": chart}),
+        PostingService(clock=FrozenClock(datetime(2026, 1, 31, 12, 0, tzinfo=UTC))),
+    )
+    service = ImportExecutionService(posting)
+
+    with pytest.raises(EntityScopeMismatchError):
+        _execute(service, plan, mode=ImportTransactionMode.ALL_OR_NOTHING)
+
+    assert store.entries == {}
+    assert store.audit_log == []
+    assert store.outbox == []

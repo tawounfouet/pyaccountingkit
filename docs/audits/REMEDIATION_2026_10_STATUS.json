@@ -55,7 +55,7 @@
       "evidence_must_match_candidate_sha": true,
       "documentation_only_change_cannot_close_finding": true
     },
-    "current_phase": "REM-06",
+    "current_phase": "REM-05",
     "rem00_completed_on": "2026-10-22",
     "rem00_completion_evidence": {
       "remediation_plan_commit_sha": "fd0e2731582d7bb8eb0b7aecae41d2417aa40be5",
@@ -239,10 +239,8 @@
         ],
         "status": "FIXED_UNVERIFIED"
       },
-      "implementation_status": "IN_PROGRESS",
-      "remaining_findings": [
-        "F21"
-      ],
+      "implementation_status": "COMPLETE",
+      "remaining_findings": [],
       "second_slice": {
         "implementation_lot": "LOT-28R",
         "implementation_pr": 87,
@@ -255,7 +253,24 @@
           "F16"
         ],
         "status": "FIXED_UNVERIFIED"
-      }
+      },
+      "third_slice": {
+        "implementation_lot": "LOT-29R",
+        "implementation_pr": 88,
+        "pr_head_sha": "181008b3f4179a48caa3e63715c2bb831709b351",
+        "merge_sha": "9c2d729aea41b9638dd51b47062bf10d38838b7f",
+        "pr_ci_run_id": 39873276200,
+        "pr_security_run_id": 39873276107,
+        "pr_ci_status": "PASS",
+        "findings": [
+          "F21"
+        ],
+        "status": "FIXED_UNVERIFIED"
+      },
+      "remaining_evidence": [
+        "Exact-main-SHA CI evidence for the combined REM-06 implementation before VERIFIED",
+        "REM-10 transverse requalification"
+      ]
     }
   },
   "lots": {
@@ -313,7 +328,7 @@
         "F08",
         "F09"
       ],
-      "status": "PLANNED"
+      "status": "ACTIVE"
     },
     "REM-06": {
       "title": "Calculation / Checksums / Fidelity",
@@ -323,7 +338,7 @@
         "F16",
         "F21"
       ],
-      "status": "ACTIVE"
+      "status": "IMPLEMENTED_QUALIFYING"
     },
     "REM-07": {
       "title": "Safe References / Publication",
@@ -961,18 +976,37 @@
       "primary_remediation_lot": "REM-06",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "OPEN",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "9c2d729aea41b9638dd51b47062bf10d38838b7f",
+      "corrective_tests": [
+        "tests/unit/domain/test_reporting_sign_semantics.py::test_aggregate_lines_reject_non_natural_sign_conventions",
+        "tests/unit/domain/test_reporting_sign_semantics.py::test_formula_lines_reject_non_natural_sign_conventions",
+        "tests/unit/domain/test_reporting_sign_semantics.py::test_detail_credit_positive_presentation_is_applied_once",
+        "tests/unit/domain/test_reporting_sign_semantics.py::test_financial_analysis_consumes_presented_snapshot_amount_without_resigning"
+      ],
+      "qualification_evidence": [
+        "PR #88 head 181008b3f4179a48caa3e63715c2bb831709b351: CI run 39873276200 PASS",
+        "PR #88 head 181008b3f4179a48caa3e63715c2bb831709b351: Security run 39873276107 PASS",
+        "PR #88 head 181008b3f4179a48caa3e63715c2bb831709b351: Python 3.11/3.12/3.13 PASS",
+        "PR #88 head 181008b3f4179a48caa3e63715c2bb831709b351: Django/PostgreSQL qualification PASS",
+        "PR #88 head 181008b3f4179a48caa3e63715c2bb831709b351: SQLAlchemy/PostgreSQL qualification PASS",
+        "PR #88 head 181008b3f4179a48caa3e63715c2bb831709b351: Regulatory capability qualification PASS",
+        "PR #88 head 181008b3f4179a48caa3e63715c2bb831709b351: Canonical CI gate PASS"
+      ],
       "affected_components": [
         "reporting",
         "analysis",
         "sign_conventions"
       ],
-      "notes": []
+      "notes": [
+        "LOT-29R preserves the requested remediation LOT-29 intent without colliding with the historical product LOT-29 already present in the roadmap.",
+        "Non-natural statement sign conventions are now fail-closed outside DETAIL lines.",
+        "FinancialStatementEngine applies presentation sign only to mapped DETAIL values; SUBTOTAL, TOTAL and FORMULA lines operate on already-presented values without a second sign transformation.",
+        "Financial Analysis consumes ReportSnapshot amounts as presented and does not reapply statement sign conventions.",
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+      ]
     },
     {
       "id": "F22",
@@ -1247,5 +1281,5 @@
     }
   ],
   "last_updated_on": "2026-10-23",
-  "last_updated_from_sha": "36630a67a3fa0d9e900e6f40b79658ab4da2294d"
+  "last_updated_from_sha": "9c2d729aea41b9638dd51b47062bf10d38838b7f"
 }

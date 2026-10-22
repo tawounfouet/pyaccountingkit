@@ -340,8 +340,7 @@ class FinancialStatementEngine:
             evaluate_economic(line.code)
 
         presented_values = {
-            line.code: line.present(economic_values[line.code])
-            for line in definition.ordered_lines
+            line.code: line.present(economic_values[line.code]) for line in definition.ordered_lines
         }
         frozen_drilldown = {code: tuple(items) for code, items in drilldown.items()}
         return presented_values, frozen_drilldown

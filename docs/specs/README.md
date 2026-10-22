@@ -1,8 +1,30 @@
 # PyAccountingKit — Spécifications d'Architecture
 
-Ce dossier contient l'ensemble des **24 spécifications d'architecture et de conception** de **PyAccountingKit** (baseline canonique `00` à `23`).
+Ce dossier contient actuellement **28 spécifications d'architecture et de conception versionnées dans GitHub** :
 
-La documentation est organisée en **6 dossiers thématiques** correspondant aux couches et domaines d'architecture.
+```text
+00 → 23
++
+35 → 38
+```
+
+La documentation est organisée en **7 dossiers thématiques**.
+
+> [!IMPORTANT]
+> La roadmap d'architecture référence également les specs `24 → 32`. À la date de cette mise à jour, ces neuf documents ne sont pas encore physiquement présents dans `docs/specs/` sur `main`. Ils restent donc **PENDING_INTEGRATION** et ne sont pas représentés ici par des liens artificiels.
+
+La baseline repository-hosted est donc :
+
+```text
+00..23
+35..38
+```
+
+tandis que la baseline architecturale visée par la roadmap est :
+
+```text
+00..38
+```
 
 > 🧭 Pour la grille complète d'ordonnancement par priorité (`P0.1` à `P2.3`) et les justifications doctrinales de chaque document, consultez l'**[`INDEX.md`](./INDEX.md)**.  
 > 🗺️ Pour le plan d'exécution concret et les jalons de livraison, consultez la **[`ROADMAP.md`](../ROADMAP.md)**.
@@ -75,8 +97,62 @@ Stratégie de test, politique de versioning et registre centralisé des décisio
 
 ---
 
+## 7. Architecture Evolution — Lifecycle, State & Events (`06_architecture-evolution/`)
+
+Spécifications transverses ajoutées après l'audit et la révision de la roadmap. Elles préparent directement le modeling gate de `LOT-40` :
+
+- [`06_architecture-evolution/35_PYACCOUNTINGKIT_BUSINESS_LIFECYCLES_ARCHITECTURE.md`](./06_architecture-evolution/35_PYACCOUNTINGKIT_BUSINESS_LIFECYCLES_ARCHITECTURE.md) — Catalogue canonique des cycles de vie métier ; distinction lifecycle explicite, dérivé, stateless et process lifecycle
+- [`06_architecture-evolution/36_PYACCOUNTINGKIT_STATE_MACHINES_AND_TRANSITION_RULES.md`](./06_architecture-evolution/36_PYACCOUNTINGKIT_STATE_MACHINES_AND_TRANSITION_RULES.md) — États, transitions légales/interdites, guards, terminalité, reopen/reversal, concurrence et persistance
+- [`06_architecture-evolution/37_PYACCOUNTINGKIT_DOMAIN_EVENTS_COVERAGE_AND_EMISSION_RULES.md`](./06_architecture-evolution/37_PYACCOUNTINGKIT_DOMAIN_EVENTS_COVERAGE_AND_EMISSION_RULES.md) — Couverture des Domain Events, classification REQUIRED/OPTIONAL/application/audit/operational/no-event et règles d'émission
+- [`06_architecture-evolution/38_PYACCOUNTINGKIT_LIFECYCLE_STATE_MACHINE_EVENT_MAPPING.md`](./06_architecture-evolution/38_PYACCOUNTINGKIT_LIFECYCLE_STATE_MACHINE_EVENT_MAPPING.md) — Matrice canonique objet → lifecycle → state machine → transition → fait métier → DomainEvent → audit/outbox/intégration
+
+Chaîne de modélisation :
+
+```text
+35 Business Lifecycles
+    ↓
+36 State Machines
+    ↓
+37 Domain Event Coverage
+    ↓
+38 Lifecycle / State / Event Mapping
+    ↓
+25 Event Envelope / Causality
+    ↓
+LOT-40 implementation
+```
+
+> [!NOTE]
+> La spec `25` est référencée par cette chaîne comme cible architecturale, mais reste `PENDING_INTEGRATION` dans le repository tant que le fichier correspondant n'est pas ajouté sous `docs/specs/`.
+
+---
+
+## 8. État d'intégration documentaire
+
+| Plage | Statut repository | Rôle |
+|---|---|---|
+| `00 → 23` | ✅ Présente | baseline historique canonique |
+| `24 → 32` | ⏳ Pending integration | architecture hardening / evolution référencée par la roadmap |
+| `33 → 34` | ✅ Présente dans `docs/plans/` | pilotage / alignement audit-remédiation-roadmap |
+| `35 → 38` | ✅ Présente | lifecycle / state-machine / event modeling |
+
+Règle de gouvernance :
+
+```text
+ROADMAP_REFERENCE
+does not imply
+REPOSITORY_FILE_PRESENT
+```
+
+Un document n'est considéré `REPOSITORY_HOSTED` qu'après création et vérification du fichier sur `main`.
+
+---
+
 ## Liens connexes
 
 - [Roadmap d'implémentation (`docs/ROADMAP.md`)](../ROADMAP.md)
+- [Index des plans d'implémentation (`docs/plans/README.md`)](../plans/README.md)
+- [Next Steps Implementation Plan (`33`)](../plans/33_PYACCOUNTINGKIT_NEXT_STEPS_IMPLEMENTATION_PLAN.md)
+- [Audit / Remediation / Roadmap Alignment (`34`)](../plans/34_PYACCOUNTINGKIT_AUDIT_REMEDIATION_AND_ROADMAP_ALIGNMENT.md)
 - [Ouvrages et sources doctrinales (`docs/books/`)](../books/)
 - [Versions archivées et historiques (`docs/archive/`)](../archive/)

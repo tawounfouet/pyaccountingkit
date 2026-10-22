@@ -271,6 +271,28 @@
         "Exact-main-SHA CI evidence for the combined REM-06 implementation before VERIFIED",
         "REM-10 transverse requalification"
       ]
+    },
+    "rem05": {
+      "first_slice": {
+        "implementation_lot": "LOT-30R",
+        "implementation_pr": 89,
+        "pr_head_sha": "5383cfa4bf9368448c640a47df9cc0431ed12a66",
+        "merge_sha": "502ded93fdd3913b1d1dac1f4def0f5ecd36e1aa",
+        "pr_ci_run_id": 39874431315,
+        "pr_security_run_id": 39874431357,
+        "pr_ci_status": "PASS",
+        "findings": [
+          "F05",
+          "F06"
+        ],
+        "status": "FIXED_UNVERIFIED"
+      },
+      "implementation_status": "IN_PROGRESS",
+      "remaining_findings": [
+        "F07",
+        "F08",
+        "F09"
+      ]
     }
   },
   "lots": {
@@ -510,17 +532,36 @@
       "primary_remediation_lot": "REM-05",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "OPEN",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "502ded93fdd3913b1d1dac1f4def0f5ecd36e1aa",
+      "corrective_tests": [
+        "tests/unit/domain/test_closing_run.py::test_close_gate_blocks_missing_required_control",
+        "tests/unit/domain/test_closing_run.py::test_close_gate_blocks_non_pass_required_control",
+        "tests/unit/domain/test_closing_run.py::test_close_gate_blocks_required_control_from_another_period",
+        "tests/unit/domain/test_closing_run.py::test_close_gate_blocks_ambiguous_required_control_evidence",
+        "tests/unit/application/test_closing_orchestrator.py::test_missing_blocking_control_prevents_close",
+        "tests/unit/application/test_closing_orchestrator.py::test_error_blocking_control_prevents_close"
+      ],
+      "qualification_evidence": [
+        "PR #89 head 5383cfa4bf9368448c640a47df9cc0431ed12a66: CI run 39874431315 PASS",
+        "PR #89 head 5383cfa4bf9368448c640a47df9cc0431ed12a66: Security run 39874431357 PASS",
+        "PR #89 head 5383cfa4bf9368448c640a47df9cc0431ed12a66: Python 3.11/3.12/3.13 PASS",
+        "PR #89 head 5383cfa4bf9368448c640a47df9cc0431ed12a66: Django/PostgreSQL qualification PASS",
+        "PR #89 head 5383cfa4bf9368448c640a47df9cc0431ed12a66: SQLAlchemy/PostgreSQL qualification PASS",
+        "PR #89 head 5383cfa4bf9368448c640a47df9cc0431ed12a66: Canonical CI gate PASS"
+      ],
       "affected_components": [
         "closing",
         "controls"
       ],
-      "notes": []
+      "notes": [
+        "LOT-30R implements the first REM-05 slice without colliding with historical product LOT-30.",
+        "Required closing controls are fail-closed: missing, FAIL, ERROR, foreign-period and ambiguous duplicate evidence all block closing.",
+        "Non-blocking failures remain non-blocking when every required control passes.",
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+      ]
     },
     {
       "id": "F06",
@@ -530,18 +571,37 @@
       "primary_remediation_lot": "REM-05",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "OPEN",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "502ded93fdd3913b1d1dac1f4def0f5ecd36e1aa",
+      "corrective_tests": [
+        "tests/unit/application/test_closing_orchestrator.py::test_closing_rejects_balance_for_another_period",
+        "tests/unit/application/test_closing_orchestrator.py::test_closing_rejects_balance_for_another_entity",
+        "tests/unit/application/test_closing_orchestrator.py::test_closing_rejects_non_post_closing_balance",
+        "tests/unit/application/test_closing_orchestrator.py::test_closing_rejects_stale_balance_checksum",
+        "tests/unit/application/test_end_to_end_0_1.py"
+      ],
+      "qualification_evidence": [
+        "PR #89 head 5383cfa4bf9368448c640a47df9cc0431ed12a66: CI run 39874431315 PASS",
+        "PR #89 head 5383cfa4bf9368448c640a47df9cc0431ed12a66: Security run 39874431357 PASS",
+        "PR #89 head 5383cfa4bf9368448c640a47df9cc0431ed12a66: Python 3.11/3.12/3.13 PASS",
+        "PR #89 head 5383cfa4bf9368448c640a47df9cc0431ed12a66: Django/PostgreSQL qualification PASS",
+        "PR #89 head 5383cfa4bf9368448c640a47df9cc0431ed12a66: SQLAlchemy/PostgreSQL qualification PASS",
+        "PR #89 head 5383cfa4bf9368448c640a47df9cc0431ed12a66: Canonical CI gate PASS"
+      ],
       "affected_components": [
         "closing",
         "ledger",
         "evidence"
       ],
-      "notes": []
+      "notes": [
+        "Closing requires a canonical fresh POST_CLOSING balance provider and fails closed if no provider is configured.",
+        "Supplied balance evidence must target the closing period, pin accounting_entity_id, match the period entity and use POST_CLOSING semantics.",
+        "Supplied checksum must equal the freshly recomputed canonical POST_CLOSING checksum.",
+        "A race after the fresh read and before commit is intentionally left to F09 / LOT-31R.",
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+      ]
     },
     {
       "id": "F07",
@@ -1281,5 +1341,5 @@
     }
   ],
   "last_updated_on": "2026-10-23",
-  "last_updated_from_sha": "9c2d729aea41b9638dd51b47062bf10d38838b7f"
+  "last_updated_from_sha": "502ded93fdd3913b1d1dac1f4def0f5ecd36e1aa"
 }

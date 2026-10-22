@@ -34,6 +34,7 @@ from pyaccountingkit.core.errors import (
     RevisionConflictError,
 )
 from pyaccountingkit.core.identifiers import EntryId, JournalId, PeriodId
+from pyaccountingkit.core.immutable_json import thaw_json_mapping
 from pyaccountingkit.core.revisions import Revision
 from pyaccountingkit.domain.audit.events import AuditEvent
 from pyaccountingkit.domain.journals.journal import Journal
@@ -266,7 +267,7 @@ class SQLAlchemyAuditLogSink:
                 entity_id=event.entity_id,
                 actor_id=event.actor_id,
                 occurred_at=event.occurred_at,
-                payload=dict(event.payload),
+                payload=thaw_json_mapping(event.payload),
             )
         )
 
@@ -318,7 +319,7 @@ class SQLAlchemyOutboxPublisher:
             OutboxMessageTable(
                 event_type=record.event_type,
                 entity_id=record.entity_id,
-                payload=dict(record.payload),
+                payload=thaw_json_mapping(record.payload),
                 idempotency_key=record.idempotency_key,
             )
         )

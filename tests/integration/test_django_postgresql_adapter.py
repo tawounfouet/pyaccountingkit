@@ -179,6 +179,42 @@ def test_period_repository_rejects_skipped_transition_and_scope_rewrite() -> Non
         uow.rollback()
 
 
+def test_nested_audit_and_outbox_payloads_persist_after_deep_freeze() -> None:
+    factory = DjangoUnitOfWorkFactory(clock=FrozenClock(NOW))
+    payload: dict[str, object] = {
+        "entry_id": "entry:nested",
+        "context": {"steps": ["validated", "posted"]},
+    }
+    event = AuditEvent(
+        event_type="ENTRY_NESTED",
+        entity_id=str(ENTITY),
+        actor_id="tester",
+        occurred_at=NOW,
+        payload=payload,
+    )
+    record = OutboxRecord(
+        event_type="ENTRY_NESTED",
+        entity_id=str(ENTITY),
+        payload=payload,
+        idempotency_key="nested:1",
+    )
+    payload["context"] = {"steps": ["tampered"]}
+
+    with factory.open() as uow:
+        uow.audit.record(event)
+        uow.outbox.publish(record)
+        uow.commit()
+
+    assert AuditEventModel.objects.get().payload == {
+        "entry_id": "entry:nested",
+        "context": {"steps": ["validated", "posted"]},
+    }
+    assert OutboxMessageModel.objects.get().payload == {
+        "entry_id": "entry:nested",
+        "context": {"steps": ["validated", "posted"]},
+    }
+
+
 def test_uncommitted_unit_of_work_rolls_back_every_sink() -> None:
     factory = DjangoUnitOfWorkFactory(clock=FrozenClock(NOW))
 

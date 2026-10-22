@@ -6,11 +6,13 @@ from dataclasses import dataclass
 
 from pyaccountingkit.core.entity_scope import require_same_entity
 from pyaccountingkit.core.errors import (
+    EntryNotFoundError,
     IdempotencyReplayError,
     InactiveAccountError,
     InactiveJournalError,
     NonPostableAccountError,
     PeriodClosedError,
+    RevisionConflictError,
     UnknownAccountError,
 )
 from pyaccountingkit.core.identifiers import EntityId, EntryId
@@ -126,9 +128,22 @@ class PostingOrchestrator:
             raise PeriodClosedError(f"Période {period.id} fermée ou verrouillée")
         self._validate_accounts(entry, resolved_chart.chart)
 
-        uow.entries.add(entry)
-        posted = self._posting_service.post(entry, period, actor_id)
-        uow.entries.save(posted, Revision())
+        try:
+            persisted = uow.entries.get(entry.id)
+        except EntryNotFoundError:
+            uow.entries.add(entry)
+            posting_entry = entry
+            expected_revision = Revision()
+        else:
+            if persisted != entry:
+                raise RevisionConflictError(
+                    f"Entry {entry.id}: persisted VALIDATED content differs from posting request"
+                )
+            posting_entry = persisted
+            expected_revision = uow.entries.get_revision(entry.id)
+
+        posted = self._posting_service.post(posting_entry, period, actor_id)
+        uow.entries.save(posted, expected_revision)
 
         trace_payload = {
             "entry_id": str(posted.id),

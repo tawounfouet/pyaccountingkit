@@ -17,7 +17,7 @@ from pyaccountingkit.domain.reporting.trial_balance import (
     TrialBalance,
     TrialBalanceSnapshot,
 )
-from pyaccountingkit.ports.unit_of_work import UnitOfWorkFactoryProtocol
+from pyaccountingkit.ports.unit_of_work import UnitOfWorkFactoryProtocol, UnitOfWorkProtocol
 
 
 class TrialBalanceQuery:
@@ -90,12 +90,12 @@ class TrialBalanceQuery:
 
     def _validate_entry_journal_scope(
         self,
-        uow: object,
+        uow: UnitOfWorkProtocol,
         entries: Sequence[JournalEntry],
     ) -> None:
         """Reject historical rows whose journal belongs to another entity."""
         for entry in entries:
-            journal = uow.journals.get(entry.journal_id)  # type: ignore[attr-defined]
+            journal = uow.journals.get(entry.journal_id)
             require_same_entity(
                 self._chart.entity_id,
                 journal.entity_id,

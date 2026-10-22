@@ -16,6 +16,7 @@ from pyaccountingkit.domain.audit.events import AuditEvent
 from pyaccountingkit.domain.journals.journal import Journal
 from pyaccountingkit.domain.journals.journal_entry import JournalEntry
 from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
+from pyaccountingkit.domain.traceability.accounting_execution import AccountingExecutionTrace
 from pyaccountingkit.ports.outbox import OutboxRecord
 
 
@@ -31,6 +32,7 @@ class InMemoryStore:
     idempotency_fingerprints: dict[str, str] = field(default_factory=dict)
     outbox: list[OutboxRecord] = field(default_factory=list)
     audit_log: list[AuditEvent] = field(default_factory=list)
+    execution_traces: dict[EntryId, AccountingExecutionTrace] = field(default_factory=dict)
 
     def copy(self) -> InMemoryStore:
         """Return a detached copy used as a rollback snapshot."""
@@ -43,6 +45,7 @@ class InMemoryStore:
             idempotency_fingerprints=dict(self.idempotency_fingerprints),
             outbox=list(self.outbox),
             audit_log=list(self.audit_log),
+            execution_traces=dict(self.execution_traces),
         )
 
     def restore(self, snapshot: InMemoryStore) -> None:
@@ -55,6 +58,7 @@ class InMemoryStore:
         self.idempotency_fingerprints = dict(snapshot.idempotency_fingerprints)
         self.outbox = list(snapshot.outbox)
         self.audit_log = list(snapshot.audit_log)
+        self.execution_traces = dict(snapshot.execution_traces)
 
     def drain_outbox(self) -> list[OutboxRecord]:
         """Collect and clear every published outbox message."""

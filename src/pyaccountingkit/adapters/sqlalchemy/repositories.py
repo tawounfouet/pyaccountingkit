@@ -28,6 +28,7 @@ from pyaccountingkit.adapters.sqlalchemy.tables import (
 )
 from pyaccountingkit.core.errors import (
     EntryNotFoundError,
+    IdempotencyConflictError,
     JournalNotFoundError,
     PeriodNotFoundError,
     RevisionConflictError,
@@ -271,12 +272,25 @@ class SQLAlchemyIdempotencyStore:
     def __init__(self, session: Session) -> None:
         self._session = session
 
-    def claim(self, key: str) -> bool:
+    def claim(self, key: str, payload_fingerprint: str = "") -> bool:
         try:
             with self._session.begin_nested():
-                self._session.add(IdempotencyRecordTable(key=key, status="claimed"))
+                self._session.add(
+                    IdempotencyRecordTable(
+                        key=key,
+                        status="claimed",
+                        payload_fingerprint=payload_fingerprint,
+                    )
+                )
                 self._session.flush()
         except IntegrityError:
+            existing = self._session.get(IdempotencyRecordTable, key)
+            if existing is None:
+                raise
+            if existing.payload_fingerprint != payload_fingerprint:
+                raise IdempotencyConflictError(
+                    f"Idempotency key {key} is already bound to a different payload"
+                ) from None
             return False
         return True
 

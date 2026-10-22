@@ -2,7 +2,67 @@
 
 Ce dossier regroupe les **plans d'implémentation modulaires et opérationnels** issus du découpage exhaustif de la feuille de route doctrinale ([`ROADMAP.md`](../ROADMAP.md)).
 
-Chaque plan correspond à un jalon de release sémantique clair, définit les lots techniques couverts (parmi les 39 lots `LOT-00` à `LOT-38`), les spécifications de référence, les dépendances amont, les critères de validation stricts (**DoD**) et les scénarios de recette.
+Chaque plan historique correspond à un jalon de release sémantique clair et définit les lots techniques couverts. Depuis l'audit du 22 octobre 2026, la roadmap produit couvre désormais `LOT-00` à `LOT-46`, avec un overlay tactique de remédiation `REM-00` à `REM-10`. Les `REM-*` ne remplacent pas les plans produit : ils doivent rétablir les invariants et la fiabilité des preuves avant la reprise de la roadmap stratégique.
+
+---
+
+## 0. Priorité d'exécution actuelle — Audit Remediation Overlay
+
+La baseline courante reste :
+
+```text
+main
+commit audité : 259e9ad665941cd6a9545deb3b92f979d40eae35
+version : 0.7.0rc1
+```
+
+L'audit du 22 octobre 2026 identifie :
+
+```text
+F01 → F27
+A01 → A03
+```
+
+La promotion stable est donc suspendue pendant la remédiation applicable.
+
+Ordre opérationnel de référence :
+
+```text
+REM-00  Baseline / registre / tests correctifs
+    ↓
+REM-01  Qualification et workflows fiables
+    ↓
+REM-02  Identités / scope / read-side
+    ↓
+REM-03  Posting / repositories / idempotence
+    ↓
+REM-04  Immutabilité / preuves / traçabilité
+    ↓
+REM-06  Calculs / classification / checksums
+    ↓
+REM-05  Closing / opening atomiques
+    ↓
+REM-07  Références / publication sûres
+    ↓
+REM-08  Contrats publics / services applicatifs
+    ↓
+REM-09  Auxiliaires persistants si inclus dans le scope
+    ↓
+REM-10  Qualification transverse / décision de release
+```
+
+Puis seulement :
+
+```text
+new 0.7 RC if required
+    ↓
+0.7.0 stable
+    ↓
+LOT-39 → LOT-46
+```
+
+> [!IMPORTANT]
+> Les documents d'audit et de remédiation existent comme sources de pilotage de la session du 22 octobre 2026, mais ne sont pas encore indexés ici comme liens GitHub tant qu'ils ne sont pas ajoutés au dépôt.
 
 ---
 
@@ -21,34 +81,143 @@ Chaque plan correspond à un jalon de release sémantique clair, définit les lo
 | [`PLAN-08`](PLAN-08_CONSOLIDATION_1.2.0.md) | **Consolidation Multi-Entités & Devises** | `LOT-34..37` | `1.2.0` | Extension post-1.0 |
 | [`PLAN-09`](PLAN-09_CORPORATE_FINANCE_BOUNDARIES.md) | **Garde-fous & Frontières Corporate Finance** | `LOT-38` | Phase P2.3 | Transversal & Continu |
 
+### Statut de cette table
+
+Les fichiers `PLAN-00 → PLAN-09` restent les plans historiques de découpage produit. Ils ne décrivent pas à eux seuls la priorité d'exécution actuelle.
+
+La séquence désormais autoritative est :
+
+```text
+REM-00 → REM-10
+        ↓
+0.7 release decision
+        ↓
+LOT-39 → LOT-46
+```
+
+Les nouveaux lots stratégiques ne disposent pas encore tous d'un fichier `PLAN-xx` dédié dans ce dossier ; ils sont définis dans `docs/ROADMAP.md` et les specs `24 → 32`.
+
+
+
 ---
 
 ## Lot actif / qualification
 
+### Priorité active : `REM-00 → REM-10`
+
+La priorité n'est plus la promotion directe de `LOT-27 / 0.7.0rc1`.
+
+Le chantier courant est l'overlay de remédiation :
+
+| Ordre | Lot | Objet | Constats principaux |
+|---:|---|---|---|
+| 1 | `REM-00` | Baseline, registre et tests correctifs | Tous |
+| 2 | `REM-01` | Qualification et workflows fiables | `F25,F26,F27` |
+| 3 | `REM-02` | Identités, scope et read-side | `F01,F02,F03,F04,F13,F18` |
+| 4 | `REM-03` | Cycle de posting, repositories, idempotence | `F10,F11,F23,F24` |
+| 5 | `REM-04` | Immutabilité et traces durables | `F14,F20,A03` |
+| 6 | `REM-06` | Calculs, classification et empreintes | `F12,F15,F16,F21` |
+| 7 | `REM-05` | Clôture et à-nouveaux atomiques | `F05,F06,F07,F08,F09` |
+| 8 | `REM-07` | Références sûres et publication validée | `F19,F22` |
+| 9 | `REM-08` | Contrats publics et services applicatifs | `F17,A02` |
+| 10 | `REM-09` | Auxiliaires persistants | `A01` |
+| 11 | `REM-10` | Qualification transverse / décision de release | Tous |
+
+### Plans/release historiques toujours pertinents
+
 - [`LOT-27_REGULATORY_PRODUCTION_QUALIFICATION_PLAN.md`](LOT-27_REGULATORY_PRODUCTION_QUALIFICATION_PLAN.md)
-  — LOT-27 `0.7.0rc1` GR/G4 qualifié ; G5 stable est maintenant outillé mais fail-closed.
-  `release/0.7.0` exige 0 BLOCKER, protection réelle de `main`, immutabilité des releases,
-  publication smoke et intégrité de release. Aucun `0.7.0` stable n’est déclaré tant que ces
-  contrôles externes ne sont pas effectivement fermés.
-- [`LOT-26_CFA_FRA_CONSUMER_CONVERSION_AND_LEGACY_RETIREMENT_PLAN.md`](LOT-26_CFA_FRA_CONSUMER_CONVERSION_AND_LEGACY_RETIREMENT_PLAN.md)
-  — LOT-26 actif : `0.6.0b27` autorise l'avancement contrôlé du binding consumer
-  vers des révisions descendantes sans changer de repository, branche, environnement ni
-  provenance bootstrap. Le cutover live et le retirement réel restent nécessaires avant
-  `0.6.0rc1`.
-- [`LOT-25_CFA_FRA_GOLDEN_BASELINE_IMPLEMENTATION_PLAN.md`](LOT-25_CFA_FRA_GOLDEN_BASELINE_IMPLEMENTATION_PLAN.md)
-  — LOT-25 qualifié en `0.6.0a1` : baseline CFA FRA Sprint 7 et parité golden.
-- [`cfa_fra/01_CFA_FRA_COMPONENT_INVENTORY.md`](cfa_fra/01_CFA_FRA_COMPONENT_INVENTORY.md)
-  — inventaire des composants et stratégie EXTRACT/REWRITE/ADAPTER/GOLDEN.
-- [`cfa_fra/02_CFA_FRA_GOLDEN_SCENARIO_INVENTORY.md`](cfa_fra/02_CFA_FRA_GOLDEN_SCENARIO_INVENTORY.md)
-  — catalogue des scénarios de parité.
-- [`cfa_fra/03_CFA_FRA_BEHAVIORAL_BASELINE.md`](cfa_fra/03_CFA_FRA_BEHAVIORAL_BASELINE.md)
-  — baseline comportementale figée et frontières de migration.
+  — reste la référence du scope réglementaire `0.7`, mais sa qualification ne suffit plus à elle seule à autoriser la stable tant que les P1 applicables issus de l'audit ne sont pas fermés.
 - [`RELEASE_0.7.0_STABLE_PROMOTION_PLAN.md`](RELEASE_0.7.0_STABLE_PROMOTION_PLAN.md)
-  — contrat G5 fail-closed pour la promotion `0.7.0` stable.
+  — reste le contrat G5 externe ; G5 est nécessaire mais non suffisant.
+- [`LOT-26_CFA_FRA_CONSUMER_CONVERSION_AND_LEGACY_RETIREMENT_PLAN.md`](LOT-26_CFA_FRA_CONSUMER_CONVERSION_AND_LEGACY_RETIREMENT_PLAN.md)
+  — le travail live CFA FRA reste différé ; aucune preuve technique ne doit être requalifiée artificiellement en preuve live.
+- [`LOT-25_CFA_FRA_GOLDEN_BASELINE_IMPLEMENTATION_PLAN.md`](LOT-25_CFA_FRA_GOLDEN_BASELINE_IMPLEMENTATION_PLAN.md)
+  — baseline/golden historique toujours utilisée comme non-régression.
 - [`RELEASE_0.5.0_STABLE_PROMOTION_PLAN.md`](RELEASE_0.5.0_STABLE_PROMOTION_PLAN.md)
-  — dernière ligne stable complète : LOT-21..24 en `0.5.0`.
+  — dernière ligne stable complète historique.
+
+### Première tranche à lancer
+
+```text
+REM-00
++
+REM-01
++
+first REM-02 slice
+```
+
+Sorties attendues :
+
+```text
+remediation registry
+corrective behavior tests
+HEAD-vs-baseline comparison
+Nightly fixed
+strict PostgreSQL evidence
+AccountId vs AccountCode fix/tests
+cross-entity scope fix/tests
+```
 
 ## 2. Graphe d'Ordonnancement & Chemin Critique
+
+### 2.1 Chemin critique actuel
+
+```text
+0.7.0rc1
+    │
+    ▼
+REM-00
+    ↓
+REM-01
+    ↓
+REM-02
+    ↓
+REM-03
+    ↓
+REM-04
+    ↓
+REM-06
+    ↓
+REM-05
+    ↓
+REM-07
+    ↓
+REM-08
+    ↓
+REM-09 (selon scope)
+    ↓
+REM-10
+    ↓
+release decision
+    ↓
+new RC if required
+    ↓
+0.7.0 stable
+    ↓
+LOT-39 Architecture Fitness
+    ↓
+LOT-43 Testing Toolkit
+    ↓
+LOT-40 Domain Events
+    ↓
+LOT-41 Reproducibility
+    ↓
+LOT-42 Golden / Concurrency
+    ↓
+LOT-44 Recovery
+    ↓
+0.8.x
+    ↓
+0.9.x API / Schema Freeze
+    ↓
+1.0.0
+    ↓
+LOT-45 / LOT-46 post-1.0
+```
+
+### 2.2 Graphe historique PLAN-00 → PLAN-09
+
+Le graphe ci-dessous reste utile pour comprendre le découpage historique des plans produit. Il ne représente plus l'ordre immédiat de travail depuis l'audit du 22 octobre 2026.
 
 ### Aperçu Schématique (Vue ASCII Textuelle)
 
@@ -126,6 +295,31 @@ graph TD
 
 ---
 
+## 2.3 Extension stratégique issue des specs `24 → 32`
+
+| Lot | Objet | Spec principale | Horizon |
+|---|---|---|---|
+| `LOT-39` | Architecture Fitness Functions | `24` | `0.8.x` |
+| `LOT-40` | Domain Events / Causality / Envelope | `25` | `0.8.x` |
+| `LOT-41` | Reproducibility & Computation Manifests | `26` | `0.8.x` |
+| `LOT-42` | Golden Accounting & Concurrency | `27` | `0.8.x` |
+| `LOT-43` | Testing Toolkit Foundations | `28` | `0.8.x` |
+| `LOT-44` | Uncertainty / Recovery / External Effects | `30` | `0.8.x` |
+| `LOT-45` | Domain-First Migration Foundations | `29` | post-1.0 progressif |
+| `LOT-46` | Financial Semantic Layer Foundations | `31` | post-1.0 |
+
+La spec `32` constitue la doctrine d'architecture transversale :
+
+```text
+DDD
++
+Hexagonal / Ports & Adapters
++
+Clean dependency direction
+```
+
+---
+
 ## 3. Système des Portes de Qualité (Gates)
 
 Chaque lot et chaque plan doit valider formellement une ou plusieurs gates avant tout merge ou transition d'état :
@@ -134,9 +328,9 @@ Chaque lot et chaque plan doit valider formellement une ou plusieurs gates avant
 - **`G0` (Hygiène)** : Linter Ruff, typage Mypy strict, formattage déterministe, import-guards.
 - **`G1` (Domaine pur)** : Tests unitaires purs en mémoire sans I/O ni dépendance externe.
 - **`G2` (Adaptateurs in-memory)** : Validation des contrats de persistance sur implémentation mock / in-memory.
-- **`G3` (Adaptateurs réels)** : Validation sur PostgreSQL réel (testcontainers), gestion des verrous et concurrence.
+- **`G3` (Adaptateurs réels)** : Validation sur PostgreSQL réel, gestion des verrous et concurrence. Depuis l'audit `0.7.0rc1`, un module requis skipped, une base indisponible, zéro test collecté, un seul adapter exécuté ou une preuve attachée à un autre SHA font échouer la qualification stricte.
 - **`G4` (Stabilité des API & Non-régression)** : Parité de comportement, non-régression de l'arbre d'API.
-- **`G5` (Release Candidate & Production)** : Zero bug critique, documentation complète, packaging reproductible.
+- **`G5` (Release Candidate & Production)** : zéro BLOCKER/CRITICAL, documentation complète, packaging reproductible et contrôles externes fermés. G5 ne remplace pas la fermeture des P1 métier applicables ni la preuve G3 sur le SHA candidat exact.
 
 ### Gates Métier Spécialisées
 - **`GA` (Accounting Invariants)** : Équilibre partie double débit=crédit, immuabilité après posting, traçabilité des contrepassations.
@@ -152,6 +346,31 @@ Chaque lot et chaque plan doit valider formellement une ou plusieurs gates avant
 ---
 
 ## 4. Organisation des Dossiers, Ouvrages & Référentiels
+
+### 4.0. Gouvernance audit / remédiation
+
+La documentation de pilotage doit désormais être lue dans cet ordre :
+
+```text
+docs/ROADMAP.md
+    ↓
+audit 2026-10-22
+    ↓
+remediation plan REM-00..REM-10
+    ↓
+implementation plans
+    ↓
+release qualification evidence
+```
+
+Les artifacts attendus pour la remédiation sont :
+
+```text
+docs/plans/REMEDIATION_2026_10_PLAN.md
+docs/audits/REMEDIATION_2026_10_STATUS.json
+```
+
+Ils doivent être ajoutés au dépôt avant d'être transformés en liens canoniques dans cet index.
 
 ### 4.1. Structure Générale & Spécifications
 - Centre de documentation racine : [`../README.md`](../README.md)

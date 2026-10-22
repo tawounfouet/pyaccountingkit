@@ -271,9 +271,7 @@ class SQLAlchemyAccountingExecutionTraceRepository:
                         entity_id=str(trace.entity_id),
                         accounting_date=trace.accounting_date,
                         proposal_checksum=trace.proposal_checksum,
-                        resolved_account_ids=[
-                            str(item) for item in trace.resolved_account_ids
-                        ],
+                        resolved_account_ids=[str(item) for item in trace.resolved_account_ids],
                         journal_entry_id=str(trace.journal_entry_id),
                         company_chart_id=trace.company_chart_id,
                         company_chart_version=trace.company_chart_version,
@@ -284,9 +282,7 @@ class SQLAlchemyAccountingExecutionTraceRepository:
                         policy_set_versions=list(trace.policy_set_versions),
                         policy_ids=list(trace.policy_ids),
                         policy_versions=list(trace.policy_versions),
-                        policy_reference_snapshot_ids=list(
-                            trace.policy_reference_snapshot_ids
-                        ),
+                        policy_reference_snapshot_ids=list(trace.policy_reference_snapshot_ids),
                         source_reference=trace.source_reference,
                     )
                 )

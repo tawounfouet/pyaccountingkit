@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from dataclasses import replace
 from datetime import date
 
 import pytest
@@ -92,3 +93,24 @@ def test_with_status_returns_new_period() -> None:
     locked = period.with_status(ClosingStatus.LOCKED)
     assert locked.status is ClosingStatus.LOCKED
     assert period.status is ClosingStatus.OPEN
+
+
+def test_period_persistence_successor_rejects_immutable_scope_rewrite() -> None:
+    period = _period()
+    rewritten = replace(period, entity_id=EntityId("other"))
+
+    with pytest.raises(ValueError, match="immutable"):
+        period.assert_persistence_successor(rewritten)
+
+
+def test_period_persistence_successor_rejects_skipped_transition() -> None:
+    period = _period(ClosingStatus.OPEN)
+    skipped = replace(period, status=ClosingStatus.CLOSED)
+
+    with pytest.raises(ValueError, match="Transition persistante invalide"):
+        period.assert_persistence_successor(skipped)
+
+
+def test_period_persistence_successor_accepts_legal_transition() -> None:
+    period = _period(ClosingStatus.OPEN)
+    period.assert_persistence_successor(period.with_status(ClosingStatus.REVIEW))

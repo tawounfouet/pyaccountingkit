@@ -16,7 +16,9 @@ from pyaccountingkit.adapters.in_memory.unit_of_work import InMemoryUnitOfWorkFa
 from pyaccountingkit.core.currency import EUR
 from pyaccountingkit.core.errors import (
     EntryNotFoundError,
+    IdempotencyConflictError,
     InvalidEntryStateError,
+    PeriodNotFoundError,
     RevisionConflictError,
 )
 from pyaccountingkit.core.identifiers import EntityId, EntryId, FiscalYearId, JournalId, PeriodId
@@ -26,6 +28,7 @@ from pyaccountingkit.domain.journals.journal import Journal
 from pyaccountingkit.domain.journals.journal_entry import JournalEntry
 from pyaccountingkit.domain.journals.journal_line import JournalLine
 from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
+from pyaccountingkit.domain.periods.closing_status import ClosingStatus
 from pyaccountingkit.ports.outbox import OutboxRecord
 from pyaccountingkit.ports.unit_of_work import UnitOfWorkFactoryProtocol
 
@@ -183,6 +186,75 @@ def test_idempotency_key_claimed_once(name: str) -> None:
         uow.commit()
     with factory.open() as uow:
         assert not uow.idempotency.claim("post:entry_1")
+        uow.rollback()
+
+
+@pytest.mark.parametrize("name", FACTORIES)
+def test_idempotency_same_key_different_payload_conflicts(name: str) -> None:
+    factory = _new_factory(name)
+    with factory.open() as uow:
+        assert uow.idempotency.claim("post:entry_1", "fingerprint-a")
+        uow.idempotency.complete("post:entry_1")
+        uow.commit()
+
+    with factory.open() as uow:
+        with pytest.raises(IdempotencyConflictError):
+            uow.idempotency.claim("post:entry_1", "fingerprint-b")
+        uow.rollback()
+
+
+@pytest.mark.parametrize("name", FACTORIES)
+def test_period_save_missing_raises(name: str) -> None:
+    factory = _new_factory(name)
+    with factory.open() as uow:
+        with pytest.raises(PeriodNotFoundError):
+            uow.periods.save(_monthly_period())
+        uow.rollback()
+
+
+@pytest.mark.parametrize("name", FACTORIES)
+def test_period_save_rejects_immutable_field_rewrite(name: str) -> None:
+    factory = _new_factory(name)
+    period = _monthly_period()
+    with factory.open() as uow:
+        uow.periods.add(period)
+        uow.commit()
+
+    with factory.open() as uow:
+        with pytest.raises(ValueError, match="immutable"):
+            uow.periods.save(replace(period, end_date=date(2024, 2, 1)))
+        uow.rollback()
+
+
+@pytest.mark.parametrize("name", FACTORIES)
+def test_period_save_rejects_skipped_transition(name: str) -> None:
+    factory = _new_factory(name)
+    period = _monthly_period()
+    with factory.open() as uow:
+        uow.periods.add(period)
+        uow.commit()
+
+    with factory.open() as uow:
+        with pytest.raises(ValueError, match="Transition persistante invalide"):
+            uow.periods.save(replace(period, status=ClosingStatus.CLOSED))
+        uow.rollback()
+
+
+@pytest.mark.parametrize("name", FACTORIES)
+def test_period_save_accepts_legal_transition(name: str) -> None:
+    factory = _new_factory(name)
+    period = _monthly_period()
+    with factory.open() as uow:
+        uow.periods.add(period)
+        uow.commit()
+
+    reviewed = period.with_status(ClosingStatus.REVIEW)
+    with factory.open() as uow:
+        uow.periods.save(reviewed)
+        uow.commit()
+
+    with factory.open() as uow:
+        assert uow.periods.get(period.id) == reviewed
         uow.rollback()
 
 

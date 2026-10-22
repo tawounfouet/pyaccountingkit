@@ -16,6 +16,7 @@ from pyaccountingkit.core.errors import (
 from pyaccountingkit.core.identifiers import EntryId, PeriodId
 from pyaccountingkit.domain.journals.journal_entry import EntryStatus, JournalEntry
 from pyaccountingkit.domain.ledger.reversal import create_reversal
+from pyaccountingkit.domain.traceability.trace import CanonicalHasher
 from pyaccountingkit.ports.outbox import OutboxRecord
 from pyaccountingkit.ports.unit_of_work import UnitOfWorkFactoryProtocol, UnitOfWorkProtocol
 
@@ -51,9 +52,6 @@ class ReversalOrchestrator:
         """Produce a posted reversal and mark the original entry reversed."""
         idempotency_key = f"reversal:{entry_id}:{target_period_id}:{reversal_date.isoformat()}"
         with self._uow_factory.open() as uow:
-            if not uow.idempotency.claim(idempotency_key):
-                return self._replay(uow, entry_id, idempotency_key)
-
             original = uow.entries.get(entry_id)
             target_period = uow.periods.get(target_period_id)
             journal = uow.journals.get(original.journal_id)
@@ -62,6 +60,17 @@ class ReversalOrchestrator:
                 target_period.entity_id,
                 resource=f"reversal target period {target_period.id}",
             )
+            payload_fingerprint = CanonicalHasher.digest(
+                {
+                    "operation": "REVERSE_ENTRY",
+                    "entity_id": str(journal.entity_id),
+                    "original_entry_id": str(entry_id),
+                    "target_period_id": str(target_period_id),
+                    "reversal_date": reversal_date.isoformat(),
+                }
+            )
+            if not uow.idempotency.claim(idempotency_key, payload_fingerprint):
+                return self._replay(uow, entry_id, idempotency_key)
             if not target_period.is_open_for_posting():
                 raise PeriodClosedError(
                     f"Période {target_period.id} fermée ou verrouillée pour la contrepassation"

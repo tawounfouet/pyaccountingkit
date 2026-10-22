@@ -152,6 +152,7 @@ class AuditEventModel(models.Model):
 class IdempotencyRecordModel(models.Model):
     key = models.CharField(max_length=255, primary_key=True)
     status = models.CharField(max_length=16)
+    payload_fingerprint = models.CharField(max_length=64, blank=True, default="")
 
     class Meta:
         app_label = "pyaccountingkit_django"

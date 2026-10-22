@@ -28,6 +28,7 @@ class InMemoryStore:
     periods: dict[PeriodId, AccountingPeriod] = field(default_factory=dict)
     journals: dict[JournalId, Journal] = field(default_factory=dict)
     idempotency: dict[str, str] = field(default_factory=dict)
+    idempotency_fingerprints: dict[str, str] = field(default_factory=dict)
     outbox: list[OutboxRecord] = field(default_factory=list)
     audit_log: list[AuditEvent] = field(default_factory=list)
 
@@ -39,6 +40,7 @@ class InMemoryStore:
             periods=dict(self.periods),
             journals=dict(self.journals),
             idempotency=dict(self.idempotency),
+            idempotency_fingerprints=dict(self.idempotency_fingerprints),
             outbox=list(self.outbox),
             audit_log=list(self.audit_log),
         )
@@ -50,6 +52,7 @@ class InMemoryStore:
         self.periods = dict(snapshot.periods)
         self.journals = dict(snapshot.journals)
         self.idempotency = dict(snapshot.idempotency)
+        self.idempotency_fingerprints = dict(snapshot.idempotency_fingerprints)
         self.outbox = list(snapshot.outbox)
         self.audit_log = list(snapshot.audit_log)
 

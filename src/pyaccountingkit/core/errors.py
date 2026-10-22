@@ -247,6 +247,12 @@ class IdempotencyReplayError(DomainError):
     code: str = "IDEMPOTENCY_REPLAY"
 
 
+class IdempotencyConflictError(DomainError):
+    """The same idempotency key was reused for different business semantics."""
+
+    code: str = "IDEMPOTENCY_CONFLICT"
+
+
 class ControlFailureError(DomainError):
     """A control gate blocked processing on a failed control run."""
 

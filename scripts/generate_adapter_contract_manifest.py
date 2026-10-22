@@ -22,6 +22,8 @@ _LEGACY_CONTRACTS: dict[str, object] = json.loads(r"""{
       "transaction_local_state",
       "optimistic_revision_conflict",
       "idempotency_conflict",
+      "idempotency_payload_fingerprint_conflict",
+      "period_transition_contract",
       "audit_outbox_atomicity"
     ],
     "production_qualification": true,
@@ -88,7 +90,7 @@ _LEGACY_CONTRACTS: dict[str, object] = json.loads(r"""{
     "database": "PostgreSQL 16",
     "unit_of_work": "DjangoUnitOfWork",
     "unit_of_work_factory": "DjangoUnitOfWorkFactory",
-    "migration_baseline": "0002_journalentry_entry_type",
+    "migration_baseline": "0003_idempotency_payload_fingerprint",
     "public_api_orm_leakage": false,
     "qualified_behaviors": [
       "fresh_migration",
@@ -98,6 +100,8 @@ _LEGACY_CONTRACTS: dict[str, object] = json.loads(r"""{
       "atomic_commit_rollback",
       "optimistic_revision_conflict",
       "idempotency_conflict",
+      "idempotency_payload_fingerprint_conflict",
+      "period_transition_contract",
       "audit_outbox_atomicity",
       "double_reversal_serialization",
       "posting_close_serialization"
@@ -113,7 +117,7 @@ _LEGACY_CONTRACTS: dict[str, object] = json.loads(r"""{
     "database": "PostgreSQL 16",
     "unit_of_work": "SessionUnitOfWork",
     "unit_of_work_factory": "SQLAlchemyUnitOfWorkFactory",
-    "migration_baseline": "0002_entry_type",
+    "migration_baseline": "0003_idem_fingerprint",
     "public_api_orm_leakage": false,
     "qualified_behaviors": [
       "fresh_migration",
@@ -123,6 +127,8 @@ _LEGACY_CONTRACTS: dict[str, object] = json.loads(r"""{
       "atomic_commit_rollback",
       "optimistic_revision_conflict",
       "idempotency_conflict",
+      "idempotency_payload_fingerprint_conflict",
+      "period_transition_contract",
       "audit_outbox_atomicity",
       "double_reversal_serialization",
       "posting_close_serialization"

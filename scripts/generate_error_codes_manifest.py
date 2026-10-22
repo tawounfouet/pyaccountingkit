@@ -39,6 +39,7 @@ _PUBLIC_ERROR_CLASS_NAMES = [
     "EntryNotPostedError",
     "FinancialAnalysisError",
     "FormulaCycleError",
+    "IdempotencyConflictError",
     "IdempotencyReplayError",
     "InactiveAccountError",
     "InactiveJournalError",

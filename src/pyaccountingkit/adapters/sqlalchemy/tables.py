@@ -145,6 +145,7 @@ class IdempotencyRecordTable(Base):
 
     key: Mapped[str] = mapped_column(String(255), primary_key=True)
     status: Mapped[str] = mapped_column(String(16))
+    payload_fingerprint: Mapped[str] = mapped_column(String(64), default="")
 
 
 class OutboxMessageTable(Base):

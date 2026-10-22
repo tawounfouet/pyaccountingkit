@@ -19,7 +19,7 @@ from pyaccountingkit.adapters.in_memory.repositories import (
 )
 from pyaccountingkit.adapters.in_memory.store import InMemoryStore
 from pyaccountingkit.core.clock import ClockProtocol, SystemClock
-from pyaccountingkit.core.errors import RevisionConflictError
+from pyaccountingkit.core.errors import IdempotencyConflictError, RevisionConflictError
 from pyaccountingkit.domain.audit.events import AuditEvent
 from pyaccountingkit.ports.outbox import OutboxRecord
 
@@ -40,10 +40,16 @@ class InMemoryIdempotencyStore:
     def __init__(self, store: InMemoryStore) -> None:
         self._store = store
 
-    def claim(self, key: str) -> bool:
+    def claim(self, key: str, payload_fingerprint: str = "") -> bool:
         if key in self._store.idempotency:
+            existing = self._store.idempotency_fingerprints.get(key, "")
+            if existing != payload_fingerprint:
+                raise IdempotencyConflictError(
+                    f"Idempotency key {key} is already bound to a different payload"
+                )
             return False
         self._store.idempotency[key] = "claimed"
+        self._store.idempotency_fingerprints[key] = payload_fingerprint
         return True
 
     def complete(self, key: str) -> None:
@@ -147,6 +153,12 @@ class InMemoryUnitOfWork:
             self._working.idempotency,
             self._store.idempotency,
         )
+        self._validate_mapping_changes(
+            "Idempotency fingerprint",
+            baseline.idempotency_fingerprints,
+            self._working.idempotency_fingerprints,
+            self._store.idempotency_fingerprints,
+        )
 
         if self._working.audit_log[: len(baseline.audit_log)] != baseline.audit_log:
             raise RevisionConflictError("audit log prefix changed inside UnitOfWork")
@@ -177,6 +189,11 @@ class InMemoryUnitOfWork:
             baseline.idempotency,
             self._working.idempotency,
             self._store.idempotency,
+        )
+        self._merge_mapping(
+            baseline.idempotency_fingerprints,
+            self._working.idempotency_fingerprints,
+            self._store.idempotency_fingerprints,
         )
         self._store.audit_log.extend(self._working.audit_log[len(baseline.audit_log) :])
         self._store.outbox.extend(self._working.outbox[len(baseline.outbox) :])

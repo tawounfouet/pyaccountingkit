@@ -81,6 +81,18 @@ def _chart() -> CompanyChartOfAccounts:
             label="Soc inactive",
             active=False,
         ),
+        CompanyAccount(
+            id=AccountId("account:customers"),
+            entity_id=ENTITY,
+            code="411777",
+            label="Clients opaque id",
+        ),
+        CompanyAccount(
+            id=AccountId("account:revenue"),
+            entity_id=ENTITY,
+            code="707777",
+            label="Ventes opaque id",
+        ),
     )
     return CompanyChartOfAccounts(entity_id=ENTITY, accounts=accounts)
 
@@ -246,6 +258,21 @@ def test_post_inactive_journal_rejected() -> None:
     store.journals[JournalId("j_ventes")] = journal.deactivated()
     with pytest.raises(InactiveJournalError):
         orchestrator.post(_draft(), actor_id="u1")
+
+
+def test_post_resolves_accounts_by_opaque_account_id_not_by_code() -> None:
+    orchestrator, _, store = _bak_app()
+    result = orchestrator.post(
+        _draft(("account:customers", "account:revenue")),
+        actor_id="u1",
+    )
+
+    assert result.posted_entry.status is EntryStatus.POSTED
+    assert tuple(line.account_id for line in result.posted_entry.lines) == (
+        AccountId("account:customers"),
+        AccountId("account:revenue"),
+    )
+    assert store.entries[EntryId("e1")].status is EntryStatus.POSTED
 
 
 def test_post_unknown_account_rejected() -> None:

@@ -13,7 +13,7 @@ from pyaccountingkit.core.errors import (
     PeriodClosedError,
     UnknownAccountError,
 )
-from pyaccountingkit.core.identifiers import EntryId
+from pyaccountingkit.core.identifiers import EntityId, EntryId
 from pyaccountingkit.core.revisions import Revision
 from pyaccountingkit.domain.audit.events import AuditEvent
 from pyaccountingkit.domain.charts.chart import CompanyChartOfAccounts
@@ -46,10 +46,25 @@ class PostingOrchestrator:
         self._chart_resolver = chart_resolver
         self._posting_service = posting_service
 
-    def post(self, entry: JournalEntry, actor_id: str) -> PostingResult:
-        """Post *entry* exactly once in one transaction."""
+    def post(
+        self,
+        entry: JournalEntry,
+        actor_id: str,
+        *,
+        expected_entity_id: EntityId | None = None,
+    ) -> PostingResult:
+        """Post *entry* exactly once in one transaction.
+
+        expected_entity_id binds caller-owned business intent to the
+        journal/period scope selected for persistence.
+        """
         with self._uow_factory.open() as uow:
-            result = self._post_in_uow(uow, entry, actor_id)
+            result = self._post_in_uow(
+                uow,
+                entry,
+                actor_id,
+                expected_entity_id=expected_entity_id,
+            )
             uow.commit()
         return result
 
@@ -57,12 +72,22 @@ class PostingOrchestrator:
         self,
         entries: tuple[JournalEntry, ...],
         actor_id: str,
+        *,
+        expected_entity_id: EntityId | None = None,
     ) -> tuple[PostingResult, ...]:
         """Post several entries atomically through the same canonical engine."""
         if not entries:
             return ()
         with self._uow_factory.open() as uow:
-            results = tuple(self._post_in_uow(uow, entry, actor_id) for entry in entries)
+            results = tuple(
+                self._post_in_uow(
+                    uow,
+                    entry,
+                    actor_id,
+                    expected_entity_id=expected_entity_id,
+                )
+                for entry in entries
+            )
             uow.commit()
         return results
 
@@ -71,18 +96,26 @@ class PostingOrchestrator:
         uow: UnitOfWorkProtocol,
         entry: JournalEntry,
         actor_id: str,
+        *,
+        expected_entity_id: EntityId | None = None,
     ) -> PostingResult:
-        idempotency_key = f"post:{entry.id}"
-        if not uow.idempotency.claim(idempotency_key):
-            return self._replay(uow, entry.id, idempotency_key)
-
         period = uow.periods.get(entry.period_id)
         journal = uow.journals.get(entry.journal_id)
+        if expected_entity_id is not None:
+            require_same_entity(
+                expected_entity_id,
+                journal.entity_id,
+                resource=f"journal {journal.id}",
+            )
         require_same_entity(
             journal.entity_id,
             period.entity_id,
             resource=f"period {period.id}",
         )
+
+        idempotency_key = f"post:{entry.id}"
+        if not uow.idempotency.claim(idempotency_key):
+            return self._replay(uow, entry.id, idempotency_key)
         resolved_chart = self._chart_resolver.resolve(
             entity_id=journal.entity_id,
             accounting_date=entry.entry_date,
@@ -145,7 +178,7 @@ class PostingOrchestrator:
     @staticmethod
     def _validate_accounts(entry: JournalEntry, chart: CompanyChartOfAccounts) -> None:
         for line in entry.lines:
-            account = chart.get_by_code(str(line.account_id))
+            account = chart.get_by_id(line.account_id)
             if account is None:
                 raise UnknownAccountError(f"Compte {line.account_id} inconnu au plan")
             require_same_entity(

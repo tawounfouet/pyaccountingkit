@@ -97,7 +97,11 @@ class ProposalPostingOrchestrator:
             description=description or self._description_for(proposal),
             lines=lines,
         ).validate()
-        posting_result = self._posting_orchestrator.post(entry, actor_id=actor_id)
+        posting_result = self._posting_orchestrator.post(
+            entry,
+            actor_id=actor_id,
+            expected_entity_id=proposal.entity_id,
+        )
         checksum = proposal.checksum()
         first_resolution = resolved_accounts[0]
         execution_trace = AccountingExecutionTrace(

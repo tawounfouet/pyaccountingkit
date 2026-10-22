@@ -6,6 +6,9 @@ from dataclasses import dataclass
 
 from pyaccountingkit.core.entity_scope import require_same_entity
 from pyaccountingkit.core.money import Money
+from pyaccountingkit.domain.reporting.monetary_allocation import (
+    allocate_money_conservatively,
+)
 from pyaccountingkit.domain.reporting.errors import (
     RegulatoryMappingError,
     RegulatoryReferenceMismatchError,
@@ -102,16 +105,41 @@ class RegulatoryReportingService:
         mapping_ids: dict[str, list[str]] = {node.node_id: [] for node in model.nodes}
         provenances: dict[str, list[str]] = {node.node_id: [] for node in model.nodes}
 
-        for mapping in sorted(mapping_set.mappings, key=lambda item: item.mapping_id):
-            if not mapping.effective_on(snapshot.as_of) or not mapping.is_executable:
-                continue
+        active_mappings = tuple(
+            mapping
+            for mapping in sorted(mapping_set.mappings, key=lambda item: item.mapping_id)
+            if mapping.effective_on(snapshot.as_of) and mapping.is_executable
+        )
+        mappings_by_source: dict[str, list[object]] = {}
+        for mapping in active_mappings:
+            mappings_by_source.setdefault(mapping.statement_line_code, []).append(mapping)
+
+        current_contributions: dict[str, Money] = {}
+        comparative_contributions: dict[str, Money] = {}
+        for source_code, source_mappings in mappings_by_source.items():
             try:
-                source = source_lines[mapping.statement_line_code]
+                source = source_lines[source_code]
             except KeyError as exc:
+                mapping_ids_for_source = ", ".join(
+                    sorted(mapping.mapping_id for mapping in source_mappings)
+                )
                 raise RegulatoryMappingError(
-                    f"regulatory mapping {mapping.mapping_id!r} references unknown statement "
-                    f"line {mapping.statement_line_code!r}"
+                    f"regulatory mappings {mapping_ids_for_source!r} reference unknown statement "
+                    f"line {source_code!r}"
                 ) from exc
+            allocation_pairs = tuple(
+                (mapping.mapping_id, mapping.allocation) for mapping in source_mappings
+            )
+            current_contributions.update(
+                allocate_money_conservatively(source.amount, allocation_pairs)
+            )
+            if source.comparative_amount is not None:
+                comparative_contributions.update(
+                    allocate_money_conservatively(source.comparative_amount, allocation_pairs)
+                )
+
+        for mapping in active_mappings:
+            source = source_lines[mapping.statement_line_code]
             try:
                 target = model.node_by_id(mapping.reference_node_id)
             except KeyError as exc:
@@ -125,13 +153,15 @@ class RegulatoryReportingService:
                     f"{target.code!r}"
                 )
 
-            amounts[target.node_id] = amounts[target.node_id] + source.amount * mapping.allocation
+            amounts[target.node_id] = (
+                amounts[target.node_id] + current_contributions[mapping.mapping_id]
+            )
             if source.comparative_amount is None:
                 comparative_complete[target.node_id] = False
             else:
                 comparative_amounts[target.node_id] = (
                     comparative_amounts[target.node_id]
-                    + source.comparative_amount * mapping.allocation
+                    + comparative_contributions[mapping.mapping_id]
                 )
             source_codes[target.node_id].append(source.code)
             mapping_ids[target.node_id].append(mapping.mapping_id)

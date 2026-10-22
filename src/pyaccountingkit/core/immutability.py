@@ -84,10 +84,7 @@ def deep_freeze(value: Any) -> Any:
     if isinstance(value, FrozenDict | FrozenList):
         return value
     if isinstance(value, Mapping):
-        frozen = {
-            deep_freeze(key): deep_freeze(item)
-            for key, item in value.items()
-        }
+        frozen = {deep_freeze(key): deep_freeze(item) for key, item in value.items()}
         return FrozenDict(frozen)
     if isinstance(value, list):
         return FrozenList([deep_freeze(item) for item in value])

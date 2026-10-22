@@ -97,11 +97,6 @@ class ProposalPostingOrchestrator:
             description=description or self._description_for(proposal),
             lines=lines,
         ).validate()
-        posting_result = self._posting_orchestrator.post(
-            entry,
-            actor_id=actor_id,
-            expected_entity_id=proposal.entity_id,
-        )
         checksum = proposal.checksum()
         first_resolution = resolved_accounts[0]
         execution_trace = AccountingExecutionTrace(
@@ -110,7 +105,7 @@ class ProposalPostingOrchestrator:
             accounting_date=proposal.accounting_date,
             proposal_checksum=checksum,
             resolved_account_ids=tuple(item.account_id for item in resolved_accounts),
-            journal_entry_id=posting_result.posted_entry.id,
+            journal_entry_id=entry_id,
             company_chart_id=first_resolution.chart_id,
             company_chart_version=first_resolution.chart_version,
             company_chart_reference_snapshot_id=first_resolution.reference_snapshot_id,
@@ -124,6 +119,12 @@ class ProposalPostingOrchestrator:
                 if trace.reference_snapshot_id is not None
             ),
             source_reference=proposal.source_reference,
+        )
+        posting_result = self._posting_orchestrator.post(
+            entry,
+            actor_id=actor_id,
+            expected_entity_id=proposal.entity_id,
+            execution_trace=execution_trace,
         )
         return ProposalPostingResult(
             posted_entry=posting_result.posted_entry,

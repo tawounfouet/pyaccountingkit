@@ -6,6 +6,7 @@ from collections import defaultdict
 from collections.abc import Sequence
 
 from pyaccountingkit.core.currency import EUR, Currency
+from pyaccountingkit.core.entity_scope import require_same_entity
 from pyaccountingkit.core.identifiers import AccountId, PeriodId
 from pyaccountingkit.core.money import Money
 from pyaccountingkit.domain.charts.chart import CompanyChartOfAccounts
@@ -42,6 +43,12 @@ class TrialBalanceQuery:
     ) -> TrialBalance:
         """Return the verified trial balance of one period."""
         with self._uow_factory.open() as uow:
+            period = uow.periods.get(period_id)
+            require_same_entity(
+                self._chart.entity_id,
+                period.entity_id,
+                resource=f"period {period.id}",
+            )
             entries = uow.entries.list_by_period(period_id)
             included_types = self._included_entry_types(snapshot)
             scoped_entries = tuple(entry for entry in entries if entry.entry_type in included_types)
@@ -61,6 +68,12 @@ class TrialBalanceQuery:
         """Return the underlying journal lines of one account for drill-down."""
         account = self._chart.get_by_code(account_code)
         with self._uow_factory.open() as uow:
+            period = uow.periods.get(period_id)
+            require_same_entity(
+                self._chart.entity_id,
+                period.entity_id,
+                resource=f"period {period.id}",
+            )
             entries = uow.entries.list_by_period(period_id)
             matching: list[tuple[object, JournalLine]] = []
             for entry in entries:

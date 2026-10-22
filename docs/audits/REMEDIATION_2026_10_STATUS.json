@@ -55,7 +55,7 @@
       "evidence_must_match_candidate_sha": true,
       "documentation_only_change_cannot_close_finding": true
     },
-    "current_phase": "REM-01",
+    "current_phase": "REM-02",
     "rem00_completed_on": "2026-10-22",
     "rem00_completion_evidence": {
       "remediation_plan_commit_sha": "fd0e2731582d7bb8eb0b7aecae41d2417aa40be5",
@@ -89,6 +89,32 @@
         "Nightly workflow execution on exact main/candidate SHA",
         "Release-candidate workflow execution proving repository-aware gh CLI and exact-SHA PostgreSQL evidence"
       ]
+    },
+    "rem02": {
+      "implementation_prs": [
+        75
+      ],
+      "first_slice": {
+        "findings": [
+          "F01",
+          "F02"
+        ],
+        "pr_head_sha": "2ce2e038f580b0c059997d8ced0defcc24c1434f",
+        "merge_sha": "08594852870d9cdce0f4b6ced7877daf3b0d6eb3",
+        "pr_ci_run_id": 39841052244,
+        "pr_security_run_id": 39841052053,
+        "status": "FIXED_UNVERIFIED"
+      },
+      "remaining_findings": [
+        "F03",
+        "F04",
+        "F13",
+        "F18"
+      ],
+      "next_slice": [
+        "F03",
+        "F04"
+      ]
     }
   },
   "lots": {
@@ -116,7 +142,7 @@
         "F13",
         "F18"
       ],
-      "status": "PLANNED"
+      "status": "ACTIVE"
     },
     "REM-03": {
       "title": "Posting / Repositories / Idempotency",
@@ -196,18 +222,26 @@
       "primary_remediation_lot": "REM-02",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "OPEN",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "08594852870d9cdce0f4b6ced7877daf3b0d6eb3",
+      "corrective_tests": [
+        "tests/unit/application/test_posting_orchestrator.py::test_post_resolves_accounts_by_opaque_account_id_not_by_code"
+      ],
+      "qualification_evidence": [
+        "PR #75 head 2ce2e038f580b0c059997d8ced0defcc24c1434f: CI run 39841052244 PASS",
+        "PR #75 head 2ce2e038f580b0c059997d8ced0defcc24c1434f: Security run 39841052053 PASS",
+        "PostingOrchestrator validates JournalLine.account_id with CompanyChartOfAccounts.get_by_id()"
+      ],
       "affected_components": [
         "posting",
         "charts",
         "ledger"
       ],
-      "notes": []
+      "notes": [
+        "Implementation merged; exact main SHA qualification evidence still required before VERIFIED."
+      ]
     },
     {
       "id": "F02",
@@ -217,18 +251,26 @@
       "primary_remediation_lot": "REM-02",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "OPEN",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "08594852870d9cdce0f4b6ced7877daf3b0d6eb3",
+      "corrective_tests": [
+        "tests/unit/application/test_policy_proposal_posting.py::test_proposal_cannot_post_into_journal_and_period_of_another_entity"
+      ],
+      "qualification_evidence": [
+        "PR #75 head 2ce2e038f580b0c059997d8ced0defcc24c1434f: CI run 39841052244 PASS",
+        "PR #75 head 2ce2e038f580b0c059997d8ced0defcc24c1434f: Canonical CI gate PASS",
+        "ProposalPostingOrchestrator passes proposal.entity_id as expected_entity_id before idempotency replay"
+      ],
       "affected_components": [
         "posting",
         "proposals",
         "entity_scope"
       ],
-      "notes": []
+      "notes": [
+        "Implementation merged; exact main SHA qualification evidence still required before VERIFIED."
+      ]
     },
     {
       "id": "F03",
@@ -847,5 +889,5 @@
     }
   ],
   "last_updated_on": "2026-10-22",
-  "last_updated_from_sha": "6dcf9b8d95f3fce9572acb1906e5eb05e7aa1a92"
+  "last_updated_from_sha": "08594852870d9cdce0f4b6ced7877daf3b0d6eb3"
 }

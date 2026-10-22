@@ -11,7 +11,6 @@ from pyaccountingkit.core.currency import EUR, XAF, Currency
 from pyaccountingkit.core.money import Money
 from pyaccountingkit.domain.reporting.allocation import allocate_money_conservatively
 
-
 _PARTITIONS = st.sampled_from(
     (
         (("a", Decimal("0.5")), ("b", Decimal("0.5"))),

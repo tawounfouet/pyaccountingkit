@@ -171,7 +171,12 @@
           "F24"
         ],
         "status": "FIXED_UNVERIFIED"
-      }
+      },
+      "implementation_status": "IN_PROGRESS",
+      "remaining_findings": [
+        "F11",
+        "F23"
+      ]
     }
   },
   "lots": {
@@ -540,9 +545,9 @@
         "posting"
       ],
       "notes": [
-        "JournalEntry owns the persistence-successor invariant for POSTED/REVERSED states.",
-        "InMemory, Django and SQLAlchemy repositories enforce the same invariant before save.",
-        "POSTED -> REVERSED remains legal when economics are unchanged and reversed_by_id is set.",
+        "JournalEntry defines the legal persistence successor contract for POSTED/REVERSED states.",
+        "InMemory, Django and SQLAlchemy repositories enforce the same immutable posted economics rule before save().",
+        "Legitimate POSTED -> REVERSED transition remains supported.",
         "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
       ]
     },
@@ -858,6 +863,8 @@
       "qualification_evidence": [
         "PR #80 head 6afc40deff2519fe3d644a02014a14f398ddf85c: CI run 39848864516 PASS",
         "PR #80 head 6afc40deff2519fe3d644a02014a14f398ddf85c: Security run 39848864365 PASS",
+        "PR #80 head 6afc40deff2519fe3d644a02014a14f398ddf85c: Django/PostgreSQL qualification PASS",
+        "PR #80 head 6afc40deff2519fe3d644a02014a14f398ddf85c: SQLAlchemy/PostgreSQL qualification PASS",
         "PR #80 head 6afc40deff2519fe3d644a02014a14f398ddf85c: Canonical CI gate PASS"
       ],
       "affected_components": [
@@ -866,8 +873,8 @@
         "repositories"
       ],
       "notes": [
-        "PostingOrchestrator reuses an already-persisted identical VALIDATED entry and its current revision.",
-        "Mismatched persisted/request content for the same EntryId fails closed with RevisionConflictError.",
+        "PostingOrchestrator reuses an already-persisted VALIDATED entry at its current revision.",
+        "Mismatched persisted/request content is rejected rather than silently overwritten.",
         "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
       ]
     },

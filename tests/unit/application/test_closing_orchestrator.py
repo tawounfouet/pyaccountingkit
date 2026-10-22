@@ -15,7 +15,11 @@ from pyaccountingkit.application.closing.closing_orchestrator import ClosingOrch
 from pyaccountingkit.application.ledger.posting_orchestrator import PostingOrchestrator
 from pyaccountingkit.core.clock import FrozenClock
 from pyaccountingkit.core.currency import EUR
-from pyaccountingkit.core.errors import ControlFailureError, PeriodClosedError
+from pyaccountingkit.core.errors import (
+    ControlFailureError,
+    EntityScopeMismatchError,
+    PeriodClosedError,
+)
 from pyaccountingkit.core.identifiers import (
     AccountId,
     EntityId,
@@ -32,7 +36,11 @@ from pyaccountingkit.domain.charts.company_chart import (
     CompanyChart,
     CompanyChartVersion,
 )
-from pyaccountingkit.domain.closing.closing_run import CloseGate, ClosingRunBook
+from pyaccountingkit.domain.closing.closing_run import (
+    CloseGate,
+    ClosingEvidenceError,
+    ClosingRunBook,
+)
 from pyaccountingkit.domain.controls.control import (
     ControlOutcome,
     ControlResult,
@@ -111,22 +119,33 @@ def _periods() -> dict[PeriodId, AccountingPeriod]:
     }
 
 
-def _tb() -> TrialBalance:
+def _tb(
+    *,
+    period_id: str = "p_2024_12",
+    entity_id: EntityId | None = ENTITY,
+    snapshot: TrialBalanceSnapshot = TrialBalanceSnapshot.POST_CLOSING,
+    amount: str = "250.00",
+) -> TrialBalance:
     lines = (
         AccountBalanceLine(
             account_code="411000",
             label="Clients",
-            sum_debit=Money.from_str("250.00", EUR),
+            sum_debit=Money.from_str(amount, EUR),
             sum_credit=Money.zero(EUR),
         ),
         AccountBalanceLine(
             account_code="707000",
             label="Ventes",
             sum_debit=Money.zero(EUR),
-            sum_credit=Money.from_str("250.00", EUR),
+            sum_credit=Money.from_str(amount, EUR),
         ),
     )
-    return TrialBalance.build("p_2024_12", TrialBalanceSnapshot.POST_CLOSING, lines)
+    return TrialBalance.build(
+        period_id,
+        snapshot,
+        lines,
+        accounting_entity_id=entity_id,
+    )
 
 
 def _control(outcome: ControlOutcome, code: str = "BALANCE") -> ControlRun:
@@ -140,7 +159,10 @@ def _control(outcome: ControlOutcome, code: str = "BALANCE") -> ControlRun:
     )
 
 
-def _build() -> tuple[ClosingOrchestrator, InMemoryUnitOfWorkFactory, InMemoryStore]:
+def _build(
+    *,
+    fresh_balance: TrialBalance | None = None,
+) -> tuple[ClosingOrchestrator, InMemoryUnitOfWorkFactory, InMemoryStore]:
     store = InMemoryStore()
     factory = InMemoryUnitOfWorkFactory(store)
     with factory.open() as uow:
@@ -153,12 +175,14 @@ def _build() -> tuple[ClosingOrchestrator, InMemoryUnitOfWorkFactory, InMemorySt
     book = ClosingRunBook()
     gate = CloseGate()
     gate.require("BALANCE")
+    current_balance = fresh_balance or _tb()
     orchestrator = ClosingOrchestrator(
         factory,
         book,
         gate,
         run_id_factory=lambda: "c1",
         clock=FrozenClock(NOW),
+        trial_balance_provider=lambda period_id, snapshot: current_balance,
     )
     return orchestrator, factory, store
 
@@ -215,6 +239,84 @@ def _balanced_draft(entry_id: str) -> JournalEntry:
             ),
         ),
     )
+
+
+def test_missing_blocking_control_prevents_close() -> None:
+    orchestrator, _, store = _build()
+
+    with pytest.raises(ControlFailureError, match="absents.*BALANCE"):
+        orchestrator.close_period(
+            PeriodId("p_2024_12"),
+            control_runs=[],
+            trial_balance=_tb(),
+        )
+
+    assert store.periods[PeriodId("p_2024_12")].status is ClosingStatus.OPEN
+
+
+def test_error_blocking_control_prevents_close() -> None:
+    orchestrator, _, store = _build()
+
+    with pytest.raises(ControlFailureError, match="BALANCE:ERROR"):
+        orchestrator.close_period(
+            PeriodId("p_2024_12"),
+            control_runs=[_control(ControlOutcome.ERROR)],
+            trial_balance=_tb(),
+        )
+
+    assert store.periods[PeriodId("p_2024_12")].status is ClosingStatus.OPEN
+
+
+def test_closing_rejects_balance_for_another_period() -> None:
+    orchestrator, _, store = _build()
+
+    with pytest.raises(ClosingEvidenceError, match="targets period"):
+        orchestrator.close_period(
+            PeriodId("p_2024_12"),
+            control_runs=[_control(ControlOutcome.PASS)],
+            trial_balance=_tb(period_id="p_2024_11"),
+        )
+
+    assert store.periods[PeriodId("p_2024_12")].status is ClosingStatus.OPEN
+
+
+def test_closing_rejects_balance_for_another_entity() -> None:
+    orchestrator, _, store = _build()
+
+    with pytest.raises(EntityScopeMismatchError, match="closing balance belongs to entity"):
+        orchestrator.close_period(
+            PeriodId("p_2024_12"),
+            control_runs=[_control(ControlOutcome.PASS)],
+            trial_balance=_tb(entity_id=EntityId("other")),
+        )
+
+    assert store.periods[PeriodId("p_2024_12")].status is ClosingStatus.OPEN
+
+
+def test_closing_rejects_non_post_closing_balance() -> None:
+    orchestrator, _, store = _build()
+
+    with pytest.raises(ClosingEvidenceError, match="must be POST_CLOSING"):
+        orchestrator.close_period(
+            PeriodId("p_2024_12"),
+            control_runs=[_control(ControlOutcome.PASS)],
+            trial_balance=_tb(snapshot=TrialBalanceSnapshot.ADJUSTED),
+        )
+
+    assert store.periods[PeriodId("p_2024_12")].status is ClosingStatus.OPEN
+
+
+def test_closing_rejects_stale_balance_checksum() -> None:
+    orchestrator, _, store = _build(fresh_balance=_tb(amount="300.00"))
+
+    with pytest.raises(ClosingEvidenceError, match="stale"):
+        orchestrator.close_period(
+            PeriodId("p_2024_12"),
+            control_runs=[_control(ControlOutcome.PASS)],
+            trial_balance=_tb(amount="250.00"),
+        )
+
+    assert store.periods[PeriodId("p_2024_12")].status is ClosingStatus.OPEN
 
 
 def test_blocking_control_failure_prevents_close() -> None:

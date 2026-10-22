@@ -168,6 +168,7 @@ def test_0_1_core_scenario_end_to_end() -> None:
         gate,
         run_id_factory=lambda: "c1",
         clock=clock,
+        trial_balance_provider=tb_query.balance_for,
     )
     closing.close_period(
         period,

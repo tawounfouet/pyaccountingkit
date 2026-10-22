@@ -2,12 +2,20 @@
 
 from __future__ import annotations
 
+from collections.abc import Sequence
 from dataclasses import dataclass
 from datetime import datetime
 from enum import StrEnum
 
-from pyaccountingkit.core.errors import ControlFailureError
+from pyaccountingkit.core.errors import ControlFailureError, DomainError
+from pyaccountingkit.domain.controls.control import ControlOutcome, ControlRun
 from pyaccountingkit.domain.traceability.trace import CanonicalHasher
+
+
+class ClosingEvidenceError(DomainError):
+    """Closing evidence is missing, foreign, stale, or otherwise unusable."""
+
+    code = "CLOSING_EVIDENCE_INVALID"
 
 
 class ClosingPhase(StrEnum):
@@ -74,7 +82,7 @@ class ClosingRun:
 
 
 class CloseGate:
-    """Blocks closing when a blocking control run failed (DoD LOT-09)."""
+    """Fail-closed gate for the blocking controls required by a close."""
 
     def __init__(self) -> None:
         self._blocking_codes: set[str] = set()
@@ -82,11 +90,40 @@ class CloseGate:
     def require(self, control_code: str) -> None:
         self._blocking_codes.add(control_code)
 
-    def assert_passes(self, failed_codes: list[str]) -> None:
-        blocking = [code for code in failed_codes if code in self._blocking_codes]
-        if blocking:
+    @property
+    def required_codes(self) -> frozenset[str]:
+        return frozenset(self._blocking_codes)
+
+    def assert_passes(
+        self,
+        control_runs: Sequence[ControlRun],
+        *,
+        period_id: str,
+    ) -> None:
+        by_code: dict[str, list[ControlRun]] = {}
+        for run in control_runs:
+            by_code.setdefault(run.definition_code, []).append(run)
+
+        missing = sorted(code for code in self._blocking_codes if code not in by_code)
+        if missing:
+            raise ControlFailureError(f"Contrôles bloquants absents, clôture refusée: {missing}")
+
+        invalid: list[str] = []
+        for code in sorted(self._blocking_codes):
+            runs = by_code[code]
+            if len(runs) != 1:
+                invalid.append(f"{code}:AMBIGUOUS")
+                continue
+            run = runs[0]
+            if run.period_id != period_id:
+                invalid.append(f"{code}:FOREIGN_PERIOD")
+                continue
+            if run.result.outcome is not ControlOutcome.PASS:
+                invalid.append(f"{code}:{run.result.outcome.value}")
+
+        if invalid:
             raise ControlFailureError(
-                f"Contrôles bloquants échoués, clôture refusée: {sorted(blocking)}"
+                f"Contrôles bloquants non validés, clôture refusée: {invalid}"
             )
 
 
@@ -112,6 +149,7 @@ class ClosingRunBook:
 
 
 __all__ = [
+    "ClosingEvidenceError",
     "ClosingPhase",
     "ClosingRun",
     "ClosingEvidenceBundle",

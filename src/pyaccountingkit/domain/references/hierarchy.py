@@ -11,6 +11,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 from dataclasses import dataclass, field
 
+from pyaccountingkit.core.immutability import freeze_mapping
 from pyaccountingkit.domain.references.standards import ReferenceNodeType, RegulatoryId
 
 
@@ -28,6 +29,9 @@ class ReferenceNode:
     parent_node_id: RegulatoryId | None = None
     is_leaf: bool = False
     attributes: Mapping[str, object] = field(default_factory=dict)
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "attributes", freeze_mapping(self.attributes))
 
 
 class ReferenceHierarchy:

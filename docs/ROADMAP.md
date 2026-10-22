@@ -4677,70 +4677,75 @@ If required, create a separate framework.
 
 ---
 
-# 97. First implementation action
+# 97. Current remediation action
 
-The first actionable delivery is no longer `LOT-00`.
+The repository remains on `0.7.0rc1`; stable promotion is blocked by the remediation overlay.
 
-The repository has progressed to `0.7.0rc1` and the audit introduces a mandatory remediation overlay.
-
-REM-00 is now complete as the baseline/governance initialization lot.
-
-The immediate execution is :
+Current state :
 
 ```text
-REM-01
-Qualification & Workflow Reliability
+REM-00  DONE
+REM-01  IMPLEMENTED / QUALIFYING
+REM-02  IMPLEMENTED / QUALIFYING
+REM-03  ACTIVE
+```
+
+REM-01 implementation evidence :
+
+```text
+PR #74
+F25 F26 F27
+```
+
+REM-02 implementation evidence :
+
+```text
+PR #75  F01 F02
+PR #78  F03 F04
+PR #79  F13 F18
+```
+
+The immediate execution is now :
+
+```text
+REM-03
+Posting / Repositories / Idempotency
     ↓
-first REM-02 slice
-Identity / Entity Scope
+REM-04
+Immutable Evidence / Traceability
 ```
 
-REM-00 canonical outputs now exist :
-
-```text
-docs/plans/REMEDIATION_2026_10_PLAN.md
-docs/audits/REMEDIATION_2026_10_STATUS.json
-audit-vs-remediation-start comparison
-30-finding status registry
-exact-SHA evidence policy
-corrective-test-first convention
-```
-
-Immediate implementation outputs now expected :
-
-```text
-Nightly collection fix
-repository-aware release verification
-strict PostgreSQL fail-closed qualification
-then AccountId vs AccountCode regression/fix
-then cross-entity scope regression/fix
-```
-
-The strategic roadmap `LOT-39..46` resumes after remediation and release requalification.
+REM-01 and REM-02 are not declared VERIFIED yet. Their findings remain `FIXED_UNVERIFIED` until exact-main-SHA and REM-10 transverse qualification evidence is recorded.
 
 ---
 
-# 98. REM-00 completed / REM-01 active
-
-REM-00 completed artifacts :
+# 98. REM-03 active scope
 
 ```text
-docs/plans/REMEDIATION_2026_10_PLAN.md
-docs/audits/REMEDIATION_2026_10_STATUS.json
+F10
+POSTED economics cannot be rewritten
+
+F11
+idempotency replay must bind semantic content/scope
+
+F23
+PeriodRepository transition contract must be strict and adapter-consistent
+
+F24
+persisted VALIDATED entry must post through the supported path
 ```
 
-REM-01 active deliverables :
+Required approach :
 
 ```text
-corrective regression tests for F25/F26/F27
-strict release qualification checks
-Nightly collection correction
-repository-aware verification
-exact-SHA PostgreSQL evidence contract
-required PostgreSQL skip => FAIL
+corrective test first
+        ↓
+minimal coherent fix
+        ↓
+in-memory / Django / SQLAlchemy parity where applicable
+        ↓
+exact-SHA evidence
 ```
-
-Corrective tests must assert expected behavior, not merely reproduce the faulty baseline.
 
 ---
 
@@ -4854,14 +4859,14 @@ EVOLVE IT
 Le prochain travail concret est donc :
 
 ```text
-REM-01
-Qualification Reliability
+REM-03
+Posting / Repositories / Idempotency
     ↓
-REM-02
-Identity / Scope first slice
+REM-04
+Immutable Evidence / Traceability
 ```
 
-REM-00 est fermé comme lot d'initialisation de gouvernance ; il n'a fermé aucun finding métier.
+REM-01 et REM-02 sont implémentés mais restent en qualification ; aucune fermeture `VERIFIED` n'est revendiquée sans preuve exact-SHA.
 
 et non la promotion immédiate de `0.7.0rc1` vers stable.
 

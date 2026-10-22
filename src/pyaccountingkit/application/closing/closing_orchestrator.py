@@ -24,7 +24,7 @@ from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
 from pyaccountingkit.domain.periods.closing_status import ClosingStatus
 from pyaccountingkit.domain.reporting.trial_balance import TrialBalance
 from pyaccountingkit.domain.traceability.trace import CanonicalHasher
-from pyaccountingkit.ports.unit_of_work import UnitOfWorkFactoryProtocol
+from pyaccountingkit.ports.unit_of_work import UnitOfWorkFactoryProtocol, UnitOfWorkProtocol
 
 RunIdFactory = Callable[[], str]
 
@@ -104,8 +104,7 @@ class ClosingOrchestrator:
             period = uow.periods.get(period_id)
             if period.status.is_closed():
                 raise PeriodClosedError(f"Période {period_id} déjà close")
-            closed = self._advance_to_closed(period)
-            uow.periods.save(closed)
+            closed = self._advance_to_closed(uow, period)
             self._carry_opening_balances(
                 uow,
                 trial_balance=trial_balance,
@@ -119,11 +118,16 @@ class ClosingOrchestrator:
         self._run_book.record(run)
         return run
 
-    def _advance_to_closed(self, period: AccountingPeriod) -> AccountingPeriod:
+    def _advance_to_closed(
+        self,
+        uow: UnitOfWorkProtocol,
+        period: AccountingPeriod,
+    ) -> AccountingPeriod:
         current = period
         for target in (ClosingStatus.REVIEW, ClosingStatus.CLOSING, ClosingStatus.CLOSED):
             if current.status.can_transition_to(target):
                 current = current.with_status(target)
+                uow.periods.save(current)
         if not current.status.is_closed():
             raise PeriodClosedError(
                 f"Impossible de clôturer la période {period.id} "

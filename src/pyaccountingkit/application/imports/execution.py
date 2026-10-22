@@ -63,9 +63,20 @@ class ImportExecutionService:
             self._journal_entry(plan, entry_plan, currency) for entry_plan in plan.entry_plans
         )
         if transaction_mode is ImportTransactionMode.ALL_OR_NOTHING:
-            results = self._posting.post_many(entries, actor_id=actor_id)
+            results = self._posting.post_many(
+                entries,
+                actor_id=actor_id,
+                expected_entity_id=plan.entity_id,
+            )
         elif transaction_mode is ImportTransactionMode.PER_ITEM:
-            results = tuple(self._posting.post(entry, actor_id=actor_id) for entry in entries)
+            results = tuple(
+                self._posting.post(
+                    entry,
+                    actor_id=actor_id,
+                    expected_entity_id=plan.entity_id,
+                )
+                for entry in entries
+            )
         else:
             if chunk_size is None or chunk_size <= 0:
                 raise ValueError("CHUNKED_ATOMIC import requires chunk_size > 0")
@@ -75,6 +86,7 @@ class ImportExecutionService:
                 for result in self._posting.post_many(
                     entries[start : start + chunk_size],
                     actor_id=actor_id,
+                    expected_entity_id=plan.entity_id,
                 )
             )
         return ImportExecutionResult(

@@ -111,6 +111,28 @@ class JournalEntry:
             reversed_by_id=self.reversed_by_id,
         )
 
+    def same_posting_intent(self, candidate: JournalEntry) -> bool:
+        """Return whether two entries describe the same posting request."""
+        return (
+            self.id,
+            self.journal_id,
+            self.period_id,
+            self.entry_date,
+            self.description,
+            self.lines,
+            self.entry_type,
+            self.reversal_of_id,
+        ) == (
+            candidate.id,
+            candidate.journal_id,
+            candidate.period_id,
+            candidate.entry_date,
+            candidate.description,
+            candidate.lines,
+            candidate.entry_type,
+            candidate.reversal_of_id,
+        )
+
     def assert_persistence_successor(self, candidate: JournalEntry) -> None:
         """Validate one repository update against immutable posted economics."""
         if candidate.id != self.id:

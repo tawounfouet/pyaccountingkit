@@ -76,6 +76,25 @@ def test_chart_add_rejects_duplicate_code() -> None:
         chart.add(_account("411"))
 
 
+def test_chart_add_rejects_duplicate_account_id_even_with_different_code() -> None:
+    first = CompanyAccount(
+        id=AccountId("account:shared"),
+        entity_id=ENTITY,
+        code="411",
+        label="Clients",
+    )
+    duplicate_id = CompanyAccount(
+        id=AccountId("account:shared"),
+        entity_id=ENTITY,
+        code="412",
+        label="Autres clients",
+    )
+    chart = _chart((first,))
+
+    with pytest.raises(Exception, match="already exists"):
+        chart.add(duplicate_id)
+
+
 def test_chart_add_increases_size() -> None:
     chart = _chart()
     updated = chart.add(_account("411"))
@@ -87,6 +106,27 @@ def test_chart_rejects_duplicate_code_on_construction() -> None:
         CompanyChartOfAccounts(
             entity_id=ENTITY,
             accounts=(_account("411"), _account("411")),
+        )
+
+
+def test_chart_rejects_duplicate_account_id_on_construction() -> None:
+    with pytest.raises(ValueError, match="Duplicate account ids"):
+        CompanyChartOfAccounts(
+            entity_id=ENTITY,
+            accounts=(
+                CompanyAccount(
+                    id=AccountId("account:shared"),
+                    entity_id=ENTITY,
+                    code="411",
+                    label="Clients",
+                ),
+                CompanyAccount(
+                    id=AccountId("account:shared"),
+                    entity_id=ENTITY,
+                    code="412",
+                    label="Autres clients",
+                ),
+            ),
         )
 
 

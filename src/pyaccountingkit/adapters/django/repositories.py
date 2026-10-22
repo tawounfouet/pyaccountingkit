@@ -17,6 +17,7 @@ from pyaccountingkit.adapters.django.mappers import (
     period_to_model,
 )
 from pyaccountingkit.adapters.django.models import (
+    AccountingExecutionTraceModel,
     AccountingPeriodModel,
     AuditEventModel,
     IdempotencyRecordModel,
@@ -32,13 +33,14 @@ from pyaccountingkit.core.errors import (
     PeriodNotFoundError,
     RevisionConflictError,
 )
-from pyaccountingkit.core.identifiers import EntryId, JournalId, PeriodId
+from pyaccountingkit.core.identifiers import AccountId, EntityId, EntryId, JournalId, PeriodId
 from pyaccountingkit.core.immutability import deep_thaw
 from pyaccountingkit.core.revisions import Revision
 from pyaccountingkit.domain.audit.events import AuditEvent
 from pyaccountingkit.domain.journals.journal import Journal
 from pyaccountingkit.domain.journals.journal_entry import EntryStatus, JournalEntry
 from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
+from pyaccountingkit.domain.traceability.accounting_execution import AccountingExecutionTrace
 from pyaccountingkit.ports.outbox import OutboxRecord
 
 
@@ -258,6 +260,73 @@ class DjangoJournalRepository:
         except JournalModel.DoesNotExist as exc:
             raise JournalNotFoundError(f"Journal {journal_id} not found") from exc
         return journal_to_domain(model)
+
+
+class DjangoAccountingExecutionTraceRepository:
+    """Append-only accounting execution traces in PostgreSQL."""
+
+    def __init__(self, *, using: str = "default") -> None:
+        self._using = using
+
+    def append(self, trace: AccountingExecutionTrace) -> None:
+        try:
+            with transaction.atomic(using=self._using):
+                AccountingExecutionTraceModel.objects.using(self._using).create(
+                    trace_id=trace.trace_id,
+                    entity_id=str(trace.entity_id),
+                    accounting_date=trace.accounting_date,
+                    proposal_checksum=trace.proposal_checksum,
+                    resolved_account_ids=[str(item) for item in trace.resolved_account_ids],
+                    journal_entry_id=str(trace.journal_entry_id),
+                    company_chart_id=trace.company_chart_id,
+                    company_chart_version=trace.company_chart_version,
+                    company_chart_reference_snapshot_id=(
+                        trace.company_chart_reference_snapshot_id
+                    ),
+                    policy_set_ids=list(trace.policy_set_ids),
+                    policy_set_versions=list(trace.policy_set_versions),
+                    policy_ids=list(trace.policy_ids),
+                    policy_versions=list(trace.policy_versions),
+                    policy_reference_snapshot_ids=list(trace.policy_reference_snapshot_ids),
+                    source_reference=trace.source_reference,
+                )
+        except IntegrityError:
+            existing = self.get_by_entry_id(trace.journal_entry_id)
+            if existing == trace:
+                return
+            raise RevisionConflictError(
+                f"Execution trace already exists for entry {trace.journal_entry_id}"
+            ) from None
+
+    def get_by_entry_id(self, entry_id: EntryId) -> AccountingExecutionTrace | None:
+        model = (
+            AccountingExecutionTraceModel.objects.using(self._using)
+            .filter(journal_entry_id=str(entry_id))
+            .first()
+        )
+        if model is None:
+            return None
+        return AccountingExecutionTrace(
+            trace_id=model.trace_id,
+            entity_id=EntityId(model.entity_id),
+            accounting_date=model.accounting_date,
+            proposal_checksum=model.proposal_checksum,
+            resolved_account_ids=tuple(
+                AccountId(str(item)) for item in model.resolved_account_ids
+            ),
+            journal_entry_id=EntryId(model.journal_entry_id),
+            company_chart_id=model.company_chart_id,
+            company_chart_version=model.company_chart_version,
+            company_chart_reference_snapshot_id=model.company_chart_reference_snapshot_id,
+            policy_set_ids=tuple(str(item) for item in model.policy_set_ids),
+            policy_set_versions=tuple(str(item) for item in model.policy_set_versions),
+            policy_ids=tuple(str(item) for item in model.policy_ids),
+            policy_versions=tuple(str(item) for item in model.policy_versions),
+            policy_reference_snapshot_ids=tuple(
+                str(item) for item in model.policy_reference_snapshot_ids
+            ),
+            source_reference=model.source_reference,
+        )
 
 
 class DjangoAuditLogSink:

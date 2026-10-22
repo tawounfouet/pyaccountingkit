@@ -117,6 +117,7 @@
         "idempotency_conflict",
         "idempotency_payload_fingerprint_conflict",
         "period_transition_contract",
+        "atomic_execution_trace",
         "audit_outbox_atomicity",
         "double_reversal_serialization",
         "posting_close_serialization"
@@ -188,6 +189,7 @@
         "idempotency_conflict",
         "idempotency_payload_fingerprint_conflict",
         "period_transition_contract",
+        "atomic_execution_trace",
         "audit_outbox_atomicity",
         "double_reversal_serialization",
         "posting_close_serialization"

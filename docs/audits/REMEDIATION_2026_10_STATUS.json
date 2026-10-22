@@ -71,6 +71,24 @@
       },
       "code_baseline_statement": "No src/, tests/, or workflow delta between audit baseline and remediation start; intervening changes were documentation-only.",
       "roadmap_alignment_commit_sha": "44a2ffa4ef3b1eb4c32cbf34280788e06fc2ac4d"
+    },
+    "rem01": {
+      "implementation_pr": 74,
+      "pr_head_sha": "b7492b214d1d51b7a51f7b5a57b1e043691b1f9b",
+      "merge_sha": "6dcf9b8d95f3fce9572acb1906e5eb05e7aa1a92",
+      "pr_ci_run_id": 39837967032,
+      "pr_security_run_id": 39837967115,
+      "pr_ci_status": "PASS",
+      "findings": [
+        "F25",
+        "F26",
+        "F27"
+      ],
+      "status": "FIXED_UNVERIFIED",
+      "remaining_evidence": [
+        "Nightly workflow execution on exact main/candidate SHA",
+        "Release-candidate workflow execution proving repository-aware gh CLI and exact-SHA PostgreSQL evidence"
+      ]
     }
   },
   "lots": {
@@ -86,7 +104,7 @@
         "F26",
         "F27"
       ],
-      "status": "ACTIVE"
+      "status": "QUALIFYING"
     },
     "REM-02": {
       "title": "Identity / Scope / Read-Side",
@@ -678,18 +696,27 @@
       "primary_remediation_lot": "REM-01",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "OPEN",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "6dcf9b8d95f3fce9572acb1906e5eb05e7aa1a92",
+      "corrective_tests": [
+        "tests/unit/test_ci_workflow_contract.py::test_nightly_contract_rejects_broad_root_collection",
+        "tests/unit/test_ci_workflow_contract.py::test_nightly_contract_requires_both_postgresql_paths"
+      ],
+      "qualification_evidence": [
+        "PR #74 head b7492b214d1d51b7a51f7b5a57b1e043691b1f9b: CI run 39837967032 PASS including Quality and Canonical CI gate",
+        "PR #74 head b7492b214d1d51b7a51f7b5a57b1e043691b1f9b: Security run 39837967115 PASS",
+        "Nightly workflow now uses scoped deterministic collection plus dedicated Django/PostgreSQL and SQLAlchemy/PostgreSQL jobs"
+      ],
       "affected_components": [
         "ci",
         "nightly",
         "tests"
       ],
-      "notes": []
+      "notes": [
+        "Implementation merged; scheduled/manual Nightly execution on merge SHA still required before VERIFIED."
+      ]
     },
     {
       "id": "F26",
@@ -699,18 +726,25 @@
       "primary_remediation_lot": "REM-01",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "OPEN",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "6dcf9b8d95f3fce9572acb1906e5eb05e7aa1a92",
+      "corrective_tests": [
+        "tests/unit/test_ci_workflow_contract.py::test_release_contract_requires_repository_context_for_gh_cli"
+      ],
+      "qualification_evidence": [
+        "PR #74 head b7492b214d1d51b7a51f7b5a57b1e043691b1f9b: CI run 39837967032 PASS",
+        "release.yml now sets GH_REPO for both gh release edit and gh release verify"
+      ],
       "affected_components": [
         "release",
         "qualification",
         "ci"
       ],
-      "notes": []
+      "notes": [
+        "Implementation merged; release workflow execution on exact candidate SHA still required before VERIFIED."
+      ]
     },
     {
       "id": "F27",
@@ -720,12 +754,23 @@
       "primary_remediation_lot": "REM-01",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "OPEN",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "6dcf9b8d95f3fce9572acb1906e5eb05e7aa1a92",
+      "corrective_tests": [
+        "tests/unit/test_ci_workflow_contract.py::test_release_contract_requires_exact_sha_postgresql_evidence",
+        "tests/unit/test_engineering_safety.py::test_release_candidate_contract_requires_exact_sha_postgresql_evidence",
+        "tests/unit/test_engineering_safety.py::test_release_candidate_contract_rejects_postgresql_evidence_from_other_sha",
+        "tests/unit/test_engineering_safety.py::test_release_candidate_contract_accepts_exact_sha_postgresql_evidence",
+        "tests/unit/test_engineering_safety.py::test_release_candidate_generic_suites_do_not_collect_postgresql_modules"
+      ],
+      "qualification_evidence": [
+        "PR #74 head b7492b214d1d51b7a51f7b5a57b1e043691b1f9b: Django/PostgreSQL qualification PASS in CI run 39837967032",
+        "PR #74 head b7492b214d1d51b7a51f7b5a57b1e043691b1f9b: SQLAlchemy/PostgreSQL qualification PASS in CI run 39837967032",
+        "PR #74 head b7492b214d1d51b7a51f7b5a57b1e043691b1f9b: Canonical CI gate PASS in CI run 39837967032",
+        "release qualifier now requires exact-SHA PostgreSQL evidence for 0.7.0rc1/0.7.0"
+      ],
       "affected_components": [
         "release",
         "postgresql",
@@ -733,7 +778,9 @@
         "sqlalchemy",
         "ci"
       ],
-      "notes": []
+      "notes": [
+        "Implementation merged; tag/release-candidate execution on merge/candidate SHA is still required before VERIFIED."
+      ]
     },
     {
       "id": "A01",
@@ -800,5 +847,5 @@
     }
   ],
   "last_updated_on": "2026-10-22",
-  "last_updated_from_sha": "44a2ffa4ef3b1eb4c32cbf34280788e06fc2ac4d"
+  "last_updated_from_sha": "6dcf9b8d95f3fce9572acb1906e5eb05e7aa1a92"
 }

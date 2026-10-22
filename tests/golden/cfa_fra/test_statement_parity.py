@@ -120,6 +120,7 @@ def _formula(
     operands: tuple[str, ...],
     *,
     parent: str | None = None,
+    credit_positive: bool = False,
     control_role: StatementControlRole | None = None,
 ) -> StatementLineDefinition:
     return StatementLineDefinition(
@@ -130,6 +131,11 @@ def _formula(
         order=order,
         parent_line_id=parent,
         formula=StatementFormula(operation, operands),
+        sign_convention=(
+            StatementSignConvention.CREDIT_POSITIVE
+            if credit_positive
+            else StatementSignConvention.NATURAL
+        ),
         control_role=control_role,
     )
 
@@ -138,6 +144,7 @@ def _total(
     code: str,
     order: int,
     *,
+    credit_positive: bool = False,
     control_role: StatementControlRole | None = None,
 ) -> StatementLineDefinition:
     return StatementLineDefinition(
@@ -146,6 +153,11 @@ def _total(
         label=code,
         line_type=StatementLineType.TOTAL,
         order=order,
+        sign_convention=(
+            StatementSignConvention.CREDIT_POSITIVE
+            if credit_positive
+            else StatementSignConvention.NATURAL
+        ),
         control_role=control_role,
     )
 
@@ -182,8 +194,9 @@ def _income_observation(source: TrialBalance) -> dict[str, object]:
             _formula(
                 "NET_INCOME",
                 30,
-                FormulaOperation.SUBTRACT,
+                FormulaOperation.ADD,
                 ("REVENUE", "EXTERNAL_SERVICES"),
+                credit_positive=True,
                 control_role=StatementControlRole.NET_INCOME,
             ),
         ),
@@ -219,6 +232,7 @@ def _balance_sheet_observation(source: TrialBalance) -> dict[str, object]:
             _total(
                 "TOTAL_LIABILITIES_EQUITY",
                 80,
+                credit_positive=True,
                 control_role=StatementControlRole.LIABILITIES_EQUITY_TOTAL,
             ),
             _detail(
@@ -242,9 +256,10 @@ def _balance_sheet_observation(source: TrialBalance) -> dict[str, object]:
             _formula(
                 "CURRENT_RESULT",
                 70,
-                FormulaOperation.SUBTRACT,
+                FormulaOperation.ADD,
                 ("REVENUE_MEMO", "EXPENSE_MEMO"),
                 parent="total_liabilities_equity",
+                credit_positive=True,
             ),
             _detail("REVENUE_MEMO", 90, credit_positive=True),
             _detail("EXPENSE_MEMO", 100),

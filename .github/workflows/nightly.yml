@@ -5,15 +5,151 @@ on:
     - cron: "0 2 * * *"
   workflow_dispatch:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: nightly-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PIP_DISABLE_PIP_VERSION_CHECK: "1"
+  PYTHONUNBUFFERED: "1"
+
 jobs:
-  full-suite:
+  deterministic-suite:
+    name: Deterministic full-suite qualification
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - run: pip install -e ".[dev]"
-      - run: pytest tests/ -v --tb=short --timeout=300
-      - run: mypy src/
-      - run: ruff check src/ tests/
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install development tooling
+        run: python -m pip install -e ".[dev]"
+      - name: Run canonical non-PostgreSQL test collection
+        run: >-
+          python -m pytest
+          tests/unit tests/property tests/contract tests/integration
+          tests/golden tests/replay tests/concurrency
+          --ignore=tests/integration/test_django_postgresql_adapter.py
+          --ignore=tests/concurrency/test_django_postgresql_concurrency.py
+          --ignore=tests/integration/test_sqlalchemy_postgresql_adapter.py
+          --ignore=tests/concurrency/test_sqlalchemy_postgresql_concurrency.py
+          -v --tb=short --timeout=300
+      - name: Run strict type checking
+        run: python -m mypy src/
+      - name: Run Ruff lint
+        run: python -m ruff check src/ tests/ scripts/
+      - name: Run Ruff format check
+        run: python -m ruff format --check src/ tests/ scripts/
+
+  django-postgresql:
+    name: Nightly Django/PostgreSQL qualification
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: pyaccountingkit
+          POSTGRES_USER: pyaccountingkit
+          POSTGRES_PASSWORD: pyaccountingkit
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U pyaccountingkit -d pyaccountingkit"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DJANGO_SETTINGS_MODULE: tests.support.django_settings
+      PYAK_POSTGRES_TEST: "1"
+      PYAK_DB_NAME: pyaccountingkit
+      PYAK_DB_USER: pyaccountingkit
+      PYAK_DB_PASSWORD: pyaccountingkit
+      PYAK_DB_HOST: 127.0.0.1
+      PYAK_DB_PORT: "5432"
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install Django adapter qualification dependencies
+        run: python -m pip install -e ".[django]" pytest pytest-timeout
+      - name: Apply fresh Django migrations
+        run: python -m django migrate --noinput
+      - name: Require model and migration coherence
+        run: python -m django makemigrations pyaccountingkit_django --check --dry-run
+      - name: Run required Django/PostgreSQL modules
+        run: >-
+          python -m pytest
+          tests/integration/test_django_postgresql_adapter.py
+          tests/concurrency/test_django_postgresql_concurrency.py
+          -v --tb=short --timeout=300
+
+  sqlalchemy-postgresql:
+    name: Nightly SQLAlchemy/PostgreSQL qualification
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: pyaccountingkit
+          POSTGRES_USER: pyaccountingkit
+          POSTGRES_PASSWORD: pyaccountingkit
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U pyaccountingkit -d pyaccountingkit"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      PYAK_SQLALCHEMY_POSTGRES_TEST: "1"
+      PYAK_SQLALCHEMY_DATABASE_URL: postgresql+psycopg://pyaccountingkit:pyaccountingkit@127.0.0.1:5432/pyaccountingkit
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install SQLAlchemy adapter qualification dependencies
+        run: python -m pip install -e ".[sqlalchemy]" pytest pytest-timeout
+      - name: Apply fresh Alembic migrations
+        run: >-
+          python -c
+          "from pyaccountingkit.adapters.sqlalchemy.migrations import upgrade;
+          import os; upgrade(os.environ['PYAK_SQLALCHEMY_DATABASE_URL'])"
+      - name: Require Declarative metadata and migration coherence
+        run: python scripts/check_sqlalchemy_metadata.py
+      - name: Run required SQLAlchemy/PostgreSQL modules
+        run: >-
+          python -m pytest
+          tests/integration/test_sqlalchemy_postgresql_adapter.py
+          tests/concurrency/test_sqlalchemy_postgresql_concurrency.py
+          -v --tb=short --timeout=300
+
+  nightly-gate:
+    name: Nightly aggregate gate
+    if: ${{ always() }}
+    needs: [deterministic-suite, django-postgresql, sqlalchemy-postgresql]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      DETERMINISTIC_RESULT: ${{ needs.deterministic-suite.result }}
+      DJANGO_POSTGRESQL_RESULT: ${{ needs.django-postgresql.result }}
+      SQLALCHEMY_POSTGRESQL_RESULT: ${{ needs.sqlalchemy-postgresql.result }}
+    steps:
+      - name: Require every nightly qualification path
+        run: |
+          test "$DETERMINISTIC_RESULT" = "success"
+          test "$DJANGO_POSTGRESQL_RESULT" = "success"
+          test "$SQLALCHEMY_POSTGRESQL_RESULT" = "success"

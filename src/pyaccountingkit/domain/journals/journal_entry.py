@@ -111,6 +111,67 @@ class JournalEntry:
             reversed_by_id=self.reversed_by_id,
         )
 
+    def assert_persistence_successor(self, candidate: JournalEntry) -> None:
+        """Validate one repository update against immutable posted economics."""
+        if candidate.id != self.id:
+            raise InvalidEntryStateError(
+                f"Écriture {self.id}: persistence successor has different identity {candidate.id}"
+            )
+
+        if self.status not in {EntryStatus.POSTED, EntryStatus.REVERSED}:
+            return
+
+        immutable_before = (
+            self.journal_id,
+            self.period_id,
+            self.entry_date,
+            self.description,
+            self.lines,
+            self.entry_type,
+            self.posted_at,
+            self.reversal_of_id,
+        )
+        immutable_after = (
+            candidate.journal_id,
+            candidate.period_id,
+            candidate.entry_date,
+            candidate.description,
+            candidate.lines,
+            candidate.entry_type,
+            candidate.posted_at,
+            candidate.reversal_of_id,
+        )
+        if immutable_after != immutable_before:
+            raise InvalidEntryStateError(
+                f"Écriture {self.id}: posted economic content is immutable"
+            )
+
+        if self.status is EntryStatus.REVERSED:
+            if candidate != self:
+                raise InvalidEntryStateError(
+                    f"Écriture {self.id}: REVERSED entry is immutable"
+                )
+            return
+
+        if candidate.status is EntryStatus.POSTED:
+            if candidate.reversed_by_id != self.reversed_by_id:
+                raise InvalidEntryStateError(
+                    f"Écriture {self.id}: reversed_by_id cannot change while POSTED"
+                )
+            return
+
+        if candidate.status is EntryStatus.REVERSED:
+            if self.reversed_by_id is not None or candidate.reversed_by_id is None:
+                raise InvalidEntryStateError(
+                    f"Écriture {self.id}: invalid POSTED -> REVERSED persistence transition"
+                )
+            return
+
+        raise InvalidEntryStateError(
+            f"Écriture {self.id}: invalid persistence transition "
+            f"{self.status.value} -> {candidate.status.value}"
+        )
+
     def freeze(self, posted_at: datetime) -> JournalEntry:
         """Return a POSTED copy stamped with the canonical posting time."""
         if self.status is EntryStatus.DRAFT:

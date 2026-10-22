@@ -16,6 +16,7 @@ from pyaccountingkit.core.revisions import Revision
 from pyaccountingkit.domain.journals.journal import Journal
 from pyaccountingkit.domain.journals.journal_entry import EntryStatus, JournalEntry
 from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
+from pyaccountingkit.domain.traceability.accounting_execution import AccountingExecutionTrace
 
 
 class InMemoryJournalEntryRepository:
@@ -75,6 +76,26 @@ class InMemoryJournalEntryRepository:
         )
 
 
+class InMemoryAccountingExecutionTraceRepository:
+    """Append-only in-memory execution trace repository."""
+
+    def __init__(self, store: InMemoryStore) -> None:
+        self._store = store
+
+    def append(self, trace: AccountingExecutionTrace) -> None:
+        existing = self._store.execution_traces.get(trace.journal_entry_id)
+        if existing is not None:
+            if existing == trace:
+                return
+            raise RevisionConflictError(
+                f"Execution trace already exists for entry {trace.journal_entry_id}"
+            )
+        self._store.execution_traces[trace.journal_entry_id] = trace
+
+    def get_by_entry_id(self, entry_id: EntryId) -> AccountingExecutionTrace | None:
+        return self._store.execution_traces.get(entry_id)
+
+
 class InMemoryPeriodRepository:
     """In-memory store of accounting periods."""
 
@@ -120,6 +141,7 @@ class InMemoryJournalRepository:
 
 
 __all__ = [
+    "InMemoryAccountingExecutionTraceRepository",
     "InMemoryJournalEntryRepository",
     "InMemoryPeriodRepository",
     "InMemoryJournalRepository",

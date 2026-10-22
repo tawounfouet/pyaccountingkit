@@ -117,7 +117,7 @@ class PostingOrchestrator:
 
         idempotency_key = f"post:{entry.id}"
         if not uow.idempotency.claim(idempotency_key):
-            return self._replay(uow, entry.id, idempotency_key)
+            return self._replay(uow, entry, idempotency_key)
         resolved_chart = self._chart_resolver.resolve(
             entity_id=journal.entity_id,
             accounting_date=entry.entry_date,
@@ -180,13 +180,17 @@ class PostingOrchestrator:
     def _replay(
         self,
         uow: UnitOfWorkProtocol,
-        entry_id: EntryId,
+        requested_entry: JournalEntry,
         key: str,
     ) -> PostingResult:
-        stored = uow.entries.get(entry_id)
+        stored = uow.entries.get(requested_entry.id)
         if stored.status is not EntryStatus.POSTED:
             raise IdempotencyReplayError(
-                f"Clé {key} déjà consommée mais {entry_id} n'est pas POSTED"
+                f"Clé {key} déjà consommée mais {requested_entry.id} n'est pas POSTED"
+            )
+        if not stored.same_posting_intent(requested_entry):
+            raise IdempotencyReplayError(
+                f"Clé {key} réutilisée avec un contenu semantic différent"
             )
         return PostingResult(posted_entry=stored, idempotency_key=key, was_replayed=True)
 

@@ -33,8 +33,8 @@ from pyaccountingkit.core.errors import (
     PeriodNotFoundError,
     RevisionConflictError,
 )
-from pyaccountingkit.core.immutability import deep_thaw
 from pyaccountingkit.core.identifiers import EntryId, JournalId, PeriodId
+from pyaccountingkit.core.immutability import deep_thaw
 from pyaccountingkit.core.revisions import Revision
 from pyaccountingkit.domain.audit.events import AuditEvent
 from pyaccountingkit.domain.journals.journal import Journal

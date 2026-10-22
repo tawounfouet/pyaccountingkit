@@ -6,13 +6,13 @@ from dataclasses import dataclass
 
 from pyaccountingkit.core.entity_scope import require_same_entity
 from pyaccountingkit.core.money import Money
-from pyaccountingkit.domain.reporting.monetary_allocation import (
-    allocate_money_conservatively,
-)
 from pyaccountingkit.domain.reporting.errors import (
     RegulatoryMappingError,
     RegulatoryReferenceMismatchError,
     RegulatoryReportingError,
+)
+from pyaccountingkit.domain.reporting.monetary_allocation import (
+    allocate_money_conservatively,
 )
 from pyaccountingkit.domain.reporting.reference_reporting_model import (
     ReferenceReportingModel,

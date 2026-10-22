@@ -11,7 +11,13 @@ from pyaccountingkit.application.reporting.ledger_queries import (
     JournalQuery,
 )
 from pyaccountingkit.core.currency import EUR, USD
-from pyaccountingkit.core.identifiers import AccountId, EntityId, EntryId, JournalId, PeriodId
+from pyaccountingkit.core.identifiers import (
+    AccountId,
+    EntityId,
+    EntryId,
+    JournalId,
+    PeriodId,
+)
 from pyaccountingkit.core.money import Money
 from pyaccountingkit.domain.charts.account import CompanyAccount
 from pyaccountingkit.domain.charts.chart import CompanyChartOfAccounts
@@ -185,6 +191,6 @@ def test_general_ledger_ignores_other_accounts() -> None:
     with factory.open() as uow:
         uow.entries.add(_posted("e1", "411000", "100.00", day=10))
         uow.commit()
-    query = GeneralLedgerQuery(factory)
+    query = GeneralLedgerQuery(factory, _chart())
     missing = query.account_ledger(PeriodId("p_2024_01"), "999999")
     assert missing == ()

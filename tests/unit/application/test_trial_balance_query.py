@@ -4,10 +4,13 @@ from __future__ import annotations
 
 from datetime import UTC, date, datetime
 
+import pytest
+
 from pyaccountingkit.adapters.in_memory.store import InMemoryStore
 from pyaccountingkit.adapters.in_memory.unit_of_work import InMemoryUnitOfWorkFactory
 from pyaccountingkit.application.reporting.trial_balance_query import TrialBalanceQuery
 from pyaccountingkit.core.currency import EUR
+from pyaccountingkit.core.errors import EntityScopeMismatchError
 from pyaccountingkit.core.identifiers import (
     AccountId,
     EntityId,
@@ -72,14 +75,19 @@ def _chart() -> CompanyChartOfAccounts:
     )
 
 
-def _app() -> tuple[TrialBalanceQuery, InMemoryUnitOfWorkFactory, InMemoryStore]:
+def _app(
+    *,
+    period_entity_id: EntityId | None = None,
+) -> tuple[TrialBalanceQuery, InMemoryUnitOfWorkFactory, InMemoryStore]:
+    if period_entity_id is None:
+        period_entity_id = EntityId("ent")
     store = InMemoryStore()
     factory = InMemoryUnitOfWorkFactory(store)
     with factory.open() as uow:
         uow.periods.add(
             AccountingPeriod(
                 id=PeriodId(PERIOD),
-                entity_id=EntityId("ent"),
+                entity_id=period_entity_id,
                 fiscal_year_id=FiscalYearId("fy"),
                 start_date=date(2024, 1, 1),
                 end_date=date(2024, 1, 31),
@@ -105,6 +113,16 @@ def test_balance_aggregates_posted_entries() -> None:
     clients = tb.lines_for_account("411000")
     assert clients.sum_debit == Money.from_str("260.50", EUR)
     assert clients.label == "Clients"
+
+
+def test_balance_rejects_period_from_another_entity_instead_of_relabelling_it() -> None:
+    query, factory, _ = _app(period_entity_id=EntityId("other"))
+    with factory.open() as uow:
+        uow.entries.add(_posted("e_other", "411000", "100.00"))
+        uow.commit()
+
+    with pytest.raises(EntityScopeMismatchError):
+        query.balance_for(PERIOD)
 
 
 def test_draft_entries_are_excluded() -> None:

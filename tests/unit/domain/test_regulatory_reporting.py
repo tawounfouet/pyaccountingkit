@@ -224,3 +224,118 @@ def test_regulatory_report_checksum_is_deterministic() -> None:
 
     assert first.report.checksum == second.report.checksum
     assert first.validation.checksum == second.validation.checksum
+
+
+def test_regulatory_reporting_allocation_conserves_one_cent_and_negative_comparative() -> None:
+    snapshot = ReportSnapshot(
+        snapshot_id="financial-snapshot-allocation",
+        accounting_entity_id=ENTITY,
+        report_type=FinancialStatementType.CUSTOM,
+        source_period_id="FY2026",
+        source_checksum="source-allocation",
+        statement_definition_id="custom-allocation",
+        statement_definition_version="1",
+        statement_definition_checksum="statement-allocation",
+        mapping_set_id="statement-map-allocation",
+        mapping_set_version="1",
+        mapping_set_checksum="statement-map-allocation-checksum",
+        result_checksum="financial-allocation-result",
+        as_of=AS_OF,
+        created_at=datetime(2026, 12, 31, tzinfo=UTC),
+        status=ReportSnapshotStatus.PUBLISHED,
+        lines=(
+            ReportSnapshotLine(
+                code="FS_SPLIT",
+                label="Split source",
+                amount=Money.from_str("0.01", EUR),
+                comparative_amount=Money.from_str("-0.01", EUR),
+            ),
+        ),
+        checksum="sealed-financial-allocation",
+    )
+    model = ReferenceReportingModel(
+        model_id="pcg-allocation-model",
+        model_code="CUSTOM_ALLOCATION",
+        framework="PCG",
+        edition="2026",
+        reference_snapshot_id="ref-pcg-allocation-2026",
+        reference_snapshot_checksum="b" * 64,
+        nodes=(
+            ReferenceReportingNode(
+                node_id="left",
+                code="REG_LEFT",
+                label="Left",
+                node_type=ReferenceReportingNodeType.DETAIL,
+                order=1,
+            ),
+            ReferenceReportingNode(
+                node_id="right",
+                code="REG_RIGHT",
+                label="Right",
+                node_type=ReferenceReportingNodeType.DETAIL,
+                order=2,
+            ),
+        ),
+    )
+    profile = RegulatoryReportingProfile(
+        profile_id="pcg-allocation-profile",
+        code="PCG_ALLOCATION_2026",
+        framework="PCG",
+        jurisdiction="FR",
+        edition="2026",
+        version="1",
+        status=RegulatoryProfileStatus.ACTIVE,
+        reference_snapshot_id=model.reference_snapshot_id,
+        reference_snapshot_checksum=model.reference_snapshot_checksum,
+        financial_statement_definition_ids=(snapshot.statement_definition_id,),
+        regulatory_mapping_set_id="reg-map-allocation",
+        export_definition_ids=("json-allocation",),
+        effective_from=date(2026, 1, 1),
+        accounting_entity_id=ENTITY,
+    )
+    mapping_set = RegulatoryMappingSet(
+        mapping_set_id="reg-map-allocation",
+        accounting_entity_id=ENTITY,
+        profile_id=profile.profile_id,
+        reference_model_id=model.model_id,
+        version="1",
+        status=RegulatoryMappingSetStatus.ACTIVE,
+        mappings=(
+            RegulatoryStatementMapping(
+                mapping_id="alloc-a",
+                statement_line_code="FS_SPLIT",
+                reference_node_id="left",
+                allocation=Decimal("0.5"),
+                status=RegulatoryMappingStatus.VALIDATED,
+                provenance=RegulatoryMappingProvenance.MANUAL,
+                effective_from=date(2026, 1, 1),
+            ),
+            RegulatoryStatementMapping(
+                mapping_id="alloc-b",
+                statement_line_code="FS_SPLIT",
+                reference_node_id="right",
+                allocation=Decimal("0.5"),
+                status=RegulatoryMappingStatus.VALIDATED,
+                provenance=RegulatoryMappingProvenance.MANUAL,
+                effective_from=date(2026, 1, 1),
+            ),
+        ),
+        effective_from=date(2026, 1, 1),
+    )
+    service = RegulatoryReportingService(InMemoryReferenceReportingModelProvider((model,)))
+
+    result = service.build(
+        snapshot=snapshot,
+        profile=profile,
+        mapping_set=mapping_set,
+        model_code=model.model_code,
+    )
+
+    left = result.report.node("REG_LEFT")
+    right = result.report.node("REG_RIGHT")
+    assert left.amount == Money.from_str("0.01", EUR)
+    assert right.amount == Money.zero(EUR)
+    assert left.amount + right.amount == Money.from_str("0.01", EUR)
+    assert left.comparative_amount == Money.from_str("-0.01", EUR)
+    assert right.comparative_amount == Money.zero(EUR)
+    assert left.comparative_amount + right.comparative_amount == Money.from_str("-0.01", EUR)

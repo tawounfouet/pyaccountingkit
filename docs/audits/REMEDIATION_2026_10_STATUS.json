@@ -55,7 +55,7 @@
       "evidence_must_match_candidate_sha": true,
       "documentation_only_change_cannot_close_finding": true
     },
-    "current_phase": "REM-02",
+    "current_phase": "REM-03",
     "rem00_completed_on": "2026-10-22",
     "rem00_completion_evidence": {
       "remediation_plan_commit_sha": "fd0e2731582d7bb8eb0b7aecae41d2417aa40be5",
@@ -129,7 +129,34 @@
           "F04"
         ],
         "status": "FIXED_UNVERIFIED"
-      }
+      },
+      "third_slice": {
+        "implementation_pr": 79,
+        "superseded_pr": 77,
+        "pr_head_sha": "24ca388fe934278675f1e5d3143e479e59e0133b",
+        "merge_sha": "772c27242b018b4d6e67f833537be7ae1c0cabf6",
+        "pr_ci_run_id": 39847083560,
+        "pr_security_run_id": 39847083530,
+        "pr_ci_status": "PASS",
+        "findings": [
+          "F13",
+          "F18"
+        ],
+        "status": "FIXED_UNVERIFIED"
+      },
+      "implementation_status": "COMPLETE",
+      "findings": [
+        "F01",
+        "F02",
+        "F03",
+        "F04",
+        "F13",
+        "F18"
+      ],
+      "remaining_evidence": [
+        "Exact-main-SHA CI evidence for the combined REM-02 implementation before VERIFIED",
+        "REM-10 transverse requalification"
+      ]
     }
   },
   "lots": {
@@ -157,7 +184,7 @@
         "F13",
         "F18"
       ],
-      "status": "ACTIVE"
+      "status": "QUALIFYING"
     },
     "REM-03": {
       "title": "Posting / Repositories / Idempotency",
@@ -535,18 +562,31 @@
       "primary_remediation_lot": "REM-02",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "OPEN",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "772c27242b018b4d6e67f833537be7ae1c0cabf6",
+      "corrective_tests": [
+        "tests/unit/application/test_ledger_queries.py::test_general_ledger_resolves_code_to_opaque_account_id_and_preserves_currency",
+        "tests/unit/application/test_ledger_queries.py::test_general_ledger_running_balance"
+      ],
+      "qualification_evidence": [
+        "PR #79 head 24ca388fe934278675f1e5d3143e479e59e0133b: CI run 39847083560 PASS",
+        "PR #79 head 24ca388fe934278675f1e5d3143e479e59e0133b: Security run 39847083530 PASS",
+        "PR #79 head 24ca388fe934278675f1e5d3143e479e59e0133b: Django/PostgreSQL qualification PASS",
+        "PR #79 head 24ca388fe934278675f1e5d3143e479e59e0133b: SQLAlchemy/PostgreSQL qualification PASS",
+        "PR #79 head 24ca388fe934278675f1e5d3143e479e59e0133b: Canonical CI gate PASS"
+      ],
       "affected_components": [
         "ledger",
         "money",
         "account_identity"
       ],
-      "notes": []
+      "notes": [
+        "GeneralLedgerQuery resolves business account_code through CompanyChartOfAccounts to stable AccountId.",
+        "LedgerPosition now preserves AccountId and running balance uses the actual line currency rather than hard-coded EUR.",
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+      ]
     },
     {
       "id": "F14",
@@ -640,17 +680,28 @@
       "primary_remediation_lot": "REM-02",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "OPEN",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "772c27242b018b4d6e67f833537be7ae1c0cabf6",
+      "corrective_tests": [
+        "tests/unit/domain/test_chart.py::test_chart_rejects_duplicate_account_id_on_construction",
+        "tests/unit/domain/test_chart.py::test_chart_add_rejects_duplicate_account_id_even_with_different_code"
+      ],
+      "qualification_evidence": [
+        "PR #79 head 24ca388fe934278675f1e5d3143e479e59e0133b: CI run 39847083560 PASS",
+        "PR #79 head 24ca388fe934278675f1e5d3143e479e59e0133b: Security run 39847083530 PASS",
+        "PR #79 head 24ca388fe934278675f1e5d3143e479e59e0133b: Canonical CI gate PASS"
+      ],
       "affected_components": [
         "charts",
         "account_identity"
       ],
-      "notes": []
+      "notes": [
+        "CompanyChartOfAccounts enforces uniqueness of both account code and opaque AccountId.",
+        "Duplicate AccountId is rejected on construction and add().",
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+      ]
     },
     {
       "id": "F19",
@@ -936,5 +987,5 @@
     }
   ],
   "last_updated_on": "2026-10-22",
-  "last_updated_from_sha": "7d2f400b0cd6feac5dffc95161ec51b1eb23ced1"
+  "last_updated_from_sha": "772c27242b018b4d6e67f833537be7ae1c0cabf6"
 }

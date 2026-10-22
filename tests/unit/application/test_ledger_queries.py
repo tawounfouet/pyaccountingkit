@@ -10,9 +10,11 @@ from pyaccountingkit.application.reporting.ledger_queries import (
     GeneralLedgerQuery,
     JournalQuery,
 )
-from pyaccountingkit.core.currency import EUR
-from pyaccountingkit.core.identifiers import EntryId, JournalId, PeriodId
+from pyaccountingkit.core.currency import EUR, USD
+from pyaccountingkit.core.identifiers import AccountId, EntityId, EntryId, JournalId, PeriodId
 from pyaccountingkit.core.money import Money
+from pyaccountingkit.domain.charts.account import CompanyAccount
+from pyaccountingkit.domain.charts.chart import CompanyChartOfAccounts
 from pyaccountingkit.domain.journals.journal_entry import EntryStatus, JournalEntry
 from pyaccountingkit.domain.journals.journal_line import JournalLine
 
@@ -50,6 +52,46 @@ def _app() -> tuple[InMemoryUnitOfWorkFactory, InMemoryStore]:
     store = InMemoryStore()
     factory = InMemoryUnitOfWorkFactory(store)
     return factory, store
+
+
+def _chart() -> CompanyChartOfAccounts:
+    return CompanyChartOfAccounts(
+        entity_id=EntityId("ent"),
+        accounts=(
+            CompanyAccount(
+                id=AccountId("411000"),
+                entity_id=EntityId("ent"),
+                code="411000",
+                label="Clients",
+            ),
+            CompanyAccount(
+                id=AccountId("707000"),
+                entity_id=EntityId("ent"),
+                code="707000",
+                label="Ventes",
+            ),
+        ),
+    )
+
+
+def _opaque_chart() -> CompanyChartOfAccounts:
+    return CompanyChartOfAccounts(
+        entity_id=EntityId("ent"),
+        accounts=(
+            CompanyAccount(
+                id=AccountId("account:customers"),
+                entity_id=EntityId("ent"),
+                code="411000",
+                label="Clients",
+            ),
+            CompanyAccount(
+                id=AccountId("account:revenue"),
+                entity_id=EntityId("ent"),
+                code="707000",
+                label="Ventes",
+            ),
+        ),
+    )
 
 
 def test_journal_query_returns_only_posted_in_order() -> None:
@@ -91,7 +133,7 @@ def test_general_ledger_running_balance() -> None:
         uow.entries.add(_posted("e1", "411000", "100.00", day=10))
         uow.entries.add(_posted("e2", "411000", "50.00", day=20))
         uow.commit()
-    query = GeneralLedgerQuery(factory)
+    query = GeneralLedgerQuery(factory, _chart())
     positions = query.account_ledger(PeriodId("p_2024_01"), "411000")
     assert [p.running_balance for p in positions] == [
         Money.from_str("100.00", EUR),
@@ -99,6 +141,43 @@ def test_general_ledger_running_balance() -> None:
     ]
     assert positions[0].entry_id == "e1"
     assert positions[1].entry_id == "e2"
+
+
+def test_general_ledger_resolves_code_to_opaque_account_id_and_preserves_currency() -> None:
+    factory, _ = _app()
+    entry = JournalEntry(
+        id=EntryId("e_usd"),
+        journal_id=JournalId("j_ventes"),
+        period_id=PeriodId("p_2024_01"),
+        entry_date=date(2024, 1, 15),
+        description="USD sale",
+        status=EntryStatus.POSTED,
+        posted_at=datetime(2024, 1, 15, 8, 0, tzinfo=UTC),
+        lines=(
+            JournalLine(
+                account_id=AccountId("account:customers"),
+                debit=Money.from_str("125.00", USD),
+                credit=Money.zero(USD),
+            ),
+            JournalLine(
+                account_id=AccountId("account:revenue"),
+                debit=Money.zero(USD),
+                credit=Money.from_str("125.00", USD),
+            ),
+        ),
+    )
+    with factory.open() as uow:
+        uow.entries.add(entry)
+        uow.commit()
+
+    query = GeneralLedgerQuery(factory, _opaque_chart())
+    positions = query.account_ledger(PeriodId("p_2024_01"), "411000")
+
+    assert len(positions) == 1
+    assert positions[0].account_id == AccountId("account:customers")
+    assert positions[0].account_code == "411000"
+    assert positions[0].running_balance == Money.from_str("125.00", USD)
+    assert positions[0].running_balance.currency == USD
 
 
 def test_general_ledger_ignores_other_accounts() -> None:

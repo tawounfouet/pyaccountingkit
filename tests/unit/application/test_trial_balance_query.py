@@ -77,8 +77,10 @@ def _chart() -> CompanyChartOfAccounts:
 
 def _app(
     *,
-    period_entity_id: EntityId = EntityId("ent"),
+    period_entity_id: EntityId | None = None,
 ) -> tuple[TrialBalanceQuery, InMemoryUnitOfWorkFactory, InMemoryStore]:
+    if period_entity_id is None:
+        period_entity_id = EntityId("ent")
     store = InMemoryStore()
     factory = InMemoryUnitOfWorkFactory(store)
     with factory.open() as uow:

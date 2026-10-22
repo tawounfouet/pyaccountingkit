@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import date
+from datetime import UTC, date, datetime
 
 import pytest
 
@@ -159,8 +159,11 @@ def test_posted_entry_rejects_persistence_successor_with_changed_economics() -> 
         journal_id=posted.journal_id,
         period_id=posted.period_id,
         entry_date=posted.entry_date,
-        description="changed after posting",
-        lines=posted.lines,
+        description=posted.description,
+        lines=(
+            _line(debit="125.00", account="411"),
+            _line(credit="125.00", account="707"),
+        ),
         entry_type=posted.entry_type,
         status=EntryStatus.POSTED,
         posted_at=posted.posted_at,

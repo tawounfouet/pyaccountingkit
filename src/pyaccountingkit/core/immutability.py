@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Iterator, Mapping, Sequence
-from typing import Any, Generic, TypeVar, cast
+from typing import Any, Generic, TypeVar, cast, overload
 
 K = TypeVar("K")
 V = TypeVar("V")
@@ -43,8 +43,26 @@ class FrozenList(Sequence[V], Generic[V]):
     def __init__(self, values: Sequence[V]) -> None:
         self._items = tuple(values)
 
+    @overload
+    def __getitem__(self, index: int) -> V: ...
+
+    @overload
+    def __getitem__(self, index: slice) -> Sequence[V]: ...
+
     def __getitem__(self, index: int | slice) -> V | Sequence[V]:
         return self._items[index]
+
+    def _immutable(self, *_args: object, **_kwargs: object) -> None:
+        raise TypeError("FrozenList is immutable")
+
+    append = _immutable
+    clear = _immutable
+    extend = _immutable
+    insert = _immutable
+    pop = _immutable
+    remove = _immutable
+    reverse = _immutable
+    sort = _immutable
 
     def __len__(self) -> int:
         return len(self._items)

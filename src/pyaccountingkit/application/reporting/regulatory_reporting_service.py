@@ -18,7 +18,10 @@ from pyaccountingkit.domain.reporting.reference_reporting_model import (
     ReferenceReportingModel,
     ReferenceReportingValueType,
 )
-from pyaccountingkit.domain.reporting.regulatory_mapping import RegulatoryMappingSet
+from pyaccountingkit.domain.reporting.regulatory_mapping import (
+    RegulatoryMappingSet,
+    RegulatoryStatementMapping,
+)
 from pyaccountingkit.domain.reporting.regulatory_profile import RegulatoryReportingProfile
 from pyaccountingkit.domain.reporting.regulatory_report import (
     RegulatoryNodeValue,
@@ -110,7 +113,7 @@ class RegulatoryReportingService:
             for mapping in sorted(mapping_set.mappings, key=lambda item: item.mapping_id)
             if mapping.effective_on(snapshot.as_of) and mapping.is_executable
         )
-        mappings_by_source: dict[str, list[object]] = {}
+        mappings_by_source: dict[str, list[RegulatoryStatementMapping]] = {}
         for mapping in active_mappings:
             mappings_by_source.setdefault(mapping.statement_line_code, []).append(mapping)
 

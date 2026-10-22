@@ -128,9 +128,7 @@ class ClosingOrchestrator:
 
     def _load_fresh_post_closing_balance(self, period_id: PeriodId) -> TrialBalance:
         if self._trial_balance_provider is None:
-            raise ClosingEvidenceError(
-                "closing requires a configured fresh trial-balance provider"
-            )
+            raise ClosingEvidenceError("closing requires a configured fresh trial-balance provider")
         return self._trial_balance_provider(
             period_id,
             TrialBalanceSnapshot.POST_CLOSING,
@@ -152,13 +150,10 @@ class ClosingOrchestrator:
                 )
             if balance.snapshot is not TrialBalanceSnapshot.POST_CLOSING:
                 raise ClosingEvidenceError(
-                    f"{label} closing balance must be POST_CLOSING, got "
-                    f"{balance.snapshot.value}"
+                    f"{label} closing balance must be POST_CLOSING, got {balance.snapshot.value}"
                 )
             if balance.accounting_entity_id is None:
-                raise ClosingEvidenceError(
-                    f"{label} closing balance must pin accounting_entity_id"
-                )
+                raise ClosingEvidenceError(f"{label} closing balance must pin accounting_entity_id")
             require_same_entity(
                 period.entity_id,
                 balance.accounting_entity_id,

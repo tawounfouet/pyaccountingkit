@@ -99,7 +99,7 @@ class StatementLineDefinition:
                 )
 
     def present(self, value: Money) -> Money:
-        """Apply only presentation sign rules; never mutate ledger semantics."""
+        """Apply the presentation sign once to a mapped DETAIL value."""
         if self.sign_convention in {
             StatementSignConvention.NATURAL,
             StatementSignConvention.DEBIT_POSITIVE,

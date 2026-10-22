@@ -104,7 +104,7 @@ class ClosingOrchestrator:
             period = uow.periods.get(period_id)
             if period.status.is_closed():
                 raise PeriodClosedError(f"Période {period_id} déjà close")
-            closed = self._advance_to_closed(uow, period)
+            self._advance_to_closed(uow, period)
             self._carry_opening_balances(
                 uow,
                 trial_balance=trial_balance,

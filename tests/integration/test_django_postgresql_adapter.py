@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+from dataclasses import replace
 from datetime import UTC, date, datetime
 
 import pytest
@@ -27,6 +28,7 @@ from pyaccountingkit.adapters.django.models import (
 )
 from pyaccountingkit.adapters.django.unit_of_work import DjangoUnitOfWorkFactory
 from pyaccountingkit.core.clock import FrozenClock
+from pyaccountingkit.core.errors import InvalidEntryStateError
 from pyaccountingkit.core.currency import EUR
 from pyaccountingkit.core.identifiers import (
     AccountId,
@@ -124,6 +126,23 @@ def test_repository_round_trip_is_exact() -> None:
     assert factory.open().entries.get(EntryId("entry:1")) == entry
     assert JournalLineModel.objects.filter(entry_id="entry:1").count() == 2
     assert JournalEntryModel.objects.get(pk="entry:1").entry_type == "ADJUSTING"
+
+
+def test_posted_entry_economics_cannot_be_rewritten() -> None:
+    factory = DjangoUnitOfWorkFactory(clock=FrozenClock(NOW))
+    posted = _entry().validate().freeze(NOW)
+
+    with factory.open() as uow:
+        uow.entries.add(posted)
+        uow.commit()
+
+    with factory.open() as uow:
+        revision = uow.entries.get_revision(posted.id)
+        with pytest.raises(InvalidEntryStateError, match="immutable"):
+            uow.entries.save(replace(posted, description="rewritten"), revision)
+        uow.rollback()
+
+    assert DjangoUnitOfWorkFactory(clock=FrozenClock(NOW)).open().entries.get(posted.id) == posted
 
 
 def test_uncommitted_unit_of_work_rolls_back_every_sink() -> None:

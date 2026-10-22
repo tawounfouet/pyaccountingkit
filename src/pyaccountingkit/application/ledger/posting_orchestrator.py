@@ -230,9 +230,7 @@ class PostingOrchestrator:
                     str(entry.reversal_of_id) if entry.reversal_of_id is not None else None
                 ),
                 "execution_trace": (
-                    execution_trace.canonical_payload()
-                    if execution_trace is not None
-                    else None
+                    execution_trace.canonical_payload() if execution_trace is not None else None
                 ),
                 "lines": [
                     {

@@ -31,11 +31,7 @@ class CompanyChartOfAccounts:
         account_ids = [account.id for account in self.accounts]
         if len(account_ids) != len(set(account_ids)):
             dupes = sorted(
-                {
-                    str(account_id)
-                    for account_id in account_ids
-                    if account_ids.count(account_id) > 1
-                }
+                {str(account_id) for account_id in account_ids if account_ids.count(account_id) > 1}
             )
             raise ValueError(f"Duplicate account ids in chart: {dupes}")
 

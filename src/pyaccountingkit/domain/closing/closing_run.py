@@ -106,9 +106,7 @@ class CloseGate:
 
         missing = sorted(code for code in self._blocking_codes if code not in by_code)
         if missing:
-            raise ControlFailureError(
-                f"Contrôles bloquants absents, clôture refusée: {missing}"
-            )
+            raise ControlFailureError(f"Contrôles bloquants absents, clôture refusée: {missing}")
 
         invalid: list[str] = []
         for code in sorted(self._blocking_codes):

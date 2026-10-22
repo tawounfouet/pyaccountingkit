@@ -13,6 +13,7 @@ from types import TracebackType
 from typing import Any, Self
 
 from pyaccountingkit.adapters.in_memory.repositories import (
+    InMemoryAccountingExecutionTraceRepository,
     InMemoryJournalEntryRepository,
     InMemoryJournalRepository,
     InMemoryPeriodRepository,
@@ -88,6 +89,7 @@ class InMemoryUnitOfWork:
         self.audit = InMemoryAuditLogSink(store)
         self.idempotency = InMemoryIdempotencyStore(store)
         self.outbox = InMemoryOutboxPublisher(store)
+        self.execution_traces = InMemoryAccountingExecutionTraceRepository(store)
 
     def __enter__(self) -> Self:
         self._baseline = self._store.copy()
@@ -159,6 +161,12 @@ class InMemoryUnitOfWork:
             self._working.idempotency_fingerprints,
             self._store.idempotency_fingerprints,
         )
+        self._validate_mapping_changes(
+            "Accounting execution trace",
+            baseline.execution_traces,
+            self._working.execution_traces,
+            self._store.execution_traces,
+        )
 
         if self._working.audit_log[: len(baseline.audit_log)] != baseline.audit_log:
             raise RevisionConflictError("audit log prefix changed inside UnitOfWork")
@@ -194,6 +202,11 @@ class InMemoryUnitOfWork:
             baseline.idempotency_fingerprints,
             self._working.idempotency_fingerprints,
             self._store.idempotency_fingerprints,
+        )
+        self._merge_mapping(
+            baseline.execution_traces,
+            self._working.execution_traces,
+            self._store.execution_traces,
         )
         self._store.audit_log.extend(self._working.audit_log[len(baseline.audit_log) :])
         self._store.outbox.extend(self._working.outbox[len(baseline.outbox) :])

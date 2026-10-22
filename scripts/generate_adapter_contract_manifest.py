@@ -117,7 +117,7 @@ _LEGACY_CONTRACTS: dict[str, object] = json.loads(r"""{
     "database": "PostgreSQL 16",
     "unit_of_work": "SessionUnitOfWork",
     "unit_of_work_factory": "SQLAlchemyUnitOfWorkFactory",
-    "migration_baseline": "0003_idempotency_payload_fingerprint",
+    "migration_baseline": "0003_idem_fingerprint",
     "public_api_orm_leakage": false,
     "qualified_behaviors": [
       "fresh_migration",

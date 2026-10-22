@@ -17,6 +17,7 @@ from pyaccountingkit.core.currency import EUR
 from pyaccountingkit.core.errors import (
     EntryNotFoundError,
     InvalidEntryStateError,
+    PeriodNotFoundError,
     RevisionConflictError,
 )
 from pyaccountingkit.core.identifiers import EntityId, EntryId, FiscalYearId, JournalId, PeriodId
@@ -26,6 +27,7 @@ from pyaccountingkit.domain.journals.journal import Journal
 from pyaccountingkit.domain.journals.journal_entry import JournalEntry
 from pyaccountingkit.domain.journals.journal_line import JournalLine
 from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
+from pyaccountingkit.domain.periods.closing_status import ClosingStatus
 from pyaccountingkit.ports.outbox import OutboxRecord
 from pyaccountingkit.ports.unit_of_work import UnitOfWorkFactoryProtocol
 
@@ -160,6 +162,62 @@ def test_commit_persists_period_and_journal(name: str) -> None:
     with factory.open() as uow:
         assert uow.periods.get(period.id) == period
         assert uow.journals.get(journal.id) == journal
+        uow.rollback()
+
+
+@pytest.mark.parametrize("name", FACTORIES)
+def test_period_save_rejects_missing_period(name: str) -> None:
+    factory = _new_factory(name)
+    with factory.open() as uow:
+        with pytest.raises(PeriodNotFoundError):
+            uow.periods.save(_monthly_period())
+        uow.rollback()
+
+
+@pytest.mark.parametrize("name", FACTORIES)
+def test_period_save_rejects_coordinate_rewrite(name: str) -> None:
+    factory = _new_factory(name)
+    period = _monthly_period()
+    with factory.open() as uow:
+        uow.periods.add(period)
+        uow.commit()
+
+    rewritten = replace(period, entity_id=EntityId("other"))
+    with factory.open() as uow:
+        with pytest.raises(ValueError, match="immutable"):
+            uow.periods.save(rewritten)
+        uow.rollback()
+
+
+@pytest.mark.parametrize("name", FACTORIES)
+def test_period_save_rejects_illegal_status_jump(name: str) -> None:
+    factory = _new_factory(name)
+    period = _monthly_period()
+    with factory.open() as uow:
+        uow.periods.add(period)
+        uow.commit()
+
+    with factory.open() as uow:
+        with pytest.raises(ValueError, match="Transition invalide"):
+            uow.periods.save(replace(period, status=ClosingStatus.CLOSED))
+        uow.rollback()
+
+
+@pytest.mark.parametrize("name", FACTORIES)
+def test_period_save_accepts_legal_status_transition(name: str) -> None:
+    factory = _new_factory(name)
+    period = _monthly_period()
+    with factory.open() as uow:
+        uow.periods.add(period)
+        uow.commit()
+
+    reviewed = period.with_status(ClosingStatus.REVIEW)
+    with factory.open() as uow:
+        uow.periods.save(reviewed)
+        uow.commit()
+
+    with factory.open() as uow:
+        assert uow.periods.get(period.id) == reviewed
         uow.rollback()
 
 

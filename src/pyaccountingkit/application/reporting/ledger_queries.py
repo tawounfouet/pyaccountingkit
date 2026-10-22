@@ -6,9 +6,9 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 from datetime import date
 
-from pyaccountingkit.core.currency import EUR
-from pyaccountingkit.core.identifiers import JournalId, PeriodId
+from pyaccountingkit.core.identifiers import AccountId, JournalId, PeriodId
 from pyaccountingkit.core.money import Money
+from pyaccountingkit.domain.charts.chart import CompanyChartOfAccounts
 from pyaccountingkit.domain.journals.journal_entry import JournalEntry
 from pyaccountingkit.ports.unit_of_work import UnitOfWorkFactoryProtocol
 
@@ -40,6 +40,7 @@ class JournalQuery:
 class LedgerPosition:
     """One posted line with its running signed balance for the account."""
 
+    account_id: AccountId
     account_code: str
     entry_id: str
     entry_date: date
@@ -51,9 +52,13 @@ class LedgerPosition:
 class GeneralLedgerQuery:
     """Computes per-account running balances over a period's posted entries."""
 
-    def __init__(self, uow_factory: UnitOfWorkFactoryProtocol) -> None:
+    def __init__(
+        self,
+        uow_factory: UnitOfWorkFactoryProtocol,
+        chart: CompanyChartOfAccounts,
+    ) -> None:
         self._uow_factory = uow_factory
-        self._currency = EUR
+        self._chart = chart
 
     def account_ledger(
         self,
@@ -61,18 +66,26 @@ class GeneralLedgerQuery:
         account_code: str,
     ) -> Sequence[LedgerPosition]:
         """Return, in chronological order, the positions of one account."""
+        account = self._chart.get_by_code(account_code)
+        if account is None:
+            return ()
+
         with self._uow_factory.open() as uow:
             entries = _chronological(uow.entries.list_by_period(period_id))
-        running = Money.zero(self._currency)
+
+        running: Money | None = None
         positions: list[LedgerPosition] = []
         for entry in entries:
             for line in entry.lines:
-                if str(line.account_id) != account_code:
+                if line.account_id != account.id:
                     continue
+                if running is None:
+                    running = Money.zero(line.currency)
                 running = running + line.debit - line.credit
                 positions.append(
                     LedgerPosition(
-                        account_code=account_code,
+                        account_id=account.id,
+                        account_code=account.code,
                         entry_id=str(entry.id),
                         entry_date=entry.entry_date,
                         debit=line.debit,

@@ -371,6 +371,12 @@ def validate_release_text(text: str) -> list[str]:
                 f"Release: expected {expected} occurrence(s) of {snippet!r}, found {actual}"
             )
 
+    repository_context = 'GH_REPO: ${{ github.repository }}'
+    if text.count(repository_context) != 2:
+        violations.append(
+            "Release: GitHub CLI edit and verify steps both require explicit GH_REPO context"
+        )
+
     forbidden = (
         "actions/checkout@v4",
         "actions/setup-python@v5",

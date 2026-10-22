@@ -4689,7 +4689,8 @@ REM-01  IMPLEMENTED / QUALIFYING
 REM-02  IMPLEMENTED / QUALIFYING
 REM-03  IMPLEMENTED / QUALIFYING
 REM-04  IMPLEMENTED / QUALIFYING
-REM-06  ACTIVE
+REM-06  IMPLEMENTED / QUALIFYING
+REM-05  ACTIVE
 ```
 
 REM-04 implementation evidence :
@@ -4702,18 +4703,18 @@ PR #84  A03
 The immediate execution is now :
 
 ```text
-REM-06
-Calculation / Classification / Checksums
-    ↓
 REM-05
 Closing / Opening Atomicity
+    ↓
+REM-07
+Safe References / Validated Publication
 ```
 
 REM-01 through REM-04 are not declared VERIFIED yet. Their findings remain `FIXED_UNVERIFIED` until exact-main-SHA and REM-10 transverse qualification evidence is recorded.
 
 ---
 
-# 98. REM-06 active scope
+# 98. REM-06 completed implementation scope
 
 ```text
 F12
@@ -4728,6 +4729,17 @@ allocation must preserve cents and avoid premature rounding
 F21
 sign conventions must be applied exactly once
 ```
+
+Implementation evidence :
+
+```text
+PR #85  F12/F15
+PR #87  F16 / LOT-28R Conservative Monetary Allocation
+PR #88  F21 / LOT-29R Reporting Sign Semantics
+```
+
+All REM-06 findings are now `FIXED_UNVERIFIED`; implementation is complete.
+Exact-main-SHA evidence and REM-10 transverse qualification remain required before `VERIFIED`.
 
 Required approach :
 
@@ -4855,11 +4867,11 @@ EVOLVE IT
 Le prochain travail concret est donc :
 
 ```text
-REM-06
-Calculation / Classification / Checksums
-    ↓
 REM-05
 Closing / Opening Atomicity
+    ↓
+REM-07
+Safe References / Validated Publication
 ```
 
 REM-01 à REM-04 sont implémentés mais restent en qualification ; aucune fermeture `VERIFIED` n'est revendiquée sans preuve exact-SHA et REM-10.

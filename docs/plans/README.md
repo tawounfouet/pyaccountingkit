@@ -62,7 +62,11 @@ LOT-39 → LOT-46
 ```
 
 > [!IMPORTANT]
-> Les documents d'audit et de remédiation existent comme sources de pilotage de la session du 22 octobre 2026, mais ne sont pas encore indexés ici comme liens GitHub tant qu'ils ne sont pas ajoutés au dépôt.
+> Les documents de pilotage `33` et `34` sont désormais présents dans le dépôt :
+> - [`33_PYACCOUNTINGKIT_NEXT_STEPS_IMPLEMENTATION_PLAN.md`](33_PYACCOUNTINGKIT_NEXT_STEPS_IMPLEMENTATION_PLAN.md)
+> - [`34_PYACCOUNTINGKIT_AUDIT_REMEDIATION_AND_ROADMAP_ALIGNMENT.md`](34_PYACCOUNTINGKIT_AUDIT_REMEDIATION_AND_ROADMAP_ALIGNMENT.md)
+>
+> Les artifacts opérationnels de `REM-00` restent à créer : `REMEDIATION_2026_10_PLAN.md` et `docs/audits/REMEDIATION_2026_10_STATUS.json`.
 
 ---
 
@@ -95,7 +99,7 @@ REM-00 → REM-10
 LOT-39 → LOT-46
 ```
 
-Les nouveaux lots stratégiques ne disposent pas encore tous d'un fichier `PLAN-xx` dédié dans ce dossier ; ils sont définis dans `docs/ROADMAP.md` et les specs `24 → 32`.
+Les nouveaux lots stratégiques ne disposent pas encore tous d'un fichier `PLAN-xx` dédié dans ce dossier ; ils sont définis dans `docs/ROADMAP.md` et les specs `24 → 32` puis `35 → 38`.
 
 
 
@@ -198,6 +202,16 @@ LOT-39 Architecture Fitness
     ↓
 LOT-43 Testing Toolkit
     ↓
+35 Business Lifecycles
+    ↓
+36 State Machines
+    ↓
+37 Domain Event Coverage
+    ↓
+38 Lifecycle / State / Event Mapping
+    ↓
+25 Event Envelope / Causality
+    ↓
 LOT-40 Domain Events
     ↓
 LOT-41 Reproducibility
@@ -295,14 +309,14 @@ graph TD
 
 ---
 
-## 2.3 Extension stratégique issue des specs `24 → 32`
+## 2.3 Extension stratégique issue des specs `24 → 38`
 
-| Lot | Objet | Spec principale | Horizon |
+| Lot | Objet | Specs principales | Horizon |
 |---|---|---|---|
 | `LOT-39` | Architecture Fitness Functions | `24` | `0.8.x` |
-| `LOT-40` | Domain Events / Causality / Envelope | `25` | `0.8.x` |
+| `LOT-40` | Domain Events / Causality / Envelope | `25,35,36,37,38` | `0.8.x` |
 | `LOT-41` | Reproducibility & Computation Manifests | `26` | `0.8.x` |
-| `LOT-42` | Golden Accounting & Concurrency | `27` | `0.8.x` |
+| `LOT-42` | Golden Accounting & Concurrency | `27` + transition/event matrices `35..38` | `0.8.x` |
 | `LOT-43` | Testing Toolkit Foundations | `28` | `0.8.x` |
 | `LOT-44` | Uncertainty / Recovery / External Effects | `30` | `0.8.x` |
 | `LOT-45` | Domain-First Migration Foundations | `29` | post-1.0 progressif |
@@ -317,6 +331,39 @@ Hexagonal / Ports & Adapters
 +
 Clean dependency direction
 ```
+
+### Modeling Gate de LOT-40
+
+Les specs `35 → 38` ne créent pas de nouveaux lots. Elles constituent le prérequis de conception de `LOT-40` :
+
+```text
+35 Business Lifecycles
+    ↓
+36 State Machines
+    ↓
+37 Domain Event Coverage
+    ↓
+38 Lifecycle / State / Event Mapping
+    ↓
+25 Event Envelope / Causality
+    ↓
+LOT-40
+```
+
+Entrée minimale dans `LOT-40` :
+
+```text
+lifecycle catalog approved
+critical transitions identified
+event coverage classified
+audit/outbox/integration mapping decided
+event envelope contract approved
+```
+
+Les documents de pilotage associés sont :
+
+- [`33_PYACCOUNTINGKIT_NEXT_STEPS_IMPLEMENTATION_PLAN.md`](33_PYACCOUNTINGKIT_NEXT_STEPS_IMPLEMENTATION_PLAN.md)
+- [`34_PYACCOUNTINGKIT_AUDIT_REMEDIATION_AND_ROADMAP_ALIGNMENT.md`](34_PYACCOUNTINGKIT_AUDIT_REMEDIATION_AND_ROADMAP_ALIGNMENT.md)
 
 ---
 
@@ -354,23 +401,26 @@ La documentation de pilotage doit désormais être lue dans cet ordre :
 ```text
 docs/ROADMAP.md
     ↓
-audit 2026-10-22
+33 Next Steps Implementation Plan
     ↓
-remediation plan REM-00..REM-10
+34 Audit / Remediation / Roadmap Alignment
     ↓
-implementation plans
+REM-00..REM-10 operational artifacts
     ↓
-release qualification evidence
+implementation / qualification evidence
 ```
 
-Les artifacts attendus pour la remédiation sont :
+Liens canoniques disponibles :
+
+- [`33_PYACCOUNTINGKIT_NEXT_STEPS_IMPLEMENTATION_PLAN.md`](33_PYACCOUNTINGKIT_NEXT_STEPS_IMPLEMENTATION_PLAN.md)
+- [`34_PYACCOUNTINGKIT_AUDIT_REMEDIATION_AND_ROADMAP_ALIGNMENT.md`](34_PYACCOUNTINGKIT_AUDIT_REMEDIATION_AND_ROADMAP_ALIGNMENT.md)
+
+Artifacts encore attendus pour lancer formellement `REM-00` :
 
 ```text
 docs/plans/REMEDIATION_2026_10_PLAN.md
 docs/audits/REMEDIATION_2026_10_STATUS.json
 ```
-
-Ils doivent être ajoutés au dépôt avant d'être transformés en liens canoniques dans cet index.
 
 ### 4.1. Structure Générale & Spécifications
 - Centre de documentation racine : [`../README.md`](../README.md)
@@ -382,6 +432,7 @@ Ils doivent être ajoutés au dépôt avant d'être transformés en liens canoni
   - Reporting & Analyses : [`../specs/03_reporting-analytics/`](../specs/03_reporting-analytics/)
   - Intégration & Infra : [`../specs/04_integration-infra/`](../specs/04_integration-infra/)
   - Ingénierie & Gouvernance : [`../specs/05_engineering-governance/`](../specs/05_engineering-governance/)
+  - Architecture Evolution & Hardening : [`../specs/06_architecture-evolution/`](../specs/06_architecture-evolution/)
 
 ### 4.2. Ouvrages de Référence Doctrinale (`docs/books/`)
 - 📖 **[Comptabilité générale : Système français et normes IFRS](../books/Comptabilite_Generale_Systeme_Francais_et_Normes_IFRS.md)** (J. Richard, C. Collette — Dunod) : source académique cardinale pour la partie double, les invariants, la théorie de la clôture, l'évaluation et les comptes de groupe consolidés.

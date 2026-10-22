@@ -129,6 +129,34 @@ class JournalLineTable(Base):
     label: Mapped[str] = mapped_column(String(255), default="")
 
 
+class AccountingExecutionTraceTable(Base):
+    __tablename__ = "pyak_accounting_execution_trace"
+    __table_args__ = (
+        UniqueConstraint(
+            "journal_entry_id",
+            name="uq_pyak_execution_trace_entry",
+        ),
+    )
+
+    trace_id: Mapped[str] = mapped_column(String(128), primary_key=True)
+    entity_id: Mapped[str] = mapped_column(String(128), index=True)
+    accounting_date: Mapped[date] = mapped_column(Date, index=True)
+    proposal_checksum: Mapped[str] = mapped_column(String(64), index=True)
+    resolved_account_ids: Mapped[list[str]] = mapped_column(JSON, default=list)
+    journal_entry_id: Mapped[str] = mapped_column(
+        ForeignKey("pyak_journal_entry.id", ondelete="RESTRICT"),
+    )
+    company_chart_id: Mapped[str] = mapped_column(String(128))
+    company_chart_version: Mapped[str] = mapped_column(String(128))
+    company_chart_reference_snapshot_id: Mapped[str] = mapped_column(String(128))
+    policy_set_ids: Mapped[list[str]] = mapped_column(JSON, default=list)
+    policy_set_versions: Mapped[list[str]] = mapped_column(JSON, default=list)
+    policy_ids: Mapped[list[str]] = mapped_column(JSON, default=list)
+    policy_versions: Mapped[list[str]] = mapped_column(JSON, default=list)
+    policy_reference_snapshot_ids: Mapped[list[str]] = mapped_column(JSON, default=list)
+    source_reference: Mapped[str] = mapped_column(Text, default="")
+
+
 class AuditEventTable(Base):
     __tablename__ = "pyak_audit_event"
 
@@ -159,6 +187,7 @@ class OutboxMessageTable(Base):
 
 
 __all__ = [
+    "AccountingExecutionTraceTable",
     "AccountingPeriodTable",
     "AuditEventTable",
     "Base",

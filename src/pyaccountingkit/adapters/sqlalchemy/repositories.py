@@ -18,6 +18,7 @@ from pyaccountingkit.adapters.sqlalchemy.mappers import (
     period_to_table,
 )
 from pyaccountingkit.adapters.sqlalchemy.tables import (
+    AccountingExecutionTraceTable,
     AccountingPeriodTable,
     AuditEventTable,
     IdempotencyRecordTable,
@@ -33,13 +34,14 @@ from pyaccountingkit.core.errors import (
     PeriodNotFoundError,
     RevisionConflictError,
 )
-from pyaccountingkit.core.identifiers import EntryId, JournalId, PeriodId
+from pyaccountingkit.core.identifiers import AccountId, EntityId, EntryId, JournalId, PeriodId
 from pyaccountingkit.core.immutability import deep_thaw
 from pyaccountingkit.core.revisions import Revision
 from pyaccountingkit.domain.audit.events import AuditEvent
 from pyaccountingkit.domain.journals.journal import Journal
 from pyaccountingkit.domain.journals.journal_entry import EntryStatus, JournalEntry
 from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
+from pyaccountingkit.domain.traceability.accounting_execution import AccountingExecutionTrace
 from pyaccountingkit.ports.outbox import OutboxRecord
 
 
@@ -254,6 +256,72 @@ class SQLAlchemyJournalRepository:
         return journal_to_domain(row)
 
 
+class SQLAlchemyAccountingExecutionTraceRepository:
+    """Append-only accounting execution traces in PostgreSQL."""
+
+    def __init__(self, session: Session) -> None:
+        self._session = session
+
+    def append(self, trace: AccountingExecutionTrace) -> None:
+        try:
+            with self._session.begin_nested():
+                self._session.add(
+                    AccountingExecutionTraceTable(
+                        trace_id=trace.trace_id,
+                        entity_id=str(trace.entity_id),
+                        accounting_date=trace.accounting_date,
+                        proposal_checksum=trace.proposal_checksum,
+                        resolved_account_ids=[str(item) for item in trace.resolved_account_ids],
+                        journal_entry_id=str(trace.journal_entry_id),
+                        company_chart_id=trace.company_chart_id,
+                        company_chart_version=trace.company_chart_version,
+                        company_chart_reference_snapshot_id=(
+                            trace.company_chart_reference_snapshot_id
+                        ),
+                        policy_set_ids=list(trace.policy_set_ids),
+                        policy_set_versions=list(trace.policy_set_versions),
+                        policy_ids=list(trace.policy_ids),
+                        policy_versions=list(trace.policy_versions),
+                        policy_reference_snapshot_ids=list(trace.policy_reference_snapshot_ids),
+                        source_reference=trace.source_reference,
+                    )
+                )
+                self._session.flush()
+        except IntegrityError:
+            existing = self.get_by_entry_id(trace.journal_entry_id)
+            if existing == trace:
+                return
+            raise RevisionConflictError(
+                f"Execution trace already exists for entry {trace.journal_entry_id}"
+            ) from None
+
+    def get_by_entry_id(self, entry_id: EntryId) -> AccountingExecutionTrace | None:
+        row = self._session.scalar(
+            select(AccountingExecutionTraceTable).where(
+                AccountingExecutionTraceTable.journal_entry_id == str(entry_id)
+            )
+        )
+        if row is None:
+            return None
+        return AccountingExecutionTrace(
+            trace_id=row.trace_id,
+            entity_id=EntityId(row.entity_id),
+            accounting_date=row.accounting_date,
+            proposal_checksum=row.proposal_checksum,
+            resolved_account_ids=tuple(AccountId(item) for item in row.resolved_account_ids),
+            journal_entry_id=EntryId(row.journal_entry_id),
+            company_chart_id=row.company_chart_id,
+            company_chart_version=row.company_chart_version,
+            company_chart_reference_snapshot_id=row.company_chart_reference_snapshot_id,
+            policy_set_ids=tuple(row.policy_set_ids),
+            policy_set_versions=tuple(row.policy_set_versions),
+            policy_ids=tuple(row.policy_ids),
+            policy_versions=tuple(row.policy_versions),
+            policy_reference_snapshot_ids=tuple(row.policy_reference_snapshot_ids),
+            source_reference=row.source_reference,
+        )
+
+
 class SQLAlchemyAuditLogSink:
     """Persist audit records in the enclosing Session transaction."""
 
@@ -326,6 +394,7 @@ class SQLAlchemyOutboxPublisher:
 
 
 __all__ = [
+    "SQLAlchemyAccountingExecutionTraceRepository",
     "SQLAlchemyAuditLogSink",
     "SQLAlchemyIdempotencyStore",
     "SQLAlchemyJournalEntryRepository",

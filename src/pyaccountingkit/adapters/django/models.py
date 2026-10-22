@@ -135,6 +135,33 @@ class JournalLineModel(models.Model):
         ]
 
 
+class AccountingExecutionTraceModel(models.Model):
+    trace_id = models.CharField(max_length=128, primary_key=True)
+    entity_id = models.CharField(max_length=128, db_index=True)
+    accounting_date = models.DateField(db_index=True)
+    proposal_checksum = models.CharField(max_length=64, db_index=True)
+    resolved_account_ids = models.JSONField(default=list)
+    journal_entry = models.OneToOneField(
+        JournalEntryModel,
+        on_delete=models.PROTECT,
+        related_name="+",
+    )
+    company_chart_id = models.CharField(max_length=128)
+    company_chart_version = models.CharField(max_length=128)
+    company_chart_reference_snapshot_id = models.CharField(max_length=128)
+    policy_set_ids = models.JSONField(default=list)
+    policy_set_versions = models.JSONField(default=list)
+    policy_ids = models.JSONField(default=list)
+    policy_versions = models.JSONField(default=list)
+    policy_reference_snapshot_ids = models.JSONField(default=list)
+    source_reference = models.TextField(blank=True, default="")
+
+    class Meta:
+        app_label = "pyaccountingkit_django"
+        db_table = "pyak_accounting_execution_trace"
+        ordering = ("accounting_date", "trace_id")
+
+
 class AuditEventModel(models.Model):
     id = models.BigAutoField(primary_key=True)
     event_type = models.CharField(max_length=128, db_index=True)
@@ -173,6 +200,7 @@ class OutboxMessageModel(models.Model):
 
 
 __all__ = [
+    "AccountingExecutionTraceModel",
     "AccountingPeriodModel",
     "AuditEventModel",
     "IdempotencyRecordModel",

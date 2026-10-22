@@ -18,6 +18,7 @@ import django
 django.setup()
 
 from pyaccountingkit.adapters.django.models import (
+    AccountingExecutionTraceModel,
     AccountingPeriodModel,
     AuditEventModel,
     IdempotencyRecordModel,
@@ -45,6 +46,7 @@ from pyaccountingkit.domain.journals.journal_entry import EntryType, JournalEntr
 from pyaccountingkit.domain.journals.journal_line import JournalLine
 from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
 from pyaccountingkit.domain.periods.closing_status import ClosingStatus
+from pyaccountingkit.domain.traceability.accounting_execution import AccountingExecutionTrace
 from pyaccountingkit.ports.outbox import OutboxRecord
 
 NOW = datetime(2026, 9, 18, 9, 0, tzinfo=UTC)
@@ -57,6 +59,7 @@ PERIOD_ID = PeriodId("period:2026-09")
 def clean_postgresql_adapter_tables() -> None:
     """Keep every test isolated while exercising the real migrated schema."""
 
+    AccountingExecutionTraceModel.objects.all().delete()
     JournalLineModel.objects.all().delete()
     JournalEntryModel.objects.all().delete()
     OutboxMessageModel.objects.all().delete()
@@ -82,6 +85,26 @@ def _period() -> AccountingPeriod:
         fiscal_year_id=FiscalYearId("fy:2026"),
         start_date=date(2026, 9, 1),
         end_date=date(2026, 9, 30),
+    )
+
+
+def _execution_trace(entry_id: str = "entry:1") -> AccountingExecutionTrace:
+    return AccountingExecutionTrace(
+        trace_id=f"acct:{entry_id}",
+        entity_id=ENTITY,
+        accounting_date=date(2026, 9, 18),
+        proposal_checksum="a" * 64,
+        resolved_account_ids=(AccountId("411000"), AccountId("707000")),
+        journal_entry_id=EntryId(entry_id),
+        company_chart_id="chart:postgres",
+        company_chart_version="v1",
+        company_chart_reference_snapshot_id="snapshot:1",
+        policy_set_ids=("ps:1",),
+        policy_set_versions=("1",),
+        policy_ids=("policy:1",),
+        policy_versions=("1.0",),
+        policy_reference_snapshot_ids=("snapshot:1",),
+        source_reference="source:1",
     )
 
 
@@ -177,6 +200,32 @@ def test_period_repository_rejects_skipped_transition_and_scope_rewrite() -> Non
         with pytest.raises(ValueError, match="immutable"):
             uow.periods.save(replace(period, entity_id=EntityId("entity:other")))
         uow.rollback()
+
+
+def test_execution_trace_is_atomic_with_accounting_entry() -> None:
+    factory = DjangoUnitOfWorkFactory(clock=FrozenClock(NOW))
+    trace = _execution_trace()
+
+    with factory.open() as uow:
+        uow.journals.add(_journal())
+        uow.periods.add(_period())
+        uow.entries.add(_entry())
+        uow.execution_traces.append(trace)
+        uow.commit()
+
+    assert AccountingExecutionTraceModel.objects.filter(pk=trace.trace_id).count() == 1
+    with factory.open() as uow:
+        assert uow.execution_traces.get_by_entry_id(EntryId("entry:1")) == trace
+        uow.rollback()
+
+    rolled_back_trace = _execution_trace("entry:rollback")
+    with factory.open() as uow:
+        uow.entries.add(_entry("entry:rollback"))
+        uow.execution_traces.append(rolled_back_trace)
+        uow.rollback()
+
+    assert not JournalEntryModel.objects.filter(pk="entry:rollback").exists()
+    assert not AccountingExecutionTraceModel.objects.filter(pk=rolled_back_trace.trace_id).exists()
 
 
 def test_uncommitted_unit_of_work_rolls_back_every_sink() -> None:

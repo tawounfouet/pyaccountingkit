@@ -10,6 +10,7 @@ from typing import Protocol
 
 from pyaccountingkit.core.clock import ClockProtocol
 from pyaccountingkit.ports.audit import AuditLogSinkProtocol
+from pyaccountingkit.ports.execution_traces import AccountingExecutionTraceRepositoryProtocol
 from pyaccountingkit.ports.idempotency import IdempotencyStoreProtocol
 from pyaccountingkit.ports.outbox import OutboxPublisherProtocol
 from pyaccountingkit.ports.repositories import (
@@ -28,6 +29,7 @@ class UnitOfWorkProtocol(Protocol):
     audit: AuditLogSinkProtocol
     idempotency: IdempotencyStoreProtocol
     outbox: OutboxPublisherProtocol
+    execution_traces: AccountingExecutionTraceRepositoryProtocol
     clock: ClockProtocol
 
     def __enter__(self) -> UnitOfWorkProtocol: ...

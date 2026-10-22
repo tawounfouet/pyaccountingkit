@@ -207,8 +207,20 @@ def test_measurement_to_proposal_to_posting() -> None:
     assert result.execution_trace.policy_versions == ("1.0",)
     assert result.execution_trace.proposal_checksum == proposal.checksum()
     assert result.execution_trace.journal_entry_id == EntryId("e_dep_2026")
+    assert store.execution_traces[EntryId("e_dep_2026")] == result.execution_trace
     assert store.audit_log[-1].entity_id == "ent"
     assert store.audit_log[-1].payload["chart_version"] == "v1"
+
+    replayed = orchestrator.post(
+        proposal,
+        journal_id=JournalId("j_od"),
+        period_id=PeriodId("p_2026_12"),
+        actor_id="u1",
+        description="Dotation aux amortissements 2026",
+    )
+    assert replayed.was_replayed is True
+    assert replayed.execution_trace == result.execution_trace
+    assert len(store.execution_traces) == 1
 
 
 def test_proposal_cannot_post_into_journal_and_period_of_another_entity() -> None:
@@ -311,3 +323,4 @@ def test_proposal_cannot_post_into_journal_and_period_of_another_entity() -> Non
     assert store.entries == {}
     assert store.audit_log == []
     assert store.outbox == []
+    assert store.execution_traces == {}

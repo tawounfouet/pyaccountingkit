@@ -8,6 +8,7 @@ from typing import Any, Self
 from django.db import transaction
 
 from pyaccountingkit.adapters.django.repositories import (
+    DjangoAccountingExecutionTraceRepository,
     DjangoAuditLogSink,
     DjangoIdempotencyStore,
     DjangoJournalEntryRepository,
@@ -35,6 +36,7 @@ class DjangoUnitOfWork:
         self.audit = DjangoAuditLogSink(using=using)
         self.idempotency = DjangoIdempotencyStore(using=using)
         self.outbox = DjangoOutboxPublisher(using=using)
+        self.execution_traces = DjangoAccountingExecutionTraceRepository(using=using)
         self._atomic: Any = None
         self._entered = False
         self._committed = False

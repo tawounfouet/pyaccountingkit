@@ -61,7 +61,7 @@ def _chart() -> CompanyChartOfAccounts:
         accounts=(
             CompanyAccount(
                 id=AccountId("411000"),
-                entity_id=period_entity_id,
+                entity_id=EntityId("ent"),
                 code="411000",
                 label="Clients",
             ),
@@ -85,7 +85,7 @@ def _app(
         uow.periods.add(
             AccountingPeriod(
                 id=PeriodId(PERIOD),
-                entity_id=EntityId("ent"),
+                entity_id=period_entity_id,
                 fiscal_year_id=FiscalYearId("fy"),
                 start_date=date(2024, 1, 1),
                 end_date=date(2024, 1, 31),

@@ -55,7 +55,7 @@
       "evidence_must_match_candidate_sha": true,
       "documentation_only_change_cannot_close_finding": true
     },
-    "current_phase": "REM-04",
+    "current_phase": "REM-06",
     "rem00_completed_on": "2026-10-22",
     "rem00_completion_evidence": {
       "remediation_plan_commit_sha": "fd0e2731582d7bb8eb0b7aecae41d2417aa40be5",
@@ -206,9 +206,23 @@
         ],
         "status": "FIXED_UNVERIFIED"
       },
-      "implementation_status": "IN_PROGRESS",
-      "remaining_findings": [
-        "A03"
+      "implementation_status": "COMPLETE",
+      "remaining_findings": [],
+      "second_slice": {
+        "implementation_pr": 84,
+        "pr_head_sha": "25bf159ce68a1c5d117a9d0715f0999055d3d52e",
+        "merge_sha": "762bd6a91cccd9137dd07eb134f1dff4361b049c",
+        "pr_ci_run_id": 39861787020,
+        "pr_security_run_id": 39861787031,
+        "pr_ci_status": "PASS",
+        "findings": [
+          "A03"
+        ],
+        "status": "FIXED_UNVERIFIED"
+      },
+      "remaining_evidence": [
+        "Exact-main-SHA CI evidence for the combined REM-04 implementation before VERIFIED",
+        "REM-10 transverse requalification"
       ]
     }
   },
@@ -256,7 +270,7 @@
         "F20",
         "A03"
       ],
-      "status": "PLANNED"
+      "status": "QUALIFYING"
     },
     "REM-05": {
       "title": "Closing / Opening Atomicity",
@@ -277,7 +291,7 @@
         "F16",
         "F21"
       ],
-      "status": "PLANNED"
+      "status": "ACTIVE"
     },
     "REM-07": {
       "title": "Safe References / Publication",
@@ -1120,20 +1134,38 @@
       "primary_remediation_lot": "REM-04",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "OPEN",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "762bd6a91cccd9137dd07eb134f1dff4361b049c",
+      "corrective_tests": [
+        "tests/unit/application/test_policy_proposal_posting.py::test_measurement_to_proposal_to_posting",
+        "tests/contract/test_repository_contract.py::test_execution_trace_commits_with_entry",
+        "tests/contract/test_repository_contract.py::test_execution_trace_rolls_back_with_entry",
+        "tests/integration/test_django_postgresql_adapter.py::test_execution_trace_is_atomic_with_accounting_entry",
+        "tests/integration/test_sqlalchemy_postgresql_adapter.py::test_execution_trace_is_atomic_with_accounting_entry"
+      ],
+      "qualification_evidence": [
+        "PR #84 head 25bf159ce68a1c5d117a9d0715f0999055d3d52e: CI run 39861787020 PASS",
+        "PR #84 head 25bf159ce68a1c5d117a9d0715f0999055d3d52e: Security run 39861787031 PASS",
+        "PR #84 head 25bf159ce68a1c5d117a9d0715f0999055d3d52e: Django/PostgreSQL qualification PASS",
+        "PR #84 head 25bf159ce68a1c5d117a9d0715f0999055d3d52e: SQLAlchemy/PostgreSQL qualification PASS",
+        "PR #84 head 25bf159ce68a1c5d117a9d0715f0999055d3d52e: Canonical CI gate PASS"
+      ],
       "affected_components": [
         "traceability",
         "proposals",
         "unit_of_work"
       ],
-      "notes": []
+      "notes": [
+        "AccountingExecutionTrace is append-only durable evidence bound one-to-one to the resulting JournalEntry.",
+        "ProposalPostingOrchestrator builds the trace before mutation and PostingOrchestrator appends it inside the same accounting UnitOfWork.",
+        "The trace is included in semantic idempotency and validated on replay.",
+        "InMemory, Django/PostgreSQL and SQLAlchemy/PostgreSQL prove commit/rollback atomicity.",
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+      ]
     }
   ],
   "last_updated_on": "2026-10-22",
-  "last_updated_from_sha": "b00f26e3f4ea8dd53ea0cb4d2f3764b2e6775f1f"
+  "last_updated_from_sha": "762bd6a91cccd9137dd07eb134f1dff4361b049c"
 }

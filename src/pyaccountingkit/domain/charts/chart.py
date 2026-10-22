@@ -28,6 +28,12 @@ class CompanyChartOfAccounts:
         if len(codes) != len(set(codes)):
             dupes = sorted({code for code in codes if codes.count(code) > 1})
             raise ValueError(f"Duplicate account codes in chart: {dupes}")
+        account_ids = [account.id for account in self.accounts]
+        if len(account_ids) != len(set(account_ids)):
+            dupes = sorted(
+                {str(account_id) for account_id in account_ids if account_ids.count(account_id) > 1}
+            )
+            raise ValueError(f"Duplicate account ids in chart: {dupes}")
 
     def get_by_code(self, code: str) -> CompanyAccount | None:
         """Lookup by the business code."""
@@ -52,6 +58,8 @@ class CompanyChartOfAccounts:
         )
         if self.get_by_code(account.code) is not None:
             raise InvalidAccountCodeError(f"Account code {account.code!r} already exists in chart")
+        if self.get_by_id(account.id) is not None:
+            raise AccountRuleError(f"Account id {account.id!s} already exists in chart")
         return CompanyChartOfAccounts(
             entity_id=self.entity_id,
             accounts=(*self.accounts, account),

@@ -17,9 +17,9 @@ from pyaccountingkit.core.clock import FrozenClock
 from pyaccountingkit.core.currency import EUR
 from pyaccountingkit.core.errors import (
     EntityScopeMismatchError,
+    IdempotencyConflictError,
     InactiveAccountError,
     InactiveJournalError,
-    IdempotencyConflictError,
     InvalidEntryStateError,
     JournalNotFoundError,
     NonPostableAccountError,

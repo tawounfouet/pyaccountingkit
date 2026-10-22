@@ -6,6 +6,7 @@ from dataclasses import dataclass
 
 from pyaccountingkit.core.entity_scope import require_same_entity
 from pyaccountingkit.core.money import Money
+from pyaccountingkit.domain.reporting.allocation import allocate_money_conservatively
 from pyaccountingkit.domain.reporting.errors import (
     RegulatoryMappingError,
     RegulatoryReferenceMismatchError,
@@ -102,7 +103,54 @@ class RegulatoryReportingService:
         mapping_ids: dict[str, list[str]] = {node.node_id: [] for node in model.nodes}
         provenances: dict[str, list[str]] = {node.node_id: [] for node in model.nodes}
 
-        for mapping in sorted(mapping_set.mappings, key=lambda item: item.mapping_id):
+        executable_mappings = tuple(
+            sorted(
+                (
+                    mapping
+                    for mapping in mapping_set.mappings
+                    if mapping.effective_on(snapshot.as_of) and mapping.is_executable
+                ),
+                key=lambda item: item.mapping_id,
+            )
+        )
+        current_contributions: dict[str, Money] = {}
+        comparative_contributions: dict[str, Money] = {}
+        mapped_source_codes = sorted(
+            {mapping.statement_line_code for mapping in executable_mappings}
+        )
+        for source_code in mapped_source_codes:
+            try:
+                source = source_lines[source_code]
+            except KeyError as exc:
+                raise RegulatoryMappingError(
+                    f"regulatory mappings reference unknown statement line {source_code!r}"
+                ) from exc
+            source_mappings = tuple(
+                mapping
+                for mapping in executable_mappings
+                if mapping.statement_line_code == source_code
+            )
+            current_contributions.update(
+                allocate_money_conservatively(
+                    source.amount,
+                    tuple(
+                        (mapping.mapping_id, mapping.allocation)
+                        for mapping in source_mappings
+                    ),
+                )
+            )
+            if source.comparative_amount is not None:
+                comparative_contributions.update(
+                    allocate_money_conservatively(
+                        source.comparative_amount,
+                        tuple(
+                            (mapping.mapping_id, mapping.allocation)
+                            for mapping in source_mappings
+                        ),
+                    )
+                )
+
+        for mapping in executable_mappings:
             if not mapping.effective_on(snapshot.as_of) or not mapping.is_executable:
                 continue
             try:
@@ -125,13 +173,15 @@ class RegulatoryReportingService:
                     f"{target.code!r}"
                 )
 
-            amounts[target.node_id] = amounts[target.node_id] + source.amount * mapping.allocation
+            amounts[target.node_id] = (
+                amounts[target.node_id] + current_contributions[mapping.mapping_id]
+            )
             if source.comparative_amount is None:
                 comparative_complete[target.node_id] = False
             else:
                 comparative_amounts[target.node_id] = (
                     comparative_amounts[target.node_id]
-                    + source.comparative_amount * mapping.allocation
+                    + comparative_contributions[mapping.mapping_id]
                 )
             source_codes[target.node_id].append(source.code)
             mapping_ids[target.node_id].append(mapping.mapping_id)

@@ -211,6 +211,17 @@ def test_measurement_to_proposal_to_posting() -> None:
     assert store.audit_log[-1].entity_id == "ent"
     assert store.audit_log[-1].payload["chart_version"] == "v1"
 
+    replayed = orchestrator.post(
+        proposal,
+        journal_id=JournalId("j_od"),
+        period_id=PeriodId("p_2026_12"),
+        actor_id="u1",
+        description="Dotation aux amortissements 2026",
+    )
+    assert replayed.was_replayed is True
+    assert replayed.execution_trace == result.execution_trace
+    assert len(store.execution_traces) == 1
+
 
 def test_proposal_cannot_post_into_journal_and_period_of_another_entity() -> None:
     proposal = JournalEntryProposal(

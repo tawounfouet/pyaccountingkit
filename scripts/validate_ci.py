@@ -325,7 +325,7 @@ def validate_release_text(text: str) -> list[str]:
             "tests/concurrency/test_django_postgresql_concurrency.py",
             "tests/integration/test_sqlalchemy_postgresql_adapter.py",
             "tests/concurrency/test_sqlalchemy_postgresql_concurrency.py",
-            'GH_REPO: ${{ github.repository }}',
+            "GH_REPO: ${{ github.repository }}",
             "fetch-depth: 0",
             "persist-credentials: false",
             "git fetch origin main --no-tags",
@@ -371,7 +371,7 @@ def validate_release_text(text: str) -> list[str]:
                 f"Release: expected {expected} occurrence(s) of {snippet!r}, found {actual}"
             )
 
-    repository_context = 'GH_REPO: ${{ github.repository }}'
+    repository_context = "GH_REPO: ${{ github.repository }}"
     if text.count(repository_context) != 2:
         violations.append(
             "Release: GitHub CLI edit and verify steps both require explicit GH_REPO context"

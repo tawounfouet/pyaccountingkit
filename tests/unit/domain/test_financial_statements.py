@@ -395,7 +395,6 @@ def test_one_to_many_allocation_and_comparative_are_deterministic() -> None:
     assert result.line("B").comparative_amount == Money.from_str("32", EUR)
 
 
-
 def test_one_cent_allocation_is_conservative_across_statement_lines() -> None:
     definition = FinancialStatementDefinition(
         definition_id="def-small-allocation",

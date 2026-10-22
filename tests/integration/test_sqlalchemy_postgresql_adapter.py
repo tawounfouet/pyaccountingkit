@@ -149,6 +149,8 @@ def test_posted_entry_economics_cannot_be_rewritten() -> None:
     posted = _entry().validate().freeze(NOW)
 
     with factory.open() as uow:
+        uow.journals.add(_journal())
+        uow.periods.add(_period())
         uow.entries.add(posted)
         uow.commit()
 

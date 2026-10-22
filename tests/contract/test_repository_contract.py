@@ -81,14 +81,15 @@ def _monthly_period() -> AccountingPeriod:
     )
 
 
-def _execution_trace(entry_id: EntryId = EntryId("entry_1")) -> AccountingExecutionTrace:
+def _execution_trace(entry_id: EntryId | None = None) -> AccountingExecutionTrace:
+    resolved_entry_id = entry_id or EntryId("entry_1")
     return AccountingExecutionTrace(
         trace_id="acct:proposal-1",
         entity_id=EntityId("ent_1"),
         accounting_date=date(2024, 1, 15),
         proposal_checksum="a" * 64,
         resolved_account_ids=(AccountId("411000"), AccountId("707000")),
-        journal_entry_id=entry_id,
+        journal_entry_id=resolved_entry_id,
         company_chart_id="chart:ent_1",
         company_chart_version="v1",
         company_chart_reference_snapshot_id="snapshot:1",

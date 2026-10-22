@@ -107,7 +107,7 @@ Les nouveaux lots stratégiques ne disposent pas encore tous d'un fichier `PLAN-
 
 ## Lot actif / qualification
 
-### Priorité active : `REM-00 → REM-10`
+### Priorité active : `REM-01 → REM-10`
 
 La priorité n'est plus la promotion directe de `LOT-27 / 0.7.0rc1`.
 
@@ -115,8 +115,8 @@ Le chantier courant est l'overlay de remédiation :
 
 | Ordre | Lot | Objet | Constats principaux |
 |---:|---|---|---|
-| 1 | `REM-00` | Baseline, registre et tests correctifs | Tous |
-| 2 | `REM-01` | Qualification et workflows fiables | `F25,F26,F27` |
+| 1 | `REM-00` | Baseline, registre et conventions correctives — **DONE** | Tous |
+| 2 | `REM-01` | Qualification et workflows fiables — **ACTIVE** | `F25,F26,F27` |
 | 3 | `REM-02` | Identités, scope et read-side | `F01,F02,F03,F04,F13,F18` |
 | 4 | `REM-03` | Cycle de posting, repositories, idempotence | `F10,F11,F23,F24` |
 | 5 | `REM-04` | Immutabilité et traces durables | `F14,F20,A03` |
@@ -142,24 +142,30 @@ Le chantier courant est l'overlay de remédiation :
 
 ### Première tranche à lancer
 
+REM-00 est désormais initialisé et fermé comme lot de gouvernance documentaire.
+
 ```text
-REM-00
-+
+NOW
 REM-01
-+
+Qualification Reliability
+    ↓
+then
 first REM-02 slice
+Identity / Scope
 ```
 
-Sorties attendues :
+Artifacts REM-00 disponibles :
+
+- [`REMEDIATION_2026_10_PLAN.md`](REMEDIATION_2026_10_PLAN.md)
+- [`../audits/REMEDIATION_2026_10_STATUS.json`](../audits/REMEDIATION_2026_10_STATUS.json)
+
+Sorties attendues de REM-01 :
 
 ```text
-remediation registry
-corrective behavior tests
-HEAD-vs-baseline comparison
-Nightly fixed
-strict PostgreSQL evidence
-AccountId vs AccountCode fix/tests
-cross-entity scope fix/tests
+Nightly collection fixed
+repository-aware release verification
+required PostgreSQL suites fail-closed
+candidate SHA captured in qualification evidence
 ```
 
 ## 2. Graphe d'Ordonnancement & Chemin Critique
@@ -414,12 +420,19 @@ Liens canoniques disponibles :
 
 - [`33_PYACCOUNTINGKIT_NEXT_STEPS_IMPLEMENTATION_PLAN.md`](33_PYACCOUNTINGKIT_NEXT_STEPS_IMPLEMENTATION_PLAN.md)
 - [`34_PYACCOUNTINGKIT_AUDIT_REMEDIATION_AND_ROADMAP_ALIGNMENT.md`](34_PYACCOUNTINGKIT_AUDIT_REMEDIATION_AND_ROADMAP_ALIGNMENT.md)
+- [`REMEDIATION_2026_10_PLAN.md`](REMEDIATION_2026_10_PLAN.md)
+- [`../audits/REMEDIATION_2026_10_STATUS.json`](../audits/REMEDIATION_2026_10_STATUS.json)
 
-Artifacts encore attendus pour lancer formellement `REM-00` :
+Artifacts REM-00 désormais canoniques :
+
+- [`REMEDIATION_2026_10_PLAN.md`](REMEDIATION_2026_10_PLAN.md)
+- [`../audits/REMEDIATION_2026_10_STATUS.json`](../audits/REMEDIATION_2026_10_STATUS.json)
+
+État :
 
 ```text
-docs/plans/REMEDIATION_2026_10_PLAN.md
-docs/audits/REMEDIATION_2026_10_STATUS.json
+REM-00 DONE
+REM-01 ACTIVE
 ```
 
 ### 4.1. Structure Générale & Spécifications

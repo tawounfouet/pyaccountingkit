@@ -241,9 +241,21 @@
       },
       "implementation_status": "IN_PROGRESS",
       "remaining_findings": [
-        "F16",
         "F21"
-      ]
+      ],
+      "second_slice": {
+        "implementation_lot": "LOT-28R",
+        "implementation_pr": 87,
+        "pr_head_sha": "93fe6be36f52b3a5c1ae95b4993d72ec30f94b10",
+        "merge_sha": "36630a67a3fa0d9e900e6f40b79658ab4da2294d",
+        "pr_ci_run_id": 39872415095,
+        "pr_security_run_id": 39872414897,
+        "pr_ci_status": "PASS",
+        "findings": [
+          "F16"
+        ],
+        "status": "FIXED_UNVERIFIED"
+      }
     }
   },
   "lots": {
@@ -801,18 +813,40 @@
       "primary_remediation_lot": "REM-06",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "OPEN",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "36630a67a3fa0d9e900e6f40b79658ab4da2294d",
+      "corrective_tests": [
+        "tests/unit/domain/test_conservative_monetary_allocation.py::test_half_cent_split_preserves_one_cent_exactly",
+        "tests/unit/domain/test_conservative_monetary_allocation.py::test_negative_half_cent_split_preserves_sign_and_total",
+        "tests/unit/domain/test_conservative_monetary_allocation.py::test_zero_decimal_currency_allocation_preserves_whole_unit",
+        "tests/unit/domain/test_conservative_monetary_allocation.py::test_allocation_is_independent_of_input_mapping_order",
+        "tests/property/test_reporting_allocation_properties.py::test_two_way_allocation_preserves_source_and_is_order_stable",
+        "tests/unit/domain/test_financial_statements.py::test_one_cent_allocation_is_conservative_across_statement_lines",
+        "tests/unit/domain/test_regulatory_reporting.py::test_regulatory_one_cent_allocation_is_conservative"
+      ],
+      "qualification_evidence": [
+        "PR #87 head 93fe6be36f52b3a5c1ae95b4993d72ec30f94b10: CI run 39872415095 PASS",
+        "PR #87 head 93fe6be36f52b3a5c1ae95b4993d72ec30f94b10: Security run 39872414897 PASS",
+        "PR #87 head 93fe6be36f52b3a5c1ae95b4993d72ec30f94b10: Python 3.11/3.12/3.13 PASS",
+        "PR #87 head 93fe6be36f52b3a5c1ae95b4993d72ec30f94b10: Django/PostgreSQL qualification PASS",
+        "PR #87 head 93fe6be36f52b3a5c1ae95b4993d72ec30f94b10: SQLAlchemy/PostgreSQL qualification PASS",
+        "PR #87 head 93fe6be36f52b3a5c1ae95b4993d72ec30f94b10: Canonical CI gate PASS"
+      ],
       "affected_components": [
-        "subledgers",
-        "settlement",
+        "reporting",
+        "financial_statements",
+        "regulatory_reporting",
         "money"
       ],
-      "notes": []
+      "notes": [
+        "LOT-28R preserves the requested remediation LOT-28 intent without colliding with the historical product LOT-28 already present in the roadmap.",
+        "Allocation now keeps Decimal precision across the complete source allocation set and converts to Money only after deterministic minor-unit residual distribution.",
+        "Largest-remainder ordering uses the stable mapping identifier as a tie-break, making allocation independent of input mapping order.",
+        "Current and comparative financial/regulatory projections share the same conservative allocation policy.",
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+      ]
     },
     {
       "id": "F17",
@@ -1213,5 +1247,5 @@
     }
   ],
   "last_updated_on": "2026-10-23",
-  "last_updated_from_sha": "04f4012d61ad6825b9e5cfa741a4b11139d86381"
+  "last_updated_from_sha": "36630a67a3fa0d9e900e6f40b79658ab4da2294d"
 }

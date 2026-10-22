@@ -391,6 +391,7 @@ class DjangoOutboxPublisher:
 
 
 __all__ = [
+    "DjangoAccountingExecutionTraceRepository",
     "DjangoAuditLogSink",
     "DjangoIdempotencyStore",
     "DjangoJournalEntryRepository",

@@ -31,10 +31,16 @@ from pyaccountingkit.domain.reporting.trial_balance import TrialBalanceSnapshot
 PERIOD = "p_2024_01"
 
 
-def _posted(entry_id: str, debit_code: str, amount: str) -> JournalEntry:
+def _posted(
+    entry_id: str,
+    debit_code: str,
+    amount: str,
+    *,
+    journal_id: str = "j",
+) -> JournalEntry:
     return JournalEntry(
         id=EntryId(entry_id),
-        journal_id=JournalId("j"),
+        journal_id=JournalId(journal_id),
         period_id=PeriodId(PERIOD),
         entry_date=date(2024, 1, 10),
         description="posted",
@@ -123,6 +129,46 @@ def test_balance_rejects_period_from_another_entity_instead_of_relabelling_it() 
 
     with pytest.raises(EntityScopeMismatchError):
         query.balance_for(PERIOD)
+
+
+def test_balance_rejects_posted_entry_from_foreign_entity_journal() -> None:
+    query, factory, _ = _app()
+    with factory.open() as uow:
+        uow.journals.add(
+            Journal(
+                id=JournalId("j_other"),
+                entity_id=EntityId("other"),
+                code="V-OTHER",
+                label="Other entity sales",
+            )
+        )
+        uow.entries.add(
+            _posted("e_other", "411000", "100.00", journal_id="j_other")
+        )
+        uow.commit()
+
+    with pytest.raises(EntityScopeMismatchError):
+        query.balance_for(PERIOD)
+
+
+def test_drill_down_rejects_posted_entry_from_foreign_entity_journal() -> None:
+    query, factory, _ = _app()
+    with factory.open() as uow:
+        uow.journals.add(
+            Journal(
+                id=JournalId("j_other"),
+                entity_id=EntityId("other"),
+                code="V-OTHER",
+                label="Other entity sales",
+            )
+        )
+        uow.entries.add(
+            _posted("e_other", "411000", "100.00", journal_id="j_other")
+        )
+        uow.commit()
+
+    with pytest.raises(EntityScopeMismatchError):
+        query.drill_down(PERIOD, "411000")
 
 
 def test_draft_entries_are_excluded() -> None:

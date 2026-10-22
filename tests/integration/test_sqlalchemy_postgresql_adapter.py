@@ -15,6 +15,7 @@ if os.getenv("PYAK_SQLALCHEMY_POSTGRES_TEST") != "1":
     pytest.skip("SQLAlchemy/PostgreSQL qualification is disabled", allow_module_level=True)
 
 from pyaccountingkit.adapters.sqlalchemy.tables import (
+    AccountingExecutionTraceTable,
     AccountingPeriodTable,
     AuditEventTable,
     IdempotencyRecordTable,
@@ -42,6 +43,7 @@ from pyaccountingkit.domain.journals.journal_entry import EntryType, JournalEntr
 from pyaccountingkit.domain.journals.journal_line import JournalLine
 from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
 from pyaccountingkit.domain.periods.closing_status import ClosingStatus
+from pyaccountingkit.domain.traceability.accounting_execution import AccountingExecutionTrace
 from pyaccountingkit.ports.outbox import OutboxRecord
 
 NOW = datetime(2026, 9, 19, 15, 0, tzinfo=UTC)
@@ -57,7 +59,8 @@ def _truncate(engine: Engine) -> None:
         connection.execute(
             text(
                 "TRUNCATE TABLE "
-                "pyak_journal_line, pyak_journal_entry, pyak_outbox, "
+                "pyak_accounting_execution_trace, pyak_journal_line, "
+                "pyak_journal_entry, pyak_outbox, "
                 "pyak_audit_event, pyak_idempotency, pyak_accounting_period, "
                 "pyak_journal RESTART IDENTITY CASCADE"
             )
@@ -87,6 +90,26 @@ def _period() -> AccountingPeriod:
         fiscal_year_id=FiscalYearId("fy:2026"),
         start_date=date(2026, 9, 1),
         end_date=date(2026, 9, 30),
+    )
+
+
+def _execution_trace(entry_id: str = "entry:1") -> AccountingExecutionTrace:
+    return AccountingExecutionTrace(
+        trace_id=f"acct:{entry_id}",
+        entity_id=ENTITY,
+        accounting_date=date(2026, 9, 19),
+        proposal_checksum="a" * 64,
+        resolved_account_ids=(AccountId("411000"), AccountId("707000")),
+        journal_entry_id=EntryId(entry_id),
+        company_chart_id="chart:sqlalchemy",
+        company_chart_version="v1",
+        company_chart_reference_snapshot_id="snapshot:1",
+        policy_set_ids=("ps:1",),
+        policy_set_versions=("1",),
+        policy_ids=("policy:1",),
+        policy_versions=("1.0",),
+        policy_reference_snapshot_ids=("snapshot:1",),
+        source_reference="source:1",
     )
 
 
@@ -195,6 +218,38 @@ def test_period_repository_rejects_skipped_transition_and_scope_rewrite() -> Non
         with pytest.raises(ValueError, match="immutable"):
             uow.periods.save(replace(period, entity_id=EntityId("entity:other")))
         uow.rollback()
+
+
+def test_execution_trace_is_atomic_with_accounting_entry() -> None:
+    factory = SQLAlchemyUnitOfWorkFactory(ENGINE, clock=FrozenClock(NOW))
+    trace = _execution_trace()
+
+    with factory.open() as uow:
+        uow.journals.add(_journal())
+        uow.periods.add(_period())
+        uow.entries.add(_entry())
+        uow.execution_traces.append(trace)
+        uow.commit()
+
+    with Session(ENGINE) as session:
+        assert session.get(AccountingExecutionTraceTable, trace.trace_id) is not None
+
+    with factory.open() as uow:
+        assert uow.execution_traces.get_by_entry_id(EntryId("entry:1")) == trace
+        uow.rollback()
+
+    rolled_back_trace = _execution_trace("entry:rollback")
+    with factory.open() as uow:
+        uow.entries.add(_entry("entry:rollback"))
+        uow.execution_traces.append(rolled_back_trace)
+        uow.rollback()
+
+    with Session(ENGINE) as session:
+        assert session.get(JournalEntryTable, "entry:rollback") is None
+        assert session.get(
+            AccountingExecutionTraceTable,
+            rolled_back_trace.trace_id,
+        ) is None
 
 
 def test_uncommitted_unit_of_work_rolls_back_every_sink() -> None:

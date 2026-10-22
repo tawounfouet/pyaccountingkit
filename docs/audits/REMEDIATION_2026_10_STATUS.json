@@ -95,14 +95,16 @@
         75
       ],
       "first_slice": {
-        "findings": [
-          "F01",
-          "F02"
-        ],
+        "implementation_pr": 75,
         "pr_head_sha": "2ce2e038f580b0c059997d8ced0defcc24c1434f",
         "merge_sha": "08594852870d9cdce0f4b6ced7877daf3b0d6eb3",
         "pr_ci_run_id": 39841052244,
         "pr_security_run_id": 39841052053,
+        "pr_ci_status": "PASS",
+        "findings": [
+          "F01",
+          "F02"
+        ],
         "status": "FIXED_UNVERIFIED"
       },
       "remaining_findings": [
@@ -232,7 +234,9 @@
       "qualification_evidence": [
         "PR #75 head 2ce2e038f580b0c059997d8ced0defcc24c1434f: CI run 39841052244 PASS",
         "PR #75 head 2ce2e038f580b0c059997d8ced0defcc24c1434f: Security run 39841052053 PASS",
-        "PostingOrchestrator validates JournalLine.account_id with CompanyChartOfAccounts.get_by_id()"
+        "PR #75 head 2ce2e038f580b0c059997d8ced0defcc24c1434f: Django/PostgreSQL qualification PASS",
+        "PR #75 head 2ce2e038f580b0c059997d8ced0defcc24c1434f: SQLAlchemy/PostgreSQL qualification PASS",
+        "PR #75 head 2ce2e038f580b0c059997d8ced0defcc24c1434f: Canonical CI gate PASS"
       ],
       "affected_components": [
         "posting",
@@ -240,7 +244,8 @@
         "ledger"
       ],
       "notes": [
-        "Implementation merged; exact main SHA qualification evidence still required before VERIFIED."
+        "PostingOrchestrator resolves JournalLine.account_id via CompanyChartOfAccounts.get_by_id().",
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
       ]
     },
     {
@@ -260,8 +265,8 @@
       ],
       "qualification_evidence": [
         "PR #75 head 2ce2e038f580b0c059997d8ced0defcc24c1434f: CI run 39841052244 PASS",
-        "PR #75 head 2ce2e038f580b0c059997d8ced0defcc24c1434f: Canonical CI gate PASS",
-        "ProposalPostingOrchestrator passes proposal.entity_id as expected_entity_id before idempotency replay"
+        "PR #75 head 2ce2e038f580b0c059997d8ced0defcc24c1434f: Security run 39841052053 PASS",
+        "PR #75 head 2ce2e038f580b0c059997d8ced0defcc24c1434f: Canonical CI gate PASS"
       ],
       "affected_components": [
         "posting",
@@ -269,7 +274,9 @@
         "entity_scope"
       ],
       "notes": [
-        "Implementation merged; exact main SHA qualification evidence still required before VERIFIED."
+        "ProposalPostingOrchestrator passes proposal.entity_id as expected_entity_id into PostingOrchestrator.",
+        "Expected entity scope is checked before idempotency replay.",
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
       ]
     },
     {

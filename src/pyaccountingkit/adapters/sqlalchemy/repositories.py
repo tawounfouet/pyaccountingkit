@@ -186,16 +186,19 @@ class SQLAlchemyPeriodRepository:
             raise RevisionConflictError(f"Period {period.id} already exists or conflicts") from exc
 
     def save(self, period: AccountingPeriod) -> None:
+        current_row = self._session.scalar(
+            select(AccountingPeriodTable)
+            .where(AccountingPeriodTable.id == str(period.id))
+            .with_for_update()
+        )
+        if current_row is None:
+            raise PeriodNotFoundError(f"Period {period.id} not found")
+        persisted = period_to_domain(current_row)
+        persisted.assert_persistence_successor(period)
         updated_id = self._session.scalar(
             update(AccountingPeriodTable)
             .where(AccountingPeriodTable.id == str(period.id))
-            .values(
-                entity_id=str(period.entity_id),
-                fiscal_year_id=str(period.fiscal_year_id),
-                start_date=period.start_date,
-                end_date=period.end_date,
-                status=period.status.value,
-            )
+            .values(status=period.status.value)
             .returning(AccountingPeriodTable.id)
             .execution_options(synchronize_session=False)
         )

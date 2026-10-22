@@ -21,7 +21,14 @@ from pyaccountingkit.core.errors import (
     PeriodNotFoundError,
     RevisionConflictError,
 )
-from pyaccountingkit.core.identifiers import EntityId, EntryId, FiscalYearId, JournalId, PeriodId
+from pyaccountingkit.core.identifiers import (
+    AccountId,
+    EntityId,
+    EntryId,
+    FiscalYearId,
+    JournalId,
+    PeriodId,
+)
 from pyaccountingkit.core.money import Money
 from pyaccountingkit.core.revisions import Revision
 from pyaccountingkit.domain.journals.journal import Journal
@@ -80,7 +87,7 @@ def _execution_trace(entry_id: EntryId = EntryId("entry_1")) -> AccountingExecut
         entity_id=EntityId("ent_1"),
         accounting_date=date(2024, 1, 15),
         proposal_checksum="a" * 64,
-        resolved_account_ids=("411000", "707000"),
+        resolved_account_ids=(AccountId("411000"), AccountId("707000")),
         journal_entry_id=entry_id,
         company_chart_id="chart:ent_1",
         company_chart_version="v1",

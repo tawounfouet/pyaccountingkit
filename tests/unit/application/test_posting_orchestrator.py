@@ -194,6 +194,22 @@ def test_post_happy_path_is_persisted_and_posted() -> None:
     assert [record.event_type for record in store.drain_outbox()] == ["ENTRY_POSTED"]
 
 
+def test_post_persisted_validated_entry_uses_existing_revision() -> None:
+    orchestrator, factory, store = _bak_app()
+    entry = _draft()
+
+    with factory.open() as uow:
+        uow.entries.add(entry)
+        uow.commit()
+
+    result = orchestrator.post(entry, actor_id="u1")
+
+    assert result.posted_entry.status is EntryStatus.POSTED
+    assert store.entries[EntryId("e1")].status is EntryStatus.POSTED
+    assert store.entry_revisions[EntryId("e1")].value == 1
+    assert len(store.audit_log) == 1
+
+
 def test_post_duplicate_request_replays_cleanly() -> None:
     orchestrator, _, store = _bak_app()
     first = orchestrator.post(_draft(), actor_id="u1")

@@ -1,30 +1,31 @@
 # PyAccountingKit — Spécifications d'Architecture
 
-Ce dossier contient actuellement **28 spécifications d'architecture et de conception versionnées dans GitHub** :
+Ce dossier contient actuellement **37 spécifications d'architecture et de conception versionnées dans GitHub** :
 
 ```text
-00 → 23
+00 → 32
 +
 35 → 38
 ```
 
 La documentation est organisée en **7 dossiers thématiques**.
 
-> [!IMPORTANT]
-> La roadmap d'architecture référence également les specs `24 → 32`. À la date de cette mise à jour, ces neuf documents ne sont pas encore physiquement présents dans `docs/specs/` sur `main`. Ils restent donc **PENDING_INTEGRATION** et ne sont pas représentés ici par des liens artificiels.
+Les documents `33` et `34` ne sont pas des specs d'architecture : ils sont conservés dans `docs/plans/` comme documents de pilotage et d'alignement audit/remédiation/roadmap.
 
-La baseline repository-hosted est donc :
+La baseline documentaire complète du repository est donc :
 
 ```text
-00..23
-35..38
+docs/specs : 00..32 + 35..38
+docs/plans : 33..34
 ```
 
-tandis que la baseline architecturale visée par la roadmap est :
+soit une séquence documentaire effectivement hébergée couvrant :
 
 ```text
 00..38
 ```
+
+avec séparation explicite entre **specifications** et **plans de pilotage**.
 
 > 🧭 Pour la grille complète d'ordonnancement par priorité (`P0.1` à `P2.3`) et les justifications doctrinales de chaque document, consultez l'**[`INDEX.md`](./INDEX.md)**.  
 > 🗺️ Pour le plan d'exécution concret et les jalons de livraison, consultez la **[`ROADMAP.md`](../ROADMAP.md)**.
@@ -97,18 +98,39 @@ Stratégie de test, politique de versioning et registre centralisé des décisio
 
 ---
 
-## 7. Architecture Evolution — Lifecycle, State & Events (`06_architecture-evolution/`)
+## 7. Architecture Evolution & Hardening (`06_architecture-evolution/`)
 
-Spécifications transverses ajoutées après l'audit et la révision de la roadmap. Elles préparent directement le modeling gate de `LOT-40` :
+Spécifications transverses qui durcissent l'architecture existante et préparent les lots stratégiques `LOT-39 → LOT-46`.
+
+### 7.1 Architecture Fitness, Events, Reproducibility & Testing
+
+- [`06_architecture-evolution/24_PYACCOUNTINGKIT_ARCHITECTURE_FITNESS_FUNCTIONS.md`](./06_architecture-evolution/24_PYACCOUNTINGKIT_ARCHITECTURE_FITNESS_FUNCTIONS.md) — Fitness functions exécutables, frontières d'architecture et enforcement CI
+- [`06_architecture-evolution/25_PYACCOUNTINGKIT_DOMAIN_EVENTS_CAUSALITY_AND_EVENT_ENVELOPE.md`](./06_architecture-evolution/25_PYACCOUNTINGKIT_DOMAIN_EVENTS_CAUSALITY_AND_EVENT_ENVELOPE.md) — Domain Events, causality, event envelope, audit/outbox/integration boundaries
+- [`06_architecture-evolution/26_PYACCOUNTINGKIT_REPRODUCIBILITY_AND_COMPUTATION_MANIFESTS.md`](./06_architecture-evolution/26_PYACCOUNTINGKIT_REPRODUCIBILITY_AND_COMPUTATION_MANIFESTS.md) — Computation manifests, provenance, replay et reproductibilité
+- [`06_architecture-evolution/27_PYACCOUNTINGKIT_GOLDEN_ACCOUNTING_AND_CONCURRENCY_SCENARIOS.md`](./06_architecture-evolution/27_PYACCOUNTINGKIT_GOLDEN_ACCOUNTING_AND_CONCURRENCY_SCENARIOS.md) — Golden accounting scenarios, races critiques et qualification cross-adapter
+- [`06_architecture-evolution/28_PYACCOUNTINGKIT_TESTING_TOOLKIT_ARCHITECTURE.md`](./06_architecture-evolution/28_PYACCOUNTINGKIT_TESTING_TOOLKIT_ARCHITECTURE.md) — Architecture de `pyaccountingkit.testing`, builders, assertions, scenarios, contracts et harness de concurrence
+
+### 7.2 Package Topology, Recovery & Semantic Layer
+
+- [`06_architecture-evolution/29_PYACCOUNTINGKIT_DOMAIN_FIRST_PACKAGE_TOPOLOGY_AND_MIGRATION.md`](./06_architecture-evolution/29_PYACCOUNTINGKIT_DOMAIN_FIRST_PACKAGE_TOPOLOGY_AND_MIGRATION.md) — Migration progressive d'une topologie layer-first vers domain-first
+- [`06_architecture-evolution/30_PYACCOUNTINGKIT_UNCERTAINTY_RECOVERY_AND_EXTERNAL_EFFECTS.md`](./06_architecture-evolution/30_PYACCOUNTINGKIT_UNCERTAINTY_RECOVERY_AND_EXTERNAL_EFFECTS.md) — Incertitude, recovery, external effects, outbox lifecycle et reconciliation-before-retry
+- [`06_architecture-evolution/31_PYACCOUNTINGKIT_FINANCIAL_SEMANTIC_LAYER_ARCHITECTURE.md`](./06_architecture-evolution/31_PYACCOUNTINGKIT_FINANCIAL_SEMANTIC_LAYER_ARCHITECTURE.md) — Couche sémantique financière read-only, datasets, dimensions, measures, metrics et snapshots
+- [`06_architecture-evolution/32_PYACCOUNTINGKIT_ARCHITECTURE_STYLE_DDD_HEXAGONAL_CLEAN_VS_MVC.md`](./06_architecture-evolution/32_PYACCOUNTINGKIT_ARCHITECTURE_STYLE_DDD_HEXAGONAL_CLEAN_VS_MVC.md) — Doctrine DDD + Hexagonal + Clean et positionnement de MVC/MVT
+
+### 7.3 Lifecycle, State Machines & Domain Events Modeling
 
 - [`06_architecture-evolution/35_PYACCOUNTINGKIT_BUSINESS_LIFECYCLES_ARCHITECTURE.md`](./06_architecture-evolution/35_PYACCOUNTINGKIT_BUSINESS_LIFECYCLES_ARCHITECTURE.md) — Catalogue canonique des cycles de vie métier ; distinction lifecycle explicite, dérivé, stateless et process lifecycle
 - [`06_architecture-evolution/36_PYACCOUNTINGKIT_STATE_MACHINES_AND_TRANSITION_RULES.md`](./06_architecture-evolution/36_PYACCOUNTINGKIT_STATE_MACHINES_AND_TRANSITION_RULES.md) — États, transitions légales/interdites, guards, terminalité, reopen/reversal, concurrence et persistance
 - [`06_architecture-evolution/37_PYACCOUNTINGKIT_DOMAIN_EVENTS_COVERAGE_AND_EMISSION_RULES.md`](./06_architecture-evolution/37_PYACCOUNTINGKIT_DOMAIN_EVENTS_COVERAGE_AND_EMISSION_RULES.md) — Couverture des Domain Events, classification REQUIRED/OPTIONAL/application/audit/operational/no-event et règles d'émission
 - [`06_architecture-evolution/38_PYACCOUNTINGKIT_LIFECYCLE_STATE_MACHINE_EVENT_MAPPING.md`](./06_architecture-evolution/38_PYACCOUNTINGKIT_LIFECYCLE_STATE_MACHINE_EVENT_MAPPING.md) — Matrice canonique objet → lifecycle → state machine → transition → fait métier → DomainEvent → audit/outbox/intégration
 
-Chaîne de modélisation :
+### Chaîne stratégique
 
 ```text
+24 Architecture Fitness Functions
+    ↓
+28 Testing Toolkit Foundations
+    ↓
 35 Business Lifecycles
     ↓
 36 State Machines
@@ -119,32 +141,37 @@ Chaîne de modélisation :
     ↓
 25 Event Envelope / Causality
     ↓
-LOT-40 implementation
+LOT-40 Domain Events Implementation
+    ↓
+26 Reproducibility
+    ↓
+27 Golden / Concurrency
+    ↓
+30 Recovery / External Effects
 ```
 
-> [!NOTE]
-> La spec `25` est référencée par cette chaîne comme cible architecturale, mais reste `PENDING_INTEGRATION` dans le repository tant que le fichier correspondant n'est pas ajouté sous `docs/specs/`.
+Les specs `29` et `31` alimentent respectivement `LOT-45` et `LOT-46`, tandis que `32` gouverne transversalement les lots d'évolution.
 
 ---
 
 ## 8. État d'intégration documentaire
 
-| Plage | Statut repository | Rôle |
-|---|---|---|
-| `00 → 23` | ✅ Présente | baseline historique canonique |
-| `24 → 32` | ⏳ Pending integration | architecture hardening / evolution référencée par la roadmap |
-| `33 → 34` | ✅ Présente dans `docs/plans/` | pilotage / alignement audit-remédiation-roadmap |
-| `35 → 38` | ✅ Présente | lifecycle / state-machine / event modeling |
+| Plage | Statut repository | Emplacement | Rôle |
+|---|---|---|---|
+| `00 → 23` | ✅ Présente | `docs/specs/00_* → 05_*` | baseline historique canonique |
+| `24 → 32` | ✅ Présente | `docs/specs/06_architecture-evolution/` | architecture hardening / strategic evolution |
+| `33 → 34` | ✅ Présente | `docs/plans/` | pilotage / alignement audit-remédiation-roadmap |
+| `35 → 38` | ✅ Présente | `docs/specs/06_architecture-evolution/` | lifecycle / state-machine / event modeling |
 
-Règle de gouvernance :
+La séquence documentaire `00 → 38` référencée par la roadmap est désormais **physiquement couverte dans le repository**, avec `33–34` volontairement séparés des specs.
+
+Règle de gouvernance conservée :
 
 ```text
 ROADMAP_REFERENCE
-does not imply
-REPOSITORY_FILE_PRESENT
+must match
+REPOSITORY_FILE_OR_EXPLICIT_EXTERNAL_ARTIFACT
 ```
-
-Un document n'est considéré `REPOSITORY_HOSTED` qu'après création et vérification du fichier sur `main`.
 
 ---
 

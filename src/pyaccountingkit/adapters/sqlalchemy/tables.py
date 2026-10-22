@@ -131,6 +131,12 @@ class JournalLineTable(Base):
 
 class AccountingExecutionTraceTable(Base):
     __tablename__ = "pyak_accounting_execution_trace"
+    __table_args__ = (
+        UniqueConstraint(
+            "journal_entry_id",
+            name="uq_pyak_execution_trace_entry",
+        ),
+    )
 
     trace_id: Mapped[str] = mapped_column(String(128), primary_key=True)
     entity_id: Mapped[str] = mapped_column(String(128), index=True)
@@ -139,7 +145,6 @@ class AccountingExecutionTraceTable(Base):
     resolved_account_ids: Mapped[list[str]] = mapped_column(JSON, default=list)
     journal_entry_id: Mapped[str] = mapped_column(
         ForeignKey("pyak_journal_entry.id", ondelete="RESTRICT"),
-        unique=True,
     )
     company_chart_id: Mapped[str] = mapped_column(String(128))
     company_chart_version: Mapped[str] = mapped_column(String(128))

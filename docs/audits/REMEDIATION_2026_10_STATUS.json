@@ -157,6 +157,21 @@
         "Exact-main-SHA CI evidence for the combined REM-02 implementation before VERIFIED",
         "REM-10 transverse requalification"
       ]
+    },
+    "rem03": {
+      "first_slice": {
+        "implementation_pr": 80,
+        "pr_head_sha": "6afc40deff2519fe3d644a02014a14f398ddf85c",
+        "merge_sha": "a4b99aff16007f997d17a8cead87b6f39ccf21a1",
+        "pr_ci_run_id": 39848864516,
+        "pr_security_run_id": 39848864365,
+        "pr_ci_status": "PASS",
+        "findings": [
+          "F10",
+          "F24"
+        ],
+        "status": "FIXED_UNVERIFIED"
+      }
     }
   },
   "lots": {
@@ -194,7 +209,7 @@
         "F23",
         "F24"
       ],
-      "status": "PLANNED"
+      "status": "ACTIVE"
     },
     "REM-04": {
       "title": "Immutable Evidence / Durable Traceability",
@@ -500,18 +515,36 @@
       "primary_remediation_lot": "REM-03",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "OPEN",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "a4b99aff16007f997d17a8cead87b6f39ccf21a1",
+      "corrective_tests": [
+        "tests/unit/domain/test_journal_entry.py::test_posted_entry_rejects_persistence_successor_with_changed_economics",
+        "tests/unit/domain/test_journal_entry.py::test_posted_entry_allows_reversed_persistence_successor_without_economic_change",
+        "tests/unit/domain/test_journal_entry.py::test_reversed_entry_rejects_further_persistence_mutation",
+        "tests/contract/test_repository_contract.py::test_posted_entry_economics_are_immutable",
+        "tests/integration/test_django_postgresql_adapter.py::test_posted_entry_economics_cannot_be_rewritten",
+        "tests/integration/test_sqlalchemy_postgresql_adapter.py::test_posted_entry_economics_cannot_be_rewritten"
+      ],
+      "qualification_evidence": [
+        "PR #80 head 6afc40deff2519fe3d644a02014a14f398ddf85c: CI run 39848864516 PASS",
+        "PR #80 head 6afc40deff2519fe3d644a02014a14f398ddf85c: Security run 39848864365 PASS",
+        "PR #80 head 6afc40deff2519fe3d644a02014a14f398ddf85c: Django/PostgreSQL qualification PASS",
+        "PR #80 head 6afc40deff2519fe3d644a02014a14f398ddf85c: SQLAlchemy/PostgreSQL qualification PASS",
+        "PR #80 head 6afc40deff2519fe3d644a02014a14f398ddf85c: Canonical CI gate PASS"
+      ],
       "affected_components": [
         "repositories",
         "journals",
         "posting"
       ],
-      "notes": []
+      "notes": [
+        "JournalEntry owns the persistence-successor invariant for POSTED/REVERSED states.",
+        "InMemory, Django and SQLAlchemy repositories enforce the same invariant before save.",
+        "POSTED -> REVERSED remains legal when economics are unchanged and reversed_by_id is set.",
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+      ]
     },
     {
       "id": "F11",
@@ -815,18 +848,28 @@
       "primary_remediation_lot": "REM-03",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "OPEN",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "a4b99aff16007f997d17a8cead87b6f39ccf21a1",
+      "corrective_tests": [
+        "tests/unit/application/test_posting_orchestrator.py::test_post_persisted_validated_entry_uses_existing_revision"
+      ],
+      "qualification_evidence": [
+        "PR #80 head 6afc40deff2519fe3d644a02014a14f398ddf85c: CI run 39848864516 PASS",
+        "PR #80 head 6afc40deff2519fe3d644a02014a14f398ddf85c: Security run 39848864365 PASS",
+        "PR #80 head 6afc40deff2519fe3d644a02014a14f398ddf85c: Canonical CI gate PASS"
+      ],
       "affected_components": [
         "posting",
         "journals",
         "repositories"
       ],
-      "notes": []
+      "notes": [
+        "PostingOrchestrator reuses an already-persisted identical VALIDATED entry and its current revision.",
+        "Mismatched persisted/request content for the same EntryId fails closed with RevisionConflictError.",
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+      ]
     },
     {
       "id": "F25",
@@ -987,5 +1030,5 @@
     }
   ],
   "last_updated_on": "2026-10-22",
-  "last_updated_from_sha": "772c27242b018b4d6e67f833537be7ae1c0cabf6"
+  "last_updated_from_sha": "a4b99aff16007f997d17a8cead87b6f39ccf21a1"
 }

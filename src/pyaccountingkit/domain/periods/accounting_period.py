@@ -46,6 +46,32 @@ class AccountingPeriod:
                 f"[{self.start_date}, {self.end_date}]"
             )
 
+    def assert_persistence_successor(self, candidate: AccountingPeriod) -> None:
+        """Require immutable coordinates and one legal status transition."""
+        if candidate.id != self.id:
+            raise ValueError(
+                f"Période {self.id}: persistence successor has different identity {candidate.id}"
+            )
+        if (
+            candidate.entity_id,
+            candidate.fiscal_year_id,
+            candidate.start_date,
+            candidate.end_date,
+        ) != (
+            self.entity_id,
+            self.fiscal_year_id,
+            self.start_date,
+            self.end_date,
+        ):
+            raise ValueError(f"Période {self.id}: period coordinates are immutable")
+        if candidate.status is self.status:
+            return
+        if not self.status.can_transition_to(candidate.status):
+            raise ValueError(
+                f"Transition invalide {self.status} -> {candidate.status} "
+                f"pour la période {self.id}"
+            )
+
     def with_status(self, status: ClosingStatus) -> AccountingPeriod:
         """Return a copy with a new closing status (periods are immutable)."""
         if not self.status.can_transition_to(status):

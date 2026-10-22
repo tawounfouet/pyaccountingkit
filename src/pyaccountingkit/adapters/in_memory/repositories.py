@@ -36,6 +36,10 @@ class InMemoryJournalEntryRepository:
             raise RevisionConflictError(
                 f"Entry {entry.id}: expected revision {expected_revision}, current {current}"
             )
+        persisted = self._store.entries.get(entry.id)
+        if persisted is None:
+            raise RevisionConflictError(f"Entry {entry.id}: persisted value is missing")
+        persisted.assert_persistence_successor(entry)
         self._store.entries[entry.id] = entry
         self._store.entry_revisions[entry.id] = expected_revision.incremented()
 

@@ -22,12 +22,12 @@ class _FakePosting:
         self.single_calls = []
         self.batch_calls = []
 
-    def post(self, entry, actor_id: str):
-        self.single_calls.append((entry, actor_id))
+    def post(self, entry, actor_id: str, *, expected_entity_id=None):
+        self.single_calls.append((entry, actor_id, expected_entity_id))
         return PostingResult(entry, f"post:{entry.id}")
 
-    def post_many(self, entries, actor_id: str):
-        self.batch_calls.append((entries, actor_id))
+    def post_many(self, entries, actor_id: str, *, expected_entity_id=None):
+        self.batch_calls.append((entries, actor_id, expected_entity_id))
         return tuple(PostingResult(entry, f"post:{entry.id}") for entry in entries)
 
 
@@ -101,6 +101,26 @@ def test_all_or_nothing_uses_one_atomic_posting_batch() -> None:
     assert len(result.created_entry_ids) == 2
 
 
+def test_import_plan_entity_bounds_all_or_nothing_posting_scope() -> None:
+    posting = _FakePosting()
+    service = ImportExecutionService(posting)  # type: ignore[arg-type]
+    plan = _plan()
+
+    _execute(service, plan, mode=ImportTransactionMode.ALL_OR_NOTHING)
+
+    assert posting.batch_calls[0][2] == plan.entity_id
+
+
+def test_import_plan_entity_bounds_per_item_posting_scope() -> None:
+    posting = _FakePosting()
+    service = ImportExecutionService(posting)  # type: ignore[arg-type]
+    plan = _plan()
+
+    _execute(service, plan, mode=ImportTransactionMode.PER_ITEM)
+
+    assert {call[2] for call in posting.single_calls} == {plan.entity_id}
+
+
 def test_per_item_uses_one_transaction_per_entry() -> None:
     posting = _FakePosting()
     service = ImportExecutionService(posting)  # type: ignore[arg-type]
@@ -119,6 +139,21 @@ def test_chunked_atomic_groups_entries_by_requested_chunk_size() -> None:
         chunk_size=1,
     )
     assert [len(call[0]) for call in posting.batch_calls] == [1, 1]
+
+
+def test_import_plan_entity_bounds_chunked_posting_scope() -> None:
+    posting = _FakePosting()
+    service = ImportExecutionService(posting)  # type: ignore[arg-type]
+    plan = _plan()
+
+    _execute(
+        service,
+        plan,
+        mode=ImportTransactionMode.CHUNKED_ATOMIC,
+        chunk_size=1,
+    )
+
+    assert {call[2] for call in posting.batch_calls} == {plan.entity_id}
 
 
 def test_same_reviewed_plan_produces_same_entry_ids() -> None:

@@ -34,16 +34,11 @@ def allocate_money_conservatively(
 
     total_weight = sum((weight for _, weight in allocations), Decimal("0"))
     if total_weight != Decimal("1"):
-        raise ValueError(
-            f"reporting allocation weights must sum exactly to 1, got {total_weight}"
-        )
+        raise ValueError(f"reporting allocation weights must sum exactly to 1, got {total_weight}")
 
     unit = amount.currency.subunit_exp
     exact = {key: amount.amount * weight for key, weight in allocations}
-    provisional = {
-        key: value.quantize(unit, rounding=ROUND_DOWN)
-        for key, value in exact.items()
-    }
+    provisional = {key: value.quantize(unit, rounding=ROUND_DOWN) for key, value in exact.items()}
 
     provisional_total = sum(provisional.values(), Decimal("0"))
     residual = amount.amount - provisional_total
@@ -64,10 +59,7 @@ def allocate_money_conservatively(
         for key in ranked_keys[: abs(residual_units)]:
             provisional[key] += adjustment
 
-    result = {
-        key: Money(provisional[key], amount.currency)
-        for key in sorted(provisional)
-    }
+    result = {key: Money(provisional[key], amount.currency) for key in sorted(provisional)}
     allocated_total = Money.zero(amount.currency)
     for value in result.values():
         allocated_total += value

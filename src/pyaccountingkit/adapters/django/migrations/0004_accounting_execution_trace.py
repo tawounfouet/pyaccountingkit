@@ -1,7 +1,7 @@
 # Generated for PyAccountingKit REM-04 / A03.
 
-from django.db import migrations, models
 import django.db.models.deletion
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
@@ -13,7 +13,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="AccountingExecutionTraceModel",
             fields=[
-                ("trace_id", models.CharField(max_length=128, primary_key=True, serialize=False)),
+                (
+                    "trace_id",
+                    models.CharField(max_length=128, primary_key=True, serialize=False),
+                ),
                 ("entity_id", models.CharField(db_index=True, max_length=128)),
                 ("accounting_date", models.DateField(db_index=True)),
                 ("proposal_checksum", models.CharField(db_index=True, max_length=64)),

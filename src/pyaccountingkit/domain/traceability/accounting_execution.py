@@ -32,5 +32,25 @@ class AccountingExecutionTrace:
     policy_reference_snapshot_ids: tuple[str, ...] = ()
     source_reference: str = ""
 
+    def canonical_payload(self) -> dict[str, object]:
+        """Return the deterministic semantic payload persisted for replay."""
+        return {
+            "trace_id": self.trace_id,
+            "entity_id": str(self.entity_id),
+            "accounting_date": self.accounting_date.isoformat(),
+            "proposal_checksum": self.proposal_checksum,
+            "resolved_account_ids": [str(item) for item in self.resolved_account_ids],
+            "journal_entry_id": str(self.journal_entry_id),
+            "company_chart_id": self.company_chart_id,
+            "company_chart_version": self.company_chart_version,
+            "company_chart_reference_snapshot_id": self.company_chart_reference_snapshot_id,
+            "policy_set_ids": list(self.policy_set_ids),
+            "policy_set_versions": list(self.policy_set_versions),
+            "policy_ids": list(self.policy_ids),
+            "policy_versions": list(self.policy_versions),
+            "policy_reference_snapshot_ids": list(self.policy_reference_snapshot_ids),
+            "source_reference": self.source_reference,
+        }
+
 
 __all__ = ["AccountingExecutionTrace"]

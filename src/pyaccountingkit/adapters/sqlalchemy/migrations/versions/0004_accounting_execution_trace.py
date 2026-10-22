@@ -29,7 +29,11 @@ def upgrade() -> None:
         sa.Column("journal_entry_id", sa.String(length=128), nullable=False),
         sa.Column("company_chart_id", sa.String(length=128), nullable=False),
         sa.Column("company_chart_version", sa.String(length=128), nullable=False),
-        sa.Column("company_chart_reference_snapshot_id", sa.String(length=128), nullable=False),
+        sa.Column(
+            "company_chart_reference_snapshot_id",
+            sa.String(length=128),
+            nullable=False,
+        ),
         sa.Column("policy_set_ids", sa.JSON(), nullable=False),
         sa.Column("policy_set_versions", sa.JSON(), nullable=False),
         sa.Column("policy_ids", sa.JSON(), nullable=False),

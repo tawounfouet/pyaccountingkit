@@ -414,3 +414,189 @@ def test_report_snapshot_is_content_deterministic_immutable_and_stale_aware() ->
     assert first.freshness_against("changed") is ReportSnapshotFreshness.STALE
     with pytest.raises(FrozenInstanceError):
         first.status = first.status  # type: ignore[misc]
+
+
+def test_reporting_allocation_conserves_one_cent_across_two_statement_lines() -> None:
+    definition = FinancialStatementDefinition(
+        definition_id="def-allocation-cent",
+        code="ALLOC-CENT",
+        statement_type=FinancialStatementType.CUSTOM,
+        version="1",
+        effective_from=date(2026, 1, 1),
+        lines=(
+            StatementLineDefinition(
+                line_id="a",
+                code="A",
+                label="A",
+                line_type=StatementLineType.DETAIL,
+                order=1,
+            ),
+            StatementLineDefinition(
+                line_id="b",
+                code="B",
+                label="B",
+                line_type=StatementLineType.DETAIL,
+                order=2,
+            ),
+        ),
+    )
+    mapping_set = StatementMappingSet(
+        mapping_set_id="map-allocation-cent",
+        accounting_entity_id=ENTITY,
+        statement_definition_id=definition.definition_id,
+        version="1",
+        status=StatementMappingSetStatus.ACTIVE,
+        mappings=(
+            _mapping("alloc-a", "100", "A", allocation="0.5"),
+            _mapping("alloc-b", "100", "B", allocation="0.5"),
+        ),
+        effective_from=date(2026, 1, 1),
+    )
+    source = _trial_balance(
+        _line("100", "0.01", "0.00"),
+        _line("999", "0.00", "0.01"),
+    )
+
+    result = FinancialStatementEngine().build(
+        FinancialStatementBuildRequest(
+            accounting_entity_id=ENTITY,
+            as_of=AS_OF,
+            reporting_source=source,
+            statement_definition=definition,
+            mapping_set=mapping_set,
+            require_full_mapping=False,
+        )
+    )
+
+    assert result.line("A").amount == Money.from_str("0.01", EUR)
+    assert result.line("B").amount == Money.zero(EUR)
+    assert result.line("A").amount + result.line("B").amount == Money.from_str("0.01", EUR)
+    assert result.drill_down("A")[0].contribution == Money.from_str("0.01", EUR)
+    assert result.drill_down("B")[0].contribution == Money.zero(EUR)
+
+
+def test_credit_positive_detail_and_parent_do_not_double_flip() -> None:
+    definition = FinancialStatementDefinition(
+        definition_id="def-sign-parent",
+        code="SIGN-PARENT",
+        statement_type=FinancialStatementType.CUSTOM,
+        version="1",
+        effective_from=date(2026, 1, 1),
+        lines=(
+            StatementLineDefinition(
+                line_id="parent",
+                code="PARENT",
+                label="Parent",
+                line_type=StatementLineType.TOTAL,
+                order=2,
+                sign_convention=StatementSignConvention.CREDIT_POSITIVE,
+            ),
+            StatementLineDefinition(
+                line_id="detail",
+                code="DETAIL",
+                label="Detail",
+                line_type=StatementLineType.DETAIL,
+                order=1,
+                parent_line_id="parent",
+                sign_convention=StatementSignConvention.CREDIT_POSITIVE,
+            ),
+        ),
+    )
+    mapping_set = StatementMappingSet(
+        mapping_set_id="map-sign-parent",
+        accounting_entity_id=ENTITY,
+        statement_definition_id=definition.definition_id,
+        version="1",
+        status=StatementMappingSetStatus.ACTIVE,
+        mappings=(_mapping("m-credit", "200", "DETAIL"),),
+        effective_from=date(2026, 1, 1),
+    )
+    source = _trial_balance(
+        _line("100", "100", "0"),
+        _line("200", "0", "100"),
+    )
+
+    result = FinancialStatementEngine().build(
+        FinancialStatementBuildRequest(
+            accounting_entity_id=ENTITY,
+            as_of=AS_OF,
+            reporting_source=source,
+            statement_definition=definition,
+            mapping_set=mapping_set,
+            require_full_mapping=False,
+        )
+    )
+
+    assert result.line("DETAIL").amount == Money.from_str("100", EUR)
+    assert result.line("PARENT").amount == Money.from_str("100", EUR)
+
+
+def test_formula_uses_economic_values_before_single_sign_presentation() -> None:
+    definition = FinancialStatementDefinition(
+        definition_id="def-sign-formula",
+        code="SIGN-FORMULA",
+        statement_type=FinancialStatementType.INCOME_STATEMENT,
+        version="1",
+        effective_from=date(2026, 1, 1),
+        lines=(
+            StatementLineDefinition(
+                line_id="revenue",
+                code="REVENUE",
+                label="Revenue",
+                line_type=StatementLineType.DETAIL,
+                order=1,
+                sign_convention=StatementSignConvention.CREDIT_POSITIVE,
+            ),
+            StatementLineDefinition(
+                line_id="expense",
+                code="EXPENSE",
+                label="Expense",
+                line_type=StatementLineType.DETAIL,
+                order=2,
+            ),
+            StatementLineDefinition(
+                line_id="result",
+                code="RESULT",
+                label="Result",
+                line_type=StatementLineType.FORMULA,
+                order=3,
+                formula=StatementFormula(
+                    FormulaOperation.ADD,
+                    ("REVENUE", "EXPENSE"),
+                ),
+                sign_convention=StatementSignConvention.CREDIT_POSITIVE,
+            ),
+        ),
+    )
+    mapping_set = StatementMappingSet(
+        mapping_set_id="map-sign-formula",
+        accounting_entity_id=ENTITY,
+        statement_definition_id=definition.definition_id,
+        version="1",
+        status=StatementMappingSetStatus.ACTIVE,
+        mappings=(
+            _mapping("m-revenue", "700", "REVENUE"),
+            _mapping("m-expense", "600", "EXPENSE"),
+        ),
+        effective_from=date(2026, 1, 1),
+    )
+    source = _trial_balance(
+        _line("700", "0", "100"),
+        _line("600", "40", "0"),
+        _line("512", "60", "0"),
+    )
+
+    result = FinancialStatementEngine().build(
+        FinancialStatementBuildRequest(
+            accounting_entity_id=ENTITY,
+            as_of=AS_OF,
+            reporting_source=source,
+            statement_definition=definition,
+            mapping_set=mapping_set,
+            require_full_mapping=False,
+        )
+    )
+
+    assert result.line("REVENUE").amount == Money.from_str("100", EUR)
+    assert result.line("EXPENSE").amount == Money.from_str("40", EUR)
+    assert result.line("RESULT").amount == Money.from_str("60", EUR)

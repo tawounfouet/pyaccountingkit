@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from pyaccountingkit.core.currency import Currency, EUR, USD
+from pyaccountingkit.core.currency import EUR, USD, Currency
 from pyaccountingkit.core.errors import UnbalancedEntryError
 from pyaccountingkit.core.identifiers import AccountId
 from pyaccountingkit.core.money import Money

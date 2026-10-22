@@ -140,7 +140,6 @@ class AccountingExecutionTraceTable(Base):
     journal_entry_id: Mapped[str] = mapped_column(
         ForeignKey("pyak_journal_entry.id", ondelete="RESTRICT"),
         unique=True,
-        index=True,
     )
     company_chart_id: Mapped[str] = mapped_column(String(128))
     company_chart_version: Mapped[str] = mapped_column(String(128))

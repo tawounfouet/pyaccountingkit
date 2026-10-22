@@ -312,11 +312,11 @@ class FinancialStatementEngine:
             resolving.add(code)
             line = line_by_code[code]
             if line.line_type is StatementLineType.DETAIL:
-                raw = detail_values[code]
+                value = line.present(detail_values[code])
             elif line.line_type in {StatementLineType.SUBTOTAL, StatementLineType.TOTAL}:
-                raw = Money.zero(currency)
+                value = Money.zero(currency)
                 for child in definition.children_of(line.line_id):
-                    raw = raw + evaluate(child.code)
+                    value = value + evaluate(child.code)
             elif line.line_type is StatementLineType.FORMULA:
                 if line.formula is None:
                     raise InvalidStatementDefinitionError(
@@ -325,10 +325,9 @@ class FinancialStatementEngine:
                 dependencies = {
                     dependency: evaluate(dependency) for dependency in line.formula.dependencies
                 }
-                raw = line.formula.evaluate(dependencies, currency=currency)
+                value = line.formula.evaluate(dependencies, currency=currency)
             else:
-                raw = Money.zero(currency)
-            value = line.present(raw)
+                value = Money.zero(currency)
             resolving.remove(code)
             resolved[code] = value
             return value

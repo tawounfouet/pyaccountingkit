@@ -85,6 +85,13 @@ class StatementLineDefinition:
             raise InvalidStatementDefinitionError(
                 f"only FORMULA lines may carry a StatementFormula ({self.code!r})"
             )
+        if (
+            self.sign_convention is not StatementSignConvention.NATURAL
+            and self.line_type is not StatementLineType.DETAIL
+        ):
+            raise InvalidStatementDefinitionError(
+                f"non-natural sign convention is only valid on DETAIL lines ({self.code!r})"
+            )
         if self.line_type in {StatementLineType.HEADER, StatementLineType.SPACER}:
             if self.control_role is not None:
                 raise InvalidStatementDefinitionError(
@@ -92,7 +99,7 @@ class StatementLineDefinition:
                 )
 
     def present(self, value: Money) -> Money:
-        """Apply only presentation sign rules; never mutate ledger semantics."""
+        """Apply the presentation sign once to a mapped DETAIL value."""
         if self.sign_convention in {
             StatementSignConvention.NATURAL,
             StatementSignConvention.DEBIT_POSITIVE,

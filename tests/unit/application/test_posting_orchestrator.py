@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from dataclasses import replace
 from datetime import UTC, date, datetime
 
 import pytest
@@ -18,6 +19,7 @@ from pyaccountingkit.core.errors import (
     EntityScopeMismatchError,
     InactiveAccountError,
     InactiveJournalError,
+    IdempotencyConflictError,
     InvalidEntryStateError,
     JournalNotFoundError,
     NonPostableAccountError,
@@ -219,6 +221,45 @@ def test_post_duplicate_request_replays_cleanly() -> None:
     assert second.posted_entry == first.posted_entry
     assert len(store.audit_log) == 1
     assert store.entries[EntryId("e1")].status is EntryStatus.POSTED
+
+
+def test_post_duplicate_key_with_different_payload_is_conflict() -> None:
+    orchestrator, _, store = _bak_app()
+    orchestrator.post(_draft(), actor_id="u1")
+
+    with pytest.raises(IdempotencyConflictError):
+        orchestrator.post(
+            replace(_draft(), description="different semantic payload"),
+            actor_id="u1",
+        )
+
+    assert len(store.audit_log) == 1
+    assert len(store.outbox) == 1
+
+
+def test_post_duplicate_key_with_different_journal_scope_is_conflict() -> None:
+    orchestrator, factory, store = _bak_app()
+    orchestrator.post(_draft(), actor_id="u1")
+
+    with factory.open() as uow:
+        uow.journals.add(
+            Journal(
+                id=JournalId("j_other"),
+                entity_id=ENTITY,
+                code="O",
+                label="Other journal",
+            )
+        )
+        uow.commit()
+
+    with pytest.raises(IdempotencyConflictError):
+        orchestrator.post(
+            replace(_draft(), journal_id=JournalId("j_other")),
+            actor_id="u1",
+        )
+
+    assert len(store.audit_log) == 1
+    assert len(store.outbox) == 1
 
 
 def test_post_rejects_period_from_another_entity() -> None:

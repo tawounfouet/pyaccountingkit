@@ -280,9 +280,7 @@ class DjangoAccountingExecutionTraceRepository:
                     journal_entry_id=str(trace.journal_entry_id),
                     company_chart_id=trace.company_chart_id,
                     company_chart_version=trace.company_chart_version,
-                    company_chart_reference_snapshot_id=(
-                        trace.company_chart_reference_snapshot_id
-                    ),
+                    company_chart_reference_snapshot_id=(trace.company_chart_reference_snapshot_id),
                     policy_set_ids=list(trace.policy_set_ids),
                     policy_set_versions=list(trace.policy_set_versions),
                     policy_ids=list(trace.policy_ids),
@@ -311,9 +309,7 @@ class DjangoAccountingExecutionTraceRepository:
             entity_id=EntityId(model.entity_id),
             accounting_date=model.accounting_date,
             proposal_checksum=model.proposal_checksum,
-            resolved_account_ids=tuple(
-                AccountId(str(item)) for item in model.resolved_account_ids
-            ),
+            resolved_account_ids=tuple(AccountId(str(item)) for item in model.resolved_account_ids),
             journal_entry_id=EntryId(model.journal_entry_id),
             company_chart_id=model.company_chart_id,
             company_chart_version=model.company_chart_version,

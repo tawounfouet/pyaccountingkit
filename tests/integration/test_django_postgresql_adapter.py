@@ -44,6 +44,7 @@ from pyaccountingkit.domain.journals.journal import Journal
 from pyaccountingkit.domain.journals.journal_entry import EntryType, JournalEntry
 from pyaccountingkit.domain.journals.journal_line import JournalLine
 from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
+from pyaccountingkit.domain.periods.closing_status import ClosingStatus
 from pyaccountingkit.ports.outbox import OutboxRecord
 
 NOW = datetime(2026, 9, 18, 9, 0, tzinfo=UTC)
@@ -145,6 +146,34 @@ def test_posted_entry_economics_cannot_be_rewritten() -> None:
         uow.rollback()
 
     assert DjangoUnitOfWorkFactory(clock=FrozenClock(NOW)).open().entries.get(posted.id) == posted
+
+
+def test_period_repository_is_status_only_and_transition_strict() -> None:
+    factory = DjangoUnitOfWorkFactory(clock=FrozenClock(NOW))
+    period = _period()
+
+    with factory.open() as uow:
+        uow.periods.add(period)
+        uow.commit()
+
+    with factory.open() as uow:
+        with pytest.raises(ValueError, match="immutable"):
+            uow.periods.save(replace(period, entity_id=EntityId("entity:other")))
+        uow.rollback()
+
+    with factory.open() as uow:
+        with pytest.raises(ValueError, match="Transition invalide"):
+            uow.periods.save(replace(period, status=ClosingStatus.CLOSED))
+        uow.rollback()
+
+    reviewed = period.with_status(ClosingStatus.REVIEW)
+    with factory.open() as uow:
+        uow.periods.save(reviewed)
+        uow.commit()
+
+    with factory.open() as uow:
+        assert uow.periods.get(period.id) == reviewed
+        uow.rollback()
 
 
 def test_uncommitted_unit_of_work_rolls_back_every_sink() -> None:

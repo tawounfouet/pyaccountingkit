@@ -120,7 +120,7 @@ def test_0_1_core_scenario_end_to_end() -> None:
     reversal = ReversalOrchestrator(factory, lambda: EntryId("rev1"))
     tb_query = TrialBalanceQuery(factory, chart)
     journal_query = JournalQuery(factory)
-    ledger_query = GeneralLedgerQuery(factory)
+    ledger_query = GeneralLedgerQuery(factory, chart)
 
     entry = _draft("e1").validate()
 

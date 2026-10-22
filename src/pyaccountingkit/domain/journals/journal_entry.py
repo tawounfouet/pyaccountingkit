@@ -148,9 +148,7 @@ class JournalEntry:
 
         if self.status is EntryStatus.REVERSED:
             if candidate != self:
-                raise InvalidEntryStateError(
-                    f"Écriture {self.id}: REVERSED entry is immutable"
-                )
+                raise InvalidEntryStateError(f"Écriture {self.id}: REVERSED entry is immutable")
             return
 
         if candidate.status is EntryStatus.POSTED:

@@ -6,6 +6,8 @@ from collections.abc import Mapping
 from dataclasses import dataclass, field
 from datetime import datetime
 
+from pyaccountingkit.core.immutable_json import freeze_json_mapping
+
 
 @dataclass(frozen=True, slots=True)
 class AuditEvent:
@@ -15,7 +17,10 @@ class AuditEvent:
     entity_id: str
     actor_id: str
     occurred_at: datetime
-    payload: Mapping[str, str] = field(default_factory=dict)
+    payload: Mapping[str, object] = field(default_factory=dict)
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "payload", freeze_json_mapping(self.payload))
 
 
 __all__ = ["AuditEvent"]

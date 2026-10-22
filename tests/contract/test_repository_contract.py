@@ -29,6 +29,7 @@ from pyaccountingkit.domain.journals.journal_entry import JournalEntry
 from pyaccountingkit.domain.journals.journal_line import JournalLine
 from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
 from pyaccountingkit.domain.periods.closing_status import ClosingStatus
+from pyaccountingkit.domain.traceability.accounting_execution import AccountingExecutionTrace
 from pyaccountingkit.ports.outbox import OutboxRecord
 from pyaccountingkit.ports.unit_of_work import UnitOfWorkFactoryProtocol
 
@@ -70,6 +71,26 @@ def _monthly_period() -> AccountingPeriod:
         fiscal_year_id=FiscalYearId("fy_2024"),
         start_date=date(2024, 1, 1),
         end_date=date(2024, 1, 31),
+    )
+
+
+def _execution_trace(entry_id: EntryId = EntryId("entry_1")) -> AccountingExecutionTrace:
+    return AccountingExecutionTrace(
+        trace_id="acct:proposal-1",
+        entity_id=EntityId("ent_1"),
+        accounting_date=date(2024, 1, 15),
+        proposal_checksum="a" * 64,
+        resolved_account_ids=("411000", "707000"),
+        journal_entry_id=entry_id,
+        company_chart_id="chart:ent_1",
+        company_chart_version="v1",
+        company_chart_reference_snapshot_id="snapshot:1",
+        policy_set_ids=("ps:1",),
+        policy_set_versions=("1",),
+        policy_ids=("policy:1",),
+        policy_versions=("1.0",),
+        policy_reference_snapshot_ids=("snapshot:1",),
+        source_reference="source:1",
     )
 
 
@@ -255,6 +276,41 @@ def test_period_save_accepts_legal_transition(name: str) -> None:
 
     with factory.open() as uow:
         assert uow.periods.get(period.id) == reviewed
+        uow.rollback()
+
+
+@pytest.mark.parametrize("name", FACTORIES)
+def test_execution_trace_commits_with_entry(name: str) -> None:
+    factory = _new_factory(name)
+    entry = _balanced_entry()
+    trace = _execution_trace(entry.id)
+
+    with factory.open() as uow:
+        uow.entries.add(entry)
+        uow.execution_traces.append(trace)
+        uow.commit()
+
+    with factory.open() as uow:
+        assert uow.entries.get(entry.id) == entry
+        assert uow.execution_traces.get_by_entry_id(entry.id) == trace
+        uow.rollback()
+
+
+@pytest.mark.parametrize("name", FACTORIES)
+def test_execution_trace_rolls_back_with_entry(name: str) -> None:
+    factory = _new_factory(name)
+    entry = _balanced_entry()
+    trace = _execution_trace(entry.id)
+
+    with factory.open() as uow:
+        uow.entries.add(entry)
+        uow.execution_traces.append(trace)
+        uow.rollback()
+
+    with factory.open() as uow:
+        with pytest.raises(EntryNotFoundError):
+            uow.entries.get(entry.id)
+        assert uow.execution_traces.get_by_entry_id(entry.id) is None
         uow.rollback()
 
 

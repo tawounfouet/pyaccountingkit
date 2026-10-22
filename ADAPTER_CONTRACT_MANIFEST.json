@@ -173,7 +173,7 @@
       "adapter_contract_version": "1",
       "alembic_version": ">=1.13,<2",
       "database": "PostgreSQL 16",
-      "migration_baseline": "0003_idempotency_payload_fingerprint",
+      "migration_baseline": "0003_idem_fingerprint",
       "package": "pyaccountingkit.adapters.sqlalchemy",
       "package_extra": "sqlalchemy",
       "public_api_orm_leakage": false,

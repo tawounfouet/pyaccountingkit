@@ -150,3 +150,73 @@ def test_entry_accepts_validated_status() -> None:
         status=EntryStatus.VALIDATED,
     )
     assert entry.status is EntryStatus.VALIDATED
+
+
+def test_posted_entry_rejects_persistence_successor_with_changed_economics() -> None:
+    posted = _balanced_entry().validate().freeze(datetime(2024, 1, 15, 9, 0, tzinfo=UTC))
+    changed = JournalEntry(
+        id=posted.id,
+        journal_id=posted.journal_id,
+        period_id=posted.period_id,
+        entry_date=posted.entry_date,
+        description="changed after posting",
+        lines=posted.lines,
+        entry_type=posted.entry_type,
+        status=EntryStatus.POSTED,
+        posted_at=posted.posted_at,
+        reversal_of_id=posted.reversal_of_id,
+        reversed_by_id=posted.reversed_by_id,
+    )
+
+    with pytest.raises(InvalidEntryStateError, match="immutable"):
+        posted.assert_persistence_successor(changed)
+
+
+def test_posted_entry_allows_reversed_persistence_successor_without_economic_change() -> None:
+    posted = _balanced_entry().validate().freeze(datetime(2024, 1, 15, 9, 0, tzinfo=UTC))
+    reversed_entry = JournalEntry(
+        id=posted.id,
+        journal_id=posted.journal_id,
+        period_id=posted.period_id,
+        entry_date=posted.entry_date,
+        description=posted.description,
+        lines=posted.lines,
+        entry_type=posted.entry_type,
+        status=EntryStatus.REVERSED,
+        posted_at=posted.posted_at,
+        reversal_of_id=posted.reversal_of_id,
+        reversed_by_id=EntryId("rev:1"),
+    )
+
+    posted.assert_persistence_successor(reversed_entry)
+
+
+def test_reversed_entry_rejects_further_persistence_mutation() -> None:
+    posted = _balanced_entry().validate().freeze(datetime(2024, 1, 15, 9, 0, tzinfo=UTC))
+    reversed_entry = JournalEntry(
+        id=posted.id,
+        journal_id=posted.journal_id,
+        period_id=posted.period_id,
+        entry_date=posted.entry_date,
+        description=posted.description,
+        lines=posted.lines,
+        entry_type=posted.entry_type,
+        status=EntryStatus.REVERSED,
+        posted_at=posted.posted_at,
+        reversed_by_id=EntryId("rev:1"),
+    )
+    mutated = JournalEntry(
+        id=reversed_entry.id,
+        journal_id=reversed_entry.journal_id,
+        period_id=reversed_entry.period_id,
+        entry_date=reversed_entry.entry_date,
+        description=reversed_entry.description,
+        lines=reversed_entry.lines,
+        entry_type=reversed_entry.entry_type,
+        status=EntryStatus.REVERSED,
+        posted_at=reversed_entry.posted_at,
+        reversed_by_id=EntryId("rev:2"),
+    )
+
+    with pytest.raises(InvalidEntryStateError, match="REVERSED"):
+        reversed_entry.assert_persistence_successor(mutated)

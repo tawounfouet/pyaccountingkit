@@ -69,7 +69,8 @@
         "architecture_gap_count": 3,
         "json_parse": "PASS"
       },
-      "code_baseline_statement": "No src/, tests/, or workflow delta between audit baseline and remediation start; intervening changes were documentation-only."
+      "code_baseline_statement": "No src/, tests/, or workflow delta between audit baseline and remediation start; intervening changes were documentation-only.",
+      "roadmap_alignment_commit_sha": "44a2ffa4ef3b1eb4c32cbf34280788e06fc2ac4d"
     }
   },
   "lots": {
@@ -799,5 +800,5 @@
     }
   ],
   "last_updated_on": "2026-10-22",
-  "last_updated_from_sha": "fcc9e63a5bcf1da14ef5136f23268d033933ab8f"
+  "last_updated_from_sha": "44a2ffa4ef3b1eb4c32cbf34280788e06fc2ac4d"
 }

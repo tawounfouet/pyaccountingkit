@@ -495,3 +495,89 @@ def test_manifest_gate_accepts_current_repository() -> None:
     result = module.validate_manifests()
     assert result.name == "Manifest coherence"
     assert result.duration_seconds >= 0
+
+
+def _write_0_7_rc1_required_evidence(module: ModuleType, root: Path) -> None:
+    for relative in ("tests/integration", "tests/golden", "tests/replay", "tests/concurrency"):
+        directory = root / relative
+        directory.mkdir(parents=True, exist_ok=True)
+        (directory / "test_present.py").write_text("def test_present(): pass\n", encoding="utf-8")
+
+    for relative in module._VERSIONED_RC_EVIDENCE["0.7.0rc1"]:
+        target = root / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        if target.suffix == ".json":
+            target.write_text("{}\n", encoding="utf-8")
+        else:
+            target.write_text("def test_release_evidence(): pass\n", encoding="utf-8")
+
+
+def test_release_candidate_contract_requires_exact_sha_postgresql_evidence(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    module = _load_qualifier()
+    _write_0_7_rc1_required_evidence(module, tmp_path)
+    candidate_sha = "a" * 40
+
+    monkeypatch.setattr(module, "ROOT", tmp_path)
+    monkeypatch.setattr(module, "project_version", lambda: "0.7.0rc1")
+    monkeypatch.setattr(module, "_current_git_sha", lambda: candidate_sha)
+    monkeypatch.delenv("PYAK_RELEASE_DJANGO_POSTGRESQL_SHA", raising=False)
+    monkeypatch.delenv("PYAK_RELEASE_SQLALCHEMY_POSTGRESQL_SHA", raising=False)
+
+    with pytest.raises(module.QualificationError, match="Django/PostgreSQL evidence"):
+        module.validate_release_candidate_contract(skip_tests=False, skip_package=False)
+
+
+def test_release_candidate_contract_rejects_postgresql_evidence_from_other_sha(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    module = _load_qualifier()
+    _write_0_7_rc1_required_evidence(module, tmp_path)
+    candidate_sha = "a" * 40
+
+    monkeypatch.setattr(module, "ROOT", tmp_path)
+    monkeypatch.setattr(module, "project_version", lambda: "0.7.0rc1")
+    monkeypatch.setattr(module, "_current_git_sha", lambda: candidate_sha)
+    monkeypatch.setenv("PYAK_RELEASE_DJANGO_POSTGRESQL_SHA", "b" * 40)
+    monkeypatch.setenv("PYAK_RELEASE_SQLALCHEMY_POSTGRESQL_SHA", candidate_sha)
+
+    with pytest.raises(module.QualificationError, match="does not match candidate SHA"):
+        module.validate_release_candidate_contract(skip_tests=False, skip_package=False)
+
+
+def test_release_candidate_contract_accepts_exact_sha_postgresql_evidence(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    module = _load_qualifier()
+    _write_0_7_rc1_required_evidence(module, tmp_path)
+    candidate_sha = "c" * 40
+
+    monkeypatch.setattr(module, "ROOT", tmp_path)
+    monkeypatch.setattr(module, "project_version", lambda: "0.7.0rc1")
+    monkeypatch.setattr(module, "_current_git_sha", lambda: candidate_sha)
+    monkeypatch.setenv("PYAK_RELEASE_DJANGO_POSTGRESQL_SHA", candidate_sha)
+    monkeypatch.setenv("PYAK_RELEASE_SQLALCHEMY_POSTGRESQL_SHA", candidate_sha)
+
+    module.validate_release_candidate_contract(skip_tests=False, skip_package=False)
+
+
+def test_release_candidate_generic_suites_do_not_collect_postgresql_modules() -> None:
+    module = _load_qualifier()
+
+    integration = module._release_candidate_suite_targets(
+        "tests/integration",
+        version="0.7.0rc1",
+    )
+    concurrency = module._release_candidate_suite_targets(
+        "tests/concurrency",
+        version="0.7.0rc1",
+    )
+
+    assert "--ignore=tests/integration/test_django_postgresql_adapter.py" in integration
+    assert "--ignore=tests/integration/test_sqlalchemy_postgresql_adapter.py" in integration
+    assert "--ignore=tests/concurrency/test_django_postgresql_concurrency.py" in concurrency
+    assert "--ignore=tests/concurrency/test_sqlalchemy_postgresql_concurrency.py" in concurrency

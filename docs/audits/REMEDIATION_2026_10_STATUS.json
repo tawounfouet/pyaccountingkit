@@ -224,6 +224,26 @@
         "Exact-main-SHA CI evidence for the combined REM-04 implementation before VERIFIED",
         "REM-10 transverse requalification"
       ]
+    },
+    "rem06": {
+      "first_slice": {
+        "implementation_pr": 85,
+        "pr_head_sha": "94dad08cc217e24b6d42ab394ab21a81d0f0840e",
+        "merge_sha": "04f4012d61ad6825b9e5cfa741a4b11139d86381",
+        "pr_ci_run_id": 39865030323,
+        "pr_security_run_id": 39865030149,
+        "pr_ci_status": "PASS",
+        "findings": [
+          "F12",
+          "F15"
+        ],
+        "status": "FIXED_UNVERIFIED"
+      },
+      "implementation_status": "IN_PROGRESS",
+      "remaining_findings": [
+        "F16",
+        "F21"
+      ]
     }
   },
   "lots": {
@@ -645,17 +665,31 @@
       "primary_remediation_lot": "REM-06",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "OPEN",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "04f4012d61ad6825b9e5cfa741a4b11139d86381",
+      "corrective_tests": [
+        "tests/unit/application/test_policy_proposal_posting.py::test_measurement_to_proposal_to_posting",
+        "tests/unit/domain/test_proposal.py::test_proposal_checksum_binds_ledger_entry_type"
+      ],
+      "qualification_evidence": [
+        "PR #85 head 94dad08cc217e24b6d42ab394ab21a81d0f0840e: CI run 39865030323 PASS",
+        "PR #85 head 94dad08cc217e24b6d42ab394ab21a81d0f0840e: Security run 39865030149 PASS",
+        "PR #85 head 94dad08cc217e24b6d42ab394ab21a81d0f0840e: Django/PostgreSQL qualification PASS",
+        "PR #85 head 94dad08cc217e24b6d42ab394ab21a81d0f0840e: SQLAlchemy/PostgreSQL qualification PASS",
+        "PR #85 head 94dad08cc217e24b6d42ab394ab21a81d0f0840e: Canonical CI gate PASS"
+      ],
       "affected_components": [
         "proposals",
         "journals"
       ],
-      "notes": []
+      "notes": [
+        "JournalEntryProposal carries typed journal_entry_type with NORMAL default for compatibility.",
+        "ProposalPostingOrchestrator materializes proposal.journal_entry_type into JournalEntry.entry_type.",
+        "Proposal checksum binds journal_entry_type so replay cannot conflate different ledger classifications.",
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+      ]
     },
     {
       "id": "F13",
@@ -734,18 +768,30 @@
       "primary_remediation_lot": "REM-06",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "OPEN",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "04f4012d61ad6825b9e5cfa741a4b11139d86381",
+      "corrective_tests": [
+        "tests/unit/domain/test_trial_balance.py::test_checksum_binds_company_account_identity",
+        "tests/unit/domain/test_trial_balance.py::test_checksum_binds_currency_semantics",
+        "tests/unit/domain/test_trial_balance.py::test_checksum_distinguishes_snapshots_and_periods"
+      ],
+      "qualification_evidence": [
+        "PR #85 head 94dad08cc217e24b6d42ab394ab21a81d0f0840e: CI run 39865030323 PASS",
+        "PR #85 head 94dad08cc217e24b6d42ab394ab21a81d0f0840e: Security run 39865030149 PASS",
+        "PR #85 head 94dad08cc217e24b6d42ab394ab21a81d0f0840e: Canonical CI gate PASS"
+      ],
       "affected_components": [
         "ledger",
         "trial_balance",
         "checksums"
       ],
-      "notes": []
+      "notes": [
+        "TrialBalance checksum now binds period, snapshot, entity, account identity/code, debit/credit amount, currency code and exponent through CanonicalHasher.",
+        "Opaque AccountId or currency semantic changes alter the checksum even with identical numeric totals.",
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+      ]
     },
     {
       "id": "F16",
@@ -1166,6 +1212,6 @@
       ]
     }
   ],
-  "last_updated_on": "2026-10-22",
-  "last_updated_from_sha": "762bd6a91cccd9137dd07eb134f1dff4361b049c"
+  "last_updated_on": "2026-10-23",
+  "last_updated_from_sha": "04f4012d61ad6825b9e5cfa741a4b11139d86381"
 }

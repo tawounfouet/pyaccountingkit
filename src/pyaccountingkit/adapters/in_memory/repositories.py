@@ -87,6 +87,10 @@ class InMemoryPeriodRepository:
         self._store.periods[period.id] = period
 
     def save(self, period: AccountingPeriod) -> None:
+        persisted = self._store.periods.get(period.id)
+        if persisted is None:
+            raise PeriodNotFoundError(f"Period {period.id} not found")
+        persisted.assert_persistence_successor(period)
         self._store.periods[period.id] = period
 
     def get(self, period_id: PeriodId) -> AccountingPeriod:

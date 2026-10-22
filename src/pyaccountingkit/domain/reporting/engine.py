@@ -12,6 +12,7 @@ from enum import StrEnum
 from pyaccountingkit.core.entity_scope import require_same_entity
 from pyaccountingkit.core.identifiers import EntityId
 from pyaccountingkit.core.money import Money
+from pyaccountingkit.domain.reporting.allocation import allocate_money_conservatively
 from pyaccountingkit.domain.reporting.errors import (
     InvalidStatementDefinitionError,
     NonExecutableStatementMappingError,
@@ -247,9 +248,14 @@ class FinancialStatementEngine:
 
         for source_line in source.lines:
             applicable = tuple(
-                mapping
-                for mapping in request.mapping_set.mappings
-                if mapping.applies_to(source_line, as_of=request.as_of)
+                sorted(
+                    (
+                        mapping
+                        for mapping in request.mapping_set.mappings
+                        if mapping.applies_to(source_line, as_of=request.as_of)
+                    ),
+                    key=lambda mapping: mapping.mapping_id,
+                )
             )
             if not applicable:
                 if require_mapping and not source_line.is_zero:
@@ -267,6 +273,10 @@ class FinancialStatementEngine:
                     f"applicable mappings for account {source_line.account_code!r} must "
                     f"allocate exactly 1, got {allocation_total}"
                 )
+            contributions = allocate_money_conservatively(
+                source_line.balance,
+                tuple((mapping.mapping_id, mapping.allocation) for mapping in applicable),
+            )
             for mapping in applicable:
                 try:
                     target = line_by_code[mapping.statement_line_code]
@@ -280,7 +290,7 @@ class FinancialStatementEngine:
                         f"mapping {mapping.mapping_id!r} must target a DETAIL line, got "
                         f"{target.line_type.value}"
                     )
-                contribution = source_line.balance * mapping.allocation
+                contribution = contributions[mapping.mapping_id]
                 detail_values[target.code] = detail_values[target.code] + contribution
                 drilldown[target.code].append(
                     StatementDrilldownItem(
@@ -292,12 +302,12 @@ class FinancialStatementEngine:
                     )
                 )
 
-        resolved: dict[str, Money] = {}
+        economic_values: dict[str, Money] = {}
         resolving: set[str] = set()
 
-        def evaluate(code: str) -> Money:
-            if code in resolved:
-                return resolved[code]
+        def evaluate_economic(code: str) -> Money:
+            if code in economic_values:
+                return economic_values[code]
             if code in resolving:
                 raise InvalidStatementDefinitionError(
                     f"cyclic statement evaluation detected at line {code!r}"
@@ -309,28 +319,32 @@ class FinancialStatementEngine:
             elif line.line_type in {StatementLineType.SUBTOTAL, StatementLineType.TOTAL}:
                 raw = Money.zero(currency)
                 for child in definition.children_of(line.line_id):
-                    raw = raw + evaluate(child.code)
+                    raw = raw + evaluate_economic(child.code)
             elif line.line_type is StatementLineType.FORMULA:
                 if line.formula is None:
                     raise InvalidStatementDefinitionError(
                         f"formula line {line.code!r} has no formula"
                     )
                 dependencies = {
-                    dependency: evaluate(dependency) for dependency in line.formula.dependencies
+                    dependency: evaluate_economic(dependency)
+                    for dependency in line.formula.dependencies
                 }
                 raw = line.formula.evaluate(dependencies, currency=currency)
             else:
                 raw = Money.zero(currency)
-            value = line.present(raw)
             resolving.remove(code)
-            resolved[code] = value
-            return value
+            economic_values[code] = raw
+            return raw
 
         for line in definition.ordered_lines:
-            evaluate(line.code)
+            evaluate_economic(line.code)
 
+        presented_values = {
+            line.code: line.present(economic_values[line.code])
+            for line in definition.ordered_lines
+        }
         frozen_drilldown = {code: tuple(items) for code, items in drilldown.items()}
-        return resolved, frozen_drilldown
+        return presented_values, frozen_drilldown
 
     @staticmethod
     def _is_visible(

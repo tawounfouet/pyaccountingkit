@@ -62,6 +62,18 @@ class SQLAlchemyJournalEntryRepository:
 
     def save(self, entry: JournalEntry, expected_revision: Revision) -> None:
         try:
+            current_row = self._session.scalar(
+                select(JournalEntryTable)
+                .where(JournalEntryTable.id == str(entry.id))
+                .with_for_update()
+            )
+            if current_row is None or current_row.revision != int(expected_revision):
+                raise RevisionConflictError(
+                    f"Entry {entry.id}: expected revision {expected_revision}"
+                )
+            persisted = entry_to_domain(self._session, current_row)
+            persisted.assert_persistence_successor(entry)
+
             updated_id = self._session.scalar(
                 update(JournalEntryTable)
                 .where(

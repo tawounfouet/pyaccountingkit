@@ -4688,41 +4688,45 @@ REM-00  DONE
 REM-01  IMPLEMENTED / QUALIFYING
 REM-02  IMPLEMENTED / QUALIFYING
 REM-03  IMPLEMENTED / QUALIFYING
-REM-04  ACTIVE
+REM-04  IMPLEMENTED / QUALIFYING
+REM-06  ACTIVE
 ```
 
-REM-03 implementation evidence :
+REM-04 implementation evidence :
 
 ```text
-PR #80  F10 F24
-PR #81  F11 F23
+PR #83  F14 F20
+PR #84  A03
 ```
 
 The immediate execution is now :
 
 ```text
-REM-04
-Immutable Evidence / Traceability
-    ↓
 REM-06
-Calculation / Checksums
+Calculation / Classification / Checksums
+    ↓
+REM-05
+Closing / Opening Atomicity
 ```
 
-REM-01, REM-02 and REM-03 are not declared VERIFIED yet. Their findings remain `FIXED_UNVERIFIED` until exact-main-SHA and REM-10 transverse qualification evidence is recorded.
+REM-01 through REM-04 are not declared VERIFIED yet. Their findings remain `FIXED_UNVERIFIED` until exact-main-SHA and REM-10 transverse qualification evidence is recorded.
 
 ---
 
-# 98. REM-04 active scope
+# 98. REM-06 active scope
 
 ```text
-F14
-audit/outbox payloads must be deeply immutable
+F12
+proposal-to-entry materialization must preserve EntryType
 
-F20
-sealed regulatory snapshots must not be mutable or silently replayed against changed semantics
+F15
+trial-balance checksum must bind account identity and currency semantics
 
-A03
-proposal-to-execution trace must be durable and atomic with accounting effects
+F16
+allocation must preserve cents and avoid premature rounding
+
+F21
+sign conventions must be applied exactly once
 ```
 
 Required approach :
@@ -4730,11 +4734,11 @@ Required approach :
 ```text
 corrective test first
         ↓
-immutable evidence contract
+semantic fidelity / precision fix
         ↓
-durable transactionally coherent persistence
+deterministic fingerprint or arithmetic proof
         ↓
-adapter parity where persistence is involved
+golden / replay evidence where relevant
         ↓
 exact-SHA evidence
 ```
@@ -4851,14 +4855,14 @@ EVOLVE IT
 Le prochain travail concret est donc :
 
 ```text
-REM-04
-Immutable Evidence / Traceability
-    ↓
 REM-06
-Calculation / Checksums
+Calculation / Classification / Checksums
+    ↓
+REM-05
+Closing / Opening Atomicity
 ```
 
-REM-01, REM-02 et REM-03 sont implémentés mais restent en qualification ; aucune fermeture `VERIFIED` n'est revendiquée sans preuve exact-SHA.
+REM-01 à REM-04 sont implémentés mais restent en qualification ; aucune fermeture `VERIFIED` n'est revendiquée sans preuve exact-SHA et REM-10.
 
 et non la promotion immédiate de `0.7.0rc1` vers stable.
 

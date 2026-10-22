@@ -189,19 +189,25 @@ class DjangoPeriodRepository:
             raise RevisionConflictError(f"Period {period.id} already exists or conflicts") from exc
 
     def save(self, period: AccountingPeriod) -> None:
-        updated = (
-            AccountingPeriodModel.objects.using(self._using)
-            .filter(pk=str(period.id))
-            .update(
-                entity_id=str(period.entity_id),
-                fiscal_year_id=str(period.fiscal_year_id),
-                start_date=period.start_date,
-                end_date=period.end_date,
-                status=period.status.value,
+        with transaction.atomic(using=self._using):
+            try:
+                current_model = (
+                    AccountingPeriodModel.objects.using(self._using)
+                    .select_for_update()
+                    .get(pk=str(period.id))
+                )
+            except AccountingPeriodModel.DoesNotExist as exc:
+                raise PeriodNotFoundError(f"Period {period.id} not found") from exc
+
+            persisted = period_to_domain(current_model)
+            persisted.assert_persistence_successor(period)
+            updated = (
+                AccountingPeriodModel.objects.using(self._using)
+                .filter(pk=str(period.id))
+                .update(status=period.status.value)
             )
-        )
-        if updated != 1:
-            raise PeriodNotFoundError(f"Period {period.id} not found")
+            if updated != 1:
+                raise PeriodNotFoundError(f"Period {period.id} not found")
 
     def get(self, period_id: PeriodId) -> AccountingPeriod:
         queryset = AccountingPeriodModel.objects.using(self._using)

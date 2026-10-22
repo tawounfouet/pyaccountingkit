@@ -4687,52 +4687,42 @@ Current state :
 REM-00  DONE
 REM-01  IMPLEMENTED / QUALIFYING
 REM-02  IMPLEMENTED / QUALIFYING
-REM-03  ACTIVE
+REM-03  IMPLEMENTED / QUALIFYING
+REM-04  ACTIVE
 ```
 
-REM-01 implementation evidence :
+REM-03 implementation evidence :
 
 ```text
-PR #74
-F25 F26 F27
-```
-
-REM-02 implementation evidence :
-
-```text
-PR #75  F01 F02
-PR #78  F03 F04
-PR #79  F13 F18
+PR #80  F10 F24
+PR #81  F11 F23
 ```
 
 The immediate execution is now :
 
 ```text
-REM-03
-Posting / Repositories / Idempotency
-    ↓
 REM-04
 Immutable Evidence / Traceability
+    ↓
+REM-06
+Calculation / Checksums
 ```
 
-REM-01 and REM-02 are not declared VERIFIED yet. Their findings remain `FIXED_UNVERIFIED` until exact-main-SHA and REM-10 transverse qualification evidence is recorded.
+REM-01, REM-02 and REM-03 are not declared VERIFIED yet. Their findings remain `FIXED_UNVERIFIED` until exact-main-SHA and REM-10 transverse qualification evidence is recorded.
 
 ---
 
-# 98. REM-03 active scope
+# 98. REM-04 active scope
 
 ```text
-F10
-POSTED economics cannot be rewritten
+F14
+audit/outbox payloads must be deeply immutable
 
-F11
-idempotency replay must bind semantic content/scope
+F20
+sealed regulatory snapshots must not be mutable or silently replayed against changed semantics
 
-F23
-PeriodRepository transition contract must be strict and adapter-consistent
-
-F24
-persisted VALIDATED entry must post through the supported path
+A03
+proposal-to-execution trace must be durable and atomic with accounting effects
 ```
 
 Required approach :
@@ -4740,9 +4730,11 @@ Required approach :
 ```text
 corrective test first
         ↓
-minimal coherent fix
+immutable evidence contract
         ↓
-in-memory / Django / SQLAlchemy parity where applicable
+durable transactionally coherent persistence
+        ↓
+adapter parity where persistence is involved
         ↓
 exact-SHA evidence
 ```
@@ -4859,14 +4851,14 @@ EVOLVE IT
 Le prochain travail concret est donc :
 
 ```text
-REM-03
-Posting / Repositories / Idempotency
-    ↓
 REM-04
 Immutable Evidence / Traceability
+    ↓
+REM-06
+Calculation / Checksums
 ```
 
-REM-01 et REM-02 sont implémentés mais restent en qualification ; aucune fermeture `VERIFIED` n'est revendiquée sans preuve exact-SHA.
+REM-01, REM-02 et REM-03 sont implémentés mais restent en qualification ; aucune fermeture `VERIFIED` n'est revendiquée sans preuve exact-SHA.
 
 et non la promotion immédiate de `0.7.0rc1` vers stable.
 

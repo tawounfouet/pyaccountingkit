@@ -22,6 +22,7 @@ from pyaccountingkit.domain.audit.events import AuditEvent
 from pyaccountingkit.domain.charts.chart import CompanyChartOfAccounts
 from pyaccountingkit.domain.journals.journal_entry import EntryStatus, JournalEntry
 from pyaccountingkit.domain.ledger.posting import PostingService
+from pyaccountingkit.domain.traceability.accounting_execution import AccountingExecutionTrace
 from pyaccountingkit.domain.traceability.trace import CanonicalHasher
 from pyaccountingkit.ports.company_chart_resolution import CompanyChartResolverProtocol
 from pyaccountingkit.ports.outbox import OutboxRecord
@@ -56,6 +57,7 @@ class PostingOrchestrator:
         actor_id: str,
         *,
         expected_entity_id: EntityId | None = None,
+        execution_trace: AccountingExecutionTrace | None = None,
     ) -> PostingResult:
         """Post *entry* exactly once in one transaction.
 
@@ -68,6 +70,7 @@ class PostingOrchestrator:
                 entry,
                 actor_id,
                 expected_entity_id=expected_entity_id,
+                execution_trace=execution_trace,
             )
             uow.commit()
         return result
@@ -102,6 +105,7 @@ class PostingOrchestrator:
         actor_id: str,
         *,
         expected_entity_id: EntityId | None = None,
+        execution_trace: AccountingExecutionTrace | None = None,
     ) -> PostingResult:
         period = uow.periods.get(entry.period_id)
         journal = uow.journals.get(entry.journal_id)
@@ -123,9 +127,18 @@ class PostingOrchestrator:
             )
 
         idempotency_key = f"post:{entry.id}"
-        payload_fingerprint = self._posting_fingerprint(entry, journal.entity_id)
+        payload_fingerprint = self._posting_fingerprint(
+            entry,
+            journal.entity_id,
+            execution_trace,
+        )
         if not uow.idempotency.claim(idempotency_key, payload_fingerprint):
-            return self._replay(uow, entry.id, idempotency_key)
+            return self._replay(
+                uow,
+                entry.id,
+                idempotency_key,
+                execution_trace=execution_trace,
+            )
         resolved_chart = self._chart_resolver.resolve(
             entity_id=journal.entity_id,
             accounting_date=entry.entry_date,
@@ -152,6 +165,18 @@ class PostingOrchestrator:
 
         posted = self._posting_service.post(posting_entry, period, actor_id)
         uow.entries.save(posted, expected_revision)
+        if execution_trace is not None:
+            require_same_entity(
+                journal.entity_id,
+                execution_trace.entity_id,
+                resource=f"accounting execution trace {execution_trace.trace_id}",
+            )
+            if execution_trace.journal_entry_id != posted.id:
+                raise RevisionConflictError(
+                    f"Execution trace {execution_trace.trace_id}: entry "
+                    f"{execution_trace.journal_entry_id} does not match {posted.id}"
+                )
+            uow.execution_traces.append(execution_trace)
 
         trace_payload = {
             "entry_id": str(posted.id),
@@ -186,7 +211,11 @@ class PostingOrchestrator:
         return PostingResult(posted_entry=posted, idempotency_key=idempotency_key)
 
     @staticmethod
-    def _posting_fingerprint(entry: JournalEntry, entity_id: EntityId) -> str:
+    def _posting_fingerprint(
+        entry: JournalEntry,
+        entity_id: EntityId,
+        execution_trace: AccountingExecutionTrace | None = None,
+    ) -> str:
         return CanonicalHasher.digest(
             {
                 "operation": "POST_ENTRY",
@@ -199,6 +228,11 @@ class PostingOrchestrator:
                 "entry_type": entry.entry_type.value,
                 "reversal_of_id": (
                     str(entry.reversal_of_id) if entry.reversal_of_id is not None else None
+                ),
+                "execution_trace": (
+                    execution_trace.canonical_payload()
+                    if execution_trace is not None
+                    else None
                 ),
                 "lines": [
                     {
@@ -221,12 +255,24 @@ class PostingOrchestrator:
         uow: UnitOfWorkProtocol,
         entry_id: EntryId,
         key: str,
+        *,
+        execution_trace: AccountingExecutionTrace | None = None,
     ) -> PostingResult:
         stored = uow.entries.get(entry_id)
         if stored.status is not EntryStatus.POSTED:
             raise IdempotencyReplayError(
                 f"Clé {key} déjà consommée mais {entry_id} n'est pas POSTED"
             )
+        if execution_trace is not None:
+            persisted_trace = uow.execution_traces.get_by_entry_id(entry_id)
+            if persisted_trace is None:
+                raise IdempotencyReplayError(
+                    f"Clé {key} déjà consommée mais aucune trace d'exécution n'existe"
+                )
+            if persisted_trace != execution_trace:
+                raise IdempotencyReplayError(
+                    f"Clé {key} déjà consommée avec une trace d'exécution différente"
+                )
         return PostingResult(posted_entry=stored, idempotency_key=key, was_replayed=True)
 
     @staticmethod

@@ -225,9 +225,7 @@ def test_execution_trace_is_atomic_with_accounting_entry() -> None:
         uow.rollback()
 
     assert not JournalEntryModel.objects.filter(pk="entry:rollback").exists()
-    assert not AccountingExecutionTraceModel.objects.filter(
-        pk=rolled_back_trace.trace_id
-    ).exists()
+    assert not AccountingExecutionTraceModel.objects.filter(pk=rolled_back_trace.trace_id).exists()
 
 
 def test_uncommitted_unit_of_work_rolls_back_every_sink() -> None:

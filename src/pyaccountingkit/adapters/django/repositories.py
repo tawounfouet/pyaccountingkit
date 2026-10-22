@@ -27,6 +27,7 @@ from pyaccountingkit.adapters.django.models import (
 )
 from pyaccountingkit.core.errors import (
     EntryNotFoundError,
+    IdempotencyConflictError,
     JournalNotFoundError,
     PeriodNotFoundError,
     RevisionConflictError,
@@ -274,14 +275,20 @@ class DjangoIdempotencyStore:
     def __init__(self, *, using: str = "default") -> None:
         self._using = using
 
-    def claim(self, key: str) -> bool:
+    def claim(self, key: str, payload_fingerprint: str = "") -> bool:
         try:
             with transaction.atomic(using=self._using):
                 IdempotencyRecordModel.objects.using(self._using).create(
                     key=key,
                     status="claimed",
+                    payload_fingerprint=payload_fingerprint,
                 )
         except IntegrityError:
+            existing = IdempotencyRecordModel.objects.using(self._using).get(pk=key)
+            if existing.payload_fingerprint != payload_fingerprint:
+                raise IdempotencyConflictError(
+                    f"Idempotency key {key} is already bound to a different payload"
+                ) from None
             return False
         return True
 

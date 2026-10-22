@@ -191,6 +191,25 @@
         "Exact-main-SHA CI evidence for the combined REM-03 implementation before VERIFIED",
         "REM-10 transverse requalification"
       ]
+    },
+    "rem04": {
+      "first_slice": {
+        "implementation_pr": 83,
+        "pr_head_sha": "0c1e10a6bd79fde1c70549d9024973703aed2db8",
+        "merge_sha": "b00f26e3f4ea8dd53ea0cb4d2f3764b2e6775f1f",
+        "pr_ci_run_id": 39859840515,
+        "pr_security_run_id": 39859840389,
+        "pr_ci_status": "PASS",
+        "findings": [
+          "F14",
+          "F20"
+        ],
+        "status": "FIXED_UNVERIFIED"
+      },
+      "implementation_status": "IN_PROGRESS",
+      "remaining_findings": [
+        "A03"
+      ]
     }
   },
   "lots": {
@@ -666,18 +685,32 @@
       "primary_remediation_lot": "REM-04",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "OPEN",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "b00f26e3f4ea8dd53ea0cb4d2f3764b2e6775f1f",
+      "corrective_tests": [
+        "tests/unit/adapters/test_in_memory.py::test_audit_event_payload_is_deeply_immutable_and_detached",
+        "tests/unit/adapters/test_in_memory.py::test_outbox_payload_is_deeply_immutable_and_detached"
+      ],
+      "qualification_evidence": [
+        "PR #83 head 0c1e10a6bd79fde1c70549d9024973703aed2db8: CI run 39859840515 PASS",
+        "PR #83 head 0c1e10a6bd79fde1c70549d9024973703aed2db8: Security run 39859840389 PASS",
+        "PR #83 head 0c1e10a6bd79fde1c70549d9024973703aed2db8: Django/PostgreSQL qualification PASS",
+        "PR #83 head 0c1e10a6bd79fde1c70549d9024973703aed2db8: SQLAlchemy/PostgreSQL qualification PASS",
+        "PR #83 head 0c1e10a6bd79fde1c70549d9024973703aed2db8: Canonical CI gate PASS"
+      ],
       "affected_components": [
         "audit",
         "outbox",
         "traceability"
       ],
-      "notes": []
+      "notes": [
+        "AuditEvent and OutboxRecord recursively detach and freeze payloads at construction.",
+        "Nested mutable aliases can no longer rewrite durable evidence after emission.",
+        "PostgreSQL adapters thaw immutable evidence only at the JSON persistence boundary.",
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+      ]
     },
     {
       "id": "F15",
@@ -801,18 +834,30 @@
       "primary_remediation_lot": "REM-04",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "OPEN",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "b00f26e3f4ea8dd53ea0cb4d2f3764b2e6775f1f",
+      "corrective_tests": [
+        "tests/unit/domain/test_reference_snapshots.py::test_reference_snapshot_is_detached_from_mutable_node_attributes",
+        "tests/unit/domain/test_reference_snapshots.py::test_reference_snapshot_replay_keeps_attributes_immutable",
+        "tests/unit/domain/test_reference_snapshots.py::test_effective_plan_snapshot_detaches_and_freezes_statistics"
+      ],
+      "qualification_evidence": [
+        "PR #83 head 0c1e10a6bd79fde1c70549d9024973703aed2db8: CI run 39859840515 PASS",
+        "PR #83 head 0c1e10a6bd79fde1c70549d9024973703aed2db8: Security run 39859840389 PASS",
+        "PR #83 head 0c1e10a6bd79fde1c70549d9024973703aed2db8: Canonical CI gate PASS"
+      ],
       "affected_components": [
         "regulatory",
         "snapshots",
         "replay"
       ],
-      "notes": []
+      "notes": [
+        "ReferenceNode attributes and provider-resolved regulatory mappings are recursively frozen at domain construction.",
+        "ReferenceSnapshot and EffectivePlanSnapshot can no longer be silently altered through mutable aliases after sealing or replay.",
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+      ]
     },
     {
       "id": "F21",
@@ -1090,5 +1135,5 @@
     }
   ],
   "last_updated_on": "2026-10-22",
-  "last_updated_from_sha": "90ddc34469fdac2f5c562413fe9873879cd3f043"
+  "last_updated_from_sha": "b00f26e3f4ea8dd53ea0cb4d2f3764b2e6775f1f"
 }

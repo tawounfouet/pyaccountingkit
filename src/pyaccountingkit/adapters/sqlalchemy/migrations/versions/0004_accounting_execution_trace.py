@@ -61,19 +61,9 @@ def upgrade() -> None:
         "pyak_accounting_execution_trace",
         ["proposal_checksum"],
     )
-    op.create_index(
-        "ix_pyak_accounting_execution_trace_journal_entry_id",
-        "pyak_accounting_execution_trace",
-        ["journal_entry_id"],
-        unique=True,
-    )
 
 
 def downgrade() -> None:
-    op.drop_index(
-        "ix_pyak_accounting_execution_trace_journal_entry_id",
-        table_name="pyak_accounting_execution_trace",
-    )
     op.drop_index(
         "ix_pyak_accounting_execution_trace_proposal_checksum",
         table_name="pyak_accounting_execution_trace",

@@ -12,9 +12,6 @@ from enum import StrEnum
 from pyaccountingkit.core.entity_scope import require_same_entity
 from pyaccountingkit.core.identifiers import EntityId
 from pyaccountingkit.core.money import Money
-from pyaccountingkit.domain.reporting.monetary_allocation import (
-    allocate_money_conservatively,
-)
 from pyaccountingkit.domain.reporting.errors import (
     InvalidStatementDefinitionError,
     NonExecutableStatementMappingError,
@@ -23,6 +20,9 @@ from pyaccountingkit.domain.reporting.errors import (
     StatementSourceError,
 )
 from pyaccountingkit.domain.reporting.mappings import StatementMappingSet
+from pyaccountingkit.domain.reporting.monetary_allocation import (
+    allocate_money_conservatively,
+)
 from pyaccountingkit.domain.reporting.statement_definition import (
     FinancialStatementDefinition,
     FinancialStatementType,

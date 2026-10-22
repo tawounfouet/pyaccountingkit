@@ -4,8 +4,9 @@ from __future__ import annotations
 
 import pytest
 
-from pyaccountingkit.core.currency import EUR
+from pyaccountingkit.core.currency import EUR, USD, Currency
 from pyaccountingkit.core.errors import UnbalancedEntryError
+from pyaccountingkit.core.identifiers import AccountId
 from pyaccountingkit.core.money import Money
 from pyaccountingkit.domain.reporting.balance_line import AccountBalanceLine
 from pyaccountingkit.domain.reporting.trial_balance import (
@@ -14,12 +15,20 @@ from pyaccountingkit.domain.reporting.trial_balance import (
 )
 
 
-def _line(code: str, debit: str, credit: str) -> AccountBalanceLine:
+def _line(
+    code: str,
+    debit: str,
+    credit: str,
+    *,
+    currency: Currency = EUR,
+    account_id: AccountId | None = None,
+) -> AccountBalanceLine:
     return AccountBalanceLine(
         account_code=code,
         label=f"Compte {code}",
-        sum_debit=Money.from_str(debit, EUR),
-        sum_credit=Money.from_str(credit, EUR),
+        sum_debit=Money.from_str(debit, currency),
+        sum_credit=Money.from_str(credit, currency),
+        account_id=account_id,
     )
 
 
@@ -66,6 +75,67 @@ def test_checksum_deterministic() -> None:
         (_line("411000", "1.00", "0.00"), _line("707000", "0.00", "1.00")),
     )
     assert first.checksum != other.checksum
+
+
+def test_checksum_binds_company_account_identity() -> None:
+    by_code = (
+        _line("411000", "100.00", "0.00"),
+        _line("707000", "0.00", "100.00"),
+    )
+    by_opaque_identity = (
+        _line(
+            "411000",
+            "100.00",
+            "0.00",
+            account_id=AccountId("account:customers"),
+        ),
+        _line(
+            "707000",
+            "0.00",
+            "100.00",
+            account_id=AccountId("account:revenue"),
+        ),
+    )
+
+    legacy = TrialBalance.build(
+        "p_2024_01",
+        TrialBalanceSnapshot.BEFORE_ADJUSTMENTS,
+        by_code,
+    )
+    identified = TrialBalance.build(
+        "p_2024_01",
+        TrialBalanceSnapshot.BEFORE_ADJUSTMENTS,
+        by_opaque_identity,
+    )
+
+    assert legacy.total_debit == identified.total_debit
+    assert legacy.total_credit == identified.total_credit
+    assert legacy.checksum != identified.checksum
+
+
+def test_checksum_binds_currency_semantics() -> None:
+    eur_lines = (
+        _line("411000", "100.00", "0.00", currency=EUR),
+        _line("707000", "0.00", "100.00", currency=EUR),
+    )
+    usd_lines = (
+        _line("411000", "100.00", "0.00", currency=USD),
+        _line("707000", "0.00", "100.00", currency=USD),
+    )
+
+    eur_balance = TrialBalance.build(
+        "p_2024_01",
+        TrialBalanceSnapshot.BEFORE_ADJUSTMENTS,
+        eur_lines,
+    )
+    usd_balance = TrialBalance.build(
+        "p_2024_01",
+        TrialBalanceSnapshot.BEFORE_ADJUSTMENTS,
+        usd_lines,
+    )
+
+    assert eur_balance.total_debit.amount == usd_balance.total_debit.amount
+    assert eur_balance.checksum != usd_balance.checksum
 
 
 def test_checksum_distinguishes_snapshots_and_periods() -> None:

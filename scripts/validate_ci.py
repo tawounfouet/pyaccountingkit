@@ -8,6 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CI_WORKFLOW = ROOT / ".github" / "workflows" / "ci.yml"
+NIGHTLY_WORKFLOW = ROOT / ".github" / "workflows" / "nightly.yml"
 SECURITY_WORKFLOW = ROOT / ".github" / "workflows" / "security.yml"
 RELEASE_WORKFLOW = ROOT / ".github" / "workflows" / "release.yml"
 TEST_COMMAND = (
@@ -217,6 +218,59 @@ def validate_ci_text(text: str) -> list[str]:
     return violations
 
 
+def validate_nightly_text(text: str) -> list[str]:
+    """Return contract violations for the fail-closed Nightly workflow."""
+    violations = _missing_snippets(
+        text,
+        (
+            "permissions:\n  contents: read",
+            "concurrency:",
+            "cancel-in-progress: true",
+            "deterministic-suite:\n",
+            "django-postgresql:\n",
+            "sqlalchemy-postgresql:\n",
+            "nightly-gate:\n",
+            "python -m pytest",
+            "tests/unit tests/property tests/contract tests/integration",
+            "tests/golden tests/replay tests/concurrency",
+            "--ignore=tests/integration/test_django_postgresql_adapter.py",
+            "--ignore=tests/concurrency/test_django_postgresql_concurrency.py",
+            "--ignore=tests/integration/test_sqlalchemy_postgresql_adapter.py",
+            "--ignore=tests/concurrency/test_sqlalchemy_postgresql_concurrency.py",
+            "image: postgres:16",
+            'PYAK_POSTGRES_TEST: "1"',
+            'PYAK_SQLALCHEMY_POSTGRES_TEST: "1"',
+            "python -m django migrate --noinput",
+            "python -m django makemigrations pyaccountingkit_django --check --dry-run",
+            "python scripts/check_sqlalchemy_metadata.py",
+            "tests/integration/test_django_postgresql_adapter.py",
+            "tests/concurrency/test_django_postgresql_concurrency.py",
+            "tests/integration/test_sqlalchemy_postgresql_adapter.py",
+            "tests/concurrency/test_sqlalchemy_postgresql_concurrency.py",
+            "needs: [deterministic-suite, django-postgresql, sqlalchemy-postgresql]",
+            'test "$DETERMINISTIC_RESULT" = "success"',
+            'test "$DJANGO_POSTGRESQL_RESULT" = "success"',
+            'test "$SQLALCHEMY_POSTGRESQL_RESULT" = "success"',
+        ),
+        label="Nightly",
+    )
+
+    if text.count("actions/checkout@v7") != 3:
+        violations.append("Nightly: expected exactly three actions/checkout@v7 uses")
+    if text.count("actions/setup-python@v7") != 3:
+        violations.append("Nightly: expected exactly three actions/setup-python@v7 uses")
+    if text.count("image: postgres:16") != 2:
+        violations.append("Nightly: expected exactly two PostgreSQL 16 services")
+    if "pytest tests/" in text:
+        violations.append(
+            "Nightly: broad pytest tests/ collection is forbidden; use canonical scoped suites"
+        )
+    if "actions/checkout@v4" in text or "actions/setup-python@v5" in text:
+        violations.append("Nightly: legacy action generations are forbidden")
+
+    return violations
+
+
 def validate_security_text(text: str) -> list[str]:
     """Return contract violations for the Security workflow text."""
     violations = _missing_snippets(
@@ -260,6 +314,18 @@ def validate_release_text(text: str) -> list[str]:
             "publication-smoke:\n",
             "github-release:\n",
             "release-integrity:\n",
+            "django-postgresql-qualification:\n",
+            "sqlalchemy-postgresql-qualification:\n",
+            "needs: [django-postgresql-qualification, sqlalchemy-postgresql-qualification]",
+            "PYAK_RELEASE_DJANGO_POSTGRESQL_SHA:",
+            "PYAK_RELEASE_SQLALCHEMY_POSTGRESQL_SHA:",
+            'PYAK_POSTGRES_TEST: "1"',
+            'PYAK_SQLALCHEMY_POSTGRES_TEST: "1"',
+            "tests/integration/test_django_postgresql_adapter.py",
+            "tests/concurrency/test_django_postgresql_concurrency.py",
+            "tests/integration/test_sqlalchemy_postgresql_adapter.py",
+            "tests/concurrency/test_sqlalchemy_postgresql_concurrency.py",
+            'GH_REPO: ${{ github.repository }}',
             "fetch-depth: 0",
             "persist-credentials: false",
             "git fetch origin main --no-tags",
@@ -288,8 +354,8 @@ def validate_release_text(text: str) -> list[str]:
     )
 
     expected_counts = (
-        ("actions/checkout@v7.0.1", 4),
-        ("actions/setup-python@v7.0.0", 5),
+        ("actions/checkout@v7.0.1", 6),
+        ("actions/setup-python@v7.0.0", 7),
         ("actions/upload-artifact@v7.0.1", 1),
         ("actions/download-artifact@v8.0.1", 2),
         ("python scripts/qualify_release.py --release-candidate", 1),
@@ -329,6 +395,7 @@ def workflow_violations() -> list[str]:
     violations: list[str] = []
     for path, validator in (
         (CI_WORKFLOW, validate_ci_text),
+        (NIGHTLY_WORKFLOW, validate_nightly_text),
         (SECURITY_WORKFLOW, validate_security_text),
         (RELEASE_WORKFLOW, validate_release_text),
     ):
@@ -356,6 +423,7 @@ def main() -> int:
         "retirement-readiness, release-qualification, regulatory-release-qualification, ci-gate"
     )
     print("Supported Python matrix: 3.11, 3.12, 3.13")
+    print("Nightly: scoped deterministic collection plus required Django/SQLAlchemy PostgreSQL")
     print("Qualified suites: unit, property, contract, integration, golden, replay, concurrency")
     print("Production adapter gates: Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16")
     print(

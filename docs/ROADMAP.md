@@ -4,8 +4,8 @@
 > **Document** : `PYACCOUNTINGKIT_IMPLEMENTATION_ROADMAP.md`  
 > **Statut** : Roadmap d'implémentation de référence  
 > **Langue** : Français  
-> **Baseline architecturale** : documents `00` à `23` + registre de **785 ADR**  
-> **Objet** : Transformer la documentation d'architecture PyAccountingKit en plan d'exécution concret : lots, versions, dépendances, Definition of Done et gates de qualité/release.
+> **Baseline architecturale** : documents `00` à `32` + registre ADR + audit/remédiation du 22 octobre 2026  
+> **Objet** : Transformer la documentation d'architecture PyAccountingKit en plan d'exécution concret, intégrer l'overlay de remédiation issu de l'audit `0.7.0rc1`, puis piloter les lots, versions, dépendances, Definition of Done et gates de qualité/release.
 
 ---
 
@@ -13,42 +13,50 @@
 
 La phase d'architecture est suffisamment complète pour basculer vers l'implémentation.
 
-La stratégie proposée est :
+La stratégie de référence est désormais :
 
 ```text
-Architecture 00..23
+Architecture 00..32
       |
       v
-Repository Bootstrap
+Existing implementation through 0.7.0rc1
       |
       v
-Accounting Core
+Audit findings F01..F27 + A01..A03
       |
       v
-References / Policies / Company Chart
+REM-00 .. REM-10
       |
       v
-Imports / FEC / Reporting
+Cross-adapter requalification
       |
       v
-Subledgers / Financial Analysis
+Release decision
+      |
+      +--> new 0.7 RC when required
       |
       v
-Public API / Production Adapters
+0.7.0 stable only when applicable gates are green
       |
       v
-CFA FRA Migration / Regulatory Qualification
+LOT-39 .. LOT-44
+Reliability & Architecture Hardening
       |
       v
-Reliability / API Freeze
+0.9 API / Schema Freeze
       |
       v
-PyAccountingKit 1.0.0
+1.0.0 Stable Public Core
       |
-      +--> 1.1 Reconciliation
+      +--> Domain-First migration slices
       |
-      +--> 1.2 Consolidation
+      +--> Financial Semantic Layer
+      |
+      +--> Generic Reconciliation / Consolidation evolution
 ```
+
+> [!IMPORTANT]
+> L'audit du 22 octobre 2026 devient un **overlay prioritaire de release**. Les lots `REM-00` à `REM-10` ne remplacent pas les lots produit : ils rétablissent les invariants et la fiabilité des preuves avant la reprise de la roadmap stratégique.
 
 Le P2.3 `Advanced Financial Analysis Boundaries` ne déclenche pas de moteur Corporate Finance dans PyAccountingKit.
 
@@ -57,7 +65,7 @@ NPV / IRR / WACC / DCF / Valuation / Monte Carlo
     remain outside PyAccountingKit core
 ```
 
-La roadmap comporte **39 lots `LOT-00` à `LOT-38`**.
+La roadmap produit comporte désormais **47 lots `LOT-00` à `LOT-46`**, complétés par l'overlay tactique **`REM-00` à `REM-10`** issu de l'audit `0.7.0rc1`.
 
 > [!TIP]
 > **Découpage opérationnel** : La présente feuille de route est traduite en **10 plans d'implémentation opérationnels** dans le dossier [`docs/plans/`](./plans/README.md) (`PLAN-00` à `PLAN-09`), chacun détaillant les chantiers techniques, les critères d'acceptation stricts (DoD), la matrice des gates et les scénarios de recette par release.
@@ -171,6 +179,44 @@ dual-write accounting mutations
 
 ---
 
+## 2.8 Audit-remediation before promotion
+
+La promotion stable n'est jamais autorisée uniquement parce que les contrôles externes G5 sont fermés.
+
+Depuis l'audit du 22 octobre 2026 :
+
+```text
+0.7.0rc1
+    ↓
+REM-00 .. REM-10
+    ↓
+candidate SHA qualification
+    ↓
+new RC if required
+    ↓
+0.7.0 stable
+```
+
+Règles :
+
+```text
+P1 applicable OPEN
+    => stable blocked
+
+required PostgreSQL suite skipped
+    => qualification blocked
+
+evidence for another SHA
+    => qualification blocked
+
+documentation-only closure
+    => finding remains open
+```
+
+Les contrôles externes GitHub restent nécessaires mais ne remplacent jamais la qualification métier, transactionnelle ou comptable.
+
+---
+
 # 3. Release train global
 
 | Release | Nom | Lots principaux | Statut cible |
@@ -182,13 +228,15 @@ dual-write accounting mutations
 | `0.4.0` | Subledgers & Financial Analysis | `LOT-18..20` | stable |
 | `0.5.0` | Public API & Production Adapters | `LOT-21..24` | stable |
 | `0.6.0` | CFA FRA Migration & Golden Parity | `LOT-25..26` | stable |
-| `0.7.0` | Regulatory Production Qualification | `LOT-27` | stable |
-| `0.8.0` | Reliability, Performance & Supply Chain | `LOT-28` | stable |
-| `0.9.0` | API Freeze & 1.0 Qualification Baseline | `LOT-29` | freeze |
+| `0.7.0` | Regulatory Production Qualification + audit remediation gate | `LOT-27` + applicable `REM-00..10` | stable only after requalification |
+| `0.8.0` | Reliability & Architecture Hardening | `LOT-28, LOT-39..44` | stable |
+| `0.9.0` | API / Schema Freeze & 1.0 Qualification Baseline | `LOT-29` + outputs of `LOT-40..44` | freeze |
 | `1.0.0` | Stable Public Core | `LOT-30` | production stable |
 | `1.1.0` | Generic Reconciliation | `LOT-31..33` | post-1.0 extension |
 | `1.2.0` | Consolidation | `LOT-34..37` | post-1.0 extension |
 | non réservé | Corporate Finance Boundary Guards | `LOT-38` | architecture-only / optional bridge |
+| post-1.0 | Domain-First Migration Foundations / slices | `LOT-45` | progressive migration |
+| post-1.0 | Financial Semantic Layer Foundations | `LOT-46` | new read-side capability |
 
 ---
 
@@ -217,6 +265,47 @@ Exemple par release :
 Les sous-jalons exacts peuvent évoluer.
 
 La portée stable de la release ne change pas sans mise à jour de cette roadmap.
+
+---
+
+# 4A. Overlay de remédiation `0.7.0rc1`
+
+L'audit de baseline `259e9ad665941cd6a9545deb3b92f979d40eae35` identifie :
+
+```text
+F01 .. F27
+A01 .. A03
+```
+
+Ordre opérationnel de référence :
+
+```text
+REM-00 Baseline / Registry
+    ↓
+REM-01 Qualification Reliability
+    ↓
+REM-02 Identity / Scope / Read-Side
+    ↓
+REM-03 Posting / Repositories
+    ↓
+REM-04 Immutable Evidence / Traceability
+    ↓
+REM-06 Calculation / Checksums
+    ↓
+REM-05 Closing / Opening Atomicity
+    ↓
+REM-07 Safe References / Publication
+    ↓
+REM-08 Public Contracts / Application Services
+    ↓
+REM-09 Persistent Subledgers
+    ↓
+REM-10 Transverse Qualification
+    ↓
+Release Decision
+```
+
+`REM-*` est un système de lots de remédiation et non un remplacement des lots produit `LOT-*`.
 
 ---
 
@@ -430,6 +519,25 @@ replay tests
 migration tests
 
 performance regression smoke
+```
+
+Depuis l'audit `0.7.0rc1`, G3 est **fail-closed** :
+
+```text
+required PostgreSQL module skipped
+    => FAIL
+
+required database unavailable
+    => FAIL
+
+zero required tests collected
+    => FAIL
+
+only one production adapter executed
+    => FAIL
+
+evidence not bound to exact candidate SHA
+    => FAIL
 ```
 
 ---
@@ -3524,7 +3632,305 @@ No version number is reserved in advance.
 
 ---
 
-# 68. Lot Dependency Matrix
+# 68. REM-00 to REM-10 - Audit Remediation Overlay
+
+**Target** : before `0.7.0` stable promotion decision
+
+| Remediation lot | Scope principal | Findings / gaps |
+|---|---|---|
+| `REM-00` | Baseline, registry, corrective tests | all |
+| `REM-01` | CI / Nightly / strict qualification | `F25,F26,F27` |
+| `REM-02` | Account identity, entity scope, read-side | `F01,F02,F03,F04,F13,F18` |
+| `REM-03` | Posting lifecycle, immutability, idempotency | `F10,F11,F23,F24` |
+| `REM-04` | Immutable evidence, durable traces | `F14,F20,A03` |
+| `REM-05` | Closing/opening atomicity | `F05,F06,F07,F08,F09` |
+| `REM-06` | Entry classification, checksums, allocations, signs | `F12,F15,F16,F21` |
+| `REM-07` | Reference hierarchy and safe publication | `F19,F22` |
+| `REM-08` | Typed public contracts / application services | `F17,A02` |
+| `REM-09` | Persistent subledger chain | `A01` |
+| `REM-10` | Cross-adapter qualification and release decision | all |
+
+`REM-10` ne peut conclure une qualification complète qu'avec les preuves applicables sur le SHA candidat exact.
+
+---
+
+# 69. LOT-39 - Architecture Fitness Functions
+
+**Target line** : post-remediation / `0.8.x`
+
+## Scope
+
+```text
+architecture dependency contracts
+AST / import rules
+context ownership rules
+exception registry
+blocking CI architecture gate
+```
+
+## Dependencies
+
+```text
+REM-10
+spec 24
+```
+
+## DoD
+
+```text
+[ ] forbidden dependencies executable
+[ ] baseline exceptions explicit
+[ ] no hidden architecture waiver
+[ ] CI blocks critical boundary regression
+```
+
+---
+
+# 70. LOT-40 - Domain Events, Causality & Event Envelope
+
+**Target line** : `0.8.x`
+
+## Scope
+
+```text
+EventId
+CorrelationId
+CausationId
+EventSchemaVersion
+DomainEventEnvelope
+DomainEvent != AuditEvent != OutboxRecord
+event manifest
+```
+
+Initial migration scope :
+
+```text
+Posting
+Reversal
+Closing
+Settlement
+```
+
+## Dependencies
+
+```text
+LOT-39
+REM-03
+REM-04
+spec 25
+```
+
+---
+
+# 71. LOT-41 - Reproducibility & Computation Manifests
+
+**Target line** : `0.8.x`
+
+## Scope
+
+```text
+ComputationManifest
+SourceInputRef
+VersionedRef
+StatementGenerationManifest
+FinancialAnalysisManifest
+RegulatoryExportManifest
+replay evidence
+canonical serialization
+```
+
+## Dependencies
+
+```text
+LOT-40
+REM-04
+REM-06
+REM-07
+spec 26
+```
+
+---
+
+# 72. LOT-42 - Golden Accounting & Concurrency Qualification
+
+**Target line** : `0.8.x`
+
+## Scope
+
+```text
+framework-wide golden scenarios
+critical race scenarios
+cross-adapter semantic parity
+real PostgreSQL concurrency
+GOLD-E2E-001
+```
+
+## Dependencies
+
+```text
+LOT-41
+REM-10
+spec 27
+```
+
+Audit corrective tests should be promoted into reusable regression/golden/race suites where semantically appropriate.
+
+---
+
+# 73. LOT-43 - Testing Toolkit Foundations
+
+**Target line** : `0.8.x`
+
+## Scope
+
+```text
+pyaccountingkit.testing
+FrozenClock reuse
+DeterministicIdFactory
+builders
+AccountingScenario
+assertions
+contract suites
+fault / recovery harness foundations
+```
+
+## Dependencies
+
+```text
+LOT-39
+spec 28
+```
+
+The toolkit may begin internally during remediation, but its public stable subset is not frozen merely to unblock P1 corrections.
+
+---
+
+# 74. LOT-44 - Uncertainty, Recovery & External Effects
+
+**Target line** : `0.8.x`
+
+## Scope
+
+```text
+ExternalEffectOutcome
+RecoveryDisposition
+EffectId
+AttemptId
+rich idempotency lifecycle
+outbox lifecycle
+OutboxDispatcher
+reconciliation before retry
+RecoveryEvidence
+```
+
+Core invariant :
+
+```text
+UNCERTAIN != FAILED
+UNCERTAIN -> no blind retry
+```
+
+## Dependencies
+
+```text
+LOT-40
+LOT-41
+LOT-42
+REM-03
+REM-05
+spec 30
+```
+
+---
+
+# 75. LOT-45 - Domain-First Migration Foundations
+
+**Target line** : post-1.0 progressive migration
+
+## Scope before 1.0
+
+```text
+package inventory
+context ownership map
+minimal shared-kernel policy
+migration fitness rules
+```
+
+Full package moves remain post-1.0 and proceed context by context.
+
+Recommended order :
+
+```text
+Analysis
+→ Reconciliation
+→ Imports
+→ Reporting
+→ Subledgers
+→ Closing / Periods
+→ References / Policies / Charts
+→ Ledger LAST
+```
+
+## Dependencies
+
+```text
+LOT-39
+LOT-42
+public API stability
+spec 29
+```
+
+---
+
+# 76. LOT-46 - Financial Semantic Layer Foundations
+
+**Target line** : post-1.0
+
+## Scope
+
+```text
+SemanticModel
+Dataset
+Dimensions
+Hierarchies
+Facts
+Measures
+Metrics
+Relationships
+SemanticSnapshot
+SemanticManifest
+BI / Data / AI read adapters
+```
+
+## Dependencies
+
+```text
+LOT-41
+stable Reporting / Analysis snapshots
+spec 31
+```
+
+This layer is read-only relative to accounting truth.
+
+---
+
+# 77. Architecture Style Governance
+
+The architecture doctrine from spec `32` governs the extension lots :
+
+```text
+DDD
++
+Hexagonal / Ports & Adapters
++
+Clean dependency direction
+```
+
+MVC/MVT remains a valid presentation/application architecture for consumers such as Django applications. It is not the organizing architecture of the reusable accounting core.
+
+---
+
+# 78. Lot Dependency Matrix
 
 | Lot | Depends on |
 |---|---|
@@ -3567,10 +3973,18 @@ No version number is reserved in advance.
 | `36` | `33,35` |
 | `37` | `16,20,23,24,36` |
 | `38` | `20,21` |
+| `39` | `REM-10`, spec `24` |
+| `40` | `39`, `REM-03`, `REM-04`, spec `25` |
+| `41` | `40`, `REM-04`, `REM-06`, `REM-07`, spec `26` |
+| `42` | `41`, `REM-10`, spec `27` |
+| `43` | `39`, spec `28` |
+| `44` | `40,41,42`, `REM-03`, `REM-05`, spec `30` |
+| `45` | `39,42`, public API stability, spec `29` |
+| `46` | `41`, Reporting/Analysis stability, spec `31` |
 
 ---
 
-# 69. Architecture document -> implementation lots
+# 79. Architecture document -> implementation lots
 
 | Document | Lots principaux |
 |---|---|
@@ -3598,10 +4012,19 @@ No version number is reserved in advance.
 | `21 CONSOLIDATION` | `34..37` |
 | `22 RECONCILIATION` | `31..33` |
 | `23 ADVANCED FINANCE BOUNDARIES` | `38` |
+| `24 ARCHITECTURE FITNESS FUNCTIONS` | `39` |
+| `25 DOMAIN EVENTS / CAUSALITY / ENVELOPE` | `40` |
+| `26 REPRODUCIBILITY / COMPUTATION MANIFESTS` | `41` |
+| `27 GOLDEN ACCOUNTING / CONCURRENCY` | `42` |
+| `28 TESTING TOOLKIT` | `43` |
+| `29 DOMAIN-FIRST PACKAGE TOPOLOGY` | `45` |
+| `30 UNCERTAINTY / RECOVERY / EXTERNAL EFFECTS` | `44` |
+| `31 FINANCIAL SEMANTIC LAYER` | `46` |
+| `32 DDD / HEXAGONAL / CLEAN VS MVC` | `39..46` governance |
 
 ---
 
-# 70. Recommended branch / delivery rhythm
+# 80. Recommended branch / delivery rhythm
 
 Default :
 
@@ -3625,7 +4048,7 @@ is created if maintenance needs justify it.
 
 ---
 
-# 71. Recommended commit discipline
+# 81. Recommended commit discipline
 
 Useful labels :
 
@@ -3648,7 +4071,7 @@ Accounting/regulatory impacts still require human-written release notes.
 
 ---
 
-# 72. Definition of Ready for a lot
+# 82. Definition of Ready for a lot
 
 Before implementation begins :
 
@@ -3674,7 +4097,7 @@ Before implementation begins :
 
 ---
 
-# 73. Lot states
+# 83. Lot states
 
 ```text
 PLANNED
@@ -3696,7 +4119,7 @@ RELEASED
 
 ---
 
-# 74. `DONE` != `RELEASED`
+# 84. `DONE` != `RELEASED`
 
 A lot can be :
 
@@ -3712,48 +4135,52 @@ RELEASED
 
 ---
 
-# 75. Critical Path to 1.0
+# 85. Critical Path to 1.0
 
-The minimum critical path is :
+The historical implementation critical path through the current RC is :
 
 ```text
-00
-→ 01
-→ 02
-→ 03
-→ 04
-→ 05
-→ 06
-→ 07
-→ 08
-→ 09
-→ 10
-→ 11
-→ 12
-→ 13
-→ 14
-→ 15
-→ 16
-→ 17
-→ 18
-→ 19
-→ 20
-→ 21
-→ 22
-→ 23/24
-→ 25
-→ 26
-→ 27
-→ 28
-→ 29
-→ 30
+00 → ... → 27 → 0.7.0rc1
+```
+
+The current release-blocking path is now :
+
+```text
+REM-00
+→ REM-01
+→ REM-02
+→ REM-03
+→ REM-04
+→ REM-06
+→ REM-05
+→ REM-07
+→ REM-08
+→ REM-09 when in release scope
+→ REM-10
+→ release decision
+→ new RC if required
+→ 0.7.0 stable
+```
+
+Then the strategic hardening path resumes :
+
+```text
+39
+→ 43
+→ 40
+→ 41
+→ 42
+→ 44
+→ 0.8.x stable
+→ 0.9 freeze
+→ 1.0.0
 ```
 
 Some workstreams can run in parallel after interfaces stabilize.
 
 ---
 
-# 76. Safe parallelization
+# 86. Safe parallelization
 
 ## Can run in parallel
 
@@ -3785,7 +4212,7 @@ SQLAlchemy Adapter
 
 ---
 
-# 77. Work that should not be parallelized prematurely
+# 87. Work that should not be parallelized prematurely
 
 Avoid implementing before upstream contracts stabilize :
 
@@ -3803,7 +4230,7 @@ Generic reconciliation before subledger/ledger snapshot semantics
 
 ---
 
-# 78. 1.0 End-to-End Qualification Scenario
+# 88. 1.0 End-to-End Qualification Scenario
 
 A 1.0 release candidate should demonstrate :
 
@@ -3861,7 +4288,7 @@ GL Control Account Reconciliation
 
 ---
 
-# 79. 1.0 Cross-Adapter Qualification
+# 89. 1.0 Cross-Adapter Qualification
 
 The same accounting scenarios must yield equivalent business semantics on :
 
@@ -3879,7 +4306,7 @@ Accounting outcome must not.
 
 ---
 
-# 80. 1.0 Concurrency Matrix
+# 90. 1.0 Concurrency Matrix
 
 Minimum race suite :
 
@@ -3905,7 +4332,7 @@ snapshot publish duplicate
 
 ---
 
-# 81. 1.0 Golden Matrix
+# 91. 1.0 Golden Matrix
 
 Minimum :
 
@@ -3933,7 +4360,7 @@ financial-analysis core indicators
 
 ---
 
-# 82. 1.0 Migration Matrix
+# 92. 1.0 Migration Matrix
 
 Test at least :
 
@@ -3955,7 +4382,7 @@ chart version migration
 
 ---
 
-# 83. Release checklist
+# 93. Release checklist
 
 Before stable publication :
 
@@ -4001,7 +4428,7 @@ Before stable publication :
 
 ---
 
-# 84. Release qualification artifacts
+# 94. Release qualification artifacts
 
 At RC/stable :
 
@@ -4035,7 +4462,7 @@ REGULATORY_SUPPORT_MANIFEST.json
 
 ---
 
-# 85. Stop-the-line conditions
+# 95. Stop-the-line conditions
 
 Any of the following blocks an RC/stable :
 
@@ -4065,7 +4492,7 @@ BLOCKER / CRITICAL issue
 
 ---
 
-# 86. P2 release strategy
+# 96. P2 release strategy
 
 ## Reconciliation
 
@@ -4101,137 +4528,127 @@ If required, create a separate framework.
 
 ---
 
-# 87. First implementation action
+# 97. First implementation action
 
-The first actionable delivery is :
+The first actionable delivery is no longer `LOT-00`.
+
+The repository has progressed to `0.7.0rc1` and the audit introduces a mandatory remediation overlay.
+
+The immediate execution is :
 
 ```text
-LOT-00
-PyAccountingKit 0.0.1
-Repository Bootstrap & Architecture Safety Net
+REM-00
+Baseline & Remediation Registry
+    ↓
+REM-01
+Qualification & Workflow Reliability
+    ↓
+first REM-02 slice
+Identity / Entity Scope
 ```
 
-The first commit set should contain only infrastructure/foundation scope, not accounting business features.
+Immediate outputs :
+
+```text
+remediation status registry
+corrective regression tests
+HEAD-vs-audit-baseline comparison
+Nightly collection fix
+strict PostgreSQL qualification
+AccountId vs AccountCode regression
+cross-entity scope regression
+```
+
+The strategic roadmap `LOT-39..46` resumes after remediation and release requalification.
 
 ---
 
-# 88. Suggested LOT-00 deliverables
+# 98. Suggested REM-00 / REM-01 deliverables
 
 ```text
-pyproject.toml
+docs/plans/REMEDIATION_2026_10_PLAN.md
 
-src/pyaccountingkit/__init__.py
+docs/audits/REMEDIATION_2026_10_STATUS.json
 
-src/pyaccountingkit/
-    core/
-    domain/
-    application/
-    ports/
-    adapters/
-    integrations/
-    public/
+corrective regression tests
 
-tests/
-    unit/
-    property/
-    contract/
-    integration/
-    concurrency/
-    golden/
+strict release qualification checks
 
-docs/
+Nightly collection correction
 
-examples/
-
-README.md
-
-LICENSE
-
-py.typed
-
-CI workflow
-
-architecture dependency test
-
-quality configuration
+exact-SHA PostgreSQL evidence contract
 ```
+
+Corrective tests must assert expected behavior, not merely reproduce the faulty baseline.
 
 ---
 
-# 89. `0.0.1` acceptance command sequence
+# 99. Remediation acceptance command sequence
 
-Conceptual :
+Conceptual minimum :
 
 ```text
 clean checkout
 
 install package
 
-run format check
+run format / lint / type-check
 
-run lint
+run unit / property / contract
 
-run type-check
+run corrective regression suite
 
-run tests
+run Django/PostgreSQL required suites
 
-build wheel
+run SQLAlchemy/PostgreSQL required suites
 
-build sdist
+run strict release qualification
 
-install wheel in clean environment
+build wheel / sdist
 
-import pyaccountingkit
+verify manifests / migration / replay where affected
 ```
 
 Expected :
 
 ```text
-all green
+no applicable P1 open
+no unjustified mandatory skip
+candidate-SHA evidence complete
 ```
 
 ---
 
-# 90. Final implementation roadmap summary
+# 100. Final implementation roadmap summary
 
 ```text
-0.0.1
-    Bootstrap
+CURRENT
+    0.7.0rc1
 
-0.1.0
-    Accounting Core
+NOW
+    REM-00..REM-10
+    Audit remediation and requalification
 
-0.2.0
-    References / Charts / Policies
+THEN
+    0.7.0 stable
+    only when release-scope gates are green
 
-0.3.0
-    Imports / FEC / Reporting
+0.8.x
+    Reliability & Architecture Hardening
+    LOT-28 + LOT-39..44
 
-0.4.0
-    Subledgers / Analysis
-
-0.5.0
-    Public API / Production Adapters
-
-0.6.0
-    CFA FRA Migration / Golden Parity
-
-0.7.0
-    Regulatory Qualification
-
-0.8.0
-    Reliability / Performance / Security
-
-0.9.0
-    API Freeze / Migration / Replay Hardening
+0.9.x
+    API / Schema Freeze
 
 1.0.0
     Stable Public Core
 
-1.1.0
-    Reconciliation
+post-1.0
+    LOT-45 Domain-First migration slices
+    LOT-46 Financial Semantic Layer
 
-1.2.0
+post-1.0 existing roadmap
+    Generic Reconciliation
     Consolidation
 
 future separate framework
@@ -4240,41 +4657,49 @@ future separate framework
 
 ---
 
-# 91. Conclusion
+# 101. Conclusion
 
-PyAccountingKit dispose maintenant d'un chemin d'implémentation ordonné et testable.
-
-La règle de progression est :
+PyAccountingKit possède désormais deux horizons explicitement séparés :
 
 ```text
-do not move to the next stable milestone
-because code exists
+TACTICAL
+REM-00..REM-10
+fix and prove the existing implementation
+```
 
-move when
-scope + DoD + gates
-are green
+puis :
+
+```text
+STRATEGIC
+LOT-39..LOT-46
+evolve the architecture
+```
+
+La règle de progression devient :
+
+```text
+FIX WHAT EXISTS
+        ↓
+PROVE IT
+        ↓
+RELEASE IT
+        ↓
+EVOLVE IT
 ```
 
 Le prochain travail concret est donc :
 
 ```text
-LOT-00
+REM-00
+Baseline & Remediation Registry
     ↓
-PyAccountingKit 0.0.1
+REM-01
+Qualification Reliability
     ↓
-Repository Bootstrap
+REM-02
+Identity / Scope first slice
 ```
 
-avec comme première protection :
+et non la promotion immédiate de `0.7.0rc1` vers stable.
 
-```text
-architecture boundaries
-+
-quality tooling
-+
-clean package build
-+
-CFA FRA golden-baseline hooks
-```
-
-avant d'implémenter `Money`, les IDs et le domaine comptable.
+Les specs `24..32` restent la cible architecturale complémentaire ; l'audit et les lots `REM-*` définissent les corrections à fermer avant leur implémentation stratégique complète.

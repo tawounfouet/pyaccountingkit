@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from datetime import UTC, date, datetime
+from typing import cast
 
 import pytest
 
@@ -121,6 +122,56 @@ def test_audit_records_discarded_by_rollback() -> None:
         uow.audit.record(event)
         uow.commit()
     assert factory.store.audit_log == [event]
+
+
+def test_audit_event_payload_is_deeply_immutable_and_detached() -> None:
+    source: dict[str, object] = {
+        "entry_id": "e1",
+        "context": {"tags": ["posted"]},
+    }
+    event = AuditEvent(
+        event_type="ENTRY_POSTED",
+        entity_id="ent",
+        actor_id="user:1",
+        occurred_at=datetime(2024, 1, 1, tzinfo=UTC),
+        payload=source,
+    )
+
+    source["entry_id"] = "rewritten"
+    cast(dict[str, object], source["context"])["tags"] = ["mutated"]
+
+    assert event.payload["entry_id"] == "e1"
+    context = cast(dict[str, object], event.payload["context"])
+    assert context["tags"] == ["posted"]
+
+    with pytest.raises(TypeError):
+        cast(dict[str, object], event.payload)["entry_id"] = "forbidden"
+    with pytest.raises(TypeError):
+        cast(list[object], context["tags"]).append("forbidden")
+
+
+def test_outbox_payload_is_deeply_immutable_and_detached() -> None:
+    source: dict[str, object] = {
+        "entry_id": "e1",
+        "context": {"tags": ["queued"]},
+    }
+    record = OutboxRecord(
+        event_type="ENTRY_QUEUED",
+        entity_id="ent",
+        payload=source,
+    )
+
+    source["entry_id"] = "rewritten"
+    cast(dict[str, object], source["context"])["tags"] = ["mutated"]
+
+    assert record.payload["entry_id"] == "e1"
+    context = cast(dict[str, object], record.payload["context"])
+    assert context["tags"] == ["queued"]
+
+    with pytest.raises(TypeError):
+        cast(dict[str, object], record.payload)["entry_id"] = "forbidden"
+    with pytest.raises(TypeError):
+        cast(list[object], context["tags"]).append("forbidden")
 
 
 def test_outbox_drain_after_commit() -> None:

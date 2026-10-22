@@ -7,6 +7,8 @@ from collections.abc import Mapping
 from dataclasses import dataclass, field
 from enum import StrEnum
 
+from pyaccountingkit.core.immutability import freeze_mapping
+
 
 class EffectiveAccountOrigin(StrEnum):
     """Observed origins in provider-resolved effective account plans."""
@@ -87,6 +89,8 @@ class EffectiveAccountPlan:
             raise ValueError("effective plan coordinates must be non-empty")
         if not self.accounts:
             raise ValueError("effective plan must contain accounts")
+
+        object.__setattr__(self, "statistics", freeze_mapping(self.statistics))
 
         account_ids = [account.account_id for account in self.accounts]
         ref_codes = [account.ref_code for account in self.accounts]

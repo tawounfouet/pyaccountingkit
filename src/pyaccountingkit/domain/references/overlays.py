@@ -5,6 +5,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 from dataclasses import dataclass, field
 
+from pyaccountingkit.core.immutability import freeze_mapping
 from pyaccountingkit.domain.references.effective_plan import RegulatorySourceReference
 
 
@@ -61,6 +62,9 @@ class ReferenceOverlay:
             raise ValueError("overlay coordinates must be non-empty")
         if not self.entries:
             raise ValueError("overlay must contain entries")
+
+        object.__setattr__(self, "regulatory_basis", freeze_mapping(self.regulatory_basis))
+        object.__setattr__(self, "statistics", freeze_mapping(self.statistics))
 
         ids = [entry.overlay_id for entry in self.entries]
         codes = [entry.ref_code for entry in self.entries]

@@ -6,6 +6,8 @@ from collections.abc import Mapping
 from dataclasses import dataclass, field
 from typing import Protocol
 
+from pyaccountingkit.core.immutability import freeze_mapping
+
 
 @dataclass(frozen=True, slots=True)
 class OutboxRecord:
@@ -13,8 +15,11 @@ class OutboxRecord:
 
     event_type: str
     entity_id: str
-    payload: Mapping[str, str] = field(default_factory=dict)
+    payload: Mapping[str, object] = field(default_factory=dict)
     idempotency_key: str = ""
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "payload", freeze_mapping(self.payload))
 
 
 class OutboxPublisherProtocol(Protocol):

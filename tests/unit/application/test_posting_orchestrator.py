@@ -17,6 +17,7 @@ from pyaccountingkit.core.currency import EUR
 from pyaccountingkit.core.errors import (
     EntityScopeMismatchError,
     InactiveAccountError,
+    IdempotencyReplayError,
     InactiveJournalError,
     InvalidEntryStateError,
     JournalNotFoundError,
@@ -219,6 +220,37 @@ def test_post_duplicate_request_replays_cleanly() -> None:
     assert second.posted_entry == first.posted_entry
     assert len(store.audit_log) == 1
     assert store.entries[EntryId("e1")].status is EntryStatus.POSTED
+
+
+def test_post_replay_rejects_same_entry_id_with_different_semantic_content() -> None:
+    orchestrator, _, store = _bak_app()
+    first = orchestrator.post(_draft(), actor_id="u1")
+    changed = JournalEntry(
+        id=first.posted_entry.id,
+        journal_id=first.posted_entry.journal_id,
+        period_id=first.posted_entry.period_id,
+        entry_date=first.posted_entry.entry_date,
+        description="Different request with reused EntryId",
+        lines=(
+            JournalLine(
+                account_id=AccountId("411000"),
+                debit=Money.from_str("300.00", EUR),
+                credit=Money.zero(EUR),
+            ),
+            JournalLine(
+                account_id=AccountId("707000"),
+                debit=Money.zero(EUR),
+                credit=Money.from_str("300.00", EUR),
+            ),
+        ),
+        entry_type=first.posted_entry.entry_type,
+    ).validate()
+
+    with pytest.raises(IdempotencyReplayError, match="semantic"):
+        orchestrator.post(changed, actor_id="u1")
+
+    assert len(store.audit_log) == 1
+    assert store.entries[EntryId("e1")] == first.posted_entry
 
 
 def test_post_rejects_period_from_another_entity() -> None:

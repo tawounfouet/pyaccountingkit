@@ -9,6 +9,7 @@ from pyaccountingkit.core.errors import (
     EntryNotFoundError,
     IdempotencyReplayError,
     InactiveAccountError,
+    InvalidEntryStateError,
     InactiveJournalError,
     NonPostableAccountError,
     PeriodClosedError,
@@ -21,6 +22,7 @@ from pyaccountingkit.domain.audit.events import AuditEvent
 from pyaccountingkit.domain.charts.chart import CompanyChartOfAccounts
 from pyaccountingkit.domain.journals.journal_entry import EntryStatus, JournalEntry
 from pyaccountingkit.domain.ledger.posting import PostingService
+from pyaccountingkit.domain.traceability.trace import CanonicalHasher
 from pyaccountingkit.ports.company_chart_resolution import CompanyChartResolverProtocol
 from pyaccountingkit.ports.outbox import OutboxRecord
 from pyaccountingkit.ports.unit_of_work import UnitOfWorkFactoryProtocol, UnitOfWorkProtocol
@@ -115,8 +117,14 @@ class PostingOrchestrator:
             resource=f"period {period.id}",
         )
 
+        if entry.status is not EntryStatus.VALIDATED:
+            raise InvalidEntryStateError(
+                f"Écriture {entry.id} doit être VALIDATED avant comptabilisation"
+            )
+
         idempotency_key = f"post:{entry.id}"
-        if not uow.idempotency.claim(idempotency_key):
+        payload_fingerprint = self._posting_fingerprint(entry, journal.entity_id)
+        if not uow.idempotency.claim(idempotency_key, payload_fingerprint):
             return self._replay(uow, entry.id, idempotency_key)
         resolved_chart = self._chart_resolver.resolve(
             entity_id=journal.entity_id,
@@ -176,6 +184,37 @@ class PostingOrchestrator:
         )
         uow.idempotency.complete(idempotency_key)
         return PostingResult(posted_entry=posted, idempotency_key=idempotency_key)
+
+    @staticmethod
+    def _posting_fingerprint(entry: JournalEntry, entity_id: EntityId) -> str:
+        return CanonicalHasher.digest(
+            {
+                "operation": "POST_ENTRY",
+                "entity_id": str(entity_id),
+                "entry_id": str(entry.id),
+                "journal_id": str(entry.journal_id),
+                "period_id": str(entry.period_id),
+                "entry_date": entry.entry_date.isoformat(),
+                "description": entry.description,
+                "entry_type": entry.entry_type.value,
+                "reversal_of_id": (
+                    str(entry.reversal_of_id) if entry.reversal_of_id is not None else None
+                ),
+                "lines": [
+                    {
+                        "account_id": str(line.account_id),
+                        "debit_amount": str(line.debit.amount),
+                        "debit_currency": line.debit.currency.code,
+                        "debit_exponent": line.debit.currency.exponent,
+                        "credit_amount": str(line.credit.amount),
+                        "credit_currency": line.credit.currency.code,
+                        "credit_exponent": line.credit.currency.exponent,
+                        "label": line.label,
+                    }
+                    for line in entry.lines
+                ],
+            }
+        )
 
     def _replay(
         self,

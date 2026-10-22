@@ -33,6 +33,7 @@
     "ENTRY_NOT_POSTED": "EntryNotPostedError",
     "ENTRY_UNBALANCED": "UnbalancedEntryError",
     "ENTRY_ZERO": "ZeroEntryError",
+    "IDEMPOTENCY_CONFLICT": "IdempotencyConflictError",
     "IDEMPOTENCY_REPLAY": "IdempotencyReplayError",
     "IMPORT_ERROR": "AccountingImportError",
     "IMPORT_INVALID_PLAN": "InvalidImportPlanError",

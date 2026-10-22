@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import subprocess
 import sys
@@ -84,6 +85,18 @@ _VERSIONED_RC_EVIDENCE: dict[str, tuple[str, ...]] = {
     ),
 }
 
+_EXACT_SHA_POSTGRESQL_VERSIONS = frozenset({"0.7.0rc1", "0.7.0"})
+_REQUIRED_POSTGRESQL_EVIDENCE_ENV: tuple[tuple[str, str], ...] = (
+    ("PYAK_RELEASE_DJANGO_POSTGRESQL_SHA", "Django/PostgreSQL"),
+    ("PYAK_RELEASE_SQLALCHEMY_POSTGRESQL_SHA", "SQLAlchemy/PostgreSQL"),
+)
+_REQUIRED_POSTGRESQL_TEST_MODULES: tuple[str, ...] = (
+    "tests/integration/test_django_postgresql_adapter.py",
+    "tests/concurrency/test_django_postgresql_concurrency.py",
+    "tests/integration/test_sqlalchemy_postgresql_adapter.py",
+    "tests/concurrency/test_sqlalchemy_postgresql_concurrency.py",
+)
+
 
 @dataclass(frozen=True)
 class GateResult:
@@ -101,6 +114,52 @@ def project_version() -> str:
     """Return the canonical version from pyproject.toml."""
     data = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
     return str(data["project"]["version"])
+
+
+def _current_git_sha() -> str:
+    """Return the exact checkout SHA used for qualification."""
+    completed = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    sha = completed.stdout.strip()
+    if completed.returncode != 0 or re.fullmatch(r"[0-9a-f]{40}", sha) is None:
+        raise QualificationError("release-candidate qualification cannot resolve exact git HEAD")
+    return sha
+
+
+def validate_release_candidate_postgresql_evidence(*, version: str) -> None:
+    """Require exact-SHA PostgreSQL evidence for the 0.7 release line."""
+    if version not in _EXACT_SHA_POSTGRESQL_VERSIONS:
+        return
+
+    candidate_sha = _current_git_sha()
+    for env_name, label in _REQUIRED_POSTGRESQL_EVIDENCE_ENV:
+        evidence_sha = os.getenv(env_name, "").strip()
+        if re.fullmatch(r"[0-9a-f]{40}", evidence_sha) is None:
+            raise QualificationError(
+                f"release-candidate {version} requires exact-SHA {label} evidence via {env_name}"
+            )
+        if evidence_sha != candidate_sha:
+            raise QualificationError(
+                f"release-candidate {version} {label} evidence SHA {evidence_sha} "
+                f"does not match candidate SHA {candidate_sha}"
+            )
+
+
+def _release_candidate_suite_targets(relative_path: str, *, version: str) -> list[str]:
+    """Exclude PostgreSQL modules from generic suites when separately exact-SHA qualified."""
+    targets = [relative_path]
+    if version not in _EXACT_SHA_POSTGRESQL_VERSIONS:
+        return targets
+    prefix = relative_path.rstrip("/") + "/"
+    for module in _REQUIRED_POSTGRESQL_TEST_MODULES:
+        if module.startswith(prefix):
+            targets.append(f"--ignore={module}")
+    return targets
 
 
 def run_command(command: list[str], *, label: str) -> GateResult:
@@ -211,6 +270,8 @@ def validate_release_candidate_contract(
 
     if version == "0.6.0rc1":
         _validate_cfa_fra_0_6_rc1_completion()
+
+    validate_release_candidate_postgresql_evidence(version=version)
 
 
 def _validate_cfa_fra_0_6_rc1_completion() -> None:
@@ -456,9 +517,15 @@ def qualify(
             )
         )
         if full or release_candidate:
+            version = project_version()
             for path, label in _RC_TEST_SUITES:
                 if _has_tests(path):
-                    results.append(_pytest_gate([path], label=label))
+                    targets = (
+                        _release_candidate_suite_targets(path, version=version)
+                        if release_candidate
+                        else [path]
+                    )
+                    results.append(_pytest_gate(targets, label=label))
                 elif release_candidate:
                     raise QualificationError(
                         f"{label} is mandatory for a release candidate but {path} is empty"

@@ -106,3 +106,51 @@ def test_release_contract_rejects_rebuild_after_bundle_sealing() -> None:
 
     violations = module.validate_release_text(invalid)
     assert any("python -m build" in item for item in violations)
+
+
+def test_nightly_contract_rejects_broad_root_collection() -> None:
+    """Nightly must not recurse over the whole tests/ tree."""
+    module = _load_validator()
+    text = module.NIGHTLY_WORKFLOW.read_text(encoding="utf-8")
+    invalid = text.replace(
+        "python -m pytest\n          tests/unit tests/property tests/contract tests/integration",
+        "pytest tests/",
+    )
+
+    violations = module.validate_nightly_text(invalid)
+    assert any("broad pytest tests/ collection is forbidden" in item for item in violations)
+
+
+def test_nightly_contract_requires_both_postgresql_paths() -> None:
+    """Nightly must retain independent Django and SQLAlchemy PostgreSQL evidence."""
+    module = _load_validator()
+    text = module.NIGHTLY_WORKFLOW.read_text(encoding="utf-8")
+    invalid = text.replace("sqlalchemy-postgresql:\n", "sqlalchemy-disabled:\n", 1)
+
+    violations = module.validate_nightly_text(invalid)
+    assert any("sqlalchemy-postgresql" in item for item in violations)
+
+
+def test_release_contract_requires_repository_context_for_gh_cli() -> None:
+    """Release edit/verify commands must be bound to the current repository."""
+    module = _load_validator()
+    text = module.RELEASE_WORKFLOW.read_text(encoding="utf-8")
+    invalid = text.replace("          GH_REPO: ${{ github.repository }}\n", "", 1)
+
+    violations = module.validate_release_text(invalid)
+    assert any("GH_REPO" in item for item in violations)
+
+
+def test_release_contract_requires_exact_sha_postgresql_evidence() -> None:
+    """Preflight may not run without exact-SHA evidence from both PostgreSQL jobs."""
+    module = _load_validator()
+    text = module.RELEASE_WORKFLOW.read_text(encoding="utf-8")
+    invalid = text.replace(
+        "      PYAK_RELEASE_SQLALCHEMY_POSTGRESQL_SHA: "
+        "${{ needs.sqlalchemy-postgresql-qualification.outputs.qualified_sha }}\n",
+        "",
+        1,
+    )
+
+    violations = module.validate_release_text(invalid)
+    assert any("PYAK_RELEASE_SQLALCHEMY_POSTGRESQL_SHA" in item for item in violations)

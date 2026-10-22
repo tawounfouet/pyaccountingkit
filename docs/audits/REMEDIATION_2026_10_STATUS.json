@@ -54,13 +54,29 @@
       "required_postgresql_skip_blocks_release": true,
       "evidence_must_match_candidate_sha": true,
       "documentation_only_change_cannot_close_finding": true
+    },
+    "current_phase": "REM-01",
+    "rem00_completed_on": "2026-10-22",
+    "rem00_completion_evidence": {
+      "remediation_plan_commit_sha": "fd0e2731582d7bb8eb0b7aecae41d2417aa40be5",
+      "registry_creation_commit_sha": "c7c555cffef0a5bcfe5a62273cc1ec5ef0dcf5dd",
+      "plans_index_commit_sha": "fcc9e63a5bcf1da14ef5136f23268d033933ab8f",
+      "registry_validation": {
+        "findings_count": 30,
+        "unique_finding_ids": 30,
+        "p1_count": 22,
+        "p2_count": 5,
+        "architecture_gap_count": 3,
+        "json_parse": "PASS"
+      },
+      "code_baseline_statement": "No src/, tests/, or workflow delta between audit baseline and remediation start; intervening changes were documentation-only."
     }
   },
   "lots": {
     "REM-00": {
       "title": "Baseline / Registry / Corrective Test Conventions",
       "findings": "ALL",
-      "status": "IN_PROGRESS"
+      "status": "DONE"
     },
     "REM-01": {
       "title": "Qualification Reliability",
@@ -69,7 +85,7 @@
         "F26",
         "F27"
       ],
-      "status": "PLANNED"
+      "status": "ACTIVE"
     },
     "REM-02": {
       "title": "Identity / Scope / Read-Side",
@@ -781,5 +797,7 @@
       ],
       "notes": []
     }
-  ]
+  ],
+  "last_updated_on": "2026-10-22",
+  "last_updated_from_sha": "fcc9e63a5bcf1da14ef5136f23268d033933ab8f"
 }

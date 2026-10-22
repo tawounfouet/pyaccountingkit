@@ -20,6 +20,9 @@ from pyaccountingkit.domain.reporting.errors import (
     StatementSourceError,
 )
 from pyaccountingkit.domain.reporting.mappings import StatementMappingSet
+from pyaccountingkit.domain.reporting.monetary_allocation import (
+    allocate_money_conservatively,
+)
 from pyaccountingkit.domain.reporting.statement_definition import (
     FinancialStatementDefinition,
     FinancialStatementType,
@@ -267,6 +270,10 @@ class FinancialStatementEngine:
                     f"applicable mappings for account {source_line.account_code!r} must "
                     f"allocate exactly 1, got {allocation_total}"
                 )
+            contributions = allocate_money_conservatively(
+                source_line.balance,
+                tuple((mapping.mapping_id, mapping.allocation) for mapping in applicable),
+            )
             for mapping in applicable:
                 try:
                     target = line_by_code[mapping.statement_line_code]
@@ -280,7 +287,7 @@ class FinancialStatementEngine:
                         f"mapping {mapping.mapping_id!r} must target a DETAIL line, got "
                         f"{target.line_type.value}"
                     )
-                contribution = source_line.balance * mapping.allocation
+                contribution = contributions[mapping.mapping_id]
                 detail_values[target.code] = detail_values[target.code] + contribution
                 drilldown[target.code].append(
                     StatementDrilldownItem(

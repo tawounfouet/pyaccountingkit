@@ -341,6 +341,7 @@ def _statement_definition() -> FinancialStatementDefinition:
                 label="Liabilities and equity",
                 line_type=StatementLineType.TOTAL,
                 order=40,
+                sign_convention=StatementSignConvention.CREDIT_POSITIVE,
                 control_role=StatementControlRole.LIABILITIES_EQUITY_TOTAL,
             ),
             StatementLineDefinition(

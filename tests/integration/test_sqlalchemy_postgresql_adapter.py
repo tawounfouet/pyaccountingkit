@@ -25,8 +25,8 @@ from pyaccountingkit.adapters.sqlalchemy.tables import (
 )
 from pyaccountingkit.adapters.sqlalchemy.unit_of_work import SQLAlchemyUnitOfWorkFactory
 from pyaccountingkit.core.clock import FrozenClock
-from pyaccountingkit.core.errors import InvalidEntryStateError
 from pyaccountingkit.core.currency import EUR
+from pyaccountingkit.core.errors import InvalidEntryStateError
 from pyaccountingkit.core.identifiers import (
     AccountId,
     EntityId,

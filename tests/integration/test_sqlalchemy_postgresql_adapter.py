@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+from dataclasses import replace
 from datetime import UTC, date, datetime
 
 import pytest
@@ -24,6 +25,7 @@ from pyaccountingkit.adapters.sqlalchemy.tables import (
 )
 from pyaccountingkit.adapters.sqlalchemy.unit_of_work import SQLAlchemyUnitOfWorkFactory
 from pyaccountingkit.core.clock import FrozenClock
+from pyaccountingkit.core.errors import InvalidEntryStateError
 from pyaccountingkit.core.currency import EUR
 from pyaccountingkit.core.identifiers import (
     AccountId,
@@ -140,6 +142,25 @@ def test_repository_round_trip_is_exact() -> None:
             == 2
         )
         assert session.get(JournalEntryTable, "entry:1").entry_type == "ADJUSTING"
+
+
+def test_posted_entry_economics_cannot_be_rewritten() -> None:
+    factory = SQLAlchemyUnitOfWorkFactory(ENGINE, clock=FrozenClock(NOW))
+    posted = _entry().validate().freeze(NOW)
+
+    with factory.open() as uow:
+        uow.entries.add(posted)
+        uow.commit()
+
+    with factory.open() as uow:
+        revision = uow.entries.get_revision(posted.id)
+        with pytest.raises(InvalidEntryStateError, match="immutable"):
+            uow.entries.save(replace(posted, description="rewritten"), revision)
+        uow.rollback()
+
+    with factory.open() as read:
+        assert read.entries.get(posted.id) == posted
+        read.rollback()
 
 
 def test_uncommitted_unit_of_work_rolls_back_every_sink() -> None:

@@ -55,7 +55,7 @@
       "evidence_must_match_candidate_sha": true,
       "documentation_only_change_cannot_close_finding": true
     },
-    "current_phase": "REM-03",
+    "current_phase": "REM-04",
     "rem00_completed_on": "2026-10-22",
     "rem00_completion_evidence": {
       "remediation_plan_commit_sha": "fd0e2731582d7bb8eb0b7aecae41d2417aa40be5",
@@ -172,10 +172,24 @@
         ],
         "status": "FIXED_UNVERIFIED"
       },
-      "implementation_status": "IN_PROGRESS",
-      "remaining_findings": [
-        "F11",
-        "F23"
+      "implementation_status": "COMPLETE",
+      "remaining_findings": [],
+      "second_slice": {
+        "implementation_pr": 81,
+        "pr_head_sha": "4d635643ee7f5cfb22673a5ffefbb2da74db184c",
+        "merge_sha": "90ddc34469fdac2f5c562413fe9873879cd3f043",
+        "pr_ci_run_id": 39854358338,
+        "pr_security_run_id": 39854358330,
+        "pr_ci_status": "PASS",
+        "findings": [
+          "F11",
+          "F23"
+        ],
+        "status": "FIXED_UNVERIFIED"
+      },
+      "remaining_evidence": [
+        "Exact-main-SHA CI evidence for the combined REM-03 implementation before VERIFIED",
+        "REM-10 transverse requalification"
       ]
     }
   },
@@ -214,7 +228,7 @@
         "F23",
         "F24"
       ],
-      "status": "ACTIVE"
+      "status": "QUALIFYING"
     },
     "REM-04": {
       "title": "Immutable Evidence / Durable Traceability",
@@ -559,18 +573,36 @@
       "primary_remediation_lot": "REM-03",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "OPEN",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "90ddc34469fdac2f5c562413fe9873879cd3f043",
+      "corrective_tests": [
+        "tests/unit/application/test_posting_orchestrator.py::test_post_duplicate_key_with_different_payload_is_conflict",
+        "tests/unit/application/test_posting_orchestrator.py::test_post_duplicate_key_with_different_journal_scope_is_conflict",
+        "tests/contract/test_repository_contract.py::test_idempotency_same_key_different_payload_conflicts",
+        "tests/integration/test_django_postgresql_adapter.py::test_idempotency_key_rejects_different_payload_fingerprint",
+        "tests/integration/test_sqlalchemy_postgresql_adapter.py::test_idempotency_key_rejects_different_payload_fingerprint"
+      ],
+      "qualification_evidence": [
+        "PR #81 head 4d635643ee7f5cfb22673a5ffefbb2da74db184c: CI run 39854358338 PASS",
+        "PR #81 head 4d635643ee7f5cfb22673a5ffefbb2da74db184c: Security run 39854358330 PASS",
+        "PR #81 head 4d635643ee7f5cfb22673a5ffefbb2da74db184c: Django/PostgreSQL qualification PASS",
+        "PR #81 head 4d635643ee7f5cfb22673a5ffefbb2da74db184c: SQLAlchemy/PostgreSQL qualification PASS",
+        "PR #81 head 4d635643ee7f5cfb22673a5ffefbb2da74db184c: Canonical CI gate PASS"
+      ],
       "affected_components": [
         "idempotency",
         "posting",
         "unit_of_work"
       ],
-      "notes": []
+      "notes": [
+        "Idempotency claims are bound to a persisted semantic payload fingerprint.",
+        "Same key plus same fingerprint replays; same key plus different fingerprint raises IdempotencyConflictError.",
+        "Posting and reversal use canonical business-semantic fingerprints.",
+        "Django and SQLAlchemy include migration 0003 for payload_fingerprint.",
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+      ]
     },
     {
       "id": "F12",
@@ -832,18 +864,39 @@
       "primary_remediation_lot": "REM-03",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "OPEN",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "90ddc34469fdac2f5c562413fe9873879cd3f043",
+      "corrective_tests": [
+        "tests/unit/domain/test_periods.py::test_period_persistence_successor_rejects_immutable_scope_rewrite",
+        "tests/unit/domain/test_periods.py::test_period_persistence_successor_rejects_skipped_transition",
+        "tests/unit/domain/test_periods.py::test_period_persistence_successor_accepts_legal_transition",
+        "tests/contract/test_repository_contract.py::test_period_save_missing_raises",
+        "tests/contract/test_repository_contract.py::test_period_save_rejects_immutable_field_rewrite",
+        "tests/contract/test_repository_contract.py::test_period_save_rejects_skipped_transition",
+        "tests/contract/test_repository_contract.py::test_period_save_accepts_legal_transition",
+        "tests/integration/test_django_postgresql_adapter.py::test_period_repository_rejects_skipped_transition_and_scope_rewrite",
+        "tests/integration/test_sqlalchemy_postgresql_adapter.py::test_period_repository_rejects_skipped_transition_and_scope_rewrite"
+      ],
+      "qualification_evidence": [
+        "PR #81 head 4d635643ee7f5cfb22673a5ffefbb2da74db184c: CI run 39854358338 PASS",
+        "PR #81 head 4d635643ee7f5cfb22673a5ffefbb2da74db184c: Security run 39854358330 PASS",
+        "PR #81 head 4d635643ee7f5cfb22673a5ffefbb2da74db184c: Django/PostgreSQL qualification PASS",
+        "PR #81 head 4d635643ee7f5cfb22673a5ffefbb2da74db184c: SQLAlchemy/PostgreSQL qualification PASS",
+        "PR #81 head 4d635643ee7f5cfb22673a5ffefbb2da74db184c: Canonical CI gate PASS"
+      ],
       "affected_components": [
         "periods",
         "repositories",
         "adapters"
       ],
-      "notes": []
+      "notes": [
+        "AccountingPeriod enforces immutable identity/fiscal/date coordinates after persistence.",
+        "PeriodRepository.save is fail-closed and transition-only across InMemory, Django and SQLAlchemy.",
+        "Closing persists OPEN -> REVIEW -> CLOSING -> CLOSED as legal transitions inside one transaction.",
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+      ]
     },
     {
       "id": "F24",
@@ -1037,5 +1090,5 @@
     }
   ],
   "last_updated_on": "2026-10-22",
-  "last_updated_from_sha": "a4b99aff16007f997d17a8cead87b6f39ccf21a1"
+  "last_updated_from_sha": "90ddc34469fdac2f5c562413fe9873879cd3f043"
 }

@@ -123,7 +123,7 @@ Le chantier courant est l'overlay de remédiation :
 | 4 | `REM-03` | Cycle de posting, repositories, idempotence — **IMPLEMENTED / QUALIFYING** | `F10,F11,F23,F24` |
 | 5 | `REM-04` | Immutabilité et traces durables — **IMPLEMENTED / QUALIFYING** | `F14,F20,A03` |
 | 6 | `REM-06` | Calculs, classification et empreintes — **IMPLEMENTED / QUALIFYING** | `F12,F15,F16,F21` |
-| 7 | `REM-05` | Clôture et à-nouveaux atomiques — **ACTIVE** | `F05,F06,F07,F08,F09` |
+| 7 | `REM-05` | Clôture et à-nouveaux atomiques — **ACTIVE** | `F05,F06,F07,F08,F09` — F05/F06 implémentés |
 | 8 | `REM-07` | Références sûres et publication validée | `F19,F22` |
 | 9 | `REM-08` | Contrats publics et services applicatifs | `F17,A02` |
 | 10 | `REM-09` | Auxiliaires persistants | `A01` |
@@ -152,6 +152,8 @@ REM-03  IMPLEMENTED / QUALIFYING
 REM-04  IMPLEMENTED / QUALIFYING
 REM-06  IMPLEMENTED / QUALIFYING
 REM-05  ACTIVE
+  ├── LOT-30R F05/F06  IMPLEMENTED / QUALIFYING
+  └── F07/F08/F09      NEXT
 ```
 
 Preuves d'implémentation REM-04 :

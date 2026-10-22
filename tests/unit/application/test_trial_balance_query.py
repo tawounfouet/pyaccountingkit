@@ -160,9 +160,7 @@ def test_drill_down_rejects_posted_entry_from_foreign_entity_journal() -> None:
                 label="Other entity sales",
             )
         )
-        uow.entries.add(
-            _posted("e_other", "411000", "100.00", journal_id="j_other")
-        )
+        uow.entries.add(_posted("e_other", "411000", "100.00", journal_id="j_other"))
         uow.commit()
 
     with pytest.raises(EntityScopeMismatchError):

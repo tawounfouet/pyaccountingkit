@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from collections.abc import Mapping
+from collections.abc import Callable, Mapping
 from datetime import UTC, datetime
 from typing import cast
 
@@ -84,6 +84,6 @@ def test_outbox_record_detaches_and_deeply_freezes_payload() -> None:
         ),
     ],
 )
-def test_evidence_payload_rejects_non_json_values(factory: object) -> None:
+def test_evidence_payload_rejects_non_json_values(factory: Callable[[], object]) -> None:
     with pytest.raises(TypeError, match="Unsupported JSON evidence value"):
-        cast(object, factory)()
+        factory()

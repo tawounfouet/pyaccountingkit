@@ -4,7 +4,7 @@
 > **Document** : `PYACCOUNTINGKIT_IMPLEMENTATION_ROADMAP.md`  
 > **Statut** : Roadmap d'implémentation de référence  
 > **Langue** : Français  
-> **Baseline architecturale** : documents `00` à `32` + registre ADR + audit/remédiation du 22 octobre 2026  
+> **Baseline architecturale** : documents `00` à `38` + registre ADR + audit/remédiation du 22 octobre 2026  
 > **Objet** : Transformer la documentation d'architecture PyAccountingKit en plan d'exécution concret, intégrer l'overlay de remédiation issu de l'audit `0.7.0rc1`, puis piloter les lots, versions, dépendances, Definition of Done et gates de qualité/release.
 
 ---
@@ -16,7 +16,7 @@ La phase d'architecture est suffisamment complète pour basculer vers l'impléme
 La stratégie de référence est désormais :
 
 ```text
-Architecture 00..32
+Architecture 00..38
       |
       v
 Existing implementation through 0.7.0rc1
@@ -66,6 +66,20 @@ NPV / IRR / WACC / DCF / Valuation / Monte Carlo
 ```
 
 La roadmap produit comporte désormais **47 lots `LOT-00` à `LOT-46`**, complétés par l'overlay tactique **`REM-00` à `REM-10`** issu de l'audit `0.7.0rc1`.
+
+Les specs `35 → 38` n'ajoutent pas de lots supplémentaires. Elles affinent la doctrine de `LOT-40` :
+
+```text
+Lifecycle
+    ↓
+State Machine
+    ↓
+Meaningful Business Fact
+    ↓
+Domain Event
+    ↓
+Audit / Outbox / Integration mapping
+```
 
 > [!TIP]
 > **Découpage opérationnel** : La présente feuille de route est traduite en **10 plans d'implémentation opérationnels** dans le dossier [`docs/plans/`](./plans/README.md) (`PLAN-00` à `PLAN-09`), chacun détaillant les chantiers techniques, les critères d'acceptation stricts (DoD), la matrice des gates et les scénarios de recette par release.
@@ -214,6 +228,37 @@ documentation-only closure
 ```
 
 Les contrôles externes GitHub restent nécessaires mais ne remplacent jamais la qualification métier, transactionnelle ou comptable.
+
+---
+
+## 2.9 Lifecycle / State / Event modeling before LOT-40
+
+Les specs `35 → 38` constituent un **modeling gate** avant l'implémentation large de `LOT-40`.
+
+```text
+35 Business Lifecycles
+    ↓
+36 State Machines & Transition Rules
+    ↓
+37 Domain Events Coverage & Emission Rules
+    ↓
+38 Lifecycle ↔ State Machine ↔ Event Mapping
+    ↓
+25 Event Envelope / Causality
+    ↓
+LOT-40 implementation
+```
+
+Règles :
+
+```text
+no event for every object
+no state machine for every object
+no generic status-change event as business contract
+no integration event inferred automatically from a domain event
+```
+
+Les documents `35 → 38` sont des **spécifications de conception transverses**, pas quatre nouveaux lots d'implémentation.
 
 ---
 
@@ -855,7 +900,7 @@ Pour toute feature qui écrit une donnée comptable :
 
 [ ] concurrency behavior defined
 
-[ ] audit event emitted/persisted as designed
+[ ] domain event / audit / outbox mapping applied as designed when the transition is covered
 
 [ ] rollback leaves no partial accounting
 
@@ -3686,6 +3731,77 @@ spec 24
 
 ---
 
+# 69A. Lifecycle / State / Event Modeling Gate
+
+**Target** : mandatory modeling prerequisite before broad `LOT-40` implementation
+
+## Source specifications
+
+```text
+35 Business Lifecycles Architecture
+36 State Machines & Transition Rules
+37 Domain Events Coverage & Emission Rules
+38 Lifecycle / State Machine / Event Mapping
+25 Domain Events / Causality / Event Envelope
+```
+
+## Purpose
+
+```text
+identify real business lifecycles
+        ↓
+formalize legal transitions
+        ↓
+identify meaningful business facts
+        ↓
+decide DomainEvent / Audit / Outbox / Integration coverage
+        ↓
+define event envelope and causality
+```
+
+## Required modeling outputs
+
+```text
+Business Lifecycle Matrix
+State Machine Registry
+Domain Event Coverage Matrix
+Lifecycle-State-Event Matrix
+Domain Event Registry / Manifest design
+```
+
+## Gate rules
+
+```text
+[ ] lifecycle owner known
+[ ] explicit vs derived state decided
+[ ] legal/illegal transitions identified
+[ ] guards identified
+[ ] meaningful business facts identified
+[ ] event classification decided
+[ ] audit/outbox/integration mapping decided
+[ ] no duplicate semantic owner
+[ ] no Value Object eventification
+[ ] no generic state-machine engine introduced without demonstrated need
+```
+
+## Initial P0 event scope prepared by the gate
+
+```text
+JournalEntryPosted
+JournalEntryReversed
+PeriodClosed
+PeriodReopened
+ClosingSealed
+SettlementPosted
+SettlementAllocated
+SettlementReversed
+ReportSnapshotPublished
+```
+
+This gate does not supersede remediation. Business semantics corrected by `REM-03`, `REM-04`, `REM-05` and `REM-07` remain upstream constraints.
+
+---
+
 # 70. LOT-40 - Domain Events, Causality & Event Envelope
 
 **Target line** : `0.8.x`
@@ -3699,7 +3815,10 @@ CausationId
 EventSchemaVersion
 DomainEventEnvelope
 DomainEvent != AuditEvent != OutboxRecord
-event manifest
+DomainEvent != IntegrationEvent != OperationalEvent
+event registry / manifest
+lifecycle-transition-event mapping
+audit/outbox/integration mapping boundaries
 ```
 
 Initial migration scope :
@@ -3708,7 +3827,9 @@ Initial migration scope :
 Posting
 Reversal
 Closing
+Period reopen/close
 Settlement
+Report publication
 ```
 
 ## Dependencies
@@ -3717,7 +3838,24 @@ Settlement
 LOT-39
 REM-03
 REM-04
+REM-05 critical lifecycle semantics
+REM-07 publication semantics
 spec 25
+spec 35
+spec 36
+spec 37
+spec 38
+```
+
+## Entry criteria
+
+```text
+[ ] lifecycle catalog approved
+[ ] critical state machines approved
+[ ] Domain Event coverage matrix approved
+[ ] lifecycle/state/event mapping approved
+[ ] event envelope contract approved
+[ ] no unresolved semantic conflict with applicable remediation findings
 ```
 
 ---
@@ -3974,7 +4112,7 @@ MVC/MVT remains a valid presentation/application architecture for consumers such
 | `37` | `16,20,23,24,36` |
 | `38` | `20,21` |
 | `39` | `REM-10`, spec `24` |
-| `40` | `39`, `REM-03`, `REM-04`, spec `25` |
+| `40` | `39`, `REM-03`, `REM-04`, `REM-05`, `REM-07`, specs `25,35,36,37,38` |
 | `41` | `40`, `REM-04`, `REM-06`, `REM-07`, spec `26` |
 | `42` | `41`, `REM-10`, spec `27` |
 | `43` | `39`, spec `28` |
@@ -4021,6 +4159,10 @@ MVC/MVT remains a valid presentation/application architecture for consumers such
 | `30 UNCERTAINTY / RECOVERY / EXTERNAL EFFECTS` | `44` |
 | `31 FINANCIAL SEMANTIC LAYER` | `46` |
 | `32 DDD / HEXAGONAL / CLEAN VS MVC` | `39..46` governance |
+| `35 BUSINESS LIFECYCLES ARCHITECTURE` | `40` modeling prerequisite; `42` qualification input |
+| `36 STATE MACHINES / TRANSITION RULES` | `40` modeling prerequisite; `42` race/transition qualification |
+| `37 DOMAIN EVENTS COVERAGE / EMISSION RULES` | `40` direct prerequisite |
+| `38 LIFECYCLE / STATE MACHINE / EVENT MAPPING` | `40` direct prerequisite; audit/outbox/integration mapping |
 
 ---
 
@@ -4167,14 +4309,21 @@ Then the strategic hardening path resumes :
 ```text
 39
 → 43
-→ 40
-→ 41
-→ 42
-→ 44
+→ 35 Business Lifecycles
+→ 36 State Machines
+→ 37 Domain Event Coverage
+→ 38 Lifecycle/State/Event Mapping
+→ 25 Event Envelope / Causality
+→ 40 Domain Events implementation
+→ 41 Reproducibility
+→ 42 Golden / Concurrency
+→ 44 Recovery
 → 0.8.x stable
 → 0.9 freeze
 → 1.0.0
 ```
+
+The sequence `35 → 38 → 25` is a modeling gate, not a separate release train.
 
 Some workstreams can run in parallel after interfaces stabilize.
 
@@ -4636,6 +4785,7 @@ THEN
 0.8.x
     Reliability & Architecture Hardening
     LOT-28 + LOT-39..44
+    with lifecycle/state/event modeling gate 35..38 before LOT-40
 
 0.9.x
     API / Schema Freeze
@@ -4702,4 +4852,4 @@ Identity / Scope first slice
 
 et non la promotion immédiate de `0.7.0rc1` vers stable.
 
-Les specs `24..32` restent la cible architecturale complémentaire ; l'audit et les lots `REM-*` définissent les corrections à fermer avant leur implémentation stratégique complète.
+Les specs `24..38` constituent désormais la cible architecturale complémentaire. Les specs `35..38` forment le modeling gate de `LOT-40`, tandis que l'audit et les lots `REM-*` définissent toujours les corrections à fermer avant leur implémentation stratégique complète.

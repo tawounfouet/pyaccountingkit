@@ -246,10 +246,13 @@ def test_execution_trace_is_atomic_with_accounting_entry() -> None:
 
     with Session(ENGINE) as session:
         assert session.get(JournalEntryTable, "entry:rollback") is None
-        assert session.get(
-            AccountingExecutionTraceTable,
-            rolled_back_trace.trace_id,
-        ) is None
+        assert (
+            session.get(
+                AccountingExecutionTraceTable,
+                rolled_back_trace.trace_id,
+            )
+            is None
+        )
 
 
 def test_uncommitted_unit_of_work_rolls_back_every_sink() -> None:

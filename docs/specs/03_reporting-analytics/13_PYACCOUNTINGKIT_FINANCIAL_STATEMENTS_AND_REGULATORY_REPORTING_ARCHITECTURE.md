@@ -622,6 +622,27 @@ La présentation d'une ligne d'état peut inverser le signe sans modifier :
 ledger signed balance
 ```
 
+Règle d'exécution fail-closed :
+
+```text
+ledger signed balance
+    ↓
+DETAIL mapping
+    ↓
+StatementSignConvention appliquée exactement une fois
+    ↓
+presented statement value
+    ↓
+SUBTOTAL / TOTAL / FORMULA
+    ↓
+aucune seconde application de convention de signe
+```
+
+Les lignes calculées `SUBTOTAL`, `TOTAL` et `FORMULA` doivent donc conserver
+`NATURAL`. Elles agrègent ou évaluent des valeurs de lignes déjà présentées.
+Un `ReportSnapshot` contient ces valeurs présentées ; les bounded contexts downstream,
+notamment Financial Analysis, les consomment sans réappliquer la convention de signe.
+
 ---
 
 # 31. Mapping compte -> ligne d'état

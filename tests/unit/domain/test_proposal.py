@@ -16,6 +16,7 @@ from pyaccountingkit.core.errors import (
 from pyaccountingkit.core.identifiers import EntityId
 from pyaccountingkit.core.money import Money
 from pyaccountingkit.domain.charts.account_role import AccountRole
+from pyaccountingkit.domain.journals.journal_entry import EntryType
 from pyaccountingkit.domain.policies.proposal import (
     AccountResolutionService,
     DebitCredit,
@@ -92,6 +93,25 @@ def test_proposal_rejects_zero_amount() -> None:
 
 def test_proposal_checksum_is_deterministic() -> None:
     assert _proposal().checksum() == _proposal().checksum()
+
+
+def test_proposal_checksum_binds_ledger_entry_type() -> None:
+    normal = _proposal()
+    adjusting = JournalEntryProposal(
+        entity_id=normal.entity_id,
+        accounting_date=normal.accounting_date,
+        entry_type=normal.entry_type,
+        lines=normal.lines,
+        journal_entry_type=EntryType.ADJUSTING,
+        journal_hint=normal.journal_hint,
+        source=normal.source,
+        source_reference=normal.source_reference,
+        policy_traces=normal.policy_traces,
+    )
+
+    assert normal.journal_entry_type is EntryType.NORMAL
+    assert adjusting.journal_entry_type is EntryType.ADJUSTING
+    assert normal.checksum() != adjusting.checksum()
 
 
 def test_role_differs_from_account_code() -> None:

@@ -96,6 +96,7 @@ class ProposalPostingOrchestrator:
             entry_date=proposal.accounting_date,
             description=description or self._description_for(proposal),
             lines=lines,
+            entry_type=proposal.journal_entry_type,
         ).validate()
         checksum = proposal.checksum()
         first_resolution = resolved_accounts[0]

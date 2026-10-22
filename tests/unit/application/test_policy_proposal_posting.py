@@ -38,7 +38,7 @@ from pyaccountingkit.domain.charts.company_chart import (
     CompanyChartVersion,
 )
 from pyaccountingkit.domain.journals.journal import Journal
-from pyaccountingkit.domain.journals.journal_entry import EntryStatus
+from pyaccountingkit.domain.journals.journal_entry import EntryStatus, EntryType
 from pyaccountingkit.domain.ledger.posting import PostingService
 from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
 from pyaccountingkit.domain.periods.closing_status import ClosingStatus
@@ -163,6 +163,7 @@ def test_measurement_to_proposal_to_posting() -> None:
         entity_id=ENTITY,
         accounting_date=date(2026, 12, 31),
         entry_type="DEPRECIATION",
+        journal_entry_type=EntryType.ADJUSTING,
         source="policy",
         source_reference="dep:2026",
         policy_traces=(trace,),
@@ -196,7 +197,9 @@ def test_measurement_to_proposal_to_posting() -> None:
     )
 
     assert result.posted_entry.status is EntryStatus.POSTED
+    assert result.posted_entry.entry_type is EntryType.ADJUSTING
     assert store.entries[EntryId("e_dep_2026")].status is EntryStatus.POSTED
+    assert store.entries[EntryId("e_dep_2026")].entry_type is EntryType.ADJUSTING
     assert tuple(account.account_code for account in result.resolved_accounts) == (
         "681100",
         "281500",

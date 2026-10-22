@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import hashlib
 from dataclasses import dataclass
 from enum import StrEnum
 
@@ -11,6 +10,7 @@ from pyaccountingkit.core.errors import UnbalancedEntryError
 from pyaccountingkit.core.identifiers import EntityId
 from pyaccountingkit.core.money import Money
 from pyaccountingkit.domain.reporting.balance_line import AccountBalanceLine
+from pyaccountingkit.domain.traceability.trace import CanonicalHasher
 
 
 class TrialBalanceSnapshot(StrEnum):
@@ -60,18 +60,50 @@ class TrialBalance:
         accounting_entity_id: EntityId | None = None,
     ) -> TrialBalance:
         """Construct a trial balance, validating equality and computing the checksum."""
-        sorted_lines = tuple(sorted(lines, key=lambda item: item.account_code))
+        sorted_lines = tuple(
+            sorted(
+                lines,
+                key=lambda item: (
+                    item.account_code,
+                    item.company_account_identity,
+                ),
+            )
+        )
         currency = sorted_lines[0].sum_debit.currency if sorted_lines else EUR
         total_debit = Money.zero(currency)
         total_credit = Money.zero(currency)
-        checksum_input = f"TB:{period_id}:{snapshot}:{accounting_entity_id or ''}:"
         for line in sorted_lines:
             total_debit = total_debit + line.sum_debit
             total_credit = total_credit + line.sum_credit
-            checksum_input += (
-                f"{line.account_code}:{line.sum_debit.amount}:{line.sum_credit.amount}|"
-            )
-        checksum = hashlib.sha256(checksum_input.encode()).hexdigest()
+        checksum = CanonicalHasher.digest(
+            {
+                "period_id": period_id,
+                "snapshot": snapshot.value,
+                "accounting_entity_id": (
+                    str(accounting_entity_id) if accounting_entity_id is not None else None
+                ),
+                "lines": [
+                    {
+                        "account_id": (
+                            str(line.account_id) if line.account_id is not None else None
+                        ),
+                        "account_code": line.account_code,
+                        "company_account_identity": line.company_account_identity,
+                        "sum_debit": {
+                            "amount": str(line.sum_debit.amount),
+                            "currency": line.sum_debit.currency.code,
+                            "exponent": line.sum_debit.currency.exponent,
+                        },
+                        "sum_credit": {
+                            "amount": str(line.sum_credit.amount),
+                            "currency": line.sum_credit.currency.code,
+                            "exponent": line.sum_credit.currency.exponent,
+                        },
+                    }
+                    for line in sorted_lines
+                ],
+            }
+        )
         return cls(
             period_id=period_id,
             snapshot=snapshot,

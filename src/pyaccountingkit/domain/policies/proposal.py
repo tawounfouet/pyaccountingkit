@@ -26,6 +26,7 @@ from pyaccountingkit.core.errors import (
 from pyaccountingkit.core.identifiers import EntityId
 from pyaccountingkit.core.money import Money
 from pyaccountingkit.domain.charts.account_role import AccountRole
+from pyaccountingkit.domain.journals.journal_entry import EntryType
 from pyaccountingkit.domain.policies.policy_trace import PolicyExecutionTrace
 
 
@@ -60,6 +61,7 @@ class JournalEntryProposal:
     accounting_date: date
     entry_type: str
     lines: tuple[JournalEntryLineProposal, ...]
+    journal_entry_type: EntryType = EntryType.NORMAL
     journal_hint: str | None = None
     source: str = ""
     source_reference: str = ""
@@ -105,6 +107,7 @@ class JournalEntryProposal:
             "entity_id": str(self.entity_id),
             "accounting_date": self.accounting_date.isoformat(),
             "entry_type": self.entry_type,
+            "journal_entry_type": self.journal_entry_type.value,
             "journal_hint": self.journal_hint,
             "source": self.source,
             "source_reference": self.source_reference,

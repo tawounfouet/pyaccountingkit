@@ -395,6 +395,63 @@ def test_one_to_many_allocation_and_comparative_are_deterministic() -> None:
     assert result.line("B").comparative_amount == Money.from_str("32", EUR)
 
 
+
+def test_one_cent_allocation_is_conservative_across_statement_lines() -> None:
+    definition = FinancialStatementDefinition(
+        definition_id="def-small-allocation",
+        code="SMALL",
+        statement_type=FinancialStatementType.CUSTOM,
+        version="1",
+        effective_from=date(2026, 1, 1),
+        lines=(
+            StatementLineDefinition(
+                line_id="a",
+                code="A",
+                label="A",
+                line_type=StatementLineType.DETAIL,
+                order=1,
+            ),
+            StatementLineDefinition(
+                line_id="b",
+                code="B",
+                label="B",
+                line_type=StatementLineType.DETAIL,
+                order=2,
+            ),
+        ),
+    )
+    mapping_set = StatementMappingSet(
+        mapping_set_id="map-small-allocation",
+        accounting_entity_id=ENTITY,
+        statement_definition_id="def-small-allocation",
+        version="1",
+        status=StatementMappingSetStatus.ACTIVE,
+        mappings=(
+            _mapping("a-map", "100", "A", allocation="0.5"),
+            _mapping("b-map", "100", "B", allocation="0.5"),
+        ),
+        effective_from=date(2026, 1, 1),
+    )
+    source = _trial_balance(_line("100", "0.01", "0"))
+
+    result = FinancialStatementEngine().build(
+        FinancialStatementBuildRequest(
+            accounting_entity_id=ENTITY,
+            as_of=AS_OF,
+            reporting_source=source,
+            statement_definition=definition,
+            mapping_set=mapping_set,
+            require_full_mapping=False,
+        )
+    )
+
+    assert result.line("A").amount + result.line("B").amount == Money.from_str("0.01", EUR)
+    contributions = result.drill_down("A") + result.drill_down("B")
+    assert sum(
+        (item.contribution for item in contributions),
+        Money.zero(EUR),
+    ) == Money.from_str("0.01", EUR)
+
 def test_report_snapshot_is_content_deterministic_immutable_and_stale_aware() -> None:
     result = FinancialStatementEngine().build(_balance_sheet_request())
     first = ReportSnapshot.from_result(

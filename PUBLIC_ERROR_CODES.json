@@ -59,6 +59,7 @@
     "POLICY_SET_NOT_EFFECTIVE": "PolicySetNotEffectiveError",
     "PROPOSAL_UNBALANCED": "UnbalancedProposalError",
     "PUBLIC_BOUNDARY_VIOLATION": "PublicBoundaryViolationError",
+    "PUBLIC_INFRASTRUCTURE_FAILURE": "PublicInfrastructureError",
     "PUBLIC_OPERATION_UNAVAILABLE": "PublicOperationUnavailableError",
     "PUBLIC_VALIDATION_ERROR": "PublicValidationError",
     "REGULATORY_EVIDENCE_MISMATCH": "RegulatoryEvidenceMismatchError",

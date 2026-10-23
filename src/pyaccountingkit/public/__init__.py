@@ -5,6 +5,14 @@ from pyaccountingkit.public.application import AccountingApplication
 from pyaccountingkit.public.charts import ChartsAPI
 from pyaccountingkit.public.closing import ClosingAPI
 from pyaccountingkit.public.context import CommandContext
+from pyaccountingkit.public.contracts import (
+    PUBLIC_OPERATION_CONTRACTS,
+    PublicContextPolicy,
+    PublicOperationContract,
+    PublicOperationKind,
+    PublicOperationRequest,
+    public_operation_contract,
+)
 from pyaccountingkit.public.controls import ControlsAPI
 from pyaccountingkit.public.dto import (
     FinancialStatementDTO,
@@ -21,6 +29,7 @@ from pyaccountingkit.public.errors import (
     PublicAccountingError,
     PublicBoundaryViolationError,
     PublicErrorInfo,
+    PublicInfrastructureError,
     PublicOperationUnavailableError,
     PublicValidationError,
     PyAccountingKitError,
@@ -39,6 +48,7 @@ __all__ = [
     "ChartsAPI",
     "ClosingAPI",
     "CommandContext",
+    "PUBLIC_OPERATION_CONTRACTS",
     "ControlsAPI",
     "Cursor",
     "EntriesAPI",
@@ -53,7 +63,12 @@ __all__ = [
     "Page",
     "PublicAccountingError",
     "PublicBoundaryViolationError",
+    "PublicContextPolicy",
     "PublicErrorInfo",
+    "PublicInfrastructureError",
+    "PublicOperationContract",
+    "PublicOperationKind",
+    "PublicOperationRequest",
     "PublicOperationUnavailableError",
     "PublicValidationError",
     "PyAccountingKitError",
@@ -63,4 +78,5 @@ __all__ = [
     "SubledgersAPI",
     "TrialBalanceDTO",
     "TrialBalanceLineDTO",
+    "public_operation_contract",
 ]

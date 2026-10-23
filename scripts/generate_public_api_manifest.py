@@ -38,9 +38,10 @@ def build_payload() -> dict[str, object]:
             "note": (
                 "The 0.7 prerelease line preserves the stable LOT-21..24 public facade and "
                 "adapter contract v1 while adding capability-scoped regulatory qualification. "
-                "The effective-plan and standard-relation provider protocols are additive; "
-                "LOT-26 live CFA FRA closure remains deferred and the full pre-1.0 Python API "
-                "is not frozen yet."
+                "REM-08 adds an exhaustive adapter-neutral public operation contract catalog "
+                "and centralized infrastructure error translation. The effective-plan and "
+                "standard-relation provider protocols remain additive; LOT-26 live CFA FRA "
+                "closure remains deferred and the full pre-1.0 Python API is not frozen yet."
             ),
         },
     }

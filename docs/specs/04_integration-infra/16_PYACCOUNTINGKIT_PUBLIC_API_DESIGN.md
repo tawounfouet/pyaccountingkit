@@ -1343,6 +1343,23 @@ BuildReportRequest
 RunAnalysisRequest
 ```
 
+Le runtime public maintient également un contrat opérationnel exhaustif pour chaque méthode
+exposée :
+
+```text
+PublicOperationContract
+├── namespace
+├── operation
+├── kind = COMMAND | QUERY
+├── request_type
+├── response_contract
+├── context_policy
+└── boundary_error_codes
+```
+
+Les keyword arguments ergonomiques sont normalisés dans un `PublicOperationRequest` immutable
+avant délégation au service applicatif.
+
 ---
 
 # 93. Simple call ergonomics
@@ -2020,7 +2037,26 @@ small safe coercions only
 
 # 163. Error wrapping
 
-Public façade catches infrastructure exceptions and maps them.
+Public façade catches known infrastructure exceptions and maps them through one central boundary
+policy.
+
+```text
+canonical AccountingError
+    -> preserved with stable accounting code
+
+public PyAccountingKitError
+    -> preserved
+
+Django / SQLAlchemy exception
+    -> PublicInfrastructureError
+       PUBLIC_INFRASTRUCTURE_FAILURE
+       no raw database message
+
+unknown exception
+    -> re-raised unchanged
+```
+
+La frontière ne doit jamais importer Django ou SQLAlchemy pour reconnaître ces erreurs.
 
 ---
 
@@ -2326,6 +2362,17 @@ All README/example workflows must use public façade, not internals.
 ---
 
 # 195. Public API contract tests
+
+Le gate public doit aussi vérifier :
+
+```text
+every facade method has exactly one PublicOperationContract
+request graph is framework-neutral before service invocation
+response graph is framework-neutral after service invocation
+plain wrappers (__dict__ / __slots__) cannot hide ORM objects
+framework exceptions are normalized without leaking raw DB detail
+unknown programming errors are not hidden
+```
 
 Examples:
 

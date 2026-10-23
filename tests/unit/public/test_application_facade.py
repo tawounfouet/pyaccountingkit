@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from dataclasses import FrozenInstanceError
 import inspect
+from dataclasses import FrozenInstanceError
 from datetime import date
 
 import pytest

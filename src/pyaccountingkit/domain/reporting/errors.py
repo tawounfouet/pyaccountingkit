@@ -33,6 +33,10 @@ class StatementControlError(ReportingError):
     code = "REPORTING_CONTROL_FAILED"
 
 
+class ReportSnapshotTransitionError(ReportingError):
+    code = "REPORTING_SNAPSHOT_TRANSITION_INVALID"
+
+
 class RegulatoryReportingError(ReportingError):
     code = "REGULATORY_REPORTING_ERROR"
 
@@ -108,6 +112,7 @@ __all__ = [
     "RegulatoryUpgradeReviewRequiredError",
     "RegulatoryValidationError",
     "ReportingError",
+    "ReportSnapshotTransitionError",
     "StatementControlError",
     "StatementMappingError",
     "StatementSourceError",

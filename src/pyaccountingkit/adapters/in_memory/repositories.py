@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from collections.abc import Callable, Sequence
+from collections.abc import Sequence
+from typing import Protocol
 
 from pyaccountingkit.adapters.in_memory.store import InMemoryStore
 from pyaccountingkit.core.errors import (
@@ -20,7 +21,12 @@ from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
 from pyaccountingkit.domain.traceability.accounting_execution import AccountingExecutionTrace
 
 
-ReadTracker = Callable[[str, object], None]
+class ReadTracker(Protocol):
+    """Callback used by the reference UoW to record repository reads."""
+
+    def __call__(self, kind: str, key: object) -> None: ...
+
+
 
 
 class InMemoryJournalEntryRepository:

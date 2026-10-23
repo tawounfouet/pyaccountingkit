@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from datetime import date, datetime
 from decimal import Decimal
-from typing import Any
+from typing import Any, TypeVar
 
 from pyaccountingkit.core.currency import Currency, CurrencyCode
 from pyaccountingkit.core.identifiers import EntityId, EntryId
@@ -31,6 +31,8 @@ from pyaccountingkit.domain.subledgers.receivable import Receivable
 from pyaccountingkit.domain.subledgers.settlement import Settlement, SettlementStatus
 from pyaccountingkit.domain.subledgers.settlement_reversal import SettlementReversal
 
+T = TypeVar("T")
+
 SubledgerRecord = (
     SubledgerParty
     | Receivable
@@ -48,6 +50,22 @@ SETTLEMENT = "SETTLEMENT"
 ALLOCATION = "ALLOCATION"
 REVERSAL = "REVERSAL"
 MATCH = "MATCH"
+
+
+def require_record_type(
+    value: SubledgerRecord,
+    expected: type[T],
+    *,
+    identifier: str,
+) -> T:
+    """Reject corrupted persisted data instead of relying on removable assertions."""
+
+    if not isinstance(value, expected):
+        raise ValueError(
+            f"subledger record {identifier!r} decoded as {type(value).__name__}, "
+            f"expected {expected.__name__}"
+        )
+    return value
 
 
 def record_kind(value: SubledgerRecord) -> str:
@@ -488,6 +506,7 @@ __all__ = [
     "encode_record",
     "entity_id",
     "record_id",
+    "require_record_type",
     "record_kind",
     "subledger_id",
 ]

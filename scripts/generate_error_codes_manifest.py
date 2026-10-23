@@ -93,6 +93,7 @@ _PUBLIC_ERROR_CLASS_NAMES = [
     "RegulatoryReportingError",
     "RegulatoryUpgradeReviewRequiredError",
     "RegulatoryValidationError",
+    "ReportSnapshotTransitionError",
     "ReportingError",
     "RevisionConflictError",
     "SettlementAlreadyReversedError",

@@ -13,6 +13,7 @@ from pyaccountingkit.core.errors import (
 )
 from pyaccountingkit.core.identifiers import EntryId, JournalId, PeriodId
 from pyaccountingkit.core.revisions import Revision
+from pyaccountingkit.domain.closing.closing_run import ClosingRun
 from pyaccountingkit.domain.journals.journal import Journal
 from pyaccountingkit.domain.journals.journal_entry import EntryStatus, JournalEntry
 from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
@@ -120,6 +121,33 @@ class InMemoryAccountingExecutionTraceRepository:
         return self._store.execution_traces.get(entry_id)
 
 
+class InMemoryClosingRunRepository:
+    """Append-only in-memory repository for sealed closing runs."""
+
+    def __init__(
+        self,
+        store: InMemoryStore,
+        on_read: ReadTracker | None = None,
+    ) -> None:
+        self._store = store
+        self._on_read = on_read
+
+    def append(self, run: ClosingRun) -> None:
+        existing = self._store.closing_runs.get(run.id)
+        if existing is not None:
+            if existing == run:
+                return
+            raise RevisionConflictError(f"Closing run {run.id} already exists with other evidence")
+        if not run.is_sealed or run.evidence is None:
+            raise RevisionConflictError(f"Closing run {run.id} must be sealed before persistence")
+        self._store.closing_runs[run.id] = run
+
+    def get(self, run_id: str) -> ClosingRun | None:
+        if self._on_read is not None:
+            self._on_read("closing_run", run_id)
+        return self._store.closing_runs.get(run_id)
+
+
 class InMemoryPeriodRepository:
     """In-memory store of accounting periods."""
 
@@ -182,6 +210,7 @@ class InMemoryJournalRepository:
 
 __all__ = [
     "InMemoryAccountingExecutionTraceRepository",
+    "InMemoryClosingRunRepository",
     "InMemoryJournalEntryRepository",
     "InMemoryPeriodRepository",
     "InMemoryJournalRepository",

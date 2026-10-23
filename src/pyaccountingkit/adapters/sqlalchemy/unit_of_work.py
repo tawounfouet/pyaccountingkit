@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session, SessionTransaction, sessionmaker
 from pyaccountingkit.adapters.sqlalchemy.repositories import (
     SQLAlchemyAccountingExecutionTraceRepository,
     SQLAlchemyAuditLogSink,
+    SQLAlchemyClosingRunRepository,
     SQLAlchemyIdempotencyStore,
     SQLAlchemyJournalEntryRepository,
     SQLAlchemyJournalRepository,
@@ -38,6 +39,7 @@ class SessionUnitOfWork:
         self.idempotency = SQLAlchemyIdempotencyStore(self.session)
         self.outbox = SQLAlchemyOutboxPublisher(self.session)
         self.execution_traces = SQLAlchemyAccountingExecutionTraceRepository(self.session)
+        self.closing_runs = SQLAlchemyClosingRunRepository(self.session)
         self._transaction: SessionTransaction | None = None
         self._entered = False
         self._committed = False

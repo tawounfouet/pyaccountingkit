@@ -50,67 +50,102 @@ class ReversalOrchestrator:
         actor_id: str,
     ) -> ReversalResult:
         """Produce a posted reversal and mark the original entry reversed."""
-        idempotency_key = f"reversal:{entry_id}:{target_period_id}:{reversal_date.isoformat()}"
         with self._uow_factory.open() as uow:
-            original = uow.entries.get(entry_id)
-            target_period = uow.periods.get(target_period_id)
-            journal = uow.journals.get(original.journal_id)
-            require_same_entity(
-                journal.entity_id,
-                target_period.entity_id,
-                resource=f"reversal target period {target_period.id}",
-            )
-            payload_fingerprint = CanonicalHasher.digest(
-                {
-                    "operation": "REVERSE_ENTRY",
-                    "entity_id": str(journal.entity_id),
-                    "original_entry_id": str(entry_id),
-                    "target_period_id": str(target_period_id),
-                    "reversal_date": reversal_date.isoformat(),
-                }
-            )
-            if not uow.idempotency.claim(idempotency_key, payload_fingerprint):
-                return self._replay(uow, entry_id, idempotency_key)
-            if not target_period.is_open_for_posting():
-                raise PeriodClosedError(
-                    f"Période {target_period.id} fermée ou verrouillée pour la contrepassation"
-                )
-            if original.status is EntryStatus.REVERSED or original.reversed_by_id is not None:
-                raise AlreadyReversedError(
-                    f"Écriture {entry_id} déjà contrepassée ({original.reversed_by_id})"
-                )
-            if original.status is not EntryStatus.POSTED:
-                raise EntryNotPostedError(
-                    f"Écriture {entry_id} non postée ({original.status.value})"
-                )
-
-            reversal_id = self._reversal_id_factory()
-            marked, reversal = create_reversal(
-                original,
+            result = self._reverse_in_uow(
+                uow,
+                entry_id,
+                target_period_id,
                 reversal_date,
-                reversal_id,
-                target_period,
-                uow.audit,
-                uow.clock,
                 actor_id,
             )
-            expected = uow.entries.get_revision(original.id)
-            uow.entries.save(marked, expected)
-            uow.entries.add(reversal)
-            uow.outbox.publish(
-                OutboxRecord(
-                    event_type="ENTRY_REVERSED",
-                    entity_id=str(journal.entity_id),
-                    idempotency_key=idempotency_key,
-                    payload={
-                        "original_entry_id": str(original.id),
-                        "reversal_entry_id": str(reversal.id),
-                        "target_period_id": str(target_period.id),
-                    },
-                )
-            )
-            uow.idempotency.complete(idempotency_key)
             uow.commit()
+        return result
+
+    def reverse_in_uow(
+        self,
+        uow: UnitOfWorkProtocol,
+        entry_id: EntryId,
+        target_period_id: PeriodId,
+        reversal_date: date,
+        actor_id: str,
+    ) -> ReversalResult:
+        """Reverse one posted entry inside an already-open transaction."""
+
+        return self._reverse_in_uow(
+            uow,
+            entry_id,
+            target_period_id,
+            reversal_date,
+            actor_id,
+        )
+
+    def _reverse_in_uow(
+        self,
+        uow: UnitOfWorkProtocol,
+        entry_id: EntryId,
+        target_period_id: PeriodId,
+        reversal_date: date,
+        actor_id: str,
+    ) -> ReversalResult:
+        idempotency_key = f"reversal:{entry_id}:{target_period_id}:{reversal_date.isoformat()}"
+        original = uow.entries.get(entry_id)
+        target_period = uow.periods.get(target_period_id)
+        journal = uow.journals.get(original.journal_id)
+        require_same_entity(
+            journal.entity_id,
+            target_period.entity_id,
+            resource=f"reversal target period {target_period.id}",
+        )
+        payload_fingerprint = CanonicalHasher.digest(
+            {
+                "operation": "REVERSE_ENTRY",
+                "entity_id": str(journal.entity_id),
+                "original_entry_id": str(entry_id),
+                "target_period_id": str(target_period_id),
+                "reversal_date": reversal_date.isoformat(),
+            }
+        )
+        if not uow.idempotency.claim(idempotency_key, payload_fingerprint):
+            return self._replay(uow, entry_id, idempotency_key)
+        if not target_period.is_open_for_posting():
+            raise PeriodClosedError(
+                f"Période {target_period.id} fermée ou verrouillée pour la contrepassation"
+            )
+        if original.status is EntryStatus.REVERSED or original.reversed_by_id is not None:
+            raise AlreadyReversedError(
+                f"Écriture {entry_id} déjà contrepassée ({original.reversed_by_id})"
+            )
+        if original.status is not EntryStatus.POSTED:
+            raise EntryNotPostedError(
+                f"Écriture {entry_id} non postée ({original.status.value})"
+            )
+
+        reversal_id = self._reversal_id_factory()
+        marked, reversal = create_reversal(
+            original,
+            reversal_date,
+            reversal_id,
+            target_period,
+            uow.audit,
+            uow.clock,
+            actor_id,
+        )
+        expected = uow.entries.get_revision(original.id)
+        uow.entries.save(marked, expected)
+        uow.entries.add(reversal)
+        uow.outbox.publish(
+            OutboxRecord(
+                event_type="ENTRY_REVERSED",
+                entity_id=str(journal.entity_id),
+                idempotency_key=idempotency_key,
+                payload={
+                    "original_entry_id": str(original.id),
+                    "reversal_entry_id": str(reversal.id),
+                    "target_period_id": str(target_period.id),
+                },
+            )
+        )
+        uow.idempotency.complete(idempotency_key)
         return ReversalResult(
             marked_original=marked,
             reversal_entry=reversal,

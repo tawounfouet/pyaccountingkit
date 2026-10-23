@@ -161,8 +161,7 @@ def test_ci_contract_requires_rem10_exact_sha_postgresql_outputs() -> None:
     module = _load_validator()
     text = module.CI_WORKFLOW.read_text(encoding="utf-8")
     invalid = text.replace(
-        "      PYAK_RELEASE_DJANGO_POSTGRESQL_SHA: "
-        "${{ needs.postgresql.outputs.qualified_sha }}\n",
+        "      PYAK_RELEASE_DJANGO_POSTGRESQL_SHA: ${{ needs.postgresql.outputs.qualified_sha }}\n",
         "",
         1,
     )

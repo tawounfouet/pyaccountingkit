@@ -18,6 +18,7 @@ from pyaccountingkit.adapters.sqlalchemy.tables import (
     AccountingExecutionTraceTable,
     AccountingPeriodTable,
     AuditEventTable,
+    ClosingRunTable,
     IdempotencyRecordTable,
     JournalEntryTable,
     JournalLineTable,
@@ -38,6 +39,11 @@ from pyaccountingkit.core.identifiers import (
 )
 from pyaccountingkit.core.money import Money
 from pyaccountingkit.domain.audit.events import AuditEvent
+from pyaccountingkit.domain.closing.closing_run import (
+    ClosingEvidenceBundle,
+    ClosingPhase,
+    ClosingRun,
+)
 from pyaccountingkit.domain.journals.journal import Journal
 from pyaccountingkit.domain.journals.journal_entry import EntryType, JournalEntry
 from pyaccountingkit.domain.journals.journal_line import JournalLine
@@ -59,7 +65,7 @@ def _truncate(engine: Engine) -> None:
         connection.execute(
             text(
                 "TRUNCATE TABLE "
-                "pyak_accounting_execution_trace, pyak_journal_line, "
+                "pyak_closing_run, pyak_accounting_execution_trace, pyak_journal_line, "
                 "pyak_journal_entry, pyak_outbox, "
                 "pyak_audit_event, pyak_idempotency, pyak_accounting_period, "
                 "pyak_journal RESTART IDENTITY CASCADE"
@@ -110,6 +116,24 @@ def _execution_trace(entry_id: str = "entry:1") -> AccountingExecutionTrace:
         policy_versions=("1.0",),
         policy_reference_snapshot_ids=("snapshot:1",),
         source_reference="source:1",
+    )
+
+
+def _closing_run(run_id: str = "close:1") -> ClosingRun:
+    evidence = ClosingEvidenceBundle(
+        run_id=run_id,
+        period_id=str(PERIOD_ID),
+        trial_balance_checksum="b" * 64,
+        control_runs_hash="c" * 64,
+        total_debit="125.50",
+        total_credit="125.50",
+        sealed_at=NOW,
+    )
+    return ClosingRun(
+        id=run_id,
+        period_id=str(PERIOD_ID),
+        phase=ClosingPhase.SEALED,
+        evidence=evidence,
     )
 
 
@@ -253,6 +277,31 @@ def test_execution_trace_is_atomic_with_accounting_entry() -> None:
             )
             is None
         )
+
+
+def test_closing_run_is_durable_and_atomic_in_sqlalchemy_uow() -> None:
+    factory = SQLAlchemyUnitOfWorkFactory(ENGINE, clock=FrozenClock(NOW))
+    run = _closing_run()
+
+    with factory.open() as uow:
+        uow.periods.add(_period())
+        uow.closing_runs.append(run)
+        uow.commit()
+
+    with Session(ENGINE) as session:
+        assert session.get(ClosingRunTable, run.id) is not None
+
+    with factory.open() as read:
+        assert read.closing_runs.get(run.id) == run
+        read.rollback()
+
+    rolled_back = _closing_run("close:rollback")
+    with factory.open() as uow:
+        uow.closing_runs.append(rolled_back)
+        uow.rollback()
+
+    with Session(ENGINE) as session:
+        assert session.get(ClosingRunTable, rolled_back.id) is None
 
 
 def test_uncommitted_unit_of_work_rolls_back_every_sink() -> None:

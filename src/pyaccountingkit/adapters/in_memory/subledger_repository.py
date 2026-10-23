@@ -14,6 +14,7 @@ from pyaccountingkit.adapters.subledger_codec import (
     SubledgerRecord,
     record_id,
     record_kind,
+    require_record_type,
 )
 from pyaccountingkit.core.errors import RevisionConflictError
 from pyaccountingkit.core.identifiers import EntityId

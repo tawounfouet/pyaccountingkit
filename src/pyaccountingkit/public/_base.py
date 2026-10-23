@@ -97,6 +97,7 @@ def ensure_framework_neutral(value: object, *, _seen: set[int] | None = None) ->
 
     for value_type in type(value).__mro__:
         raw_slots = value_type.__dict__.get("__slots__", ())
+        slot_names: tuple[str, ...]
         if isinstance(raw_slots, str):
             slot_names = (raw_slots,)
         elif isinstance(raw_slots, tuple):

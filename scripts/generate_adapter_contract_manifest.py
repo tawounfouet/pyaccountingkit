@@ -134,6 +134,7 @@ _LEGACY_CONTRACTS: dict[str, object] = json.loads(r"""{
       "idempotency_payload_fingerprint_conflict",
       "period_transition_contract",
       "atomic_execution_trace",
+      "atomic_closing_run",
       "audit_outbox_atomicity",
       "double_reversal_serialization",
       "posting_close_serialization"

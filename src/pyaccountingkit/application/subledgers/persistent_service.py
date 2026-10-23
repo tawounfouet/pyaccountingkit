@@ -551,9 +551,7 @@ def _list_open_items(
             subledger_id,
             party_id=party_id,
         )
-    raise InvalidSubledgerItemError(
-        "item_type must be either 'receivable' or 'payable'"
-    )
+    raise InvalidSubledgerItemError("item_type must be either 'receivable' or 'payable'")
 
 
 def _item_id(item: SubledgerItem) -> str:

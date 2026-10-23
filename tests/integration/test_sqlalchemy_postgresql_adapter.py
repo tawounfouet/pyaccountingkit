@@ -24,6 +24,7 @@ from pyaccountingkit.adapters.sqlalchemy.tables import (
     JournalLineTable,
     JournalTable,
     OutboxMessageTable,
+    SubledgerRecordTable,
 )
 from pyaccountingkit.adapters.sqlalchemy.unit_of_work import SQLAlchemyUnitOfWorkFactory
 from pyaccountingkit.core.clock import FrozenClock
@@ -49,6 +50,11 @@ from pyaccountingkit.domain.journals.journal_entry import EntryType, JournalEntr
 from pyaccountingkit.domain.journals.journal_line import JournalLine
 from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
 from pyaccountingkit.domain.periods.closing_status import ClosingStatus
+from pyaccountingkit.domain.subledgers.due_item import DueItem
+from pyaccountingkit.domain.subledgers.parties import SubledgerParty
+from pyaccountingkit.domain.subledgers.primitives import SubledgerPartyType
+from pyaccountingkit.domain.subledgers.receivable import Receivable
+from pyaccountingkit.domain.subledgers.settlement import Settlement
 from pyaccountingkit.domain.traceability.accounting_execution import AccountingExecutionTrace
 from pyaccountingkit.ports.outbox import OutboxRecord
 
@@ -65,7 +71,8 @@ def _truncate(engine: Engine) -> None:
         connection.execute(
             text(
                 "TRUNCATE TABLE "
-                "pyak_closing_run, pyak_accounting_execution_trace, pyak_journal_line, "
+                "pyak_subledger_record, pyak_closing_run, pyak_accounting_execution_trace, "
+                "pyak_journal_line, "
                 "pyak_journal_entry, pyak_outbox, "
                 "pyak_audit_event, pyak_idempotency, pyak_accounting_period, "
                 "pyak_journal RESTART IDENTITY CASCADE"
@@ -190,6 +197,59 @@ def test_repository_round_trip_is_exact() -> None:
             == 2
         )
         assert session.get(JournalEntryTable, "entry:1").entry_type == "ADJUSTING"
+
+
+def test_subledger_repository_round_trip_is_exact() -> None:
+    factory = SQLAlchemyUnitOfWorkFactory(ENGINE, clock=FrozenClock(NOW))
+    party = SubledgerParty(
+        party_id="party:sqlalchemy",
+        entity_id=ENTITY,
+        party_type=SubledgerPartyType.CUSTOMER,
+        display_name="SQLAlchemy Customer",
+    )
+    amount = Money.from_str("125.50", EUR)
+    receivable = Receivable(
+        receivable_id="receivable:sqlalchemy",
+        entity_id=ENTITY,
+        subledger_id="subledger:ar",
+        party_id=party.party_id,
+        source_document_ref="invoice:sqlalchemy",
+        original_amount=amount,
+        accounting_date=date(2026, 9, 19),
+        due_items=(
+            DueItem.create(
+                due_item_id="due:sqlalchemy",
+                entity_id=ENTITY,
+                source_subledger_item_id="receivable:sqlalchemy",
+                due_date=date(2026, 10, 19),
+                original_amount=amount,
+            ),
+        ),
+    )
+    settlement = Settlement.create(
+        settlement_id="settlement:sqlalchemy",
+        entity_id=ENTITY,
+        subledger_id="subledger:ar",
+        settlement_date=date(2026, 9, 19),
+        accounting_date=date(2026, 9, 19),
+        amount=Money.from_str("50.00", EUR),
+        source_reference="payment:sqlalchemy",
+        party_id=party.party_id,
+    )
+
+    with factory.open() as uow:
+        uow.subledgers.add_party(party)
+        uow.subledgers.add_receivable(receivable)
+        uow.subledgers.add_settlement(settlement)
+        uow.commit()
+
+    with factory.open() as read:
+        assert read.subledgers.get_party(party.party_id) == party
+        assert read.subledgers.get_receivable(receivable.receivable_id) == receivable
+        assert read.subledgers.get_settlement(settlement.settlement_id) == settlement
+
+    with Session(ENGINE) as session:
+        assert session.scalar(select(func.count()).select_from(SubledgerRecordTable)) == 3
 
 
 def test_posted_entry_economics_cannot_be_rewritten() -> None:

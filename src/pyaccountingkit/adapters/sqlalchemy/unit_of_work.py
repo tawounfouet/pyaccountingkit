@@ -18,6 +18,9 @@ from pyaccountingkit.adapters.sqlalchemy.repositories import (
     SQLAlchemyOutboxPublisher,
     SQLAlchemyPeriodRepository,
 )
+from pyaccountingkit.adapters.sqlalchemy.subledger_repository import (
+    SQLAlchemySubledgerRepository,
+)
 from pyaccountingkit.core.clock import ClockProtocol, SystemClock
 
 
@@ -40,6 +43,7 @@ class SessionUnitOfWork:
         self.outbox = SQLAlchemyOutboxPublisher(self.session)
         self.execution_traces = SQLAlchemyAccountingExecutionTraceRepository(self.session)
         self.closing_runs = SQLAlchemyClosingRunRepository(self.session)
+        self.subledgers = SQLAlchemySubledgerRepository(self.session)
         self._transaction: SessionTransaction | None = None
         self._entered = False
         self._committed = False

@@ -27,6 +27,7 @@ from pyaccountingkit.adapters.django.models import (
     JournalLineModel,
     JournalModel,
     OutboxMessageModel,
+    SubledgerRecordModel,
 )
 from pyaccountingkit.adapters.django.unit_of_work import DjangoUnitOfWorkFactory
 from pyaccountingkit.core.clock import FrozenClock
@@ -52,6 +53,11 @@ from pyaccountingkit.domain.journals.journal_entry import EntryType, JournalEntr
 from pyaccountingkit.domain.journals.journal_line import JournalLine
 from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
 from pyaccountingkit.domain.periods.closing_status import ClosingStatus
+from pyaccountingkit.domain.subledgers.due_item import DueItem
+from pyaccountingkit.domain.subledgers.parties import SubledgerParty
+from pyaccountingkit.domain.subledgers.primitives import SubledgerPartyType
+from pyaccountingkit.domain.subledgers.receivable import Receivable
+from pyaccountingkit.domain.subledgers.settlement import Settlement
 from pyaccountingkit.domain.traceability.accounting_execution import AccountingExecutionTrace
 from pyaccountingkit.ports.outbox import OutboxRecord
 
@@ -65,6 +71,7 @@ PERIOD_ID = PeriodId("period:2026-09")
 def clean_postgresql_adapter_tables() -> None:
     """Keep every test isolated while exercising the real migrated schema."""
 
+    SubledgerRecordModel.objects.all().delete()
     ClosingRunModel.objects.all().delete()
     AccountingExecutionTraceModel.objects.all().delete()
     JournalLineModel.objects.all().delete()
@@ -175,6 +182,58 @@ def test_repository_round_trip_is_exact() -> None:
     assert factory.open().entries.get(EntryId("entry:1")) == entry
     assert JournalLineModel.objects.filter(entry_id="entry:1").count() == 2
     assert JournalEntryModel.objects.get(pk="entry:1").entry_type == "ADJUSTING"
+
+
+def test_subledger_repository_round_trip_is_exact() -> None:
+    factory = DjangoUnitOfWorkFactory(clock=FrozenClock(NOW))
+    party = SubledgerParty(
+        party_id="party:postgres",
+        entity_id=ENTITY,
+        party_type=SubledgerPartyType.CUSTOMER,
+        display_name="PostgreSQL Customer",
+    )
+    amount = Money.from_str("125.50", EUR)
+    receivable = Receivable(
+        receivable_id="receivable:postgres",
+        entity_id=ENTITY,
+        subledger_id="subledger:ar",
+        party_id=party.party_id,
+        source_document_ref="invoice:postgres",
+        original_amount=amount,
+        accounting_date=date(2026, 9, 18),
+        due_items=(
+            DueItem.create(
+                due_item_id="due:postgres",
+                entity_id=ENTITY,
+                source_subledger_item_id="receivable:postgres",
+                due_date=date(2026, 10, 18),
+                original_amount=amount,
+            ),
+        ),
+    )
+    settlement = Settlement.create(
+        settlement_id="settlement:postgres",
+        entity_id=ENTITY,
+        subledger_id="subledger:ar",
+        settlement_date=date(2026, 9, 18),
+        accounting_date=date(2026, 9, 18),
+        amount=Money.from_str("50.00", EUR),
+        source_reference="payment:postgres",
+        party_id=party.party_id,
+    )
+
+    with factory.open() as uow:
+        uow.subledgers.add_party(party)
+        uow.subledgers.add_receivable(receivable)
+        uow.subledgers.add_settlement(settlement)
+        uow.commit()
+
+    with factory.open() as read:
+        assert read.subledgers.get_party(party.party_id) == party
+        assert read.subledgers.get_receivable(receivable.receivable_id) == receivable
+        assert read.subledgers.get_settlement(settlement.settlement_id) == settlement
+
+    assert SubledgerRecordModel.objects.count() == 3
 
 
 def test_posted_entry_economics_cannot_be_rewritten() -> None:

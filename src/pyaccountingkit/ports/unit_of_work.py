@@ -19,6 +19,7 @@ from pyaccountingkit.ports.repositories import (
     JournalRepositoryProtocol,
     PeriodRepositoryProtocol,
 )
+from pyaccountingkit.ports.subledgers import SubledgerRepositoryProtocol
 
 
 class UnitOfWorkProtocol(Protocol):
@@ -32,6 +33,7 @@ class UnitOfWorkProtocol(Protocol):
     outbox: OutboxPublisherProtocol
     execution_traces: AccountingExecutionTraceRepositoryProtocol
     closing_runs: ClosingRunRepositoryProtocol
+    subledgers: SubledgerRepositoryProtocol
     clock: ClockProtocol
 
     def __enter__(self) -> UnitOfWorkProtocol: ...

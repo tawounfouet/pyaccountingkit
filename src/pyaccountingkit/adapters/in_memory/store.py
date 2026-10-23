@@ -10,6 +10,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
+from pyaccountingkit.adapters.subledger_codec import SubledgerRecord
 from pyaccountingkit.core.identifiers import EntryId, JournalId, PeriodId
 from pyaccountingkit.core.revisions import Revision
 from pyaccountingkit.domain.audit.events import AuditEvent
@@ -35,6 +36,7 @@ class InMemoryStore:
     audit_log: list[AuditEvent] = field(default_factory=list)
     execution_traces: dict[EntryId, AccountingExecutionTrace] = field(default_factory=dict)
     closing_runs: dict[str, ClosingRun] = field(default_factory=dict)
+    subledger_records: dict[str, SubledgerRecord] = field(default_factory=dict)
 
     def copy(self) -> InMemoryStore:
         """Return a detached copy used as a rollback snapshot."""
@@ -49,6 +51,7 @@ class InMemoryStore:
             audit_log=list(self.audit_log),
             execution_traces=dict(self.execution_traces),
             closing_runs=dict(self.closing_runs),
+            subledger_records=dict(self.subledger_records),
         )
 
     def restore(self, snapshot: InMemoryStore) -> None:
@@ -63,6 +66,7 @@ class InMemoryStore:
         self.audit_log = list(snapshot.audit_log)
         self.execution_traces = dict(snapshot.execution_traces)
         self.closing_runs = dict(snapshot.closing_runs)
+        self.subledger_records = dict(snapshot.subledger_records)
 
     def drain_outbox(self) -> list[OutboxRecord]:
         """Collect and clear every published outbox message."""

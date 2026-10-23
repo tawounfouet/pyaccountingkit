@@ -17,7 +17,7 @@
       "require_optional_dependency",
       "runtime_capabilities"
     ],
-    "note": "The 0.7 prerelease line preserves the stable LOT-21..24 public facade and adapter contract v1 while adding capability-scoped regulatory qualification. The effective-plan and standard-relation provider protocols are additive; LOT-26 live CFA FRA closure remains deferred and the full pre-1.0 Python API is not frozen yet.",
+    "note": "The 0.7 prerelease line preserves the stable LOT-21..24 public facade and adapter contract v1 while adding capability-scoped regulatory qualification. REM-08 adds an exhaustive adapter-neutral public operation contract catalog and centralized infrastructure error translation. The effective-plan and standard-relation provider protocols remain additive; LOT-26 live CFA FRA closure remains deferred and the full pre-1.0 Python API is not frozen yet.",
     "public_package_exports": [
       "AccountingApplication",
       "AdapterContractMismatchError",
@@ -35,10 +35,16 @@
       "JournalLineDTO",
       "LedgerAPI",
       "OptionalDependencyMissingError",
+      "PUBLIC_OPERATION_CONTRACTS",
       "Page",
       "PublicAccountingError",
       "PublicBoundaryViolationError",
+      "PublicContextPolicy",
       "PublicErrorInfo",
+      "PublicInfrastructureError",
+      "PublicOperationContract",
+      "PublicOperationKind",
+      "PublicOperationRequest",
       "PublicOperationUnavailableError",
       "PublicValidationError",
       "PyAccountingKitError",
@@ -47,7 +53,8 @@
       "StatementsAPI",
       "SubledgersAPI",
       "TrialBalanceDTO",
-      "TrialBalanceLineDTO"
+      "TrialBalanceLineDTO",
+      "public_operation_contract"
     ],
     "root_exports": [
       "AccountingApplication",

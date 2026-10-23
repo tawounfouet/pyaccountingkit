@@ -79,6 +79,7 @@ _PUBLIC_ERROR_CLASS_NAMES = [
     "PolicySetNotActiveError",
     "PolicySetNotEffectiveError",
     "PublicBoundaryViolationError",
+    "PublicInfrastructureError",
     "PublicOperationUnavailableError",
     "PublicValidationError",
     "RegulatoryEvidenceMismatchError",

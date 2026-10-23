@@ -5,10 +5,12 @@ from __future__ import annotations
 from collections.abc import Callable, Sequence
 from datetime import date
 
+from pyaccountingkit.application.ledger.posting_orchestrator import PostingOrchestrator
 from pyaccountingkit.core.clock import ClockProtocol
 from pyaccountingkit.core.entity_scope import require_same_entity
 from pyaccountingkit.core.errors import PeriodClosedError
-from pyaccountingkit.core.identifiers import EntryId, JournalId, PeriodId
+from pyaccountingkit.core.identifiers import EntityId, EntryId, JournalId, PeriodId
+from pyaccountingkit.domain.audit.events import AuditEvent
 from pyaccountingkit.domain.closing.closing_run import (
     CloseGate,
     ClosingEvidenceBundle,
@@ -26,10 +28,14 @@ from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
 from pyaccountingkit.domain.periods.closing_status import ClosingStatus
 from pyaccountingkit.domain.reporting.trial_balance import TrialBalance, TrialBalanceSnapshot
 from pyaccountingkit.domain.traceability.trace import CanonicalHasher
+from pyaccountingkit.ports.outbox import OutboxRecord
 from pyaccountingkit.ports.unit_of_work import UnitOfWorkFactoryProtocol, UnitOfWorkProtocol
 
 RunIdFactory = Callable[[], str]
-TrialBalanceProvider = Callable[[PeriodId, TrialBalanceSnapshot], TrialBalance]
+TrialBalanceProvider = Callable[
+    [UnitOfWorkProtocol, PeriodId, TrialBalanceSnapshot],
+    TrialBalance,
+]
 
 
 class ClosingOrchestrator:
@@ -51,6 +57,7 @@ class ClosingOrchestrator:
         run_id_factory: RunIdFactory,
         clock: ClockProtocol,
         trial_balance_provider: TrialBalanceProvider | None = None,
+        posting_orchestrator: PostingOrchestrator | None = None,
     ) -> None:
         self._uow_factory = uow_factory
         self._run_book = run_book
@@ -58,6 +65,7 @@ class ClosingOrchestrator:
         self._run_id_factory = run_id_factory
         self._clock = clock
         self._trial_balance_provider = trial_balance_provider
+        self._posting_orchestrator = posting_orchestrator
 
     def close_period(
         self,
@@ -69,6 +77,7 @@ class ClosingOrchestrator:
         opening_journal_id: JournalId | None = None,
         opening_entry_id: EntryId | None = None,
         opening_date: date | None = None,
+        actor_id: str = "system:closing",
     ) -> ClosingRun:
         """Close one period after the blocking controls passed.
 
@@ -77,7 +86,6 @@ class ClosingOrchestrator:
         the exact state under close.
         """
         self._close_gate.assert_passes(control_runs, period_id=str(period_id))
-        fresh_balance = self._load_fresh_post_closing_balance(period_id)
 
         run_id = self._run_id_factory()
         controls_hash = CanonicalHasher.digest(
@@ -88,23 +96,10 @@ class ClosingOrchestrator:
                 ]
             }
         )
-        evidence = ClosingEvidenceBundle(
-            run_id=run_id,
-            period_id=str(period_id),
-            trial_balance_checksum=trial_balance.checksum,
-            control_runs_hash=controls_hash,
-            total_debit=str(trial_balance.total_debit.amount),
-            total_credit=str(trial_balance.total_credit.amount),
-            sealed_at=self._clock.now(),
-        )
-        run = ClosingRun(
-            id=run_id,
-            period_id=str(period_id),
-            phase=ClosingPhase.RUNNING,
-        ).with_evidence(evidence)
 
         with self._uow_factory.open() as uow:
             period = uow.periods.get(period_id)
+            fresh_balance = self._load_fresh_post_closing_balance(uow, period_id)
             self._assert_balance_evidence(
                 period,
                 supplied=trial_balance,
@@ -112,24 +107,54 @@ class ClosingOrchestrator:
             )
             if period.status.is_closed():
                 raise PeriodClosedError(f"Période {period_id} déjà close")
+
+            evidence = ClosingEvidenceBundle(
+                run_id=run_id,
+                period_id=str(period_id),
+                trial_balance_checksum=trial_balance.checksum,
+                control_runs_hash=controls_hash,
+                total_debit=str(trial_balance.total_debit.amount),
+                total_credit=str(trial_balance.total_credit.amount),
+                sealed_at=self._clock.now(),
+            )
+            run = ClosingRun(
+                id=run_id,
+                period_id=str(period_id),
+                phase=ClosingPhase.RUNNING,
+            ).with_evidence(evidence)
+
             self._advance_to_closed(uow, period)
             self._carry_opening_balances(
                 uow,
+                accounting_entity_id=period.entity_id,
                 trial_balance=trial_balance,
                 next_period_id=next_period_id,
                 opening_journal_id=opening_journal_id,
                 opening_entry_id=opening_entry_id,
                 opening_date=opening_date,
                 run_id=run_id,
+                actor_id=actor_id,
+            )
+            self._record_closing_proof(
+                uow,
+                accounting_entity_id=period.entity_id,
+                run=run,
+                actor_id=actor_id,
             )
             uow.commit()
+
         self._run_book.record(run)
         return run
 
-    def _load_fresh_post_closing_balance(self, period_id: PeriodId) -> TrialBalance:
+    def _load_fresh_post_closing_balance(
+        self,
+        uow: UnitOfWorkProtocol,
+        period_id: PeriodId,
+    ) -> TrialBalance:
         if self._trial_balance_provider is None:
             raise ClosingEvidenceError("closing requires a configured fresh trial-balance provider")
         return self._trial_balance_provider(
+            uow,
             period_id,
             TrialBalanceSnapshot.POST_CLOSING,
         )
@@ -185,14 +210,16 @@ class ClosingOrchestrator:
 
     def _carry_opening_balances(
         self,
-        uow: object,
+        uow: UnitOfWorkProtocol,
         *,
+        accounting_entity_id: EntityId,
         trial_balance: TrialBalance,
         next_period_id: PeriodId | None,
         opening_journal_id: JournalId | None,
         opening_entry_id: EntryId | None,
         opening_date: date | None,
         run_id: str,
+        actor_id: str,
     ) -> None:
         if next_period_id is None:
             return
@@ -201,13 +228,63 @@ class ClosingOrchestrator:
         openings = build_opening_balances(trial_balance.lines)
         if not openings:
             return
+        if self._posting_orchestrator is None:
+            raise ClosingEvidenceError(
+                "opening generation requires the canonical PostingOrchestrator"
+            )
         entry = OpeningEntryBuilder(opening_date, run_id).build(
             openings,
             journal_id=opening_journal_id,
             period_id=next_period_id,
             entry_id=opening_entry_id,
         )
-        uow.entries.add(entry)  # type: ignore[attr-defined]
+        self._posting_orchestrator.post_in_uow(
+            uow,
+            entry,
+            actor_id,
+            expected_entity_id=accounting_entity_id,
+        )
+
+    @staticmethod
+    def _record_closing_proof(
+        uow: UnitOfWorkProtocol,
+        *,
+        accounting_entity_id: EntityId,
+        run: ClosingRun,
+        actor_id: str,
+    ) -> None:
+        evidence = run.evidence
+        if evidence is None:
+            raise ClosingEvidenceError("sealed closing run has no evidence")
+        uow.closing_runs.append(run)
+        payload = {
+            "run_id": run.id,
+            "period_id": run.period_id,
+            "phase": run.phase.value,
+            "evidence_digest": run.evidence_digest(),
+            "trial_balance_checksum": evidence.trial_balance_checksum,
+            "control_runs_hash": evidence.control_runs_hash,
+            "total_debit": evidence.total_debit,
+            "total_credit": evidence.total_credit,
+            "sealed_at": evidence.sealed_at.isoformat(),
+        }
+        uow.audit.record(
+            AuditEvent(
+                event_type="CLOSING_SEALED",
+                entity_id=str(accounting_entity_id),
+                actor_id=actor_id,
+                occurred_at=evidence.sealed_at,
+                payload=payload,
+            )
+        )
+        uow.outbox.publish(
+            OutboxRecord(
+                event_type="CLOSING_SEALED",
+                entity_id=str(accounting_entity_id),
+                payload=payload,
+                idempotency_key=f"closing:{run.id}",
+            )
+        )
 
 
 __all__ = ["ClosingOrchestrator", "TrialBalanceProvider"]

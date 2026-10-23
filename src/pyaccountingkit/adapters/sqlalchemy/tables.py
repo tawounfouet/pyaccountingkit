@@ -157,6 +157,23 @@ class AccountingExecutionTraceTable(Base):
     source_reference: Mapped[str] = mapped_column(Text, default="")
 
 
+class ClosingRunTable(Base):
+    __tablename__ = "pyak_closing_run"
+
+    id: Mapped[str] = mapped_column(String(128), primary_key=True)
+    period_id: Mapped[str] = mapped_column(
+        ForeignKey("pyak_accounting_period.id", ondelete="RESTRICT"),
+        index=True,
+    )
+    phase: Mapped[str] = mapped_column(String(16))
+    evidence_digest: Mapped[str] = mapped_column(String(64), index=True)
+    trial_balance_checksum: Mapped[str] = mapped_column(String(64))
+    control_runs_hash: Mapped[str] = mapped_column(String(64))
+    total_debit: Mapped[str] = mapped_column(String(128))
+    total_credit: Mapped[str] = mapped_column(String(128))
+    sealed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+
+
 class AuditEventTable(Base):
     __tablename__ = "pyak_audit_event"
 
@@ -190,6 +207,7 @@ __all__ = [
     "AccountingExecutionTraceTable",
     "AccountingPeriodTable",
     "AuditEventTable",
+    "ClosingRunTable",
     "Base",
     "IdempotencyRecordTable",
     "JournalEntryTable",

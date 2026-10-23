@@ -75,6 +75,25 @@ class PostingOrchestrator:
             uow.commit()
         return result
 
+    def post_in_uow(
+        self,
+        uow: UnitOfWorkProtocol,
+        entry: JournalEntry,
+        actor_id: str,
+        *,
+        expected_entity_id: EntityId | None = None,
+        execution_trace: AccountingExecutionTrace | None = None,
+    ) -> PostingResult:
+        """Post through the canonical engine inside an already-open transaction."""
+
+        return self._post_in_uow(
+            uow,
+            entry,
+            actor_id,
+            expected_entity_id=expected_entity_id,
+            execution_trace=execution_trace,
+        )
+
     def post_many(
         self,
         entries: tuple[JournalEntry, ...],

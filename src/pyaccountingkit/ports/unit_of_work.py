@@ -10,6 +10,7 @@ from typing import Protocol
 
 from pyaccountingkit.core.clock import ClockProtocol
 from pyaccountingkit.ports.audit import AuditLogSinkProtocol
+from pyaccountingkit.ports.closing_runs import ClosingRunRepositoryProtocol
 from pyaccountingkit.ports.execution_traces import AccountingExecutionTraceRepositoryProtocol
 from pyaccountingkit.ports.idempotency import IdempotencyStoreProtocol
 from pyaccountingkit.ports.outbox import OutboxPublisherProtocol
@@ -30,6 +31,7 @@ class UnitOfWorkProtocol(Protocol):
     idempotency: IdempotencyStoreProtocol
     outbox: OutboxPublisherProtocol
     execution_traces: AccountingExecutionTraceRepositoryProtocol
+    closing_runs: ClosingRunRepositoryProtocol
     clock: ClockProtocol
 
     def __enter__(self) -> UnitOfWorkProtocol: ...

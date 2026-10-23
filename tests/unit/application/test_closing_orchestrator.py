@@ -10,15 +10,20 @@ from pyaccountingkit.adapters.in_memory.company_chart_resolver import (
     InMemoryVersionedCompanyChartResolver,
 )
 from pyaccountingkit.adapters.in_memory.store import InMemoryStore
-from pyaccountingkit.adapters.in_memory.unit_of_work import InMemoryUnitOfWorkFactory
+from pyaccountingkit.adapters.in_memory.unit_of_work import (
+    InMemoryUnitOfWork,
+    InMemoryUnitOfWorkFactory,
+)
 from pyaccountingkit.application.closing.closing_orchestrator import ClosingOrchestrator
 from pyaccountingkit.application.ledger.posting_orchestrator import PostingOrchestrator
+from pyaccountingkit.application.reporting.trial_balance_query import TrialBalanceQuery
 from pyaccountingkit.core.clock import FrozenClock
 from pyaccountingkit.core.currency import EUR
 from pyaccountingkit.core.errors import (
     ControlFailureError,
     EntityScopeMismatchError,
     PeriodClosedError,
+    RevisionConflictError,
 )
 from pyaccountingkit.core.identifiers import (
     AccountId,
@@ -128,12 +133,14 @@ def _tb(
 ) -> TrialBalance:
     lines = (
         AccountBalanceLine(
+            account_id=AccountId("411000"),
             account_code="411000",
             label="Clients",
             sum_debit=Money.from_str(amount, EUR),
             sum_credit=Money.zero(EUR),
         ),
         AccountBalanceLine(
+            account_id=AccountId("707000"),
             account_code="707000",
             label="Ventes",
             sum_debit=Money.zero(EUR),
@@ -176,13 +183,19 @@ def _build(
     gate = CloseGate()
     gate.require("BALANCE")
     current_balance = fresh_balance or _tb()
+    posting = PostingOrchestrator(
+        factory,
+        _chart_resolver(),
+        PostingService(clock=FrozenClock(NOW)),
+    )
     orchestrator = ClosingOrchestrator(
         factory,
         book,
         gate,
         run_id_factory=lambda: "c1",
         clock=FrozenClock(NOW),
-        trial_balance_provider=lambda period_id, snapshot: current_balance,
+        trial_balance_provider=lambda uow, period_id, snapshot: current_balance,
+        posting_orchestrator=posting,
     )
     return orchestrator, factory, store
 
@@ -198,6 +211,13 @@ def test_close_seals_period_and_records_evidence() -> None:
     assert store.periods[PeriodId("p_2024_12")].status is ClosingStatus.CLOSED
     assert run.evidence is not None
     assert run.evidence.trial_balance_checksum == _tb().checksum
+    assert store.closing_runs[run.id] == run
+    closing_audit = [event for event in store.audit_log if event.event_type == "CLOSING_SEALED"]
+    closing_outbox = [record for record in store.outbox if record.event_type == "CLOSING_SEALED"]
+    assert len(closing_audit) == 1
+    assert len(closing_outbox) == 1
+    assert closing_audit[0].payload["evidence_digest"] == run.evidence_digest()
+    assert closing_outbox[0].payload["evidence_digest"] == run.evidence_digest()
 
 
 def test_post_rejected_after_close() -> None:
@@ -331,6 +351,120 @@ def test_blocking_control_failure_prevents_close() -> None:
     assert store.entries == {}
 
 
+def test_opening_target_scope_failure_rolls_back_entire_close() -> None:
+    orchestrator, factory, store = _build()
+    foreign_period = AccountingPeriod(
+        id=PeriodId("p_foreign"),
+        entity_id=EntityId("other"),
+        fiscal_year_id=FiscalYearId("fy:other"),
+        start_date=date(2025, 1, 1),
+        end_date=date(2025, 1, 31),
+        status=ClosingStatus.OPEN,
+    )
+    with factory.open() as uow:
+        uow.periods.add(foreign_period)
+        uow.commit()
+
+    with pytest.raises(EntityScopeMismatchError):
+        orchestrator.close_period(
+            PeriodId("p_2024_12"),
+            control_runs=[_control(ControlOutcome.PASS)],
+            trial_balance=_tb(),
+            next_period_id=PeriodId("p_foreign"),
+            opening_journal_id=JournalId("j_ventes"),
+            opening_entry_id=EntryId("o-foreign"),
+            opening_date=date(2025, 1, 1),
+        )
+
+    assert store.periods[PeriodId("p_2024_12")].status is ClosingStatus.OPEN
+    assert EntryId("o-foreign") not in store.entries
+    assert not any(event.event_type == "CLOSING_SEALED" for event in store.audit_log)
+
+
+def test_closing_detects_posting_race_after_fresh_balance_read() -> None:
+    _, factory, store = _build()
+    posting = PostingOrchestrator(
+        factory,
+        _chart_resolver(),
+        PostingService(clock=FrozenClock(NOW)),
+    )
+    posting.post(_balanced_draft("base").validate(), actor_id="seed")
+
+    tb_query = TrialBalanceQuery(factory, _chart())
+    supplied = tb_query.balance_for(
+        PeriodId("p_2024_12"),
+        TrialBalanceSnapshot.POST_CLOSING,
+    )
+
+    gate = CloseGate()
+    gate.require("BALANCE")
+    injected = False
+
+    def racing_provider(
+        uow: InMemoryUnitOfWork,
+        period_id: PeriodId,
+        snapshot: TrialBalanceSnapshot,
+    ) -> TrialBalance:
+        nonlocal injected
+        balance = tb_query.balance_for_in_uow(uow, period_id, snapshot)
+        if not injected:
+            injected = True
+            posting.post(_balanced_draft("late").validate(), actor_id="racer")
+        return balance
+
+    closing = ClosingOrchestrator(
+        factory,
+        ClosingRunBook(),
+        gate,
+        run_id_factory=lambda: "race-close",
+        clock=FrozenClock(NOW),
+        trial_balance_provider=racing_provider,
+        posting_orchestrator=posting,
+    )
+
+    with pytest.raises(
+        RevisionConflictError,
+        match="Read dependency entries for Period p_2024_12 changed",
+    ):
+        closing.close_period(
+            PeriodId("p_2024_12"),
+            control_runs=[_control(ControlOutcome.PASS)],
+            trial_balance=supplied,
+        )
+
+    assert store.periods[PeriodId("p_2024_12")].status is ClosingStatus.OPEN
+    assert store.entries[EntryId("late")].status is EntryStatus.POSTED
+    assert not any(event.event_type == "CLOSING_SEALED" for event in store.audit_log)
+
+
+def test_commit_failure_rolls_back_period_opening_and_closing_proof(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    orchestrator, _, store = _build()
+
+    def fail_commit(self: InMemoryUnitOfWork) -> None:
+        raise RuntimeError("simulated commit failure")
+
+    monkeypatch.setattr(InMemoryUnitOfWork, "commit", fail_commit)
+
+    with pytest.raises(RuntimeError, match="simulated commit failure"):
+        orchestrator.close_period(
+            PeriodId("p_2024_12"),
+            control_runs=[_control(ControlOutcome.PASS)],
+            trial_balance=_tb(),
+            next_period_id=PeriodId("p_2025_01"),
+            opening_journal_id=JournalId("j_ventes"),
+            opening_entry_id=EntryId("o-rollback"),
+            opening_date=date(2025, 1, 1),
+        )
+
+    assert store.periods[PeriodId("p_2024_12")].status is ClosingStatus.OPEN
+    assert EntryId("o-rollback") not in store.entries
+    assert not any(event.event_type == "CLOSING_SEALED" for event in store.audit_log)
+    assert not any(record.event_type == "CLOSING_SEALED" for record in store.outbox)
+    assert "c1" not in store.closing_runs
+
+
 def test_close_generates_traceable_opening_balances() -> None:
     orchestrator, _, store = _build()
     orchestrator.close_period(
@@ -345,6 +479,11 @@ def test_close_generates_traceable_opening_balances() -> None:
     opening = store.entries[EntryId("o2025")]
     assert opening.period_id == PeriodId("p_2025_01")
     assert opening.status is EntryStatus.POSTED
+    assert opening.posted_at == NOW
     assert opening.is_balanced()
     assert "c1" in opening.description
     assert store.periods[PeriodId("p_2025_01")].status is ClosingStatus.OPEN
+    assert any(
+        event.event_type == "ENTRY_POSTED" and event.payload["entry_id"] == "o2025"
+        for event in store.audit_log
+    )

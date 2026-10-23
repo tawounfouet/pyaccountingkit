@@ -21,6 +21,7 @@ from pyaccountingkit.adapters.django.models import (
     AccountingExecutionTraceModel,
     AccountingPeriodModel,
     AuditEventModel,
+    ClosingRunModel,
     IdempotencyRecordModel,
     JournalEntryModel,
     JournalLineModel,
@@ -41,6 +42,11 @@ from pyaccountingkit.core.identifiers import (
 )
 from pyaccountingkit.core.money import Money
 from pyaccountingkit.domain.audit.events import AuditEvent
+from pyaccountingkit.domain.closing.closing_run import (
+    ClosingEvidenceBundle,
+    ClosingPhase,
+    ClosingRun,
+)
 from pyaccountingkit.domain.journals.journal import Journal
 from pyaccountingkit.domain.journals.journal_entry import EntryType, JournalEntry
 from pyaccountingkit.domain.journals.journal_line import JournalLine
@@ -59,6 +65,7 @@ PERIOD_ID = PeriodId("period:2026-09")
 def clean_postgresql_adapter_tables() -> None:
     """Keep every test isolated while exercising the real migrated schema."""
 
+    ClosingRunModel.objects.all().delete()
     AccountingExecutionTraceModel.objects.all().delete()
     JournalLineModel.objects.all().delete()
     JournalEntryModel.objects.all().delete()
@@ -105,6 +112,24 @@ def _execution_trace(entry_id: str = "entry:1") -> AccountingExecutionTrace:
         policy_versions=("1.0",),
         policy_reference_snapshot_ids=("snapshot:1",),
         source_reference="source:1",
+    )
+
+
+def _closing_run(run_id: str = "close:1") -> ClosingRun:
+    evidence = ClosingEvidenceBundle(
+        run_id=run_id,
+        period_id=str(PERIOD_ID),
+        trial_balance_checksum="b" * 64,
+        control_runs_hash="c" * 64,
+        total_debit="125.50",
+        total_credit="125.50",
+        sealed_at=NOW,
+    )
+    return ClosingRun(
+        id=run_id,
+        period_id=str(PERIOD_ID),
+        phase=ClosingPhase.SEALED,
+        evidence=evidence,
     )
 
 
@@ -226,6 +251,28 @@ def test_execution_trace_is_atomic_with_accounting_entry() -> None:
 
     assert not JournalEntryModel.objects.filter(pk="entry:rollback").exists()
     assert not AccountingExecutionTraceModel.objects.filter(pk=rolled_back_trace.trace_id).exists()
+
+
+def test_closing_run_is_durable_and_atomic_in_django_uow() -> None:
+    factory = DjangoUnitOfWorkFactory(clock=FrozenClock(NOW))
+    run = _closing_run()
+
+    with factory.open() as uow:
+        uow.periods.add(_period())
+        uow.closing_runs.append(run)
+        uow.commit()
+
+    assert ClosingRunModel.objects.filter(pk=run.id).count() == 1
+    with factory.open() as read:
+        assert read.closing_runs.get(run.id) == run
+        read.rollback()
+
+    rolled_back = _closing_run("close:rollback")
+    with factory.open() as uow:
+        uow.closing_runs.append(rolled_back)
+        uow.rollback()
+
+    assert not ClosingRunModel.objects.filter(pk=rolled_back.id).exists()
 
 
 def test_uncommitted_unit_of_work_rolls_back_every_sink() -> None:

@@ -43,17 +43,26 @@ class TrialBalanceQuery:
     ) -> TrialBalance:
         """Return the verified trial balance of one period."""
         with self._uow_factory.open() as uow:
-            period = uow.periods.get(period_id)
-            require_same_entity(
-                self._chart.entity_id,
-                period.entity_id,
-                resource=f"period {period.id}",
-            )
-            entries = uow.entries.list_by_period(period_id)
-            self._validate_entry_journal_scope(uow, entries)
-            included_types = self._included_entry_types(snapshot)
-            scoped_entries = tuple(entry for entry in entries if entry.entry_type in included_types)
-            lines = self._aggregate(scoped_entries)
+            return self.balance_for_in_uow(uow, period_id, snapshot)
+
+    def balance_for_in_uow(
+        self,
+        uow: UnitOfWorkProtocol,
+        period_id: PeriodId,
+        snapshot: TrialBalanceSnapshot = TrialBalanceSnapshot.BEFORE_ADJUSTMENTS,
+    ) -> TrialBalance:
+        """Build a trial balance inside an existing transaction/read set."""
+        period = uow.periods.get(period_id)
+        require_same_entity(
+            self._chart.entity_id,
+            period.entity_id,
+            resource=f"period {period.id}",
+        )
+        entries = uow.entries.list_by_period(period_id)
+        self._validate_entry_journal_scope(uow, entries)
+        included_types = self._included_entry_types(snapshot)
+        scoped_entries = tuple(entry for entry in entries if entry.entry_type in included_types)
+        lines = self._aggregate(scoped_entries)
         return TrialBalance.build(
             period_id,
             snapshot,

@@ -13,6 +13,7 @@ from dataclasses import dataclass, field
 from pyaccountingkit.core.identifiers import EntryId, JournalId, PeriodId
 from pyaccountingkit.core.revisions import Revision
 from pyaccountingkit.domain.audit.events import AuditEvent
+from pyaccountingkit.domain.closing.closing_run import ClosingRun
 from pyaccountingkit.domain.journals.journal import Journal
 from pyaccountingkit.domain.journals.journal_entry import JournalEntry
 from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
@@ -33,6 +34,7 @@ class InMemoryStore:
     outbox: list[OutboxRecord] = field(default_factory=list)
     audit_log: list[AuditEvent] = field(default_factory=list)
     execution_traces: dict[EntryId, AccountingExecutionTrace] = field(default_factory=dict)
+    closing_runs: dict[str, ClosingRun] = field(default_factory=dict)
 
     def copy(self) -> InMemoryStore:
         """Return a detached copy used as a rollback snapshot."""
@@ -46,6 +48,7 @@ class InMemoryStore:
             outbox=list(self.outbox),
             audit_log=list(self.audit_log),
             execution_traces=dict(self.execution_traces),
+            closing_runs=dict(self.closing_runs),
         )
 
     def restore(self, snapshot: InMemoryStore) -> None:
@@ -59,6 +62,7 @@ class InMemoryStore:
         self.outbox = list(snapshot.outbox)
         self.audit_log = list(snapshot.audit_log)
         self.execution_traces = dict(snapshot.execution_traces)
+        self.closing_runs = dict(snapshot.closing_runs)
 
     def drain_outbox(self) -> list[OutboxRecord]:
         """Collect and clear every published outbox message."""

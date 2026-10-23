@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Sequence
+from typing import Protocol
 
 from pyaccountingkit.adapters.in_memory.store import InMemoryStore
 from pyaccountingkit.core.errors import (
@@ -13,17 +14,33 @@ from pyaccountingkit.core.errors import (
 )
 from pyaccountingkit.core.identifiers import EntryId, JournalId, PeriodId
 from pyaccountingkit.core.revisions import Revision
+from pyaccountingkit.domain.closing.closing_run import ClosingRun
 from pyaccountingkit.domain.journals.journal import Journal
 from pyaccountingkit.domain.journals.journal_entry import EntryStatus, JournalEntry
 from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
 from pyaccountingkit.domain.traceability.accounting_execution import AccountingExecutionTrace
 
 
+class ReadTracker(Protocol):
+    """Callback used by the reference UoW to record repository reads."""
+
+    def __call__(self, kind: str, key: object) -> None: ...
+
+
 class InMemoryJournalEntryRepository:
     """In-memory store of the JournalEntry aggregate with optimistic locking."""
 
-    def __init__(self, store: InMemoryStore) -> None:
+    def __init__(
+        self,
+        store: InMemoryStore,
+        on_read: ReadTracker | None = None,
+    ) -> None:
         self._store = store
+        self._on_read = on_read
+
+    def _track(self, kind: str, key: object) -> None:
+        if self._on_read is not None:
+            self._on_read(kind, key)
 
     def add(self, entry: JournalEntry) -> None:
         if entry.id in self._store.entries:
@@ -45,16 +62,19 @@ class InMemoryJournalEntryRepository:
         self._store.entry_revisions[entry.id] = expected_revision.incremented()
 
     def get(self, entry_id: EntryId) -> JournalEntry:
+        self._track("entry", entry_id)
         if entry_id not in self._store.entries:
             raise EntryNotFoundError(f"Entry {entry_id} not found")
         return self._store.entries[entry_id]
 
     def get_revision(self, entry_id: EntryId) -> Revision:
+        self._track("entry", entry_id)
         if entry_id not in self._store.entry_revisions:
             raise EntryNotFoundError(f"Entry {entry_id} has no revision")
         return self._store.entry_revisions[entry_id]
 
     def list_by_period(self, period_id: PeriodId) -> Sequence[JournalEntry]:
+        self._track("entries_by_period", period_id)
         return tuple(
             entry
             for entry in self._store.entries.values()
@@ -63,6 +83,7 @@ class InMemoryJournalEntryRepository:
         )
 
     def list_by_journal(self, journal_id: JournalId) -> Sequence[JournalEntry]:
+        self._track("entries_by_journal", journal_id)
         return tuple(
             entry
             for entry in self._store.entries.values()
@@ -71,6 +92,7 @@ class InMemoryJournalEntryRepository:
         )
 
     def find_by_reversal_of(self, entry_id: EntryId) -> Sequence[JournalEntry]:
+        self._track("reversals_of", entry_id)
         return tuple(
             entry for entry in self._store.entries.values() if entry.reversal_of_id == entry_id
         )
@@ -79,8 +101,13 @@ class InMemoryJournalEntryRepository:
 class InMemoryAccountingExecutionTraceRepository:
     """Append-only in-memory execution trace repository."""
 
-    def __init__(self, store: InMemoryStore) -> None:
+    def __init__(
+        self,
+        store: InMemoryStore,
+        on_read: ReadTracker | None = None,
+    ) -> None:
         self._store = store
+        self._on_read = on_read
 
     def append(self, trace: AccountingExecutionTrace) -> None:
         existing = self._store.execution_traces.get(trace.journal_entry_id)
@@ -93,14 +120,48 @@ class InMemoryAccountingExecutionTraceRepository:
         self._store.execution_traces[trace.journal_entry_id] = trace
 
     def get_by_entry_id(self, entry_id: EntryId) -> AccountingExecutionTrace | None:
+        if self._on_read is not None:
+            self._on_read("execution_trace", entry_id)
         return self._store.execution_traces.get(entry_id)
+
+
+class InMemoryClosingRunRepository:
+    """Append-only in-memory repository for sealed closing runs."""
+
+    def __init__(
+        self,
+        store: InMemoryStore,
+        on_read: ReadTracker | None = None,
+    ) -> None:
+        self._store = store
+        self._on_read = on_read
+
+    def append(self, run: ClosingRun) -> None:
+        existing = self._store.closing_runs.get(run.id)
+        if existing is not None:
+            if existing == run:
+                return
+            raise RevisionConflictError(f"Closing run {run.id} already exists with other evidence")
+        if not run.is_sealed or run.evidence is None:
+            raise RevisionConflictError(f"Closing run {run.id} must be sealed before persistence")
+        self._store.closing_runs[run.id] = run
+
+    def get(self, run_id: str) -> ClosingRun | None:
+        if self._on_read is not None:
+            self._on_read("closing_run", run_id)
+        return self._store.closing_runs.get(run_id)
 
 
 class InMemoryPeriodRepository:
     """In-memory store of accounting periods."""
 
-    def __init__(self, store: InMemoryStore) -> None:
+    def __init__(
+        self,
+        store: InMemoryStore,
+        on_read: ReadTracker | None = None,
+    ) -> None:
         self._store = store
+        self._on_read = on_read
 
     def add(self, period: AccountingPeriod) -> None:
         if period.id in self._store.periods:
@@ -115,19 +176,28 @@ class InMemoryPeriodRepository:
         self._store.periods[period.id] = period
 
     def get(self, period_id: PeriodId) -> AccountingPeriod:
+        if self._on_read is not None:
+            self._on_read("period", period_id)
         if period_id not in self._store.periods:
             raise PeriodNotFoundError(f"Period {period_id} not found")
         return self._store.periods[period_id]
 
     def list_all(self) -> Sequence[AccountingPeriod]:
+        if self._on_read is not None:
+            self._on_read("periods_all", "*")
         return tuple(self._store.periods[period_id] for period_id in sorted(self._store.periods))
 
 
 class InMemoryJournalRepository:
     """In-memory store of journals."""
 
-    def __init__(self, store: InMemoryStore) -> None:
+    def __init__(
+        self,
+        store: InMemoryStore,
+        on_read: ReadTracker | None = None,
+    ) -> None:
         self._store = store
+        self._on_read = on_read
 
     def add(self, journal: Journal) -> None:
         if journal.id in self._store.journals:
@@ -135,6 +205,8 @@ class InMemoryJournalRepository:
         self._store.journals[journal.id] = journal
 
     def get(self, journal_id: JournalId) -> Journal:
+        if self._on_read is not None:
+            self._on_read("journal", journal_id)
         if journal_id not in self._store.journals:
             raise JournalNotFoundError(f"Journal {journal_id} not found")
         return self._store.journals[journal_id]
@@ -142,6 +214,7 @@ class InMemoryJournalRepository:
 
 __all__ = [
     "InMemoryAccountingExecutionTraceRepository",
+    "InMemoryClosingRunRepository",
     "InMemoryJournalEntryRepository",
     "InMemoryPeriodRepository",
     "InMemoryJournalRepository",

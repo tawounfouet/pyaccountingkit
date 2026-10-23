@@ -22,6 +22,11 @@ _FORBIDDEN_FRAMEWORK_PREFIXES = ("django", "sqlalchemy")
 
 
 def _has_forbidden_framework_ancestry(value: object) -> bool:
+    if isinstance(value, type):
+        return any(
+            cls.__module__.split(".", maxsplit=1)[0] in _FORBIDDEN_FRAMEWORK_PREFIXES
+            for cls in value.__mro__
+        )
     value_type = type(value)
     return any(
         cls.__module__.split(".", maxsplit=1)[0] in _FORBIDDEN_FRAMEWORK_PREFIXES

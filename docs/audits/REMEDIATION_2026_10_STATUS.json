@@ -55,7 +55,7 @@
       "evidence_must_match_candidate_sha": true,
       "documentation_only_change_cannot_close_finding": true
     },
-    "current_phase": "REM-08",
+    "current_phase": "REM-09",
     "rem00_completed_on": "2026-10-22",
     "rem00_completion_evidence": {
       "remediation_plan_commit_sha": "fd0e2731582d7bb8eb0b7aecae41d2417aa40be5",
@@ -327,6 +327,25 @@
         "Exact-main-SHA CI evidence for REM-07 implementation before VERIFIED",
         "REM-10 transverse requalification"
       ]
+    },
+    "rem08": {
+      "implementation_lot": "LOT-33R",
+      "implementation_pr": 92,
+      "pr_head_sha": "bf9a2aeb215f5793cc2bba4f27b1b96fa0e4538b",
+      "merge_sha": "24f34bb5502f9ac439c5af728fe7f71f77d9ee19",
+      "pr_ci_run_id": 39880671056,
+      "pr_security_run_id": 39880671021,
+      "pr_ci_status": "PASS",
+      "implementation_status": "COMPLETE",
+      "findings": [
+        "F17",
+        "A02"
+      ],
+      "remaining_findings": [],
+      "remaining_evidence": [
+        "Exact-main-SHA CI evidence for REM-08 implementation before VERIFIED",
+        "REM-10 transverse requalification"
+      ]
     }
   },
   "lots": {
@@ -410,14 +429,14 @@
         "F17",
         "A02"
       ],
-      "status": "ACTIVE"
+      "status": "IMPLEMENTED_QUALIFYING"
     },
     "REM-09": {
       "title": "Persistent Subledgers",
       "findings": [
         "A01"
       ],
-      "status": "PLANNED"
+      "status": "ACTIVE"
     },
     "REM-10": {
       "title": "Transverse Qualification / Release Decision",
@@ -1012,18 +1031,37 @@
       "primary_remediation_lot": "REM-08",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "OPEN",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "24f34bb5502f9ac439c5af728fe7f71f77d9ee19",
+      "corrective_tests": [
+        "tests/unit/public/test_application_facade.py::test_framework_specific_objects_are_rejected_recursively",
+        "tests/unit/public/test_application_facade.py::test_framework_specific_objects_are_rejected_through_plain_wrappers",
+        "tests/unit/public/test_application_facade.py::test_framework_specific_input_is_rejected_before_service_invocation",
+        "tests/unit/public/test_application_facade.py::test_framework_class_is_rejected_at_public_boundary",
+        "tests/unit/public/test_application_facade.py::test_cyclic_neutral_wrapper_is_cycle_safe"
+      ],
+      "qualification_evidence": [
+        "PR #92 head bf9a2aeb215f5793cc2bba4f27b1b96fa0e4538b: CI run 39880671056 PASS",
+        "PR #92 head bf9a2aeb215f5793cc2bba4f27b1b96fa0e4538b: Security run 39880671021 PASS",
+        "PR #92 head bf9a2aeb215f5793cc2bba4f27b1b96fa0e4538b: Quality and strict mypy PASS",
+        "PR #92 head bf9a2aeb215f5793cc2bba4f27b1b96fa0e4538b: Python 3.11/3.12/3.13 PASS",
+        "PR #92 head bf9a2aeb215f5793cc2bba4f27b1b96fa0e4538b: Django/PostgreSQL qualification PASS",
+        "PR #92 head bf9a2aeb215f5793cc2bba4f27b1b96fa0e4538b: SQLAlchemy/PostgreSQL qualification PASS",
+        "PR #92 head bf9a2aeb215f5793cc2bba4f27b1b96fa0e4538b: Regulatory capability qualification PASS",
+        "PR #92 head bf9a2aeb215f5793cc2bba4f27b1b96fa0e4538b: Canonical CI gate PASS"
+      ],
       "affected_components": [
         "public_api",
         "architecture_guards",
         "adapters"
       ],
-      "notes": []
+      "notes": [
+        "Public input and output graphs now reject Django/SQLAlchemy values through mappings, sequences, sets, dataclasses, __dict__ wrappers, __slots__ wrappers and framework classes.",
+        "The neutrality scanner remains dependency-neutral and cycle-safe.",
+        "Squash merge changed the SHA; exact merge-SHA evidence remains required before VERIFIED."
+      ]
     },
     {
       "id": "F18",
@@ -1403,18 +1441,38 @@
       "primary_remediation_lot": "REM-08",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "OPEN",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "24f34bb5502f9ac439c5af728fe7f71f77d9ee19",
+      "corrective_tests": [
+        "tests/unit/public/test_application_facade.py::test_public_operation_contract_catalog_is_exhaustive_for_every_facade_method",
+        "tests/unit/public/test_application_facade.py::test_public_operation_request_is_immutable_and_adapter_neutral",
+        "tests/unit/public/test_application_facade.py::test_framework_exception_is_translated_without_raw_database_message",
+        "tests/unit/public/test_application_facade.py::test_canonical_accounting_error_is_preserved_by_public_boundary",
+        "tests/unit/public/test_application_facade.py::test_unknown_failure_is_not_hidden_by_public_translation"
+      ],
+      "qualification_evidence": [
+        "PR #92 head bf9a2aeb215f5793cc2bba4f27b1b96fa0e4538b: CI run 39880671056 PASS",
+        "PR #92 head bf9a2aeb215f5793cc2bba4f27b1b96fa0e4538b: Security run 39880671021 PASS",
+        "PR #92 head bf9a2aeb215f5793cc2bba4f27b1b96fa0e4538b: Quality and strict mypy PASS",
+        "PR #92 head bf9a2aeb215f5793cc2bba4f27b1b96fa0e4538b: Python 3.11/3.12/3.13 PASS",
+        "PR #92 head bf9a2aeb215f5793cc2bba4f27b1b96fa0e4538b: Django/PostgreSQL qualification PASS",
+        "PR #92 head bf9a2aeb215f5793cc2bba4f27b1b96fa0e4538b: SQLAlchemy/PostgreSQL qualification PASS",
+        "PR #92 head bf9a2aeb215f5793cc2bba4f27b1b96fa0e4538b: Regulatory capability qualification PASS",
+        "PR #92 head bf9a2aeb215f5793cc2bba4f27b1b96fa0e4538b: Canonical CI gate PASS"
+      ],
       "affected_components": [
         "public_api",
         "application",
         "errors"
       ],
-      "notes": []
+      "notes": [
+        "Every explicit public facade operation is now represented by one immutable PublicOperationContract.",
+        "Public calls are normalized through immutable PublicOperationRequest before application-service execution.",
+        "Infrastructure error translation is centralized: canonical accounting/public errors are preserved, Django/SQLAlchemy failures are normalized without raw DB detail, and unknown programming errors are not hidden.",
+        "Squash merge changed the SHA; exact merge-SHA evidence remains required before VERIFIED."
+      ]
     },
     {
       "id": "A03",
@@ -1457,5 +1515,5 @@
     }
   ],
   "last_updated_on": "2026-10-23",
-  "last_updated_from_sha": "4df191e70e85fdc634fdf7dfde8cf6fcfeb5681c"
+  "last_updated_from_sha": "24f34bb5502f9ac439c5af728fe7f71f77d9ee19"
 }

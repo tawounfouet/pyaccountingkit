@@ -12,8 +12,8 @@ from pyaccountingkit.core.errors import RevisionConflictError
 from pyaccountingkit.core.identifiers import EntityId, EntryId, FiscalYearId, JournalId, PeriodId
 from pyaccountingkit.core.money import Money
 from pyaccountingkit.domain.journals.journal_entry import JournalEntry
-from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
 from pyaccountingkit.domain.journals.journal_line import JournalLine
+from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
 
 
 def _entry(entry_id: str = "e1") -> JournalEntry:

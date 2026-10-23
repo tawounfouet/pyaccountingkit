@@ -20,6 +20,7 @@ from pyaccountingkit.adapters.django.models import (
     AccountingExecutionTraceModel,
     AccountingPeriodModel,
     AuditEventModel,
+    ClosingRunModel,
     IdempotencyRecordModel,
     JournalEntryModel,
     JournalLineModel,
@@ -37,6 +38,11 @@ from pyaccountingkit.core.identifiers import AccountId, EntityId, EntryId, Journ
 from pyaccountingkit.core.immutability import deep_thaw
 from pyaccountingkit.core.revisions import Revision
 from pyaccountingkit.domain.audit.events import AuditEvent
+from pyaccountingkit.domain.closing.closing_run import (
+    ClosingEvidenceBundle,
+    ClosingPhase,
+    ClosingRun,
+)
 from pyaccountingkit.domain.journals.journal import Journal
 from pyaccountingkit.domain.journals.journal_entry import EntryStatus, JournalEntry
 from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
@@ -325,6 +331,61 @@ class DjangoAccountingExecutionTraceRepository:
         )
 
 
+class DjangoClosingRunRepository:
+    """Append-only sealed closing runs inside the active Django transaction."""
+
+    def __init__(self, *, using: str = "default") -> None:
+        self._using = using
+
+    def append(self, run: ClosingRun) -> None:
+        evidence = run.evidence
+        if not run.is_sealed or evidence is None:
+            raise RevisionConflictError(f"Closing run {run.id} must be sealed before persistence")
+        try:
+            with transaction.atomic(using=self._using):
+                ClosingRunModel.objects.using(self._using).create(
+                    id=run.id,
+                    period_id=run.period_id,
+                    phase=run.phase.value,
+                    evidence_digest=run.evidence_digest(),
+                    trial_balance_checksum=evidence.trial_balance_checksum,
+                    control_runs_hash=evidence.control_runs_hash,
+                    total_debit=evidence.total_debit,
+                    total_credit=evidence.total_credit,
+                    sealed_at=evidence.sealed_at,
+                )
+        except IntegrityError:
+            existing = self.get(run.id)
+            if existing == run:
+                return
+            raise RevisionConflictError(
+                f"Closing run {run.id} already exists with other evidence"
+            ) from None
+
+    def get(self, run_id: str) -> ClosingRun | None:
+        model = ClosingRunModel.objects.using(self._using).filter(pk=run_id).first()
+        if model is None:
+            return None
+        evidence = ClosingEvidenceBundle(
+            run_id=model.id,
+            period_id=model.period_id,
+            trial_balance_checksum=model.trial_balance_checksum,
+            control_runs_hash=model.control_runs_hash,
+            total_debit=model.total_debit,
+            total_credit=model.total_credit,
+            sealed_at=model.sealed_at,
+        )
+        run = ClosingRun(
+            id=model.id,
+            period_id=model.period_id,
+            phase=ClosingPhase(model.phase),
+            evidence=evidence,
+        )
+        if run.evidence_digest() != model.evidence_digest:
+            raise RevisionConflictError(f"Closing run {run.id} evidence digest mismatch")
+        return run
+
+
 class DjangoAuditLogSink:
     """Persist audit events inside the active Django transaction."""
 
@@ -389,6 +450,7 @@ class DjangoOutboxPublisher:
 __all__ = [
     "DjangoAccountingExecutionTraceRepository",
     "DjangoAuditLogSink",
+    "DjangoClosingRunRepository",
     "DjangoIdempotencyStore",
     "DjangoJournalEntryRepository",
     "DjangoJournalRepository",

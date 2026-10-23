@@ -104,9 +104,7 @@ class DjangoSubledgerRepository:
                 )
             if kind == SETTLEMENT:
                 raise InvalidSettlementError(f"settlement {identifier!r} not found")
-            raise InvalidSubledgerItemError(
-                f"subledger record {kind}:{identifier!r} not found"
-            )
+            raise InvalidSubledgerItemError(f"subledger record {kind}:{identifier!r} not found")
         return decode_record(row.kind, dict(row.payload))
 
     def _list_scope(
@@ -219,14 +217,12 @@ class DjangoSubledgerRepository:
         if for_update:
             query = query.select_for_update()
         values = tuple(
-            decode_record(row.kind, dict(row.payload))
-            for row in query.order_by("record_id")
+            decode_record(row.kind, dict(row.payload)) for row in query.order_by("record_id")
         )
         return tuple(
             value
             for value in values
-            if isinstance(value, SettlementAllocation)
-            and value.settlement_id == settlement_id
+            if isinstance(value, SettlementAllocation) and value.settlement_id == settlement_id
         )
 
     def append_reversal(self, reversal: SettlementReversal) -> None:

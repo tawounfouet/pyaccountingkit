@@ -154,3 +154,18 @@ def test_release_contract_requires_exact_sha_postgresql_evidence() -> None:
 
     violations = module.validate_release_text(invalid)
     assert any("PYAK_RELEASE_SQLALCHEMY_POSTGRESQL_SHA" in item for item in violations)
+
+
+def test_ci_contract_requires_rem10_exact_sha_postgresql_outputs() -> None:
+    """REM-10 RC qualification must consume exact SHA outputs from both PG jobs."""
+    module = _load_validator()
+    text = module.CI_WORKFLOW.read_text(encoding="utf-8")
+    invalid = text.replace(
+        "      PYAK_RELEASE_DJANGO_POSTGRESQL_SHA: ${{ needs.postgresql.outputs.qualified_sha }}\n",
+        "",
+        1,
+    )
+
+    violations = module.validate_ci_text(invalid)
+
+    assert any("PYAK_RELEASE_DJANGO_POSTGRESQL_SHA" in item for item in violations)

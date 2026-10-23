@@ -1,7 +1,7 @@
 # LOT-27 — Regulatory Production Qualification
 
 **Target line:** `0.7.0`  
-**Current slice:** `0.7.0rc1` — regulatory GR/G4 release candidate  
+**Current slice:** `0.7.0rc2` — REM-10 transverse remediation release candidate  
 **Upstream regulatory corpus:** `regulatory-accounting-data-framework 0.7.1`
 
 ## Objective
@@ -241,7 +241,7 @@ provider-backed regulatory export evidence exists.
 The beta-3 slice does not expand regulatory support. It makes the release-candidate boundary
 executable and fail-closed:
 
-- `0.7.0rc1` has an explicit versioned evidence contract;
+- `0.7.0rc2` has an explicit versioned evidence contract;
 - an unregistered RC version fails qualification instead of falling back to zero evidence;
 - `release/0.7*` skips LOT-26 CFA FRA jobs and requires the dedicated LOT-27 release path;
 - `release/0.6*` retains its bound-consumer and live-retirement gates;

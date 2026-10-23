@@ -83,9 +83,22 @@ _VERSIONED_RC_EVIDENCE: dict[str, tuple[str, ...]] = {
         "REGULATORY_COMPATIBILITY_MATRIX.json",
         "SNAPSHOT_SCHEMA_MANIFEST.json",
     ),
+    "0.7.0rc2": (
+        "tests/integration/test_0_7_regulatory_compatibility_matrix.py",
+        "tests/golden/regulatory/test_lot27_capability_profiles.py",
+        "tests/golden/regulatory/test_nonprofit_effective_plan.py",
+        "tests/golden/regulatory/test_ebnl_structure_provider.py",
+        "tests/golden/regulatory/test_ohada_standard_relations.py",
+        "tests/golden/regulatory/test_reporting_structure_provider.py",
+        "docs/audits/REMEDIATION_2026_10_STATUS.json",
+        "docs/plans/LOT-35R_REM10_0_7_0RC2_TRANSVERSE_QUALIFICATION_PLAN.md",
+        "scripts/validate_remediation_release_gate.py",
+        "REGULATORY_COMPATIBILITY_MATRIX.json",
+        "SNAPSHOT_SCHEMA_MANIFEST.json",
+    ),
 }
 
-_EXACT_SHA_POSTGRESQL_VERSIONS = frozenset({"0.7.0rc1", "0.7.0"})
+_EXACT_SHA_POSTGRESQL_VERSIONS = frozenset({"0.7.0rc1", "0.7.0rc2", "0.7.0"})
 _REQUIRED_POSTGRESQL_EVIDENCE_ENV: tuple[tuple[str, str], ...] = (
     ("PYAK_RELEASE_DJANGO_POSTGRESQL_SHA", "Django/PostgreSQL"),
     ("PYAK_RELEASE_SQLALCHEMY_POSTGRESQL_SHA", "SQLAlchemy/PostgreSQL"),
@@ -473,6 +486,13 @@ def qualify(
             label="LOT-00 remediation status",
         )
     )
+    if project_version() in {"0.7.0rc2", "0.7.0"}:
+        results.append(
+            run_command(
+                [sys.executable, "scripts/validate_remediation_release_gate.py"],
+                label="REM-10 remediation release gate",
+            )
+        )
     results.append(
         run_command(
             [sys.executable, "-m", "ruff", "check", "src", "tests", "scripts"],

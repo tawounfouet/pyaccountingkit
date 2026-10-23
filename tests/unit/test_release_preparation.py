@@ -109,6 +109,7 @@ def test_preflight_rejects_noncanonical_commit_sha(tmp_path: Path) -> None:
         ("0.7.0a1", True),
         ("0.7.0b1", True),
         ("0.7.0rc1", True),
+        ("0.7.0rc2", True),
         ("0.7.0", False),
     ],
 )

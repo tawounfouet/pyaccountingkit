@@ -74,6 +74,8 @@ jobs:
     name: Django/PostgreSQL qualification
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    outputs:
+      qualified_sha: ${{ steps.qualification-evidence.outputs.qualified_sha }}
     services:
       postgres:
         image: postgres:16
@@ -115,11 +117,16 @@ jobs:
           tests/integration/test_django_postgresql_adapter.py
           tests/concurrency/test_django_postgresql_concurrency.py
           -v --tb=short
+      - name: Record exact qualified SHA
+        id: qualification-evidence
+        run: echo "qualified_sha=$GITHUB_SHA" >> "$GITHUB_OUTPUT"
 
   sqlalchemy-postgresql:
     name: SQLAlchemy/PostgreSQL qualification
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    outputs:
+      qualified_sha: ${{ steps.qualification-evidence.outputs.qualified_sha }}
     services:
       postgres:
         image: postgres:16
@@ -159,6 +166,9 @@ jobs:
           tests/integration/test_sqlalchemy_postgresql_adapter.py
           tests/concurrency/test_sqlalchemy_postgresql_concurrency.py
           -v --tb=short
+      - name: Record exact qualified SHA
+        id: qualification-evidence
+        run: echo "qualified_sha=$GITHUB_SHA" >> "$GITHUB_OUTPUT"
 
   regulatory-qualification:
     name: Regulatory capability qualification
@@ -796,12 +806,15 @@ jobs:
         run: python scripts/qualify_release.py --release-candidate
 
   regulatory-release-qualification:
-    name: LOT-27 release-candidate qualification
-    if: ${{ startsWith(github.head_ref, 'release/0.7.0rc') }}
+    name: REM-10 0.7 release-candidate qualification
+    if: ${{ startsWith(github.head_ref, 'release/0.7.0rc') || github.ref == 'refs/heads/main' }}
     needs:
       [quality, test, package, postgresql, sqlalchemy-postgresql, regulatory-qualification]
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      PYAK_RELEASE_DJANGO_POSTGRESQL_SHA: ${{ needs.postgresql.outputs.qualified_sha }}
+      PYAK_RELEASE_SQLALCHEMY_POSTGRESQL_SHA: ${{ needs.sqlalchemy-postgresql.outputs.qualified_sha }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
@@ -811,12 +824,12 @@ jobs:
           cache-dependency-path: pyproject.toml
       - name: Install development tooling
         run: python -m pip install -e ".[dev]"
-      - name: Require exact 0.7 RC identity
+      - name: Require exact REM-10 RC identity
         run: >-
           python -c
           "import tomllib;
           p=tomllib.load(open('pyproject.toml','rb'));
-          assert p['project']['version']=='0.7.0rc1'"
+          assert p['project']['version']=='0.7.0rc2'"
       - name: Require deterministic LOT-27 release evidence
         run: |
           python scripts/generate_regulatory_compatibility_matrix.py --check
@@ -891,6 +904,7 @@ jobs:
           REGULATORY_RELEASE_QUALIFICATION_RESULT: ${{ needs.regulatory-release-qualification.result }}
           STABLE_RELEASE_QUALIFICATION_RESULT: ${{ needs.stable-release-qualification.result }}
           HEAD_REF: ${{ github.head_ref }}
+          GIT_REF: ${{ github.ref }}
         run: |
           test "$QUALITY_RESULT" = "success"
           test "$TEST_RESULT" = "success"
@@ -930,6 +944,22 @@ jobs:
             test "$RELEASE_QUALIFICATION_RESULT" = "skipped"
             test "$REGULATORY_RELEASE_QUALIFICATION_RESULT" = "skipped"
             test "$STABLE_RELEASE_QUALIFICATION_RESULT" = "success"
+          elif [[ "$GIT_REF" == "refs/heads/main" ]]; then
+            test "$CONSUMER_BOOTSTRAP_RESULT" = "success"
+            test "$CONSUMER_PUBLICATION_RESULT" = "success"
+            test "$CONSUMER_BINDING_ADVANCEMENT_RESULT" = "success"
+            test "$CONSUMER_BINDING_RESULT" = "success"
+            test "$CONSUMER_EVIDENCE_RESULT" = "success"
+            test "$RETIREMENT_INVENTORY_RESULT" = "success"
+            test "$CUTOVER_EVIDENCE_RESULT" = "success"
+            test "$CUTOVER_PIPELINE_RESULT" = "success"
+            test "$RETIREMENT_PLAN_RESULT" = "success"
+            test "$RETIREMENT_EXECUTION_RESULT" = "success"
+            test "$RETIREMENT_COMPLETION_RESULT" = "success"
+            test "$RETIREMENT_READINESS_RESULT" = "success"
+            test "$RELEASE_QUALIFICATION_RESULT" = "skipped"
+            test "$REGULATORY_RELEASE_QUALIFICATION_RESULT" = "success"
+            test "$STABLE_RELEASE_QUALIFICATION_RESULT" = "skipped"
           else
             test "$CONSUMER_BOOTSTRAP_RESULT" = "success"
             test "$CONSUMER_PUBLICATION_RESULT" = "success"

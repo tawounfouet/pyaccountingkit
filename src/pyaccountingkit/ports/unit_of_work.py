@@ -14,6 +14,7 @@ from pyaccountingkit.ports.closing_runs import ClosingRunRepositoryProtocol
 from pyaccountingkit.ports.execution_traces import AccountingExecutionTraceRepositoryProtocol
 from pyaccountingkit.ports.idempotency import IdempotencyStoreProtocol
 from pyaccountingkit.ports.outbox import OutboxPublisherProtocol
+from pyaccountingkit.ports.subledgers import SubledgerRepositoryProtocol
 from pyaccountingkit.ports.repositories import (
     JournalEntryRepositoryProtocol,
     JournalRepositoryProtocol,
@@ -32,6 +33,7 @@ class UnitOfWorkProtocol(Protocol):
     outbox: OutboxPublisherProtocol
     execution_traces: AccountingExecutionTraceRepositoryProtocol
     closing_runs: ClosingRunRepositoryProtocol
+    subledgers: SubledgerRepositoryProtocol
     clock: ClockProtocol
 
     def __enter__(self) -> UnitOfWorkProtocol: ...

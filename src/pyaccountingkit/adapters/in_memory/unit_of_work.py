@@ -221,23 +221,26 @@ class InMemoryUnitOfWork:
                         f"Read dependency closing run {key} changed after UnitOfWork snapshot"
                     )
             elif kind == "entries_by_period":
-                if self._posted_entries_for_period(self._store, key) != self._posted_entries_for_period(
-                    baseline, key
-                ):
+                shared_entries = self._posted_entries_for_period(self._store, key)
+                baseline_entries = self._posted_entries_for_period(baseline, key)
+                if shared_entries != baseline_entries:
                     raise RevisionConflictError(
-                        f"Read dependency entries for Period {key} changed after UnitOfWork snapshot"
+                        f"Read dependency entries for Period {key} changed "
+                        "after UnitOfWork snapshot"
                     )
             elif kind == "entries_by_journal":
                 if self._posted_entries_for_journal(
                     self._store, key
                 ) != self._posted_entries_for_journal(baseline, key):
                     raise RevisionConflictError(
-                        f"Read dependency entries for Journal {key} changed after UnitOfWork snapshot"
+                        f"Read dependency entries for Journal {key} changed "
+                        "after UnitOfWork snapshot"
                     )
             elif kind == "reversals_of":
                 if self._reversals_of(self._store, key) != self._reversals_of(baseline, key):
                     raise RevisionConflictError(
-                        f"Read dependency reversals of Entry {key} changed after UnitOfWork snapshot"
+                        f"Read dependency reversals of Entry {key} changed "
+                        "after UnitOfWork snapshot"
                     )
             elif kind == "periods_all" and self._store.periods != baseline.periods:
                 raise RevisionConflictError(

@@ -6,71 +6,59 @@ Chaque plan historique correspond à un jalon de release sémantique clair et d�
 
 ---
 
-## 0. Priorité d'exécution actuelle — Audit Remediation Overlay
+## 0. État actuel — Audit Remediation Overlay clos
 
-La baseline courante reste :
+Baseline auditée :
 
-```text
-main
-commit audité : 259e9ad665941cd6a9545deb3b92f979d40eae35
-version : 0.7.0rc1
-```
+~~~text
+audit SHA   259e9ad665941cd6a9545deb3b92f979d40eae35
+audit       0.7.0rc1
+findings    F01..F27 + A01..A03
+~~~
 
-L'audit du 22 octobre 2026 identifie :
+État qualifié actuel :
 
-```text
-F01 → F27
-A01 → A03
-```
+~~~text
+candidate       0.7.0rc2
+qualified SHA   0364b966fb57df97f4e8a2166b52ec99eaae0f20
+REM-10 decision QUALIFIED_RC2
 
-La promotion stable est donc suspendue pendant la remédiation applicable.
+30 VERIFIED
+0 FIXED_UNVERIFIED
+0 OPEN
+~~~
 
-Ordre opérationnel de référence :
+L'overlay tactique `REM-00 → REM-10` est donc fermé au niveau **RC2 qualifié**.
 
-```text
-REM-00  Baseline / registre / tests correctifs
-    ↓
-REM-01  Qualification et workflows fiables
-    ↓
-REM-02  Identités / scope / read-side
-    ↓
-REM-03  Posting / repositories / idempotence
-    ↓
-REM-04  Immutabilité / preuves / traçabilité
-    ↓
-REM-06  Calculs / classification / checksums
-    ↓
-REM-05  Closing / opening atomiques
-    ↓
-REM-07  Références / publication sûres
-    ↓
-REM-08  Contrats publics / services applicatifs
-    ↓
-REM-09  Auxiliaires persistants si inclus dans le scope
-    ↓
-REM-10  Qualification transverse / décision de release
-```
+La prochaine priorité n'est plus une remédiation : elle consiste à évaluer puis fermer les contrôles
+**G5 de promotion stable** avant toute création de `v0.7.0` ou publication PyPI.
 
-Puis seulement :
+Ordre désormais autoritatif :
 
-```text
-new 0.7 RC if required
+~~~text
+audit 0.7.0rc1
     ↓
-0.7.0 stable
+REM-00 .. REM-09 implementation
+    ↓
+REM-10 transverse qualification
+    ↓
+0.7.0rc2 QUALIFIED
+    ↓
+G5 external controls
+    ↓
+release/0.7.0 exact-SHA qualification
+    ↓
+0.7.0 stable only if green
     ↓
 LOT-39 → LOT-46
-```
+~~~
 
-> [!IMPORTANT]
-> Les documents de pilotage `33` et `34` sont désormais présents dans le dépôt :
-> - [`33_PYACCOUNTINGKIT_NEXT_STEPS_IMPLEMENTATION_PLAN.md`](33_PYACCOUNTINGKIT_NEXT_STEPS_IMPLEMENTATION_PLAN.md)
-> - [`34_PYACCOUNTINGKIT_AUDIT_REMEDIATION_AND_ROADMAP_ALIGNMENT.md`](34_PYACCOUNTINGKIT_AUDIT_REMEDIATION_AND_ROADMAP_ALIGNMENT.md)
->
-> Les artifacts opérationnels de `REM-00` sont désormais canoniques :
-> - [`REMEDIATION_2026_10_PLAN.md`](REMEDIATION_2026_10_PLAN.md)
-> - [`../audits/REMEDIATION_2026_10_STATUS.json`](../audits/REMEDIATION_2026_10_STATUS.json)
+Artifacts canoniques :
 
----
+- [`REMEDIATION_2026_10_PLAN.md`](REMEDIATION_2026_10_PLAN.md)
+- [`LOT-35R_REM10_0_7_0RC2_TRANSVERSE_QUALIFICATION_PLAN.md`](LOT-35R_REM10_0_7_0RC2_TRANSVERSE_QUALIFICATION_PLAN.md)
+- [`../audits/REMEDIATION_2026_10_STATUS.json`](../audits/REMEDIATION_2026_10_STATUS.json)
+- [`../audits/2026-10-23_REM10_0_7_0RC2_QUALIFICATION.md`](../audits/2026-10-23_REM10_0_7_0RC2_QUALIFICATION.md)
 
 ## 1. Vue d'Ensemble des Plans d'Implémentation
 
@@ -109,133 +97,71 @@ Les nouveaux lots stratégiques ne disposent pas encore tous d'un fichier `PLAN-
 
 ## Lot actif / qualification
 
-### Priorité active : `REM-10`
+### Priorité active : promotion stable G5 après RC2 qualifié
 
-La priorité n'est plus la promotion directe de `LOT-27 / 0.7.0rc1`.
+Le candidat transverse `0.7.0rc2` est qualifié. L'overlay de remédiation est fermé :
 
-Candidate transverse actif : `0.7.0rc2` via `REM-10 / LOT-35R`.
-
-Le chantier courant est l'overlay de remédiation :
-
-| Ordre | Lot | Objet | Constats principaux |
+| Ordre | Lot | Objet | État |
 |---:|---|---|---|
-| 1 | `REM-00` | Baseline, registre et conventions correctives — **DONE** | Tous |
-| 2 | `REM-01` | Qualification et workflows fiables — **IMPLEMENTED / QUALIFYING** | `F25,F26,F27` |
-| 3 | `REM-02` | Identités, scope et read-side — **IMPLEMENTED / QUALIFYING** | `F01,F02,F03,F04,F13,F18` |
-| 4 | `REM-03` | Cycle de posting, repositories, idempotence — **IMPLEMENTED / QUALIFYING** | `F10,F11,F23,F24` |
-| 5 | `REM-04` | Immutabilité et traces durables — **IMPLEMENTED / QUALIFYING** | `F14,F20,A03` |
-| 6 | `REM-06` | Calculs, classification et empreintes — **IMPLEMENTED / QUALIFYING** | `F12,F15,F16,F21` |
-| 7 | `REM-05` | Clôture et à-nouveaux atomiques — **IMPLEMENTED / QUALIFYING** | `F05,F06,F07,F08,F09` |
-| 8 | `REM-07` | Références sûres et publication validée — **IMPLEMENTED / QUALIFYING** | `F19,F22` |
-| 9 | `REM-08` | Contrats publics et services applicatifs — **IMPLEMENTED / QUALIFYING** | `F17,A02` |
-| 10 | `REM-09` | Auxiliaires persistants — **IMPLEMENTED / QUALIFYING** | `A01` |
-| 11 | `REM-10` | Qualification transverse / décision de release — **ACTIVE** | Tous |
+| 1 | `REM-00` | Baseline, registre et conventions correctives | **DONE** |
+| 2 | `REM-01` | Qualification et workflows fiables | **VERIFIED** |
+| 3 | `REM-02` | Identités, scope et read-side | **VERIFIED** |
+| 4 | `REM-03` | Posting, repositories et idempotence | **VERIFIED** |
+| 5 | `REM-04` | Immutabilité et traces durables | **VERIFIED** |
+| 6 | `REM-06` | Calculs, classification et empreintes | **VERIFIED** |
+| 7 | `REM-05` | Clôture et à-nouveaux atomiques | **VERIFIED** |
+| 8 | `REM-07` | Références sûres et publication validée | **VERIFIED** |
+| 9 | `REM-08` | Contrats publics et services applicatifs | **VERIFIED** |
+| 10 | `REM-09` | Auxiliaires persistants | **VERIFIED** |
+| 11 | `REM-10` | Qualification transverse / décision de release | **DONE** |
 
-### Plans/release historiques toujours pertinents
-
-- [`LOT-27_REGULATORY_PRODUCTION_QUALIFICATION_PLAN.md`](LOT-27_REGULATORY_PRODUCTION_QUALIFICATION_PLAN.md)
-  — reste la référence du scope réglementaire `0.7`, mais sa qualification ne suffit plus à elle seule à autoriser la stable tant que les P1 applicables issus de l'audit ne sont pas fermés.
-- [`RELEASE_0.7.0_STABLE_PROMOTION_PLAN.md`](RELEASE_0.7.0_STABLE_PROMOTION_PLAN.md)
-  — reste le contrat G5 externe ; G5 est nécessaire mais non suffisant.
-- [`LOT-26_CFA_FRA_CONSUMER_CONVERSION_AND_LEGACY_RETIREMENT_PLAN.md`](LOT-26_CFA_FRA_CONSUMER_CONVERSION_AND_LEGACY_RETIREMENT_PLAN.md)
-  — le travail live CFA FRA reste différé ; aucune preuve technique ne doit être requalifiée artificiellement en preuve live.
-- [`LOT-25_CFA_FRA_GOLDEN_BASELINE_IMPLEMENTATION_PLAN.md`](LOT-25_CFA_FRA_GOLDEN_BASELINE_IMPLEMENTATION_PLAN.md)
-  — baseline/golden historique toujours utilisée comme non-régression.
-- [`RELEASE_0.5.0_STABLE_PROMOTION_PLAN.md`](RELEASE_0.5.0_STABLE_PROMOTION_PLAN.md)
-  — dernière ligne stable complète historique.
-
-### Tranche active
-
-```text
+~~~text
 REM-00  DONE
-REM-01  IMPLEMENTED / QUALIFYING
-REM-02  IMPLEMENTED / QUALIFYING
-REM-03  IMPLEMENTED / QUALIFYING
-REM-04  IMPLEMENTED / QUALIFYING
-REM-06  IMPLEMENTED / QUALIFYING
-REM-05  IMPLEMENTED / QUALIFYING
-  ├── LOT-30R F05/F06  IMPLEMENTED / QUALIFYING
-  └── LOT-31R F07/F08/F09 IMPLEMENTED / QUALIFYING
-REM-07  IMPLEMENTED / QUALIFYING
-  └── LOT-32R F19/F22 IMPLEMENTED / QUALIFYING
-REM-08  IMPLEMENTED / QUALIFYING
-  └── LOT-33R F17/A02 IMPLEMENTED / QUALIFYING
-REM-09  IMPLEMENTED / QUALIFYING
-  └── LOT-34R A01 IMPLEMENTED / QUALIFYING
-REM-10  ACTIVE
-```
+REM-01  VERIFIED
+REM-02  VERIFIED
+REM-03  VERIFIED
+REM-04  VERIFIED
+REM-06  VERIFIED
+REM-05  VERIFIED
+REM-07  VERIFIED
+REM-08  VERIFIED
+REM-09  VERIFIED
+REM-10  DONE
 
-Preuves d'implémentation REM-04 :
+0.7.0rc2  QUALIFIED
+~~~
 
-```text
-PR #83  F14/F20
-PR #84  A03
-```
+Preuve transverse exacte :
 
-Les findings REM-04 restent `FIXED_UNVERIFIED` jusqu'à preuve de qualification sur le SHA exact de `main` et requalification transverse REM-10.
+~~~text
+main SHA       0364b966fb57df97f4e8a2166b52ec99eaae0f20
+CI             39886182878 PASS
+Security       39886182869 PASS
+Canonical CI   PASS
+REM-10 RC gate PASS
+~~~
 
-Sorties implémentées de REM-06 :
+Le plan réglementaire `LOT-27` reste la référence du scope `0.7`. Le plan
+[`RELEASE_0.7.0_STABLE_PROMOTION_PLAN.md`](RELEASE_0.7.0_STABLE_PROMOTION_PLAN.md)
+devient le prochain contrat d'exécution. Une qualification RC2 réussie ne ferme pas automatiquement
+les contrôles externes G5 et ne vaut pas publication stable.
 
-```text
-F12 proposal-to-entry fidelity preserves EntryType
-F15 trial-balance checksum includes account identity and currency semantics
-F16 allocation preserves cents without premature rounding
-F21 sign conventions cannot be applied twice
-```
-
-Preuves d'implémentation REM-06 :
-
-```text
-PR #85  F12/F15
-PR #87  F16 (LOT-28R)
-PR #88  F21 (LOT-29R)
-```
-
-REM-06 est désormais `IMPLEMENTED / QUALIFYING`. Ses findings restent
-`FIXED_UNVERIFIED` jusqu'à preuve exact-main-SHA suffisante et requalification transverse
-`REM-10`.
-
-REM-05 est désormais lui aussi `IMPLEMENTED / QUALIFYING` :
-`LOT-30R` a fermé F05/F06 côté implémentation et `LOT-31R` a fermé F07/F08/F09.
-
-REM-07 est `IMPLEMENTED / QUALIFYING` via `LOT-32R` pour F19/F22.
-REM-08 est `IMPLEMENTED / QUALIFYING` via `LOT-33R` pour F17/A02.
-Le chantier actif passe à `REM-09`, avec A01 comme dernier constat ouvert.
-
+Le travail CFA FRA live précédemment différé n'est pas requalifié artificiellement par ce closeout.
 
 ## 2. Graphe d'Ordonnancement & Chemin Critique
 
 ### 2.1 Chemin critique actuel
 
 ```text
-0.7.0rc1
-    │
-    ▼
-REM-00
+audit 0.7.0rc1
     ↓
-REM-01
+REM-00 .. REM-10
     ↓
-REM-02
+0.7.0rc2 QUALIFIED
     ↓
-REM-03
+G5 external controls
     ↓
-REM-04
-    ↓
-REM-06
-    ↓
-REM-05
-    ↓
-REM-07
-    ↓
-REM-08
-    ↓
-REM-09 (selon scope)
-    ↓
-REM-10
-    ↓
-release decision
-    ↓
-new RC if required
+release/0.7.0 exact-SHA qualification
     ↓
 0.7.0 stable
     ↓
@@ -467,7 +393,9 @@ Artifacts REM-00 désormais canoniques :
 
 ```text
 REM-00 DONE
-REM-01 ACTIVE
+REM-01..REM-09 VERIFIED
+REM-10 DONE
+0.7.0rc2 QUALIFIED
 ```
 
 ### 4.1. Structure Générale & Spécifications

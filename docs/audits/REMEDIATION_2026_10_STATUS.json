@@ -371,13 +371,15 @@
       "candidate_version": "0.7.0rc2",
       "candidate_branch": "release/0.7.0rc2",
       "baseline_sha": "125ee19d92f0c926db108582ee2ae95cd1644299",
-      "qualification_status": "QUALIFYING",
-      "exact_candidate_sha": null,
-      "ci_run_id": null,
-      "security_run_id": null,
-      "verified_findings": 0,
-      "remaining_findings": 30,
-      "decision": "PENDING_EXACT_SHA_QUALIFICATION"
+      "qualification_status": "COMPLETE",
+      "exact_candidate_sha": "0364b966fb57df97f4e8a2166b52ec99eaae0f20",
+      "ci_run_id": 39886182878,
+      "security_run_id": 39886182869,
+      "verified_findings": 30,
+      "remaining_findings": 0,
+      "decision": "QUALIFIED_RC2",
+      "qualification_audit": "docs/audits/2026-10-23_REM10_0_7_0RC2_QUALIFICATION.md",
+      "stable_release_status": "NOT_IMPLIED"
     }
   },
   "lots": {
@@ -393,7 +395,7 @@
         "F26",
         "F27"
       ],
-      "status": "QUALIFYING"
+      "status": "VERIFIED"
     },
     "REM-02": {
       "title": "Identity / Scope / Read-Side",
@@ -405,7 +407,7 @@
         "F13",
         "F18"
       ],
-      "status": "QUALIFYING"
+      "status": "VERIFIED"
     },
     "REM-03": {
       "title": "Posting / Repositories / Idempotency",
@@ -415,7 +417,7 @@
         "F23",
         "F24"
       ],
-      "status": "QUALIFYING"
+      "status": "VERIFIED"
     },
     "REM-04": {
       "title": "Immutable Evidence / Durable Traceability",
@@ -424,7 +426,7 @@
         "F20",
         "A03"
       ],
-      "status": "QUALIFYING"
+      "status": "VERIFIED"
     },
     "REM-05": {
       "title": "Closing / Opening Atomicity",
@@ -435,7 +437,7 @@
         "F08",
         "F09"
       ],
-      "status": "IMPLEMENTED_QUALIFYING"
+      "status": "VERIFIED"
     },
     "REM-06": {
       "title": "Calculation / Checksums / Fidelity",
@@ -445,7 +447,7 @@
         "F16",
         "F21"
       ],
-      "status": "IMPLEMENTED_QUALIFYING"
+      "status": "VERIFIED"
     },
     "REM-07": {
       "title": "Safe References / Publication",
@@ -453,7 +455,7 @@
         "F19",
         "F22"
       ],
-      "status": "IMPLEMENTED_QUALIFYING"
+      "status": "VERIFIED"
     },
     "REM-08": {
       "title": "Public Contracts / Application Services",
@@ -461,19 +463,19 @@
         "F17",
         "A02"
       ],
-      "status": "IMPLEMENTED_QUALIFYING"
+      "status": "VERIFIED"
     },
     "REM-09": {
       "title": "Persistent Subledgers",
       "findings": [
         "A01"
       ],
-      "status": "IMPLEMENTED_QUALIFYING"
+      "status": "VERIFIED"
     },
     "REM-10": {
       "title": "Transverse Qualification / Release Decision",
       "findings": "ALL_APPLICABLE",
-      "status": "QUALIFYING"
+      "status": "DONE"
     }
   },
   "findings": [
@@ -485,7 +487,7 @@
       "primary_remediation_lot": "REM-02",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "08594852870d9cdce0f4b6ced7877daf3b0d6eb3",
@@ -497,7 +499,10 @@
         "PR #75 head 2ce2e038f580b0c059997d8ced0defcc24c1434f: Security run 39841052053 PASS",
         "PR #75 head 2ce2e038f580b0c059997d8ced0defcc24c1434f: Django/PostgreSQL qualification PASS",
         "PR #75 head 2ce2e038f580b0c059997d8ced0defcc24c1434f: SQLAlchemy/PostgreSQL qualification PASS",
-        "PR #75 head 2ce2e038f580b0c059997d8ced0defcc24c1434f: Canonical CI gate PASS"
+        "PR #75 head 2ce2e038f580b0c059997d8ced0defcc24c1434f: Canonical CI gate PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "posting",
@@ -506,7 +511,8 @@
       ],
       "notes": [
         "PostingOrchestrator resolves JournalLine.account_id via CompanyChartOfAccounts.get_by_id().",
-        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     },
     {
@@ -517,7 +523,7 @@
       "primary_remediation_lot": "REM-02",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "08594852870d9cdce0f4b6ced7877daf3b0d6eb3",
@@ -527,7 +533,10 @@
       "qualification_evidence": [
         "PR #75 head 2ce2e038f580b0c059997d8ced0defcc24c1434f: CI run 39841052244 PASS",
         "PR #75 head 2ce2e038f580b0c059997d8ced0defcc24c1434f: Security run 39841052053 PASS",
-        "PR #75 head 2ce2e038f580b0c059997d8ced0defcc24c1434f: Canonical CI gate PASS"
+        "PR #75 head 2ce2e038f580b0c059997d8ced0defcc24c1434f: Canonical CI gate PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "posting",
@@ -537,7 +546,8 @@
       "notes": [
         "ProposalPostingOrchestrator passes proposal.entity_id as expected_entity_id into PostingOrchestrator.",
         "Expected entity scope is checked before idempotency replay.",
-        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     },
     {
@@ -548,7 +558,7 @@
       "primary_remediation_lot": "REM-02",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "7d2f400b0cd6feac5dffc95161ec51b1eb23ced1",
@@ -563,7 +573,10 @@
         "PR #78 head 9cde1819f09264854512f342de05cb2ff1e0d935: Security run 39846479765 PASS",
         "PR #78 head 9cde1819f09264854512f342de05cb2ff1e0d935: Django/PostgreSQL qualification PASS",
         "PR #78 head 9cde1819f09264854512f342de05cb2ff1e0d935: SQLAlchemy/PostgreSQL qualification PASS",
-        "PR #78 head 9cde1819f09264854512f342de05cb2ff1e0d935: Canonical CI gate PASS"
+        "PR #78 head 9cde1819f09264854512f342de05cb2ff1e0d935: Canonical CI gate PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "imports",
@@ -573,7 +586,8 @@
       "notes": [
         "ImportExecutionService propagates ImportPlan.entity_id into canonical posting for all transaction modes.",
         "Real regression proves a foreign journal/period cannot receive the import mutation.",
-        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     },
     {
@@ -584,7 +598,7 @@
       "primary_remediation_lot": "REM-02",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "7d2f400b0cd6feac5dffc95161ec51b1eb23ced1",
@@ -596,7 +610,10 @@
       "qualification_evidence": [
         "PR #78 head 9cde1819f09264854512f342de05cb2ff1e0d935: CI run 39846479591 PASS",
         "PR #78 head 9cde1819f09264854512f342de05cb2ff1e0d935: Security run 39846479765 PASS",
-        "PR #78 head 9cde1819f09264854512f342de05cb2ff1e0d935: Canonical CI gate PASS"
+        "PR #78 head 9cde1819f09264854512f342de05cb2ff1e0d935: Canonical CI gate PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "ledger",
@@ -606,7 +623,8 @@
       "notes": [
         "TrialBalanceQuery validates period entity and every referenced journal entity before aggregation/drill-down.",
         "Foreign historical entries cannot be relabelled by the local chart.",
-        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     },
     {
@@ -617,7 +635,7 @@
       "primary_remediation_lot": "REM-05",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "502ded93fdd3913b1d1dac1f4def0f5ecd36e1aa",
@@ -635,7 +653,10 @@
         "PR #89 head 5383cfa4bf9368448c640a47df9cc0431ed12a66: Python 3.11/3.12/3.13 PASS",
         "PR #89 head 5383cfa4bf9368448c640a47df9cc0431ed12a66: Django/PostgreSQL qualification PASS",
         "PR #89 head 5383cfa4bf9368448c640a47df9cc0431ed12a66: SQLAlchemy/PostgreSQL qualification PASS",
-        "PR #89 head 5383cfa4bf9368448c640a47df9cc0431ed12a66: Canonical CI gate PASS"
+        "PR #89 head 5383cfa4bf9368448c640a47df9cc0431ed12a66: Canonical CI gate PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "closing",
@@ -645,7 +666,8 @@
         "LOT-30R implements the first REM-05 slice without colliding with historical product LOT-30.",
         "Required closing controls are fail-closed: missing, FAIL, ERROR, foreign-period and ambiguous duplicate evidence all block closing.",
         "Non-blocking failures remain non-blocking when every required control passes.",
-        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     },
     {
@@ -656,7 +678,7 @@
       "primary_remediation_lot": "REM-05",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "502ded93fdd3913b1d1dac1f4def0f5ecd36e1aa",
@@ -673,7 +695,10 @@
         "PR #89 head 5383cfa4bf9368448c640a47df9cc0431ed12a66: Python 3.11/3.12/3.13 PASS",
         "PR #89 head 5383cfa4bf9368448c640a47df9cc0431ed12a66: Django/PostgreSQL qualification PASS",
         "PR #89 head 5383cfa4bf9368448c640a47df9cc0431ed12a66: SQLAlchemy/PostgreSQL qualification PASS",
-        "PR #89 head 5383cfa4bf9368448c640a47df9cc0431ed12a66: Canonical CI gate PASS"
+        "PR #89 head 5383cfa4bf9368448c640a47df9cc0431ed12a66: Canonical CI gate PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "closing",
@@ -685,7 +710,8 @@
         "Supplied balance evidence must target the closing period, pin accounting_entity_id, match the period entity and use POST_CLOSING semantics.",
         "Supplied checksum must equal the freshly recomputed canonical POST_CLOSING checksum.",
         "A race after the fresh read and before commit is intentionally left to F09 / LOT-31R.",
-        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     },
     {
@@ -696,7 +722,7 @@
       "primary_remediation_lot": "REM-05",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "47e050e5697c5571be87de7fbfe2f223fcadbd91",
@@ -712,7 +738,10 @@
         "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: Python 3.11/3.12/3.13 PASS",
         "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: Django/PostgreSQL qualification PASS",
         "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: SQLAlchemy/PostgreSQL qualification PASS",
-        "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: Canonical CI gate PASS"
+        "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: Canonical CI gate PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "closing",
@@ -722,7 +751,8 @@
       "notes": [
         "Opening entries preserve stable AccountId and are built VALIDATED, then posted through PostingOrchestrator.post_in_uow inside the closing transaction.",
         "Canonical posting now enforces journal, period, entity, account, audit, outbox and idempotency rules for opening entries.",
-        "Squash merge changed the SHA; exact merge-SHA evidence remains required before VERIFIED."
+        "Squash merge changed the SHA; exact merge-SHA evidence remains required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     },
     {
@@ -733,7 +763,7 @@
       "primary_remediation_lot": "REM-05",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "47e050e5697c5571be87de7fbfe2f223fcadbd91",
@@ -748,7 +778,10 @@
         "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: Python 3.11/3.12/3.13 PASS",
         "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: Django/PostgreSQL qualification PASS",
         "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: SQLAlchemy/PostgreSQL qualification PASS",
-        "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: Canonical CI gate PASS"
+        "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: Canonical CI gate PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "closing",
@@ -759,7 +792,8 @@
         "Sealed ClosingRun persistence, period transition, optional opening posting, audit and outbox now share one UnitOfWork.",
         "ClosingRunRepository is implemented by InMemory, Django/PostgreSQL and SQLAlchemy/PostgreSQL with migration baseline 0005_closing_run.",
         "ClosingRunBook is post-commit cache only; durable proof is transactionally persisted.",
-        "Squash merge changed the SHA; exact merge-SHA evidence remains required before VERIFIED."
+        "Squash merge changed the SHA; exact merge-SHA evidence remains required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     },
     {
@@ -770,7 +804,7 @@
       "primary_remediation_lot": "REM-05",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "47e050e5697c5571be87de7fbfe2f223fcadbd91",
@@ -784,7 +818,10 @@
         "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: Python 3.11/3.12/3.13 PASS",
         "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: Django/PostgreSQL qualification PASS",
         "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: SQLAlchemy/PostgreSQL qualification PASS",
-        "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: Canonical CI gate PASS"
+        "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: Canonical CI gate PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "in_memory",
@@ -795,7 +832,8 @@
         "InMemory UnitOfWork tracks read dependencies, including posted-entry collections by period and journal.",
         "The final POST_CLOSING balance is rebuilt inside the same closing UnitOfWork.",
         "Concurrent posting after the balance read fails the close with RevisionConflictError.",
-        "Squash merge changed the SHA; exact merge-SHA evidence remains required before VERIFIED."
+        "Squash merge changed the SHA; exact merge-SHA evidence remains required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     },
     {
@@ -806,7 +844,7 @@
       "primary_remediation_lot": "REM-03",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "a4b99aff16007f997d17a8cead87b6f39ccf21a1",
@@ -823,7 +861,10 @@
         "PR #80 head 6afc40deff2519fe3d644a02014a14f398ddf85c: Security run 39848864365 PASS",
         "PR #80 head 6afc40deff2519fe3d644a02014a14f398ddf85c: Django/PostgreSQL qualification PASS",
         "PR #80 head 6afc40deff2519fe3d644a02014a14f398ddf85c: SQLAlchemy/PostgreSQL qualification PASS",
-        "PR #80 head 6afc40deff2519fe3d644a02014a14f398ddf85c: Canonical CI gate PASS"
+        "PR #80 head 6afc40deff2519fe3d644a02014a14f398ddf85c: Canonical CI gate PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "repositories",
@@ -834,7 +875,8 @@
         "JournalEntry defines the legal persistence successor contract for POSTED/REVERSED states.",
         "InMemory, Django and SQLAlchemy repositories enforce the same immutable posted economics rule before save().",
         "Legitimate POSTED -> REVERSED transition remains supported.",
-        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     },
     {
@@ -845,7 +887,7 @@
       "primary_remediation_lot": "REM-03",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "90ddc34469fdac2f5c562413fe9873879cd3f043",
@@ -861,7 +903,10 @@
         "PR #81 head 4d635643ee7f5cfb22673a5ffefbb2da74db184c: Security run 39854358330 PASS",
         "PR #81 head 4d635643ee7f5cfb22673a5ffefbb2da74db184c: Django/PostgreSQL qualification PASS",
         "PR #81 head 4d635643ee7f5cfb22673a5ffefbb2da74db184c: SQLAlchemy/PostgreSQL qualification PASS",
-        "PR #81 head 4d635643ee7f5cfb22673a5ffefbb2da74db184c: Canonical CI gate PASS"
+        "PR #81 head 4d635643ee7f5cfb22673a5ffefbb2da74db184c: Canonical CI gate PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "idempotency",
@@ -873,7 +918,8 @@
         "Same key plus same fingerprint replays; same key plus different fingerprint raises IdempotencyConflictError.",
         "Posting and reversal use canonical business-semantic fingerprints.",
         "Django and SQLAlchemy include migration 0003 for payload_fingerprint.",
-        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     },
     {
@@ -884,7 +930,7 @@
       "primary_remediation_lot": "REM-06",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "04f4012d61ad6825b9e5cfa741a4b11139d86381",
@@ -897,7 +943,10 @@
         "PR #85 head 94dad08cc217e24b6d42ab394ab21a81d0f0840e: Security run 39865030149 PASS",
         "PR #85 head 94dad08cc217e24b6d42ab394ab21a81d0f0840e: Django/PostgreSQL qualification PASS",
         "PR #85 head 94dad08cc217e24b6d42ab394ab21a81d0f0840e: SQLAlchemy/PostgreSQL qualification PASS",
-        "PR #85 head 94dad08cc217e24b6d42ab394ab21a81d0f0840e: Canonical CI gate PASS"
+        "PR #85 head 94dad08cc217e24b6d42ab394ab21a81d0f0840e: Canonical CI gate PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "proposals",
@@ -907,7 +956,8 @@
         "JournalEntryProposal carries typed journal_entry_type with NORMAL default for compatibility.",
         "ProposalPostingOrchestrator materializes proposal.journal_entry_type into JournalEntry.entry_type.",
         "Proposal checksum binds journal_entry_type so replay cannot conflate different ledger classifications.",
-        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     },
     {
@@ -918,7 +968,7 @@
       "primary_remediation_lot": "REM-02",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "772c27242b018b4d6e67f833537be7ae1c0cabf6",
@@ -931,7 +981,10 @@
         "PR #79 head 24ca388fe934278675f1e5d3143e479e59e0133b: Security run 39847083530 PASS",
         "PR #79 head 24ca388fe934278675f1e5d3143e479e59e0133b: Django/PostgreSQL qualification PASS",
         "PR #79 head 24ca388fe934278675f1e5d3143e479e59e0133b: SQLAlchemy/PostgreSQL qualification PASS",
-        "PR #79 head 24ca388fe934278675f1e5d3143e479e59e0133b: Canonical CI gate PASS"
+        "PR #79 head 24ca388fe934278675f1e5d3143e479e59e0133b: Canonical CI gate PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "ledger",
@@ -941,7 +994,8 @@
       "notes": [
         "GeneralLedgerQuery resolves business account_code through CompanyChartOfAccounts to stable AccountId.",
         "LedgerPosition now preserves AccountId and running balance uses the actual line currency rather than hard-coded EUR.",
-        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     },
     {
@@ -952,7 +1006,7 @@
       "primary_remediation_lot": "REM-04",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "b00f26e3f4ea8dd53ea0cb4d2f3764b2e6775f1f",
@@ -965,7 +1019,10 @@
         "PR #83 head 0c1e10a6bd79fde1c70549d9024973703aed2db8: Security run 39859840389 PASS",
         "PR #83 head 0c1e10a6bd79fde1c70549d9024973703aed2db8: Django/PostgreSQL qualification PASS",
         "PR #83 head 0c1e10a6bd79fde1c70549d9024973703aed2db8: SQLAlchemy/PostgreSQL qualification PASS",
-        "PR #83 head 0c1e10a6bd79fde1c70549d9024973703aed2db8: Canonical CI gate PASS"
+        "PR #83 head 0c1e10a6bd79fde1c70549d9024973703aed2db8: Canonical CI gate PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "audit",
@@ -976,7 +1033,8 @@
         "AuditEvent and OutboxRecord recursively detach and freeze payloads at construction.",
         "Nested mutable aliases can no longer rewrite durable evidence after emission.",
         "PostgreSQL adapters thaw immutable evidence only at the JSON persistence boundary.",
-        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     },
     {
@@ -987,7 +1045,7 @@
       "primary_remediation_lot": "REM-06",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "04f4012d61ad6825b9e5cfa741a4b11139d86381",
@@ -999,7 +1057,10 @@
       "qualification_evidence": [
         "PR #85 head 94dad08cc217e24b6d42ab394ab21a81d0f0840e: CI run 39865030323 PASS",
         "PR #85 head 94dad08cc217e24b6d42ab394ab21a81d0f0840e: Security run 39865030149 PASS",
-        "PR #85 head 94dad08cc217e24b6d42ab394ab21a81d0f0840e: Canonical CI gate PASS"
+        "PR #85 head 94dad08cc217e24b6d42ab394ab21a81d0f0840e: Canonical CI gate PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "ledger",
@@ -1009,7 +1070,8 @@
       "notes": [
         "TrialBalance checksum now binds period, snapshot, entity, account identity/code, debit/credit amount, currency code and exponent through CanonicalHasher.",
         "Opaque AccountId or currency semantic changes alter the checksum even with identical numeric totals.",
-        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     },
     {
@@ -1020,7 +1082,7 @@
       "primary_remediation_lot": "REM-06",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "36630a67a3fa0d9e900e6f40b79658ab4da2294d",
@@ -1039,7 +1101,10 @@
         "PR #87 head 93fe6be36f52b3a5c1ae95b4993d72ec30f94b10: Python 3.11/3.12/3.13 PASS",
         "PR #87 head 93fe6be36f52b3a5c1ae95b4993d72ec30f94b10: Django/PostgreSQL qualification PASS",
         "PR #87 head 93fe6be36f52b3a5c1ae95b4993d72ec30f94b10: SQLAlchemy/PostgreSQL qualification PASS",
-        "PR #87 head 93fe6be36f52b3a5c1ae95b4993d72ec30f94b10: Canonical CI gate PASS"
+        "PR #87 head 93fe6be36f52b3a5c1ae95b4993d72ec30f94b10: Canonical CI gate PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "reporting",
@@ -1052,7 +1117,8 @@
         "Allocation now keeps Decimal precision across the complete source allocation set and converts to Money only after deterministic minor-unit residual distribution.",
         "Largest-remainder ordering uses the stable mapping identifier as a tie-break, making allocation independent of input mapping order.",
         "Current and comparative financial/regulatory projections share the same conservative allocation policy.",
-        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     },
     {
@@ -1063,7 +1129,7 @@
       "primary_remediation_lot": "REM-08",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "24f34bb5502f9ac439c5af728fe7f71f77d9ee19",
@@ -1082,7 +1148,10 @@
         "PR #92 head bf9a2aeb215f5793cc2bba4f27b1b96fa0e4538b: Django/PostgreSQL qualification PASS",
         "PR #92 head bf9a2aeb215f5793cc2bba4f27b1b96fa0e4538b: SQLAlchemy/PostgreSQL qualification PASS",
         "PR #92 head bf9a2aeb215f5793cc2bba4f27b1b96fa0e4538b: Regulatory capability qualification PASS",
-        "PR #92 head bf9a2aeb215f5793cc2bba4f27b1b96fa0e4538b: Canonical CI gate PASS"
+        "PR #92 head bf9a2aeb215f5793cc2bba4f27b1b96fa0e4538b: Canonical CI gate PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "public_api",
@@ -1092,7 +1161,8 @@
       "notes": [
         "Public input and output graphs now reject Django/SQLAlchemy values through mappings, sequences, sets, dataclasses, __dict__ wrappers, __slots__ wrappers and framework classes.",
         "The neutrality scanner remains dependency-neutral and cycle-safe.",
-        "Squash merge changed the SHA; exact merge-SHA evidence remains required before VERIFIED."
+        "Squash merge changed the SHA; exact merge-SHA evidence remains required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     },
     {
@@ -1103,7 +1173,7 @@
       "primary_remediation_lot": "REM-02",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "772c27242b018b4d6e67f833537be7ae1c0cabf6",
@@ -1114,7 +1184,10 @@
       "qualification_evidence": [
         "PR #79 head 24ca388fe934278675f1e5d3143e479e59e0133b: CI run 39847083560 PASS",
         "PR #79 head 24ca388fe934278675f1e5d3143e479e59e0133b: Security run 39847083530 PASS",
-        "PR #79 head 24ca388fe934278675f1e5d3143e479e59e0133b: Canonical CI gate PASS"
+        "PR #79 head 24ca388fe934278675f1e5d3143e479e59e0133b: Canonical CI gate PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "charts",
@@ -1123,7 +1196,8 @@
       "notes": [
         "CompanyChartOfAccounts enforces uniqueness of both account code and opaque AccountId.",
         "Duplicate AccountId is rejected on construction and add().",
-        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     },
     {
@@ -1134,7 +1208,7 @@
       "primary_remediation_lot": "REM-07",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "4df191e70e85fdc634fdf7dfde8cf6fcfeb5681c",
@@ -1151,7 +1225,10 @@
         "PR #91 head 4fefcd9149c21c5265a69f7ce0e6c04d3de68f40: Django/PostgreSQL qualification PASS",
         "PR #91 head 4fefcd9149c21c5265a69f7ce0e6c04d3de68f40: SQLAlchemy/PostgreSQL qualification PASS",
         "PR #91 head 4fefcd9149c21c5265a69f7ce0e6c04d3de68f40: Regulatory capability qualification PASS",
-        "PR #91 head 4fefcd9149c21c5265a69f7ce0e6c04d3de68f40: Canonical CI gate PASS"
+        "PR #91 head 4fefcd9149c21c5265a69f7ce0e6c04d3de68f40: Canonical CI gate PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "references",
@@ -1160,7 +1237,8 @@
       "notes": [
         "ReferenceHierarchy now enforces aggregate-wide standard_id and edition coordinates.",
         "Dangling parents, self-cycles and multi-node cycles fail closed at aggregate construction.",
-        "Squash merge changed the SHA; exact merge-SHA evidence remains required before VERIFIED."
+        "Squash merge changed the SHA; exact merge-SHA evidence remains required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     },
     {
@@ -1171,7 +1249,7 @@
       "primary_remediation_lot": "REM-04",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "b00f26e3f4ea8dd53ea0cb4d2f3764b2e6775f1f",
@@ -1183,7 +1261,10 @@
       "qualification_evidence": [
         "PR #83 head 0c1e10a6bd79fde1c70549d9024973703aed2db8: CI run 39859840515 PASS",
         "PR #83 head 0c1e10a6bd79fde1c70549d9024973703aed2db8: Security run 39859840389 PASS",
-        "PR #83 head 0c1e10a6bd79fde1c70549d9024973703aed2db8: Canonical CI gate PASS"
+        "PR #83 head 0c1e10a6bd79fde1c70549d9024973703aed2db8: Canonical CI gate PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "regulatory",
@@ -1193,7 +1274,8 @@
       "notes": [
         "ReferenceNode attributes and provider-resolved regulatory mappings are recursively frozen at domain construction.",
         "ReferenceSnapshot and EffectivePlanSnapshot can no longer be silently altered through mutable aliases after sealing or replay.",
-        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     },
     {
@@ -1204,7 +1286,7 @@
       "primary_remediation_lot": "REM-06",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "9c2d729aea41b9638dd51b47062bf10d38838b7f",
@@ -1221,7 +1303,10 @@
         "PR #88 head 181008b3f4179a48caa3e63715c2bb831709b351: Django/PostgreSQL qualification PASS",
         "PR #88 head 181008b3f4179a48caa3e63715c2bb831709b351: SQLAlchemy/PostgreSQL qualification PASS",
         "PR #88 head 181008b3f4179a48caa3e63715c2bb831709b351: Regulatory capability qualification PASS",
-        "PR #88 head 181008b3f4179a48caa3e63715c2bb831709b351: Canonical CI gate PASS"
+        "PR #88 head 181008b3f4179a48caa3e63715c2bb831709b351: Canonical CI gate PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "reporting",
@@ -1233,7 +1318,8 @@
         "Non-natural statement sign conventions are now fail-closed outside DETAIL lines.",
         "FinancialStatementEngine applies presentation sign only to mapped DETAIL values; SUBTOTAL, TOTAL and FORMULA lines operate on already-presented values without a second sign transformation.",
         "Financial Analysis consumes ReportSnapshot amounts as presented and does not reapply statement sign conventions.",
-        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     },
     {
@@ -1244,7 +1330,7 @@
       "primary_remediation_lot": "REM-07",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "4df191e70e85fdc634fdf7dfde8cf6fcfeb5681c",
@@ -1260,7 +1346,10 @@
         "PR #91 head 4fefcd9149c21c5265a69f7ce0e6c04d3de68f40: Django/PostgreSQL qualification PASS",
         "PR #91 head 4fefcd9149c21c5265a69f7ce0e6c04d3de68f40: SQLAlchemy/PostgreSQL qualification PASS",
         "PR #91 head 4fefcd9149c21c5265a69f7ce0e6c04d3de68f40: Regulatory capability qualification PASS",
-        "PR #91 head 4fefcd9149c21c5265a69f7ce0e6c04d3de68f40: Canonical CI gate PASS"
+        "PR #91 head 4fefcd9149c21c5265a69f7ce0e6c04d3de68f40: Canonical CI gate PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "reporting",
@@ -1272,7 +1361,8 @@
         "Canonical lifecycle is DRAFT -> VALIDATED -> PUBLISHED -> SUPERSEDED.",
         "Snapshot validation requires exact result checksum and every emitted financial-statement control to be PASS.",
         "The release 0.3 pipeline now validates and publishes explicitly before regulatory reporting.",
-        "Squash merge changed the SHA; exact merge-SHA evidence remains required before VERIFIED."
+        "Squash merge changed the SHA; exact merge-SHA evidence remains required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     },
     {
@@ -1283,7 +1373,7 @@
       "primary_remediation_lot": "REM-03",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "90ddc34469fdac2f5c562413fe9873879cd3f043",
@@ -1303,7 +1393,10 @@
         "PR #81 head 4d635643ee7f5cfb22673a5ffefbb2da74db184c: Security run 39854358330 PASS",
         "PR #81 head 4d635643ee7f5cfb22673a5ffefbb2da74db184c: Django/PostgreSQL qualification PASS",
         "PR #81 head 4d635643ee7f5cfb22673a5ffefbb2da74db184c: SQLAlchemy/PostgreSQL qualification PASS",
-        "PR #81 head 4d635643ee7f5cfb22673a5ffefbb2da74db184c: Canonical CI gate PASS"
+        "PR #81 head 4d635643ee7f5cfb22673a5ffefbb2da74db184c: Canonical CI gate PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "periods",
@@ -1314,7 +1407,8 @@
         "AccountingPeriod enforces immutable identity/fiscal/date coordinates after persistence.",
         "PeriodRepository.save is fail-closed and transition-only across InMemory, Django and SQLAlchemy.",
         "Closing persists OPEN -> REVIEW -> CLOSING -> CLOSED as legal transitions inside one transaction.",
-        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     },
     {
@@ -1325,7 +1419,7 @@
       "primary_remediation_lot": "REM-03",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "a4b99aff16007f997d17a8cead87b6f39ccf21a1",
@@ -1337,7 +1431,10 @@
         "PR #80 head 6afc40deff2519fe3d644a02014a14f398ddf85c: Security run 39848864365 PASS",
         "PR #80 head 6afc40deff2519fe3d644a02014a14f398ddf85c: Django/PostgreSQL qualification PASS",
         "PR #80 head 6afc40deff2519fe3d644a02014a14f398ddf85c: SQLAlchemy/PostgreSQL qualification PASS",
-        "PR #80 head 6afc40deff2519fe3d644a02014a14f398ddf85c: Canonical CI gate PASS"
+        "PR #80 head 6afc40deff2519fe3d644a02014a14f398ddf85c: Canonical CI gate PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "posting",
@@ -1347,7 +1444,8 @@
       "notes": [
         "PostingOrchestrator reuses an already-persisted VALIDATED entry at its current revision.",
         "Mismatched persisted/request content is rejected rather than silently overwritten.",
-        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     },
     {
@@ -1358,7 +1456,7 @@
       "primary_remediation_lot": "REM-01",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "6dcf9b8d95f3fce9572acb1906e5eb05e7aa1a92",
@@ -1369,7 +1467,10 @@
       "qualification_evidence": [
         "PR #74 head b7492b214d1d51b7a51f7b5a57b1e043691b1f9b: CI run 39837967032 PASS including Quality and Canonical CI gate",
         "PR #74 head b7492b214d1d51b7a51f7b5a57b1e043691b1f9b: Security run 39837967115 PASS",
-        "Nightly workflow now uses scoped deterministic collection plus dedicated Django/PostgreSQL and SQLAlchemy/PostgreSQL jobs"
+        "Nightly workflow now uses scoped deterministic collection plus dedicated Django/PostgreSQL and SQLAlchemy/PostgreSQL jobs",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "ci",
@@ -1377,7 +1478,8 @@
         "tests"
       ],
       "notes": [
-        "Implementation merged; scheduled/manual Nightly execution on merge SHA still required before VERIFIED."
+        "Implementation merged; scheduled/manual Nightly execution on merge SHA still required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     },
     {
@@ -1388,7 +1490,7 @@
       "primary_remediation_lot": "REM-01",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "6dcf9b8d95f3fce9572acb1906e5eb05e7aa1a92",
@@ -1397,7 +1499,10 @@
       ],
       "qualification_evidence": [
         "PR #74 head b7492b214d1d51b7a51f7b5a57b1e043691b1f9b: CI run 39837967032 PASS",
-        "release.yml now sets GH_REPO for both gh release edit and gh release verify"
+        "release.yml now sets GH_REPO for both gh release edit and gh release verify",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "release",
@@ -1405,7 +1510,8 @@
         "ci"
       ],
       "notes": [
-        "Implementation merged; release workflow execution on exact candidate SHA still required before VERIFIED."
+        "Implementation merged; release workflow execution on exact candidate SHA still required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     },
     {
@@ -1416,7 +1522,7 @@
       "primary_remediation_lot": "REM-01",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "6dcf9b8d95f3fce9572acb1906e5eb05e7aa1a92",
@@ -1431,7 +1537,10 @@
         "PR #74 head b7492b214d1d51b7a51f7b5a57b1e043691b1f9b: Django/PostgreSQL qualification PASS in CI run 39837967032",
         "PR #74 head b7492b214d1d51b7a51f7b5a57b1e043691b1f9b: SQLAlchemy/PostgreSQL qualification PASS in CI run 39837967032",
         "PR #74 head b7492b214d1d51b7a51f7b5a57b1e043691b1f9b: Canonical CI gate PASS in CI run 39837967032",
-        "release qualifier now requires exact-SHA PostgreSQL evidence for 0.7.0rc1/0.7.0"
+        "release qualifier now requires exact-SHA PostgreSQL evidence for 0.7.0rc1/0.7.0",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "release",
@@ -1441,7 +1550,8 @@
         "ci"
       ],
       "notes": [
-        "Implementation merged; tag/release-candidate execution on merge/candidate SHA is still required before VERIFIED."
+        "Implementation merged; tag/release-candidate execution on merge/candidate SHA is still required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     },
     {
@@ -1452,7 +1562,7 @@
       "primary_remediation_lot": "REM-09",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "36b5f2fce76bb00ce8823b292ef438502eac1263",
@@ -1474,7 +1584,10 @@
         "PR #93 head fd228b1962f3eb99d8806277c1972154006293e3: SQLAlchemy/PostgreSQL qualification PASS",
         "PR #93 head fd228b1962f3eb99d8806277c1972154006293e3: Package qualification PASS",
         "PR #93 head fd228b1962f3eb99d8806277c1972154006293e3: Regulatory capability qualification PASS",
-        "PR #93 head fd228b1962f3eb99d8806277c1972154006293e3: Canonical CI gate PASS"
+        "PR #93 head fd228b1962f3eb99d8806277c1972154006293e3: Canonical CI gate PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "subledgers",
@@ -1487,7 +1600,8 @@
         "Recognition and settlement posting reuse PostingOrchestrator.post_in_uow so GL and subledger state commit atomically.",
         "Settlement reversal now reuses ReversalOrchestrator.reverse_in_uow and restores allocations/open amounts in the same transaction.",
         "Django and SQLAlchemy persist adapter-neutral subledger payloads in the logical pyak_subledger_record table.",
-        "Squash merge changed the SHA; exact merge-SHA evidence remains required before VERIFIED."
+        "Squash merge changed the SHA; exact merge-SHA evidence remains required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     },
     {
@@ -1498,7 +1612,7 @@
       "primary_remediation_lot": "REM-08",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "24f34bb5502f9ac439c5af728fe7f71f77d9ee19",
@@ -1517,7 +1631,10 @@
         "PR #92 head bf9a2aeb215f5793cc2bba4f27b1b96fa0e4538b: Django/PostgreSQL qualification PASS",
         "PR #92 head bf9a2aeb215f5793cc2bba4f27b1b96fa0e4538b: SQLAlchemy/PostgreSQL qualification PASS",
         "PR #92 head bf9a2aeb215f5793cc2bba4f27b1b96fa0e4538b: Regulatory capability qualification PASS",
-        "PR #92 head bf9a2aeb215f5793cc2bba4f27b1b96fa0e4538b: Canonical CI gate PASS"
+        "PR #92 head bf9a2aeb215f5793cc2bba4f27b1b96fa0e4538b: Canonical CI gate PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "public_api",
@@ -1528,7 +1645,8 @@
         "Every explicit public facade operation is now represented by one immutable PublicOperationContract.",
         "Public calls are normalized through immutable PublicOperationRequest before application-service execution.",
         "Infrastructure error translation is centralized: canonical accounting/public errors are preserved, Django/SQLAlchemy failures are normalized without raw DB detail, and unknown programming errors are not hidden.",
-        "Squash merge changed the SHA; exact merge-SHA evidence remains required before VERIFIED."
+        "Squash merge changed the SHA; exact merge-SHA evidence remains required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     },
     {
@@ -1539,7 +1657,7 @@
       "primary_remediation_lot": "REM-04",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "FIXED_UNVERIFIED",
+      "status": "VERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
       "fix_sha": "762bd6a91cccd9137dd07eb134f1dff4361b049c",
@@ -1555,7 +1673,10 @@
         "PR #84 head 25bf159ce68a1c5d117a9d0715f0999055d3d52e: Security run 39861787031 PASS",
         "PR #84 head 25bf159ce68a1c5d117a9d0715f0999055d3d52e: Django/PostgreSQL qualification PASS",
         "PR #84 head 25bf159ce68a1c5d117a9d0715f0999055d3d52e: SQLAlchemy/PostgreSQL qualification PASS",
-        "PR #84 head 25bf159ce68a1c5d117a9d0715f0999055d3d52e: Canonical CI gate PASS"
+        "PR #84 head 25bf159ce68a1c5d117a9d0715f0999055d3d52e: Canonical CI gate PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: CI run 39886182878 PASS, including REM-10 release-candidate qualification and Canonical CI gate",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Security run 39886182869 PASS",
+        "REM-10 exact-main-SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20: Python 3.11/3.12/3.13, Django/PostgreSQL 16, SQLAlchemy/PostgreSQL 16, package and regulatory qualification PASS"
       ],
       "affected_components": [
         "traceability",
@@ -1567,10 +1688,11 @@
         "ProposalPostingOrchestrator builds the trace before mutation and PostingOrchestrator appends it inside the same accounting UnitOfWork.",
         "The trace is included in semantic idempotency and validated on replay.",
         "InMemory, Django/PostgreSQL and SQLAlchemy/PostgreSQL prove commit/rollback atomicity.",
-        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED."
+        "Squash merge changed the SHA; exact merge-SHA CI evidence is still required before VERIFIED.",
+        "Verified by REM-10 transverse qualification on the exact main candidate SHA."
       ]
     }
   ],
   "last_updated_on": "2026-10-23",
-  "last_updated_from_sha": "125ee19d92f0c926db108582ee2ae95cd1644299"
+  "last_updated_from_sha": "0364b966fb57df97f4e8a2166b52ec99eaae0f20"
 }

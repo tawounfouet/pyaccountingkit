@@ -256,6 +256,7 @@ class ClosingOrchestrator:
         evidence = run.evidence
         if evidence is None:
             raise ClosingEvidenceError("sealed closing run has no evidence")
+        uow.closing_runs.append(run)
         payload = {
             "run_id": run.id,
             "period_id": run.period_id,

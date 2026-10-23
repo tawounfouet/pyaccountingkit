@@ -162,6 +162,27 @@ class AccountingExecutionTraceModel(models.Model):
         ordering = ("accounting_date", "trace_id")
 
 
+class ClosingRunModel(models.Model):
+    id = models.CharField(max_length=128, primary_key=True)
+    period = models.ForeignKey(
+        AccountingPeriodModel,
+        on_delete=models.PROTECT,
+        related_name="closing_runs",
+    )
+    phase = models.CharField(max_length=16)
+    evidence_digest = models.CharField(max_length=64, db_index=True)
+    trial_balance_checksum = models.CharField(max_length=64)
+    control_runs_hash = models.CharField(max_length=64)
+    total_debit = models.CharField(max_length=128)
+    total_credit = models.CharField(max_length=128)
+    sealed_at = models.DateTimeField(db_index=True)
+
+    class Meta:
+        app_label = "pyaccountingkit_django"
+        db_table = "pyak_closing_run"
+        ordering = ("sealed_at", "id")
+
+
 class AuditEventModel(models.Model):
     id = models.BigAutoField(primary_key=True)
     event_type = models.CharField(max_length=128, db_index=True)
@@ -203,6 +224,7 @@ __all__ = [
     "AccountingExecutionTraceModel",
     "AccountingPeriodModel",
     "AuditEventModel",
+    "ClosingRunModel",
     "IdempotencyRecordModel",
     "JournalEntryModel",
     "JournalLineModel",

@@ -4695,7 +4695,9 @@ REM-05  IMPLEMENTED / QUALIFYING
     LOT-31R F07/F08/F09 IMPLEMENTED / QUALIFYING
 REM-07  IMPLEMENTED / QUALIFYING
     LOT-32R F19/F22 IMPLEMENTED / QUALIFYING
-REM-08  ACTIVE
+REM-08  IMPLEMENTED / QUALIFYING
+    LOT-33R F17/A02 IMPLEMENTED / QUALIFYING
+REM-09  ACTIVE
 ```
 
 REM-04 implementation evidence :
@@ -4708,11 +4710,11 @@ PR #84  A03
 The immediate execution is now :
 
 ```text
-REM-08
-Public Contracts / Application Services
-    ↓
 REM-09
 Persistent Subledger Runtime
+    ↓
+REM-10
+Transverse Qualification / Release Decision
 ```
 
 REM-01 through REM-04 are not declared VERIFIED yet. Their findings remain `FIXED_UNVERIFIED` until exact-main-SHA and REM-10 transverse qualification evidence is recorded.
@@ -4872,11 +4874,11 @@ EVOLVE IT
 Le prochain travail concret est donc :
 
 ```text
-REM-08
-Public Contracts / Application Services
-    ↓
 REM-09
 Persistent Subledger Runtime
+    ↓
+REM-10
+Transverse Qualification / Release Decision
 ```
 
 REM-01 à REM-04 sont implémentés mais restent en qualification ; aucune fermeture `VERIFIED` n'est revendiquée sans preuve exact-SHA et REM-10.

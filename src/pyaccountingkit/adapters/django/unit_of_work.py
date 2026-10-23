@@ -10,6 +10,7 @@ from django.db import transaction
 from pyaccountingkit.adapters.django.repositories import (
     DjangoAccountingExecutionTraceRepository,
     DjangoAuditLogSink,
+    DjangoClosingRunRepository,
     DjangoIdempotencyStore,
     DjangoJournalEntryRepository,
     DjangoJournalRepository,
@@ -37,6 +38,7 @@ class DjangoUnitOfWork:
         self.idempotency = DjangoIdempotencyStore(using=using)
         self.outbox = DjangoOutboxPublisher(using=using)
         self.execution_traces = DjangoAccountingExecutionTraceRepository(using=using)
+        self.closing_runs = DjangoClosingRunRepository(using=using)
         self._atomic: Any = None
         self._entered = False
         self._committed = False

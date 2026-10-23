@@ -192,10 +192,10 @@ class InMemoryUnitOfWork:
         for kind, key in self._read_dependencies:
             if kind == "entry":
                 entry_id = key
-                if (
-                    self._store.entries.get(entry_id) != baseline.entries.get(entry_id)
-                    or self._store.entry_revisions.get(entry_id)
-                    != baseline.entry_revisions.get(entry_id)
+                if self._store.entries.get(entry_id) != baseline.entries.get(
+                    entry_id
+                ) or self._store.entry_revisions.get(entry_id) != baseline.entry_revisions.get(
+                    entry_id
                 ):
                     raise RevisionConflictError(
                         f"Read dependency Entry {entry_id} changed after UnitOfWork snapshot"
@@ -259,8 +259,7 @@ class InMemoryUnitOfWork:
                 store.entry_revisions.get(entry_id),
             )
             for entry_id, entry in store.entries.items()
-            if entry.period_id == period_id
-            and entry.status.value in {"POSTED", "REVERSED"}
+            if entry.period_id == period_id and entry.status.value in {"POSTED", "REVERSED"}
         ]
         return tuple(sorted(rows, key=lambda row: str(row[0])))
 
@@ -276,8 +275,7 @@ class InMemoryUnitOfWork:
                 store.entry_revisions.get(entry_id),
             )
             for entry_id, entry in store.entries.items()
-            if entry.journal_id == journal_id
-            and entry.status.value in {"POSTED", "REVERSED"}
+            if entry.journal_id == journal_id and entry.status.value in {"POSTED", "REVERSED"}
         ]
         return tuple(sorted(rows, key=lambda row: str(row[0])))
 

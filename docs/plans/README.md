@@ -153,34 +153,15 @@ Le travail CFA FRA live précédemment différé n'est pas requalifié artificie
 ### 2.1 Chemin critique actuel
 
 ```text
-0.7.0rc1
-    │
-    ▼
-REM-00
+audit 0.7.0rc1
     ↓
-REM-01
+REM-00 .. REM-10
     ↓
-REM-02
+0.7.0rc2 QUALIFIED
     ↓
-REM-03
+G5 external controls
     ↓
-REM-04
-    ↓
-REM-06
-    ↓
-REM-05
-    ↓
-REM-07
-    ↓
-REM-08
-    ↓
-REM-09 (selon scope)
-    ↓
-REM-10
-    ↓
-release decision
-    ↓
-new RC if required
+release/0.7.0 exact-SHA qualification
     ↓
 0.7.0 stable
     ↓
@@ -412,7 +393,9 @@ Artifacts REM-00 désormais canoniques :
 
 ```text
 REM-00 DONE
-REM-01 ACTIVE
+REM-01..REM-09 VERIFIED
+REM-10 DONE
+0.7.0rc2 QUALIFIED
 ```
 
 ### 4.1. Structure Générale & Spécifications

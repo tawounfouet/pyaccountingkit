@@ -91,9 +91,9 @@ def entity_id(value: SubledgerRecord) -> EntityId:
 
 
 def subledger_id(value: SubledgerRecord) -> str:
-    if isinstance(value, SubledgerParty):
-        return ""
-    return value.subledger_id if hasattr(value, "subledger_id") else ""
+    if isinstance(value, (Receivable, Payable, Settlement, AccountingMatch)):
+        return value.subledger_id
+    return ""
 
 
 def encode_record(value: SubledgerRecord) -> dict[str, Any]:

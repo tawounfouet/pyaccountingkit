@@ -105,9 +105,7 @@ def translate_public_exception(exc: Exception) -> Exception | None:
 
     exception_type = type(exc)
     roots = {
-        cls.__module__.split(".", maxsplit=1)[0]
-        for cls in exception_type.__mro__
-        if cls.__module__
+        cls.__module__.split(".", maxsplit=1)[0] for cls in exception_type.__mro__ if cls.__module__
     }
     framework = next(
         (name for name in ("django", "sqlalchemy") if name in roots),

@@ -109,7 +109,7 @@ Les nouveaux lots stratégiques ne disposent pas encore tous d'un fichier `PLAN-
 
 ## Lot actif / qualification
 
-### Priorité active : `REM-09 → REM-10`
+### Priorité active : `REM-10`
 
 La priorité n'est plus la promotion directe de `LOT-27 / 0.7.0rc1`.
 
@@ -126,8 +126,8 @@ Le chantier courant est l'overlay de remédiation :
 | 7 | `REM-05` | Clôture et à-nouveaux atomiques — **IMPLEMENTED / QUALIFYING** | `F05,F06,F07,F08,F09` |
 | 8 | `REM-07` | Références sûres et publication validée — **IMPLEMENTED / QUALIFYING** | `F19,F22` |
 | 9 | `REM-08` | Contrats publics et services applicatifs — **IMPLEMENTED / QUALIFYING** | `F17,A02` |
-| 10 | `REM-09` | Auxiliaires persistants — **ACTIVE** | `A01` |
-| 11 | `REM-10` | Qualification transverse / décision de release | Tous |
+| 10 | `REM-09` | Auxiliaires persistants — **IMPLEMENTED / QUALIFYING** | `A01` |
+| 11 | `REM-10` | Qualification transverse / décision de release — **ACTIVE** | Tous |
 
 ### Plans/release historiques toujours pertinents
 
@@ -158,7 +158,9 @@ REM-07  IMPLEMENTED / QUALIFYING
   └── LOT-32R F19/F22 IMPLEMENTED / QUALIFYING
 REM-08  IMPLEMENTED / QUALIFYING
   └── LOT-33R F17/A02 IMPLEMENTED / QUALIFYING
-REM-09  ACTIVE
+REM-09  IMPLEMENTED / QUALIFYING
+  └── LOT-34R A01 IMPLEMENTED / QUALIFYING
+REM-10  ACTIVE
 ```
 
 Preuves d'implémentation REM-04 :

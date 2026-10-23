@@ -79,11 +79,13 @@ def ensure_framework_neutral(value: object, *, _seen: set[int] | None = None) ->
         ensure_framework_neutral(item, _seen=seen)
 
     for value_type in type(value).__mro__:
-        slots = value_type.__dict__.get("__slots__", ())
-        if isinstance(slots, str):
-            slot_names = (slots,)
+        raw_slots = value_type.__dict__.get("__slots__", ())
+        if isinstance(raw_slots, str):
+            slot_names = (raw_slots,)
+        elif isinstance(raw_slots, tuple):
+            slot_names = tuple(slot for slot in raw_slots if isinstance(slot, str))
         else:
-            slot_names = slots
+            continue
         for slot_name in slot_names:
             if slot_name in {"__dict__", "__weakref__"}:
                 continue

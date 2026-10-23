@@ -82,6 +82,7 @@
     "REPORTING_INVALID_SOURCE": "StatementSourceError",
     "REPORTING_MAPPING_ERROR": "StatementMappingError",
     "REPORTING_MAPPING_NOT_EXECUTABLE": "NonExecutableStatementMappingError",
+    "REPORTING_SNAPSHOT_TRANSITION_INVALID": "ReportSnapshotTransitionError",
     "SETTLEMENT_ALREADY_REVERSED": "SettlementAlreadyReversedError",
     "SETTLEMENT_INVALID": "InvalidSettlementError",
     "SETTLEMENT_NOT_ACCOUNTING_EFFECTIVE": "SettlementNotAccountingEffectiveError",

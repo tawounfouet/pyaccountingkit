@@ -13,10 +13,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "docs" / "audits" / "REMEDIATION_2026_10_STATUS.json"
 ALLOWED_FINDING_STATUSES = frozenset({"FIXED_UNVERIFIED", "VERIFIED"})
-EXPECTED_FINDINGS = frozenset(
-    {f"F{index:02d}" for index in range(1, 28)}
-    | {"A01", "A02", "A03"}
-)
+EXPECTED_FINDINGS = frozenset({f"F{index:02d}" for index in range(1, 28)} | {"A01", "A02", "A03"})
 SHA_PATTERN = re.compile(r"^[0-9a-f]{40}$")
 
 
@@ -27,9 +24,7 @@ def _project_version(root: Path) -> str:
 
 def _load_registry(root: Path) -> dict[str, Any]:
     payload = json.loads(
-        (root / "docs" / "audits" / "REMEDIATION_2026_10_STATUS.json").read_text(
-            encoding="utf-8"
-        )
+        (root / "docs" / "audits" / "REMEDIATION_2026_10_STATUS.json").read_text(encoding="utf-8")
     )
     if not isinstance(payload, dict):
         raise ValueError("remediation registry must be a JSON object")

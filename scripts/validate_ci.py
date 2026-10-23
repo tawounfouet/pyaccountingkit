@@ -68,6 +68,13 @@ def validate_ci_text(text: str) -> list[str]:
             'PYAK_SQLALCHEMY_POSTGRES_TEST: "1"',
             "tests/integration/test_sqlalchemy_postgresql_adapter.py",
             "tests/concurrency/test_sqlalchemy_postgresql_concurrency.py",
+            "qualified_sha: ${{ steps.qualification-evidence.outputs.qualified_sha }}",
+            "PYAK_RELEASE_DJANGO_POSTGRESQL_SHA: ${{ needs.postgresql.outputs.qualified_sha }}",
+            (
+                "PYAK_RELEASE_SQLALCHEMY_POSTGRESQL_SHA: "
+                "${{ needs.sqlalchemy-postgresql.outputs.qualified_sha }}"
+            ),
+            "github.ref == 'refs/heads/main'",
             "python scripts/check_sqlalchemy_metadata.py",
             "python scripts/generate_regulatory_compatibility_matrix.py --check",
             "python scripts/generate_snapshot_schema_manifest.py --check",

@@ -6,6 +6,8 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from types import MappingProxyType
 
+from pyaccountingkit.core.errors import AccountingError
+
 
 @dataclass(frozen=True, slots=True)
 class PublicErrorInfo:
@@ -80,6 +82,45 @@ class PublicValidationError(PublicAccountingError):
     code = "PUBLIC_VALIDATION_ERROR"
 
 
+class PublicInfrastructureError(PublicAccountingError):
+    """A framework-specific infrastructure exception was normalized at the boundary."""
+
+    code = "PUBLIC_INFRASTRUCTURE_FAILURE"
+
+    def __init__(self, *, framework: str, exception_type: str) -> None:
+        super().__init__(
+            "infrastructure failure behind the public API boundary",
+            context={
+                "framework": framework,
+                "exception_type": exception_type,
+            },
+        )
+
+
+def translate_public_exception(exc: Exception) -> Exception | None:
+    """Translate only known public/internal boundaries; never hide unknown failures."""
+
+    if isinstance(exc, (PyAccountingKitError, AccountingError)):
+        return exc
+
+    exception_type = type(exc)
+    roots = {
+        cls.__module__.split(".", maxsplit=1)[0]
+        for cls in exception_type.__mro__
+        if cls.__module__
+    }
+    framework = next(
+        (name for name in ("django", "sqlalchemy") if name in roots),
+        None,
+    )
+    if framework is None:
+        return None
+    return PublicInfrastructureError(
+        framework=framework,
+        exception_type=f"{exception_type.__module__}.{exception_type.__qualname__}",
+    )
+
+
 class AdapterContractMismatchError(PublicAccountingError):
     """An adapter does not declare support for the active extension contract."""
 
@@ -120,7 +161,9 @@ __all__ = [
     "PublicAccountingError",
     "PublicBoundaryViolationError",
     "PublicErrorInfo",
+    "PublicInfrastructureError",
     "PublicOperationUnavailableError",
     "PublicValidationError",
     "PyAccountingKitError",
+    "translate_public_exception",
 ]

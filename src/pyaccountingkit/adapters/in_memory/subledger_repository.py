@@ -180,8 +180,7 @@ class InMemorySubledgerRepository:
         values = tuple(
             value
             for value in self._store.subledger_records.values()
-            if isinstance(value, SettlementAllocation)
-            and value.settlement_id == settlement_id
+            if isinstance(value, SettlementAllocation) and value.settlement_id == settlement_id
         )
         return tuple(sorted(values, key=lambda value: value.allocation_id))
 

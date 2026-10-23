@@ -20,6 +20,7 @@ from pyaccountingkit.adapters.in_memory.repositories import (
     InMemoryPeriodRepository,
 )
 from pyaccountingkit.adapters.in_memory.store import InMemoryStore
+from pyaccountingkit.adapters.in_memory.subledger_repository import InMemorySubledgerRepository
 from pyaccountingkit.core.clock import ClockProtocol, SystemClock
 from pyaccountingkit.core.errors import IdempotencyConflictError, RevisionConflictError
 from pyaccountingkit.domain.audit.events import AuditEvent
@@ -93,6 +94,7 @@ class InMemoryUnitOfWork:
         self.outbox = InMemoryOutboxPublisher(store)
         self.execution_traces = InMemoryAccountingExecutionTraceRepository(store, self._track_read)
         self.closing_runs = InMemoryClosingRunRepository(store, self._track_read)
+        self.subledgers = InMemorySubledgerRepository(store, self._track_read)
 
     def _track_read(self, kind: str, key: Any) -> None:
         self._read_dependencies.add((kind, key))
@@ -182,6 +184,12 @@ class InMemoryUnitOfWork:
             self._working.closing_runs,
             self._store.closing_runs,
         )
+        self._validate_mapping_changes(
+            "Subledger record",
+            baseline.subledger_records,
+            self._working.subledger_records,
+            self._store.subledger_records,
+        )
 
         if self._working.audit_log[: len(baseline.audit_log)] != baseline.audit_log:
             raise RevisionConflictError("audit log prefix changed inside UnitOfWork")
@@ -219,6 +227,11 @@ class InMemoryUnitOfWork:
                 if self._store.closing_runs.get(key) != baseline.closing_runs.get(key):
                     raise RevisionConflictError(
                         f"Read dependency closing run {key} changed after UnitOfWork snapshot"
+                    )
+            elif kind == "subledger_record":
+                if self._store.subledger_records.get(key) != baseline.subledger_records.get(key):
+                    raise RevisionConflictError(
+                        f"Read dependency subledger record {key} changed after UnitOfWork snapshot"
                     )
             elif kind == "entries_by_period":
                 shared_entries = self._posted_entries_for_period(self._store, key)
@@ -334,6 +347,11 @@ class InMemoryUnitOfWork:
             baseline.closing_runs,
             self._working.closing_runs,
             self._store.closing_runs,
+        )
+        self._merge_mapping(
+            baseline.subledger_records,
+            self._working.subledger_records,
+            self._store.subledger_records,
         )
         self._store.audit_log.extend(self._working.audit_log[len(baseline.audit_log) :])
         self._store.outbox.extend(self._working.outbox[len(baseline.outbox) :])

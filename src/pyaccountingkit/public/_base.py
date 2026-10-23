@@ -5,6 +5,7 @@ from __future__ import annotations
 from collections.abc import Callable, Iterator, Mapping, Sequence, Set
 from dataclasses import fields, is_dataclass
 from enum import Enum
+from types import ModuleType
 from typing import cast
 
 from pyaccountingkit.public.context import CommandContext
@@ -22,6 +23,16 @@ _FORBIDDEN_FRAMEWORK_PREFIXES = ("django", "sqlalchemy")
 
 
 def _has_forbidden_framework_ancestry(value: object) -> bool:
+    declared_module = getattr(value, "__module__", None)
+    if isinstance(declared_module, str):
+        root = declared_module.split(".", maxsplit=1)[0]
+        if root in _FORBIDDEN_FRAMEWORK_PREFIXES:
+            return True
+
+    if isinstance(value, ModuleType):
+        root = value.__name__.split(".", maxsplit=1)[0]
+        return root in _FORBIDDEN_FRAMEWORK_PREFIXES
+
     if isinstance(value, type):
         return any(
             cls.__module__.split(".", maxsplit=1)[0] in _FORBIDDEN_FRAMEWORK_PREFIXES
@@ -40,8 +51,14 @@ def ensure_framework_neutral(value: object, *, _seen: set[int] | None = None) ->
     if value is None or isinstance(value, (str, bytes, int, float, bool, Enum)):
         return
     if _has_forbidden_framework_ancestry(value):
-        qualified = f"{type(value).__module__}.{type(value).__qualname__}"
+        qualified = (
+            f"{value.__module__}.{value.__qualname__}"
+            if isinstance(value, type)
+            else f"{type(value).__module__}.{type(value).__qualname__}"
+        )
         raise PublicBoundaryViolationError(qualified)
+    if isinstance(value, (type, ModuleType)) or callable(value):
+        return
 
     seen = _seen if _seen is not None else set()
     identity = id(value)

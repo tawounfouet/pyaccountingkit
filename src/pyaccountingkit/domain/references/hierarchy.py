@@ -50,7 +50,9 @@ class ReferenceHierarchy:
             if node.node_id in self._nodes:
                 raise ValueError(f"Node duplicate {node.node_id}")
             self._nodes[node.node_id] = node
+        self._validate_coordinates()
         self._validate_no_orphans()
+        self._validate_acyclic()
 
     @property
     def standard_id(self) -> str:
@@ -104,6 +106,37 @@ class ReferenceHierarchy:
             if ancestor.node_type is ReferenceNodeType.CLASS:
                 return ancestor
         raise ValueError(f"No CLASS node found for {node_id}")
+
+    def _validate_coordinates(self) -> None:
+        invalid = [
+            node.node_id
+            for node in self._nodes.values()
+            if node.standard_id != self._standard_id or node.edition != self._edition
+        ]
+        if invalid:
+            raise ValueError(
+                "Reference hierarchy contains nodes outside "
+                f"{self._standard_id}:{self._edition}: {sorted(invalid)}"
+            )
+
+    def _validate_acyclic(self) -> None:
+        visited: set[RegulatoryId] = set()
+        visiting: set[RegulatoryId] = set()
+
+        def visit(node_id: RegulatoryId) -> None:
+            if node_id in visited:
+                return
+            if node_id in visiting:
+                raise ValueError(f"Reference hierarchy cycle detected at {node_id}")
+            visiting.add(node_id)
+            parent_id = self._nodes[node_id].parent_node_id
+            if parent_id is not None:
+                visit(parent_id)
+            visiting.remove(node_id)
+            visited.add(node_id)
+
+        for node_id in self._nodes:
+            visit(node_id)
 
     def _validate_no_orphans(self) -> None:
         orphans = [

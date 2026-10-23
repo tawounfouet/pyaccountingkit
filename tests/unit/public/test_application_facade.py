@@ -18,7 +18,6 @@ from pyaccountingkit.domain.reporting.balance_line import AccountBalanceLine
 from pyaccountingkit.domain.reporting.engine import FinancialStatementResult
 from pyaccountingkit.domain.reporting.statement_definition import FinancialStatementType
 from pyaccountingkit.domain.reporting.trial_balance import TrialBalance, TrialBalanceSnapshot
-from pyaccountingkit.public._base import PublicNamespace
 from pyaccountingkit.public.analysis import FinancialAnalysisAPI
 from pyaccountingkit.public.charts import ChartsAPI
 from pyaccountingkit.public.closing import ClosingAPI
@@ -30,6 +29,12 @@ from pyaccountingkit.public.contracts import (
 from pyaccountingkit.public.controls import ControlsAPI
 from pyaccountingkit.public.dto import FinancialStatementDTO, JournalEntryDTO, TrialBalanceDTO
 from pyaccountingkit.public.entries import EntriesAPI
+from pyaccountingkit.public.errors import (
+    PublicBoundaryViolationError,
+    PublicInfrastructureError,
+    PublicOperationUnavailableError,
+    PublicValidationError,
+)
 from pyaccountingkit.public.imports import ImportsAPI
 from pyaccountingkit.public.ledger import LedgerAPI
 from pyaccountingkit.public.references import ReferencesAPI
@@ -42,12 +47,6 @@ from pyaccountingkit.public.subledgers import (
     ReceivablesAPI,
     SettlementsAPI,
     SubledgersAPI,
-)
-from pyaccountingkit.public.errors import (
-    PublicBoundaryViolationError,
-    PublicInfrastructureError,
-    PublicOperationUnavailableError,
-    PublicValidationError,
 )
 from pyaccountingkit.public.pagination import Cursor, Page
 

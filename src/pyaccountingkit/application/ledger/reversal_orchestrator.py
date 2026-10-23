@@ -116,9 +116,7 @@ class ReversalOrchestrator:
                 f"Écriture {entry_id} déjà contrepassée ({original.reversed_by_id})"
             )
         if original.status is not EntryStatus.POSTED:
-            raise EntryNotPostedError(
-                f"Écriture {entry_id} non postée ({original.status.value})"
-            )
+            raise EntryNotPostedError(f"Écriture {entry_id} non postée ({original.status.value})")
 
         reversal_id = self._reversal_id_factory()
         marked, reversal = create_reversal(

@@ -55,7 +55,7 @@
       "evidence_must_match_candidate_sha": true,
       "documentation_only_change_cannot_close_finding": true
     },
-    "current_phase": "REM-05",
+    "current_phase": "REM-07",
     "rem00_completed_on": "2026-10-22",
     "rem00_completion_evidence": {
       "remediation_plan_commit_sha": "fd0e2731582d7bb8eb0b7aecae41d2417aa40be5",
@@ -287,11 +287,26 @@
         ],
         "status": "FIXED_UNVERIFIED"
       },
-      "implementation_status": "IN_PROGRESS",
-      "remaining_findings": [
-        "F07",
-        "F08",
-        "F09"
+      "implementation_status": "COMPLETE",
+      "remaining_findings": [],
+      "second_slice": {
+        "implementation_lot": "LOT-31R",
+        "implementation_pr": 90,
+        "pr_head_sha": "92b3d13a13cc04b9e14378dfc2c06d680ff79667",
+        "merge_sha": "47e050e5697c5571be87de7fbfe2f223fcadbd91",
+        "pr_ci_run_id": 39877315721,
+        "pr_security_run_id": 39877315706,
+        "pr_ci_status": "PASS",
+        "findings": [
+          "F07",
+          "F08",
+          "F09"
+        ],
+        "status": "FIXED_UNVERIFIED"
+      },
+      "remaining_evidence": [
+        "Exact-main-SHA CI evidence for the combined REM-05 implementation before VERIFIED",
+        "REM-10 transverse requalification"
       ]
     }
   },
@@ -350,7 +365,7 @@
         "F08",
         "F09"
       ],
-      "status": "ACTIVE"
+      "status": "IMPLEMENTED_QUALIFYING"
     },
     "REM-06": {
       "title": "Calculation / Checksums / Fidelity",
@@ -368,7 +383,7 @@
         "F19",
         "F22"
       ],
-      "status": "PLANNED"
+      "status": "ACTIVE"
     },
     "REM-08": {
       "title": "Public Contracts / Application Services",
@@ -611,18 +626,34 @@
       "primary_remediation_lot": "REM-05",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "OPEN",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "47e050e5697c5571be87de7fbfe2f223fcadbd91",
+      "corrective_tests": [
+        "tests/unit/domain/test_opening.py::test_opening_entry_is_balanced_and_validated_for_canonical_posting",
+        "tests/unit/domain/test_opening.py::test_opening_balances_require_stable_account_identity",
+        "tests/unit/application/test_closing_orchestrator.py::test_opening_target_scope_failure_rolls_back_entire_close",
+        "tests/unit/application/test_closing_orchestrator.py::test_close_generates_traceable_opening_balances"
+      ],
+      "qualification_evidence": [
+        "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: CI run 39877315721 PASS",
+        "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: Security run 39877315706 PASS",
+        "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: Python 3.11/3.12/3.13 PASS",
+        "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: Django/PostgreSQL qualification PASS",
+        "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: SQLAlchemy/PostgreSQL qualification PASS",
+        "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: Canonical CI gate PASS"
+      ],
       "affected_components": [
         "closing",
         "opening",
         "posting"
       ],
-      "notes": []
+      "notes": [
+        "Opening entries preserve stable AccountId and are built VALIDATED, then posted through PostingOrchestrator.post_in_uow inside the closing transaction.",
+        "Canonical posting now enforces journal, period, entity, account, audit, outbox and idempotency rules for opening entries.",
+        "Squash merge changed the SHA; exact merge-SHA evidence remains required before VERIFIED."
+      ]
     },
     {
       "id": "F08",
@@ -632,18 +663,34 @@
       "primary_remediation_lot": "REM-05",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "OPEN",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "47e050e5697c5571be87de7fbfe2f223fcadbd91",
+      "corrective_tests": [
+        "tests/unit/application/test_closing_orchestrator.py::test_commit_failure_rolls_back_period_opening_and_closing_proof",
+        "tests/integration/test_django_postgresql_adapter.py::test_closing_run_is_durable_and_atomic_in_django_uow",
+        "tests/integration/test_sqlalchemy_postgresql_adapter.py::test_closing_run_is_durable_and_atomic_in_sqlalchemy_uow"
+      ],
+      "qualification_evidence": [
+        "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: CI run 39877315721 PASS",
+        "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: Security run 39877315706 PASS",
+        "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: Python 3.11/3.12/3.13 PASS",
+        "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: Django/PostgreSQL qualification PASS",
+        "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: SQLAlchemy/PostgreSQL qualification PASS",
+        "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: Canonical CI gate PASS"
+      ],
       "affected_components": [
         "closing",
         "unit_of_work",
         "evidence"
       ],
-      "notes": []
+      "notes": [
+        "Sealed ClosingRun persistence, period transition, optional opening posting, audit and outbox now share one UnitOfWork.",
+        "ClosingRunRepository is implemented by InMemory, Django/PostgreSQL and SQLAlchemy/PostgreSQL with migration baseline 0005_closing_run.",
+        "ClosingRunBook is post-commit cache only; durable proof is transactionally persisted.",
+        "Squash merge changed the SHA; exact merge-SHA evidence remains required before VERIFIED."
+      ]
     },
     {
       "id": "F09",
@@ -653,18 +700,33 @@
       "primary_remediation_lot": "REM-05",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "OPEN",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "47e050e5697c5571be87de7fbfe2f223fcadbd91",
+      "corrective_tests": [
+        "tests/concurrency/test_in_memory_uow_concurrency.py::test_read_only_period_entry_scope_detects_concurrent_posting",
+        "tests/unit/application/test_closing_orchestrator.py::test_closing_detects_posting_race_after_fresh_balance_read"
+      ],
+      "qualification_evidence": [
+        "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: CI run 39877315721 PASS",
+        "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: Security run 39877315706 PASS",
+        "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: Python 3.11/3.12/3.13 PASS",
+        "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: Django/PostgreSQL qualification PASS",
+        "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: SQLAlchemy/PostgreSQL qualification PASS",
+        "PR #90 head 92b3d13a13cc04b9e14378dfc2c06d680ff79667: Canonical CI gate PASS"
+      ],
       "affected_components": [
         "in_memory",
         "unit_of_work",
         "concurrency"
       ],
-      "notes": []
+      "notes": [
+        "InMemory UnitOfWork tracks read dependencies, including posted-entry collections by period and journal.",
+        "The final POST_CLOSING balance is rebuilt inside the same closing UnitOfWork.",
+        "Concurrent posting after the balance read fails the close with RevisionConflictError.",
+        "Squash merge changed the SHA; exact merge-SHA evidence remains required before VERIFIED."
+      ]
     },
     {
       "id": "F10",
@@ -1341,5 +1403,5 @@
     }
   ],
   "last_updated_on": "2026-10-23",
-  "last_updated_from_sha": "502ded93fdd3913b1d1dac1f4def0f5ecd36e1aa"
+  "last_updated_from_sha": "47e050e5697c5571be87de7fbfe2f223fcadbd91"
 }

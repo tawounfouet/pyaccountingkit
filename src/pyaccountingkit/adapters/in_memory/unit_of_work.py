@@ -236,53 +236,50 @@ class InMemoryUnitOfWork:
         store: InMemoryStore,
         period_id: Any,
     ) -> tuple[tuple[object, object, object], ...]:
-        return tuple(
-            sorted(
-                (
-                    entry_id,
-                    entry,
-                    store.entry_revisions.get(entry_id),
-                )
-                for entry_id, entry in store.entries.items()
-                if entry.period_id == period_id
-                and entry.status.value in {"POSTED", "REVERSED"}
-            , key=lambda row: str(row[0]))
-        )
+        rows = [
+            (
+                entry_id,
+                entry,
+                store.entry_revisions.get(entry_id),
+            )
+            for entry_id, entry in store.entries.items()
+            if entry.period_id == period_id
+            and entry.status.value in {"POSTED", "REVERSED"}
+        ]
+        return tuple(sorted(rows, key=lambda row: str(row[0])))
 
     @staticmethod
     def _posted_entries_for_journal(
         store: InMemoryStore,
         journal_id: Any,
     ) -> tuple[tuple[object, object, object], ...]:
-        return tuple(
-            sorted(
-                (
-                    entry_id,
-                    entry,
-                    store.entry_revisions.get(entry_id),
-                )
-                for entry_id, entry in store.entries.items()
-                if entry.journal_id == journal_id
-                and entry.status.value in {"POSTED", "REVERSED"}
-            , key=lambda row: str(row[0]))
-        )
+        rows = [
+            (
+                entry_id,
+                entry,
+                store.entry_revisions.get(entry_id),
+            )
+            for entry_id, entry in store.entries.items()
+            if entry.journal_id == journal_id
+            and entry.status.value in {"POSTED", "REVERSED"}
+        ]
+        return tuple(sorted(rows, key=lambda row: str(row[0])))
 
     @staticmethod
     def _reversals_of(
         store: InMemoryStore,
         entry_id: Any,
     ) -> tuple[tuple[object, object, object], ...]:
-        return tuple(
-            sorted(
-                (
-                    candidate_id,
-                    entry,
-                    store.entry_revisions.get(candidate_id),
-                )
-                for candidate_id, entry in store.entries.items()
-                if entry.reversal_of_id == entry_id
-            , key=lambda row: str(row[0]))
-        )
+        rows = [
+            (
+                candidate_id,
+                entry,
+                store.entry_revisions.get(candidate_id),
+            )
+            for candidate_id, entry in store.entries.items()
+            if entry.reversal_of_id == entry_id
+        ]
+        return tuple(sorted(rows, key=lambda row: str(row[0])))
 
     @staticmethod
     def _validate_mapping_changes(

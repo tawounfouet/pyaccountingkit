@@ -594,10 +594,14 @@ def run_release_0_3_pipeline(
             mapping_set=statement_mapping_set,
         )
     )
-    snapshot = ReportSnapshot.from_result(
-        snapshot_id=SNAPSHOT_ID,
-        result=financial,
-        created_at=snapshot_created_at,
+    snapshot = (
+        ReportSnapshot.from_result(
+            snapshot_id=SNAPSHOT_ID,
+            result=financial,
+            created_at=snapshot_created_at,
+        )
+        .validate(financial)
+        .publish()
     )
 
     model, profile, regulatory_mapping_set, export_definition = _regulatory_coordinates(definition)

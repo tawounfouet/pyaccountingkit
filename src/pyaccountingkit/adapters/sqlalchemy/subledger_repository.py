@@ -21,6 +21,7 @@ from pyaccountingkit.adapters.subledger_codec import (
     entity_id,
     record_id,
     record_kind,
+    require_record_type,
     subledger_id,
 )
 from pyaccountingkit.core.errors import RevisionConflictError
@@ -132,8 +133,7 @@ class SQLAlchemySubledgerRepository:
 
     def get_party(self, party_id: str, *, for_update: bool = False) -> SubledgerParty:
         value = self._get(PARTY, party_id, for_update=for_update)
-        assert isinstance(value, SubledgerParty)
-        return value
+        return require_record_type(value, SubledgerParty, identifier=party_id)
 
     def list_parties(self, entity_id: EntityId) -> tuple[SubledgerParty, ...]:
         values = self._list_scope(kind=PARTY, entity=entity_id)
@@ -147,8 +147,7 @@ class SQLAlchemySubledgerRepository:
 
     def get_receivable(self, item_id: str, *, for_update: bool = False) -> Receivable:
         value = self._get(RECEIVABLE, item_id, for_update=for_update)
-        assert isinstance(value, Receivable)
-        return value
+        return require_record_type(value, Receivable, identifier=item_id)
 
     def list_open_receivables(
         self,
@@ -174,8 +173,7 @@ class SQLAlchemySubledgerRepository:
 
     def get_payable(self, item_id: str, *, for_update: bool = False) -> Payable:
         value = self._get(PAYABLE, item_id, for_update=for_update)
-        assert isinstance(value, Payable)
-        return value
+        return require_record_type(value, Payable, identifier=item_id)
 
     def list_open_payables(
         self,
@@ -206,8 +204,7 @@ class SQLAlchemySubledgerRepository:
         for_update: bool = False,
     ) -> Settlement:
         value = self._get(SETTLEMENT, settlement_id, for_update=for_update)
-        assert isinstance(value, Settlement)
-        return value
+        return require_record_type(value, Settlement, identifier=settlement_id)
 
     def add_allocation(self, allocation: SettlementAllocation) -> None:
         self._add(allocation)
@@ -241,8 +238,11 @@ class SQLAlchemySubledgerRepository:
         if row is None:
             return None
         value = decode_record(row.kind, dict(row.payload))
-        assert isinstance(value, SettlementReversal)
-        return value
+        return require_record_type(
+            value,
+            SettlementReversal,
+            identifier=reversal_id,
+        )
 
     def add_match(self, match: AccountingMatch) -> None:
         self._add(match)
@@ -252,8 +252,7 @@ class SQLAlchemySubledgerRepository:
         if row is None:
             return None
         value = decode_record(row.kind, dict(row.payload))
-        assert isinstance(value, AccountingMatch)
-        return value
+        return require_record_type(value, AccountingMatch, identifier=match_id)
 
 
 __all__ = ["SQLAlchemySubledgerRepository"]

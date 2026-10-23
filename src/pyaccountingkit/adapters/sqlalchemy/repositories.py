@@ -21,6 +21,7 @@ from pyaccountingkit.adapters.sqlalchemy.tables import (
     AccountingExecutionTraceTable,
     AccountingPeriodTable,
     AuditEventTable,
+    ClosingRunTable,
     IdempotencyRecordTable,
     JournalEntryTable,
     JournalLineTable,
@@ -38,6 +39,11 @@ from pyaccountingkit.core.identifiers import AccountId, EntityId, EntryId, Journ
 from pyaccountingkit.core.immutability import deep_thaw
 from pyaccountingkit.core.revisions import Revision
 from pyaccountingkit.domain.audit.events import AuditEvent
+from pyaccountingkit.domain.closing.closing_run import (
+    ClosingEvidenceBundle,
+    ClosingPhase,
+    ClosingRun,
+)
 from pyaccountingkit.domain.journals.journal import Journal
 from pyaccountingkit.domain.journals.journal_entry import EntryStatus, JournalEntry
 from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
@@ -322,6 +328,64 @@ class SQLAlchemyAccountingExecutionTraceRepository:
         )
 
 
+class SQLAlchemyClosingRunRepository:
+    """Append-only sealed closing runs in the active SQLAlchemy transaction."""
+
+    def __init__(self, session: Session) -> None:
+        self._session = session
+
+    def append(self, run: ClosingRun) -> None:
+        evidence = run.evidence
+        if not run.is_sealed or evidence is None:
+            raise RevisionConflictError(f"Closing run {run.id} must be sealed before persistence")
+        try:
+            with self._session.begin_nested():
+                self._session.add(
+                    ClosingRunTable(
+                        id=run.id,
+                        period_id=run.period_id,
+                        phase=run.phase.value,
+                        evidence_digest=run.evidence_digest(),
+                        trial_balance_checksum=evidence.trial_balance_checksum,
+                        control_runs_hash=evidence.control_runs_hash,
+                        total_debit=evidence.total_debit,
+                        total_credit=evidence.total_credit,
+                        sealed_at=evidence.sealed_at,
+                    )
+                )
+                self._session.flush()
+        except IntegrityError:
+            existing = self.get(run.id)
+            if existing == run:
+                return
+            raise RevisionConflictError(
+                f"Closing run {run.id} already exists with other evidence"
+            ) from None
+
+    def get(self, run_id: str) -> ClosingRun | None:
+        row = self._session.get(ClosingRunTable, run_id)
+        if row is None:
+            return None
+        evidence = ClosingEvidenceBundle(
+            run_id=row.id,
+            period_id=row.period_id,
+            trial_balance_checksum=row.trial_balance_checksum,
+            control_runs_hash=row.control_runs_hash,
+            total_debit=row.total_debit,
+            total_credit=row.total_credit,
+            sealed_at=row.sealed_at,
+        )
+        run = ClosingRun(
+            id=row.id,
+            period_id=row.period_id,
+            phase=ClosingPhase(row.phase),
+            evidence=evidence,
+        )
+        if run.evidence_digest() != row.evidence_digest:
+            raise RevisionConflictError(f"Closing run {run.id} evidence digest mismatch")
+        return run
+
+
 class SQLAlchemyAuditLogSink:
     """Persist audit records in the enclosing Session transaction."""
 
@@ -396,6 +460,7 @@ class SQLAlchemyOutboxPublisher:
 __all__ = [
     "SQLAlchemyAccountingExecutionTraceRepository",
     "SQLAlchemyAuditLogSink",
+    "SQLAlchemyClosingRunRepository",
     "SQLAlchemyIdempotencyStore",
     "SQLAlchemyJournalEntryRepository",
     "SQLAlchemyJournalRepository",

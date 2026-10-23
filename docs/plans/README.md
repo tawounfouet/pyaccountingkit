@@ -109,7 +109,7 @@ Les nouveaux lots stratégiques ne disposent pas encore tous d'un fichier `PLAN-
 
 ## Lot actif / qualification
 
-### Priorité active : `REM-08 → REM-10`
+### Priorité active : `REM-09 → REM-10`
 
 La priorité n'est plus la promotion directe de `LOT-27 / 0.7.0rc1`.
 
@@ -125,8 +125,8 @@ Le chantier courant est l'overlay de remédiation :
 | 6 | `REM-06` | Calculs, classification et empreintes — **IMPLEMENTED / QUALIFYING** | `F12,F15,F16,F21` |
 | 7 | `REM-05` | Clôture et à-nouveaux atomiques — **IMPLEMENTED / QUALIFYING** | `F05,F06,F07,F08,F09` |
 | 8 | `REM-07` | Références sûres et publication validée — **IMPLEMENTED / QUALIFYING** | `F19,F22` |
-| 9 | `REM-08` | Contrats publics et services applicatifs — **ACTIVE** | `F17,A02` |
-| 10 | `REM-09` | Auxiliaires persistants | `A01` |
+| 9 | `REM-08` | Contrats publics et services applicatifs — **IMPLEMENTED / QUALIFYING** | `F17,A02` |
+| 10 | `REM-09` | Auxiliaires persistants — **ACTIVE** | `A01` |
 | 11 | `REM-10` | Qualification transverse / décision de release | Tous |
 
 ### Plans/release historiques toujours pertinents
@@ -156,7 +156,9 @@ REM-05  IMPLEMENTED / QUALIFYING
   └── LOT-31R F07/F08/F09 IMPLEMENTED / QUALIFYING
 REM-07  IMPLEMENTED / QUALIFYING
   └── LOT-32R F19/F22 IMPLEMENTED / QUALIFYING
-REM-08  ACTIVE
+REM-08  IMPLEMENTED / QUALIFYING
+  └── LOT-33R F17/A02 IMPLEMENTED / QUALIFYING
+REM-09  ACTIVE
 ```
 
 Preuves d'implémentation REM-04 :
@@ -191,7 +193,10 @@ REM-06 est désormais `IMPLEMENTED / QUALIFYING`. Ses findings restent
 
 REM-05 est désormais lui aussi `IMPLEMENTED / QUALIFYING` :
 `LOT-30R` a fermé F05/F06 côté implémentation et `LOT-31R` a fermé F07/F08/F09.
-Le chantier actif passe à `REM-07`.
+
+REM-07 est `IMPLEMENTED / QUALIFYING` via `LOT-32R` pour F19/F22.
+REM-08 est `IMPLEMENTED / QUALIFYING` via `LOT-33R` pour F17/A02.
+Le chantier actif passe à `REM-09`, avec A01 comme dernier constat ouvert.
 
 
 ## 2. Graphe d'Ordonnancement & Chemin Critique

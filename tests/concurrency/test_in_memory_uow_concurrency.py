@@ -132,9 +132,7 @@ def test_read_only_period_entry_scope_detects_concurrent_posting() -> None:
     try:
         assert tuple(reader.entries.list_by_period(period_id)) == ()
 
-        posted = _entry("late-posting").validate().freeze(
-            datetime(2026, 1, 2, 12, 0, tzinfo=UTC)
-        )
+        posted = _entry("late-posting").validate().freeze(datetime(2026, 1, 2, 12, 0, tzinfo=UTC))
         writer.entries.add(posted)
         writer.commit()
 

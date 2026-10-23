@@ -203,6 +203,22 @@ class OutboxMessageTable(Base):
     idempotency_key: Mapped[str] = mapped_column(String(255), default="", index=True)
 
 
+class SubledgerRecordTable(Base):
+    __tablename__ = "pyak_subledger_record"
+    __table_args__ = (
+        UniqueConstraint("kind", "record_id", name="uq_pyak_subledger_kind_record"),
+        Index("ix_pyak_subledger_scope", "entity_id", "subledger_id", "kind"),
+    )
+
+    key: Mapped[str] = mapped_column(String(320), primary_key=True)
+    kind: Mapped[str] = mapped_column(String(32), index=True)
+    record_id: Mapped[str] = mapped_column(String(128), index=True)
+    entity_id: Mapped[str] = mapped_column(String(128), index=True)
+    subledger_id: Mapped[str] = mapped_column(String(128), default="", index=True)
+    revision: Mapped[int] = mapped_column(BigInteger, default=0)
+    payload: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
+
+
 __all__ = [
     "AccountingExecutionTraceTable",
     "AccountingPeriodTable",
@@ -214,4 +230,5 @@ __all__ = [
     "JournalLineTable",
     "JournalTable",
     "OutboxMessageTable",
+    "SubledgerRecordTable",
 ]

@@ -3,12 +3,14 @@
 from __future__ import annotations
 
 from dataclasses import FrozenInstanceError
+import inspect
 from datetime import date
 
 import pytest
 
 from pyaccountingkit import AccountingApplication, CommandContext, Money
 from pyaccountingkit.core.currency import EUR
+from pyaccountingkit.core.errors import PeriodClosedError
 from pyaccountingkit.core.identifiers import AccountId, EntryId, JournalId, PeriodId
 from pyaccountingkit.domain.journals.journal_entry import JournalEntry
 from pyaccountingkit.domain.journals.journal_line import JournalLine
@@ -16,9 +18,34 @@ from pyaccountingkit.domain.reporting.balance_line import AccountBalanceLine
 from pyaccountingkit.domain.reporting.engine import FinancialStatementResult
 from pyaccountingkit.domain.reporting.statement_definition import FinancialStatementType
 from pyaccountingkit.domain.reporting.trial_balance import TrialBalance, TrialBalanceSnapshot
+from pyaccountingkit.public._base import PublicNamespace
+from pyaccountingkit.public.analysis import FinancialAnalysisAPI
+from pyaccountingkit.public.charts import ChartsAPI
+from pyaccountingkit.public.closing import ClosingAPI
+from pyaccountingkit.public.contracts import (
+    PUBLIC_OPERATION_CONTRACTS,
+    PublicOperationKind,
+    PublicOperationRequest,
+)
+from pyaccountingkit.public.controls import ControlsAPI
 from pyaccountingkit.public.dto import FinancialStatementDTO, JournalEntryDTO, TrialBalanceDTO
+from pyaccountingkit.public.entries import EntriesAPI
+from pyaccountingkit.public.imports import ImportsAPI
+from pyaccountingkit.public.ledger import LedgerAPI
+from pyaccountingkit.public.references import ReferencesAPI
+from pyaccountingkit.public.reporting import RegulatoryReportingAPI
+from pyaccountingkit.public.statements import StatementsAPI
+from pyaccountingkit.public.subledgers import (
+    MatchingAPI,
+    PartnersAPI,
+    PayablesAPI,
+    ReceivablesAPI,
+    SettlementsAPI,
+    SubledgersAPI,
+)
 from pyaccountingkit.public.errors import (
     PublicBoundaryViolationError,
+    PublicInfrastructureError,
     PublicOperationUnavailableError,
     PublicValidationError,
 )
@@ -54,6 +81,55 @@ class _FakeDjangoModel:
 class _LeakyService:
     def get(self, **parameters: object) -> object:
         return {"row": _FakeDjangoModel()}
+
+
+class _FakeSQLAlchemyModel:
+    __module__ = "sqlalchemy.orm.base"
+
+
+class _ObjectWrapper:
+    def __init__(self, value: object) -> None:
+        self.value = value
+
+
+class _SlotWrapper:
+    __slots__ = ("value",)
+
+    def __init__(self, value: object) -> None:
+        self.value = value
+
+
+class _WrappedLeakyService:
+    def get(self, **parameters: object) -> object:
+        return _ObjectWrapper(_SlotWrapper(_FakeSQLAlchemyModel()))
+
+
+class _InputProbeService:
+    def __init__(self) -> None:
+        self.called = False
+
+    def create(self, **parameters: object) -> str:
+        self.called = True
+        return "created"
+
+
+class _FakeDjangoDatabaseError(Exception):
+    __module__ = "django.db.utils"
+
+
+class _FrameworkFailureService:
+    def get(self, **parameters: object) -> object:
+        raise _FakeDjangoDatabaseError("duplicate key secret table detail")
+
+
+class _DomainFailureService:
+    def post(self, **parameters: object) -> object:
+        raise PeriodClosedError("period is closed")
+
+
+class _UnknownFailureService:
+    def get(self, **parameters: object) -> object:
+        raise RuntimeError("unexpected bug")
 
 
 def _entry() -> JournalEntry:
@@ -167,6 +243,93 @@ def test_framework_specific_objects_are_rejected_recursively() -> None:
         app.entries.get(entry_id="entry-1")
     assert raised.value.code == "PUBLIC_BOUNDARY_VIOLATION"
     assert raised.value.to_info().details["object_type"].startswith("django.")
+
+
+def test_framework_specific_objects_are_rejected_through_plain_wrappers() -> None:
+    app = AccountingApplication(entries=_WrappedLeakyService())
+    with pytest.raises(PublicBoundaryViolationError) as raised:
+        app.entries.get(entry_id="entry-1")
+    assert raised.value.to_info().details["object_type"].startswith("sqlalchemy.")
+
+
+def test_framework_specific_input_is_rejected_before_service_invocation() -> None:
+    service = _InputProbeService()
+    app = AccountingApplication(entries=service)
+
+    with pytest.raises(PublicBoundaryViolationError):
+        app.entries.create(payload=_ObjectWrapper(_FakeDjangoModel()))
+
+    assert service.called is False
+
+
+def test_framework_exception_is_translated_without_raw_database_message() -> None:
+    app = AccountingApplication(entries=_FrameworkFailureService())
+    with pytest.raises(PublicInfrastructureError) as raised:
+        app.entries.get(entry_id="entry-1")
+
+    info = raised.value.to_info()
+    assert info.code == "PUBLIC_INFRASTRUCTURE_FAILURE"
+    assert info.details["framework"] == "django"
+    assert info.details["exception_type"].startswith("django.")
+    assert "duplicate key" not in info.message
+    assert "secret" not in info.message
+
+
+def test_canonical_accounting_error_is_preserved_by_public_boundary() -> None:
+    app = AccountingApplication(entries=_DomainFailureService())
+    with pytest.raises(PeriodClosedError) as raised:
+        app.entries.post(entry_id="entry-1")
+    assert raised.value.code == "PERIOD_CLOSED"
+
+
+def test_unknown_failure_is_not_hidden_by_public_translation() -> None:
+    app = AccountingApplication(entries=_UnknownFailureService())
+    with pytest.raises(RuntimeError, match="unexpected bug"):
+        app.entries.get(entry_id="entry-1")
+
+
+def test_public_operation_contract_catalog_is_exhaustive_for_every_facade_method() -> None:
+    api_types = (
+        ReferencesAPI,
+        ChartsAPI,
+        EntriesAPI,
+        LedgerAPI,
+        ClosingAPI,
+        ControlsAPI,
+        ImportsAPI,
+        StatementsAPI,
+        RegulatoryReportingAPI,
+        FinancialAnalysisAPI,
+        PartnersAPI,
+        ReceivablesAPI,
+        PayablesAPI,
+        SettlementsAPI,
+        MatchingAPI,
+        SubledgersAPI,
+    )
+    discovered: set[str] = set()
+    for api_type in api_types:
+        api = api_type()
+        namespace = api._namespace  # noqa: SLF001 - contract qualification
+        for name, member in inspect.getmembers(api_type, predicate=inspect.isfunction):
+            if name.startswith("_") or name == "__init__":
+                continue
+            if member.__qualname__.split(".", maxsplit=1)[0] != api_type.__name__:
+                continue
+            discovered.add(f"{namespace}.{name}")
+
+    assert discovered == set(PUBLIC_OPERATION_CONTRACTS)
+    assert all(
+        contract.kind in {PublicOperationKind.COMMAND, PublicOperationKind.QUERY}
+        for contract in PUBLIC_OPERATION_CONTRACTS.values()
+    )
+
+
+def test_public_operation_request_is_immutable_and_adapter_neutral() -> None:
+    request = PublicOperationRequest(parameters={"entry_id": "entry-1"})
+    with pytest.raises(TypeError):
+        request.parameters["entry_id"] = "entry-2"  # type: ignore[index]
+    assert request.parameters == {"entry_id": "entry-1"}
 
 
 def test_command_context_is_frozen_and_metadata_read_only() -> None:

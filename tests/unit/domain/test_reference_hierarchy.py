@@ -70,6 +70,35 @@ def test_class_for() -> None:
     assert hierarchy.class_for("c4").node_id == "c4"
 
 
+def test_mixed_standard_or_edition_node_is_rejected() -> None:
+    mixed_edition = ReferenceNode(
+        node_id="a401",
+        node_type=ReferenceNodeType.ACCOUNT,
+        standard_id="fr-pcg",
+        edition="2025",
+        ref_code="401",
+        label="a401",
+        account_class=4,
+    )
+    with pytest.raises(ValueError, match="outside fr-pcg:2026"):
+        ReferenceHierarchy("fr-pcg", "2026", (mixed_edition,))
+
+
+def test_self_cycle_is_rejected() -> None:
+    node = _node("a401", "401", parent="a401")
+    with pytest.raises(ValueError, match="cycle"):
+        ReferenceHierarchy("fr-pcg", "2026", (node,))
+
+
+def test_multi_node_cycle_is_rejected() -> None:
+    nodes = (
+        _node("a401", "401", parent="a402"),
+        _node("a402", "402", parent="a401"),
+    )
+    with pytest.raises(ValueError, match="cycle"):
+        ReferenceHierarchy("fr-pcg", "2026", nodes)
+
+
 def test_orphan_node_rejected() -> None:
     nodes = (
         _node("c4", "4", node_type=ReferenceNodeType.CLASS),

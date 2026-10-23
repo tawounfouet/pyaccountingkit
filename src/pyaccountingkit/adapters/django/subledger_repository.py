@@ -3,8 +3,6 @@
 from __future__ import annotations
 
 from django.db import IntegrityError
-from django.db.models import F
-
 from pyaccountingkit.adapters.django.models import SubledgerRecordModel
 from pyaccountingkit.adapters.subledger_codec import (
     ALLOCATION,
@@ -80,7 +78,7 @@ class DjangoSubledgerRepository:
         row.entity_id = str(entity_id(value))
         row.subledger_id = subledger_id(value)
         row.payload = encode_record(value)
-        row.revision = F("revision") + 1
+        row.revision += 1
         row.save(
             using=self._using,
             update_fields=("entity_id", "subledger_id", "payload", "revision"),

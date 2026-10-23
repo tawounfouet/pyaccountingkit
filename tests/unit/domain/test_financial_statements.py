@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import FrozenInstanceError
+from dataclasses import FrozenInstanceError, replace
 from datetime import UTC, date, datetime
 from decimal import Decimal
 
@@ -459,22 +459,28 @@ def test_one_cent_allocation_is_conservative_across_statement_lines() -> None:
 
 
 def test_failed_financial_result_cannot_be_published() -> None:
-    source = _trial_balance(
-        _line("100", "100", "0"),
-        _line("200", "0", "90"),
+    result = FinancialStatementEngine().build(_balance_sheet_request())
+    failed_result = replace(
+        result,
+        controls=(
+            replace(
+                result.controls[0],
+                status=StatementControlStatus.FAIL,
+                message="qualification fixture: failed statement control",
+            ),
+        ),
     )
-    result = FinancialStatementEngine().build(_balance_sheet_request(source=source))
-    assert result.controls[0].status is StatementControlStatus.FAIL
+    assert failed_result.controls[0].status is StatementControlStatus.FAIL
 
     draft = ReportSnapshot.from_result(
         snapshot_id="snap-failed",
-        result=result,
+        result=failed_result,
         created_at=datetime(2026, 12, 31, tzinfo=UTC),
     )
 
     assert draft.status is ReportSnapshotStatus.DRAFT
     with pytest.raises(StatementControlError, match="controls are not PASS"):
-        draft.validate(result)
+        draft.validate(failed_result)
     with pytest.raises(ReportSnapshotTransitionError, match="cannot publish from DRAFT"):
         draft.publish()
 

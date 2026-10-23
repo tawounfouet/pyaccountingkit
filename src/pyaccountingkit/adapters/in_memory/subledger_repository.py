@@ -5,7 +5,6 @@ from __future__ import annotations
 from pyaccountingkit.adapters.in_memory.repositories import ReadTracker
 from pyaccountingkit.adapters.in_memory.store import InMemoryStore
 from pyaccountingkit.adapters.subledger_codec import (
-    ALLOCATION,
     MATCH,
     PARTY,
     PAYABLE,
@@ -28,7 +27,7 @@ from pyaccountingkit.domain.subledgers.matching import AccountingMatch
 from pyaccountingkit.domain.subledgers.parties import SubledgerParty
 from pyaccountingkit.domain.subledgers.payable import Payable
 from pyaccountingkit.domain.subledgers.receivable import Receivable
-from pyaccountingkit.domain.subledgers.settlement import Settlement, SettlementStatus
+from pyaccountingkit.domain.subledgers.settlement import Settlement
 from pyaccountingkit.domain.subledgers.settlement_reversal import SettlementReversal
 
 

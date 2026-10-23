@@ -4679,147 +4679,142 @@ If required, create a separate framework.
 
 # 97. Current remediation action
 
-The repository remains on `0.7.0rc1`; stable promotion is blocked by the remediation overlay.
+The remediation overlay is closed at the qualified RC2 boundary.
 
-Current state :
+Current qualified state:
 
-```text
+~~~text
+package            0.7.0rc2
+qualified main SHA 0364b966fb57df97f4e8a2166b52ec99eaae0f20
+CI                 39886182878 PASS
+Security           39886182869 PASS
+REM-10 decision    QUALIFIED_RC2
+
+30 VERIFIED
+0 FIXED_UNVERIFIED
+0 OPEN
+~~~
+
+Lot state:
+
+~~~text
 REM-00  DONE
-REM-01  IMPLEMENTED / QUALIFYING
-REM-02  IMPLEMENTED / QUALIFYING
-REM-03  IMPLEMENTED / QUALIFYING
-REM-04  IMPLEMENTED / QUALIFYING
-REM-06  IMPLEMENTED / QUALIFYING
-REM-05  IMPLEMENTED / QUALIFYING
-    LOT-30R F05/F06 IMPLEMENTED / QUALIFYING
-    LOT-31R F07/F08/F09 IMPLEMENTED / QUALIFYING
-REM-07  IMPLEMENTED / QUALIFYING
-    LOT-32R F19/F22 IMPLEMENTED / QUALIFYING
-REM-08  IMPLEMENTED / QUALIFYING
-    LOT-33R F17/A02 IMPLEMENTED / QUALIFYING
-REM-09  IMPLEMENTED / QUALIFYING
-    LOT-34R A01 IMPLEMENTED / QUALIFYING
-REM-10  ACTIVE
-```
+REM-01  VERIFIED
+REM-02  VERIFIED
+REM-03  VERIFIED
+REM-04  VERIFIED
+REM-06  VERIFIED
+REM-05  VERIFIED
+REM-07  VERIFIED
+REM-08  VERIFIED
+REM-09  VERIFIED
+REM-10  DONE
+~~~
 
-REM-04 implementation evidence :
+Canonical qualification evidence:
 
-```text
-PR #83  F14 F20
-PR #84  A03
-```
+- `docs/audits/2026-10-23_REM10_0_7_0RC2_QUALIFICATION.md`
+- `docs/audits/REMEDIATION_2026_10_STATUS.json`
+- `docs/plans/LOT-35R_REM10_0_7_0RC2_TRANSVERSE_QUALIFICATION_PLAN.md`
 
-The immediate execution is now :
+The next release action is therefore:
 
-```text
-REM-10
-Transverse Qualification / Release Decision
+~~~text
+0.7.0rc2 QUALIFIED
     ↓
-release decision
-```
+evaluate / close G5 external controls
+    ↓
+prepare release/0.7.0
+    ↓
+exact stable-SHA qualification
+    ↓
+tag / publish only if every stable gate passes
+~~~
 
-REM-01 through REM-04 are not declared VERIFIED yet. Their findings remain `FIXED_UNVERIFIED` until exact-main-SHA and REM-10 transverse qualification evidence is recorded.
-
----
-
-# 98. REM-06 completed implementation scope
-
-```text
-F12
-proposal-to-entry materialization must preserve EntryType
-
-F15
-trial-balance checksum must bind account identity and currency semantics
-
-F16
-allocation must preserve cents and avoid premature rounding
-
-F21
-sign conventions must be applied exactly once
-```
-
-Implementation evidence :
-
-```text
-PR #85  F12/F15
-PR #87  F16 / LOT-28R Conservative Monetary Allocation
-PR #88  F21 / LOT-29R Reporting Sign Semantics
-```
-
-All REM-06 findings are now `FIXED_UNVERIFIED`; implementation is complete.
-Exact-main-SHA evidence and REM-10 transverse qualification remain required before `VERIFIED`.
-
-Required approach :
-
-```text
-corrective test first
-        ↓
-semantic fidelity / precision fix
-        ↓
-deterministic fingerprint or arithmetic proof
-        ↓
-golden / replay evidence where relevant
-        ↓
-exact-SHA evidence
-```
+A qualified RC2 is not a stable release.
 
 ---
 
-# 99. Remediation acceptance command sequence
+# 98. Closed remediation scope
 
-Conceptual minimum :
+The audit baseline covered F01..F27 and A01..A03.
 
-```text
-clean checkout
+All applicable implementation slices are now transversely verified:
 
-install package
+~~~text
+REM-01  F25 F26 F27
+REM-02  F01 F02 F03 F04 F13 F18
+REM-03  F10 F11 F23 F24
+REM-04  F14 F20 A03
+REM-06  F12 F15 F16 F21
+REM-05  F05 F06 F07 F08 F09
+REM-07  F19 F22
+REM-08  F17 A02
+REM-09  A01
+REM-10  all 30 findings / exact-SHA qualification
+~~~
 
-run format / lint / type-check
+The final status transition to `VERIFIED` is based on exact-main-SHA qualification, not on
+historical PR CI alone.
 
-run unit / property / contract
+---
 
-run corrective regression suite
+# 99. Remediation acceptance evidence
 
-run Django/PostgreSQL required suites
+The final candidate qualification covered:
 
-run SQLAlchemy/PostgreSQL required suites
+~~~text
+repository hygiene
+architecture safety
+format / lint / strict mypy
+unit / property / contract
+integration
+golden
+replay
+concurrency
+Django/PostgreSQL 16
+SQLAlchemy/PostgreSQL 16
+fresh migrations / metadata coherence
+package build and verification
+public manifests
+regulatory qualification
+Security
+REM-10 release-candidate qualification
+Canonical CI gate
+~~~
 
-run strict release qualification
+Required PostgreSQL evidence was bound to the exact candidate SHA.
 
-build wheel / sdist
+No mandatory PostgreSQL path was accepted as an unjustified skip.
 
-verify manifests / migration / replay where affected
-```
-
-Expected :
-
-```text
-no applicable P1 open
-no unjustified mandatory skip
-candidate-SHA evidence complete
-```
+The CFA FRA LOT-26 external live boundary remains separate: CI job names are not reinterpreted as
+new real-world live evidence.
 
 ---
 
 # 100. Final implementation roadmap summary
 
-```text
+~~~text
 CURRENT
-    0.7.0rc1
+    0.7.0rc2 QUALIFIED
 
-NOW
-    REM-01..REM-10
+AUDIT REMEDIATION
     REM-00 DONE
-    Audit remediation and requalification
+    REM-01..REM-09 VERIFIED
+    REM-10 DONE
+    30 / 30 findings VERIFIED
+
+NEXT RELEASE GATE
+    G5 external controls
+    ↓
+    release/0.7.0 exact-SHA qualification
+    ↓
+    0.7.0 stable only when fully green
 
 THEN
-    0.7.0 stable
-    only when release-scope gates are green
-
-0.8.x
-    Reliability & Architecture Hardening
-    LOT-28 + LOT-39..44
-    with lifecycle/state/event modeling gate 35..38 before LOT-40
+    0.8.x Reliability & Architecture Hardening
+    LOT-39..44
+    lifecycle/state/event modeling gate 35..38 before LOT-40
 
 0.9.x
     API / Schema Freeze
@@ -4830,60 +4825,48 @@ THEN
 post-1.0
     LOT-45 Domain-First migration slices
     LOT-46 Financial Semantic Layer
-
-post-1.0 existing roadmap
     Generic Reconciliation
     Consolidation
 
 future separate framework
     Corporate Finance
-```
+~~~
 
 ---
 
 # 101. Conclusion
 
-PyAccountingKit possède désormais deux horizons explicitement séparés :
+PyAccountingKit now has three explicitly separated horizons:
 
-```text
-TACTICAL
-REM-00 DONE
-REM-01..REM-10 ACTIVE/PLANNED
-fix and prove the existing implementation
-```
-
-puis :
-
-```text
-STRATEGIC
-LOT-39..LOT-46
-evolve the architecture
-```
-
-La règle de progression devient :
-
-```text
-FIX WHAT EXISTS
+~~~text
+AUDIT REMEDIATION
+    COMPLETE
+    30 VERIFIED
         ↓
-PROVE IT
+RELEASE PROMOTION
+    0.7.0rc2 QUALIFIED
+    G5 / stable decision still pending
         ↓
-RELEASE IT
+STRATEGIC EVOLUTION
+    LOT-39..LOT-46
+~~~
+
+The governing progression is now:
+
+~~~text
+FIX WHAT EXISTS        ✅
+        ↓
+PROVE IT               ✅
+        ↓
+RELEASE IT             ← current boundary
         ↓
 EVOLVE IT
-```
+~~~
 
-Le prochain travail concret est donc :
+The next concrete work is therefore **not another REM lot**. It is the independent evaluation of
+the G5 stable controls and, only when those controls permit it, preparation of an exact-SHA
+`release/0.7.0` candidate.
 
-```text
-REM-09
-Persistent Subledger Runtime
-    ↓
-REM-10
-Transverse Qualification / Release Decision
-```
+The qualified remediation candidate must not be described as `0.7.0 stable` until that separate
+stable path has completed.
 
-REM-01 à REM-04 sont implémentés mais restent en qualification ; aucune fermeture `VERIFIED` n'est revendiquée sans preuve exact-SHA et REM-10.
-
-et non la promotion immédiate de `0.7.0rc1` vers stable.
-
-Les specs `24..38` constituent désormais la cible architecturale complémentaire. Les specs `35..38` forment le modeling gate de `LOT-40`, tandis que l'audit et les lots `REM-*` définissent toujours les corrections à fermer avant leur implémentation stratégique complète.

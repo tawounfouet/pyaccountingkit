@@ -16,12 +16,14 @@ from pyaccountingkit.adapters.in_memory.unit_of_work import (
 )
 from pyaccountingkit.application.closing.closing_orchestrator import ClosingOrchestrator
 from pyaccountingkit.application.ledger.posting_orchestrator import PostingOrchestrator
+from pyaccountingkit.application.reporting.trial_balance_query import TrialBalanceQuery
 from pyaccountingkit.core.clock import FrozenClock
 from pyaccountingkit.core.currency import EUR
 from pyaccountingkit.core.errors import (
     ControlFailureError,
     EntityScopeMismatchError,
     PeriodClosedError,
+    RevisionConflictError,
 )
 from pyaccountingkit.core.identifiers import (
     AccountId,
@@ -375,6 +377,62 @@ def test_opening_target_scope_failure_rolls_back_entire_close() -> None:
 
     assert store.periods[PeriodId("p_2024_12")].status is ClosingStatus.OPEN
     assert EntryId("o-foreign") not in store.entries
+    assert not any(event.event_type == "CLOSING_SEALED" for event in store.audit_log)
+
+
+def test_closing_detects_posting_race_after_fresh_balance_read() -> None:
+    _, factory, store = _build()
+    posting = PostingOrchestrator(
+        factory,
+        _chart_resolver(),
+        PostingService(clock=FrozenClock(NOW)),
+    )
+    posting.post(_balanced_draft("base").validate(), actor_id="seed")
+
+    tb_query = TrialBalanceQuery(factory, _chart())
+    supplied = tb_query.balance_for(
+        PeriodId("p_2024_12"),
+        TrialBalanceSnapshot.POST_CLOSING,
+    )
+
+    gate = CloseGate()
+    gate.require("BALANCE")
+    injected = False
+
+    def racing_provider(
+        uow: InMemoryUnitOfWork,
+        period_id: PeriodId,
+        snapshot: TrialBalanceSnapshot,
+    ) -> TrialBalance:
+        nonlocal injected
+        balance = tb_query.balance_for_in_uow(uow, period_id, snapshot)
+        if not injected:
+            injected = True
+            posting.post(_balanced_draft("late").validate(), actor_id="racer")
+        return balance
+
+    closing = ClosingOrchestrator(
+        factory,
+        ClosingRunBook(),
+        gate,
+        run_id_factory=lambda: "race-close",
+        clock=FrozenClock(NOW),
+        trial_balance_provider=racing_provider,
+        posting_orchestrator=posting,
+    )
+
+    with pytest.raises(
+        RevisionConflictError,
+        match="Read dependency entries for Period p_2024_12 changed",
+    ):
+        closing.close_period(
+            PeriodId("p_2024_12"),
+            control_runs=[_control(ControlOutcome.PASS)],
+            trial_balance=supplied,
+        )
+
+    assert store.periods[PeriodId("p_2024_12")].status is ClosingStatus.OPEN
+    assert store.entries[EntryId("late")].status is EntryStatus.POSTED
     assert not any(event.event_type == "CLOSING_SEALED" for event in store.audit_log)
 
 

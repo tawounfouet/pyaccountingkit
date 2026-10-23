@@ -1830,6 +1830,23 @@ SUPERSEDED
 WITHDRAWN
 ```
 
+Le sous-ensemble runtime actuellement exécutable est :
+
+```text
+DRAFT
+    ↓ validate(result)
+VALIDATED
+    ↓ publish()
+PUBLISHED
+    ↓ supersede()
+SUPERSEDED
+```
+
+Toute publication directe depuis `DRAFT`, toute republication depuis `PUBLISHED`, et toute
+publication d'un résultat portant un contrôle `FAIL` ou `NOT_APPLICABLE` doivent échouer en
+fail-closed. `WITHDRAWN` reste un état architectural futur tant qu'il n'existe pas dans l'enum
+runtime.
+
 ---
 
 # 123. DRAFT snapshot
@@ -2995,6 +3012,24 @@ dependency DAG
 # 221. Parent aggregation cycles
 
 Hierarchy also must be acyclic.
+
+Pour les référentiels réglementaires, l'aggregate `ReferenceHierarchy` doit en outre être
+mono-coordonnée :
+
+```text
+hierarchy.standard_id == every node.standard_id
+hierarchy.edition     == every node.edition
+```
+
+Sont rejetés à la construction :
+
+```text
+mixed standard
+mixed edition
+dangling parent
+self-cycle
+multi-node cycle
+```
 
 ---
 

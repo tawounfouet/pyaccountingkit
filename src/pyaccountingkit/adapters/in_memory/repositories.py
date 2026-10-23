@@ -27,8 +27,6 @@ class ReadTracker(Protocol):
     def __call__(self, kind: str, key: object) -> None: ...
 
 
-
-
 class InMemoryJournalEntryRepository:
     """In-memory store of the JournalEntry aggregate with optimistic locking."""
 

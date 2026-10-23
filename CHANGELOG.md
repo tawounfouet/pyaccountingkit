@@ -20,6 +20,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added a fail-closed G5 external-control orchestrator that applies, verifies and promotes both GitHub controls without release side effects.
 
 
+## [0.7.0rc2] - 2026-10-23
+
+### Remediation qualification
+- Freezes the complete REM-01 through REM-09 implementation overlay for transverse REM-10 qualification.
+- Registers a fail-closed remediation registry gate covering all 30 audit findings.
+- Requires exact-SHA Django/PostgreSQL and SQLAlchemy/PostgreSQL evidence for the release candidate.
+- Qualifies persistent subledger runtime, closing/opening atomicity, public application contracts, reporting fidelity, immutable evidence and safe reference publication together.
+
+### Safety
+- No finding is promoted to VERIFIED from historical PR evidence alone.
+- CFA FRA LOT-26 external live evidence remains outside the 0.7 RC branch and is not fabricated.
+- Stable 0.7.0 remains a separate G5 decision after RC2 qualification.
+
 ## [0.7.0rc1] - 2026-10-03
 
 ### Release candidate

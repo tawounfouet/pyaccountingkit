@@ -211,6 +211,7 @@ def test_close_seals_period_and_records_evidence() -> None:
     assert store.periods[PeriodId("p_2024_12")].status is ClosingStatus.CLOSED
     assert run.evidence is not None
     assert run.evidence.trial_balance_checksum == _tb().checksum
+    assert store.closing_runs[run.id] == run
     closing_audit = [event for event in store.audit_log if event.event_type == "CLOSING_SEALED"]
     closing_outbox = [record for record in store.outbox if record.event_type == "CLOSING_SEALED"]
     assert len(closing_audit) == 1
@@ -461,6 +462,7 @@ def test_commit_failure_rolls_back_period_opening_and_closing_proof(
     assert EntryId("o-rollback") not in store.entries
     assert not any(event.event_type == "CLOSING_SEALED" for event in store.audit_log)
     assert not any(record.event_type == "CLOSING_SEALED" for record in store.outbox)
+    assert "c1" not in store.closing_runs
 
 
 def test_close_generates_traceable_opening_balances() -> None:

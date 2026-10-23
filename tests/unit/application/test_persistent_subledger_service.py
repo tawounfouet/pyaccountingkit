@@ -280,10 +280,7 @@ def test_failed_subledger_write_rolls_back_gl_posting() -> None:
 
     assert EntryId("entry:rollback") not in store.entries
     assert "post:entry:rollback" not in store.idempotency
-    assert all(
-        record.payload.get("entry_id") != "entry:rollback"
-        for record in store.outbox
-    )
+    assert all(record.payload.get("entry_id") != "entry:rollback" for record in store.outbox)
 
 
 def test_allocation_persists_item_settlement_and_evidence_atomically() -> None:
@@ -374,8 +371,9 @@ def test_settlement_reversal_restores_due_item_and_gl_in_one_transaction() -> No
         reversed_at=NOW,
         expected_settlement_revision=allocated.settlement.revision,
         expected_due_item_revisions={
-            allocated.subledger_item.due_items[0].due_item_id:
-                allocated.subledger_item.due_items[0].revision
+            allocated.subledger_item.due_items[0].due_item_id: allocated.subledger_item.due_items[
+                0
+            ].revision
         },
     )
 
@@ -391,7 +389,4 @@ def test_settlement_reversal_restores_due_item_and_gl_in_one_transaction() -> No
 
     with factory.open() as uow:
         assert uow.subledgers.get_settlement("settlement:1") == reversed_result.settlement
-        assert (
-            uow.subledgers.get_reversal("settlement-reversal:1")
-            == reversed_result.reversal
-        )
+        assert uow.subledgers.get_reversal("settlement-reversal:1") == reversed_result.reversal

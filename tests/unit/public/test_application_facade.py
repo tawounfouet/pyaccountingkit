@@ -37,6 +37,7 @@ from pyaccountingkit.public.errors import (
 )
 from pyaccountingkit.public.imports import ImportsAPI
 from pyaccountingkit.public.ledger import LedgerAPI
+from pyaccountingkit.public.pagination import Cursor, Page
 from pyaccountingkit.public.references import ReferencesAPI
 from pyaccountingkit.public.reporting import RegulatoryReportingAPI
 from pyaccountingkit.public.statements import StatementsAPI
@@ -48,7 +49,6 @@ from pyaccountingkit.public.subledgers import (
     SettlementsAPI,
     SubledgersAPI,
 )
-from pyaccountingkit.public.pagination import Cursor, Page
 
 
 class _EntriesService:

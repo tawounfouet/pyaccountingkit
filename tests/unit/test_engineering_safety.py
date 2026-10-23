@@ -442,6 +442,44 @@ def test_release_candidate_contract_requires_versioned_0_7_evidence(
         module.validate_release_candidate_contract(skip_tests=False, skip_package=False)
 
 
+def test_release_candidate_contract_requires_versioned_0_7_rc2_evidence(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    module = _load_qualifier()
+    for relative in ("tests/integration", "tests/golden", "tests/replay", "tests/concurrency"):
+        directory = tmp_path / relative
+        directory.mkdir(parents=True, exist_ok=True)
+        (directory / "test_present.py").write_text(
+            "def test_present(): pass\n",
+            encoding="utf-8",
+        )
+
+    required = module._VERSIONED_RC_EVIDENCE["0.7.0rc2"]
+    missing = "docs/audits/REMEDIATION_2026_10_STATUS.json"
+    for relative in required:
+        if relative == missing:
+            continue
+        path = tmp_path / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("{}\n", encoding="utf-8")
+
+    monkeypatch.setattr(module, "ROOT", tmp_path)
+    monkeypatch.setattr(module, "project_version", lambda: "0.7.0rc2")
+    with pytest.raises(module.QualificationError, match="0.7.0rc2.*missing required evidence"):
+        module.validate_release_candidate_contract(skip_tests=False, skip_package=False)
+
+
+def test_rc2_requires_exact_sha_postgresql_evidence(monkeypatch: pytest.MonkeyPatch) -> None:
+    module = _load_qualifier()
+    candidate_sha = "d" * 40
+    monkeypatch.setattr(module, "_current_git_sha", lambda: candidate_sha)
+    monkeypatch.setenv("PYAK_RELEASE_DJANGO_POSTGRESQL_SHA", candidate_sha)
+    monkeypatch.setenv("PYAK_RELEASE_SQLALCHEMY_POSTGRESQL_SHA", candidate_sha)
+
+    module.validate_release_candidate_postgresql_evidence(version="0.7.0rc2")
+
+
 def test_manifest_gate_rejects_version_drift(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,

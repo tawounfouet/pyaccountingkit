@@ -9,9 +9,10 @@ import pytest
 from pyaccountingkit.adapters.in_memory.unit_of_work import InMemoryUnitOfWorkFactory
 from pyaccountingkit.core.currency import EUR
 from pyaccountingkit.core.errors import RevisionConflictError
-from pyaccountingkit.core.identifiers import EntryId, JournalId, PeriodId
+from pyaccountingkit.core.identifiers import EntityId, EntryId, FiscalYearId, JournalId, PeriodId
 from pyaccountingkit.core.money import Money
 from pyaccountingkit.domain.journals.journal_entry import JournalEntry
+from pyaccountingkit.domain.periods.accounting_period import AccountingPeriod
 from pyaccountingkit.domain.journals.journal_line import JournalLine
 
 
@@ -107,3 +108,43 @@ def test_competing_idempotency_claims_conflict_at_commit() -> None:
         uow_b.__exit__(None, None, None)
 
     assert factory.store.idempotency["post:e1"] == "completed"
+
+
+def test_read_only_period_entry_scope_detects_concurrent_posting() -> None:
+    factory = InMemoryUnitOfWorkFactory()
+    period_id = PeriodId("p")
+    with factory.open() as seed:
+        seed.periods.add(
+            AccountingPeriod(
+                id=period_id,
+                entity_id=EntityId("ent"),
+                fiscal_year_id=FiscalYearId("fy"),
+                start_date=date(2026, 1, 1),
+                end_date=date(2026, 1, 31),
+            )
+        )
+        seed.commit()
+
+    reader = factory.open()
+    writer = factory.open()
+    reader.__enter__()
+    writer.__enter__()
+    try:
+        assert tuple(reader.entries.list_by_period(period_id)) == ()
+
+        posted = _entry("late-posting").validate().freeze(
+            datetime(2026, 1, 2, 12, 0, tzinfo=UTC)
+        )
+        writer.entries.add(posted)
+        writer.commit()
+
+        with pytest.raises(
+            RevisionConflictError,
+            match="Read dependency entries for Period p changed",
+        ):
+            reader.commit()
+    finally:
+        reader.__exit__(None, None, None)
+        writer.__exit__(None, None, None)
+
+    assert EntryId("late-posting") in factory.store.entries

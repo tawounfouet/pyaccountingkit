@@ -14,6 +14,7 @@ from typing import Any, Self
 
 from pyaccountingkit.adapters.in_memory.repositories import (
     InMemoryAccountingExecutionTraceRepository,
+    InMemoryClosingRunRepository,
     InMemoryJournalEntryRepository,
     InMemoryJournalRepository,
     InMemoryPeriodRepository,
@@ -91,6 +92,7 @@ class InMemoryUnitOfWork:
         self.idempotency = InMemoryIdempotencyStore(store)
         self.outbox = InMemoryOutboxPublisher(store)
         self.execution_traces = InMemoryAccountingExecutionTraceRepository(store, self._track_read)
+        self.closing_runs = InMemoryClosingRunRepository(store, self._track_read)
 
     def _track_read(self, kind: str, key: Any) -> None:
         self._read_dependencies.add((kind, key))
@@ -174,6 +176,12 @@ class InMemoryUnitOfWork:
             self._working.execution_traces,
             self._store.execution_traces,
         )
+        self._validate_mapping_changes(
+            "Closing run",
+            baseline.closing_runs,
+            self._working.closing_runs,
+            self._store.closing_runs,
+        )
 
         if self._working.audit_log[: len(baseline.audit_log)] != baseline.audit_log:
             raise RevisionConflictError("audit log prefix changed inside UnitOfWork")
@@ -206,6 +214,11 @@ class InMemoryUnitOfWork:
                 if self._store.execution_traces.get(key) != baseline.execution_traces.get(key):
                     raise RevisionConflictError(
                         f"Read dependency execution trace {key} changed after UnitOfWork snapshot"
+                    )
+            elif kind == "closing_run":
+                if self._store.closing_runs.get(key) != baseline.closing_runs.get(key):
+                    raise RevisionConflictError(
+                        f"Read dependency closing run {key} changed after UnitOfWork snapshot"
                     )
             elif kind == "entries_by_period":
                 if self._posted_entries_for_period(self._store, key) != self._posted_entries_for_period(
@@ -315,6 +328,11 @@ class InMemoryUnitOfWork:
             baseline.execution_traces,
             self._working.execution_traces,
             self._store.execution_traces,
+        )
+        self._merge_mapping(
+            baseline.closing_runs,
+            self._working.closing_runs,
+            self._store.closing_runs,
         )
         self._store.audit_log.extend(self._working.audit_log[len(baseline.audit_log) :])
         self._store.outbox.extend(self._working.outbox[len(baseline.outbox) :])

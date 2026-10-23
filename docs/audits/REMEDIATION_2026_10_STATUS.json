@@ -55,7 +55,7 @@
       "evidence_must_match_candidate_sha": true,
       "documentation_only_change_cannot_close_finding": true
     },
-    "current_phase": "REM-09",
+    "current_phase": "REM-10",
     "rem00_completed_on": "2026-10-22",
     "rem00_completion_evidence": {
       "remediation_plan_commit_sha": "fd0e2731582d7bb8eb0b7aecae41d2417aa40be5",
@@ -346,6 +346,25 @@
         "Exact-main-SHA CI evidence for REM-08 implementation before VERIFIED",
         "REM-10 transverse requalification"
       ]
+    },
+    "rem09": {
+      "implementation_lot": "LOT-34R",
+      "implementation_pr": 93,
+      "pr_head_sha": "fd228b1962f3eb99d8806277c1972154006293e3",
+      "merge_sha": "36b5f2fce76bb00ce8823b292ef438502eac1263",
+      "pr_ci_run_id": 39883208049,
+      "pr_security_run_id": 39883207982,
+      "pr_ci_status": "PASS",
+      "scope_decision": "A01_INCLUDED_IN_0_7",
+      "implementation_status": "COMPLETE",
+      "findings": [
+        "A01"
+      ],
+      "remaining_findings": [],
+      "remaining_evidence": [
+        "Exact-main-SHA CI evidence for REM-09 implementation before VERIFIED",
+        "REM-10 transverse requalification"
+      ]
     }
   },
   "lots": {
@@ -436,12 +455,12 @@
       "findings": [
         "A01"
       ],
-      "status": "ACTIVE"
+      "status": "IMPLEMENTED_QUALIFYING"
     },
     "REM-10": {
       "title": "Transverse Qualification / Release Decision",
       "findings": "ALL_APPLICABLE",
-      "status": "PLANNED"
+      "status": "ACTIVE"
     }
   },
   "findings": [
@@ -1419,19 +1438,44 @@
       "title": "Persistent subledger application chain is incomplete",
       "primary_remediation_lot": "REM-09",
       "qualification_lot": "REM-10",
-      "release_scope": "CONDITIONAL",
-      "status": "OPEN",
+      "release_scope": "IN_SCOPE",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "36b5f2fce76bb00ce8823b292ef438502eac1263",
+      "corrective_tests": [
+        "tests/unit/application/test_persistent_subledger_service.py::test_recognize_receivable_posts_gl_and_persists_atomically",
+        "tests/unit/application/test_persistent_subledger_service.py::test_failed_subledger_write_rolls_back_gl_posting",
+        "tests/unit/application/test_persistent_subledger_service.py::test_allocation_persists_item_settlement_and_evidence_atomically",
+        "tests/unit/application/test_persistent_subledger_service.py::test_stale_allocation_fails_without_partial_state",
+        "tests/unit/application/test_persistent_subledger_service.py::test_settlement_reversal_restores_due_item_and_gl_in_one_transaction",
+        "tests/integration/test_django_postgresql_adapter.py::test_subledger_repository_round_trip_is_exact",
+        "tests/integration/test_sqlalchemy_postgresql_adapter.py::test_subledger_repository_round_trip_is_exact"
+      ],
+      "qualification_evidence": [
+        "PR #93 head fd228b1962f3eb99d8806277c1972154006293e3: CI run 39883208049 PASS",
+        "PR #93 head fd228b1962f3eb99d8806277c1972154006293e3: Security run 39883207982 PASS",
+        "PR #93 head fd228b1962f3eb99d8806277c1972154006293e3: Quality and strict mypy PASS",
+        "PR #93 head fd228b1962f3eb99d8806277c1972154006293e3: Python 3.11/3.12/3.13 PASS",
+        "PR #93 head fd228b1962f3eb99d8806277c1972154006293e3: Django/PostgreSQL qualification PASS",
+        "PR #93 head fd228b1962f3eb99d8806277c1972154006293e3: SQLAlchemy/PostgreSQL qualification PASS",
+        "PR #93 head fd228b1962f3eb99d8806277c1972154006293e3: Package qualification PASS",
+        "PR #93 head fd228b1962f3eb99d8806277c1972154006293e3: Regulatory capability qualification PASS",
+        "PR #93 head fd228b1962f3eb99d8806277c1972154006293e3: Canonical CI gate PASS"
+      ],
       "affected_components": [
         "subledgers",
         "application",
         "persistence"
       ],
-      "notes": []
+      "notes": [
+        "A01 was explicitly included in the 0.7 release scope because subledgers remain part of the public facade and historical stable product claims.",
+        "UnitOfWork now exposes a typed SubledgerRepositoryProtocol implemented by InMemory, Django/PostgreSQL and SQLAlchemy/PostgreSQL adapters.",
+        "Recognition and settlement posting reuse PostingOrchestrator.post_in_uow so GL and subledger state commit atomically.",
+        "Settlement reversal now reuses ReversalOrchestrator.reverse_in_uow and restores allocations/open amounts in the same transaction.",
+        "Django and SQLAlchemy persist adapter-neutral subledger payloads in the logical pyak_subledger_record table.",
+        "Squash merge changed the SHA; exact merge-SHA evidence remains required before VERIFIED."
+      ]
     },
     {
       "id": "A02",
@@ -1515,5 +1559,5 @@
     }
   ],
   "last_updated_on": "2026-10-23",
-  "last_updated_from_sha": "24f34bb5502f9ac439c5af728fe7f71f77d9ee19"
+  "last_updated_from_sha": "36b5f2fce76bb00ce8823b292ef438502eac1263"
 }

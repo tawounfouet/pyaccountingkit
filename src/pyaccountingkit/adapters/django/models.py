@@ -220,6 +220,33 @@ class OutboxMessageModel(models.Model):
         ordering = ("id",)
 
 
+class SubledgerRecordModel(models.Model):
+    key = models.CharField(max_length=320, primary_key=True)
+    kind = models.CharField(max_length=32, db_index=True)
+    record_id = models.CharField(max_length=128, db_index=True)
+    entity_id = models.CharField(max_length=128, db_index=True)
+    subledger_id = models.CharField(max_length=128, blank=True, default="", db_index=True)
+    revision = models.PositiveBigIntegerField(default=0)
+    payload = models.JSONField(default=dict)
+
+    class Meta:
+        app_label = "pyaccountingkit_django"
+        db_table = "pyak_subledger_record"
+        ordering = ("kind", "record_id")
+        constraints = [
+            models.UniqueConstraint(
+                fields=("kind", "record_id"),
+                name="uq_pyak_subledger_kind_record",
+            )
+        ]
+        indexes = [
+            models.Index(
+                fields=("entity_id", "subledger_id", "kind"),
+                name="ix_pyak_subledger_scope",
+            )
+        ]
+
+
 __all__ = [
     "AccountingExecutionTraceModel",
     "AccountingPeriodModel",
@@ -230,4 +257,5 @@ __all__ = [
     "JournalLineModel",
     "JournalModel",
     "OutboxMessageModel",
+    "SubledgerRecordModel",
 ]

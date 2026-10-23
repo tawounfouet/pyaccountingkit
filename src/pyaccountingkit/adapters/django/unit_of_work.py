@@ -17,6 +17,7 @@ from pyaccountingkit.adapters.django.repositories import (
     DjangoOutboxPublisher,
     DjangoPeriodRepository,
 )
+from pyaccountingkit.adapters.django.subledger_repository import DjangoSubledgerRepository
 from pyaccountingkit.core.clock import ClockProtocol, SystemClock
 
 
@@ -39,6 +40,7 @@ class DjangoUnitOfWork:
         self.outbox = DjangoOutboxPublisher(using=using)
         self.execution_traces = DjangoAccountingExecutionTraceRepository(using=using)
         self.closing_runs = DjangoClosingRunRepository(using=using)
+        self.subledgers = DjangoSubledgerRepository(using=using)
         self._atomic: Any = None
         self._entered = False
         self._committed = False

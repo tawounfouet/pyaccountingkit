@@ -20,7 +20,9 @@ from pyaccountingkit.domain.reporting.engine import (
 )
 from pyaccountingkit.domain.reporting.errors import (
     FormulaCycleError,
+    ReportSnapshotTransitionError,
     NonExecutableStatementMappingError,
+    StatementControlError,
     StatementMappingError,
     StatementSourceError,
 )
@@ -35,6 +37,7 @@ from pyaccountingkit.domain.reporting.mappings import (
 from pyaccountingkit.domain.reporting.report_snapshot import (
     ReportSnapshot,
     ReportSnapshotFreshness,
+    ReportSnapshotStatus,
 )
 from pyaccountingkit.domain.reporting.statement_definition import (
     FinancialStatementDefinition,
@@ -453,6 +456,60 @@ def test_one_cent_allocation_is_conservative_across_statement_lines() -> None:
         (item.contribution for item in contributions),
         Money.zero(EUR),
     ) == Money.from_str("0.01", EUR)
+
+
+def test_failed_financial_result_cannot_be_published() -> None:
+    source = _trial_balance(
+        _line("100", "100", "0"),
+        _line("200", "0", "90"),
+    )
+    result = FinancialStatementEngine().build(_balance_sheet_request(source=source))
+    assert result.controls[0].status is StatementControlStatus.FAIL
+
+    draft = ReportSnapshot.from_result(
+        snapshot_id="snap-failed",
+        result=result,
+        created_at=datetime(2026, 12, 31, tzinfo=UTC),
+    )
+
+    assert draft.status is ReportSnapshotStatus.DRAFT
+    with pytest.raises(StatementControlError, match="controls are not PASS"):
+        draft.validate(result)
+    with pytest.raises(ReportSnapshotTransitionError, match="cannot publish from DRAFT"):
+        draft.publish()
+
+
+def test_report_snapshot_requires_validated_publication_lifecycle() -> None:
+    result = FinancialStatementEngine().build(_balance_sheet_request())
+
+    with pytest.raises(ReportSnapshotTransitionError, match="created as DRAFT"):
+        ReportSnapshot.from_result(
+            snapshot_id="snap-direct-publish",
+            result=result,
+            created_at=datetime(2026, 12, 31, tzinfo=UTC),
+            status=ReportSnapshotStatus.PUBLISHED,
+        )
+
+    draft = ReportSnapshot.from_result(
+        snapshot_id="snap-lifecycle",
+        result=result,
+        created_at=datetime(2026, 12, 31, tzinfo=UTC),
+    )
+    validated = draft.validate(result)
+    published = validated.publish()
+    superseded = published.supersede()
+
+    assert draft.status is ReportSnapshotStatus.DRAFT
+    assert validated.status is ReportSnapshotStatus.VALIDATED
+    assert published.status is ReportSnapshotStatus.PUBLISHED
+    assert superseded.status is ReportSnapshotStatus.SUPERSEDED
+
+    with pytest.raises(ReportSnapshotTransitionError, match="cannot validate from VALIDATED"):
+        validated.validate(result)
+    with pytest.raises(ReportSnapshotTransitionError, match="cannot supersede from VALIDATED"):
+        validated.supersede()
+    with pytest.raises(ReportSnapshotTransitionError, match="cannot publish from PUBLISHED"):
+        published.publish()
 
 
 def test_report_snapshot_is_content_deterministic_immutable_and_stale_aware() -> None:

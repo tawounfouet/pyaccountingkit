@@ -84,8 +84,7 @@ class InMemorySubledgerRepository:
 
     def get_party(self, party_id: str, *, for_update: bool = False) -> SubledgerParty:
         value = self._get(PARTY, party_id)
-        assert isinstance(value, SubledgerParty)
-        return value
+        return require_record_type(value, SubledgerParty, identifier=party_id)
 
     def list_parties(self, entity_id: EntityId) -> tuple[SubledgerParty, ...]:
         values = tuple(
@@ -103,8 +102,7 @@ class InMemorySubledgerRepository:
 
     def get_receivable(self, item_id: str, *, for_update: bool = False) -> Receivable:
         value = self._get(RECEIVABLE, item_id)
-        assert isinstance(value, Receivable)
-        return value
+        return require_record_type(value, Receivable, identifier=item_id)
 
     def list_open_receivables(
         self,
@@ -132,8 +130,7 @@ class InMemorySubledgerRepository:
 
     def get_payable(self, item_id: str, *, for_update: bool = False) -> Payable:
         value = self._get(PAYABLE, item_id)
-        assert isinstance(value, Payable)
-        return value
+        return require_record_type(value, Payable, identifier=item_id)
 
     def list_open_payables(
         self,
@@ -166,8 +163,7 @@ class InMemorySubledgerRepository:
         for_update: bool = False,
     ) -> Settlement:
         value = self._get(SETTLEMENT, settlement_id)
-        assert isinstance(value, Settlement)
-        return value
+        return require_record_type(value, Settlement, identifier=settlement_id)
 
     def add_allocation(self, allocation: SettlementAllocation) -> None:
         self._add(allocation)
@@ -198,8 +194,11 @@ class InMemorySubledgerRepository:
         value = self._store.subledger_records.get(key)
         if value is None:
             return None
-        assert isinstance(value, SettlementReversal)
-        return value
+        return require_record_type(
+            value,
+            SettlementReversal,
+            identifier=reversal_id,
+        )
 
     def add_match(self, match: AccountingMatch) -> None:
         self._add(match)
@@ -210,8 +209,7 @@ class InMemorySubledgerRepository:
         value = self._store.subledger_records.get(key)
         if value is None:
             return None
-        assert isinstance(value, AccountingMatch)
-        return value
+        return require_record_type(value, AccountingMatch, identifier=match_id)
 
 
 __all__ = ["InMemorySubledgerRepository"]

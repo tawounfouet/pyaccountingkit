@@ -24,9 +24,7 @@ def _load_module() -> ModuleType:
 
 def _materialize_fixture(tmp_path: Path) -> dict[str, object]:
     registry = json.loads(
-        (ROOT / "docs" / "audits" / "REMEDIATION_2026_10_STATUS.json").read_text(
-            encoding="utf-8"
-        )
+        (ROOT / "docs" / "audits" / "REMEDIATION_2026_10_STATUS.json").read_text(encoding="utf-8")
     )
     version = str(registry["package_version"])
     (tmp_path / "pyproject.toml").write_text(

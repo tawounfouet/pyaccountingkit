@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from django.db import IntegrityError
+
 from pyaccountingkit.adapters.django.models import SubledgerRecordModel
 from pyaccountingkit.adapters.subledger_codec import (
     ALLOCATION,

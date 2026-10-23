@@ -104,6 +104,18 @@ class _WrappedLeakyService:
         return _ObjectWrapper(_SlotWrapper(_FakeSQLAlchemyModel()))
 
 
+class _FrameworkClassService:
+    def get(self, **parameters: object) -> object:
+        return _FakeDjangoModel
+
+
+class _CyclicWrapperService:
+    def get(self, **parameters: object) -> object:
+        wrapper = _ObjectWrapper(None)
+        wrapper.value = wrapper
+        return wrapper
+
+
 class _InputProbeService:
     def __init__(self) -> None:
         self.called = False
@@ -250,6 +262,20 @@ def test_framework_specific_objects_are_rejected_through_plain_wrappers() -> Non
     with pytest.raises(PublicBoundaryViolationError) as raised:
         app.entries.get(entry_id="entry-1")
     assert raised.value.to_info().details["object_type"].startswith("sqlalchemy.")
+
+
+def test_framework_class_is_rejected_at_public_boundary() -> None:
+    app = AccountingApplication(entries=_FrameworkClassService())
+    with pytest.raises(PublicBoundaryViolationError) as raised:
+        app.entries.get(entry_id="entry-1")
+    assert raised.value.to_info().details["object_type"].startswith("django.")
+
+
+def test_cyclic_neutral_wrapper_is_cycle_safe() -> None:
+    app = AccountingApplication(entries=_CyclicWrapperService())
+    result = app.entries.get(entry_id="entry-1")
+    assert isinstance(result, _ObjectWrapper)
+    assert result.value is result
 
 
 def test_framework_specific_input_is_rejected_before_service_invocation() -> None:

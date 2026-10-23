@@ -78,7 +78,7 @@ class InMemoryUnitOfWork:
         self._store = store
         self.clock = clock if clock is not None else SystemClock()
         self._baseline: InMemoryStore | None = None
-        self._read_dependencies: set[tuple[str, object]] = set()
+        self._read_dependencies: set[tuple[str, Any]] = set()
         self._working = store.copy()
         self._committed = False
         self._bind(self._working)
@@ -92,7 +92,7 @@ class InMemoryUnitOfWork:
         self.outbox = InMemoryOutboxPublisher(store)
         self.execution_traces = InMemoryAccountingExecutionTraceRepository(store, self._track_read)
 
-    def _track_read(self, kind: str, key: object) -> None:
+    def _track_read(self, kind: str, key: Any) -> None:
         self._read_dependencies.add((kind, key))
 
     def __enter__(self) -> Self:
@@ -234,7 +234,7 @@ class InMemoryUnitOfWork:
     @staticmethod
     def _posted_entries_for_period(
         store: InMemoryStore,
-        period_id: object,
+        period_id: Any,
     ) -> tuple[tuple[object, object, object], ...]:
         return tuple(
             sorted(
@@ -246,13 +246,13 @@ class InMemoryUnitOfWork:
                 for entry_id, entry in store.entries.items()
                 if entry.period_id == period_id
                 and entry.status.value in {"POSTED", "REVERSED"}
-            )
+            , key=lambda row: str(row[0]))
         )
 
     @staticmethod
     def _posted_entries_for_journal(
         store: InMemoryStore,
-        journal_id: object,
+        journal_id: Any,
     ) -> tuple[tuple[object, object, object], ...]:
         return tuple(
             sorted(
@@ -264,13 +264,13 @@ class InMemoryUnitOfWork:
                 for entry_id, entry in store.entries.items()
                 if entry.journal_id == journal_id
                 and entry.status.value in {"POSTED", "REVERSED"}
-            )
+            , key=lambda row: str(row[0]))
         )
 
     @staticmethod
     def _reversals_of(
         store: InMemoryStore,
-        entry_id: object,
+        entry_id: Any,
     ) -> tuple[tuple[object, object, object], ...]:
         return tuple(
             sorted(
@@ -281,7 +281,7 @@ class InMemoryUnitOfWork:
                 )
                 for candidate_id, entry in store.entries.items()
                 if entry.reversal_of_id == entry_id
-            )
+            , key=lambda row: str(row[0]))
         )
 
     @staticmethod

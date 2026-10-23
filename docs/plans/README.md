@@ -113,6 +113,8 @@ Les nouveaux lots stratégiques ne disposent pas encore tous d'un fichier `PLAN-
 
 La priorité n'est plus la promotion directe de `LOT-27 / 0.7.0rc1`.
 
+Candidate transverse actif : `0.7.0rc2` via `REM-10 / LOT-35R`.
+
 Le chantier courant est l'overlay de remédiation :
 
 | Ordre | Lot | Objet | Constats principaux |

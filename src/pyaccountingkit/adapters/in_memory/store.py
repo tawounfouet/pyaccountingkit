@@ -10,6 +10,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
+from pyaccountingkit.adapters.subledger_codec import SubledgerRecord
 from pyaccountingkit.core.identifiers import EntryId, JournalId, PeriodId
 from pyaccountingkit.core.revisions import Revision
 from pyaccountingkit.domain.audit.events import AuditEvent
@@ -35,7 +36,7 @@ class InMemoryStore:
     audit_log: list[AuditEvent] = field(default_factory=list)
     execution_traces: dict[EntryId, AccountingExecutionTrace] = field(default_factory=dict)
     closing_runs: dict[str, ClosingRun] = field(default_factory=dict)
-    subledger_records: dict[str, object] = field(default_factory=dict)
+    subledger_records: dict[str, SubledgerRecord] = field(default_factory=dict)
 
     def copy(self) -> InMemoryStore:
         """Return a detached copy used as a rollback snapshot."""

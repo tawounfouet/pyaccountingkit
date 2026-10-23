@@ -5,11 +5,11 @@ from __future__ import annotations
 from collections.abc import Callable, Sequence
 from datetime import date
 
+from pyaccountingkit.application.ledger.posting_orchestrator import PostingOrchestrator
 from pyaccountingkit.core.clock import ClockProtocol
 from pyaccountingkit.core.entity_scope import require_same_entity
 from pyaccountingkit.core.errors import PeriodClosedError
 from pyaccountingkit.core.identifiers import EntityId, EntryId, JournalId, PeriodId
-from pyaccountingkit.application.ledger.posting_orchestrator import PostingOrchestrator
 from pyaccountingkit.domain.audit.events import AuditEvent
 from pyaccountingkit.domain.closing.closing_run import (
     CloseGate,

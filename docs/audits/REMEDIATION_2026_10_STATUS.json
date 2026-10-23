@@ -3,7 +3,7 @@
   "project": "PyAccountingKit",
   "registry_id": "REMEDIATION_2026_10",
   "generated_on": "2026-10-22",
-  "package_version": "0.7.0rc1",
+  "package_version": "0.7.0rc2",
   "audit": {
     "baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
     "findings": [
@@ -365,6 +365,19 @@
         "Exact-main-SHA CI evidence for REM-09 implementation before VERIFIED",
         "REM-10 transverse requalification"
       ]
+    },
+    "rem10": {
+      "qualification_lot": "LOT-35R",
+      "candidate_version": "0.7.0rc2",
+      "candidate_branch": "release/0.7.0rc2",
+      "baseline_sha": "125ee19d92f0c926db108582ee2ae95cd1644299",
+      "qualification_status": "QUALIFYING",
+      "exact_candidate_sha": null,
+      "ci_run_id": null,
+      "security_run_id": null,
+      "verified_findings": 0,
+      "remaining_findings": 30,
+      "decision": "PENDING_EXACT_SHA_QUALIFICATION"
     }
   },
   "lots": {
@@ -460,7 +473,7 @@
     "REM-10": {
       "title": "Transverse Qualification / Release Decision",
       "findings": "ALL_APPLICABLE",
-      "status": "ACTIVE"
+      "status": "QUALIFYING"
     }
   },
   "findings": [
@@ -1559,5 +1572,5 @@
     }
   ],
   "last_updated_on": "2026-10-23",
-  "last_updated_from_sha": "36b5f2fce76bb00ce8823b292ef438502eac1263"
+  "last_updated_from_sha": "125ee19d92f0c926db108582ee2ae95cd1644299"
 }

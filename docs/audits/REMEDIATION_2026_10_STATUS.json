@@ -55,7 +55,7 @@
       "evidence_must_match_candidate_sha": true,
       "documentation_only_change_cannot_close_finding": true
     },
-    "current_phase": "REM-07",
+    "current_phase": "REM-08",
     "rem00_completed_on": "2026-10-22",
     "rem00_completion_evidence": {
       "remediation_plan_commit_sha": "fd0e2731582d7bb8eb0b7aecae41d2417aa40be5",
@@ -308,6 +308,25 @@
         "Exact-main-SHA CI evidence for the combined REM-05 implementation before VERIFIED",
         "REM-10 transverse requalification"
       ]
+    },
+    "rem07": {
+      "implementation_lot": "LOT-32R",
+      "implementation_pr": 91,
+      "pr_head_sha": "4fefcd9149c21c5265a69f7ce0e6c04d3de68f40",
+      "merge_sha": "4df191e70e85fdc634fdf7dfde8cf6fcfeb5681c",
+      "pr_ci_run_id": 39879124248,
+      "pr_security_run_id": 39879124276,
+      "pr_ci_status": "PASS",
+      "implementation_status": "COMPLETE",
+      "findings": [
+        "F19",
+        "F22"
+      ],
+      "remaining_findings": [],
+      "remaining_evidence": [
+        "Exact-main-SHA CI evidence for REM-07 implementation before VERIFIED",
+        "REM-10 transverse requalification"
+      ]
     }
   },
   "lots": {
@@ -383,7 +402,7 @@
         "F19",
         "F22"
       ],
-      "status": "ACTIVE"
+      "status": "IMPLEMENTED_QUALIFYING"
     },
     "REM-08": {
       "title": "Public Contracts / Application Services",
@@ -391,7 +410,7 @@
         "F17",
         "A02"
       ],
-      "status": "PLANNED"
+      "status": "ACTIVE"
     },
     "REM-09": {
       "title": "Persistent Subledgers",
@@ -1045,17 +1064,34 @@
       "primary_remediation_lot": "REM-07",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "OPEN",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "4df191e70e85fdc634fdf7dfde8cf6fcfeb5681c",
+      "corrective_tests": [
+        "tests/unit/domain/test_reference_hierarchy.py::test_mixed_standard_or_edition_node_is_rejected",
+        "tests/unit/domain/test_reference_hierarchy.py::test_self_cycle_is_rejected",
+        "tests/unit/domain/test_reference_hierarchy.py::test_multi_node_cycle_is_rejected",
+        "tests/unit/domain/test_reference_hierarchy.py::test_orphan_node_rejected"
+      ],
+      "qualification_evidence": [
+        "PR #91 head 4fefcd9149c21c5265a69f7ce0e6c04d3de68f40: CI run 39879124248 PASS",
+        "PR #91 head 4fefcd9149c21c5265a69f7ce0e6c04d3de68f40: Security run 39879124276 PASS",
+        "PR #91 head 4fefcd9149c21c5265a69f7ce0e6c04d3de68f40: Python 3.11/3.12/3.13 PASS",
+        "PR #91 head 4fefcd9149c21c5265a69f7ce0e6c04d3de68f40: Django/PostgreSQL qualification PASS",
+        "PR #91 head 4fefcd9149c21c5265a69f7ce0e6c04d3de68f40: SQLAlchemy/PostgreSQL qualification PASS",
+        "PR #91 head 4fefcd9149c21c5265a69f7ce0e6c04d3de68f40: Regulatory capability qualification PASS",
+        "PR #91 head 4fefcd9149c21c5265a69f7ce0e6c04d3de68f40: Canonical CI gate PASS"
+      ],
       "affected_components": [
         "references",
         "regulatory"
       ],
-      "notes": []
+      "notes": [
+        "ReferenceHierarchy now enforces aggregate-wide standard_id and edition coordinates.",
+        "Dangling parents, self-cycles and multi-node cycles fail closed at aggregate construction.",
+        "Squash merge changed the SHA; exact merge-SHA evidence remains required before VERIFIED."
+      ]
     },
     {
       "id": "F20",
@@ -1138,18 +1174,36 @@
       "primary_remediation_lot": "REM-07",
       "qualification_lot": "REM-10",
       "release_scope": "IN_SCOPE",
-      "status": "OPEN",
+      "status": "FIXED_UNVERIFIED",
       "audit_baseline_sha": "259e9ad665941cd6a9545deb3b92f979d40eae35",
       "remediation_start_sha": "3ba5d84ab575bb4b0c0b41f148632632c01551c7",
-      "fix_sha": null,
-      "corrective_tests": [],
-      "qualification_evidence": [],
+      "fix_sha": "4df191e70e85fdc634fdf7dfde8cf6fcfeb5681c",
+      "corrective_tests": [
+        "tests/unit/domain/test_financial_statements.py::test_failed_financial_result_cannot_be_published",
+        "tests/unit/domain/test_financial_statements.py::test_report_snapshot_requires_validated_publication_lifecycle",
+        "tests/replay/test_0_3_release_pipeline_replay.py"
+      ],
+      "qualification_evidence": [
+        "PR #91 head 4fefcd9149c21c5265a69f7ce0e6c04d3de68f40: CI run 39879124248 PASS",
+        "PR #91 head 4fefcd9149c21c5265a69f7ce0e6c04d3de68f40: Security run 39879124276 PASS",
+        "PR #91 head 4fefcd9149c21c5265a69f7ce0e6c04d3de68f40: Python 3.11/3.12/3.13 PASS",
+        "PR #91 head 4fefcd9149c21c5265a69f7ce0e6c04d3de68f40: Django/PostgreSQL qualification PASS",
+        "PR #91 head 4fefcd9149c21c5265a69f7ce0e6c04d3de68f40: SQLAlchemy/PostgreSQL qualification PASS",
+        "PR #91 head 4fefcd9149c21c5265a69f7ce0e6c04d3de68f40: Regulatory capability qualification PASS",
+        "PR #91 head 4fefcd9149c21c5265a69f7ce0e6c04d3de68f40: Canonical CI gate PASS"
+      ],
       "affected_components": [
         "reporting",
         "publication",
         "state_machine"
       ],
-      "notes": []
+      "notes": [
+        "ReportSnapshot.from_result now creates DRAFT only and rejects direct PUBLISHED creation.",
+        "Canonical lifecycle is DRAFT -> VALIDATED -> PUBLISHED -> SUPERSEDED.",
+        "Snapshot validation requires exact result checksum and every emitted financial-statement control to be PASS.",
+        "The release 0.3 pipeline now validates and publishes explicitly before regulatory reporting.",
+        "Squash merge changed the SHA; exact merge-SHA evidence remains required before VERIFIED."
+      ]
     },
     {
       "id": "F23",
@@ -1403,5 +1457,5 @@
     }
   ],
   "last_updated_on": "2026-10-23",
-  "last_updated_from_sha": "47e050e5697c5571be87de7fbfe2f223fcadbd91"
+  "last_updated_from_sha": "4df191e70e85fdc634fdf7dfde8cf6fcfeb5681c"
 }

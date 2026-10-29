@@ -188,7 +188,7 @@ def test_live_github_reviews_must_apply_to_exact_head_not_prior_commit(
         raise AssertionError(f"stale review must stop before {path}")
 
     monkeypatch.setattr(gate, "_github_get", fake_get)
-    with pytest.raises(gate.FoundationGateError, match="lacks live PR approval"):
+    with pytest.raises(gate.FoundationGateError, match="No independent live GitHub approval"):
         gate.enforce(signed, head_sha=head, token="fake")
 
 

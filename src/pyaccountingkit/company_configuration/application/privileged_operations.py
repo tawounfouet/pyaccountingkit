@@ -13,8 +13,8 @@ from uuid import UUID
 
 from .fence_contract import (
     FencedRoleOperation,
-    PrivilegedFencePermit,
     PrivilegedFencedExecutorPort,
+    PrivilegedFencePermit,
 )
 
 

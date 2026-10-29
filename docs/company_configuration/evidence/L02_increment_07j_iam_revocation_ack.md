@@ -28,3 +28,11 @@ L02-07i can verify signed operator and approver evidence, but an external IAM re
 - An IAM policy revoke not yet delivered to PostgreSQL can still race a DDL. The effective security guarantee begins only when the revocation database transaction commits. The remote provider must distinguish `APPLIED`, `ALREADY_REVOKED` and `TOO_LATE` and reconcile the latter through incident management.
 - No transactional atomicity across remote IAM, backend drain, SQL role DDL, separate privileged-operation outcome audit or remote ACK. Network outage, restore, failover and multi-tenant load exercises remain missing.
 - Schema owner/superuser and legacy direct PostgreSQL role operator remain privileged bypasses if their secrets leak. No real workload attestation, PAM/vault/TLS/WORM evidence, signed security ADR or formal G0/G1/G2 acceptance. **No merge or stable release claimed.**
+
+## Verified exact-SHA CI evidence
+
+- Implementation SHA `8559a06042f15d7a7ab66105da63b291c9e338e1`.
+- [PostgreSQL CI #40925611857](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40925611857): **106 tests passed on Python 3.11 and 106 passed on Python 3.12**; Ruff green. Five new PostgreSQL scenarios test signed delivery, durable replay, TOO_LATE, ALREADY_REVOKED, exact tenant/approval scope and segregated SQL privileges.
+- [Python CI #40925611863](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40925611863): **225 passed, 14 PostgreSQL-only skipped** per Python 3.11 and 3.12; Ruff green. Nineteen new pure Python tests cover signed evidence, remote ACK outage/retry, denial and status semantics.
+
+The signed events, private keys and provider source are **test fixtures**, not live IAM. G0/G1/G2 remain NOT APPROVED and this is not a stable or production-ready release.

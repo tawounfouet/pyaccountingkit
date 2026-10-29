@@ -16,8 +16,17 @@ from pyaccountingkit.company_configuration.application.fence_contract import (
     FencedRoleOperation,
     PrivilegedFencePermit,
 )
+from pyaccountingkit.company_configuration.application.privileged_operations import (
+    PrivilegedRoleRequest,
+    PrivilegedRoleService,
+    VerifiedApproval,
+    VerifiedOperator,
+)
 from pyaccountingkit.company_configuration.infrastructure.postgres.delegated_control_plane import (
     DelegatedPrivilegedControlPlane,
+)
+from pyaccountingkit.company_configuration.infrastructure.postgres.privileged_audit import (
+    PostgresPrivilegedAudit,
 )
 
 ADMIN = os.getenv("CC_PG_ADMIN_DSN")
@@ -190,3 +199,62 @@ def test_delegated_revoke_disables_login_and_clears_binding(account):
         ).fetchone()[0] == 0
     with pytest.raises(psycopg.OperationalError):
         psycopg.connect(old_dsn)
+
+
+def test_main_service_uses_delegated_fence_with_separate_owner_audit(account):
+    """DDL uses delegated role; the separate legacy audit still owns its DSN."""
+    role, _ = account
+    request_id = uuid4()
+    request = PrivilegedRoleRequest(
+        request_id, "tenant-a", role, "rotate", "approval-e2e",
+        "delegated control plane verification",
+    )
+    now = datetime.now(UTC)
+    approval = VerifiedApproval(
+        request.approval_reference, "checker-b", request_id, "tenant-a", role,
+        "rotate", now - timedelta(minutes=1), now + timedelta(minutes=5),
+    )
+
+    class Identity:
+        def verify(self, context):
+            assert context == "trusted-internal-context"
+            return VerifiedOperator("operator-a", "tenant-a")
+
+    class Approvals:
+        def resolve(self, *, reference):
+            assert reference == request.approval_reference
+            return approval
+
+    class Policy:
+        def require(self, *, principal, request):
+            assert principal.tenant_id == request.tenant_id
+
+    class Clock:
+        def now(self):
+            return datetime.now(UTC)
+
+    service = PrivilegedRoleService(
+        identity=Identity(), approvals=Approvals(), policy=Policy(),
+        audit=PostgresPrivilegedAudit(ADMIN),
+        fence=DelegatedPrivilegedControlPlane(DELEGATE), clock=Clock(),
+    )
+    result = service.execute(
+        request, auth_context="trusted-internal-context",
+        new_password="delegated-end-to-end-rotation-secret-123456",
+    )
+    assert result.operation == "rotate"
+    with psycopg.connect(ADMIN) as conn:
+        assert conn.execute(
+            "SELECT state FROM company_configuration.privileged_authorization_fences "
+            "WHERE request_id=%s", (request_id,),
+        ).fetchone()[0] == "CONSUMED"
+        phases = [r[0] for r in conn.execute(
+            "SELECT phase FROM company_configuration.privileged_operation_audit "
+            "WHERE request_id=%s", (request_id,),
+        ).fetchall()]
+        assert sorted(phases) == ["INTENT", "SUCCEEDED"]
+
+
+def test_control_plane_rejects_owner_superuser_target():
+    with pytest.raises(psycopg.errors.InsufficientPrivilege):
+        DelegatedPrivilegedControlPlane(DELEGATE).issue(permit("postgres"))

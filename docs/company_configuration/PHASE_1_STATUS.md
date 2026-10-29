@@ -79,3 +79,10 @@ G0/G1/G2 are **not signed off**. No stable release, real IAM, independently secu
 - Previous and new unit / PostgreSQL tests updated to use fenced composition; additional proof for legacy composition denial, issue failure and end-to-end consumed evidence.
 - **Not production-qualified:** owner-DSN direct infrastructure bypass, remote IAM revocation propagation, operator/approval provider, control plane deployment, post-DDL drain and outcome audit, G0/G1/G2 and ADR remain open.
 - **Implementation SHA** `f832e523869df5373637d921900f0a0bcf04e945`: [PostgreSQL CI #40913070187](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40913070187), **81 passed per Python version**, Ruff green; [Python CI #40913070382](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40913070382), **169 passed, 10 skipped per version**, Ruff green. **No G0/G1/G2 sign-off or production qualification.**
+
+## L02-07g - Narrow delegated SQL privilege boundary (candidate)
+
+- PostgreSQL migration `0009_delegated_control_plane.sql` installs owner-controlled SECURITY DEFINER issue/revoke/execute routines with explicit search_path and PUBLIC grants revoked.
+- CI-only `cc_control_plane` LOGIN has **no CREATEROLE, SUPERUSER or private-table privileges**, only EXECUTE on three narrowly constrained routines. Normal runtime/dispatcher/Inbox roles cannot call them.
+- `DelegatedPrivilegedControlPlane` implements the fenced execution port without needing a schema-owner/admin DSN. Owner-only migrations, privileged audit and existing legacy raw role operator are **not** eliminated.
+- Automated PostgreSQL adversarial qualification is required before candidate acceptance. Production network segregation, signed IAM/SoD approvals, secret vault/logs, independent audit owner and G0/G1/G2 remain unapproved.

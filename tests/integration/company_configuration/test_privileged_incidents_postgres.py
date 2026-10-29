@@ -24,14 +24,14 @@ from pyaccountingkit.company_configuration.application.privileged_operations imp
     VerifiedApproval,
     VerifiedOperator,
 )
+from pyaccountingkit.company_configuration.infrastructure.postgres import (
+    privileged_reconciliation,
+)
 from pyaccountingkit.company_configuration.infrastructure.postgres.privileged_audit import (
     PostgresPrivilegedAudit,
 )
 from pyaccountingkit.company_configuration.infrastructure.postgres.privileged_incidents import (
     PostgresPrivilegedIncidentRepository,
-)
-from pyaccountingkit.company_configuration.infrastructure.postgres import (
-    privileged_reconciliation,
 )
 
 ADMIN = os.getenv("CC_PG_ADMIN_DSN")

@@ -100,3 +100,11 @@ G0/G1/G2 are **not signed off**. No stable release, real IAM, independently secu
 - `build_restricted_privileged_service()` validates the *two distinct, nonprivileged* SQL session identities and role privileges; rejects owner/runtime and swapped credentials.
 - Real PostgreSQL CI test fixture and adversarial scenarios are provided, including integrated service execution with restricted audit and control-plane DSNs; exact GitHub Actions qualification remains pending.
 - **Not deployment qualification**: separate SQL roles are not separately deployed services, no external signed IAM approval or WORM audit, privileged owner/raw operator still available, no G0/G1/G2 approvals or stable release.
+
+### L02-07h - Dedicated privileged audit (exact-SHA CI-qualified candidate)
+
+- Implementation `3025731bdacb2b833291930141ce7322fd9eb7fa`: [PG CI #40918911563](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40918911563), **98 passed per Python version (3.11/3.12)** and Ruff; [Python CI #40918911446](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40918911446), **169 passed, 12 skipped** per version, Ruff.
+- Migration 0010: restricted audit-only SQL `SECURITY DEFINER` endpoint, server-side phase consistency and original approver attribution; **SUCCEEDED** requires matching **CONSUMED** fence. Previous migrations remain checksum-verified and untouched.
+- Independent `cc_privileged_audit` LOGIN has no access to audit tables or role DDL; `cc_control_plane` cannot invoke audit writes; runtime/Inbox/dispatcher have neither capability.
+- `build_restricted_privileged_service` refuses admin, runtime and switched DSNs; integrated PrivilegedRoleService execution uses only `cc_privileged_audit` and `cc_control_plane` DSNs, with owner credentials needed solely for migrations and CI evidence inspection.
+- **Still G2 BLOCKED:** schema owner/legacy operator, no real external IAM/SoD/approval signature, no physically segregated deployment/network, no externally attestable audit, vault/TLS/SQL statement logs and post-DDL recovery unqualified. ADR-CC-08H proposed only. PR #19 stays draft/unmerged.

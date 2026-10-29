@@ -25,4 +25,9 @@ L02-07g delegated the SQL role modification through `cc_control_plane`, a restri
 
 ## Verification
 
-CI qualification: record exact SHA and GitHub Actions links only after successful PostgreSQL 16 and Python 3.11/3.12 runs. No production or stable release claimed.
+Exact implementation SHA `3025731bdacb2b833291930141ce7322fd9eb7fa` passed:
+
+- [PostgreSQL CI #40918911563](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40918911563): **98 integration tests passed** per Python 3.11 and 3.12, including 8 newly added restricted-audit tests; Ruff green.
+- [Python CI #40918911446](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40918911446): **169 passed, 12 PostgreSQL integration modules skipped** per Python version; Ruff green.
+
+This is an ephemeral CI role capability proof, not a deployed protected control-plane process or external audit custody. No approved G0/G1/G2, no stable release.

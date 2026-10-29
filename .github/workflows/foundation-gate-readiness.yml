@@ -1,0 +1,33 @@
+name: Foundation gate register integrity (NOT gate approval)
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  gate-register-consistency:
+    name: Validate unsigned G0-G1-G2 decision evidence; NO_GO is expected
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.11', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Validate gate schema and print an EXPLICIT NO_GO verdict
+        run: |
+          python scripts/qualify_foundation_gates.py --mode report
+          echo "This passing job verifies gate-register consistency, NOT a GO decision."
+      - name: Run gate integrity and adversarial declaration tests
+        run: |
+          python -m pip install 'pytest>=8,<10' 'ruff>=0.9,<1'
+          python -m pytest -q tests/unit/company_configuration/test_foundation_gate_contract.py
+      - name: Check FND-C07 Python code style
+        run: python -m ruff check scripts/qualify_foundation_gates.py tests/unit/company_configuration/test_foundation_gate_contract.py

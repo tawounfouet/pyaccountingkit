@@ -38,11 +38,13 @@
 - [x] Credential/pool boundaries and scoped privileged audit, policy and control-plane candidates (#11–#20).
 - [x] Signed revocation receipt with pre-issuance tombstone (#22), durable ACK / DLQ / manual re-drive (#23–#24) and independent signed approval candidate (#25).
 - [x] Historic per-increment CI for PR #25, PostgreSQL and Python on Python 3.11/3.12 successful; **not** an approved security or G2 gate.
-- [ ] Re-run **full** Python+PostgreSQL+Ruff on exact consolidated new-repo SHA after G1 backport and phase-specific changes.
+- [x] **Current full-stack candidate CI proof:** PR #31 implementation `703331ae70352ea0577af749fb0cc0f09964a32b` passed Python 3.11/3.12 (**289 passed / 19 skipped per version**), PostgreSQL 16 (**133 passed per version**), migration/recovery (**6 passed per version**) and Ruff. A subsequent documentation commit needs independent exact-head CI.
+- [ ] Re-run **full** Python+PostgreSQL+Ruff against the **merged `main` SHA** after review/controlled integration; branch-only green is insufficient.
 - [x] **FND-C04 development qualification:** exact-head CI proves fresh install, `0013→0014` upgrade, immutable source checksums, unknown/gapped applied history denial, injected transaction rollback, concurrent migration serialization and isolated `pg_dump/pg_restore` of selected domain evidence. See [FND-C04 evidence](L02_08_FND_C04_MIGRATION_RECOVERY_QUALIFICATION.md); no existing migration file was edited.
 - [ ] **Production restore and rollout gate still open:** actual backup/PITR/roles/grants/vault restoration, N/N-1 rollout contract and graceful drain of old recovery workers, RPO/RTO evidence and independent operator approval. `0014` intentionally changes recovery authorization semantics.
 - [ ] Security review with direct SQL abuse paths (especially recovery `cc_iam_recovery` credential calling SECURITY DEFINER re-drive), role separation, stolen-credential scenario, signature source authenticity and revocation races. Review [#9](https://github.com/tawounfouet/pyaccountingkit/issues/9).
-- [ ] Confirm transactional Inbox/Outbox and denial-audit invariants under concurrency, failure injection and tenant spoofing; sign evidence against exact SHA.
+- [x] **FND-C05 automated local contract proof:** leased dispatcher refuses expired acknowledgements, expired final claims dead-letter, handlers cannot commit independently, exceptions atomically roll back Inbox receipt + projection, and Domain/Application import boundaries are tested. See [FND-C05 evidence](L02_09_FND_C05_RELIABILITY_AND_CONTRACTS.md) and PR #31.
+- [ ] **Independent G2 contract audit still open:** tenant and actor trust; external broker/producer authenticity; review of denial audit and C10 schema by a reviewer; load/fault testing and SLO policy.
 - [ ] Review architecture boundaries (Domain → no ORM/IAM imports, Application ports, Infrastructure adapters), package/API/error contracts and no demo-only functionality misrepresented.
 - [ ] Approve/reject outstanding L02 ADRs, explicit production-only limitations, audit data protection and disaster-recovery caveats.
 - [ ] Independent G2 gate decision with exact SHA and allowed use scope.
@@ -61,6 +63,10 @@ main (README bootstrap)
     → #20 L02-07i → #22 L02-07j → #23 L02-07k
     → #24 L02-07l → #25 L02-07m
       → standalone Foundation consolidation PR (backports G1 fix + gate scope)
+      → #27 standalone main-integration candidate
+         → #28 FND-C03 SQL recovery grant hardening
+            → #29 FND-C04 migration / logical restoration
+               → #31 FND-C05 Outbox/Inbox reliability
 ```
 
 **IMPORTANT:** Branch ancestry was created before PR #3's later DST fix. Do not assume the fix is in the original #4–#25 branches. The consolidation child branch explicitly backports the same source and tests for CI. Before any merge to main, use a consistent integration strategy that prevents duplicated changes and preserves the applied migration order; verify with `git merge-base`, `git diff`, `git log` and GitHub compare results. Do not merge the incompatible #21 alternative.

@@ -108,7 +108,7 @@ class PostgresOutboxDispatcher:
     def _set_tenant(self, conn: psycopg.Connection) -> None:
         require_tenant_connection(conn, self._tenant)
 
-    def _claim(self, limit: int) -> list[_Claim]:
+    def _claim(self, limit: int) -> tuple[list[_Claim], int]:
         now = self._now()
         # Unique token per *batch*; the same event cannot have two active
         # claims. A later lease always gets a different fencing token.
@@ -121,11 +121,26 @@ class PostgresOutboxDispatcher:
                 "WHERE tenant_id=%s ON CONFLICT (tenant_id, event_id) DO NOTHING",
                 (self._tenant,),
             )
+            # A crashed publisher must not retry indefinitely after the
+            # configured attempt budget. Expired final leases transition
+            # durably to DEAD, without inventing a successful delivery ACK.
+            expired = conn.execute(
+                "UPDATE company_configuration.outbox_delivery "
+                "SET dead_letter_at=%s, last_error='LEASE_EXPIRED', "
+                "lease_owner=NULL, lease_token=NULL, lease_until=NULL "
+                "WHERE tenant_id=%s AND delivered_at IS NULL "
+                "AND dead_letter_at IS NULL AND attempts >= %s "
+                "AND lease_until IS NOT NULL AND lease_until<=%s "
+                "RETURNING event_id",
+                (now, self._tenant, self._max_attempts, now),
+            ).fetchall()
+            expired_dead = len(expired)
             rows = conn.execute(
                 "WITH candidates AS ("
                 " SELECT tenant_id, event_id FROM company_configuration.outbox_delivery "
                 " WHERE tenant_id=%s AND delivered_at IS NULL AND dead_letter_at IS NULL "
-                " AND available_at<=%s AND (lease_until IS NULL OR lease_until<=%s) "
+                " AND attempts < %s AND available_at<=%s "
+                " AND (lease_until IS NULL OR lease_until<=%s) "
                 " ORDER BY available_at, event_id FOR UPDATE SKIP LOCKED LIMIT %s"
                 ") UPDATE company_configuration.outbox_delivery AS delivery "
                 "SET attempts=delivery.attempts+1, lease_owner=%s, lease_token=%s, "
@@ -133,12 +148,13 @@ class PostgresOutboxDispatcher:
                 "WHERE delivery.tenant_id=c.tenant_id AND delivery.event_id=c.event_id "
                 "RETURNING delivery.event_id, delivery.attempts",
                 (
-                    self._tenant, now, now, limit, self._worker, token,
+                    self._tenant, self._max_attempts, now, now, limit,
+                    self._worker, token,
                     now + timedelta(seconds=self._lease_seconds),
                 ),
             ).fetchall()
             if not rows:
-                return []
+                return [], expired_dead
             attempt_by_id = {r["event_id"]: r["attempts"] for r in rows}
             found = conn.execute(
                 "SELECT event_id, tenant_id, company_id, entity_id, event_type, "
@@ -153,7 +169,7 @@ class PostgresOutboxDispatcher:
             ]
             if len(claims) != len(rows):
                 raise RuntimeError("Outbox claim missing an immutable source event")
-            return claims
+            return claims, expired_dead
 
     def _complete(self, claim: _Claim, *, failure: Exception | None) -> bool:
         now = self._now()
@@ -173,12 +189,12 @@ class PostgresOutboxDispatcher:
                 "available_at=%s, last_error=%s, "
                 "lease_owner=NULL, lease_token=NULL, lease_until=NULL "
                 "WHERE tenant_id=%s AND event_id=%s AND lease_token=%s "
-                "AND delivered_at IS NULL AND dead_letter_at IS NULL "
+                "AND lease_until>%s AND delivered_at IS NULL AND dead_letter_at IS NULL "
                 "RETURNING event_id",
                 (
                     failure is None, now, terminal, now,
                     now + timedelta(seconds=delay) if failure and not terminal else now,
-                    error_class, self._tenant, claim.event.event_id, claim.token,
+                    error_class, self._tenant, claim.event.event_id, claim.token, now,
                 ),
             ).fetchone()
             if row is None:
@@ -188,8 +204,9 @@ class PostgresOutboxDispatcher:
     def dispatch_once(self, *, limit: int = 10) -> DispatchResult:
         if type(limit) is not int or not 1 <= limit <= 100:
             raise ValueError("Batch limit must be between 1 and 100")
-        claims = self._claim(limit)
-        delivered = retryable = dead = 0
+        claims, expired_dead = self._claim(limit)
+        delivered = retryable = 0
+        dead = expired_dead
         for claim in claims:
             try:
                 self._publisher.publish(claim.event)

@@ -5,9 +5,18 @@ KnowledgeInterval uses timezone-aware instants (never naive datetimes).
 """
 
 from dataclasses import dataclass
-from datetime import date, datetime
+from datetime import UTC, date, datetime
 
 from .errors import InvalidInterval
+
+
+def _knowledge_instant_utc(value: datetime) -> datetime:
+    """Compare instants on a UTC timeline, including repeated DST local hours.
+
+    Python compares aware datetimes sharing the same tzinfo by wall-clock time;
+    `fold=0` and `fold=1` must instead be compared as distinct instants.
+    """
+    return value.astimezone(UTC)
 
 
 @dataclass(frozen=True, slots=True)
@@ -46,18 +55,27 @@ class KnowledgeInterval:
                 or value.utcoffset() is None
             ):
                 raise InvalidInterval("KnowledgeInterval requires timezone-aware datetimes")
-        if self.end is not None and self.end <= self.start:
+        if self.end is not None and (
+            _knowledge_instant_utc(self.end) <= _knowledge_instant_utc(self.start)
+        ):
             raise InvalidInterval("KnowledgeInterval end must be after start")
 
     def contains(self, instant: datetime) -> bool:
         if (type(instant) is not datetime or instant.tzinfo is None
                 or instant.utcoffset() is None):
             raise InvalidInterval("Expected a timezone-aware instant")
-        return self.start <= instant and (self.end is None or instant < self.end)
+        instant_utc = _knowledge_instant_utc(instant)
+        return _knowledge_instant_utc(self.start) <= instant_utc and (
+            self.end is None or instant_utc < _knowledge_instant_utc(self.end)
+        )
 
     def overlaps(self, other: "KnowledgeInterval") -> bool:
         if not isinstance(other, KnowledgeInterval):
             raise InvalidInterval("Expected a KnowledgeInterval")
-        return (self.end is None or other.start < self.end) and (
-            other.end is None or self.start < other.end
+        return (
+            self.end is None
+            or _knowledge_instant_utc(other.start) < _knowledge_instant_utc(self.end)
+        ) and (
+            other.end is None
+            or _knowledge_instant_utc(self.start) < _knowledge_instant_utc(other.end)
         )

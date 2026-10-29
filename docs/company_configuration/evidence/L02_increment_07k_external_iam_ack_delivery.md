@@ -31,4 +31,10 @@ PostgreSQL 16: original receipt and ACK row commit together; failed SQL transact
 4. **No complete privileged isolation**: PostgreSQL owner, superuser and low-level raw role operator still bypass restricted service composition if privileged credentials leak; no production IAM/PAM mTLS, vault or independently signed WORM audit.
 5. **Gates**: G0, G1, G2 and candidate ADR-CC-08K remain unsigned; no stable release or production security qualification.
 
-The CI SHA, workflow IDs and counts must be appended **only after exact-head tests pass**.
+## Verified exact-SHA CI evidence
+
+- Implementation SHA `e336cdb92d57229d5f4bd181214075e8b5c7d20e`.
+- [PostgreSQL CI #40930190602](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40930190602): **116 passed** on Python 3.11 and **116 passed** on Python 3.12; Ruff succeeded. Seven new integration checks include one genuinely concurrent two-worker claim test, transaction rollback and dead-letter classification.
+- [Python CI #40930190535](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40930190535): **240 passed, 15 PostgreSQL-only skipped** on each Python 3.11 and 3.12, Ruff succeeded. Includes 16 new pure HTTP/outbox and ingest tests.
+
+**Qualification applies to this versioned library candidate with fake upstream transport, not real vendor IAM delivery, production worker scheduling, approved G2 or stable release.**

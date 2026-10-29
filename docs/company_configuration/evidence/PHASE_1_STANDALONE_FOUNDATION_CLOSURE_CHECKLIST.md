@@ -38,7 +38,7 @@
 - [x] Credential/pool boundaries and scoped privileged audit, policy and control-plane candidates (#11–#20).
 - [x] Signed revocation receipt with pre-issuance tombstone (#22), durable ACK / DLQ / manual re-drive (#23–#24) and independent signed approval candidate (#25).
 - [x] Historic per-increment CI for PR #25, PostgreSQL and Python on Python 3.11/3.12 successful; **not** an approved security or G2 gate.
-- [ ] Re-run **full** Python+PostgreSQL+Ruff on exact consolidated new-repo SHA after G1 backport and phase-specific changes.
+- [x] **FND-C06 pre-merge technical CI** on implementation checkpoint `662679ad014436300e40b86a3ec4ef0e2d42b7ce`: Python 289 passed/18 skipped, PostgreSQL 136 passed, FND-C04 migration 6 passed per Python 3.11/3.12; all Ruff green. New wheel/sdist qualification proves 14 pinned, byte-identical SQL migrations and clean wheel imports. See [FND-C06 evidence](L02_10_FND_C06_MAIN_INTEGRATION_QUALIFICATION.md). **This is not post-merge CI or G2 approval.**
 - [x] **FND-C04 development qualification:** exact-head CI proves fresh install, `0013→0014` upgrade, immutable source checksums, unknown/gapped applied history denial, injected transaction rollback, concurrent migration serialization and isolated `pg_dump/pg_restore` of selected domain evidence. See [FND-C04 evidence](L02_08_FND_C04_MIGRATION_RECOVERY_QUALIFICATION.md); no existing migration file was edited.
 - [ ] **Production restore and rollout gate still open:** actual backup/PITR/roles/grants/vault restoration, N/N-1 rollout contract and graceful drain of old recovery workers, RPO/RTO evidence and independent operator approval. `0014` intentionally changes recovery authorization semantics.
 - [ ] Security review with direct SQL abuse paths (especially recovery `cc_iam_recovery` credential calling SECURITY DEFINER re-drive), role separation, stolen-credential scenario, signature source authenticity and revocation races. Review [#9](https://github.com/tawounfouet/pyaccountingkit/issues/9).
@@ -61,7 +61,9 @@ main (README bootstrap)
     → #17 L02-07f → #18 L02-07g → #19 L02-07h
     → #20 L02-07i → #22 L02-07j → #23 L02-07k
     → #24 L02-07l → #25 L02-07m
-      → standalone Foundation consolidation PR (backports G1 fix + gate scope)
+      → #27 standalone Foundation → #28 FND-C03 security
+      → #29 FND-C04 recovery → #30 FND-C05 reliability
+      → #32 FND-C06 unified main-integration draft (this lineage; no merges yet)
 ```
 
 **IMPORTANT:** Branch ancestry was created before PR #3's later DST fix. Do not assume the fix is in the original #4–#25 branches. The consolidation child branch explicitly backports the same source and tests for CI. Before any merge to main, use a consistent integration strategy that prevents duplicated changes and preserves the applied migration order; verify with `git merge-base`, `git diff`, `git log` and GitHub compare results. Do not merge the incompatible #21 alternative.

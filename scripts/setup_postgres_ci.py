@@ -153,3 +153,23 @@ with psycopg.connect(admin_dsn, autocommit=True) as conn:
         "GRANT EXECUTE ON FUNCTION company_configuration.cp_fail_iam_ack(uuid,uuid,text) "
         "TO cc_iam_delivery"
     )
+
+    # Limited IAM DEAD-letter recovery login, separate from delivery and DDL.
+    conn.execute(
+        "CREATE ROLE cc_iam_recovery LOGIN NOSUPERUSER NOCREATEDB "
+        "NOCREATEROLE NOINHERIT NOREPLICATION NOBYPASSRLS "
+        "PASSWORD 'cc_testing_only'"
+    )
+    conn.execute("GRANT USAGE ON SCHEMA company_configuration TO cc_iam_recovery")
+    conn.execute(
+        "GRANT EXECUTE ON FUNCTION company_configuration.cp_list_dead_iam_acks("
+        "text,integer) TO cc_iam_recovery"
+    )
+    conn.execute(
+        "GRANT EXECUTE ON FUNCTION company_configuration.cp_redrive_dead_iam_ack("
+        "uuid,uuid,text,text,text,text,text,text) TO cc_iam_recovery"
+    )
+    conn.execute(
+        "GRANT EXECUTE ON FUNCTION company_configuration.cp_iam_ack_metrics() "
+        "TO cc_iam_delivery"
+    )

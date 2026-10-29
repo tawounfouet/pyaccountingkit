@@ -144,3 +144,18 @@ G0/G1/G2 are **not signed off**. No stable release, real IAM, independently secu
 - New HTTPS revocation GET/ack POST adapter with event-key idempotency; `SignedIamRevocationProcessor.ingest()` verifies/persists without immediate remote ACK (legacy `process()` still sends immediate ACK for compatibility).
 - Forward-only migration 0012 ensures a revocation receipt and queued ACK commit together. Dedicated `cc_iam_delivery` has no DDL or raw table grants. Worker uses `SKIP LOCKED`, lease tokens, capped retries and DEAD state; concurrent claims test qualified on real PostgreSQL 16.
 - **Open G2 blockers:** no connected IAM provider or demonstrated provider-side idempotency, no running worker/scheduler/alerting or independently approved DLQ handling, no workload network isolation/secret vault/mTLS/owner bypass closure, no externally signed independent audit, no G0/G1/G2 or ADR-CC-08K sign-off. PR #23 draft/unmerged.
+
+## L02-07l - IAM ACK operational telemetry and manual DEAD-letter re-drive (CI pending)
+
+- Forward-only migration `0013` introduces aggregate-only SQL metrics for `cc_iam_delivery`, a separate nonprivileged `cc_iam_recovery` login with scoped DEAD inspection and re-drive function EXECUTE only. Redrive history uses an immutable append-only table and a maximum of **two** independently approved re-drives per event.
+- `IamAckRecoveryService` requires a verified tenant-specific actor, current permission, independently verified exact event/request approval with TTL, distinct approver identity and a final policy/approval recheck. It relies on trusted port adapters, not actual live IAM integration.
+- `IamAckOperationsRunner.tick()` runs a bounded delivery batch and emits aggregate alert flags. The foreground `delivery_runner` CLI supports --once and bounded polling for an **external** process supervisor; no service deployment or alerting platform is claimed.
+- Unit and PostgreSQL integration tests include denied tenant/SoD/replay, append-only decisions, cap-two redrives, independent role privileges and concurrent re-drive. Exact-SHA CI proof pending.
+- Remaining G2 blockers: no real signed re-drive approval adapter, actual supervisor/alert channels, controlled production deployment or mTLS, operator audit custody, external IAM provider / dead-letter runbook approval, owner-secret bypass closure or signed G0/G1/G2.
+
+### L02-07l - Supervised IAM delivery and approved DLQ re-drive (exact-SHA CI green, G2 pending)
+
+- Implementation `5097d3c6c7c67a655dcb6e19522b9aee27f76137`: [PostgreSQL CI #40935848609](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40935848609) **122 passed per Python 3.11/3.12**, Ruff; [Python CI #40935848623](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40935848623) **257 passed, 16 SQL-only skipped per version**, Ruff green.
+- Migration `0013` adds no-PII aggregate metrics and separate scoped `cc_iam_recovery` capability. Manual DEAD re-drive needs independent exact-scope approval at the application port, append-only SQL decision and a transactionally atomic reset; max two re-drives per event, replay/tenant/collision guarded.
+- Delivery CLI provides bounded foreground polling and aggregate JSON alert flags for an external scheduler; **not** actual deployed monitoring or automated DLQ closure.
+- **Open G2:** real signed approval adapter/IdP, independently protected recovery SQL secret, production supervisor and alert sink, incident resolution/approval, provider idempotency and mTLS, owner-DSN bypass, vault/WORM/DR, signed ADR and G0/G1/G2. PR #24 remains draft/unmerged.

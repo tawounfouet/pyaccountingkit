@@ -6,7 +6,7 @@ No ORM/IO, no book assignment, no implicit current-time resolution.
 """
 
 from dataclasses import dataclass, replace
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime
 from enum import Enum
 
 from ..shared.effective_interval import EffectiveInterval
@@ -244,12 +244,10 @@ class OrganizationMembership:
         return hash((self.tenant_id, self.id))
 
     def end(
-        self, *, effective_end: "date", recorded_at: datetime,
+        self, *, effective_end: date, recorded_at: datetime,
         source_ref: str, expected_revision: int,
     ) -> "OrganizationMembership":
         # Deliberately cannot change company/entity/kind by editing a membership.
-        from datetime import date
-
         if type(expected_revision) is not int or expected_revision != self.revision:
             raise VersionConflict("Membership revision conflict")
         if type(effective_end) is not date or effective_end <= self.valid.start:

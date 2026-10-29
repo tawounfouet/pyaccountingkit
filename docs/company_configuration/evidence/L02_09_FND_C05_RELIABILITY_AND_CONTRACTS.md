@@ -3,7 +3,7 @@
 **Date:** 2026-10-29  
 **Repository:** `tawounfouet/pyaccountingkit` recent standalone Foundation (L00–L02).  
 **Basis:** [FND-C04 PR #29](https://github.com/tawounfouet/pyaccountingkit/pull/29); this is a narrowly scoped improvement, not Ledger posting, external C10 contract or a certified delivery guarantee.  
-**Status:** Implementation candidate; **CI evidence and G2 acceptance pending**.
+**Status:** Automated CI-qualified implementation candidate; **G2 acceptance pending**.
 
 ## 1. Risks observed in concrete code
 
@@ -42,6 +42,11 @@
 
 ## 5. Proof of implementation
 
-Evidence will be attached from exact-head Python 3.11/3.12, PostgreSQL 16 3.11/3.12 and migration-recovery Actions. This document **does not assert that new tests have passed before CI has actually completed**.
+Implementation checkpoint `703331ae70352ea0577af749fb0cc0f09964a32b`:
+- [Python CI #40953593880](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40953593880): **SUCCESS** — 289 passed, 19 skipped on each of Python 3.11/3.12; Ruff success.
+- [PostgreSQL integration #40953593986](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40953593986): **SUCCESS** — 133 passed on each of Python 3.11/3.12; Ruff success.
+- [FND-C04 migration qualification #40953594056](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40953594056): **SUCCESS** — 6 passed on each Python version, includes actual `pg_dump` / `pg_restore`; Ruff success.
+
+The new integration tests include 4 additional PostgreSQL scenarios (lease expiry, exhausted lease, two manual-commit attack attempts with rollback, handler failure). The new 2 unit tests verify DDD/Hexagonal dependency direction; Python CI skips PostgreSQL-only modules by design. All three workflow conclusions were verified against the exact code/documentation snapshot above. A subsequent evidence-only commit must receive its own CI qualification.
 
 **Gate:** FND-C05 implementation candidate, **G2 not approved**.

@@ -7,8 +7,8 @@ be configured by a privileged, independently controlled deployment.
 
 import base64
 import binascii
+from collections.abc import Mapping
 from dataclasses import dataclass
-from typing import Mapping
 from urllib.parse import parse_qs, urlsplit
 
 from ...application.privileged_operations import PrivilegedPolicyPort, TimePort

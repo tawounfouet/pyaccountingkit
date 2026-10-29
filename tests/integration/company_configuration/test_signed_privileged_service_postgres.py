@@ -131,8 +131,8 @@ def observed(request_id):
     return sorted(phases), fence
 
 
-def test_signed_operator_and_signed_approval_execute_via_restricted_db_roles(account):
-    role, _ = account
+def test_signed_operator_and_signed_approval_execute_via_restricted_db_roles(request):
+    role, _ = request.getfixturevalue('account')
     service, request, auth = environment_for(role)
     receipt = service.execute(
         request, auth_context=auth,
@@ -142,8 +142,8 @@ def test_signed_operator_and_signed_approval_execute_via_restricted_db_roles(acc
     assert observed(request.request_id) == (["INTENT", "SUCCEEDED"], ("CONSUMED",))
 
 
-def test_forged_operator_signature_refuses_ddl_and_audit(account):
-    role, _ = account
+def test_forged_operator_signature_refuses_ddl_and_audit(request):
+    role, _ = request.getfixturevalue('account')
     service, request, auth = environment_for(role, signer_is_wrong=True)
     with pytest.raises(PrivilegedAccessDenied):
         service.execute(
@@ -153,8 +153,8 @@ def test_forged_operator_signature_refuses_ddl_and_audit(account):
     assert observed(request.request_id) == ([], None)
 
 
-def test_signed_approval_with_wrong_request_cannot_issue_fence(account):
-    role, _ = account
+def test_signed_approval_with_wrong_request_cannot_issue_fence(request):
+    role, _ = request.getfixturevalue('account')
     service, request, auth = environment_for(role, wrong_approval_request=True)
     with pytest.raises(PrivilegedAccessDenied, match="APPROVAL_INVALID"):
         service.execute(

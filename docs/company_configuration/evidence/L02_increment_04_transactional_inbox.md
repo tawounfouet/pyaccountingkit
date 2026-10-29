@@ -57,4 +57,4 @@ python -m pytest -q tests/integration/company_configuration -rs
 python -m ruff check src tests scripts
 ```
 
-**Exact-SHA CI result:** PENDING. Never mark tests, G2, production isolation or C10 qualified solely from code submission.
+**Verified implementation SHA:** `1599c53a21d5fcf50f46a448c1ed6e0de3c4b18e`. [PostgreSQL CI #40858788493](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40858788493) **passed 28 tests** on Python 3.11 and **28 tests** on Python 3.12, with Ruff green. [Python CI #40858788521](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40858788521) **99 passed, 3 skipped** (PostgreSQL-only modules) per Python version, Ruff green. This qualifies the technical increment's automated checks only; **G0/G1/G2 remain unsigned and GUC spoofing remains a known failing security property.**

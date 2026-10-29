@@ -143,3 +143,99 @@ def test_strict_mode_fails_on_present_pr_head():
     )
     assert result.returncode == 2
     assert "NO_GO" in result.stderr
+
+
+def _signed_candidate(register, head):
+    data = copy.deepcopy(register)
+    for key, reviewer in (
+        ("G0", "architecture-reviewer"),
+        ("G1", "domain-reviewer"),
+        ("G2", "security-reviewer"),
+    ):
+        data["gates"][key].update(
+            status="APPROVED", reviewer=reviewer, approved_sha=head, blockers=[],
+        )
+    data["promotion"]["merge_permitted"] = True
+    data["external_controls"]["reviewers"] = True
+    data["external_controls"]["branch_protection_verified"] = True
+    gate.validate_register(data)
+    return data
+
+
+def test_live_github_reviews_must_apply_to_exact_head_not_prior_commit(
+    register, monkeypatch,
+):
+    """A stale GitHub APPROVED review must not certify a newly changed SHA."""
+    head = "a" * 40
+    signed = _signed_candidate(register, head)
+
+    def fake_get(path, *, token):
+        assert token == "fake"
+        if path.endswith("/pulls/32"):
+            return {
+                "head": {"sha": head}, "base": {"ref": "main"},
+                "draft": False, "state": "open", "user": {"login": "owner"},
+            }
+        if "/reviews?" in path:
+            return [
+                {
+                    "user": {"login": name},
+                    "state": "APPROVED",
+                    "commit_id": "b" * 40,
+                }
+                for name in ("architecture-reviewer", "domain-reviewer", "security-reviewer")
+            ]
+        raise AssertionError(f"stale review must stop before {path}")
+
+    monkeypatch.setattr(gate, "_github_get", fake_get)
+    with pytest.raises(gate.FoundationGateError, match="lacks live PR approval"):
+        gate.enforce(signed, head_sha=head, token="fake")
+
+
+def test_gate_enforcement_requires_four_live_workflows_and_protection(
+    register, monkeypatch,
+):
+    head = "a" * 40
+    signed = _signed_candidate(register, head)
+    state = {"complete": False, "protected": False}
+
+    def fake_get(path, *, token):
+        assert token == "fake"
+        if path.endswith("/pulls/32"):
+            return {
+                "head": {"sha": head}, "base": {"ref": "main"},
+                "draft": False, "state": "open", "user": {"login": "owner"},
+            }
+        if "/reviews?" in path:
+            return [
+                {
+                    "user": {"login": name}, "state": "APPROVED",
+                    "commit_id": head,
+                }
+                for name in ("architecture-reviewer", "domain-reviewer", "security-reviewer")
+            ]
+        if "/actions/runs?" in path:
+            names = sorted(gate.EXPECTED_WORKFLOWS)
+            if not state["complete"]:
+                names = names[:3]
+            return {"workflow_runs": [
+                {
+                    "name": name, "status": "completed",
+                    "conclusion": "success", "head_sha": head,
+                }
+                for name in names
+            ]}
+        if "/branches/main/protection" in path:
+            if not state["protected"]:
+                raise gate.FoundationGateError("GitHub protection unavailable")
+            return {"required_pull_request_reviews": {}}
+        raise AssertionError(path)
+
+    monkeypatch.setattr(gate, "_github_get", fake_get)
+    with pytest.raises(gate.FoundationGateError, match="Missing exact-head"):
+        gate.enforce(signed, head_sha=head, token="fake")
+    state["complete"] = True
+    with pytest.raises(gate.FoundationGateError, match="protection unavailable"):
+        gate.enforce(signed, head_sha=head, token="fake")
+    state["protected"] = True
+    gate.enforce(signed, head_sha=head, token="fake")

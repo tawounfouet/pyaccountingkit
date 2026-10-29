@@ -25,4 +25,4 @@ python -m ruff check src tests scripts
 
 The project version is a placeholder (`0.0.0`); it is **not** a stable release. L02 persistence, authorization, audit, transactional Inbox/Outbox, and privileged SQL recovery are **candidate implementations** with exact-SHA CI evidence. Production external IAM, independent credential isolation, DR, published C10 consumer contracts, formal gate sign-offs and historical package reconciliation remain **out of scope or pending**.
 
-The consolidated Phase-1 integration candidate is [PR #31](https://github.com/tawounfouet/pyaccountingkit/pull/31). Prior stacked PRs remain unmerged for provenance. Check [standalone gate checklist](docs/company_configuration/evidence/PHASE_1_STANDALONE_FOUNDATION_CLOSURE_CHECKLIST.md) before any integration into `main`.
+The consolidated Phase-1 integration candidate is [PR #32](https://github.com/tawounfouet/pyaccountingkit/pull/32). Prior stacked PRs remain unmerged for provenance. Check [standalone gate checklist](docs/company_configuration/evidence/PHASE_1_STANDALONE_FOUNDATION_CLOSURE_CHECKLIST.md) before any integration into `main`.

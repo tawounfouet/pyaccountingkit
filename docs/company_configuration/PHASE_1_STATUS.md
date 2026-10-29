@@ -36,4 +36,4 @@ G0/G1/G2 are **not signed off**. No stable release, real IAM, independently secu
 - New owner-only `PostgresTenantRoleOperator` and tenant-checked fresh connection factory; disposable-role integration tests for rotation, NOLOGIN revocation, terminated sessions, wrong-tenant and unsafe-target denial.
 - Candidate ops runbook and ADR-CC-08A for segregated tenant pools, credentials, SQL privileged operator and incident response.
 - **No G2 sign-off:** real secret vault, production pool driver, IAM/SoD, audit of privileged changes, live restoration and architecture review still pending.
-- Exact-SHA PostgreSQL CI evidence to be appended after workflow completes.
+- Implementation `81a6506444abf6e88c6bb1f4582aca19c9be2502` passed [PostgreSQL CI #40866069595](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40866069595) (**41 passed per Python 3.11/3.12**, Ruff), and [Python CI #40866069487](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40866069487) (**99 passed, 5 skipped per version**, Ruff). **No G2 sign-off.**

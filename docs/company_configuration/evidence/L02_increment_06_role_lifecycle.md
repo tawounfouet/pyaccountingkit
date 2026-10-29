@@ -46,3 +46,10 @@ Extend L02-05's `session_user`-based tenant isolation with an **owner-only admin
 ## Gate status
 
 **G0: pending. G1: pending. G2: pending.** Tests support this operational proof only; they do not constitute a production release, signed ADR-CC-08, full IAM/SoD approval, penetration test or backup/restore qualification. Security issue #9 remains open pending independent review.
+
+## Verified CI evidence (implementation SHA)
+
+Exact implementation commit `81a6506444abf6e88c6bb1f4582aca19c9be2502`:
+- [PostgreSQL integration #40866069595](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40866069595): **41 tests passed** under Python 3.11 and **41 tests passed** under Python 3.12; Ruff passed.
+- [Python CI #40866069487](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40866069487): **99 passed, 5 SQL-only skipped** under Python 3.11/3.12; Ruff passed.
+- New L02-06 test module provides **4 PostgreSQL scenarios**. These results demonstrate ephemeral test-database behavior, **not** production credential vault/pool/IAM readiness, independent security acceptance or gate G2 sign-off.

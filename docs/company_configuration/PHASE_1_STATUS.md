@@ -159,3 +159,17 @@ G0/G1/G2 are **not signed off**. No stable release, real IAM, independently secu
 - Migration `0013` adds no-PII aggregate metrics and separate scoped `cc_iam_recovery` capability. Manual DEAD re-drive needs independent exact-scope approval at the application port, append-only SQL decision and a transactionally atomic reset; max two re-drives per event, replay/tenant/collision guarded.
 - Delivery CLI provides bounded foreground polling and aggregate JSON alert flags for an external scheduler; **not** actual deployed monitoring or automated DLQ closure.
 - **Open G2:** real signed approval adapter/IdP, independently protected recovery SQL secret, production supervisor and alert sink, incident resolution/approval, provider idempotency and mTLS, owner-DSN bypass, vault/WORM/DR, signed ADR and G0/G1/G2. PR #24 remains draft/unmerged.
+
+## L02-07m - Pinned signed recovery approvals and guarded composition (CI PENDING)
+
+- A new `recovery_approval` Ed25519 JWS kind binds approval reference, event/request UUIDs, tenant, exact incident evidence, reason and independent checker, separate from the operator identity signer. The signing verifier reads trusted independent evidence and validates strict expiry; service double-checks current authorization before SQL.
+- `SignedRecoverySettings.from_environment()` refuses owner/runtime/delivery/control-plane credentials and requires pinned separate issuer/key roots plus a dedicated remote `cc_iam_recovery` PostgreSQL TLS `verify-full` URI. Composition checks actual SQL session_user, restricted grants and lack of raw outbox access.
+- New pure tests verify forged/wrong-scope/expired/revoked cases and unsafe deployment settings; real PostgreSQL tests prove valid signed evidence and denial before SQL mutation. Previous migration 0013 stays unchanged.
+- **Not a real independent IAM approval service, deployed isolation or security sign-off.** Source and signers in tests are ephemeral fixtures. G0/G1/G2 remain unsigned and PR stays draft/unmerged. Exact-SHA CI evidence pending.
+
+### L02-07m - Signed recovery approval, pinned trust and SQL capability checks (exact-SHA CI green; G2 pending)
+
+- Implementation `60c46d8e34e6a4ed9a7e54b831a7de502eff8b65`: [PostgreSQL CI #40938532376](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40938532376), **125 passed per Python 3.11/3.12**, Ruff; [Python CI #40938532349](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40938532349), **282 passed and 17 SQL-only skipped per version**, Ruff.
+- Dedicated signed JWS kind `recovery_approval`, independent Ed25519 checker signer, exact event/request/tenant/reason/evidence/approval and strict signed TTL; signed operator proof uses separate trust root. Existing IamAckRecoveryService retains authoritative policy/approval rechecks. PostgreSQL owner-only 0013 decision/queue atomicity unchanged.
+- Restricted `cc_iam_recovery` SQL role check, startup guard against owner/runtime/delivery DSNs and non-`verify-full` TLS. Tests prove forged signature cannot mutate DEAD, while independently signed approval commits one journaled re-drive.
+- **G2 remains open:** fake trusted approval evidence source, no real IdP/PAM or independent signer, no protected deployed recovery workload/credential isolation, SQL caller-claim bypass if credential leaks, external WORM, vault/mTLS, provider idempotency/DR and independent G0/G1/G2/ADR approval. PR #25 remains draft/unmerged.

@@ -39,7 +39,8 @@
 - [x] Signed revocation receipt with pre-issuance tombstone (#22), durable ACK / DLQ / manual re-drive (#23–#24) and independent signed approval candidate (#25).
 - [x] Historic per-increment CI for PR #25, PostgreSQL and Python on Python 3.11/3.12 successful; **not** an approved security or G2 gate.
 - [ ] Re-run **full** Python+PostgreSQL+Ruff on exact consolidated new-repo SHA after G1 backport and phase-specific changes.
-- [ ] Independent migration checksum/fresh-install/rollback/restore rehearsal and N/N-1 topology decision (no edit-in-place on migrations 0001–0013).
+- [x] **FND-C04 development qualification:** exact-head CI proves fresh install, `0013→0014` upgrade, immutable source checksums, unknown/gapped applied history denial, injected transaction rollback, concurrent migration serialization and isolated `pg_dump/pg_restore` of selected domain evidence. See [FND-C04 evidence](L02_08_FND_C04_MIGRATION_RECOVERY_QUALIFICATION.md); no existing migration file was edited.
+- [ ] **Production restore and rollout gate still open:** actual backup/PITR/roles/grants/vault restoration, N/N-1 rollout contract and graceful drain of old recovery workers, RPO/RTO evidence and independent operator approval. `0014` intentionally changes recovery authorization semantics.
 - [ ] Security review with direct SQL abuse paths (especially recovery `cc_iam_recovery` credential calling SECURITY DEFINER re-drive), role separation, stolen-credential scenario, signature source authenticity and revocation races. Review [#9](https://github.com/tawounfouet/pyaccountingkit/issues/9).
 - [ ] Confirm transactional Inbox/Outbox and denial-audit invariants under concurrency, failure injection and tenant spoofing; sign evidence against exact SHA.
 - [ ] Review architecture boundaries (Domain → no ORM/IAM imports, Application ports, Infrastructure adapters), package/API/error contracts and no demo-only functionality misrepresented.

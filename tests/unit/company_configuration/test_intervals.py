@@ -3,7 +3,8 @@ from datetime import UTC, date, datetime, timedelta, timezone
 import pytest
 
 from pyaccountingkit.company_configuration.domain.shared.effective_interval import (
-    EffectiveInterval, KnowledgeInterval,
+    EffectiveInterval,
+    KnowledgeInterval,
 )
 from pyaccountingkit.company_configuration.domain.shared.errors import InvalidInterval
 

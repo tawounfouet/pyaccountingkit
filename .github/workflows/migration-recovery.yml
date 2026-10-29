@@ -1,0 +1,49 @@
+name: Company Configuration migration recovery (FND-C04)
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  migration-recovery:
+    name: Fresh / 0013 upgrade / rollback / dump-restore
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.11', '3.12']
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: cc_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d cc_test"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      CC_PG_ADMIN_DSN: postgresql://postgres:postgres@localhost:5432/cc_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Python PostgreSQL and test dependencies
+        run: python -m pip install -e '.[dev,postgres,iam]'
+      - name: Require PostgreSQL 16 backup and restore executables
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq postgresql-client-16
+          echo "/usr/lib/postgresql/16/bin" >> "$GITHUB_PATH"
+      - name: Qualify isolated upgrade, rollback, drift, concurrency and restore
+        run: python -m pytest -q tests/qualification/test_company_config_migration_recovery.py -rs
+      - name: Check migration qualification code style
+        run: python -m ruff check src tests scripts

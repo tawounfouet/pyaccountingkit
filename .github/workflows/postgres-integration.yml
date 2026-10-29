@@ -1,0 +1,56 @@
+name: PostgreSQL integration (L02 candidate)
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  postgres-integration:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.11', '3.12']
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: cc_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d cc_test"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      CC_PG_ADMIN_DSN: postgresql://postgres:postgres@localhost:5432/cc_test
+      CC_PG_DSN: postgresql://cc_runtime_a:cc_testing_only@localhost:5432/cc_test
+      CC_PG_DSN_B: postgresql://cc_runtime_b:cc_testing_only@localhost:5432/cc_test
+      CC_PG_DISPATCH_DSN: postgresql://cc_dispatcher_a:cc_testing_only@localhost:5432/cc_test
+      CC_PG_DISPATCH_DSN_B: postgresql://cc_dispatcher_b:cc_testing_only@localhost:5432/cc_test
+      CC_PG_INBOX_DSN: postgresql://cc_inbox_a:cc_testing_only@localhost:5432/cc_test
+      CC_PG_INBOX_DSN_B: postgresql://cc_inbox_b:cc_testing_only@localhost:5432/cc_test
+      CC_PG_UNBOUND_DSN: postgresql://cc_unbound:cc_testing_only@localhost:5432/cc_test
+      CC_PG_CONTROL_PLANE_DSN: postgresql://cc_control_plane:cc_testing_only@localhost:5432/cc_test
+      CC_PG_PRIVILEGED_AUDIT_DSN: postgresql://cc_privileged_audit:cc_testing_only@localhost:5432/cc_test
+      CC_PG_IAM_REVOCATION_DSN: postgresql://cc_iam_revocation:cc_testing_only@localhost:5432/cc_test
+      CC_PG_IAM_DELIVERY_DSN: postgresql://cc_iam_delivery:cc_testing_only@localhost:5432/cc_test
+      CC_PG_IAM_RECOVERY_DSN: postgresql://cc_iam_recovery:cc_testing_only@localhost:5432/cc_test
+      CC_PG_IAM_APPROVAL_WRITER_DSN: postgresql://cc_iam_approval_writer:cc_testing_only@localhost:5432/cc_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install project with PostgreSQL test extras
+        run: python -m pip install -e '.[dev,postgres,iam]'
+      - name: Apply migrations as schema owner
+        run: python -m pyaccountingkit.company_configuration.infrastructure.postgres.migrate
+      - name: Create strictly scoped test role
+        run: python scripts/setup_postgres_ci.py
+      - name: Run mandatory PostgreSQL integration suite
+        run: python -m pytest -q tests/integration/company_configuration -rs
+      - name: Check all Python style
+        run: python -m ruff check src tests scripts

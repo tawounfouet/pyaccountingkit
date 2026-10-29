@@ -25,7 +25,7 @@
 - [x] Minimal immutable `LegalEntity` candidate with revision and guarded name mutation, *not* full L03 organization.
 - [x] Negative and property-based tests; GitHub Actions Python 3.11/3.12 success on PR #3.
 - [x] Fix DST-fold UTC ordering on PR #3 at `885410195ac2e08bfd9f2854114c146af07ca614`; backport same source/test content onto latest stacked Foundation candidate.
-- [ ] Verify exact-head unit and property suites against the **consolidated** stack, not just PR #3.
+- [x] Unit and property suite qualified at consolidated PR #32 code+docs checkpoint `098f6de80b916d0545b65c2dfec9357f854cddcd` (289 passed, 18 skipped per Python 3.11/3.12, Ruff green); FND-C07 changes will require **new exact-head CI**. Independent G1 review still pending.
 - [ ] Review entity identity/equality, typed errors, digest canonicalization, temporal ownership, and CFG-01..CFG-10 responsibility traceability.
 - [ ] Approved G1 ADRs and independent G1 gate decision with reviewer / SHA.
 
@@ -48,7 +48,7 @@
 - [ ] Approve/reject outstanding L02 ADRs, explicit production-only limitations, audit data protection and disaster-recovery caveats.
 - [ ] Independent G2 gate decision with exact SHA and allowed use scope.
 
-**G2 verdict:** MULTIPLE CI-QUALIFIED IMPLEMENTATION CANDIDATES, NOT APPROVED.
+**G2 verdict:** FULL-STACK CI-QUALIFIED DEVELOPMENT CANDIDATE, NOT APPROVED. See machine-readable [FND-C07 register](FND_C07_GATE_REGISTER.json) and separate [G0](GATES/G0_DECISION.md), [G1](GATES/G1_DECISION.md), [G2](GATES/G2_DECISION.md) decision dossiers. A passing register validation prints **NO_GO** by design, and is **not** a signature.
 
 ## 4. Selected branch chain and consolidation protocol
 
@@ -78,7 +78,15 @@ main (README bootstrap)
 | Controlled integration evidence | `main` SHA + manifest/diff + CI workflows, package integrity | No unreviewed or divergent commits |
 | Deferred historical reconciliation dossier | Old repo status and future cutover requirements | **Not prerequisite for standalone Foundation; remains prerequisite before unified package publication** |
 
-## 6. Stop/Go decision
+## 6. FND-C07 readiness controls
+
+- [x] Document separate G0/G1/G2 reviewer decision dossiers and explicit unsigned, exact-SHA machine-readable status; do not treat green CI as approval.
+- [x] Add a fail-closed CLI and negative contract tests for fake approvals, stale SHA, missing workflows and incomplete evidence.
+- [ ] Obtain signed independent reviewer decisions naming the current candidate SHA, ADR dispositions and explicitly accepted development-only scope.
+- [ ] Verify branch protection and valid independent GitHub PR approval; GitHub API previously returned HTTP 403 when reading main protection, so it is **UNKNOWN**.
+- [ ] Confirm four full-stack jobs **on the final PR SHA**, controlled merge, then four jobs again on the post-merge main SHA.
+
+## 7. Stop/Go decision
 
 The Foundation can be called **DONE for the recent repository's explicitly scoped development use** only when the selected stack is integrated into its `main`, G0/G1/G2 are independently reviewed and signed, and CI/SQL proofs pass on the integrated SHA.
 

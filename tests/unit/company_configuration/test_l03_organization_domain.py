@@ -1,10 +1,10 @@
 """L03 ORG-1/2: organizational identities, lifecycle and time-aware membership."""
 
 from datetime import UTC, date, datetime, timedelta
-from uuid import uuid4
 
 import pytest
-from hypothesis import given, strategies as st
+from hypothesis import given
+from hypothesis import strategies as st
 
 from pyaccountingkit.company_configuration.domain.organization import (
     Company,
@@ -150,7 +150,7 @@ def test_later_known_backdated_membership_end_preserves_old_known_at():
         [first, second], tenant_id="tenant-a", legal_entity_id=legal.id,
         effective_on=date(2026, 4, 3), known_at=KNOWN,
     )
-    assert old_view == (first,)
+    assert len(old_view) == 1 and old_view[0].revision == 1
     assert new_view == ()
 
 

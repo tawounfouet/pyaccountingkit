@@ -18,15 +18,11 @@ with psycopg.connect(admin_dsn, autocommit=True) as conn:
         "TO cc_runtime"
     )
 
-
-# Dedicated delivery role (no journal/ledger access and no permission to
-# alter immutable source outbox rows). Credentials are disposable CI-only.
+# Disposable, intentionally separate roles for integration proofs.
 with psycopg.connect(admin_dsn, autocommit=True) as conn:
     conn.execute("CREATE ROLE cc_dispatcher LOGIN PASSWORD 'cc_dispatch_testing'")
     conn.execute("GRANT USAGE ON SCHEMA company_configuration TO cc_dispatcher")
-    conn.execute(
-        "GRANT SELECT ON company_configuration.outbox_events TO cc_dispatcher"
-    )
+    conn.execute("GRANT SELECT ON company_configuration.outbox_events TO cc_dispatcher")
     conn.execute(
         "GRANT SELECT, INSERT, UPDATE ON company_configuration.outbox_delivery "
         "TO cc_dispatcher"
@@ -34,4 +30,13 @@ with psycopg.connect(admin_dsn, autocommit=True) as conn:
     conn.execute(
         "GRANT INSERT, SELECT ON company_configuration.authorization_denials "
         "TO cc_runtime"
+    )
+    conn.execute("CREATE ROLE cc_inbox LOGIN PASSWORD 'cc_inbox_testing'")
+    conn.execute("GRANT USAGE ON SCHEMA company_configuration TO cc_inbox")
+    conn.execute(
+        "GRANT SELECT, INSERT ON company_configuration.inbox_receipts TO cc_inbox"
+    )
+    conn.execute(
+        "GRANT SELECT, INSERT, UPDATE ON company_configuration.inbox_projection_counts "
+        "TO cc_inbox"
     )

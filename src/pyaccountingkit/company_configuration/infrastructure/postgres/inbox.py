@@ -16,6 +16,7 @@ import psycopg
 from psycopg.rows import dict_row
 
 from .dispatch import OutboxEnvelope
+from .tenant_boundary import require_tenant_connection
 
 
 class InboxPayloadConflict(ValueError):
@@ -130,7 +131,7 @@ class PostgresInboxConsumer:
         # Unique constraint on the inbox key arbitrates concurrent duplicates.
         # A conflicting uncommitted insert blocks until commit/rollback.
         with psycopg.connect(self._dsn, row_factory=dict_row) as conn:
-            conn.execute("SELECT set_config('app.tenant_id', %s, true)", (self._tenant_id,))
+            require_tenant_connection(conn, self._tenant_id)
             inserted = conn.execute(
                 "INSERT INTO company_configuration.inbox_receipts "
                 "(tenant_id, consumer_id, producer_id, event_id, payload_sha256, "

@@ -47,6 +47,7 @@ from pyaccountingkit.company_configuration.infrastructure.postgres.migrate impor
 )
 
 APP_DSN = os.getenv("CC_PG_DSN")
+APP_DSN_B = os.getenv("CC_PG_DSN_B")
 ADMIN_DSN = os.getenv("CC_PG_ADMIN_DSN")
 pytestmark = pytest.mark.skipif(
     not (APP_DSN and ADMIN_DSN),
@@ -81,8 +82,9 @@ def build_service(*, fail=None, tenant="tenant-a"):
     auth = MemoryAuthorization()
     for action in ("legal_entity.create", "legal_entity.read", "legal_entity.rename"):
         auth.grant(actor_id=actor.actor_id, action=action, scope=scope)
+    dsn = APP_DSN_B if tenant == "tenant-b" else APP_DSN
     service = LegalEntityService(
-        lambda: PostgresUnitOfWork(APP_DSN, before_commit=fail), auth, FixedClock()
+        lambda: PostgresUnitOfWork(dsn, before_commit=fail), auth, FixedClock()
     )
     return scope, actor, auth, service
 
@@ -169,26 +171,28 @@ def test_stale_optimistic_write_preserves_transactional_evidence():
     assert counts() == [1, 2, 2, 2]
 
 
-def test_rls_denies_missing_and_other_tenant_context():
+def test_rls_tenant_login_binding_ignores_client_set_guc():
     scope, actor, _, service = build_service()
     service.create(create(scope), principal=actor)
     with psycopg.connect(APP_DSN) as conn:
-        # With no tenant context, RLS must not expose any records.
+        # Tenant identity is already bound by session_user, not a client GUC.
         assert conn.execute(
-            "SELECT count(*) FROM company_configuration.legal_entities"
-        ).fetchone()[0] == 0
-        conn.execute("SELECT set_config('app.tenant_id', %s, true)", ("tenant-b",))
-        assert conn.execute(
-            "SELECT count(*) FROM company_configuration.legal_entities"
-        ).fetchone()[0] == 0
-        conn.execute("SELECT set_config('app.tenant_id', %s, true)", ("tenant-a",))
+            "SELECT company_configuration.bound_tenant()"
+        ).fetchone()[0] == "tenant-a"
         assert conn.execute(
             "SELECT count(*) FROM company_configuration.legal_entities"
         ).fetchone()[0] == 1
+        conn.execute("SELECT set_config('app.tenant_id', %s, true)", ("tenant-b",))
+        assert conn.execute(
+            "SELECT count(*) FROM company_configuration.legal_entities"
+        ).fetchone()[0] == 1
+    with psycopg.connect(APP_DSN_B) as conn:
+        assert conn.execute(
+            "SELECT count(*) FROM company_configuration.legal_entities"
+        ).fetchone()[0] == 0
     with psycopg.connect(APP_DSN) as conn:
         with pytest.raises(psycopg.errors.InsufficientPrivilege):
             conn.execute("TRUNCATE company_configuration.audit_records")
-
 
 def test_application_denial_and_mismatched_company_are_rejected():
     scope, actor, auth, service = build_service()

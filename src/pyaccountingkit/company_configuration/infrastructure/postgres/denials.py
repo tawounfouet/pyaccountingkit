@@ -11,6 +11,7 @@ from uuid import uuid4
 import psycopg
 
 from ...application.ports import TrustedPrincipal
+from .tenant_boundary import require_tenant_connection
 
 
 class PostgresDenialAudit:
@@ -36,7 +37,7 @@ class PostgresDenialAudit:
         # The authenticated tenant is the authoritative storage partition.
         # Never use an untrusted requested scope as an RLS identity.
         with psycopg.connect(self._dsn) as conn:
-            conn.execute("SELECT set_config('app.tenant_id', %s, true)", (principal.tenant_id,))
+            require_tenant_connection(conn, principal.tenant_id)
             conn.execute(
                 "INSERT INTO company_configuration.authorization_denials "
                 "(record_id, tenant_id, actor_id, action, reason_code, "

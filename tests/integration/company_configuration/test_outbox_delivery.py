@@ -27,6 +27,7 @@ from pyaccountingkit.company_configuration.infrastructure.postgres.dispatch impo
 ADMIN_DSN = os.getenv("CC_PG_ADMIN_DSN")
 APP_DSN = os.getenv("CC_PG_DSN")
 DISPATCH_DSN = os.getenv("CC_PG_DISPATCH_DSN")
+DISPATCH_DSN_B = os.getenv("CC_PG_DISPATCH_DSN_B")
 pytestmark = pytest.mark.skipif(
     not (ADMIN_DSN and APP_DSN and DISPATCH_DSN),
     reason="L02-03 DB proofs require admin/runtime/dispatcher test DSNs",
@@ -76,7 +77,8 @@ def clean_tables():
 def make_dispatcher(tenant, publisher, clock=None, *, attempts=3, worker="worker-1"):
     clock = clock or Clock()
     return PostgresOutboxDispatcher(
-        DISPATCH_DSN, tenant_id=tenant, worker_id=worker, publisher=publisher,
+        DISPATCH_DSN_B if tenant == "tenant-b" else DISPATCH_DSN,
+        tenant_id=tenant, worker_id=worker, publisher=publisher,
         clock=clock.now, retry_seconds=2, lease_seconds=4, max_attempts=attempts,
     )
 

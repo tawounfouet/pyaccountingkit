@@ -65,3 +65,10 @@ G0/G1/G2 are **not signed off**. No stable release, real IAM, independently secu
 - A decision may be only `ESCALATED`, `REMEDIATION_REQUIRED` or `INVESTIGATION_DOCUMENTED`. Historical DDL result always remains **UNKNOWN**, with no role mutation, credential rotation or automated replay.
 - SQL row locking, unique review decision, late-terminal exclusion, tenant boundary checks and append-only audit tests. Local unit slice: 28 passed. CI PostgreSQL evidence pending exact SHA.
 - Implementation `8cf191cdefba3fb17c79f828f271ebd95cb6817b`: [PostgreSQL CI #40886773797](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40886773797) **73 passed per Python version** and Ruff; [Python CI #40886773793](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40886773793) **153 passed, 9 skipped per version**, Ruff. Pending real IAM/IdP, protected control-plane deployment, leased permission fencing, evidence signature and retention, independent security review and G0/G1/G2 approval. This is a code candidate only.
+
+## L02-07e - PostgreSQL-local authorization fencing (technical CI proof)
+
+- Implementation SHA `e37ebddcf836416d18dedcc97623010772bfaa30`: [PostgreSQL CI #40911217987](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40911217987) **81 passed per Python 3.11 and 3.12** with Ruff green; [Python CI #40911218005](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40911218005) **166 passed, 10 SQL-only skipped per Python version** and Ruff green.
+- Migration 0008 adds per-request owner-only ACTIVE/REVOKED/CONSUMED fences and append-only evidence; row lock serializes SQL-side revocation against role DDL and shares one commit with its CONSUMED evidence.
+- **Not full IAM fencing**: a remote IAM revocation must be propagated to PostgreSQL; real IdP, production control-plane admin DSN isolation, connection drain, credential log policy, and integration into all existing privileged role use cases remain pending.
+- Exact-scope issue port, SQL owner-role denial and transaction rollback on evidence failure tested. All G0/G1/G2 and ADR-CC-08E approvals remain unsigned. Draft PR #16, no release.

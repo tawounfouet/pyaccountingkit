@@ -24,4 +24,11 @@ This guarantee holds **only for revocations propagated to PostgreSQL**, not for 
 - Password-bearing ALTER ROLE statements can appear in DB logs. Vault, validated TLS, log controls, recovery, load and security pen test remain pending.
 - G0/G1/G2 and ADR approval require independent sign-off. No stable release, C10 or Ledger posting claim.
 
-Attach exact SHA and Actions evidence only after workflows are green.
+
+## Verified exact-SHA CI
+
+- Implementation `e37ebddcf836416d18dedcc97623010772bfaa30`.
+- [PostgreSQL integration #40911217987](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40911217987): **81 passed** on Python 3.11 and **81 passed** on Python 3.12, Ruff passed. Eight new real-PostgreSQL tests.
+- [Python CI #40911218005](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40911218005): **166 passed, 10 PostgreSQL-only skipped** on both Python versions, Ruff passed. Thirteen new pure Python checks.
+- These outcomes qualify the **isolated technical component only**. Existing `PrivilegedRoleService` calls have **not yet** been migrated to enforce mandatory fenced execution, so the old owner-only operator can still bypass the fence if incorrectly deployed. There is no remotely fenced IAM, signed ADR, production deployment, completed G2 or stable release.
+

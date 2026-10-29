@@ -23,9 +23,7 @@ CREATE TABLE company_configuration.organizational_establishments (
     valid_to date CHECK (valid_to IS NULL OR valid_to > valid_from),
     status text NOT NULL CHECK (status IN ('PLANNED','ACTIVE','INACTIVE','CLOSED')),
     revision integer NOT NULL CHECK (revision > 0),
-    PRIMARY KEY (tenant_id, establishment_id),
-    FOREIGN KEY (tenant_id,legal_entity_id)
-        REFERENCES company_configuration.legal_entities(tenant_id,entity_id)
+    PRIMARY KEY (tenant_id, establishment_id)
 );
 
 CREATE TABLE company_configuration.organizational_legal_identifiers (
@@ -39,9 +37,7 @@ CREATE TABLE company_configuration.organizational_legal_identifiers (
     valid_from date NOT NULL,
     valid_to date CHECK (valid_to IS NULL OR valid_to > valid_from),
     source_ref text NOT NULL CHECK (source_ref<>'' AND btrim(source_ref)=source_ref),
-    PRIMARY KEY (tenant_id, identifier_id),
-    FOREIGN KEY (tenant_id,legal_entity_id)
-        REFERENCES company_configuration.legal_entities(tenant_id,entity_id)
+    PRIMARY KEY (tenant_id, identifier_id)
 );
 CREATE INDEX org_ident_lookup ON company_configuration.organizational_legal_identifiers
     (tenant_id, scheme, issuer, jurisdiction, value);
@@ -60,13 +56,36 @@ CREATE TABLE company_configuration.organizational_membership_revisions (
     source_ref text NOT NULL CHECK (source_ref<>'' AND btrim(source_ref)=source_ref),
     PRIMARY KEY (tenant_id,membership_id,revision),
     FOREIGN KEY (tenant_id,company_id)
-        REFERENCES company_configuration.organizational_companies(tenant_id,company_id),
-    FOREIGN KEY (tenant_id,legal_entity_id)
-        REFERENCES company_configuration.legal_entities(tenant_id,entity_id)
+        REFERENCES company_configuration.organizational_companies(tenant_id,company_id)
 );
 CREATE INDEX org_memberships_as_known ON
     company_configuration.organizational_membership_revisions
     (tenant_id,legal_entity_id,kind,recorded_at,valid_from,valid_to);
+
+-- A hard FK to L02 legal_entities would alter the pre-existing TRUNCATE and
+-- recovery contract of 0001..0014. In this additive R&D stage the verified
+-- tenant-bound parent guard is used instead, pending an explicit cutover ADR.
+CREATE FUNCTION company_configuration.validate_organization_legal_parent()
+RETURNS trigger LANGUAGE plpgsql SET search_path=pg_catalog,pg_temp AS $
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM company_configuration.legal_entities AS le
+        WHERE le.tenant_id=NEW.tenant_id AND le.entity_id=NEW.legal_entity_id
+    ) THEN
+        RAISE EXCEPTION 'Missing scoped legal entity parent'
+            USING ERRCODE='23503';
+    END IF;
+    RETURN NEW;
+END $;
+CREATE TRIGGER org_establishment_parent
+BEFORE INSERT ON company_configuration.organizational_establishments
+FOR EACH ROW EXECUTE FUNCTION company_configuration.validate_organization_legal_parent();
+CREATE TRIGGER org_identifier_parent
+BEFORE INSERT ON company_configuration.organizational_legal_identifiers
+FOR EACH ROW EXECUTE FUNCTION company_configuration.validate_organization_legal_parent();
+CREATE TRIGGER org_membership_parent
+BEFORE INSERT ON company_configuration.organizational_membership_revisions
+FOR EACH ROW EXECUTE FUNCTION company_configuration.validate_organization_legal_parent();
 
 -- Valid and recorded times are explicit: same-tenant conflict locks serialize
 -- concurrent direct SQL writes. No reliance on client-set GUC or RLS visibility
@@ -175,3 +194,5 @@ REVOKE ALL ON company_configuration.organizational_legal_identifiers FROM PUBLIC
 REVOKE ALL ON company_configuration.organizational_membership_revisions FROM PUBLIC;
 REVOKE ALL ON FUNCTION company_configuration.validate_organization_legal_identifier() FROM PUBLIC;
 REVOKE ALL ON FUNCTION company_configuration.validate_organization_membership() FROM PUBLIC;
+
+REVOKE ALL ON FUNCTION company_configuration.validate_organization_legal_parent() FROM PUBLIC;

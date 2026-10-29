@@ -24,4 +24,4 @@ Added application ports and an in-memory, staged unit-of-work vertical proof for
 
 ## L02 increment 02 - SQL candidate
 
-Introduces a PostgreSQL-specific Repository/UoW, checksum-verified migration, FORCE-RLS tenant policies, append-only evidence triggers and optional integration workflow. This is a candidate, **not** G2; commit and CI results must be verified before updating status. See `evidence/L02_increment_02_postgres.md`.
+Introduces a PostgreSQL Repository/UoW, checksum-verified migration, FORCE-RLS tenant policies, append-only evidence triggers and dedicated PostgreSQL integration workflow. Implementation SHA `fb207bc1570b5efb19a4bf8d34629f430cab26f2` passed [PostgreSQL CI #40841545574](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40841545574): 9 tests each on Python 3.11/3.12, Ruff green; the separate Python CI passed. This is **not** G2 approval. Custom-GUC tenant RLS alone cannot resist an adversarial DB client and needs a stronger trust boundary before production. See `evidence/L02_increment_02_postgres.md`.

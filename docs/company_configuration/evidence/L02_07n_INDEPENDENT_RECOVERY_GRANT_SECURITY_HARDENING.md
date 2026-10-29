@@ -43,5 +43,5 @@ Compromise of **only the `cc_iam_recovery` credential** must no longer reactivat
 
 ## Evidence
 
-- Commit / Python CI / PostgreSQL CI: to be filled from exact-head GitHub Actions after candidate PR runs.
+- **Implementation checkpoint** `4de11fb06f0f3a8fbe9e06a298d65b71d06c2eb1`: [Python CI #40949366289](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40949366289) **287 passed + 17 skipped** per Python 3.11/3.12, Ruff green; [PostgreSQL CI #40949366359](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40949366359) **129 passed** per Python 3.11/3.12, Ruff green. Both workflows completed **SUCCESS**. This is CI-only evidence, not a production signature/verifier or independent audit sign-off. A following docs-only commit still needs its own exact-head status.
 - Final gate: fail closed until independent security review verifies correct operational composition and separation of secrets.

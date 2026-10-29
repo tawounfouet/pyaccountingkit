@@ -4,11 +4,13 @@ Date: 2026-10-29
 
 > **Implementation sequencing clarification (project owner):** complete G0/G1/G2 in this **recent** repository first. The mature historical repository and its packaging/API reconciliation are a **deferred second workstream**, not an acceptance prerequisite for this repository's development Foundation. See [ADR-CC-00A](evidence/L00/ADR_CC_00A_STANDALONE_FOUNDATION_SCOPE.md) and [standalone closure checklist](evidence/PHASE_1_STANDALONE_FOUNDATION_CLOSURE_CHECKLIST.md). This does not approve any gate, merge or production security control. Latest full-stack consolidation candidate backports the G1 timezone/DST correction from PR #3.
 
+> **FND-C06 integration update (2026-10-29):** [draft PR #32](https://github.com/tawounfouet/pyaccountingkit/pull/32) is the single full-stack candidate targeting recent-repository `main`. Implementation checkpoint `662679ad014436300e40b86a3ec4ef0e2d42b7ce` passed Python [CI #40954461960](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40954461960), PostgreSQL [#40954462042](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40954462042), migration/restore [#40954462202](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40954462202), and wheel/sdist/SQL hash [#40954462187](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40954462187) workflows, on Python 3.11 and 3.12. **`main` is still at bootstrap; G0/G1/G2 are NOT signed or merged.** Production IAM/security review, recovery cutover, and post-merge exact-main CI remain open. See [FND-C06 dossier](evidence/L02_10_FND_C06_MAIN_INTEGRATION_QUALIFICATION.md).
+
 | Gate | Status | Evidence |
 |---|---|---|
 | G0 - Audit/baseline | PENDING REVIEW — standalone recent repo | `evidence/L00/repository_baseline.md`, `evidence/L00/ADR_CC_00A_STANDALONE_FOUNDATION_SCOPE.md`; historical integration explicitly deferred; issue #1 |
 | G1 - Domain kernel | IN PROGRESS | L01 typed VOs, `LegalEntity` aggregate and property tests; issue #2 |
-| G2 - Technical foundations | IN PROGRESS / NOT APPROVED | L02-01 memory, L02-02 PostgreSQL, L02-03 Outbox/denial, L02-04 Inbox and L02-05 tenant-role security candidate; issue #5 and security blocker #9 |
+| G2 - Technical foundations | DEVELOPMENT CI-QUALIFIED CANDIDATE / NOT APPROVED | Selected L02-01 through L02-07n chain, IAM/SoD security remediation #28, FND-C04 recovery #29, FND-C05 reliability #30 and FND-C06 packaging #32; all four pre-merge workflows green on a recorded implementation checkpoint. Independent security and operational reviews pending; issues #5 and #9 |
 
 ## Previously verified exact-SHA checkpoints
 

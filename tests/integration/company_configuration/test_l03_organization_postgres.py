@@ -30,6 +30,9 @@ from pyaccountingkit.company_configuration.domain.shared.references import (  # 
 from pyaccountingkit.company_configuration.infrastructure.postgres.organization import (  # noqa: E402
     PostgresOrganizationRepository,
 )
+from pyaccountingkit.company_configuration.infrastructure.postgres.tenant_boundary import (  # noqa: E402
+    TenantConnectionMismatch,
+)
 
 ADMIN = os.getenv("CC_PG_ADMIN_DSN")
 DSN_A = os.getenv("CC_PG_DSN")
@@ -142,12 +145,12 @@ def test_cross_tenant_and_nonexistent_parent_rejected(clean_organization_databas
         PostgresOrganizationRepository(DSN_A).append_membership(
             affiliation(org_a, LegalEntityId.new())
         )
-    with pytest.raises(Exception):
+    with pytest.raises(TenantConnectionMismatch):
         PostgresOrganizationRepository(DSN_B).append_membership(
             affiliation(org_a, legal_a)
         )
     org_b = company("tenant-b")
-    with pytest.raises(Exception):
+    with pytest.raises(TenantConnectionMismatch):
         PostgresOrganizationRepository(DSN_A).add_company(org_b)
     with psycopg.connect(ADMIN) as conn:
         assert conn.execute(

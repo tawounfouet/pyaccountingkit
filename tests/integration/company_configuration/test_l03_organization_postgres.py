@@ -12,6 +12,7 @@ psycopg = pytest.importorskip("psycopg")
 from pyaccountingkit.company_configuration.domain.organization import (  # noqa: E402
     Company,
     CompanyKind,
+    Establishment,
     LegalIdentifier,
     MembershipKind,
     OrganizationMembership,
@@ -21,6 +22,7 @@ from pyaccountingkit.company_configuration.domain.shared.effective_interval impo
 )
 from pyaccountingkit.company_configuration.domain.shared.identifiers import (  # noqa: E402
     CompanyId,
+    EstablishmentId,
     LegalEntityId,
     MembershipId,
 )
@@ -254,3 +256,51 @@ def test_same_registry_id_other_entity_rejected_by_sql(
         assert conn.execute(
             "SELECT count(*) FROM company_configuration.organizational_legal_identifiers"
         ).fetchone()[0] == 1
+
+
+def test_establishment_parent_and_immutability(clean_organization_database):
+    """A site is not a separate legal person and cannot be orphaned."""
+    entity_id = seed_legal()
+    store = PostgresOrganizationRepository(DSN_A)
+    site = Establishment(
+        EstablishmentId.new(), "tenant-a", entity_id, "Paris office",
+        JurisdictionCode("FR"), EffectiveInterval(date(2026, 1, 1)),
+    )
+    store.add_establishment(site)
+    orphan = Establishment(
+        EstablishmentId.new(), "tenant-a", LegalEntityId.new(), "Unknown site",
+        JurisdictionCode("FR"), EffectiveInterval(date(2026, 1, 1)),
+    )
+    with pytest.raises(psycopg.errors.ForeignKeyViolation):
+        store.add_establishment(orphan)
+    with psycopg.connect(DSN_A) as conn:
+        with pytest.raises(psycopg.errors.InsufficientPrivilege):
+            conn.execute(
+                "UPDATE company_configuration.organizational_establishments "
+                "SET name='rewritten' WHERE establishment_id=%s",
+                (site.id.value,),
+            )
+
+
+def test_registry_collision_is_serialized_under_concurrent_requests(
+    clean_organization_database,
+):
+    """Both actors cannot reserve the same current registry identity."""
+    first_id, second_id = seed_legal(), seed_legal()
+    store = PostgresOrganizationRepository(DSN_A)
+
+    def insert(entity_id):
+        item = LegalIdentifier(
+            "tenant-a", entity_id, "SIREN", "987654321", "INSEE",
+            JurisdictionCode("FR"), EffectiveInterval(date(2026, 1, 1)),
+            "external-register",
+        )
+        try:
+            store.add_legal_identifier(item)
+            return "ok"
+        except psycopg.errors.CheckViolation:
+            return "rejected"
+
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        results = list(pool.map(insert, [first_id, second_id]))
+    assert sorted(results) == ["ok", "rejected"]

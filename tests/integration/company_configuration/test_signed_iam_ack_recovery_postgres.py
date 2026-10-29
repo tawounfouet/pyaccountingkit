@@ -15,12 +15,12 @@ psycopg = pytest.importorskip("psycopg")
 from test_delegated_control_plane_postgres import account  # noqa: F401
 
 from pyaccountingkit.company_configuration.application.iam_ack_recovery import (
+    IamAckRecoveryApprovalIssuer,
     IamAckRecoveryService,
     RedriveRequest,
 )
 from pyaccountingkit.company_configuration.application.privileged_operations import (
     PrivilegedAccessDenied,
-    VerifiedOperator,
 )
 from pyaccountingkit.company_configuration.infrastructure.iam.revocation import (
     VerifiedIamRevocation,
@@ -93,7 +93,7 @@ class Policy:
     def require(self, *, actor, tenant_id, action):
         if (
             actor.actor_id != "investigator" or actor.tenant_id != tenant_id
-            or action != "redrive_iam_ack_dead"
+            or action not in ("redrive_iam_ack_dead", "authorize_iam_ack_dead")
         ):
             raise PrivilegedAccessDenied("Current grant revoked")
 
@@ -123,7 +123,7 @@ def dead_row(request):
         )
 
 
-def _service(row, *, signer=None):
+def _service(row, *, signer=None, grant=True):
     operator = Ed25519PrivateKey.generate()
     reviewer = Ed25519PrivateKey.generate()
     now = int(datetime.now(UTC).timestamp())
@@ -164,17 +164,24 @@ def _service(row, *, signer=None):
         repository=PostgresIamDeadAckRecovery(RECOVERY),
         clock=Clock(),
     )
-    if signer is None:
-        # CI simulates a physically separate approval-writer service. A forged
-        # token cannot get a grant through the dedicated signed verifier.
-        signed_approval = reviewer_verifier.resolve(reference=req.approval_reference)
-        PostgresIamAckApprovalGrants(APPROVAL_WRITER).issue(
-            req,
-            actor=VerifiedOperator("investigator", req.tenant_id),
-            approval=signed_approval,
-            now=datetime.now(UTC),
+    token = _signed(operator, actor_claims)
+    if signer is None and grant:
+        # CI simulates a separate approval-writer workload; this application
+        # use case verifies signed actor, approver, current policy twice and
+        # calls the independent SQL writer, never the recovery SQL identity.
+        issuer = IamAckRecoveryApprovalIssuer(
+            identity=SignedOperatorIdentity(
+                PinnedSignedEvidenceVerifier(
+                    _trust(operator, "operator", "https://operators.example.test")
+                )
+            ),
+            policy=Policy(),
+            approvals=reviewer_verifier,
+            writer=PostgresIamAckApprovalGrants(APPROVAL_WRITER),
+            clock=Clock(),
         )
-    return svc, req, _signed(operator, actor_claims)
+        issuer.issue(req, auth_context=token)
+    return svc, req, token
 
 
 def test_signed_independent_recovery_approval_commits_sql_decision(dead_row):
@@ -211,3 +218,15 @@ def test_database_recovery_capability_rejects_delivery_or_owner_login():
     for dsn in (DELIVERY, ADMIN, APPROVAL_WRITER):
         with pytest.raises(PrivilegedCompositionDenied):
             require_recovery_sql_capabilities(dsn)
+
+
+def test_valid_signed_recovery_without_independent_sql_grant_is_denied(dead_row):
+    svc, req, token = _service(dead_row, grant=False)
+    with pytest.raises(psycopg.errors.InsufficientPrivilege):
+        svc.redrive(req, auth_context=token)
+    with psycopg.connect(ADMIN) as conn:
+        state = conn.execute(
+            "SELECT state,redrive_count FROM company_configuration.privileged_iam_ack_outbox "
+            "WHERE event_id=%s", (dead_row.event_id,),
+        ).fetchone()
+    assert state == ("DEAD", 0)

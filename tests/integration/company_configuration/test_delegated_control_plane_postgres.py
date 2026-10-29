@@ -136,7 +136,7 @@ def test_delegated_fence_rotates_and_is_consumed_once(account):
             "SELECT action FROM company_configuration.privileged_fence_events "
             "WHERE request_id=%s ORDER BY recorded_at", (authorization.request_id,),
         ).fetchall()] == ["ISSUED", "CONSUMED"]
-    with pytest.raises(psycopg.errors.RaiseException):
+    with pytest.raises(psycopg.errors.InsufficientPrivilege):
         control.execute(run(authorization), new_password="another-delegated-secret-12345")
     with pytest.raises(psycopg.OperationalError):
         psycopg.connect(old_dsn)
@@ -157,7 +157,7 @@ def test_revoked_delegated_permit_cannot_change_role(account):
     assert not control.revoke(
         request_id=authorization.request_id, tenant_id="tenant-a", revoked_by="iam",
     )
-    with pytest.raises(psycopg.errors.RaiseException):
+    with pytest.raises(psycopg.errors.InsufficientPrivilege):
         control.execute(run(authorization), new_password="invalid-new-secret-123456")
     with psycopg.connect(old_dsn) as conn:
         assert conn.execute("SELECT 1").fetchone()[0] == 1
@@ -173,7 +173,7 @@ def test_delegated_scope_rejects_impersonated_tenant_and_actor(account):
         replace(run(authorization), actor_id="impersonator"),
         replace(run(authorization), approval_id="other-approval"),
     ):
-        with pytest.raises(psycopg.errors.RaiseException):
+        with pytest.raises(psycopg.errors.InsufficientPrivilege):
             control.execute(mutation, new_password="candidate-secret-123456789")
 
 

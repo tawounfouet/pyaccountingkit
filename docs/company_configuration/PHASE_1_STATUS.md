@@ -159,3 +159,10 @@ G0/G1/G2 are **not signed off**. No stable release, real IAM, independently secu
 - Migration `0013` adds no-PII aggregate metrics and separate scoped `cc_iam_recovery` capability. Manual DEAD re-drive needs independent exact-scope approval at the application port, append-only SQL decision and a transactionally atomic reset; max two re-drives per event, replay/tenant/collision guarded.
 - Delivery CLI provides bounded foreground polling and aggregate JSON alert flags for an external scheduler; **not** actual deployed monitoring or automated DLQ closure.
 - **Open G2:** real signed approval adapter/IdP, independently protected recovery SQL secret, production supervisor and alert sink, incident resolution/approval, provider idempotency and mTLS, owner-DSN bypass, vault/WORM/DR, signed ADR and G0/G1/G2. PR #24 remains draft/unmerged.
+
+## L02-07m - Pinned signed recovery approvals and guarded composition (CI PENDING)
+
+- A new `recovery_approval` Ed25519 JWS kind binds approval reference, event/request UUIDs, tenant, exact incident evidence, reason and independent checker, separate from the operator identity signer. The signing verifier reads trusted independent evidence and validates strict expiry; service double-checks current authorization before SQL.
+- `SignedRecoverySettings.from_environment()` refuses owner/runtime/delivery/control-plane credentials and requires pinned separate issuer/key roots plus a dedicated remote `cc_iam_recovery` PostgreSQL TLS `verify-full` URI. Composition checks actual SQL session_user, restricted grants and lack of raw outbox access.
+- New pure tests verify forged/wrong-scope/expired/revoked cases and unsafe deployment settings; real PostgreSQL tests prove valid signed evidence and denial before SQL mutation. Previous migration 0013 stays unchanged.
+- **Not a real independent IAM approval service, deployed isolation or security sign-off.** Source and signers in tests are ephemeral fixtures. G0/G1/G2 remain unsigned and PR stays draft/unmerged. Exact-SHA CI evidence pending.

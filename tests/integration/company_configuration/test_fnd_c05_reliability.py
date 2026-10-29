@@ -6,6 +6,7 @@ broker, upstream event signature, or C10 consumer contract certificate.
 
 import os
 from datetime import UTC, datetime, timedelta
+from uuid import UUID
 
 import pytest
 
@@ -148,7 +149,7 @@ def test_crash_after_final_publish_attempt_dead_letters_expired_lease():
     assert len(publisher.events) == 1
     assert _count("outbox_events") == 1
     assert _count("audit_records") == 1
-    assert publisher.events[0].event_id == __import__("uuid").UUID(event.event_id)
+    assert publisher.events[0].event_id == UUID(event.event_id)
 
 
 def test_inbox_handler_cannot_commit_partial_side_effects():
@@ -182,6 +183,19 @@ def test_inbox_handler_cannot_commit_partial_side_effects():
         bad.process(event)
     assert _count("inbox_receipts") == 0
     assert _count("inbox_projection_counts") == 0
+    class AttemptSqlCommit:
+        def apply(self, connection, event, *, consumer_id):
+            CountingProjectionHandler().apply(connection, event, consumer_id=consumer_id)
+            connection.execute("COMMIT", ())  # disallowed in restricted facade
+
+    with pytest.raises(ValueError, match="may not control transactions"):
+        PostgresInboxConsumer(
+            INBOX_DSN, tenant_id="tenant-a", consumer_id="projection",
+            producer_id="company-config", handler=AttemptSqlCommit(),
+        ).process(event)
+    assert _count("inbox_receipts") == 0
+    assert _count("inbox_projection_counts") == 0
+
     good = PostgresInboxConsumer(
         INBOX_DSN, tenant_id="tenant-a", consumer_id="projection",
         producer_id="company-config", handler=CountingProjectionHandler(),

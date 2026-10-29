@@ -50,6 +50,15 @@ class _InboxSqlSession:
         self.__connection = connection
 
     def execute(self, query: str, params: tuple[object, ...]) -> psycopg.Cursor:
+        # Prevent common accidental transaction control or multi-statement SQL.
+        # This is a reviewed-handler contract guard, NOT a SQL sandbox.
+        if not isinstance(query, str) or ";" in query:
+            raise ValueError("Inbox handler requires one SQL statement")
+        head = query.strip().split(maxsplit=1)
+        if not head or head[0].upper() not in {
+            "SELECT", "INSERT", "UPDATE", "DELETE", "WITH"
+        }:
+            raise ValueError("Inbox handler may not control transactions or DDL")
         return self.__connection.execute(query, params)
 
 

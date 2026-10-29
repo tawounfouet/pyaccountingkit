@@ -50,8 +50,8 @@ jobs:
           sql_names = sorted(
               x.name for x in resources.files(name).iterdir() if x.name.endswith(".sql")
           )
-          assert [int(x[:4]) for x in sql_names] == list(range(1, 17))
-          print("PASS isolated wheel install, import and 16 packaged SQL migrations")
+          assert [int(x[:4]) for x in sql_names] == list(range(1, 18))
+          print("PASS isolated wheel install, import and 17 packaged SQL migrations")
           PY
       - name: Compile installed distribution to catch packaging errors
         run: .fnd-c06-venv/bin/python -m compileall -q .fnd-c06-venv/lib

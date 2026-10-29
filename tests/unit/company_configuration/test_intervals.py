@@ -1,4 +1,5 @@
 from datetime import UTC, date, datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 
 import pytest
 
@@ -64,3 +65,39 @@ def test_knowledge_invalid_end_rejected():
     time = datetime(2026, 10, 29, tzinfo=UTC)
     with pytest.raises(InvalidInterval):
         KnowledgeInterval(time, time)
+
+
+def test_knowledge_interval_uses_absolute_order_across_repeated_dst_hour():
+    """The later local 02:10 is after the earlier 02:50 on the UTC timeline."""
+    paris = ZoneInfo("Europe/Paris")
+    first_fold = datetime(2026, 10, 25, 2, 50, tzinfo=paris, fold=0)
+    second_fold = datetime(2026, 10, 25, 2, 10, tzinfo=paris, fold=1)
+    interval = KnowledgeInterval(first_fold, second_fold)
+
+    assert interval.contains(first_fold)
+    assert interval.contains(datetime(2026, 10, 25, 2, 0, tzinfo=paris, fold=1))
+    assert interval.contains(datetime(2026, 10, 25, 1, 0, tzinfo=UTC))
+    assert not interval.contains(second_fold)
+    assert not interval.contains(datetime(2026, 10, 25, 2, 40, tzinfo=paris, fold=1))
+
+    with pytest.raises(InvalidInterval):
+        KnowledgeInterval(second_fold, first_fold)
+
+
+def test_knowledge_overlap_is_symmetric_and_half_open_across_dst_fold():
+    paris = ZoneInfo("Europe/Paris")
+    first_fold = datetime(2026, 10, 25, 2, 50, tzinfo=paris, fold=0)
+    second_fold_start = datetime(2026, 10, 25, 2, 0, tzinfo=paris, fold=1)
+    second_fold_end = datetime(2026, 10, 25, 2, 10, tzinfo=paris, fold=1)
+    first = KnowledgeInterval(first_fold, second_fold_end)
+    overlapping = KnowledgeInterval(
+        second_fold_start, datetime(2026, 10, 25, 2, 20, tzinfo=paris, fold=1)
+    )
+    touching = KnowledgeInterval(
+        second_fold_end, datetime(2026, 10, 25, 2, 20, tzinfo=paris, fold=1)
+    )
+
+    assert first.overlaps(overlapping)
+    assert overlapping.overlaps(first)
+    assert not first.overlaps(touching)
+    assert not touching.overlaps(first)

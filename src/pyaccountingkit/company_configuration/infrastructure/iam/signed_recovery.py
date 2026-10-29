@@ -96,8 +96,8 @@ class SignedRecoverySettings:
     @classmethod
     def from_environment(cls, env: Mapping[str, str]) -> "SignedRecoverySettings":
         from ..postgres.signed_control_plane import (
-            UnsafeControlPlaneDeployment,
             _FORBIDDEN_KEYS,
+            UnsafeControlPlaneDeployment,
             _guard_dsn,
             _key,
         )
@@ -141,9 +141,9 @@ class SignedRecoverySettings:
 
 def require_recovery_sql_capabilities(dsn: str) -> None:
     """Live PostgreSQL least-privilege check; separate from network/TLS startup."""
-    from ..postgres.restricted_control_plane import PrivilegedCompositionDenied
-
     import psycopg
+
+    from ..postgres.restricted_control_plane import PrivilegedCompositionDenied
 
     with psycopg.connect(dsn) as conn:
         identity = conn.execute(

@@ -14,7 +14,15 @@
 
 Run the same migration/CI role setup as L02, with the new `CC_PG_CONTROL_PLANE_DSN` **test-only** credential. Integration tests prove: denied direct DDL, denied table access, function permission errors for runtime, exact-scoped issuance and consumption, replay refusal, wrong tenant/actor/approval, local revocation, and tenant binding removal on NOLOGIN.
 
-Record exact GitHub Actions SHA and runs after observed success. Preserve checksums 0001-0008; migration 0009 is additive.
+
+## Verified exact-SHA automated evidence
+
+Implementation SHA `7a4e644069848a3a59fa560505bf8927af7e389e`:
+- [PostgreSQL CI #40915755895](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40915755895): **90 passed** on Python 3.11 and **90 passed** on Python 3.12, Ruff green. Nine additional PostgreSQL scenarios vs L02-07f, including the integrated mandatory `PrivilegedRoleService` path with the delegated SQL role and the forbidden superuser target.
+- [Python CI #40915756033](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40915756033): **169 passed, 11 PostgreSQL-only skipped** on Python 3.11/3.12, Ruff green.
+
+This confirms a CI-only PostgreSQL capability boundary. It **does not** demonstrate production network isolation, independent IAM or signed approver identity, vault/PAM, separate audit-DSN deployment, an approved ADR or G0/G1/G2. The direct owner role primitive remains and requires separate privileged-credential isolation.
+ Preserve checksums 0001-0008; migration 0009 is additive.
 
 ## Residual G2 security gaps
 

@@ -86,3 +86,9 @@ G0/G1/G2 are **not signed off**. No stable release, real IAM, independently secu
 - CI-only `cc_control_plane` LOGIN has **no CREATEROLE, SUPERUSER or private-table privileges**, only EXECUTE on three narrowly constrained routines. Normal runtime/dispatcher/Inbox roles cannot call them.
 - `DelegatedPrivilegedControlPlane` implements the fenced execution port without needing a schema-owner/admin DSN. Owner-only migrations, privileged audit and existing legacy raw role operator are **not** eliminated.
 - Automated PostgreSQL adversarial qualification is required before candidate acceptance. Production network segregation, signed IAM/SoD approvals, secret vault/logs, independent audit owner and G0/G1/G2 remain unapproved.
+
+### L02-07g - Delegated control-plane proof (exact-SHA CI qualified, G2 open)
+- Commit `7a4e644069848a3a59fa560505bf8927af7e389e`: [PG CI #40915755895](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40915755895), **90 passed per Python version** (3.11/3.12), Ruff green; [Python CI #40915756033](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40915756033), **169 passed, 11 SQL-only skipped per version**, Ruff green.
+- SQL migration `0009` adds owner-controlled SECURITY DEFINER issue/revoke/execute functions. `cc_control_plane` in CI has neither SUPERUSER/CREATEROLE nor direct table access, only EXECUTE grants; runtime and other roles cannot invoke them.
+- `DelegatedPrivilegedControlPlane` implements required fenced operations **without a schema-owner DSN**, tested from `PrivilegedRoleService` through role DDL, CONSUMED evidence and existing owner-only audit (owner audit path still a blocker).
+- **Still not G2**: deploy isolated privilege and migration process, protect owner and legacy operator, external IAM/SoD and revocation acknowledgment, independent audit writer, vault/TLS/SQL logging, restore and penetration review, approved G0/G1/ADR. PR #18 is draft and unmerged.

@@ -11,6 +11,9 @@ from test_postgres_uow import build_service, create  # noqa: E402
 from pyaccountingkit.company_configuration.application.service import (  # noqa: E402
     LegalEntityService,
 )
+from pyaccountingkit.company_configuration.infrastructure.postgres import (  # noqa: E402
+    tenant_boundary,
+)
 from pyaccountingkit.company_configuration.infrastructure.postgres.adapter import (  # noqa: E402
     PostgresUnitOfWork,
 )
@@ -20,9 +23,6 @@ from pyaccountingkit.company_configuration.infrastructure.postgres.dispatch impo
 from pyaccountingkit.company_configuration.infrastructure.postgres.inbox import (  # noqa: E402
     CountingProjectionHandler,
     PostgresInboxConsumer,
-)
-from pyaccountingkit.company_configuration.infrastructure.postgres import (  # noqa: E402
-    tenant_boundary,
 )
 
 TenantConnectionMismatch = tenant_boundary.TenantConnectionMismatch

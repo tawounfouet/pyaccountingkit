@@ -95,6 +95,10 @@ with psycopg.connect(admin_dsn, autocommit=True) as conn:
             )
         elif category == "unbound":
             conn.execute(
+                sql.SQL("GRANT SELECT ON company_configuration.organizational_companies TO {}")
+                .format(sql.Identifier(role))
+            )
+            conn.execute(
                 sql.SQL("GRANT SELECT ON company_configuration.legal_entities TO {}")
                 .format(sql.Identifier(role))
             )

@@ -3,7 +3,7 @@
 **Repository:** `tawounfouet/pyaccountingkit` (recent repository only).  
 **Date:** 2026-10-29.  
 **Status:** **DRAFT PRE-MERGE QUALIFICATION — NO G0/G1/G2 SIGN-OFF**.  
-**PR:** [#31](https://github.com/tawounfouet/pyaccountingkit/pull/31) targeting `main`, integrated candidate derived from FND-C05 #30.
+**PR:** [#31](https://github.com/tawounfouet/pyaccountingkit/pull/32) targeting `main`, integrated candidate derived from FND-C05 #30.
 
 ## Provenance and controlled branch strategy
 
@@ -12,7 +12,7 @@
 - At that baseline, GitHub `main...#30` compared **103 commits ahead / 0 behind** and 156 changed files; these are **ancestry measurements**, not code/review acceptance.
 - Historical `pyaccountingkit_old` reconciliation is explicitly postponed under ADR-CC-00A, not an L00–L02 standalone development dependency.
 - Selected L02-07j lineage is PR #22, not the divergent PR #21 with an incompatible `0011` migration; do not merge both branches or duplicate stacked changes.
-- Previous draft PRs #3–#30 remain provenance/review references. **PR #31 is the intended single integration candidate.** Merging #31 should supersede individual stacked merges *only after independent approval*.
+- Previous draft PRs #3–#30 remain provenance/review references. **PR #32 is the intended single integration candidate.** Merging #31 should supersede individual stacked merges *only after independent approval*.
 
 ## Package and migration integrity
 
@@ -51,10 +51,10 @@ This pre-merge qualification is not permission to edit immutable migrations in a
 
 ## Promotion protocol (proposal, not executed)
 
-1. Verify PR #31 exact-head Python, PostgreSQL, Migration Recovery and Artifact/Package workflows **all SUCCESS** on Python 3.11/3.12.
+1. Verify PR #32 exact-head Python, PostgreSQL, Migration Recovery and Artifact/Package workflows **all SUCCESS** on Python 3.11/3.12.
 2. Review changed files, migration checksums, divergence and branch protections; resolve security/architecture findings or narrowly document explicitly accepted nonproduction limitations.
 3. Obtain independent G0/G1/G2 reviewer decisions and code review; capture approver identity, date and exact PR SHA. **Automated green checks are necessary but not sufficient.**
-4. Merge **only PR #31** to recent repo `main`, not all ancestor drafts, once gates allow it. Do not rewrite public release history or touch the historical repository.
+4. Merge **only PR #32** to recent repo `main`, not all ancestor drafts, once gates allow it. Do not rewrite public release history or touch the historical repository.
 5. Re-run all CI on the resulting exact `main` SHA; verify installed distribution and migration checksums again.
 6. Record the post-merge SHA, workflow run links, proof hashes, accepted risk/register, reviewer decisions and signed gate status; only then report Foundation closure for the explicitly qualified standalone development scope.
 

@@ -20,6 +20,7 @@ from pyaccountingkit.company_configuration.application.iam_ack_recovery import (
 )
 from pyaccountingkit.company_configuration.application.privileged_operations import (
     PrivilegedAccessDenied,
+    VerifiedOperator,
 )
 from pyaccountingkit.company_configuration.infrastructure.iam.revocation import (
     VerifiedIamRevocation,
@@ -34,6 +35,7 @@ from pyaccountingkit.company_configuration.infrastructure.iam.signed_recovery im
     require_recovery_sql_capabilities,
 )
 from pyaccountingkit.company_configuration.infrastructure.postgres.iam_ack_operations import (
+    PostgresIamAckApprovalGrants,
     PostgresIamDeadAckRecovery,
 )
 from pyaccountingkit.company_configuration.infrastructure.postgres.iam_revocation import (
@@ -47,8 +49,9 @@ ADMIN = os.getenv("CC_PG_ADMIN_DSN")
 RECOVERY = os.getenv("CC_PG_IAM_RECOVERY_DSN")
 IAM = os.getenv("CC_PG_IAM_REVOCATION_DSN")
 DELIVERY = os.getenv("CC_PG_IAM_DELIVERY_DSN")
+APPROVAL_WRITER = os.getenv("CC_PG_IAM_APPROVAL_WRITER_DSN")
 pytestmark = pytest.mark.skipif(
-    not all((ADMIN, RECOVERY, IAM, DELIVERY)),
+    not all((ADMIN, RECOVERY, IAM, DELIVERY, APPROVAL_WRITER)),
     reason="Dedicated SQL recovery and IAM revocation DSNs required",
 )
 
@@ -144,22 +147,33 @@ def _service(row, *, signer=None):
         "issued_at": now - 5, "expires_at": now + 120,
     }
     proof = _signed(signer or reviewer, approval_claims)
+    reviewer_verifier = SignedRecoveryApprovalVerifier(
+        PinnedSignedEvidenceVerifier(
+            _trust(reviewer, "recovery_approval", "https://reviewers.example.test")
+        ),
+        Source(proof),
+    )
     svc = IamAckRecoveryService(
         identity=SignedOperatorIdentity(
             PinnedSignedEvidenceVerifier(
                 _trust(operator, "operator", "https://operators.example.test")
             )
         ),
-        approvals=SignedRecoveryApprovalVerifier(
-            PinnedSignedEvidenceVerifier(
-                _trust(reviewer, "recovery_approval", "https://reviewers.example.test")
-            ),
-            Source(proof),
-        ),
+        approvals=reviewer_verifier,
         policy=Policy(),
         repository=PostgresIamDeadAckRecovery(RECOVERY),
         clock=Clock(),
     )
+    if signer is None:
+        # CI simulates a physically separate approval-writer service. A forged
+        # token cannot get a grant through the dedicated signed verifier.
+        signed_approval = reviewer_verifier.resolve(reference=req.approval_reference)
+        PostgresIamAckApprovalGrants(APPROVAL_WRITER).issue(
+            req,
+            actor=VerifiedOperator("investigator", req.tenant_id),
+            approval=signed_approval,
+            now=datetime.now(UTC),
+        )
     return svc, req, _signed(operator, actor_claims)
 
 
@@ -194,6 +208,6 @@ def test_forged_recovery_approval_denied_without_sql_reactivation(dead_row):
 
 def test_database_recovery_capability_rejects_delivery_or_owner_login():
     require_recovery_sql_capabilities(RECOVERY)
-    for dsn in (DELIVERY, ADMIN):
+    for dsn in (DELIVERY, ADMIN, APPROVAL_WRITER):
         with pytest.raises(PrivilegedCompositionDenied):
             require_recovery_sql_capabilities(dsn)

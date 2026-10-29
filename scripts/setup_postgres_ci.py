@@ -121,3 +121,16 @@ with psycopg.connect(admin_dsn, autocommit=True) as conn:
         "GRANT EXECUTE ON FUNCTION company_configuration.cp_append_privileged_audit("
         "uuid,uuid,text,text,text,text,text,text,text,text) TO cc_privileged_audit"
     )
+
+    # Separate IAM-revocation delivery identity. Database functions do not
+    # cryptographically verify JWS; only this worker can use the grant.
+    conn.execute(
+        "CREATE ROLE cc_iam_revocation LOGIN NOSUPERUSER NOCREATEDB "
+        "NOCREATEROLE NOINHERIT NOREPLICATION NOBYPASSRLS "
+        "PASSWORD 'cc_testing_only'"
+    )
+    conn.execute("GRANT USAGE ON SCHEMA company_configuration TO cc_iam_revocation")
+    conn.execute(
+        "GRANT EXECUTE ON FUNCTION company_configuration.cp_ack_iam_revocation("
+        "uuid,uuid,text,text,text,text,text,text) TO cc_iam_revocation"
+    )

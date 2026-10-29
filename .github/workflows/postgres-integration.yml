@@ -38,6 +38,7 @@ jobs:
       CC_PG_IAM_REVOCATION_DSN: postgresql://cc_iam_revocation:cc_testing_only@localhost:5432/cc_test
       CC_PG_IAM_DELIVERY_DSN: postgresql://cc_iam_delivery:cc_testing_only@localhost:5432/cc_test
       CC_PG_IAM_RECOVERY_DSN: postgresql://cc_iam_recovery:cc_testing_only@localhost:5432/cc_test
+      CC_PG_IAM_APPROVAL_WRITER_DSN: postgresql://cc_iam_approval_writer:cc_testing_only@localhost:5432/cc_test
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

@@ -87,7 +87,8 @@ class SignedIamRevocationProcessor:
         self._source = source
         self._repository = repository
 
-    def process(self, event_id: UUID) -> IamRevocationReceipt:
+    def ingest(self, event_id: UUID) -> IamRevocationReceipt:
+        """Persist signed revocation; SQL trigger enqueues ACK atomically."""
         if not isinstance(event_id, UUID):
             raise PrivilegedAccessDenied("Canonical UUID event reference required")
         try:
@@ -127,7 +128,13 @@ class SignedIamRevocationProcessor:
         disposition = self._repository.apply(evidence)
         if disposition not in self._OUTCOMES:
             raise RuntimeError("Unknown SQL revocation disposition, no remote ACK")
-        receipt = IamRevocationReceipt(event_id, request_ref, evidence.tenant_id, disposition)
+        return IamRevocationReceipt(
+            event_id, request_ref, evidence.tenant_id, disposition
+        )
+
+    def process(self, event_id: UUID) -> IamRevocationReceipt:
+        """Legacy immediate-ACK compatibility; use ingest() + outbox in L02-07k."""
+        receipt = self.ingest(event_id)
         try:
             self._source.acknowledge(receipt)
         except Exception as exc:

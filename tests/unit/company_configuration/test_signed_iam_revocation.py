@@ -184,3 +184,11 @@ def test_revocation_requires_independent_trust_root_and_source(bundle):
         SignedIamRevocationProcessor(
             verifier=PinnedSignedEvidenceVerifier(trust), source=object(), repository=Repo(),
         )
+
+
+def test_ingest_only_commits_local_receipt_without_remote_ack(bundle):
+    processor, source, repository = service(bundle)
+    receipt = processor.ingest(bundle[3])
+    assert receipt.disposition == "TOMBSTONED"
+    assert len(repository.evidence) == 1
+    assert source.acks == []

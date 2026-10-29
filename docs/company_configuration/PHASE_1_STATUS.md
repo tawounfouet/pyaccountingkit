@@ -129,3 +129,18 @@ G0/G1/G2 are **not signed off**. No stable release, real IAM, independently secu
 - Implementation `cfe46cacd0f5b0190b554e5c7eede75941f47175`: [PostgreSQL CI #40926615545](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40926615545), **109 passed per Python 3.11/3.12**, Ruff; [Python CI #40926615439](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40926615439), **224 passed, 14 skipped** per Python version, Ruff.
 - Migration `0011` protects fence issuance against earlier signed revocation receipt, uses transaction-level advisory locking and permanent tombstones. Separate restricted SQL IAM capability, exact signed scope/TTL, receipt and ACK/retry tested.
 - **Still blocked:** real provider source/remote ACK queue, JWS key lifecycle, SQL receiver secret compromise, external IAM-to-SQL latency, physical workload/network isolation, incident response for `ALREADY_CONSUMED`, owner bypass, vault/mTLS/WORM/audit and independently accepted ADR/G0/G1/G2. PR #22 remains draft/unmerged.
+
+## L02-07k - HTTPS Provider Contract + Durable ACK Outbox (CI PENDING)
+
+- HTTPS revocation source uses pinned provider origin, CA/hostname verification, no redirects, bounded JWS, explicit bearer credential and event-UUID idempotency key. Transport is faked in CI; this is not an installed vendor connector or production source.
+- SignedIamRevocationProcessor.ingest() verifies and commits locally **without immediate remote ACK**; legacy process() continues to ACK for compatibility but should not be used in the durable pipeline.
+- Migration 0012 stages every SQL IAM revocation receipt in a **same-transaction ACK outbox**, including backfill for earlier receipts. Separate nonprivileged `cc_iam_delivery` can claim/complete/fail via owner-managed functions with SKIP LOCKED, 30-second leases, bounded retry/backoff and DEAD status.
+- `IamAckDeliveryWorker` performs at-least-once ACK with upstream Idempotency-Key. Failure to confirm SQL completion leaves a lease for a safe duplicate retry.
+- Tests cover provider transport violations, failed ACK, transactional rollback, stale lease, competing claims, 5-attempt DEAD and SQL capability denial. Production scheduling, metrics, real IAM provider, verified upstream dedup, DLQ incident handling, network isolation, G0/G1/G2 remain open.
+
+### L02-07k - HTTPS IAM Source + Durable ACK Outbox (exact-SHA CI qualified, G2 pending)
+
+- Implementation `e336cdb92d57229d5f4bd181214075e8b5c7d20e`: [PostgreSQL CI #40930190602](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40930190602) **116 passed per Python version (3.11/3.12)** and Ruff; [Python CI #40930190535](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40930190535) **240 passed, 15 PostgreSQL-only skipped per version** and Ruff.
+- New HTTPS revocation GET/ack POST adapter with event-key idempotency; `SignedIamRevocationProcessor.ingest()` verifies/persists without immediate remote ACK (legacy `process()` still sends immediate ACK for compatibility).
+- Forward-only migration 0012 ensures a revocation receipt and queued ACK commit together. Dedicated `cc_iam_delivery` has no DDL or raw table grants. Worker uses `SKIP LOCKED`, lease tokens, capped retries and DEAD state; concurrent claims test qualified on real PostgreSQL 16.
+- **Open G2 blockers:** no connected IAM provider or demonstrated provider-side idempotency, no running worker/scheduler/alerting or independently approved DLQ handling, no workload network isolation/secret vault/mTLS/owner bypass closure, no externally signed independent audit, no G0/G1/G2 or ADR-CC-08K sign-off. PR #23 draft/unmerged.

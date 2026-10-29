@@ -133,3 +133,23 @@ with psycopg.connect(admin_dsn, autocommit=True) as conn:
         "GRANT EXECUTE ON FUNCTION company_configuration.cp_ack_iam_revocation("
         "uuid,uuid,text,text,text,text,text,text,text) TO cc_iam_revocation"
     )
+
+    # Independent IAM acknowledgement delivery identity, no revocation/DDL rights.
+    conn.execute(
+        "CREATE ROLE cc_iam_delivery LOGIN NOSUPERUSER NOCREATEDB "
+        "NOCREATEROLE NOINHERIT NOREPLICATION NOBYPASSRLS "
+        "PASSWORD 'cc_testing_only'"
+    )
+    conn.execute("GRANT USAGE ON SCHEMA company_configuration TO cc_iam_delivery")
+    conn.execute(
+        "GRANT EXECUTE ON FUNCTION company_configuration.cp_claim_iam_ack(integer) "
+        "TO cc_iam_delivery"
+    )
+    conn.execute(
+        "GRANT EXECUTE ON FUNCTION company_configuration.cp_complete_iam_ack(uuid,uuid) "
+        "TO cc_iam_delivery"
+    )
+    conn.execute(
+        "GRANT EXECUTE ON FUNCTION company_configuration.cp_fail_iam_ack(uuid,uuid,text) "
+        "TO cc_iam_delivery"
+    )

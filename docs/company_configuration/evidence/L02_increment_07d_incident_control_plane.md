@@ -32,3 +32,11 @@ L02-07d adds a **human-controlled incident disposition** to that state without r
 5. **No operational acceptance.** Real privileged-role separation, TLS, a vault, legal retention, attestations, signed ADRs, restores, disaster recovery and G0/G1/G2 reviews remain open.
 
 An auditor may inspect the decision and historical `UNKNOWN` marker, but must never treat the disposition itself as a certification of the original role mutation.
+
+## Verified exact-SHA automated qualification
+
+Implementation commit `8cf191cdefba3fb17c79f828f271ebd95cb6817b`:
+- [PostgreSQL 16 CI #40886773797](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40886773797): **73 integration tests passed per Python 3.11 and 3.12**; Ruff passed. Ten L02-07d PostgreSQL scenarios included.
+- [Python CI #40886773793](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40886773793): **153 passed, 9 PostgreSQL-only skipped per Python 3.11 and 3.12**; Ruff passed. Seventeen new L02-07d pure-Python test cases included.
+
+These results verify an automated technical candidate, not signed authorization/SoD, a deployed IAM or a completed incident. **G0/G1/G2 remain pending and the PR must stay in draft.**

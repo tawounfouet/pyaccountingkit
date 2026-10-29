@@ -66,7 +66,7 @@ CREATE INDEX org_memberships_as_known ON
 -- recovery contract of 0001..0014. In this additive R&D stage the verified
 -- tenant-bound parent guard is used instead, pending an explicit cutover ADR.
 CREATE FUNCTION company_configuration.validate_organization_legal_parent()
-RETURNS trigger LANGUAGE plpgsql SET search_path=pg_catalog,pg_temp AS $
+RETURNS trigger LANGUAGE plpgsql SET search_path=pg_catalog,pg_temp AS $$
 BEGIN
     IF NOT EXISTS (
         SELECT 1 FROM company_configuration.legal_entities AS le
@@ -76,7 +76,7 @@ BEGIN
             USING ERRCODE='23503';
     END IF;
     RETURN NEW;
-END $;
+END $$;
 CREATE TRIGGER org_establishment_parent
 BEFORE INSERT ON company_configuration.organizational_establishments
 FOR EACH ROW EXECUTE FUNCTION company_configuration.validate_organization_legal_parent();

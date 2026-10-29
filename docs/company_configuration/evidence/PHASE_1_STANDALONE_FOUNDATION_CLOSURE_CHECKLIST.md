@@ -73,6 +73,18 @@ main (README bootstrap)
 
 **IMPORTANT:** Branch ancestry was created before PR #3's later DST fix. Do not assume the fix is in the original #4–#25 branches. The consolidation child branch explicitly backports the same source and tests for CI. Before any merge to main, use a consistent integration strategy that prevents duplicated changes and preserves the applied migration order; verify with `git merge-base`, `git diff`, `git log` and GitHub compare results. Do not merge the incompatible #21 alternative.
 
+## 4A. FND-C07 — Independent gate closure dossiers (unsigned)
+
+- [x] Prepare [G0 architecture decision dossier](gates/G0_DECISION.md): recent repository baseline, provisional ADR dispositions, explicit standalone package and scope questions.
+- [x] Prepare [G1 domain decision dossier](gates/G1_DECISION.md): typed identities, aggregate equality/tenant-company uniqueness, DST-fold UTC knowledge time, canonical digest and normative boundaries.
+- [x] Prepare [G2 technical/security decision dossier](gates/G2_DECISION.md): independent approval-writer trust, SQL role isolation, IAM signature/revocation, Outbox/Inbox constraints, FND-C04 DR and external C10 limits.
+- [x] Prepare [integration HOLD decision](gates/INTEGRATION_DECISION.md) and [unsigned machine-readable manifest](gates/decision_manifest.json); add fail-closed dossier-integrity tests and a dedicated check to CI.
+- [ ] Independent G0, G1 and G2 reviewers each record attributable decisions, review dates, the SAME **final candidate SHA**, explicit exceptions and GitHub approval URLs.
+- [ ] An authorized reviewer evaluates the single [main-targeted PR #33](https://github.com/tawounfouet/pyaccountingkit/pull/33); update its exact SHA and re-run four CI workflows if dossier changes are adopted.
+- [ ] After valid GO decisions, explicitly authorize the controlled single-PR merge, run all CI on the merged `main` SHA, record final provenance. Until then **HOLD / NO MERGE**.
+
+**Decision state:** dossier preparation is not independent G0/G1/G2 approval. An automated manifest check cannot authenticate review authority or grant a merger permission.
+
 ## 5. Minimum exact-SHA evidence dossier
 
 | Evidence | Needed | Acceptance |

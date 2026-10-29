@@ -14,7 +14,7 @@
 
 ## Expected validation
 
-CI `PostgreSQL integration (L02 candidate)` runs PostgreSQL 16 on Python 3.11 and 3.12. It must prove: migrations/checksum; create/rename persistence; exactly-once idempotency receipt replay on new connections; rollback under injection; revision conflict and concurrency; RLS default deny and tenant separation; company-scoped application access; append-only audit. Reproducible results and exact SHA will be inserted only after completion.
+CI `PostgreSQL integration (L02 candidate)` runs PostgreSQL 16 on Python 3.11 and 3.12. It must prove: migrations/checksum; create/rename persistence; exactly-once idempotency receipt replay on new connections; rollback under injection; revision conflict and concurrency; RLS default deny and tenant separation; company-scoped application access; append-only audit. **Verified (implementation SHA `fb207bc1570b5efb19a4bf8d34629f430cab26f2`)**: [GitHub Actions PostgreSQL integration run #40841545574](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40841545574) completed successfully on Python 3.11 (**9 passed in 1.18s**) and Python 3.12 (**9 passed in 0.87s**), with Ruff green. The separate [Python CI run #40841545498](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40841545498) also passed. No approved G2 gate follows from these runs.
 
 ## Residual blockers / design review
 
@@ -25,3 +25,7 @@ CI `PostgreSQL integration (L02 candidate)` runs PostgreSQL 16 on Python 3.11 an
 5. Migration rollback/restore and compatibility N/N-1 are not tested; standalone PostgreSQL HA and permissions have not been qualified.
 
 **No gate is passed without independently reviewed, exact-SHA evidence.**
+
+## RLS security caveat (blocking before production)
+
+A runtime database role capable of executing SQL can set a custom `app.tenant_id` session variable itself. Thus tenant RLS based on `current_setting()` does **not**, in isolation, protect against a compromised or malicious runtime DB connection. Its value is additional protection against accidental omissions of tenant predicates **when the application and connection are trusted**. A privileged, independently enforced tenant-bound authorization strategy (e.g. separately authorized DB roles or a trusted proxy) requires ADR, tests and security review before G2 approval. Do not label this proof `production tenant isolation`.

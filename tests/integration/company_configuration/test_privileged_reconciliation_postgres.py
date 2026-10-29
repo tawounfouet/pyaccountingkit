@@ -54,7 +54,8 @@ class Policy:
 def service():
     return PrivilegedReconciliationService(
         identity=Identity(), policy=Policy(),
-        repository=privileged_reconciliation.PostgresPrivilegedReviewRepository(ADMIN), clock=Clock(),
+        repository=privileged_reconciliation.PostgresPrivilegedReviewRepository(ADMIN),
+        clock=Clock(),
     )
 
 

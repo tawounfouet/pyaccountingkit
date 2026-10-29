@@ -31,12 +31,34 @@ class UnsupportedInboxSchema(ValueError):
     """The consumer cannot interpret the incoming event schema."""
 
 
+class InboxSqlSession(Protocol):
+    """Narrow SQL command port: handler cannot commit, roll back or change scope."""
+
+    def execute(self, query: str, params: tuple[object, ...]) -> psycopg.Cursor: ...
+
+
+class _InboxSqlSession:
+    """Transaction-bound command-only facade, not a raw psycopg connection.
+
+    This restricts accidental commits in trusted handlers. It is NOT a Python
+    sandbox: production handler code must remain reviewed and trusted.
+    """
+
+    __slots__ = ("__connection",)
+
+    def __init__(self, connection: psycopg.Connection) -> None:
+        self.__connection = connection
+
+    def execute(self, query: str, params: tuple[object, ...]) -> psycopg.Cursor:
+        return self.__connection.execute(query, params)
+
+
 class TransactionalEventHandler(Protocol):
-    """A trusted handler uses this exact SQL transaction, never its own commit."""
+    """A trusted handler receives a command-only facade over one transaction."""
 
     def apply(
         self,
-        connection: psycopg.Connection,
+        connection: InboxSqlSession,
         event: OutboxEnvelope,
         *,
         consumer_id: str,
@@ -94,7 +116,7 @@ class PostgresInboxConsumer:
     At-least-once delivery can trigger duplicate calls; within *this* DB and
     handler transaction the side effect executes once per
     (tenant, consumer_id, producer_id, event_id). The handler MUST use the
-    supplied connection and MUST NOT independently commit or change its scope.
+    command-only SQL facade and MUST NOT change its scope.
     """
 
     def __init__(
@@ -155,7 +177,9 @@ class PostgresInboxConsumer:
                 if old["payload_sha256"] != digest:
                     raise InboxPayloadConflict("Same event identity, different event content")
                 return InboxResult(applied=False, duplicate=True)
-            self._handler.apply(conn, event, consumer_id=self._consumer_id)
+            self._handler.apply(
+                _InboxSqlSession(conn), event, consumer_id=self._consumer_id
+            )
         return InboxResult(applied=True, duplicate=False)
 
     def publish(self, event: OutboxEnvelope) -> None:

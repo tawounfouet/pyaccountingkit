@@ -30,4 +30,13 @@ PostgreSQL 16: revoke before issuance, revoke ACTIVE and replay, `ALREADY_CONSUM
 
 ## Evidence
 
-Exact implementation SHA and GitHub Actions links must be appended only after observed successful CI runs. The PR must remain draft and unmerged.
+
+## Verified exact-SHA automated qualification
+
+Implementation commit `cfe46cacd0f5b0190b554e5c7eede75941f47175`:
+
+- [PostgreSQL integration #40926615545](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40926615545): **109 passed** on Python 3.11 and **109 passed** on Python 3.12; Ruff green. Eight PostgreSQL integration tests for signed revoke-before-issue, active/consumed states, scope refusal, account-grant separation and advisory-lock serialization.
+- [Python CI #40926615439](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40926615439): **224 passed, 14 PostgreSQL-only skipped** per Python 3.11 and 3.12; Ruff green. Includes 18 newly added signed revocation and durable-ACK unit cases.
+
+These are ephemeral tests with local generated signing keys and a fake independent IAM source. They do **not** verify a live provider's delivery, actual remote ACKs, production workload isolation, or G0/G1/G2. The existing owner/superuser bypass and the absence of independently authenticated SQL-function claims remain security blockers.
+\nThe PR must remain draft and unmerged.

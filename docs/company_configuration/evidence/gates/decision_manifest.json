@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "repository": "tawounfouet/pyaccountingkit",
+  "scope": "standalone-development-only",
+  "observed_pr": 33,
+  "observed_candidate_sha": "272d85f319219597abec845929038573b4712203",
+  "observed_at": "2026-10-29",
+  "observed_pr_review_count": 0,
+  "evidence": {
+    "python_ci": "https://github.com/tawounfouet/pyaccountingkit/actions/runs/40955190292",
+    "postgres_ci": "https://github.com/tawounfouet/pyaccountingkit/actions/runs/40955190201",
+    "migration_ci": "https://github.com/tawounfouet/pyaccountingkit/actions/runs/40955190187",
+    "packaging_ci": "https://github.com/tawounfouet/pyaccountingkit/actions/runs/40955190309"
+  },
+  "gates": {
+    "G0": {
+      "state": "PENDING_REVIEW",
+      "reviewer": null,
+      "reviewed_sha": null,
+      "decision_url": null,
+      "dossier": "G0_DECISION.md"
+    },
+    "G1": {
+      "state": "PENDING_REVIEW",
+      "reviewer": null,
+      "reviewed_sha": null,
+      "decision_url": null,
+      "dossier": "G1_DECISION.md"
+    },
+    "G2": {
+      "state": "PENDING_REVIEW",
+      "reviewer": null,
+      "reviewed_sha": null,
+      "decision_url": null,
+      "dossier": "G2_DECISION.md"
+    }
+  },
+  "integration": {
+    "state": "HOLD",
+    "pr_review_url": null,
+    "reviewed_sha": null,
+    "merged_main_sha": null,
+    "post_merge_ci_url": null,
+    "dossier": "INTEGRATION_DECISION.md"
+  }
+}

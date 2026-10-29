@@ -1,3 +1,5 @@
+> **FND-C07 review note (2026-10-29):** This is an **historical proposed** L01 foundation ADR, not an accepted architecture baseline. The statement below making historical-repository reconciliation mandatory for G0 has been **superseded in sequencing** by the product-owner standalone-first [ADR-CC-00A](../company_configuration/evidence/L00/ADR_CC_00A_STANDALONE_FOUNDATION_SCOPE.md). Implementation of L02 has since advanced through CI-qualified candidate [PR #32](https://github.com/tawounfouet/pyaccountingkit/pull/32); the original text is preserved as a proposal record, not current project status. No approval of this ADR or G0/G1/G2 is implied.
+
 # Company Configuration - provisional foundation architecture decisions
 
 Status: **PROPOSED, NOT APPROVED**. Scope: first L01 increment, before L02 database design.

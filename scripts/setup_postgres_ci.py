@@ -60,6 +60,16 @@ with psycopg.connect(admin_dsn, autocommit=True) as conn:
                     "company_configuration.authorization_denials TO {}"
                 ).format(sql.Identifier(role))
             )
+            conn.execute(
+                sql.SQL(
+                    "GRANT SELECT, INSERT ON "
+                    "company_configuration.organizational_companies, "
+                    "company_configuration.organizational_establishments, "
+                    "company_configuration.organizational_legal_identifiers, "
+                    "company_configuration.organizational_membership_revisions "
+                    "TO {}"
+                ).format(sql.Identifier(role))
+            )
         elif category == "dispatcher":
             conn.execute(
                 sql.SQL("GRANT SELECT ON company_configuration.outbox_events TO {}")

@@ -246,3 +246,31 @@ def test_concurrent_stale_writers_only_one_commits():
         thread.join(timeout=10)
     assert sorted(results) == ["conflict", "ok"]
     assert counts() == [1, 2, 2, 2]
+
+
+def test_same_entity_uuid_cannot_be_attached_to_two_companies_in_same_tenant():
+    """G1/G2 contract: (tenant_id, entity_id) is the unique SQL identity.
+
+    A forged company-scoped creation must fail without duplicate audit/outbox.
+    This is independent of the client's authorization on the second scope.
+    """
+    scope, actor, _, service = build_service()
+    service.create(create(scope), principal=actor)
+    other_company = ConfigurationScope(
+        scope.tenant_id, CompanyId.new(), scope.legal_entity_id,
+    )
+    other_auth = MemoryAuthorization()
+    other_auth.grant(
+        actor_id=actor.actor_id, action="legal_entity.create", scope=other_company
+    )
+    forged = LegalEntityService(
+        lambda: PostgresUnitOfWork(APP_DSN), other_auth, FixedClock(),
+    )
+    with pytest.raises(VersionConflict):
+        forged.create(create(other_company, request_id="req-other-company"), principal=actor)
+    assert counts() == [1, 1, 1, 1]
+    with pytest.raises(EntityNotFound):
+        other_auth.grant(
+            actor_id=actor.actor_id, action="legal_entity.read", scope=other_company
+        )
+        forged.read(principal=actor, scope=other_company)

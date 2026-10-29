@@ -31,13 +31,13 @@ Observation before creation of this integration branch:
 
 | Workflow | Expected verification | Status |
 |---|---|---|
-| Python CI | Python 3.11/3.12, unit/property tests, Ruff | PENDING this integration SHA |
-| PostgreSQL CI | Python 3.11/3.12, PostgreSQL 16 integration, SQL roles/permissions | PENDING this integration SHA |
-| Migration Recovery CI | Python 3.11/3.12, `0013→0014`, checksum/rollback/restore | PENDING this integration SHA |
-| Foundation Integration CI | Python 3.11/3.12, wheel+sdist, isolated install, exact 14 SQL byte-parity | PENDING this integration SHA |
+| Python CI | Python 3.11/3.12, unit/property tests, Ruff | **PASS** — [#40954896870](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40954896870), **289 passed / 19 skipped per version**, Ruff green |
+| PostgreSQL CI | Python 3.11/3.12, PostgreSQL 16 integration, SQL roles/permissions | **PASS** — [#40954899266](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40954899266), **133 passed per version**, Ruff green |
+| Migration Recovery CI | Python 3.11/3.12, `0013→0014`, checksum/rollback/restore | **PASS** — [#40954896876](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40954896876), **6 passed per version**, Ruff green |
+| Foundation Integration CI | Python 3.11/3.12, wheel+sdist, isolated install, exact 14 SQL byte-parity | **PASS** — [#40954896971](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40954896971), **14 byte-identical SQL files in wheel/sdist + isolated installation** |
 | **Post-merge main CI** | Repeat full matrix on **actual merged main commit** | **NOT RUN — merge not authorized** |
 
-Do not substitute ancestor PR CI for exact-head evidence. If CI fails, remediate on this branch and rerun.
+**CI-qualified implementation checkpoint:** `6ded31484188769da185f44efba9cef48d84d7cb`. Four workflows completed `SUCCESS` on Python **3.11 and 3.12** on 2026-10-29. The source `main` was `cb746be7ae95146d2bd50ce1aac049ea6da2d15e`; compare showed **111 ahead, 0 behind, 161 changed files**, mergeable and **not merged**. These are branch-specific results, not a final on-main acceptance. If this evidence-only documentation commit advances the HEAD, it must receive its own exact-head workflow conclusions. Do not substitute ancestor CI for post-merge `main` CI.
 
 ## 4. Review and release stop conditions
 

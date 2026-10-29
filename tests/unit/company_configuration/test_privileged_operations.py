@@ -259,7 +259,7 @@ def test_unverified_transport_cannot_mutate_role(setup):
 
 def test_legacy_unfenced_role_operator_cannot_construct_control_plane(setup):
     request, approval = setup
-    with pytest.raises(TypeError, match="fence"):
+    with pytest.raises(TypeError, match="unexpected keyword argument.*roles"):
         PrivilegedRoleService(
             identity=Identity(), approvals=Approvals(approval), policy=Policy(),
             audit=Audit(), roles=Roles(), clock=Clock(),

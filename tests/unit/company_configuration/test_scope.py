@@ -3,7 +3,9 @@ import pytest
 from pyaccountingkit.company_configuration.domain.shared.accounting_scope import ConfigurationScope
 from pyaccountingkit.company_configuration.domain.shared.errors import InvalidScope
 from pyaccountingkit.company_configuration.domain.shared.identifiers import (
-    AccountingBookId, CompanyId, LegalEntityId,
+    AccountingBookId,
+    CompanyId,
+    LegalEntityId,
 )
 
 

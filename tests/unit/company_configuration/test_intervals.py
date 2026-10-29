@@ -1,4 +1,4 @@
-from datetime import date, datetime, timedelta, timezone
+from datetime import UTC, date, datetime, timedelta, timezone
 
 import pytest
 
@@ -38,11 +38,11 @@ def test_invalid_effective_interval_rejected(start, end):
 
 def test_business_date_rejects_datetime():
     with pytest.raises(InvalidInterval):
-        EffectiveInterval(date(2026, 1, 1)).contains(datetime.now(timezone.utc))
+        EffectiveInterval(date(2026, 1, 1)).contains(datetime.now(UTC))
 
 
 def test_knowledge_interval_requires_timezone_and_is_half_open():
-    beginning = datetime(2026, 10, 29, tzinfo=timezone.utc)
+    beginning = datetime(2026, 10, 29, tzinfo=UTC)
     end = beginning + timedelta(seconds=10)
     i = KnowledgeInterval(beginning, end)
     assert i.contains(beginning)
@@ -54,12 +54,12 @@ def test_knowledge_interval_requires_timezone_and_is_half_open():
 
 
 def test_knowledge_equal_instants_across_offsets():
-    start = datetime(2026, 10, 29, tzinfo=timezone.utc)
+    start = datetime(2026, 10, 29, tzinfo=UTC)
     same = datetime(2026, 10, 29, 1, tzinfo=timezone(timedelta(hours=1)))
     assert KnowledgeInterval(start).contains(same)
 
 
 def test_knowledge_invalid_end_rejected():
-    time = datetime(2026, 10, 29, tzinfo=timezone.utc)
+    time = datetime(2026, 10, 29, tzinfo=UTC)
     with pytest.raises(InvalidInterval):
         KnowledgeInterval(time, time)

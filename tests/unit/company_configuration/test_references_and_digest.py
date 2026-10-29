@@ -1,9 +1,13 @@
 import pytest
 
 from pyaccountingkit.company_configuration.domain.shared.digest import ContentDigest
-from pyaccountingkit.company_configuration.domain.shared.errors import InvalidDigest, InvalidReference
+from pyaccountingkit.company_configuration.domain.shared.errors import (
+    InvalidDigest,
+    InvalidReference,
+)
 from pyaccountingkit.company_configuration.domain.shared.references import (
-    CurrencyCode, ReferenceFrameworkRef,
+    CurrencyCode,
+    ReferenceFrameworkRef,
 )
 
 

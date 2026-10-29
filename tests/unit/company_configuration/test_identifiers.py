@@ -26,9 +26,18 @@ def test_id_types_not_interchangeable():
     assert len({CompanyId(raw), LegalEntityId(raw)}) == 2
 
 
-@pytest.mark.parametrize("invalid", [None, "", "not-a-uuid", " 00000000-0000-0000-0000-000000000000",
-                                     "00000000-0000-0000-0000-000000000000 ", 12,
-                                     "00000000-0000-0000-0000-00000000000A"])
+@pytest.mark.parametrize(
+    "invalid",
+    [
+        None,
+        "",
+        "not-a-uuid",
+        " 00000000-0000-0000-0000-000000000000",
+        "00000000-0000-0000-0000-000000000000 ",
+        12,
+        "00000000-0000-0000-0000-00000000000A",
+    ],
+)
 def test_noncanonical_or_invalid_identifiers_rejected(invalid):
     with pytest.raises(InvalidIdentifier):
         CompanyId.parse(invalid)

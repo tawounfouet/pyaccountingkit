@@ -87,6 +87,93 @@ def _aware(t: datetime) -> bool:
     return isinstance(t, datetime) and t.tzinfo is not None and t.utcoffset() is not None
 
 
+
+class RecoveryGrantWriterPort(Protocol):
+    """Independent SQL capability writer, NOT the recovery repository."""
+
+    def issue(
+        self,
+        request: RedriveRequest,
+        *,
+        actor: VerifiedOperator,
+        approval: VerifiedRedriveApproval,
+        now: datetime,
+    ) -> int: ...
+
+
+def _require_exact_recovery_approval(
+    *,
+    request: RedriveRequest,
+    actor: VerifiedOperator,
+    approval: VerifiedRedriveApproval,
+    now: datetime,
+) -> None:
+    """Shared signed-approval invariant for issuance and consumption use cases."""
+    if (
+        not isinstance(approval, VerifiedRedriveApproval)
+        or not approval.approver_id or approval.approver_id == actor.actor_id
+        or approval.approval_reference != request.approval_reference
+        or approval.event_id != request.event_id
+        or approval.request_id != request.request_id
+        or approval.tenant_id != request.tenant_id
+        or approval.evidence_reference != request.evidence_reference
+        or approval.reason_code != request.reason_code
+        or not _aware(approval.issued_at) or not _aware(approval.expires_at)
+        or not _aware(now)
+        or not approval.issued_at <= now < approval.expires_at
+    ):
+        raise PrivilegedAccessDenied("Independent exact-scope recovery approval denied")
+
+
+class IamAckRecoveryApprovalIssuer:
+    """Authorize a short-lived SQL grant in a SEPARATE approval-writer workload.
+
+    Only deploy with independent signed identity + approval source, current
+    IAM/SoD policy and a protected cc_iam_approval_writer SQL credential.
+    The ordinary recovery service MUST NOT receive this writer capability.
+    """
+
+    def __init__(
+        self, *, identity: RecoveryIdentityPort, policy: RecoveryPolicyPort,
+        approvals: RecoveryApprovalPort, writer: RecoveryGrantWriterPort,
+        clock: RecoveryClockPort,
+    ) -> None:
+        self._identity = identity
+        self._policy = policy
+        self._approvals = approvals
+        self._writer = writer
+        self._clock = clock
+
+    def issue(self, request: RedriveRequest, *, auth_context: object) -> int:
+        if not isinstance(request, RedriveRequest):
+            raise TypeError("Scoped recovery grant request required")
+        actor = self._identity.verify(auth_context)
+        if (
+            not isinstance(actor, VerifiedOperator)
+            or not actor.actor_id or actor.tenant_id != request.tenant_id
+        ):
+            raise PrivilegedAccessDenied("Verified approval-writer actor and tenant required")
+        self._policy.require(
+            actor=actor, tenant_id=request.tenant_id, action="authorize_iam_ack_dead"
+        )
+        approval = self._approvals.resolve(reference=request.approval_reference)
+        _require_exact_recovery_approval(
+            request=request, actor=actor, approval=approval, now=self._clock.now()
+        )
+        # Independent current permission and signed-approval lookup checked
+        # again immediately before the durable SQL grant is minted.
+        self._policy.require(
+            actor=actor, tenant_id=request.tenant_id, action="authorize_iam_ack_dead"
+        )
+        if self._approvals.resolve(reference=request.approval_reference) != approval:
+            raise PrivilegedAccessDenied("Approval changed before SQL grant issuance")
+        now = self._clock.now()
+        _require_exact_recovery_approval(
+            request=request, actor=actor, approval=approval, now=now
+        )
+        return self._writer.issue(request, actor=actor, approval=approval, now=now)
+
+
 class IamAckRecoveryService:
     """Require current tenant grant and SoD before the atomic SQL redrive."""
 
@@ -125,20 +212,9 @@ class IamAckRecoveryService:
         actor = self._actor(auth_context, request.tenant_id, "redrive_iam_ack_dead")
         approval = self._approvals.resolve(reference=request.approval_reference)
         now = self._clock.now()
-        if (
-            not isinstance(approval, VerifiedRedriveApproval)
-            or not approval.approver_id or approval.approver_id == actor.actor_id
-            or approval.approval_reference != request.approval_reference
-            or approval.event_id != request.event_id
-            or approval.request_id != request.request_id
-            or approval.tenant_id != request.tenant_id
-            or approval.evidence_reference != request.evidence_reference
-            or approval.reason_code != request.reason_code
-            or not _aware(approval.issued_at) or not _aware(approval.expires_at)
-            or not _aware(now)
-            or not approval.issued_at <= now < approval.expires_at
-        ):
-            raise PrivilegedAccessDenied("Independent exact-scope recovery approval denied")
+        _require_exact_recovery_approval(
+            request=request, actor=actor, approval=approval, now=now
+        )
         # Immediately recheck authoritative permission and approval before SQL mutation.
         self._policy.require(
             actor=actor, tenant_id=request.tenant_id, action="redrive_iam_ack_dead"

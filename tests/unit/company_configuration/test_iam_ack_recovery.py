@@ -8,6 +8,7 @@ from uuid import uuid4
 import pytest
 
 from pyaccountingkit.company_configuration.application.iam_ack_recovery import (
+    IamAckRecoveryApprovalIssuer,
     IamAckRecoveryService,
     RedriveRequest,
     VerifiedRedriveApproval,
@@ -41,7 +42,7 @@ class Policy:
     def require(self, *, actor, tenant_id, action):
         self.calls += 1
         if tenant_id != "tenant-a" or action not in (
-            "inspect_iam_ack_dead", "redrive_iam_ack_dead"
+            "inspect_iam_ack_dead", "redrive_iam_ack_dead", "authorize_iam_ack_dead"
         ) or (self.fail_after is not None and self.calls >= self.fail_after):
             raise PrivilegedAccessDenied("No recovery permission")
 
@@ -159,6 +160,66 @@ def test_changed_approval_blocks_before_sql(recovery):
     with pytest.raises(PrivilegedAccessDenied):
         svc.redrive(req, auth_context="verified")
     assert repo.calls == []
+
+
+
+class GrantWriter:
+    def __init__(self):
+        self.calls = []
+
+    def issue(self, request, *, actor, approval, now):
+        self.calls.append((request, actor, approval, now))
+        return 1
+
+
+def _issuer(recovery, *, writer=None):
+    req, _, _, policy, approvals, _ = recovery
+    writer = writer or GrantWriter()
+    return (
+        IamAckRecoveryApprovalIssuer(
+            identity=Identity(), policy=policy, approvals=approvals,
+            writer=writer, clock=Clock(),
+        ),
+        req, policy, approvals, writer,
+    )
+
+
+def test_independent_grant_issuer_checks_signed_approval_and_current_policy_twice(recovery):
+    issuer, req, policy, approvals, writer = _issuer(recovery)
+    assert issuer.issue(req, auth_context="verified") == 1
+    assert len(writer.calls) == 1
+    assert writer.calls[0][0] == req
+    assert writer.calls[0][1].actor_id == "investigator"
+    assert writer.calls[0][2] == approvals.record
+    assert policy.calls == 2
+    assert approvals.calls == 2
+
+
+def test_issuer_denies_revoked_grant_or_changed_approval_before_sql(recovery):
+    issuer, req, policy, approvals, writer = _issuer(recovery)
+    policy.fail_after = 2
+    with pytest.raises(PrivilegedAccessDenied):
+        issuer.issue(req, auth_context="verified")
+    assert writer.calls == []
+    policy.fail_after = None
+    policy.calls = 0
+    approvals.change_after = 2
+    with pytest.raises(PrivilegedAccessDenied):
+        issuer.issue(req, auth_context="verified")
+    assert writer.calls == []
+
+
+def test_issuer_rejects_foreign_scope_forged_signer_or_self_approval(recovery):
+    issuer, req, _, approvals, writer = _issuer(recovery)
+    with pytest.raises(PrivilegedAccessDenied):
+        issuer.issue(req, auth_context="unauthenticated")
+    approvals.record = replace(approvals.record, approver_id="investigator")
+    with pytest.raises(PrivilegedAccessDenied):
+        issuer.issue(req, auth_context="verified")
+    approvals.record = replace(approvals.record, approver_id="checker", tenant_id="tenant-b")
+    with pytest.raises(PrivilegedAccessDenied):
+        issuer.issue(req, auth_context="verified")
+    assert writer.calls == []
 
 
 class Worker:

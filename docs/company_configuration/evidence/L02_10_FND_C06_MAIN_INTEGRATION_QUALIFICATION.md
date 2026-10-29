@@ -12,7 +12,7 @@
 - At that baseline, GitHub `main...#30` compared **103 commits ahead / 0 behind** and 156 changed files; these are **ancestry measurements**, not code/review acceptance.
 - Historical `pyaccountingkit_old` reconciliation is explicitly postponed under ADR-CC-00A, not an L00–L02 standalone development dependency.
 - Selected L02-07j lineage is PR #22, not the divergent PR #21 with an incompatible `0011` migration; do not merge both branches or duplicate stacked changes.
-- Previous draft PRs #3–#30 remain provenance/review references. **PR #32 is the intended single integration candidate.** Merging #31 should supersede individual stacked merges *only after independent approval*.
+- Previous draft PRs #3–#30 remain provenance/review references. **PR #32 is the intended single integration candidate.** Merging #32 should supersede individual stacked merges *only after independent approval*.
 
 ## Package and migration integrity
 

@@ -189,6 +189,32 @@ class PrivilegedRoleService:
         self._audit.record_intent(
             request=request, actor=actor, approval=approval, recorded_at=now
         )
+        # Revalidate against *current* authorization state immediately before
+        # execution. The IAM/approval provider must resolve revocations on every
+        # call, not cache the initial positive decision. This is still not an
+        # atomic authorization lease across external IAM and PostgreSQL DDL.
+        try:
+            self._policy.require(principal=actor, request=request)
+            current = self._approvals.resolve(reference=request.approval_reference)
+            fresh = self._clock.now()
+            if (
+                not isinstance(current, VerifiedApproval)
+                or current != approval
+                or not _aware(fresh)
+                or not (current.issued_at <= fresh < current.expires_at)
+            ):
+                raise PrivilegedAccessDenied("APPROVAL_REVOKED_OR_CHANGED")
+        except Exception as exc:
+            try:
+                self._audit.record_outcome(
+                    request=request, actor=actor, outcome="CANCELLED",
+                    recorded_at=self._clock.now(),
+                )
+            except Exception as audit_exc:
+                raise PrivilegedAuditIncomplete(
+                    "Pre-mutation revalidation failed and final audit is unavailable"
+                ) from audit_exc
+            raise PrivilegedAccessDenied("Privileged grant or approval changed before DDL") from exc
         try:
             if request.operation == "rotate":
                 result = self._roles.rotate_password(

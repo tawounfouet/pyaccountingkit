@@ -30,7 +30,7 @@ class PostgresPrivilegedAudit:
         approval: VerifiedApproval | None, phase: str, code: str, recorded_at: datetime,
     ) -> None:
         with psycopg.connect(self._dsn) as conn:
-            if phase in ("SUCCEEDED", "FAILED"):
+            if phase in ("SUCCEEDED", "FAILED", "CANCELLED"):
                 row = conn.execute(
                     "SELECT approver_id, approval_id FROM "
                     "company_configuration.privileged_operation_audit "
@@ -69,7 +69,7 @@ class PostgresPrivilegedAudit:
         self, *, request: PrivilegedRoleRequest, actor: VerifiedOperator,
         outcome: str, recorded_at: datetime,
     ) -> None:
-        if outcome not in ("SUCCEEDED", "FAILED"):
+        if outcome not in ("SUCCEEDED", "FAILED", "CANCELLED"):
             raise ValueError("Invalid privileged operation outcome")
         self._append(
             request=request, actor=actor, approval=None,

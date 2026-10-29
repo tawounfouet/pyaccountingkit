@@ -13,7 +13,7 @@ Date: 2026-10-29
 - L01 implementation `a4d8d7e572d2d72fde1878b095ba6de4c057c173`: [CI #10](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40838129260), **82 tests** and Ruff on Python 3.11/3.12.
 - L02-01 implementation `dea2cbd4c1a85ece13df663e6bb47a19cbeb6fc8`: [CI #14](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40839316434), **94 tests** and Ruff green.
 - L02-02 implementation `fb207bc1570b5efb19a4bf8d34629f430cab26f2`: [PostgreSQL CI #40841545574](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40841545574) **9 DB tests** each on Python 3.11/3.12; Ruff green. Documentation head `6254a3f553b9c13bc0553a886e79dc3355227d73` passed [PG CI #40841749873](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40841749873) and [Python CI #40841750168](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40841750168).
-- L02-03 candidate: Outbox delivery/lease/retry/dead-letter and opt-in durable verified-principal denial audit. **CI pending on this new increment.** See `evidence/L02_increment_03_security_outbox.md`.
+- L02-03 implementation `13c6f7b3af823d9f0a5db38ba1834001f306dc47`: [PostgreSQL CI #40844094545](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40844094545), **17 passed per version**, Ruff green; [Python CI #40844094557](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40844094557), **99 passed, 2 skipped per version**, Ruff green. Outbox delivery/lease/retry/dead-letter and opt-in durable verified-principal denial audit. This **does not** approve any gate.
 
 ## Non-claims
 

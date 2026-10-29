@@ -1,0 +1,63 @@
+name: Company Configuration standalone Foundation artifact qualification (FND-C06)
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  foundation-artifacts:
+    name: Immutable migrations + wheel/sdist + installed imports
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.11', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Build distributions from clean checkout
+        run: |
+          python -m pip install --upgrade build
+          python -m build --wheel --sdist --outdir dist
+      - name: Reject migration divergence or missing wheel/sdist resources
+        run: python scripts/qualify_foundation_artifacts.py
+      - name: Install wheel into a fresh environment outside repository
+        run: |
+          python -m venv "$RUNNER_TEMP/foundation-wheel"
+          "$RUNNER_TEMP/foundation-wheel/bin/python" -m pip install \
+            dist/*.whl 'psycopg[binary]>=3.2,<4' 'cryptography>=43,<47'
+          cd "$RUNNER_TEMP"
+          "$RUNNER_TEMP/foundation-wheel/bin/python" - <<'PY'
+          from importlib import metadata, resources
+
+          import pyaccountingkit
+          from pyaccountingkit.company_configuration.domain.shared.identifiers import (
+              LegalEntityId,
+          )
+          from pyaccountingkit.company_configuration.infrastructure.postgres import (
+              migrate,
+          )
+
+          assert metadata.version("pyaccountingkit") == "0.0.0"
+          assert pyaccountingkit.__file__ is not None
+          assert "site-packages" in str(pyaccountingkit.__file__)
+          assert LegalEntityId is not None
+          files = resources.files(migrate.MIGRATION_PACKAGE)
+          names = sorted(p.name for p in files.iterdir() if p.name.endswith(".sql"))
+          assert len(names) == 14
+          assert [int(name[:4]) for name in names] == list(range(1, 15))
+          print("FND-C06 clean wheel import: VERIFIED; 14 SQL migrations installed")
+          PY
+      - name: Check repository style including artifact qualifier
+        run: |
+          python -m pip install 'ruff>=0.9,<1'
+          python -m ruff check src tests scripts

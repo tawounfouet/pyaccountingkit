@@ -36,3 +36,11 @@ Based on `19_COMPANY_CONFIGURATION_SECURITY_AUTHORIZATION_AND_AUDIT_MODEL.md`: R
 ## Next increments
 
 Formalize an approved SoD/approval policy and integrate a real IAM/IdP + vault; implement a least-privilege administrative control plane with audited policy decisions, an independently verifiable actor-to-request binding, reconciliation of `INTENT` entries missing outcomes, and safe secret rotation without password-bearing SQL logs. Finish G0/G1 baseline and independent G2 security review.
+
+## Exact-SHA automated evidence
+
+Implementation commit `e2414cca16b8c175abba70de5820962a7c4e418b` passed:
+- [PostgreSQL 16 CI #40874962870](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40874962870): **53 integration tests passed** on Python 3.11 and **53 passed** on Python 3.12; Ruff checks succeeded. Seven new PostgreSQL privileged-operations tests are included.
+- [Python CI #40874963079](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40874963079): **125 passed and 7 PostgreSQL-only skipped** on each Python 3.11 and Python 3.12; Ruff passed. Seventeen new pure-Python SoD/authorization tests are included.
+
+The tests qualify this candidate only. PostgreSQL role mutation, backend drain and final audit are not a single transaction; an external IAM and independent approvals remain integration gaps. No signed G2 decision, no production deployment acceptance, no G0/G1 sign-off or stable release.

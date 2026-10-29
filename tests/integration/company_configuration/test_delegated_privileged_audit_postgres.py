@@ -17,11 +17,8 @@ from pyaccountingkit.company_configuration.application.privileged_operations imp
     VerifiedApproval,
     VerifiedOperator,
 )
-from pyaccountingkit.company_configuration.infrastructure.postgres.delegated_control_plane import (
-    DelegatedPrivilegedControlPlane,
-)
-from pyaccountingkit.company_configuration.infrastructure.postgres.delegated_privileged_audit import (
-    DelegatedPrivilegedAudit,
+from pyaccountingkit.company_configuration.infrastructure.postgres import (
+    delegated_privileged_audit as audit_module,
 )
 from pyaccountingkit.company_configuration.infrastructure.postgres.restricted_control_plane import (
     PrivilegedCompositionDenied,
@@ -133,7 +130,7 @@ def test_writer_has_only_narrow_execute_grant():
 def test_durable_denial_from_restricted_writer(role):
     name, _ = role
     request, _ = make_request(name)
-    audit = DelegatedPrivilegedAudit(AUDIT)
+    audit = audit_module.DelegatedPrivilegedAudit(AUDIT)
     audit.record_denial(
         request=request, actor=VerifiedOperator("actor-1", "tenant-a"),
         code="PERMISSION_DENIED", recorded_at=datetime.now(UTC),
@@ -144,7 +141,7 @@ def test_durable_denial_from_restricted_writer(role):
 
 def test_intent_and_failure_carry_original_approval_and_disallow_replay(role):
     request, approval = make_request(role[0])
-    writer = DelegatedPrivilegedAudit(AUDIT)
+    writer = audit_module.DelegatedPrivilegedAudit(AUDIT)
     actor = VerifiedOperator("actor-1", "tenant-a")
     writer.record_intent(
         request=request, actor=actor, approval=approval,
@@ -172,7 +169,7 @@ def test_intent_and_failure_carry_original_approval_and_disallow_replay(role):
 
 def test_success_without_consumed_exact_fence_is_rejected(role):
     request, approval = make_request(role[0])
-    writer = DelegatedPrivilegedAudit(AUDIT)
+    writer = audit_module.DelegatedPrivilegedAudit(AUDIT)
     actor = VerifiedOperator("actor-1", "tenant-a")
     writer.record_intent(
         request=request, actor=actor, approval=approval,
@@ -188,7 +185,7 @@ def test_success_without_consumed_exact_fence_is_rejected(role):
 
 def test_wrong_actor_tenant_and_phase_cannot_complete_intent(role):
     request, approval = make_request(role[0])
-    writer = DelegatedPrivilegedAudit(AUDIT)
+    writer = audit_module.DelegatedPrivilegedAudit(AUDIT)
     writer.record_intent(
         request=request, actor=VerifiedOperator("actor-1", "tenant-a"),
         approval=approval, recorded_at=datetime.now(UTC),

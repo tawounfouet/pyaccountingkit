@@ -173,3 +173,19 @@ with psycopg.connect(admin_dsn, autocommit=True) as conn:
         "GRANT EXECUTE ON FUNCTION company_configuration.cp_iam_ack_metrics() "
         "TO cc_iam_delivery"
     )
+
+    # Independent IAM recovery APPROVAL writer. Recovery never receives this
+    # capability; only approval-writer can issue short-lived SQL grants.
+    conn.execute(
+        "CREATE ROLE cc_iam_approval_writer LOGIN NOSUPERUSER NOCREATEDB "
+        "NOCREATEROLE NOINHERIT NOREPLICATION NOBYPASSRLS "
+        "PASSWORD 'cc_testing_only'"
+    )
+    conn.execute(
+        "GRANT USAGE ON SCHEMA company_configuration TO cc_iam_approval_writer"
+    )
+    conn.execute(
+        "GRANT EXECUTE ON FUNCTION company_configuration.cp_grant_iam_ack_redrive("
+        "uuid,uuid,text,text,text,text,text,text,timestamptz) "
+        "TO cc_iam_approval_writer"
+    )

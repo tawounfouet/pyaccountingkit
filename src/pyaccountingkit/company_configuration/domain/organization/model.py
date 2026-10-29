@@ -7,7 +7,7 @@ No ORM/IO, no book assignment, no implicit current-time resolution.
 
 from dataclasses import dataclass, replace
 from datetime import UTC, date, datetime
-from enum import Enum
+from enum import StrEnum
 
 from ..shared.effective_interval import EffectiveInterval
 from ..shared.errors import InvalidOrganization, VersionConflict
@@ -36,28 +36,28 @@ def _revision(value: int) -> None:
         raise InvalidOrganization("revision must be a positive integer")
 
 
-class CompanyKind(str, Enum):
+class CompanyKind(StrEnum):
     """Organizational scope is not automatically a legal person."""
 
     STANDALONE = "STANDALONE"
     GROUP = "GROUP"
 
 
-class CompanyStatus(str, Enum):
+class CompanyStatus(StrEnum):
     DRAFT = "DRAFT"
     ACTIVE = "ACTIVE"
     INACTIVE = "INACTIVE"
     ARCHIVED = "ARCHIVED"
 
 
-class EstablishmentStatus(str, Enum):
+class EstablishmentStatus(StrEnum):
     PLANNED = "PLANNED"
     ACTIVE = "ACTIVE"
     INACTIVE = "INACTIVE"
     CLOSED = "CLOSED"
 
 
-class MembershipKind(str, Enum):
+class MembershipKind(StrEnum):
     """No inference about ownership, participation or consolidation."""
 
     ADMINISTRATIVE = "ADMINISTRATIVE"

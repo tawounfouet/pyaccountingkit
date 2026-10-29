@@ -22,4 +22,4 @@
 ## Verification
 
 Run local unit suite: `PYTHONPATH=src python -m pytest -q tests/unit`.
-CI database proof: PostgreSQL 16 Python 3.11/3.12, `tests/integration/company_configuration`, with test runtime and dispatcher roles, and Ruff. Record the exact SHA after the workflow succeeds. G0/G1/G2 remain unsigned.
+**Verified implementation SHA:** `13c6f7b3af823d9f0a5db38ba1834001f306dc47`. [PostgreSQL CI #40844094545](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40844094545): **17 integration tests passed** per Python version (3.11/3.12), Ruff green. [Python CI #40844094557](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40844094557): **99 passed, 2 skipped** per version, Ruff green. 2 skips correspond to the SQL-only tests without PostgreSQL DSNs. **This is evidence for the L02-03 increment only; G0/G1/G2 remain unsigned.**

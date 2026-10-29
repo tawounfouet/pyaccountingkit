@@ -117,3 +117,15 @@ G0/G1/G2 are **not signed off**. No stable release, real IAM, independently secu
 - Pure tests cover tamper, expiry, bad algorithms and broken settings. PostgreSQL integration uses CI-generated Ed25519 keys and a local **trusted fake approval store** for an end-to-end restricted SQL role action, plus forged signature and wrong approval scope denials.
 - No production IdP/approval provider, anti-replay store/mTLS binding, external revocation ACK, actual isolated workload, WORM evidence, G0/G1/G2 acceptance or release. This remains a draft candidate.
 - **Implementation SHA `2b6aafe1ef8bf5fc5599502b900531c9920e8c6b`**: [PostgreSQL CI #40922185351](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40922185351) **101 passed per Python 3.11/3.12**, Ruff green; [Python CI #40922185433](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40922185433) **206 passed and 13 PostgreSQL-only skipped per version**, Ruff green. Approval signing keys and evidence source are ephemeral CI fixtures. **No real IdP, external IAM approval contract, workload isolation or G0/G1/G2 approval.**
+
+## L02-07j - Signed IAM revocation receipts (CI PENDING)
+
+- The optional signed-evidence verifier now accepts a distinct pinned Ed25519 `kind=revocation` key and exact revocation claims. The SQL-first `SignedIamRevocationProcessor` reads evidence from a trusted independent source and only calls its remote acknowledge callback after a durable PostgreSQL commit.
+- Migration `0011` adds an owner-only immutable request-revocation journal and BEFORE INSERT fence tombstone guard; issuance and SQL acknowledgment serialize by request advisory lock. For ACTIVE fences, the receipt and local REVOKED state commit atomically. A consumed fence is explicitly `ALREADY_CONSUMED`, never claimed prevented.
+- CI-only `cc_iam_revocation` has just EXECUTE on `cp_ack_iam_revocation`, no DDL, audit or fence table privileges. Negative/unit and PostgreSQL race tests included. No actual external IAM connector, remote delivery/ACK scheduling, mTLS workload isolation or production IAM guarantees. G0/G1/G2 remain unsigned.
+
+### L02-07j - Signed IAM event receipt (exact-SHA CI-qualified candidate)
+
+- Implementation `cfe46cacd0f5b0190b554e5c7eede75941f47175`: [PostgreSQL CI #40926615545](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40926615545), **109 passed per Python 3.11/3.12**, Ruff; [Python CI #40926615439](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40926615439), **224 passed, 14 skipped** per Python version, Ruff.
+- Migration `0011` protects fence issuance against earlier signed revocation receipt, uses transaction-level advisory locking and permanent tombstones. Separate restricted SQL IAM capability, exact signed scope/TTL, receipt and ACK/retry tested.
+- **Still blocked:** real provider source/remote ACK queue, JWS key lifecycle, SQL receiver secret compromise, external IAM-to-SQL latency, physical workload/network isolation, incident response for `ALREADY_CONSUMED`, owner bypass, vault/mTLS/WORM/audit and independently accepted ADR/G0/G1/G2. PR #22 remains draft/unmerged.

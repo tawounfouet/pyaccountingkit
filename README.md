@@ -1,11 +1,22 @@
 # PyAccountingKit
 
-Modular Python accounting toolkit (early implementation scaffold).
+Modular Python accounting toolkit. **Foundations are under development; no release or qualification gate is claimed.**
 
-## Company Configuration
+## Company Configuration (L00-L02)
 
-The Company Configuration bounded context governs company accounting parameters and their published versions. It does **not** create journal entries or post to the ledger.
+This bounded context **configures, but does not post** accounting entries. It supplies versioned configuration to runtime resolution through future versioned contracts, without owning normative standards or ledger writes.
 
-Implementation follows an evidence-based, incremental approach: L00 audit and baseline, L01 domain kernel, L02 technical foundations. Do not treat this bootstrap commit as a completed qualification gate or a stable release.
+- `src/pyaccountingkit/company_configuration/domain/shared/`: pure Python domain primitives (L01, initial increment).
+- `docs/company_configuration/evidence/L00/`: verified repository baseline and unresolved checks.
+- `docs/adr/`: provisional architecture decisions, pending review.
+- `tests/unit/company_configuration/`: boundary and negative tests.
 
-See `docs/company_configuration/` on the foundation implementation branch for its first audited scope.
+Run after installing development dependencies in an isolated environment:
+
+```bash
+python -m pip install -e '.[dev]'
+python -m pytest -q
+python -m ruff check src tests
+```
+
+The project version is a placeholder (`0.0.0`); it is **not** a stable release. L02 persistence, authorization, audit and outbox have not yet been implemented.

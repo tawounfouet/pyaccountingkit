@@ -2,7 +2,7 @@
 
 import os
 from dataclasses import replace
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, datetime, timedelta, timezone
 from threading import Barrier, Thread
 
 import pytest
@@ -252,3 +252,50 @@ def test_rls_login_binding_cannot_be_spoofed_with_custom_guc():
             "SELECT count(*) FROM company_configuration.inbox_receipts"
         ).fetchone()[0]
         assert visible == 0  # session_user binds this login to tenant-a
+
+
+def test_replay_from_new_consumer_instance_preserves_committed_projection():
+    """Inbox deduplication is durable, not tied to a Python process lifetime."""
+    _, event = source_event()
+    assert inbox().process(event).applied
+    assert inbox().process(event).duplicate
+    with psycopg.connect(ADMIN_DSN) as conn:
+        receipt = conn.execute(
+            "SELECT payload_sha256,processed_at FROM "
+            "company_configuration.inbox_receipts WHERE event_id=%s",
+            (event.event_id,),
+        ).fetchone()
+    assert counts() == (1, 1)
+    with psycopg.connect(ADMIN_DSN) as conn:
+        assert conn.execute(
+            "SELECT payload_sha256,processed_at FROM "
+            "company_configuration.inbox_receipts WHERE event_id=%s",
+            (event.event_id,),
+        ).fetchone() == receipt
+
+
+def test_event_replay_digest_is_timezone_instant_invariant():
+    """An identical instant expressed in another zone is the same event."""
+    _, event = source_event()
+    first = inbox()
+    assert first.process(event).applied
+    same_instant = replace(
+        event,
+        recorded_at=event.recorded_at.astimezone(timezone(timedelta(hours=9))),
+    )
+    assert inbox().process(same_instant).duplicate
+    assert counts() == (1, 1)
+
+
+def test_same_event_identity_with_altered_revision_fails_closed():
+    """A repeated identifier cannot mutate the deduplicated read model."""
+    _, event = source_event()
+    assert inbox().process(event).applied
+    tampered = replace(event, revision=event.revision + 1)
+    with pytest.raises(InboxPayloadConflict):
+        inbox().process(tampered)
+    assert counts() == (1, 1)
+    with psycopg.connect(ADMIN_DSN) as conn:
+        assert conn.execute(
+            "SELECT count(*) FROM company_configuration.outbox_events"
+        ).fetchone()[0] == 1

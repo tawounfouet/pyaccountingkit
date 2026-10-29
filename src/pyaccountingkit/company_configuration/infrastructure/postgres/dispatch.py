@@ -1,8 +1,8 @@
 """Leased PostgreSQL outbox delivery; at-least-once, never exactly-once.
 
 Producer events are immutable. Mutable delivery bookkeeping lives in a separate
-RLS-guarded table. This candidate is safe for cooperative *trusted* tenants; a
-client able to set PostgreSQL custom GUCs can impersonate another tenant.
+RLS-guarded table, using the authenticated login-to-tenant binding from L02-05.
+Application authorization and independent credential provisioning remain required.
 """
 
 from collections.abc import Callable
@@ -121,11 +121,24 @@ class PostgresOutboxDispatcher:
                 "WHERE tenant_id=%s ON CONFLICT (tenant_id, event_id) DO NOTHING",
                 (self._tenant,),
             )
+            # A crashed worker can exhaust its budget WITHOUT ever calling
+            # _complete(). Finalize its expired lease here, before reclaiming.
+            # Keep the producer event immutable and avoid a sixth publication.
+            conn.execute(
+                "UPDATE company_configuration.outbox_delivery SET "
+                "dead_letter_at=%s, last_error='LEASE_EXPIRED', "
+                "lease_owner=NULL, lease_token=NULL, lease_until=NULL "
+                "WHERE tenant_id=%s AND delivered_at IS NULL "
+                "AND dead_letter_at IS NULL AND attempts>=%s "
+                "AND (lease_until IS NULL OR lease_until<=%s)",
+                (now, self._tenant, self._max_attempts, now),
+            )
             rows = conn.execute(
                 "WITH candidates AS ("
                 " SELECT tenant_id, event_id FROM company_configuration.outbox_delivery "
                 " WHERE tenant_id=%s AND delivered_at IS NULL AND dead_letter_at IS NULL "
-                " AND available_at<=%s AND (lease_until IS NULL OR lease_until<=%s) "
+                " AND attempts<%s AND available_at<=%s "
+                " AND (lease_until IS NULL OR lease_until<=%s) "
                 " ORDER BY available_at, event_id FOR UPDATE SKIP LOCKED LIMIT %s"
                 ") UPDATE company_configuration.outbox_delivery AS delivery "
                 "SET attempts=delivery.attempts+1, lease_owner=%s, lease_token=%s, "
@@ -133,8 +146,8 @@ class PostgresOutboxDispatcher:
                 "WHERE delivery.tenant_id=c.tenant_id AND delivery.event_id=c.event_id "
                 "RETURNING delivery.event_id, delivery.attempts",
                 (
-                    self._tenant, now, now, limit, self._worker, token,
-                    now + timedelta(seconds=self._lease_seconds),
+                    self._tenant, self._max_attempts, now, now, limit,
+                    self._worker, token, now + timedelta(seconds=self._lease_seconds),
                 ),
             ).fetchall()
             if not rows:
@@ -173,12 +186,12 @@ class PostgresOutboxDispatcher:
                 "available_at=%s, last_error=%s, "
                 "lease_owner=NULL, lease_token=NULL, lease_until=NULL "
                 "WHERE tenant_id=%s AND event_id=%s AND lease_token=%s "
-                "AND delivered_at IS NULL AND dead_letter_at IS NULL "
+                "AND lease_until>%s AND delivered_at IS NULL AND dead_letter_at IS NULL "
                 "RETURNING event_id",
                 (
                     failure is None, now, terminal, now,
                     now + timedelta(seconds=delay) if failure and not terminal else now,
-                    error_class, self._tenant, claim.event.event_id, claim.token,
+                    error_class, self._tenant, claim.event.event_id, claim.token, now,
                 ),
             ).fetchone()
             if row is None:

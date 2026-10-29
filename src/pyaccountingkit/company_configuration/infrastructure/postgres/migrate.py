@@ -29,19 +29,37 @@ def apply_migrations(admin_dsn: str) -> list[str]:
             )
             directory = resources.files(MIGRATION_PACKAGE)
             migrations = sorted(
-                name for name in (entry.name for entry in directory.iterdir())
-                if name.endswith(".sql") and name[:4].isdigit()
+                entry.name for entry in directory.iterdir()
+                if entry.name.endswith(".sql") and entry.name[:4].isdigit()
             )
+            numbers = [int(filename[:4]) for filename in migrations]
+            if numbers != list(range(1, len(migrations) + 1)):
+                raise RuntimeError("Migration source inventory has gaps or duplicate numbers")
+
+            # Fail closed BEFORE executing the first missing script: never run
+            # an older migrator against a newer schema, or skip a missing
+            # previously applied migration. Both cases need an explicit,
+            # reviewed upgrade/rollback procedure, not best-effort execution.
+            rows = connection.execute(
+                "SELECT filename, sha256 FROM company_configuration.schema_migrations"
+            ).fetchall()
+            recorded = {filename: checksum.strip() for filename, checksum in rows}
+            unknown = sorted(set(recorded) - set(migrations))
+            if unknown:
+                raise RuntimeError(f"Unknown already-applied migrations: {unknown}")
+            if set(recorded) != set(migrations[:len(recorded)]):
+                raise RuntimeError("Applied migration history is not a contiguous prefix")
+
+            sources = []
             for filename in migrations:
                 sql = directory.joinpath(filename).read_text(encoding="utf-8")
                 digest = hashlib.sha256(sql.encode("utf-8")).hexdigest()
-                row = connection.execute(
-                    "SELECT sha256 FROM company_configuration.schema_migrations "
-                    "WHERE filename = %s", (filename,)
-                ).fetchone()
-                if row is not None:
-                    if row[0].strip() != digest:
-                        raise RuntimeError(f"Migration checksum changed: {filename}")
+                if filename in recorded and recorded[filename] != digest:
+                    raise RuntimeError(f"Migration checksum changed: {filename}")
+                sources.append((filename, sql, digest))
+
+            for filename, sql, digest in sources:
+                if filename in recorded:
                     continue
                 connection.execute(sql)
                 connection.execute(

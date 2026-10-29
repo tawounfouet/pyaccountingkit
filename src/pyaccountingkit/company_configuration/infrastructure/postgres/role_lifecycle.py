@@ -11,7 +11,7 @@ from dataclasses import dataclass
 import psycopg
 from psycopg import sql
 
-from .tenant_boundary import TenantConnectionMismatch, require_tenant_connection
+from .tenant_boundary import require_tenant_connection
 
 
 class RoleLifecycleDenied(PermissionError):

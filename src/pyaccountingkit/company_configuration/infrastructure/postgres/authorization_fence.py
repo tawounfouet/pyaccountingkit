@@ -4,13 +4,12 @@ The fence/revocation serialization applies ONLY to a PostgreSQL-backed grant.
 Remote IAM changes require explicit, acknowledged propagation to this database.
 No web/runtime service should receive the database owner DSN.
 """
-from dataclasses import dataclass
 from uuid import UUID, uuid4
 
 import psycopg
 from psycopg import sql
 
-from ...application.authorization_fence import PrivilegedFencePermit
+from ...application.fence_contract import FencedRoleOperation, PrivilegedFencePermit
 from .role_lifecycle import (
     PostgresTenantRoleOperator,
     RoleLifecycleDenied,
@@ -20,16 +19,6 @@ from .role_lifecycle import (
 
 class PrivilegedFenceDenied(PermissionError):
     """No matching active, unexpired database-side fence."""
-
-
-@dataclass(frozen=True, slots=True)
-class FencedRoleOperation:
-    request_id: UUID
-    tenant_id: str
-    login_role: str
-    operation: str
-    actor_id: str
-    approval_id: str
 
 
 class PostgresPrivilegedAuthorizationFence:

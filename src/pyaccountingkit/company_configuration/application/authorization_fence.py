@@ -3,11 +3,9 @@
 The external identity, approval and policy ports MUST be trusted implementations.
 These Python dataclasses are never authentication or approval credentials.
 """
-from dataclasses import dataclass
-from datetime import datetime
 from typing import Protocol
-from uuid import UUID
 
+from .fence_contract import PrivilegedFencePermit
 from .privileged_operations import (
     ApprovalVerificationPort,
     OperatorIdentityPort,
@@ -19,30 +17,6 @@ from .privileged_operations import (
     VerifiedOperator,
     _aware,
 )
-
-
-@dataclass(frozen=True, slots=True)
-class PrivilegedFencePermit:
-    request_id: UUID
-    tenant_id: str
-    login_role: str
-    operation: str
-    actor_id: str
-    approver_id: str
-    approval_id: str
-    expires_at: datetime
-
-    def __post_init__(self) -> None:
-        if not isinstance(self.request_id, UUID) or self.operation not in ("rotate", "revoke"):
-            raise ValueError("Valid operation and UUID required")
-        for value in (
-            self.tenant_id, self.login_role, self.actor_id,
-            self.approver_id, self.approval_id,
-        ):
-            if not isinstance(value, str) or not value or value.strip() != value:
-                raise ValueError("Canonical nonblank fence identity required")
-        if self.actor_id == self.approver_id or not _aware(self.expires_at):
-            raise ValueError("Independent approver and timezone-aware expiration required")
 
 
 class AuthorizationFenceIssuerPort(Protocol):

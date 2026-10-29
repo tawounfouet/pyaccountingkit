@@ -79,21 +79,29 @@ class Audit:
 
 
 class Roles:
-    def __init__(self, failing=False):
+    """A fenced fake: it never exposes direct rotate/revoke primitives."""
+
+    def __init__(self, failing=False, fail_issue=False):
         self.calls = []
+        self.permits = []
         self.failing = failing
+        self.fail_issue = fail_issue
 
-    def rotate_password(self, *, login_role, expected_tenant, new_password):
-        self.calls.append(("rotate", login_role, expected_tenant))
+    def issue(self, permit):
+        if self.fail_issue:
+            raise OSError("fence unavailable")
+        self.permits.append(permit)
+
+    def execute(self, operation, *, new_password=None):
+        assert len(self.permits) == 1
+        permit = self.permits[0]
+        assert (permit.request_id, permit.actor_id, permit.approval_id) == (
+            operation.request_id, operation.actor_id, operation.approval_id
+        )
+        self.calls.append((operation.operation, operation.login_role, operation.tenant_id))
         if self.failing:
             raise OSError("operator failed")
-        return "rotated"
-
-    def revoke_login(self, *, login_role, expected_tenant):
-        self.calls.append(("revoke", login_role, expected_tenant))
-        if self.failing:
-            raise OSError("operator failed")
-        return "revoked"
+        return "rotated" if operation.operation == "rotate" else "revoked"
 
 
 @pytest.fixture
@@ -115,7 +123,7 @@ def service(request, approval, *, actor=None, allowed=True, audit=None, roles=No
     return (
         PrivilegedRoleService(
             identity=Identity(actor), approvals=Approvals(approval), policy=Policy(allowed),
-            audit=a, roles=r, clock=Clock(),
+            audit=a, fence=r, clock=Clock(),
         ),
         a, r,
     )
@@ -247,3 +255,39 @@ def test_unverified_transport_cannot_mutate_role(setup):
     with pytest.raises(PrivilegedAccessDenied, match="Unverified transport"):
         runner.execute(request, auth_context="anonymous", new_password="secure-long-secret-123")
     assert roles.calls == []
+
+
+def test_legacy_unfenced_role_operator_cannot_construct_control_plane(setup):
+    request, approval = setup
+    with pytest.raises(TypeError, match="unexpected keyword argument.*roles"):
+        PrivilegedRoleService(
+            identity=Identity(), approvals=Approvals(approval), policy=Policy(),
+            audit=Audit(), roles=Roles(), clock=Clock(),
+        )
+
+
+def test_fence_issuance_outage_never_calls_ddl_and_records_failure(setup):
+    request, approval = setup
+    fence = Roles(fail_issue=True)
+    runner, audit, _ = service(request, approval, roles=fence)
+    with pytest.raises(OSError, match="fence unavailable"):
+        runner.execute(
+            request, auth_context="verified-transport-context",
+            new_password="valid-secret-123456789",
+        )
+    assert fence.permits == [] and fence.calls == []
+    assert [event[0] for event in audit.events] == ["INTENT", "FAILED"]
+
+
+def test_fenced_permit_and_ddl_bind_exact_request_actor_approval(setup):
+    request, approval = setup
+    runner, _, fence = service(request, approval)
+    runner.execute(
+        request, auth_context="verified-transport-context",
+        new_password="valid-secret-123456789",
+    )
+    assert len(fence.permits) == 1
+    permit = fence.permits[0]
+    assert permit.request_id == request.request_id
+    assert permit.actor_id == "operator-1"
+    assert permit.approver_id == approval.approver_id

@@ -11,6 +11,12 @@ from datetime import datetime
 from typing import Protocol
 from uuid import UUID
 
+from .fence_contract import (
+    FencedRoleOperation,
+    PrivilegedFencedExecutorPort,
+    PrivilegedFencePermit,
+)
+
 
 class PrivilegedAccessDenied(PermissionError):
     """Critical privileged action is denied without attempting role mutation."""
@@ -92,14 +98,6 @@ class PrivilegedAuditPort(Protocol):
     ) -> None: ...
 
 
-class TenantRoleOperatorPort(Protocol):
-    def rotate_password(
-        self, *, login_role: str, expected_tenant: str, new_password: str
-    ) -> object: ...
-
-    def revoke_login(self, *, login_role: str, expected_tenant: str) -> object: ...
-
-
 class TimePort(Protocol):
     def now(self) -> datetime: ...
 
@@ -113,7 +111,7 @@ def _aware(value: datetime) -> bool:
 
 
 class PrivilegedRoleService:
-    """A strict SoD gate in front of the owner-only PostgreSQL role operator.
+    """A strict SoD gate requiring a scoped SQL fence before role DDL.
 
     The service assumes no external request can bypass it to access the admin DSN.
     The policy port must check the authoritative current grants on every call.
@@ -124,13 +122,17 @@ class PrivilegedRoleService:
     def __init__(
         self, *, identity: OperatorIdentityPort,
         approvals: ApprovalVerificationPort, policy: PrivilegedPolicyPort,
-        audit: PrivilegedAuditPort, roles: TenantRoleOperatorPort, clock: TimePort,
+        audit: PrivilegedAuditPort, fence: PrivilegedFencedExecutorPort, clock: TimePort,
     ) -> None:
         self._identity = identity
         self._approvals = approvals
         self._policy = policy
         self._audit = audit
-        self._roles = roles
+        if not callable(getattr(fence, 'issue', None)) or not callable(
+            getattr(fence, 'execute', None)
+        ):
+            raise PrivilegedAccessDenied('Mandatory fenced executor required')
+        self._fence = fence
         self._clock = clock
 
     def execute(
@@ -216,15 +218,22 @@ class PrivilegedRoleService:
                 ) from audit_exc
             raise PrivilegedAccessDenied("Privileged grant or approval changed before DDL") from exc
         try:
-            if request.operation == "rotate":
-                result = self._roles.rotate_password(
-                    login_role=request.login_role, expected_tenant=request.tenant_id,
-                    new_password=new_password,
+            # The service never calls direct owner-side role mutation.
+            # Issue only after rechecking the authoritative approval.
+            self._fence.issue(
+                PrivilegedFencePermit(
+                    request.request_id, request.tenant_id, request.login_role,
+                    request.operation, actor.actor_id, approval.approver_id,
+                    approval.approval_id, approval.expires_at,
                 )
-            else:
-                result = self._roles.revoke_login(
-                    login_role=request.login_role, expected_tenant=request.tenant_id
-                )
+            )
+            result = self._fence.execute(
+                FencedRoleOperation(
+                    request.request_id, request.tenant_id, request.login_role,
+                    request.operation, actor.actor_id, approval.approval_id,
+                ),
+                new_password=new_password,
+            )
         except Exception:
             try:
                 self._audit.record_outcome(

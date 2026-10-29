@@ -147,14 +147,15 @@ class ApprovalProvider:
 class Roles:
     def __init__(self):
         self.calls = 0
+        self.permits = []
 
-    def rotate_password(self, **kwargs):
-        self.calls += 1
-        return "rotated"
+    def issue(self, permit):
+        self.permits.append(permit)
 
-    def revoke_login(self, **kwargs):
+    def execute(self, operation, *, new_password=None):
+        assert self.permits[-1].request_id == operation.request_id
         self.calls += 1
-        return "revoked"
+        return "rotated" if operation.operation == "rotate" else "revoked"
 
 
 def make_role_service(*, revoke_approval=False, revoke_grant=False, times=None):
@@ -170,7 +171,7 @@ def make_role_service(*, revoke_approval=False, revoke_grant=False, times=None):
     policy = RolePolicy(fail_on_second=revoke_grant)
     service = PrivilegedRoleService(
         identity=Identity(VerifiedOperator("operator-1", "tenant-a")),
-        approvals=provider, policy=policy, audit=audit, roles=roles,
+        approvals=provider, policy=policy, audit=audit, fence=roles,
         clock=Clock(times),
     )
     return request, service, audit, roles, provider, policy

@@ -42,3 +42,15 @@ To verify, use the dedicated PostgreSQL GitHub Actions workflow (Python 3.11 and
 4. Reconcile historical repository provenance and obtain prior G0/G1 approvals.
 
 G2 and issue #9 are **not automatically closed by green CI**.
+
+## Exact-SHA automated verification
+
+Implementation commit `80c394572beeecde25cc5339af976da84706a038` passed
+[PostgreSQL CI #40863980633](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40863980633):
+**37 passed** per Python 3.11 and 3.12, including 9 dedicated adversarial tenant-bound login tests;
+Ruff checks green. [Python CI #40863980690](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40863980690):
+**99 passed, 4 skipped** (SQL integration modules not configured outside the PostgreSQL job),
+Ruff green on both Python versions.
+
+This qualifies the **L02-05 candidate's automated tests** only. The independent
+authorization/tenant provisioning review, ADR approval and G0/G1/G2 decisions remain outstanding.

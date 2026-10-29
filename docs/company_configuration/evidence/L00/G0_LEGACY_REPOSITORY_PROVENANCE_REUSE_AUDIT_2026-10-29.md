@@ -1,3 +1,5 @@
+> **SUPERSEDED G0 SEQUENCING RECOMMENDATION — 2026-10-29 product-owner decision.** The historical repository and all technical findings below remain valid evidence. However, the instruction to *block the recent repository's standalone Foundation until historical reconciliation* is **no longer applicable**. The project owner chose to finish G0/G1/G2 **in the recent repository first**, with historical interoperability deferred to a separate workstream. See [standalone ADR-CC-00A](https://github.com/tawounfouet/pyaccountingkit/blob/chore/company-config-foundation-standalone-consolidation/docs/company_configuration/evidence/L00/ADR_CC_00A_STANDALONE_FOUNDATION_SCOPE.md) and [main integration candidate PR #27](https://github.com/tawounfouet/pyaccountingkit/pull/27). Technical security and in-repo architecture gates are **still not signed off**.
+
 # G0 critical finding — historical PyAccountingKit source tree and reuse decision
 
 **Observed:** 2026-10-29 · **Status:** VERIFIED EXISTENCE / ARCHITECTURAL CONFLICT · **Gate: G0 NO-GO pending decision**

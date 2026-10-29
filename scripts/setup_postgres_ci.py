@@ -108,3 +108,16 @@ with psycopg.connect(admin_dsn, autocommit=True) as conn:
         "GRANT EXECUTE ON FUNCTION company_configuration.cp_execute_fence("
         "uuid,text,text,text,text,text,text) TO cc_control_plane"
     )
+
+    # Independent write-only privileged audit LOGIN, not a schema owner and
+    # deliberately not a member of the delegated DDL control-plane role.
+    conn.execute(
+        "CREATE ROLE cc_privileged_audit LOGIN NOSUPERUSER NOCREATEDB "
+        "NOCREATEROLE NOINHERIT NOREPLICATION NOBYPASSRLS "
+        "PASSWORD 'cc_testing_only'"
+    )
+    conn.execute("GRANT USAGE ON SCHEMA company_configuration TO cc_privileged_audit")
+    conn.execute(
+        "GRANT EXECUTE ON FUNCTION company_configuration.cp_append_privileged_audit("
+        "uuid,uuid,text,text,text,text,text,text,text,text) TO cc_privileged_audit"
+    )

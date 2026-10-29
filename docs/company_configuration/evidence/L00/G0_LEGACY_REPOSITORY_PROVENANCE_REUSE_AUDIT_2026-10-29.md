@@ -93,3 +93,20 @@ Both trees use the same distribution name and import namespace. Publishing the n
 - [Historical periods](https://github.com/tawounfouet/pyaccountingkit_old/blob/10b0a87076e66824d69cd24eafdbcb272cf1cd1d/src/pyaccountingkit/domain/periods/accounting_period.py)
 - [New foundation PR #3](https://github.com/tawounfouet/pyaccountingkit/pull/3)
 - [Gate audit PR #26](https://github.com/tawounfouet/pyaccountingkit/pull/26)
+
+
+## 6. Compatibility proof started on the historical lineage (2026-10-29)
+
+A deliberately narrow and **unmerged** proof-of-concept has been opened against the actual accounting implementation:
+
+- [Historical PR #96 — Company Configuration compatibility spike](https://github.com/tawounfouet/pyaccountingkit_old/pull/96).
+- Branch: `spike/company-config-foundation-compat-g0-20261029`, directly based on historical `main` `10b0a87076e66824d69cd24eafdbcb272cf1cd1d`.
+- Initial head for CI: `d8b3ff8e074689e2f6e83c5b14c9580ec1e4517f`.
+- Added only a **private integration boundary**, contract tests and an audit note. No existing public facade, historical domain, UoW, period model, schema, migration or version was modified.
+- Identity bridge requires explicit tenant/company/legal UUID → historical `EntityId` binding; rejects duplicate identity aliasing and any unknown or foreign scope. The evidence reference is not automatically trusted as IAM authorization.
+- Period adapter converts the historical inclusive final accounting date to the proposed exclusive successor date; rejects `date.max`, preventing a false successful translation.
+- Root export manifest regression check ensures no accidental facade expansion.
+
+**These tests validate only a candidate compatibility shape, not the whole Company Configuration domain or production IAM/ABAC.** The historical CI is the relevant qualification system; check the exact PR head's tests, quality, package and security workflows before any promotion. G0 remains **NO-GO until the project-owner and independent architecture review decide the integration source of truth, upgrade path and evidence acceptance**.
+
+Proposed sequencing: (1) review this cross-repository proof; (2) approve a canonical integration/anti-corruption ADR; (3) preserve the historical public API and versioned release lineage; (4) selectively port new Company Configuration domain and L02 modules behind the approved boundary with migration and contract tests; (5) qualify exact merged SHA and gate decisions. Do not merge either draft stack as-is.

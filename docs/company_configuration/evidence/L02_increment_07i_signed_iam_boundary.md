@@ -34,4 +34,13 @@ L02-07h restricted the privileged audit and fence SQL credentials. The external-
 5. Schema owner, database superuser, `PostgresTenantRoleOperator(admin_dsn)` and an independently compromised delegated SQL credential remain privileged bypass risks. SQL audit is append-only relative to unprivileged roles, not independent WORM or signed evidence.
 6. The SQL role DDL and CONSUMED fence are locally atomic, but session drain, separate terminal audit and remote IAM revocation are not a global atomic operation. Incident investigation and restoration remain pending.
 
-**G0/G1/G2 remain NOT APPROVED. No stable release.** Add exact-SHA test evidence only after observing the GitHub workflows.
+**G0/G1/G2 remain NOT APPROVED. No stable release.**
+
+## Verified exact-SHA automated qualification
+
+- **Implementation commit:** `2b6aafe1ef8bf5fc5599502b900531c9920e8c6b`.
+- [PostgreSQL CI #40922185351](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40922185351): **101 passed per Python 3.11 and 3.12**, Ruff green. Three new real PostgreSQL scenarios including signed IAM evidence through restricted SQL role DDL, forged operator refusal and wrong request approval refusal.
+- [Python CI #40922185433](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40922185433): **206 passed, 13 PostgreSQL-only skipped per Python version**, Ruff green. Includes 37 added pure-Python signed JWS and hardened startup checks.
+
+**Scope of proof:** the signing keys and approval evidence repository are **CI fixtures**, not a live production IdP, workload attestations or actual remote revocation synchronization. G0/G1/G2 remain unsigned. The entire PR stack is draft/unmerged; do not represent this as a stable release or operational security acceptance.
+

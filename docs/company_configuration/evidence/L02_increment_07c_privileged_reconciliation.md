@@ -29,3 +29,11 @@ SEC-06 (two effective actors), SEC-10 (audit of critical mutations), SEC-15 (no 
 3. The second policy/approval check **reduces** but does not eliminate TOCTOU: grants can be revoked after rechecking and before `ALTER ROLE`. Implement a properly leased/transactionally fenced IAM authorization protocol and test the revocation race before G2.
 4. Admin role DDL, backend/session drain, committed intent and final audit are **not atomic**. Background automation/incident response, true reconciliation workflow and independent attestation are absent.
 5. No signed ADR, real approval service, IAM, MFA, vault, deployment, backup/restore, failover, full C10 consumer qualification or stable release. G0/G1/G2 remain open.
+
+## Verified exact-SHA GitHub Actions evidence
+
+Implementation SHA `23cdb621363ac9876b5e46f911a8199e78b4a599`:
+- [PostgreSQL CI #40879514472](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40879514472): **63 integration tests passed per Python 3.11 and 3.12**, Ruff passed. Ten new PostgreSQL scenarios included.
+- [Python CI #40879514299](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40879514299): **136 passed, 8 PostgreSQL-only skipped per Python 3.11 and 3.12**, Ruff passed. Eleven new pure-Python unit scenarios included.
+
+This qualifies an automated slice, not a real incident response system, atomic IAM lease, G2, security acceptance or production release. An unresolved intent stays **UNKNOWN** and requires independent manual investigation.

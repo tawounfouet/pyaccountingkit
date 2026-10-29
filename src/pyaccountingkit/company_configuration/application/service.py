@@ -17,6 +17,7 @@ from .ports import (
     AuditRecord,
     AuthorizationPort,
     ChangeReceipt,
+    DenialAuditPort,
     ClockPort,
     PendingEvent,
     TrustedPrincipal,
@@ -49,26 +50,43 @@ class LegalEntityService:
         uow_factory: Callable[[], UnitOfWork],
         authorization: AuthorizationPort,
         clock: ClockPort | None = None,
+        denial_audit: DenialAuditPort | None = None,
     ) -> None:
         self._uow_factory = uow_factory
         self._authorization = authorization
         self._clock = clock if clock is not None else SystemClock()
+        self._denial_audit = denial_audit
 
     def _authorize(
-        self, *, principal: TrustedPrincipal, action: str, scope: ConfigurationScope
+        self, *, principal: TrustedPrincipal, action: str,
+        scope: ConfigurationScope, correlation_id: str | None = None,
     ) -> None:
         if not isinstance(principal, TrustedPrincipal):
+            # Unauthenticated calls must be audited by the authentication
+            # boundary; never trust a payload-supplied actor or tenant ID.
             raise PermissionDenied("Authenticated principal required")
-        if principal.tenant_id != scope.tenant_id:
-            raise PermissionDenied("Scope not permitted")
-        # Adapter must fail-closed; never trust roles passed by the command.
-        self._authorization.require(principal=principal, action=action, scope=scope)
+        reason_code = "TENANT_MISMATCH" if principal.tenant_id != scope.tenant_id else None
+        if reason_code is None:
+            try:
+                self._authorization.require(principal=principal, action=action, scope=scope)
+            except PermissionDenied:
+                reason_code = "PERMISSION_DENIED"
+        if reason_code is not None:
+            if self._denial_audit is not None:
+                self._denial_audit.record_denial(
+                    principal=principal, action=action, reason_code=reason_code,
+                    correlation_id=correlation_id,
+                )
+            raise PermissionDenied("Operation not authorized")
 
     def create(self, command: CreateLegalEntity, *, principal: TrustedPrincipal) -> ChangeReceipt:
         if not isinstance(command, CreateLegalEntity):
             raise TypeError("Expected CreateLegalEntity command")
         scope = command.scope
-        self._authorize(principal=principal, action="legal_entity.create", scope=scope)
+        self._authorize(
+            principal=principal, action="legal_entity.create", scope=scope,
+            correlation_id=command.correlation_id,
+        )
         digest = ContentDigest.from_canonical_json({
             "scope": self._scope_payload(scope), "name": command.legal_name,
             "jurisdiction": command.jurisdiction.value,
@@ -103,7 +121,10 @@ class LegalEntityService:
         if not isinstance(command, RenameLegalEntity):
             raise TypeError("Expected RenameLegalEntity command")
         scope = command.scope
-        self._authorize(principal=principal, action="legal_entity.rename", scope=scope)
+        self._authorize(
+            principal=principal, action="legal_entity.rename", scope=scope,
+            correlation_id=command.correlation_id,
+        )
         digest = ContentDigest.from_canonical_json({
             "scope": self._scope_payload(scope), "entity_id": str(command.entity_id),
             "expected_revision": command.expected_revision,

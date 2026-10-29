@@ -104,3 +104,17 @@ class AuthorizationPort(Protocol):
 
 class ClockPort(Protocol):
     def now(self) -> datetime: ...
+
+
+class DenialAuditPort(Protocol):
+    """Record denied *verified* principals in a separate durable transaction.
+
+    Authentication failures have no verified principal and are the transport
+    authenticator's responsibility. Failure to record raises and must never
+    turn a denied operation into an allowed operation.
+    """
+
+    def record_denial(
+        self, *, principal: TrustedPrincipal, action: str,
+        reason_code: str, correlation_id: str | None,
+    ) -> None: ...

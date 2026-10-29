@@ -17,3 +17,21 @@ with psycopg.connect(admin_dsn, autocommit=True) as conn:
         "company_configuration.audit_records, company_configuration.outbox_events "
         "TO cc_runtime"
     )
+
+
+# Dedicated delivery role (no journal/ledger access and no permission to
+# alter immutable source outbox rows). Credentials are disposable CI-only.
+with psycopg.connect(admin_dsn, autocommit=True) as conn:
+    conn.execute("CREATE ROLE cc_dispatcher LOGIN PASSWORD 'cc_dispatch_testing'")
+    conn.execute("GRANT USAGE ON SCHEMA company_configuration TO cc_dispatcher")
+    conn.execute(
+        "GRANT SELECT ON company_configuration.outbox_events TO cc_dispatcher"
+    )
+    conn.execute(
+        "GRANT SELECT, INSERT, UPDATE ON company_configuration.outbox_delivery "
+        "TO cc_dispatcher"
+    )
+    conn.execute(
+        "GRANT INSERT, SELECT ON company_configuration.authorization_denials "
+        "TO cc_runtime"
+    )

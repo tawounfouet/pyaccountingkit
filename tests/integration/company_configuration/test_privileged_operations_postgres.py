@@ -90,8 +90,8 @@ def phases(request_id):
         ).fetchall()
 
 
-def test_privileged_rotation_audits_intent_and_outcome(disposable_login):
-    role, old_dsn = disposable_login
+def test_privileged_rotation_audits_intent_and_outcome(request):
+    role, old_dsn = request.getfixturevalue("disposable_login")
     service, req = build_service(role)
     new_password = "new-ci-privileged-secret-987654321"
     result = service.execute(
@@ -114,8 +114,8 @@ def test_privileged_rotation_audits_intent_and_outcome(disposable_login):
         )
 
 
-def test_sod_denial_persists_without_role_change(disposable_login):
-    role, old_dsn = disposable_login
+def test_sod_denial_persists_without_role_change(request):
+    role, old_dsn = request.getfixturevalue("disposable_login")
     service, req = build_service(role, approver="operator-7")
     with pytest.raises(PrivilegedAccessDenied, match="SOD_VIOLATION"):
         service.execute(req, auth_context="trusted-auth-token",
@@ -125,8 +125,8 @@ def test_sod_denial_persists_without_role_change(disposable_login):
         assert c.execute("SELECT 1").fetchone()[0] == 1
 
 
-def test_postgres_intent_uniqueness_prevents_double_privileged_rotation(disposable_login):
-    role, _ = disposable_login
+def test_postgres_intent_uniqueness_prevents_double_privileged_rotation(request):
+    role, _ = request.getfixturevalue("disposable_login")
     service, req = build_service(role)
     service.execute(req, auth_context="trusted-auth-token",
                     new_password="supersecret-passphrase-rotated-1")
@@ -136,8 +136,8 @@ def test_postgres_intent_uniqueness_prevents_double_privileged_rotation(disposab
     assert sorted(p[0] for p in phases(req.request_id)) == ["INTENT", "SUCCEEDED"]
 
 
-def test_operation_failure_keeps_intent_and_failed_outcome(disposable_login):
-    role, old_dsn = disposable_login
+def test_operation_failure_keeps_intent_and_failed_outcome(request):
+    role, old_dsn = request.getfixturevalue("disposable_login")
     service, req = build_service(role)
     req = replace(req, tenant_id="tenant-b")
     # Authenticated operator is tenant-a; denial is persisted under tenant-a.
@@ -149,8 +149,8 @@ def test_operation_failure_keeps_intent_and_failed_outcome(disposable_login):
         assert c.execute("SELECT 1").fetchone()[0] == 1
 
 
-def test_runtime_role_cannot_read_privileged_audit_or_modify_evidence(disposable_login):
-    role, _ = disposable_login
+def test_runtime_role_cannot_read_privileged_audit_or_modify_evidence(request):
+    role, _ = request.getfixturevalue("disposable_login")
     service, req = build_service(role, allowed=False)
     with pytest.raises(PrivilegedAccessDenied):
         service.execute(req, auth_context="trusted-auth-token",
@@ -164,8 +164,8 @@ def test_runtime_role_cannot_read_privileged_audit_or_modify_evidence(disposable
                          "SET reason_code='MODIFIED' WHERE request_id=%s", (req.request_id,))
 
 
-def test_unprivileged_operator_direct_revoke_is_rejected(disposable_login):
-    role, _ = disposable_login
+def test_unprivileged_operator_direct_revoke_is_rejected(request):
+    role, _ = request.getfixturevalue("disposable_login")
     # The primitive cannot be invoked with application runtime DSN.
     with pytest.raises((psycopg.errors.InsufficientPrivilege, RoleLifecycleDenied)):
         PostgresTenantRoleOperator(RUNTIME).revoke_login(

@@ -15,7 +15,6 @@ from pyaccountingkit.company_configuration.application.privileged_operations imp
     VerifiedOperator,
 )
 
-
 NOW = datetime(2026, 10, 29, 12, 0, tzinfo=UTC)
 
 

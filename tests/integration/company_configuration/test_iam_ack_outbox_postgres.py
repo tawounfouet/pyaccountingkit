@@ -189,3 +189,32 @@ def test_two_competing_sql_workers_cannot_claim_same_receipt(request):
     assert len(first) == 1 and second == ()
     PostgresIamAckOutbox(DELIVERY).delivered(first[0])
     assert status(event.event_id)[0] == 'DELIVERED'
+
+
+def test_simultaneous_claims_use_row_lock_and_skip_locked(request):
+    from threading import Barrier, Thread
+
+    role, _ = request.getfixturevalue('account')
+    record = evidence(role)
+    PostgresIamRevocationRepository(IAM).apply(record)
+    gate = Barrier(3)
+    leases = []
+    errors = []
+
+    def worker():
+        try:
+            gate.wait(timeout=5)
+            leases.extend(PostgresIamAckOutbox(DELIVERY).claim(1))
+        except Exception as exc:
+            errors.append(exc)
+
+    first, second = Thread(target=worker), Thread(target=worker)
+    first.start()
+    second.start()
+    gate.wait(timeout=5)
+    first.join(timeout=10)
+    second.join(timeout=10)
+    assert not first.is_alive() and not second.is_alive()
+    assert errors == []
+    assert len(leases) == 1
+    assert leases[0].receipt.event_id == record.event_id

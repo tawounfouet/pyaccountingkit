@@ -105,7 +105,7 @@ class PostgresOrganizationRegistrationUnitOfWork:
             "INSERT INTO company_configuration.organizational_establishments "
             "(tenant_id,establishment_id,legal_entity_id,name,country,"
             "valid_from,valid_to,status,revision) "
-            "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+            "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)",
             (
                 site.tenant_id, site.id.value, site.legal_entity_id.value,
                 site.name, site.country.value, site.valid.start, site.valid.end,
@@ -123,7 +123,7 @@ class PostgresOrganizationRegistrationUnitOfWork:
             "INSERT INTO company_configuration.organizational_legal_identifiers "
             "(tenant_id,identifier_id,legal_entity_id,scheme,value,issuer,"
             "jurisdiction,valid_from,valid_to,source_ref) "
-            "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+            "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
             (
                 identifier.tenant_id, identifier_id, identifier.legal_entity_id.value,
                 identifier.scheme, identifier.value, identifier.issuer,

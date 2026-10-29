@@ -1,3 +1,5 @@
+> **SEQUENCING UPDATE (2026-10-29):** The project owner explicitly prioritizes **completing the standalone recent-repository Foundation** before any integration with `pyaccountingkit_old`. The historic-source reconciliation that this report originally classified as a mandatory G0 dependency is now a **deferred cross-repository workstream**, not a standalone development G0 blocker. Review and exact-SHA qualification of G0/G1/G2 **inside the recent repository remain mandatory**. See [PR #27](https://github.com/tawounfouet/pyaccountingkit/pull/27). Other findings remain source evidence, not signed approvals.
+
 # PyAccountingKit / Company Configuration — Phase 1 gate readiness and stacked-PR consolidation
 
 **Observation date:** 2026-10-29 UTC  

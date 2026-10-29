@@ -1,4 +1,7 @@
 -- ORG-4c / L03 R&D. Original 0001..0016 bytes are immutable.
+-- No hard child-to-baseline FK in this additive migration: prior L03 tests
+-- and recovery contract legitimately TRUNCATE the baseline tables; the
+-- append trigger validates the authoritative parent on each insert.
 -- Baseline Company/Establishment rows hold revision=1; append-only lifecycle
 -- revisions form the authoritative current status for revision >= 2.
 -- This is recorded-time state history, NOT retroactive effective-time lifecycle.
@@ -9,9 +12,7 @@ CREATE TABLE company_configuration.organizational_company_revisions (
     status text NOT NULL CHECK (status IN ('DRAFT','ACTIVE','INACTIVE','ARCHIVED')),
     recorded_at timestamptz NOT NULL,
     source_ref text NOT NULL CHECK (btrim(source_ref) <> ''),
-    PRIMARY KEY (tenant_id,company_id,revision),
-    FOREIGN KEY (tenant_id,company_id) REFERENCES
-        company_configuration.organizational_companies(tenant_id,company_id)
+    PRIMARY KEY (tenant_id,company_id,revision)
 );
 CREATE TABLE company_configuration.organizational_establishment_revisions (
     tenant_id text NOT NULL,
@@ -20,9 +21,7 @@ CREATE TABLE company_configuration.organizational_establishment_revisions (
     status text NOT NULL CHECK (status IN ('PLANNED','ACTIVE','INACTIVE','CLOSED')),
     recorded_at timestamptz NOT NULL,
     source_ref text NOT NULL CHECK (btrim(source_ref) <> ''),
-    PRIMARY KEY (tenant_id,establishment_id,revision),
-    FOREIGN KEY (tenant_id,establishment_id) REFERENCES
-        company_configuration.organizational_establishments(tenant_id,establishment_id)
+    PRIMARY KEY (tenant_id,establishment_id,revision)
 );
 CREATE FUNCTION company_configuration.validate_organization_lifecycle()
 RETURNS trigger LANGUAGE plpgsql SET search_path=pg_catalog,pg_temp AS $$

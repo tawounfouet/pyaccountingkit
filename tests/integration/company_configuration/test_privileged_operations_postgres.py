@@ -1,5 +1,7 @@
 """L02-07b real PostgreSQL owner-only privileged intent/outcome evidence."""
 
+# ruff: noqa: E402
+
 import os
 from dataclasses import replace
 from datetime import UTC, datetime, timedelta
@@ -19,7 +21,6 @@ from pyaccountingkit.company_configuration.application.privileged_operations imp
     VerifiedOperator,
 )
 from pyaccountingkit.company_configuration.infrastructure.postgres.privileged_audit import (
-    # noqa: E402
     PostgresPrivilegedAudit,
 )
 from pyaccountingkit.company_configuration.infrastructure.postgres.role_lifecycle import (

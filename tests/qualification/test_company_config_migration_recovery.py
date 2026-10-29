@@ -210,7 +210,7 @@ def test_unrecognized_future_and_noncontiguous_applied_history_fail_closed(
     with psycopg.connect(dsn) as conn:
         conn.execute(
             "DELETE FROM company_configuration.schema_migrations "
-            "WHERE filename='0015_future.sql'"
+            "WHERE filename='0016_future.sql'"
         )
     assert _recorded_versions(dsn) == expected
     with psycopg.connect(dsn) as conn:

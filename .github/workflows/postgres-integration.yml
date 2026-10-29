@@ -27,6 +27,7 @@ jobs:
     env:
       CC_PG_ADMIN_DSN: postgresql://postgres:postgres@localhost:5432/cc_test
       CC_PG_DSN: postgresql://cc_runtime:cc_testing@localhost:5432/cc_test
+      CC_PG_DISPATCH_DSN: postgresql://cc_dispatcher:cc_dispatch_testing@localhost:5432/cc_test
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

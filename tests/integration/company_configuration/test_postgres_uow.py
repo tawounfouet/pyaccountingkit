@@ -66,7 +66,8 @@ def clean_database():
         return
     with psycopg.connect(ADMIN_DSN) as conn:
         conn.execute(
-            "TRUNCATE company_configuration.legal_entities, "
+            "TRUNCATE company_configuration.outbox_delivery, "
+            "company_configuration.legal_entities, "
             "company_configuration.idempotency_requests, "
             "company_configuration.audit_records, "
             "company_configuration.outbox_events"

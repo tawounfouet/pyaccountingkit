@@ -5,23 +5,16 @@ Date: 2026-10-29
 | Gate | Status | Evidence |
 |---|---|---|
 | G0 - Audit/baseline | PENDING REVIEW | `evidence/L00/repository_baseline.md`; historical repository/package reconciliation still open; issue #1 |
-| G1 - Domain kernel | IN PROGRESS | L01 shared VOs + first `LegalEntity` aggregate; `L01_INVARIANT_TRACEABILITY.md`; `evidence/L01/increment_02.md`; issue #2 |
-| G2 - Ports/technical foundations | NOT STARTED | No durable storage, security, audit or outbox implemented |
+| G1 - Domain kernel | IN PROGRESS | L01 typed VOs, `LegalEntity` aggregate and property tests; issue #2 |
+| G2 - Technical foundations | IN PROGRESS / NOT APPROVED | L02-01 memory proof, L02-02 PostgreSQL proof and L02-03 delivery + denial candidate; issue #5 |
 
-## Prior verified increment
+## Exact-SHA qualified checkpoints
 
-Commit `cbd0936d6bfcf869baff6f1c4cddd008c55ff34e`: GitHub Actions run #6 succeeded on Python 3.11/3.12 with 44 local tests from the initial increment. This is **not** a G0/G1 sign-off.
+- L01 implementation `a4d8d7e572d2d72fde1878b095ba6de4c057c173`: [CI #10](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40838129260), **82 tests** and Ruff on Python 3.11/3.12.
+- L02-01 implementation `dea2cbd4c1a85ece13df663e6bb47a19cbeb6fc8`: [CI #14](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40839316434), **94 tests** and Ruff green.
+- L02-02 implementation `fb207bc1570b5efb19a4bf8d34629f430cab26f2`: [PostgreSQL CI #40841545574](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40841545574) **9 DB tests** each on Python 3.11/3.12; Ruff green. Documentation head `6254a3f553b9c13bc0553a886e79dc3355227d73` passed [PG CI #40841749873](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40841749873) and [Python CI #40841750168](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40841750168).
+- L02-03 implementation `13c6f7b3af823d9f0a5db38ba1834001f306dc47`: [PostgreSQL CI #40844094545](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40844094545), **17 passed per version**, Ruff green; [Python CI #40844094557](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40844094557), **99 passed, 2 skipped per version**, Ruff green. Outbox delivery/lease/retry/dead-letter and opt-in durable verified-principal denial audit. This **does not** approve any gate.
 
-## Current candidate increment
+## Non-claims
 
-Adds minimal identity-stable `LegalEntity`, `JurisdictionCode`, negative tests, Hypothesis temporal properties, and traceability. **CI evidence and exact SHA must be appended only after run completion.**
-
-**Scope warning:** no complete CFG-01..CFG-10 implementation, production deployment, posted entries or stable release. Cross-context invariants remain with their rightful owners.
-
-## L02 increment 01 (in progress; not qualified)
-
-Added application ports and an in-memory, staged unit-of-work vertical proof for create/read/rename of a `LegalEntity`. A default-deny authorizer is a **fake**, not IAM or production enforcement. Local tests and injected failure prove only same-process in-memory behavior. See `evidence/L02_increment_01.md` for caveats and open ADRs. **G2 remains unapproved**, as do G0 and G1; SQL, durable migration, object-level DB isolation, production audit and C10 are pending.
-
-## L02 increment 02 - SQL candidate
-
-Introduces a PostgreSQL Repository/UoW, checksum-verified migration, FORCE-RLS tenant policies, append-only evidence triggers and dedicated PostgreSQL integration workflow. Implementation SHA `fb207bc1570b5efb19a4bf8d34629f430cab26f2` passed [PostgreSQL CI #40841545574](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40841545574): 9 tests each on Python 3.11/3.12, Ruff green; the separate Python CI passed. This is **not** G2 approval. Custom-GUC tenant RLS alone cannot resist an adversarial DB client and needs a stronger trust boundary before production. See `evidence/L02_increment_02_postgres.md`.
+No G0/G1/G2 gate approved; no release; no complete PCG/IFRS/SYSCOHADA norm engine, real IAM, secure tenant-bound DB connections, C10 E2E, published configuration governance or Ledger posting. Outbox events are at-least-once, not exactly-once. PostgreSQL remains provisional pending ADRs and independent review.

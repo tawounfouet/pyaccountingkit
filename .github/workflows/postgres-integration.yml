@@ -36,6 +36,7 @@ jobs:
       CC_PG_CONTROL_PLANE_DSN: postgresql://cc_control_plane:cc_testing_only@localhost:5432/cc_test
       CC_PG_PRIVILEGED_AUDIT_DSN: postgresql://cc_privileged_audit:cc_testing_only@localhost:5432/cc_test
       CC_PG_IAM_REVOCATION_DSN: postgresql://cc_iam_revocation:cc_testing_only@localhost:5432/cc_test
+      CC_PG_IAM_DELIVERY_DSN: postgresql://cc_iam_delivery:cc_testing_only@localhost:5432/cc_test
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

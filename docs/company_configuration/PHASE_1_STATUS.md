@@ -129,3 +129,11 @@ G0/G1/G2 are **not signed off**. No stable release, real IAM, independently secu
 - Implementation `cfe46cacd0f5b0190b554e5c7eede75941f47175`: [PostgreSQL CI #40926615545](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40926615545), **109 passed per Python 3.11/3.12**, Ruff; [Python CI #40926615439](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40926615439), **224 passed, 14 skipped** per Python version, Ruff.
 - Migration `0011` protects fence issuance against earlier signed revocation receipt, uses transaction-level advisory locking and permanent tombstones. Separate restricted SQL IAM capability, exact signed scope/TTL, receipt and ACK/retry tested.
 - **Still blocked:** real provider source/remote ACK queue, JWS key lifecycle, SQL receiver secret compromise, external IAM-to-SQL latency, physical workload/network isolation, incident response for `ALREADY_CONSUMED`, owner bypass, vault/mTLS/WORM/audit and independently accepted ADR/G0/G1/G2. PR #22 remains draft/unmerged.
+
+## L02-07k - HTTPS Provider Contract + Durable ACK Outbox (CI PENDING)
+
+- HTTPS revocation source uses pinned provider origin, CA/hostname verification, no redirects, bounded JWS, explicit bearer credential and event-UUID idempotency key. Transport is faked in CI; this is not an installed vendor connector or production source.
+- SignedIamRevocationProcessor.ingest() verifies and commits locally **without immediate remote ACK**; legacy process() continues to ACK for compatibility but should not be used in the durable pipeline.
+- Migration 0012 stages every SQL IAM revocation receipt in a **same-transaction ACK outbox**, including backfill for earlier receipts. Separate nonprivileged `cc_iam_delivery` can claim/complete/fail via owner-managed functions with SKIP LOCKED, 30-second leases, bounded retry/backoff and DEAD status.
+- `IamAckDeliveryWorker` performs at-least-once ACK with upstream Idempotency-Key. Failure to confirm SQL completion leaves a lease for a safe duplicate retry.
+- Tests cover provider transport violations, failed ACK, transactional rollback, stale lease, competing claims, 5-attempt DEAD and SQL capability denial. Production scheduling, metrics, real IAM provider, verified upstream dedup, DLQ incident handling, network isolation, G0/G1/G2 remain open.

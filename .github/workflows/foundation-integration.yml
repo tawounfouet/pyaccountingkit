@@ -22,6 +22,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Validate unsigned G0 G1 G2 decision record (HOLD is valid)
+        run: python scripts/check_foundation_gate_dossier.py
       - name: Build sdist and wheel as isolated distributions
         run: |
           python -m pip install 'build>=1,<3'

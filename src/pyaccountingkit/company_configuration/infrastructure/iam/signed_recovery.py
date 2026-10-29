@@ -163,9 +163,12 @@ def require_recovery_sql_capabilities(dsn: str) -> None:
             "'company_configuration.cp_execute_fence("
             "uuid,text,text,text,text,text,text)','EXECUTE'),"
             "has_table_privilege(session_user,"
-            "'company_configuration.privileged_iam_ack_outbox','SELECT')"
+            "'company_configuration.privileged_iam_ack_outbox','SELECT'),"
+            "has_function_privilege(session_user,"
+            "'company_configuration.cp_grant_iam_ack_redrive("
+            "uuid,uuid,text,text,text,text,text,text,timestamptz)','EXECUTE')"
         ).fetchone()
-        if grants != (True, False, False, False):
+        if grants != (True, False, False, False, False):
             raise PrivilegedCompositionDenied("Recovery database capability mismatch")
 
 

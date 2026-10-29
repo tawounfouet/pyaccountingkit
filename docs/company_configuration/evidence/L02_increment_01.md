@@ -27,7 +27,7 @@ This step exercises an application slice over the L01 `LegalEntity` model. It is
 
 ## Qualification checklist
 
-- [ ] Verify GitHub CI status on exact SHA for Python 3.11/3.12 (pytest, Ruff).
+- [x] [GitHub Actions #14](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40839316434) succeeded on **`dea2cbd4c1a85ece13df663e6bb47a19cbeb6fc8`**: **94 tests** on Python 3.11 and Python 3.12; Ruff checks passed. Qualification of *this increment only*, not gate G2.
 - [ ] Review typed commands and port interfaces independently.
 - [ ] Decide ADR-CC-03 (storage), ADR-CC-05 (publication atomicity), ADR-CC-08 (AuthZ and SoD) before production adapter.
 - [ ] Introduce SQL schema, migrations, security isolation guarantees and post-failure recovery tests.

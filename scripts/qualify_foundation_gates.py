@@ -176,10 +176,10 @@ def enforce(register: dict, *, head_sha: str, token: str) -> None:
     for review in reviews:
         user = review.get("user", {}).get("login", "").lower()
         if user:
-            latest[user] = review.get("state")
+            latest[user] = (review.get("state"), review.get("commit_id"))
     verified = {
-        user for user, state in latest.items()
-        if state == "APPROVED" and user != author
+        user for user, (state, review_sha) in latest.items()
+        if state == "APPROVED" and review_sha == head_sha and user != author
     }
     if not verified:
         raise FoundationGateError("No independent live GitHub approval on the PR")

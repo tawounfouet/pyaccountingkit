@@ -25,6 +25,7 @@ from pyaccountingkit.company_configuration.infrastructure.postgres.inbox import 
 
 ADMIN_DSN = os.getenv("CC_PG_ADMIN_DSN")
 INBOX_DSN = os.getenv("CC_PG_INBOX_DSN")
+INBOX_DSN_B = os.getenv("CC_PG_INBOX_DSN_B")
 DISPATCH_DSN = os.getenv("CC_PG_DISPATCH_DSN")
 pytestmark = pytest.mark.skipif(
     not (ADMIN_DSN and INBOX_DSN and DISPATCH_DSN),
@@ -69,7 +70,7 @@ def inbox(
     *, tenant="tenant-a", consumer="demo-read-model", producer="company-config", handler=None
 ):
     return PostgresInboxConsumer(
-        INBOX_DSN,
+        INBOX_DSN_B if tenant == "tenant-b" else INBOX_DSN,
         tenant_id=tenant,
         consumer_id=consumer,
         producer_id=producer,
@@ -240,14 +241,14 @@ def test_inbox_role_cannot_mutate_receipts_or_read_producer_evidence():
             )
 
 
-def test_rls_guc_spoof_remains_an_explicit_unresolved_security_gap():
-    # This tests and documents an existing design gap, it does NOT approve it.
+def test_rls_login_binding_cannot_be_spoofed_with_custom_guc():
+    # A tenant-A login cannot read a tenant-B Inbox even after setting a malicious GUC.
     _, event = source_event(tenant="tenant-b")
     inbox(tenant="tenant-b").process(event)
     with psycopg.connect(INBOX_DSN) as conn:
-        # Any holder of this shared DB credential can impersonate a tenant GUC.
+        # Client GUCs are now ignored by RLS in favor of the bound session_user.
         conn.execute("SELECT set_config('app.tenant_id', %s, true)", ("tenant-b",))
         visible = conn.execute(
             "SELECT count(*) FROM company_configuration.inbox_receipts"
         ).fetchone()[0]
-        assert visible == 1  # a blocker for G2, NOT an isolation success
+        assert visible == 0  # session_user binds this login to tenant-a

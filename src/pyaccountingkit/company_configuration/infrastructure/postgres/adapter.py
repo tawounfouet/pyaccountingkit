@@ -16,6 +16,7 @@ from ...domain.shared.accounting_scope import ConfigurationScope
 from ...domain.shared.errors import InvalidScope, VersionConflict
 from ...domain.shared.identifiers import CompanyId, LegalEntityId
 from ...domain.shared.references import CurrencyCode, JurisdictionCode
+from .tenant_boundary import require_tenant_connection
 
 
 class PostgresLegalEntityRepository:
@@ -115,9 +116,7 @@ class PostgresUnitOfWork:
         if not isinstance(scope, ConfigurationScope):
             raise InvalidScope("Typed accounting scope is required")
         if self._scope is None:
-            self._connection.execute(
-                "SELECT set_config('app.tenant_id', %s, true)", (scope.tenant_id,)
-            )
+            require_tenant_connection(self._connection, scope.tenant_id)
             self._connection.execute(
                 "SELECT pg_advisory_xact_lock(hashtextextended(%s, 0))",
                 ("cc:tenant:" + scope.tenant_id,),

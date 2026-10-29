@@ -14,6 +14,8 @@ from uuid import UUID, uuid4
 import psycopg
 from psycopg.rows import dict_row
 
+from .tenant_boundary import require_tenant_connection
+
 
 @dataclass(frozen=True, slots=True)
 class OutboxEnvelope:
@@ -104,7 +106,7 @@ class PostgresOutboxDispatcher:
         return psycopg.connect(self._dsn, row_factory=dict_row)
 
     def _set_tenant(self, conn: psycopg.Connection) -> None:
-        conn.execute("SELECT set_config('app.tenant_id', %s, true)", (self._tenant,))
+        require_tenant_connection(conn, self._tenant)
 
     def _claim(self, limit: int) -> list[_Claim]:
         now = self._now()

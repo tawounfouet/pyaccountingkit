@@ -88,3 +88,23 @@ with psycopg.connect(admin_dsn, autocommit=True) as conn:
                 sql.SQL("GRANT SELECT ON company_configuration.legal_entities TO {}")
                 .format(sql.Identifier(role))
             )
+
+    # Dedicated control-plane LOGIN: no direct role DDL or private-table grants.
+    conn.execute(
+        "CREATE ROLE cc_control_plane LOGIN NOSUPERUSER NOCREATEDB "
+        "NOCREATEROLE NOINHERIT NOREPLICATION NOBYPASSRLS "
+        "PASSWORD 'cc_testing_only'"
+    )
+    conn.execute("GRANT USAGE ON SCHEMA company_configuration TO cc_control_plane")
+    conn.execute(
+        "GRANT EXECUTE ON FUNCTION company_configuration.cp_issue_fence("
+        "uuid,text,text,text,text,text,text,timestamptz) TO cc_control_plane"
+    )
+    conn.execute(
+        "GRANT EXECUTE ON FUNCTION company_configuration.cp_revoke_fence("
+        "uuid,text,text) TO cc_control_plane"
+    )
+    conn.execute(
+        "GRANT EXECUTE ON FUNCTION company_configuration.cp_execute_fence("
+        "uuid,text,text,text,text,text,text) TO cc_control_plane"
+    )

@@ -152,3 +152,10 @@ G0/G1/G2 are **not signed off**. No stable release, real IAM, independently secu
 - `IamAckOperationsRunner.tick()` runs a bounded delivery batch and emits aggregate alert flags. The foreground `delivery_runner` CLI supports --once and bounded polling for an **external** process supervisor; no service deployment or alerting platform is claimed.
 - Unit and PostgreSQL integration tests include denied tenant/SoD/replay, append-only decisions, cap-two redrives, independent role privileges and concurrent re-drive. Exact-SHA CI proof pending.
 - Remaining G2 blockers: no real signed re-drive approval adapter, actual supervisor/alert channels, controlled production deployment or mTLS, operator audit custody, external IAM provider / dead-letter runbook approval, owner-secret bypass closure or signed G0/G1/G2.
+
+### L02-07l - Supervised IAM delivery and approved DLQ re-drive (exact-SHA CI green, G2 pending)
+
+- Implementation `5097d3c6c7c67a655dcb6e19522b9aee27f76137`: [PostgreSQL CI #40935848609](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40935848609) **122 passed per Python 3.11/3.12**, Ruff; [Python CI #40935848623](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40935848623) **257 passed, 16 SQL-only skipped per version**, Ruff green.
+- Migration `0013` adds no-PII aggregate metrics and separate scoped `cc_iam_recovery` capability. Manual DEAD re-drive needs independent exact-scope approval at the application port, append-only SQL decision and a transactionally atomic reset; max two re-drives per event, replay/tenant/collision guarded.
+- Delivery CLI provides bounded foreground polling and aggregate JSON alert flags for an external scheduler; **not** actual deployed monitoring or automated DLQ closure.
+- **Open G2:** real signed approval adapter/IdP, independently protected recovery SQL secret, production supervisor and alert sink, incident resolution/approval, provider idempotency and mTLS, owner-DSN bypass, vault/WORM/DR, signed ADR and G0/G1/G2. PR #24 remains draft/unmerged.

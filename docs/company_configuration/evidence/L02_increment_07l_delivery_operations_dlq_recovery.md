@@ -31,4 +31,10 @@ L02-07k stores SQL ACK delivery state durably with PENDING/IN_FLIGHT/RETRY/DELIV
 
 No real IAM provider or approved signed re-drive approval adapter has been integrated; the ports are demonstrated with fakes. No cloud scheduler, managed supervisor, alert delivery channel, real TLS/mTLS workload isolation, vault/PAM, immutable external WORM, provider-side idempotency certification, owner-DSN elimination or backup/restore proof. A holder of `cc_iam_recovery` can submit claimed identities unless the production deployment isolates the credential and external authorization is enforced. No signed ADR/independent penetration review, no G0/G1/G2 or stable release.
 
-Exact-SHA CI evidence will be appended only after the new head succeeds.
+## Exact-SHA CI evidence
+
+- Implementation SHA `5097d3c6c7c67a655dcb6e19522b9aee27f76137`:
+- [PostgreSQL CI #40935848609](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40935848609): **122 tests passed per Python 3.11 and 3.12**, Ruff green. Six new PostgreSQL tests for tenant-scoped DEAD inspection, durable re-drive/append-only evidence, duplicate approvals, two-redrive cap, SQL role capability denial and concurrent reviewer conflict.
+- [Python CI #40935848623](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40935848623): **257 passed, 16 PostgreSQL-only skipped per Python 3.11 and 3.12**, Ruff green. Seventeen new unit cases cover tenant/actor/approver/TTL, late permission revocation, scope changes and telemetry failure.
+
+All code tests pass on this candidate. This does **not** certify production IAM, an actually deployed scheduler, alert integration, approved incident resolution, or G0/G1/G2.

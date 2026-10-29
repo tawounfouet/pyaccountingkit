@@ -31,3 +31,14 @@ class ReferenceFrameworkRef:
             raise InvalidReference("An explicit framework version is required")
         if self.version.strip() != self.version:
             raise InvalidReference("Framework version cannot have surrounding whitespace")
+
+
+@dataclass(frozen=True, slots=True)
+class JurisdictionCode:
+    """Two-letter code shape only, not validation of legal existence."""
+
+    value: str
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.value, str) or not re.fullmatch(r"[A-Z]{2}", self.value):
+            raise InvalidReference("JurisdictionCode requires two uppercase ASCII letters")

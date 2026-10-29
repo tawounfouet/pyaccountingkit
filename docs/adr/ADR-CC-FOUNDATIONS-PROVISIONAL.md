@@ -11,3 +11,7 @@ Status: **PROPOSED, NOT APPROVED**. Scope: first L01 increment, before L02 datab
 7. **L02 blockers remain open:** DB/storage architecture (ADR-CC-03), publication atomicity (ADR-CC-05), authorization/SoD (ADR-CC-08), and migration topology must be decided before implementing durable writes.
 
 **No decisions above are a substitute for a recorded architectural sign-off.**
+
+8. **Provisional L01-07 entity slice:** `LegalEntity` is identity-stable, scoped and immutable; `with_legal_name` creates a candidate revision with reason and expected revision. It is **not** a secured or audited command. Membership, registry identifiers and entity status transitions are deferred to L03; authorization and atomic audit to L02. Model requires review against ADR-CC-01/02 before promotion.
+9. **Jurisdiction code:** two uppercase letters represent a syntactic reference only. Do not interpret a code as a verified legal jurisdiction; external normative and registry validation is deferred.
+10. **Property-based qualification:** Hypothesis is included in the `dev` extra, and the full test suite in CI must execute properties on both supported Python versions. Local unit-only proof is not enough for G1.

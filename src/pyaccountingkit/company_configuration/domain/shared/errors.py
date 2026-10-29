@@ -36,3 +36,7 @@ class VersionConflict(DomainError):
 
 class InvalidTransition(DomainError):
     code = "INVALID_TRANSITION"
+
+
+class InvalidLegalEntity(DomainError):
+    code = "INVALID_LEGAL_ENTITY"

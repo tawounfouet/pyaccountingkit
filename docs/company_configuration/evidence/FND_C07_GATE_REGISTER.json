@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "scope": "standalone-development-foundation",
+  "repository": "tawounfouet/pyaccountingkit",
+  "integration_pr": 32,
+  "pre_merge_qualified_sha": "098f6de80b916d0545b65c2dfec9357f854cddcd",
+  "main_baseline_sha": "cb746be7ae95146d2bd50ce1aac049ea6da2d15e",
+  "workflows": [
+    {
+      "name": "Python CI",
+      "run_id": 40954760622,
+      "conclusion": "success",
+      "head_sha": "098f6de80b916d0545b65c2dfec9357f854cddcd"
+    },
+    {
+      "name": "PostgreSQL integration (L02 candidate)",
+      "run_id": 40954760659,
+      "conclusion": "success",
+      "head_sha": "098f6de80b916d0545b65c2dfec9357f854cddcd"
+    },
+    {
+      "name": "Company Configuration migration recovery (FND-C04)",
+      "run_id": 40954760543,
+      "conclusion": "success",
+      "head_sha": "098f6de80b916d0545b65c2dfec9357f854cddcd"
+    },
+    {
+      "name": "Company Configuration standalone Foundation artifact qualification (FND-C06)",
+      "run_id": 40954760631,
+      "conclusion": "success",
+      "head_sha": "098f6de80b916d0545b65c2dfec9357f854cddcd"
+    }
+  ],
+  "gates": {
+    "G0": {
+      "status": "PENDING_REVIEW",
+      "reviewer": null,
+      "approved_sha": null,
+      "decision_ref": "GATES/G0_DECISION.md",
+      "blockers": [
+        "architecture-adr-approval",
+        "package-and-tenant-identity-topology",
+        "independent-architecture-review"
+      ]
+    },
+    "G1": {
+      "status": "PENDING_REVIEW",
+      "reviewer": null,
+      "approved_sha": null,
+      "decision_ref": "GATES/G1_DECISION.md",
+      "blockers": [
+        "domain-invariants-contract-review",
+        "temporal-digest-public-api-ownership",
+        "independent-domain-review"
+      ]
+    },
+    "G2": {
+      "status": "PENDING_REVIEW",
+      "reviewer": null,
+      "approved_sha": null,
+      "decision_ref": "GATES/G2_DECISION.md",
+      "blockers": [
+        "independent-sql-and-iam-threat-review",
+        "live-identity-approver-secret-isolation",
+        "production-deployment-constraints",
+        "external-c10-consumer-validation",
+        "independent-security-approval"
+      ]
+    }
+  },
+  "external_controls": {
+    "reviewers": false,
+    "branch_protection_verified": false,
+    "post_merge_main_ci": false,
+    "production_iam": false,
+    "production_dr": false
+  },
+  "promotion": {
+    "merge_permitted": false,
+    "main_merged": false,
+    "foundation_closed": false
+  }
+}

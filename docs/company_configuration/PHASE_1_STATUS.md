@@ -37,3 +37,9 @@ G0/G1/G2 are **not signed off**. No stable release, real IAM, independently secu
 - Candidate ops runbook and ADR-CC-08A for segregated tenant pools, credentials, SQL privileged operator and incident response.
 - **No G2 sign-off:** real secret vault, production pool driver, IAM/SoD, audit of privileged changes, live restoration and architecture review still pending.
 - Implementation `81a6506444abf6e88c6bb1f4582aca19c9be2502` passed [PostgreSQL CI #40866069595](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40866069595) (**41 passed per Python 3.11/3.12**, Ruff), and [Python CI #40866069487](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40866069487) (**99 passed, 5 skipped per version**, Ruff). **No G2 sign-off.**
+
+## L02-07a - Tenant-scoped Secret Provider and physical pool boundary
+
+- Candidate implementation SHA `8a286b757aacba81511bc5b11876060c02b54d6d`: [PostgreSQL CI #40871381836](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40871381836), **46 passed** per Python version, Ruff; [Python CI #40871381720](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40871381720), **108 passed, 6 skipped** per version, Ruff.
+- `TenantSecretProvider` protocol, versioned/secret-redacted credentials and a distinct physical `psycopg_pool` per tenant+role kind; trusted secret lookup and database identity validation before checkout; fail-closed upon secret outage, drift or epoch regression.
+- Candidate [ADR](evidence/L02_07_ARCHITECTURE_DECISION_CANDIDATE.md) unapproved. Not implemented: real vault, production IAM/SoD and audit, integration into application UoW/outbox/inbox construction, bounded production connection budgets, TLS/restore/failover. No G0/G1/G2 sign-off, no release.

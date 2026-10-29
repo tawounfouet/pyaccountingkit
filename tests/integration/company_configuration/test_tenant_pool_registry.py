@@ -52,10 +52,16 @@ def test_real_connections_keep_tenant_identity_separated_across_pools():
     with TenantPoolRegistry(provider, max_size=2) as pools:
         with pools.connection(tenant_id="tenant-a", role_kind="runtime") as conn:
             assert conn.execute("SELECT session_user").fetchone()[0] == "cc_runtime_a"
-            assert (\n                conn.execute("SELECT company_configuration.bound_tenant()").fetchone()[0]\n                == "tenant-a"\n            )
+            assert (
+                conn.execute("SELECT company_configuration.bound_tenant()").fetchone()[0]
+                == "tenant-a"
+            )
         with pools.connection(tenant_id="tenant-b", role_kind="runtime") as conn:
             assert conn.execute("SELECT session_user").fetchone()[0] == "cc_runtime_b"
-            assert (\n                conn.execute("SELECT company_configuration.bound_tenant()").fetchone()[0]\n                == "tenant-b"\n            )
+            assert (
+                conn.execute("SELECT company_configuration.bound_tenant()").fetchone()[0]
+                == "tenant-b"
+            )
         with pools.connection(tenant_id="tenant-a", role_kind="dispatcher") as conn:
             assert conn.execute("SELECT session_user").fetchone()[0] == "cc_dispatcher_a"
         assert len(pools._entries) == 3

@@ -12,9 +12,11 @@ from psycopg.rows import dict_row
 
 from ...application.ports import AuditRecord, ChangeReceipt, PendingEvent
 from ...domain.organization.entities import LegalEntity
+from ...domain.organization.model import MembershipKind, OrganizationMembership
 from ...domain.shared.accounting_scope import ConfigurationScope
+from ...domain.shared.effective_interval import EffectiveInterval
 from ...domain.shared.errors import InvalidScope, VersionConflict
-from ...domain.shared.identifiers import CompanyId, LegalEntityId
+from ...domain.shared.identifiers import CompanyId, LegalEntityId, MembershipId
 from ...domain.shared.references import CurrencyCode, JurisdictionCode
 from .tenant_boundary import require_tenant_connection
 
@@ -98,6 +100,7 @@ class PostgresUnitOfWork:
             raise RuntimeError("UnitOfWork cannot be entered twice")
         self._connection = psycopg.connect(self._dsn, row_factory=dict_row)
         self.entities = PostgresLegalEntityRepository(self)
+        self.org_memberships = PostgresOrganizationMembershipRepository(self)
         return self
 
     def __exit__(self, exc_type: object, exc: object, tb: object) -> None:
@@ -194,3 +197,63 @@ class PostgresUnitOfWork:
             self._before_commit()
         self._connection.commit()
         self._committed = True
+
+
+class PostgresOrganizationMembershipRepository:
+    """Same-connection membership writer, never a separate commit or SQL session.
+
+    The parent and overlap guards are enforced by migration 0015. The UoW
+    uses the same scope lock for request replay, membership writes and evidence.
+    """
+
+    def __init__(self, uow: PostgresUnitOfWork) -> None:
+        self._uow = uow
+
+    def latest(
+        self, *, scope: ConfigurationScope, membership_id: MembershipId
+    ) -> OrganizationMembership | None:
+        self._uow._bind_scope(scope)
+        if not isinstance(membership_id, MembershipId):
+            raise InvalidScope("Typed membership id required")
+        row = self._uow._connection.execute(
+            "SELECT membership_id,tenant_id,company_id,legal_entity_id,kind,"
+            "exclusive,valid_from,valid_to,recorded_at,source_ref,revision "
+            "FROM company_configuration.organizational_membership_revisions "
+            "WHERE tenant_id=%s AND company_id=%s AND legal_entity_id=%s "
+            "AND membership_id=%s ORDER BY revision DESC LIMIT 1",
+            (scope.tenant_id, scope.company_id.value,
+             scope.legal_entity_id.value, membership_id.value),
+        ).fetchone()
+        if row is None:
+            return None
+        return OrganizationMembership(
+            MembershipId(row["membership_id"]), row["tenant_id"],
+            CompanyId(row["company_id"]), LegalEntityId(row["legal_entity_id"]),
+            MembershipKind(row["kind"]), row["exclusive"],
+            EffectiveInterval(row["valid_from"], row["valid_to"]),
+            row["recorded_at"], row["source_ref"], row["revision"],
+        )
+
+    def append(
+        self, *, scope: ConfigurationScope, membership: OrganizationMembership
+    ) -> None:
+        self._uow._bind_scope(scope)
+        if (
+            not isinstance(membership, OrganizationMembership)
+            or membership.tenant_id != scope.tenant_id
+            or membership.company_id != scope.company_id
+            or membership.legal_entity_id != scope.legal_entity_id
+        ):
+            raise InvalidScope("Membership must match transaction's exact scope")
+        self._uow._connection.execute(
+            "INSERT INTO company_configuration.organizational_membership_revisions "
+            "(tenant_id,membership_id,revision,company_id,legal_entity_id,"
+            "kind,exclusive,valid_from,valid_to,recorded_at,source_ref) "
+            "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+            (
+                membership.tenant_id, membership.id.value, membership.revision,
+                membership.company_id.value, membership.legal_entity_id.value,
+                membership.kind.value, membership.exclusive, membership.valid.start,
+                membership.valid.end, membership.recorded_at, membership.source_ref,
+            ),
+        )

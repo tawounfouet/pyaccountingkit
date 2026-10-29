@@ -28,4 +28,10 @@ L02-07l provided a SQL owner-controlled, append-only, two-person manual DEAD-let
 4. A successful ACK re-drive is **not** evidence that SQL role DDL was prevented, a `DEAD` incident was closed, or an `ALREADY_CONSUMED` event was remediated.
 5. The delivery process still needs independently deployed supervision, metrics/alerts, secrets/TLS/logging, provider idempotence verification, failover/restore and G0/G1/G2 security/architecture sign-offs. Draft PR remains unmerged, no stable release.
 
-**Exact implementation SHA and CI workflow results:** append only after observing completed success for Python 3.11/3.12 and PostgreSQL 16.
+## Verified exact-SHA qualification
+
+- **Implementation commit:** `60c46d8e34e6a4ed9a7e54b831a7de502eff8b65`.
+- [PostgreSQL CI #40938532376](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40938532376): **125 passed per Python 3.11 and 3.12**, Ruff green. Three new PostgreSQL integration cases prove signed operator and checker through actual SQL recovery, forged signature refusal without mutation, and role capability separation.
+- [Python CI #40938532349](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40938532349): **282 passed, 17 PostgreSQL-only skipped per Python 3.11 and 3.12**, Ruff green. Twenty-five new unit tests cover signed recovery proof scope, cryptographic failures, expiry, double-read changes, policy revocation and startup guards.
+
+**CI fixtures only:** signing keys and independent approval sources are test-generated and in-memory. No real connected IAM, production workload isolation, or accepted G0/G1/G2.

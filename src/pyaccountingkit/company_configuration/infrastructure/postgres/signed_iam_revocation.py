@@ -10,10 +10,15 @@ from dataclasses import dataclass
 from typing import Protocol
 from uuid import UUID
 
-import psycopg
-
 from ...application.privileged_operations import PrivilegedAccessDenied
 from ..iam.signed_evidence import PinnedSignedEvidenceVerifier, SignedEvidenceTrust
+
+
+def _connect(dsn: str):
+    # PostgreSQL is an optional dependency; pure unit consumers must still import.
+    import psycopg
+
+    return psycopg.connect(dsn)
 
 
 class IAMRevocationAckPending(RuntimeError):
@@ -83,7 +88,7 @@ class SignedIAMRevocationAcknowledger:
         except (TypeError, ValueError, KeyError) as exc:
             raise PrivilegedAccessDenied("Invalid signed revocation event") from exc
         digest = hashlib.sha256(signed_event.encode("ascii")).hexdigest()
-        with psycopg.connect(self._dsn) as conn:
+        with _connect(self._dsn) as conn:
             login = conn.execute("SELECT session_user").fetchone()[0]
             if login != "cc_iam_revocation":
                 raise PrivilegedAccessDenied("Dedicated IAM revocation SQL login required")

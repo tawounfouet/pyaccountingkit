@@ -21,11 +21,11 @@ from pyaccountingkit.company_configuration.application.fence_contract import (
 from pyaccountingkit.company_configuration.infrastructure.iam.signed_evidence import (
     SignedEvidenceTrust,
 )
-from pyaccountingkit.company_configuration.infrastructure.postgres.delegated_control_plane import (
-    DelegatedPrivilegedControlPlane,
-)
 from pyaccountingkit.company_configuration.infrastructure.postgres import (
     signed_iam_revocation,
+)
+from pyaccountingkit.company_configuration.infrastructure.postgres.delegated_control_plane import (
+    DelegatedPrivilegedControlPlane,
 )
 
 ADMIN = os.getenv("CC_PG_ADMIN_DSN")

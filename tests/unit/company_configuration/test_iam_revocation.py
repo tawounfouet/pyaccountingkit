@@ -105,7 +105,7 @@ def test_valid_signed_event_writes_exact_scoped_digest(monkeypatch, signed):
 
     private, claims, trust = signed
     db = FakeDB()
-    monkeypatch.setattr(signed_iam_revocation.psycopg, "connect", lambda dsn: db)
+    monkeypatch.setattr(signed_iam_revocation, "_connect", lambda dsn: db)
     token = jws(private, claims)
     receipt = SignedIAMRevocationAcknowledger(dsn="test-secret", trust=trust).apply(token)
     assert receipt.status == "APPLIED" and receipt.request_id == uuid4_from(claims["request_id"])
@@ -138,7 +138,7 @@ def test_wrong_signed_revocation_is_denied_before_sql(monkeypatch, signed, field
 
     private, claims, trust = signed
     called = []
-    monkeypatch.setattr(signed_iam_revocation.psycopg, "connect", lambda dsn: called.append(dsn))
+    monkeypatch.setattr(signed_iam_revocation, "_connect", lambda dsn: called.append(dsn))
     claims[field] = value
     with pytest.raises(PrivilegedAccessDenied):
         SignedIAMRevocationAcknowledger(dsn="test-secret", trust=trust).apply(
@@ -154,7 +154,7 @@ def test_invalid_signer_and_unknown_kid_denied_without_sql(monkeypatch, signed):
 
     _private, claims, trust = signed
     called = []
-    monkeypatch.setattr(signed_iam_revocation.psycopg, "connect", lambda dsn: called.append(dsn))
+    monkeypatch.setattr(signed_iam_revocation, "_connect", lambda dsn: called.append(dsn))
     with pytest.raises(PrivilegedAccessDenied):
         SignedIAMRevocationAcknowledger(dsn="test-secret", trust=trust).apply(
             jws(Ed25519PrivateKey.generate(), claims)
@@ -169,7 +169,7 @@ def test_wrong_sql_role_is_fail_closed(monkeypatch, signed):
 
     private, claims, trust = signed
     db = FakeDB(login="postgres")
-    monkeypatch.setattr(signed_iam_revocation.psycopg, "connect", lambda dsn: db)
+    monkeypatch.setattr(signed_iam_revocation, "_connect", lambda dsn: db)
     with pytest.raises(PrivilegedAccessDenied, match="Dedicated IAM revocation"):
         SignedIAMRevocationAcknowledger(dsn="owner-secret", trust=trust).apply(
             jws(private, claims)

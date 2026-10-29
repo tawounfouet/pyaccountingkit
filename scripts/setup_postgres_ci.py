@@ -70,6 +70,14 @@ with psycopg.connect(admin_dsn, autocommit=True) as conn:
                     "TO {}"
                 ).format(sql.Identifier(role))
             )
+            conn.execute(
+                sql.SQL(
+                    "GRANT SELECT, INSERT ON "
+                    "company_configuration.organization_command_requests, "
+                    "company_configuration.organization_command_audit, "
+                    "company_configuration.organization_command_outbox TO {}"
+                ).format(sql.Identifier(role))
+            )
         elif category == "dispatcher":
             conn.execute(
                 sql.SQL("GRANT SELECT ON company_configuration.outbox_events TO {}")
@@ -94,6 +102,11 @@ with psycopg.connect(admin_dsn, autocommit=True) as conn:
                 ).format(sql.Identifier(role))
             )
         elif category == "unbound":
+            conn.execute(
+                sql.SQL(
+                    "GRANT SELECT ON company_configuration.organization_command_outbox TO {}"
+                ).format(sql.Identifier(role))
+            )
             conn.execute(
                 sql.SQL("GRANT SELECT ON company_configuration.organizational_companies TO {}")
                 .format(sql.Identifier(role))

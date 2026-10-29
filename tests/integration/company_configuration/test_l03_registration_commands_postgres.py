@@ -40,8 +40,8 @@ from pyaccountingkit.company_configuration.domain.shared.identifiers import (  #
 from pyaccountingkit.company_configuration.domain.shared.references import (  # noqa: E402
     JurisdictionCode,
 )
-from pyaccountingkit.company_configuration.infrastructure.postgres.organization_registration import (  # noqa: E402
-    PostgresOrganizationRegistrationUnitOfWork,
+from pyaccountingkit.company_configuration.infrastructure.postgres import (  # noqa: E402
+    organization_registration,
 )
 
 ADMIN = os.getenv("CC_PG_ADMIN_DSN")
@@ -105,7 +105,7 @@ def service(*, before_commit=None, dsn=APP, tenant="tenant-a"):
     ):
         authorizer.grant(actor, action, tenant)
     svc = OrganizationRegistrationService(
-        lambda: PostgresOrganizationRegistrationUnitOfWork(
+        lambda: organization_registration.PostgresOrganizationRegistrationUnitOfWork(
             dsn, before_commit=before_commit,
         ),
         authorizer, FixedClock(),

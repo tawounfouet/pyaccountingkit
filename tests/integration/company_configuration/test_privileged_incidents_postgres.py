@@ -30,8 +30,8 @@ from pyaccountingkit.company_configuration.infrastructure.postgres.privileged_au
 from pyaccountingkit.company_configuration.infrastructure.postgres.privileged_incidents import (
     PostgresPrivilegedIncidentRepository,
 )
-from pyaccountingkit.company_configuration.infrastructure.postgres.privileged_reconciliation import (
-    PostgresPrivilegedReviewRepository,
+from pyaccountingkit.company_configuration.infrastructure.postgres import (
+    privileged_reconciliation,
 )
 
 ADMIN = os.getenv("CC_PG_ADMIN_DSN")
@@ -87,7 +87,8 @@ def create_incident(*, tenant="tenant-a", terminal=None):
         request=req, actor=operator, approval=approval,
         recorded_at=NOW - timedelta(minutes=30),
     )
-    result = PostgresPrivilegedReviewRepository(ADMIN).mark_stale(
+    repository = privileged_reconciliation.PostgresPrivilegedReviewRepository(ADMIN)
+    result = repository.mark_stale(
         tenant_id=tenant, reviewer_id="original-reviewer",
         cutoff=NOW - timedelta(minutes=5), detected_at=NOW, limit=100,
     )

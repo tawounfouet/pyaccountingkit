@@ -57,3 +57,11 @@ G0/G1/G2 are **not signed off**. No stable release, real IAM, independently secu
 - Tenant-scoped `PrivilegedReconciliationService` requires verified reviewer identity and independent current review grant. PostgreSQL repository uses bounded age cutoff, `FOR UPDATE SKIP LOCKED`, and unique per-request review evidence.
 - Unit tests: 28 passed locally for old+new privileged services (Python 3.13). Implementation `23cdb621363ac9876b5e46f911a8199e78b4a599`: [PostgreSQL CI #40879514472](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40879514472) **63 passed per Python 3.11/3.12**, Ruff green; [Python CI #40879514299](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40879514299) **136 passed and 8 skipped per version**, Ruff green. This is not G2 or security approval.
 - **Not G2**: no external IdP/approval, no IAM fencing across DDL, no incident closure/replay, no admin DSN isolation, no signed ADR, no G0/G1/G2 sign-off.
+
+## L02-07d - Privileged Incident Control Plane (IN PROGRESS / NO G2)
+
+- Append-only owner-only incident decision records and independent denied-decision stream, SQL migration `0007` (prior checksum-preserving migrations untouched).
+- Trusted AuthN and current-grant/independent approval **ports**, with four distinct effective actors (original SQL actor, orphan reviewer, incident investigator and checker).
+- A decision may be only `ESCALATED`, `REMEDIATION_REQUIRED` or `INVESTIGATION_DOCUMENTED`. Historical DDL result always remains **UNKNOWN**, with no role mutation, credential rotation or automated replay.
+- SQL row locking, unique review decision, late-terminal exclusion, tenant boundary checks and append-only audit tests. Local unit slice: 28 passed. CI PostgreSQL evidence pending exact SHA.
+- Pending real IAM/IdP, protected control-plane deployment, leased permission fencing, evidence-signature and retention, independent security review and G0/G1/G2 approval. This is a code candidate only.

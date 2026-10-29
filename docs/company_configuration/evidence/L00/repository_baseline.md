@@ -1,6 +1,6 @@
 # L00 - Canonical repository baseline (2026-10-29)
 
-Status: **OBSERVED / G0 NOT APPROVED**
+Status: **OBSERVED / G0 NOT APPROVED — standalone recent-repository scope**
 
 ## Repository identity
 
@@ -30,7 +30,7 @@ There were no existing source files, tests or migrations to run before initial b
 | Policy, dimensions, governance | MISSING | Empty repo | DEFER to L07-L09 |
 | C10 producer and consumer proof | MISSING | Empty repo | DEFER to L10 |
 | UI / Configuration Explorer | MISSING | Empty repo | DEFER to L11 |
-| Historical artifact reuse decision | UNKNOWN | Other code locations not audited | REVIEW before declaring G0 |
+| Historical artifact reconciliation | DEFERRED / OUTSIDE STANDALONE G0 | Historical codebase separately identified; explicit [ADR-CC-00A](ADR_CC_00A_STANDALONE_FOUNDATION_SCOPE.md) sequencing | Complete recent repo Foundation first, then separate integration ADR |
 
 ## Preliminary work planned on this branch
 
@@ -38,12 +38,12 @@ There were no existing source files, tests or migrations to run before initial b
 - Provisional ADR notes (not approved).
 - CI to **run** checks; an unobserved CI run is not evidence that CI is green.
 
-## Pending G0 sign-off
+## Pending G0 sign-off (recent-repository standalone scope)
 
 - [x] Canonical repository URL and pre-bootstrap no-commit state recorded.
 - [x] Bootstrap SHA and foundation branch recorded.
 - [x] First gap matrix for this GitHub repository.
-- [ ] Reconcile any historical codebase/package in separate locations.
+- [x] Record existing historical codebase as a **separate deferred integration/release workstream** (product-owner sequencing in ADR-CC-00A). No historical reconciliation is required to qualify this repository's standalone **development Foundation**.
 - [ ] Review/approve ADRs for identity, multi-tenant isolation and placement.
 - [ ] Record a reviewed, reproducible CI baseline on the exact branch SHA.
 - [ ] Reviewer approval of G0 decision.

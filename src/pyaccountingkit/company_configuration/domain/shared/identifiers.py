@@ -62,3 +62,13 @@ class ConfigurationDraftId(_UUIDIdentifier):
 @dataclass(frozen=True, slots=True)
 class ConfigurationVersionId(_UUIDIdentifier):
     """Stable identity of a configuration version."""
+
+
+@dataclass(frozen=True, slots=True)
+class EstablishmentId(_UUIDIdentifier):
+    """Stable identity for a site, never a separate legal entity or book."""
+
+
+@dataclass(frozen=True, slots=True)
+class MembershipId(_UUIDIdentifier):
+    """Stable identity of a dated organizational membership."""

@@ -13,11 +13,11 @@ import signal
 import time
 from dataclasses import asdict
 
+from ..postgres.iam_ack_operations import PostgresIamAckMetrics
+from ..postgres.iam_ack_outbox import PostgresIamAckOutbox
 from .ack_delivery import IamAckDeliveryWorker
 from .ack_operations import IamAckOperationsRunner
 from .http_revocation_source import HttpsIamRevocationSource
-from ..postgres.iam_ack_operations import PostgresIamAckMetrics
-from ..postgres.iam_ack_outbox import PostgresIamAckOutbox
 
 
 class JsonTelemetry:

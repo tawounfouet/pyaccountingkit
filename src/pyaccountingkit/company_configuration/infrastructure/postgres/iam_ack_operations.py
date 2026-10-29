@@ -1,6 +1,7 @@
 """Read-only metrics and scoped DEAD-letter recovery via restricted SQL grants."""
 
 from dataclasses import dataclass
+
 import psycopg
 
 from ...application.iam_ack_recovery import DeadAckDelivery, RedriveRequest

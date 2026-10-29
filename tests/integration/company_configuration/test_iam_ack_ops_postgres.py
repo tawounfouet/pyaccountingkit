@@ -36,6 +36,26 @@ pytestmark = pytest.mark.skipif(
 )
 
 
+_created_dead_events = []
+
+
+@pytest.fixture(autouse=True)
+def cleanup_dead_letter_test_events():
+    # L02-07k tests share this database: never leave reactivated RETRY items
+    # to be claimed by unrelated delivery tests later in the suite.
+    first = len(_created_dead_events)
+    yield
+    new_ids = _created_dead_events[first:]
+    if new_ids and ADMIN:
+        with psycopg.connect(ADMIN) as conn:
+            conn.execute(
+                "UPDATE company_configuration.privileged_iam_ack_outbox "
+                "SET state='DELIVERED',lease_token=NULL,lease_until=NULL, "
+                "delivered_at=clock_timestamp(),error_code=NULL "
+                "WHERE event_id=ANY(%s::uuid[])", (new_ids,),
+            )
+
+
 def make_dead(role):
     item = VerifiedIamRevocation(
         uuid4(), uuid4(), "tenant-a", role, "rotate", "issuer", "kid", "revoker",
@@ -48,6 +68,7 @@ def make_dead(role):
             "state='DEAD',attempts=5,error_code='HTTP_REJECTED' "
             "WHERE event_id=%s", (item.event_id,),
         )
+    _created_dead_events.append(item.event_id)
     return item
 
 
@@ -60,7 +81,9 @@ def read_state(event_id):
         ).fetchone()
 
 
-def req(item, approval="independent-approval-1"):
+def req(item, approval=None):
+    if approval is None:
+        approval = f"independent-approval-{uuid4()}"
     return RedriveRequest(
         item.event_id, item.request_id, "tenant-a", approval,
         "incident-evidence-123", "PROVIDER_RECOVERED",
@@ -82,7 +105,7 @@ def test_recovery_reactivates_dead_with_append_only_decision(request):
             "WHERE event_id=%s", (item.event_id,),
         ).fetchone()
         assert row == ("investigator", "checker", 1, "HTTP_REJECTED")
-        with pytest.raises(psycopg.errors.RaiseException):
+        with pytest.raises(psycopg.errors.CheckViolation):
             conn.execute(
                 "UPDATE company_configuration.privileged_iam_ack_redrive_decisions "
                 "SET reason_code='INCIDENT_REVIEWED' WHERE event_id=%s",
@@ -111,7 +134,8 @@ def test_recovery_requires_new_approval_and_has_two_redrive_limit(request):
     role, _ = request.getfixturevalue("account")
     item = make_dead(role)
     repo = PostgresIamDeadAckRecovery(RECOVERY)
-    assert repo.redrive(req(item), actor_id="operator", approver_id="checker") == 1
+    original = req(item)
+    assert repo.redrive(original, actor_id="operator", approver_id="checker") == 1
     with psycopg.connect(ADMIN) as conn:
         conn.execute(
             "UPDATE company_configuration.privileged_iam_ack_outbox SET "
@@ -119,9 +143,9 @@ def test_recovery_requires_new_approval_and_has_two_redrive_limit(request):
             (item.event_id,),
         )
     with pytest.raises(psycopg.errors.UniqueViolation):
-        repo.redrive(req(item), actor_id="operator", approver_id="checker")
+        repo.redrive(original, actor_id="operator", approver_id="checker")
     assert repo.redrive(
-        req(item, "independent-approval-2"), actor_id="operator", approver_id="checker"
+        req(item), actor_id="operator", approver_id="checker"
     ) == 2
     with psycopg.connect(ADMIN) as conn:
         conn.execute(
@@ -131,7 +155,7 @@ def test_recovery_requires_new_approval_and_has_two_redrive_limit(request):
         )
     with pytest.raises(psycopg.errors.InsufficientPrivilege):
         repo.redrive(
-            req(item, "independent-approval-3"),
+            req(item),
             actor_id="operator", approver_id="checker",
         )
     assert read_state(item.event_id)[2] == 2
@@ -139,7 +163,7 @@ def test_recovery_requires_new_approval_and_has_two_redrive_limit(request):
 
 def test_delivery_can_only_read_aggregate_metrics_not_dlq_rows(request):
     role, _ = request.getfixturevalue("account")
-    item = make_dead(role)
+    make_dead(role)
     snapshot = PostgresIamAckMetrics(DELIVERY).snapshot()
     assert snapshot.dead >= 1
     assert snapshot.due_count >= 0 and snapshot.oldest_open_seconds >= 0

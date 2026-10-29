@@ -8,6 +8,8 @@ import pytest
 
 psycopg = pytest.importorskip("psycopg")
 
+from test_postgres_uow import build_service, create, rename  # noqa: E402
+
 from pyaccountingkit.company_configuration.application.service import (  # noqa: E402
     LegalEntityService,
     PermissionDenied,
@@ -21,7 +23,6 @@ from pyaccountingkit.company_configuration.infrastructure.postgres.denials impor
 from pyaccountingkit.company_configuration.infrastructure.postgres.dispatch import (  # noqa: E402
     PostgresOutboxDispatcher,
 )
-from test_postgres_uow import build_service, create, rename  # noqa: E402
 
 ADMIN_DSN = os.getenv("CC_PG_ADMIN_DSN")
 APP_DSN = os.getenv("CC_PG_DSN")

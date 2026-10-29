@@ -20,11 +20,11 @@ from pyaccountingkit.company_configuration.application.privileged_operations imp
 from pyaccountingkit.company_configuration.application.privileged_reconciliation import (  # noqa: E402
     PrivilegedReconciliationService,
 )
-from pyaccountingkit.company_configuration.infrastructure.postgres.privileged_audit import (  # noqa: E402
-    PostgresPrivilegedAudit,
+from pyaccountingkit.company_configuration.infrastructure.postgres import (
+    privileged_reconciliation,
 )
-from pyaccountingkit.company_configuration.infrastructure.postgres.privileged_reconciliation import (
-    PostgresPrivilegedReviewRepository,
+from pyaccountingkit.company_configuration.infrastructure.postgres.privileged_audit import (
+    PostgresPrivilegedAudit,
 )
 
 ADMIN = os.getenv("CC_PG_ADMIN_DSN")
@@ -54,7 +54,7 @@ class Policy:
 def service():
     return PrivilegedReconciliationService(
         identity=Identity(), policy=Policy(),
-        repository=PostgresPrivilegedReviewRepository(ADMIN), clock=Clock(),
+        repository=privileged_reconciliation.PostgresPrivilegedReviewRepository(ADMIN), clock=Clock(),
     )
 
 

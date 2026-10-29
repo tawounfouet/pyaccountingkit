@@ -117,3 +117,11 @@ G0/G1/G2 are **not signed off**. No stable release, real IAM, independently secu
 - Pure tests cover tamper, expiry, bad algorithms and broken settings. PostgreSQL integration uses CI-generated Ed25519 keys and a local **trusted fake approval store** for an end-to-end restricted SQL role action, plus forged signature and wrong approval scope denials.
 - No production IdP/approval provider, anti-replay store/mTLS binding, external revocation ACK, actual isolated workload, WORM evidence, G0/G1/G2 acceptance or release. This remains a draft candidate.
 - **Implementation SHA `2b6aafe1ef8bf5fc5599502b900531c9920e8c6b`**: [PostgreSQL CI #40922185351](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40922185351) **101 passed per Python 3.11/3.12**, Ruff green; [Python CI #40922185433](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40922185433) **206 passed and 13 PostgreSQL-only skipped per version**, Ruff green. Approval signing keys and evidence source are ephemeral CI fixtures. **No real IdP, external IAM approval contract, workload isolation or G0/G1/G2 approval.**
+
+## L02-07j - Signed IAM revocation delivery and durable SQL ACK (CI PENDING)
+
+- Migration `0011_iam_revocation_ack.sql`: independent owner-only append-only revocation receipts, exactly scoped event UUID + SHA-256 evidence digest, three explicit statuses `APPLIED`/`ALREADY_REVOKED`/`TOO_LATE`, single SQL transaction under the existing fence row lock. Does not infer success after a consumed fence.
+- Pinned Ed25519 `kind=revocation` proof and `SignedIAMRevocationAcknowledger`: verifies external signature before SQL and requires dedicated `cc_iam_revocation` login. This database role has only EXECUTE on the narrow ack function, no table or SQL DDL access.
+- Bounded `IAMRevocationSynchronizer` receives events via a `TrustedIAMRevocationEventSource` port and acknowledges delivery to the external source only **after** SQL commit. If remote ACK fails, the SQL receipt is retained; retry is idempotent.
+- Independent CI test keys and fake source; **no live IAM or webhook**, no actual provider revocation/ACK protocol, and no workload mTLS/physical isolation. G0/G1/G2 and ADR-CC-08J unsigned. No stable release.
+- Exact-SHA CI qualification to follow once GitHub workflows finish.

@@ -31,6 +31,9 @@ _OPERATOR_FIELDS = {"iss", "aud", "kind", "sub", "tenant_id", "iat", "nbf", "exp
 _APPROVAL_FIELDS = _OPERATOR_FIELDS | {
     "approval_id", "request_id", "login_role", "operation", "issued_at", "expires_at"
 }
+_REVOCATION_FIELDS = _OPERATOR_FIELDS | {
+    "request_id", "approval_id", "login_role", "operation", "revoked_at",
+}
 
 
 def _no_duplicate_keys(pairs: list[tuple[str, object]]) -> dict[str, object]:
@@ -84,7 +87,7 @@ class SignedEvidenceTrust:
     clock_skew_seconds: int = 0
 
     def __post_init__(self) -> None:
-        if self.kind not in ("operator", "approval"):
+        if self.kind not in ("operator", "approval", "revocation"):
             raise ValueError("Explicit evidence kind required")
         if not self.issuer or not self.audience or not self.keys:
             raise ValueError("Pinned issuer, audience and keys required")
@@ -135,7 +138,11 @@ class PinnedSignedEvidenceVerifier:
                 _decode(signature), f"{header}.{payload}".encode("ascii")
             )
             claims = _json_object(_decode(payload))
-            accepted = _OPERATOR_FIELDS if self._trust.kind == "operator" else _APPROVAL_FIELDS
+            accepted = {
+                "operator": _OPERATOR_FIELDS,
+                "approval": _APPROVAL_FIELDS,
+                "revocation": _REVOCATION_FIELDS,
+            }[self._trust.kind]
             if set(claims) != accepted:
                 raise ValueError("Unexpected signed claims")
             if (

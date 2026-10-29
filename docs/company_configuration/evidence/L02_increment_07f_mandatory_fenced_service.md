@@ -25,3 +25,12 @@ L02-07e supplied a PostgreSQL-local fencing primitive, but the main PrivilegedRo
 ## Verification
 
 CI should run PostgreSQL 16 and Python 3.11/3.12. Do not claim green until exact GitHub Actions runs are observed.
+
+## Exact-SHA automated verification
+
+Implementation commit `f832e523869df5373637d921900f0a0bcf04e945` passed:
+
+- [PostgreSQL CI #40913070187](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40913070187): **81 tests passed** per Python 3.11 and Python 3.12, Ruff green. The test suite includes the end-to-end normal service -> SQL fence -> ALTER ROLE -> CONSUMED evidence proof.
+- [Python CI #40913070382](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40913070382): **169 tests passed, 10 SQL-only skipped** per Python 3.11 and Python 3.12, Ruff green. Legacy `roles=` constructor denial and fail-closed fence issuance tested.
+
+This is automated qualification of the main application path **only**. External IAM, a deployed isolated privileged service, owner-DSN protection and operational incident/runbook proof are still incomplete. G0/G1/G2 remain unsigned.

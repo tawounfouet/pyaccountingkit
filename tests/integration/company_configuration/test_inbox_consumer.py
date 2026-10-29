@@ -9,7 +9,6 @@ import pytest
 
 psycopg = pytest.importorskip("psycopg")
 from psycopg.rows import dict_row  # noqa: E402
-
 from test_postgres_uow import build_service, create  # noqa: E402
 
 from pyaccountingkit.company_configuration.infrastructure.postgres.dispatch import (  # noqa: E402

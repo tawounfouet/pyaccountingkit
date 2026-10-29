@@ -21,6 +21,7 @@ from pyaccountingkit.company_configuration.infrastructure.postgres.denials impor
     PostgresDenialAudit,
 )
 from pyaccountingkit.company_configuration.infrastructure.postgres.dispatch import (  # noqa: E402
+    DeliveryLeaseLost,
     PostgresOutboxDispatcher,
 )
 
@@ -251,3 +252,110 @@ def test_denial_audit_failure_never_allows_a_forbidden_command():
         assert conn.execute(
             "SELECT count(*) FROM company_configuration.legal_entities"
         ).fetchone()[0] == 0
+
+
+def test_expired_delivery_lease_cannot_ack_even_without_competing_worker():
+    """A stale ack must fail even before the next claim fences its token."""
+    scope, actor, _, service = build_service()
+    service.create(create(scope), principal=actor)
+    clock = Clock()
+    publisher = CollectingPublisher()
+    old_worker = make_dispatcher(scope.tenant_id, publisher, clock)
+    claims = old_worker._claim(1)
+    assert len(claims) == 1
+    clock.advance(seconds=5)  # lease_seconds=4
+    with pytest.raises(DeliveryLeaseLost, match="Lost outbox lease"):
+        old_worker._complete(claims[0], failure=None)
+    with psycopg.connect(ADMIN_DSN) as conn:
+        row = conn.execute(
+            "SELECT attempts,delivered_at,dead_letter_at "
+            "FROM company_configuration.outbox_delivery"
+        ).fetchone()
+        assert row == (1, None, None)
+    restarted = make_dispatcher(
+        scope.tenant_id, publisher, clock, worker="new-worker",
+    )
+    assert restarted.dispatch_once().delivered == 1
+    with psycopg.connect(ADMIN_DSN) as conn:
+        assert conn.execute(
+            "SELECT attempts,delivered_at IS NOT NULL "
+            "FROM company_configuration.outbox_delivery"
+        ).fetchone() == (2, True)
+
+
+def test_final_attempt_crash_is_dead_lettered_without_extra_publish():
+    """A publisher succeeded before the final lease expired; no extra attempt."""
+    scope, actor, _, service = build_service()
+    created = service.create(create(scope), principal=actor)
+    clock = Clock()
+    publisher = CollectingPublisher()
+    first = make_dispatcher(scope.tenant_id, publisher, clock, attempts=1)
+    claim = first._claim(1)
+    assert len(claim) == 1 and claim[0].attempts == 1
+    publisher.publish(claim[0].event)  # external side effect succeeded
+    # Process dies before calling _complete; no ack or failure transition.
+    clock.advance(seconds=5)
+    restarted = make_dispatcher(
+        scope.tenant_id, publisher, clock, attempts=1, worker="restart",
+    )
+    assert restarted.dispatch_once().claimed == 0
+    assert len(publisher.events) == 1
+    assert str(publisher.events[0].event_id) == created.event_id
+    with psycopg.connect(ADMIN_DSN) as conn:
+        delivery = conn.execute(
+            "SELECT attempts,dead_letter_at IS NOT NULL,delivered_at,"
+            "lease_owner,lease_token,lease_until,last_error "
+            "FROM company_configuration.outbox_delivery"
+        ).fetchone()
+        assert delivery == (1, True, None, None, None, None, "LEASE_EXPIRED")
+        assert conn.execute(
+            "SELECT count(*) FROM company_configuration.outbox_events"
+        ).fetchone()[0] == 1
+    clock.advance(seconds=500)
+    assert restarted.dispatch_once().claimed == 0
+
+
+def test_expired_last_lease_not_dead_lettered_until_it_actually_expires():
+    scope, actor, _, service = build_service()
+    service.create(create(scope), principal=actor)
+    clock = Clock()
+    publisher = CollectingPublisher()
+    worker = make_dispatcher(scope.tenant_id, publisher, clock, attempts=1)
+    claim = worker._claim(1)
+    assert len(claim) == 1
+    assert worker.dispatch_once().claimed == 0
+    with psycopg.connect(ADMIN_DSN) as conn:
+        assert conn.execute(
+            "SELECT dead_letter_at,attempts FROM "
+            "company_configuration.outbox_delivery"
+        ).fetchone() == (None, 1)
+    # The legitimately leased worker can still finish before the deadline.
+    assert not worker._complete(claim[0], failure=None)
+    with psycopg.connect(ADMIN_DSN) as conn:
+        assert conn.execute(
+            "SELECT delivered_at IS NOT NULL,dead_letter_at FROM "
+            "company_configuration.outbox_delivery"
+        ).fetchone() == (True, None)
+
+
+def test_exhausted_unleased_attempt_cannot_be_reclaimed():
+    """A previously committed max attempts without a lease also fails shut."""
+    scope, actor, _, service = build_service()
+    service.create(create(scope), principal=actor)
+    clock = Clock()
+    publisher = CollectingPublisher()
+    worker = make_dispatcher(scope.tenant_id, publisher, clock, attempts=2)
+    with psycopg.connect(ADMIN_DSN) as conn:
+        conn.execute(
+            "INSERT INTO company_configuration.outbox_delivery "
+            "(tenant_id,event_id,attempts,available_at) "
+            "SELECT tenant_id,event_id,2,clock_timestamp() "
+            "FROM company_configuration.outbox_events"
+        )
+    assert worker.dispatch_once().claimed == 0
+    assert publisher.events == []
+    with psycopg.connect(ADMIN_DSN) as conn:
+        assert conn.execute(
+            "SELECT attempts,dead_letter_at IS NOT NULL,last_error "
+            "FROM company_configuration.outbox_delivery"
+        ).fetchone() == (2, True, "LEASE_EXPIRED")

@@ -40,6 +40,21 @@ This pre-merge qualification is not permission to edit immutable migrations in a
 | FND-C05 durable Outbox/Inbox | #30; stale lease ACK and bounded retry; transactional Inbox and Hexagonal tests | Exact-head Python and PostgreSQL integration |
 | FND-C06 distribution package | This PR | Immutable SQL source, wheel/sdist resource parity and clean wheel import |
 
+## Pre-merge CI proof: exact implementation checkpoint
+
+**Verified pre-documentation head:** `662679ad014436300e40b86a3ec4ef0e2d42b7ce`. All four GitHub Actions workflows **completed SUCCESS** on both Python 3.11 and 3.12:
+
+| Workflow | GitHub Actions run | Actual per-version results |
+|---|---|---|
+| Python CI | [#40954461960](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40954461960) | **289 passed / 18 skipped**, Ruff green |
+| PostgreSQL 16 | [#40954462042](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40954462042) | **136 passed**, Ruff green |
+| FND-C04 migration and logical restoration | [#40954462202](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40954462202) | **6 passed**, Ruff green |
+| FND-C06 wheel/sdist and SQL provenance | [#40954462187](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40954462187) | **14 byte-identical migrations pinned to #30 checkpoint, wheel/sdist SHA256 verified, fresh wheel installation/imports pass**, Ruff green |
+
+The artifact workflow outputs one SHA256 per migration in the job logs; these reflect byte-level identity with the reviewed predecessor `70593b9a7ac08683f2776a18c15988d2ddbaf9a6`. These are actual automated tests, **not a security sign-off**.
+
+**Verification caveat:** any subsequent documentation-only commit changes the PR head SHA and must pass its own four workflows before being called *exact-head* qualified. The `main` SHA is still the original bootstrap; post-merge qualification has not been performed.
+
 ## Review blockers — not waived by green CI
 
 - **G0** — explicit ADR disposition (identity/tenant/book scope, time/versioning, package topology, deployment/trust assumptions), independent reviewer identity and written decision.

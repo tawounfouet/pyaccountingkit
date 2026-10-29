@@ -2,9 +2,11 @@
 
 Date: 2026-10-29
 
+> **Implementation sequencing clarification (project owner):** complete G0/G1/G2 in this **recent** repository first. The mature historical repository and its packaging/API reconciliation are a **deferred second workstream**, not an acceptance prerequisite for this repository's development Foundation. See [ADR-CC-00A](evidence/L00/ADR_CC_00A_STANDALONE_FOUNDATION_SCOPE.md) and [standalone closure checklist](evidence/PHASE_1_STANDALONE_FOUNDATION_CLOSURE_CHECKLIST.md). This does not approve any gate, merge or production security control. Latest full-stack consolidation candidate backports the G1 timezone/DST correction from PR #3.
+
 | Gate | Status | Evidence |
 |---|---|---|
-| G0 - Audit/baseline | PENDING REVIEW | `evidence/L00/repository_baseline.md`; historical repository/package reconciliation still open; issue #1 |
+| G0 - Audit/baseline | PENDING REVIEW — standalone recent repo | `evidence/L00/repository_baseline.md`, `evidence/L00/ADR_CC_00A_STANDALONE_FOUNDATION_SCOPE.md`; historical integration explicitly deferred; issue #1 |
 | G1 - Domain kernel | IN PROGRESS | L01 typed VOs, `LegalEntity` aggregate and property tests; issue #2 |
 | G2 - Technical foundations | IN PROGRESS / NOT APPROVED | L02-01 memory, L02-02 PostgreSQL, L02-03 Outbox/denial, L02-04 Inbox and L02-05 tenant-role security candidate; issue #5 and security blocker #9 |
 

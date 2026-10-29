@@ -149,7 +149,10 @@ def test_foreign_actor_approval_tenant_or_operation_denied(login):
         FencedRoleOperation(permit.request_id, "tenant-a", name, "rotate", "op-a", "wrong"),
     ):
         with pytest.raises(PrivilegedFenceDenied):
-            fence.execute(scope, new_password="long-invalid-ci-secret-1234")
+            if scope.operation == "revoke":
+                fence.execute(scope)
+            else:
+                fence.execute(scope, new_password="long-invalid-ci-secret-1234")
     assert audit(permit.request_id) == ("ACTIVE", ["ISSUED"])
 
 

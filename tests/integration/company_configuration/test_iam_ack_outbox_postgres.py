@@ -73,8 +73,8 @@ def source(transport):
     )
 
 
-def test_sql_receipt_atomically_enqueues_ack_and_worker_delivers(account):
-    role, _ = account
+def test_sql_receipt_atomically_enqueues_ack_and_worker_delivers(request):
+    role, _ = request.getfixturevalue('account')
     event = evidence(role)
     assert PostgresIamRevocationRepository(IAM).apply(event) == 'TOMBSTONED'
     assert status(event.event_id) == ('PENDING', 0, None, 'TOMBSTONED')
@@ -87,8 +87,8 @@ def test_sql_receipt_atomically_enqueues_ack_and_worker_delivers(account):
     assert transport.calls[0][2]['Idempotency-Key'] == str(event.event_id)
 
 
-def test_sql_receipt_rollback_does_not_enqueue(account):
-    role, _ = account
+def test_sql_receipt_rollback_does_not_enqueue(request):
+    role, _ = request.getfixturevalue('account')
     event = evidence(role)
     try:
         with psycopg.connect(IAM) as conn:
@@ -110,8 +110,8 @@ def test_sql_receipt_rollback_does_not_enqueue(account):
         ).fetchone()[0] == 0
 
 
-def test_failed_ack_retry_and_dead_letter_after_five_attempts(account):
-    role, _ = account
+def test_failed_ack_retry_and_dead_letter_after_five_attempts(request):
+    role, _ = request.getfixturevalue('account')
     event = evidence(role)
     PostgresIamRevocationRepository(IAM).apply(event)
     worker = IamAckDeliveryWorker(
@@ -133,8 +133,8 @@ def test_failed_ack_retry_and_dead_letter_after_five_attempts(account):
     assert worker.run_once(limit=1).claimed == 0
 
 
-def test_expired_lease_reclaimed_and_stale_completion_refused(account):
-    role, _ = account
+def test_expired_lease_reclaimed_and_stale_completion_refused(request):
+    role, _ = request.getfixturevalue('account')
     event = evidence(role)
     PostgresIamRevocationRepository(IAM).apply(event)
     repo = PostgresIamAckOutbox(DELIVERY)
@@ -153,8 +153,8 @@ def test_expired_lease_reclaimed_and_stale_completion_refused(account):
     assert status(event.event_id)[0] == 'DELIVERED'
 
 
-def test_dedicated_delivery_login_cannot_ack_as_iam_or_read_tables(account):
-    role, _ = account
+def test_dedicated_delivery_login_cannot_ack_as_iam_or_read_tables(request):
+    role, _ = request.getfixturevalue('account')
     event = evidence(role)
     for dsn in (RUNTIME, CONTROL, IAM, AUDIT):
         with psycopg.connect(dsn) as conn:
@@ -180,8 +180,8 @@ def test_dedicated_delivery_login_cannot_ack_as_iam_or_read_tables(account):
             )
 
 
-def test_two_competing_sql_workers_cannot_claim_same_receipt(account):
-    role, _ = account
+def test_two_competing_sql_workers_cannot_claim_same_receipt(request):
+    role, _ = request.getfixturevalue('account')
     event = evidence(role)
     PostgresIamRevocationRepository(IAM).apply(event)
     first = PostgresIamAckOutbox(DELIVERY).claim(1)

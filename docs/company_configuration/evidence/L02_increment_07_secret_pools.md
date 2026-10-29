@@ -27,3 +27,11 @@ This increment implements a limited, executable port to a **trusted secrets prov
 2. No real application-service adapter composition to shared pool, no operational connection budget benchmark, backpressure, TLS certificate validation, password log redaction, secret distribution or failover tests.
 3. No production privileged operation approval or independent evidence/audit of credential rotation/revocation, no emergency break-glass governance.
 4. Historical repository provenance, formal ADR decisions, G0 and G1 remain unresolved; do not merge a qualified release without these gates.
+
+## Exact-SHA CI qualification (automated checks only)
+
+Implementation SHA `8a286b757aacba81511bc5b11876060c02b54d6d`:
+- [PostgreSQL CI #40871381836](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40871381836): **46 passed** under Python 3.11 and **46 passed** under Python 3.12; Ruff green. Five new PostgreSQL integration scenarios included.
+- [Python CI #40871381720](https://github.com/tawounfouet/pyaccountingkit/actions/runs/40871381720): **108 passed, 6 skipped** (PostgreSQL integration-only modules) on Python 3.11 and 3.12; Ruff green. Nine new pure-Python unit tests included.
+
+**G0/G1/G2 remain unsigned.** These are library-component tests on ephemeral infrastructure, not proof of production IAM, secret vault controls, TLS, or independent connection-pool security review.

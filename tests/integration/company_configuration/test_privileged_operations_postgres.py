@@ -20,6 +20,9 @@ from pyaccountingkit.company_configuration.application.privileged_operations imp
     VerifiedApproval,
     VerifiedOperator,
 )
+from pyaccountingkit.company_configuration.infrastructure.postgres.authorization_fence import (
+    PostgresPrivilegedAuthorizationFence,
+)
 from pyaccountingkit.company_configuration.infrastructure.postgres.privileged_audit import (
     PostgresPrivilegedAudit,
 )
@@ -34,7 +37,7 @@ RUNTIME = os.getenv("CC_PG_DSN")
 pytestmark = pytest.mark.skipif(
     not (ADMIN and RUNTIME), reason="Privileged audit proof requires PostgreSQL admin DSN"
 )
-NOW = datetime(2026, 10, 29, 12, 0, tzinfo=UTC)
+NOW = datetime.now(UTC)
 
 
 class Clock:
@@ -77,7 +80,7 @@ def build_service(role, *, operation="rotate", allowed=True, approver="reviewer-
     auditor = PostgresPrivilegedAudit(ADMIN)
     service = PrivilegedRoleService(
         identity=Identity(), approvals=Approval(approval), policy=Policy(allowed),
-        audit=auditor, roles=PostgresTenantRoleOperator(ADMIN), clock=Clock(),
+        audit=auditor, fence=PostgresPrivilegedAuthorizationFence(ADMIN), clock=Clock(),
     )
     return service, req
 

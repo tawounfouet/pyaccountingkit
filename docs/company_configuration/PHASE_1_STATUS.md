@@ -72,3 +72,10 @@ G0/G1/G2 are **not signed off**. No stable release, real IAM, independently secu
 - Migration 0008 adds per-request owner-only ACTIVE/REVOKED/CONSUMED fences and append-only evidence; row lock serializes SQL-side revocation against role DDL and shares one commit with its CONSUMED evidence.
 - **Not full IAM fencing**: a remote IAM revocation must be propagated to PostgreSQL; real IdP, production control-plane admin DSN isolation, connection drain, credential log policy, and integration into all existing privileged role use cases remain pending.
 - Exact-scope issue port, SQL owner-role denial and transaction rollback on evidence failure tested. All G0/G1/G2 and ADR-CC-08E approvals remain unsigned. Draft PR #16, no release.
+
+## L02-07f - Mandatory fenced privileged service (CI PENDING)
+
+- `PrivilegedRoleService` no longer accepts a direct `roles` operator. Its required `fence` port ties verified actor, tenant, request, operation and approval to the PostgreSQL SQL-local fence, issued after the second current grant/approval check.
+- Previous and new unit / PostgreSQL tests updated to use fenced composition; additional proof for legacy composition denial, issue failure and end-to-end consumed evidence.
+- **Not production-qualified:** owner-DSN direct infrastructure bypass, remote IAM revocation propagation, operator/approval provider, control plane deployment, post-DDL drain and outcome audit, G0/G1/G2 and ADR remain open.
+- Exact-SHA CI evidence pending.

@@ -1,5 +1,7 @@
 """L02-07c real PostgreSQL proof: unresolved INTENT requires independent review."""
 
+# ruff: noqa: E402
+
 import os
 from datetime import UTC, datetime, timedelta
 from threading import Barrier, Thread
@@ -21,7 +23,7 @@ from pyaccountingkit.company_configuration.application.privileged_reconciliation
 from pyaccountingkit.company_configuration.infrastructure.postgres.privileged_audit import (  # noqa: E402
     PostgresPrivilegedAudit,
 )
-from pyaccountingkit.company_configuration.infrastructure.postgres.privileged_reconciliation import (  # noqa: E402
+from pyaccountingkit.company_configuration.infrastructure.postgres.privileged_reconciliation import (
     PostgresPrivilegedReviewRepository,
 )
 

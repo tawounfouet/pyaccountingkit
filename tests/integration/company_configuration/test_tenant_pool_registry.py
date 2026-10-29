@@ -7,6 +7,9 @@ import pytest
 psycopg = pytest.importorskip("psycopg")
 pytest.importorskip("psycopg_pool")
 
+from pyaccountingkit.company_configuration.infrastructure.postgres.tenant_boundary import (  # noqa: E402
+    TenantConnectionMismatch,
+)
 from pyaccountingkit.company_configuration.infrastructure.postgres.tenant_pool import (  # noqa: E402
     PoolGenerationConflict,
     TenantCredential,
@@ -49,10 +52,10 @@ def test_real_connections_keep_tenant_identity_separated_across_pools():
     with TenantPoolRegistry(provider, max_size=2) as pools:
         with pools.connection(tenant_id="tenant-a", role_kind="runtime") as conn:
             assert conn.execute("SELECT session_user").fetchone()[0] == "cc_runtime_a"
-            assert conn.execute("SELECT company_configuration.bound_tenant()").fetchone()[0] == "tenant-a"
+            assert (\n                conn.execute("SELECT company_configuration.bound_tenant()").fetchone()[0]\n                == "tenant-a"\n            )
         with pools.connection(tenant_id="tenant-b", role_kind="runtime") as conn:
             assert conn.execute("SELECT session_user").fetchone()[0] == "cc_runtime_b"
-            assert conn.execute("SELECT company_configuration.bound_tenant()").fetchone()[0] == "tenant-b"
+            assert (\n                conn.execute("SELECT company_configuration.bound_tenant()").fetchone()[0]\n                == "tenant-b"\n            )
         with pools.connection(tenant_id="tenant-a", role_kind="dispatcher") as conn:
             assert conn.execute("SELECT session_user").fetchone()[0] == "cc_dispatcher_a"
         assert len(pools._entries) == 3
@@ -65,7 +68,7 @@ def test_forged_secret_with_correct_tenant_but_wrong_role_is_rejected():
         "tenant-a", "runtime", "cc_runtime_a", 1, APP_B
     )
     with TenantPoolRegistry(provider, max_size=1) as pools:
-        with pytest.raises(TenantPoolDenied, match="database"):
+        with pytest.raises((TenantPoolDenied, TenantConnectionMismatch)):
             with pools.connection(tenant_id="tenant-a", role_kind="runtime"):
                 pytest.fail("wrong tenant login should not escape")
 

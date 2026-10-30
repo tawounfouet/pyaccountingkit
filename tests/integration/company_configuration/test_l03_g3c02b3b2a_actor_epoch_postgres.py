@@ -113,7 +113,11 @@ def test_owner_projected_exact_scope_authorizes_all_four_issuer_families():
 def test_actor_scope_version_decision_and_tenant_mismatch_denied(mismatch):
     ref = reference()
     provision(ref)
-    with pytest.raises(psycopg.errors.InsufficientPrivilege):
+    error = (
+        tenant_boundary.TenantConnectionMismatch
+        if "tenant_id" in mismatch else psycopg.errors.InsufficientPrivilege
+    )
+    with pytest.raises(error):
         with psycopg.connect(COMPANY) as conn:
             PostgresActorGrantEpochFence().require(
                 connection=conn, reference=replace(ref, **mismatch),

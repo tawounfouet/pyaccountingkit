@@ -55,6 +55,11 @@ class AccountingBookId(_UUIDIdentifier):
 
 
 @dataclass(frozen=True, slots=True)
+class BookAssignmentId(_UUIDIdentifier):
+    """Stable identity of a proposed book/entity assignment, separate from the book."""
+
+
+@dataclass(frozen=True, slots=True)
 class ConfigurationDraftId(_UUIDIdentifier):
     """Stable identity of an unpublished configuration draft."""
 

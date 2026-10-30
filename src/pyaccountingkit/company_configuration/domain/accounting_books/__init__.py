@@ -1,5 +1,13 @@
 """L04 pure R&D Accounting Books Domain Kernel; no persistence or release."""
 
+from .assignments import (
+    BookAssignmentAmbiguous,
+    BookAssignmentCandidate,
+    BookAssignmentMissing,
+    BookAssignmentPurpose,
+    InvalidBookAssignment,
+    preview_applicable_book_drafts,
+)
 from .model import (
     AccountingBookConflict,
     AccountingBookDraft,
@@ -9,6 +17,12 @@ from .model import (
 )
 
 __all__ = [
+    "BookAssignmentAmbiguous",
+    "BookAssignmentCandidate",
+    "BookAssignmentMissing",
+    "BookAssignmentPurpose",
+    "InvalidBookAssignment",
+    "preview_applicable_book_drafts",
     "AccountingBookConflict",
     "AccountingBookDraft",
     "BookCode",

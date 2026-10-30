@@ -60,6 +60,11 @@ class BookAssignmentId(_UUIDIdentifier):
 
 
 @dataclass(frozen=True, slots=True)
+class FrameworkBindingId(_UUIDIdentifier):
+    """Candidate framework binding identity, distinct from book and normative ref."""
+
+
+@dataclass(frozen=True, slots=True)
 class ConfigurationDraftId(_UUIDIdentifier):
     """Stable identity of an unpublished configuration draft."""
 

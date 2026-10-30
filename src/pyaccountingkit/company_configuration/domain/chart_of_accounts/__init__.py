@@ -1,5 +1,26 @@
 """L05-01: pure proposed Chart of Accounts R&D domain, never an eligibility API."""
 
+from .bookability import (
+    AccountBookabilityCandidateDenied,
+    AccountBookabilityCandidatePreview,
+    AccountStatusCandidate,
+    AccountStatusCandidateAmbiguous,
+    AccountStatusCandidateMissing,
+    AccountStatusProposal,
+    InvalidAccountStatusCandidate,
+    preview_account_bookability_candidate,
+)
+from .hierarchy import (
+    AccountHierarchyCandidatePreview,
+    AccountHierarchyEdgeCandidate,
+    DuplicateHierarchyEdge,
+    HierarchyCycle,
+    HierarchyViewCode,
+    InvalidAccountHierarchy,
+    MultipleActiveAccountParents,
+    preview_account_hierarchy,
+    validate_candidate_account_hierarchy,
+)
 from .model import (
     AccountClassificationCode,
     AccountCode,
@@ -18,6 +39,23 @@ from .model import (
 )
 
 __all__ = [
+    "AccountBookabilityCandidateDenied",
+    "AccountBookabilityCandidatePreview",
+    "AccountStatusCandidate",
+    "AccountStatusCandidateAmbiguous",
+    "AccountStatusCandidateMissing",
+    "AccountStatusProposal",
+    "InvalidAccountStatusCandidate",
+    "preview_account_bookability_candidate",
+    "AccountHierarchyCandidatePreview",
+    "AccountHierarchyEdgeCandidate",
+    "DuplicateHierarchyEdge",
+    "HierarchyCycle",
+    "HierarchyViewCode",
+    "InvalidAccountHierarchy",
+    "MultipleActiveAccountParents",
+    "preview_account_hierarchy",
+    "validate_candidate_account_hierarchy",
     "AccountClassificationCode",
     "AccountCode",
     "AccountNotPostable",

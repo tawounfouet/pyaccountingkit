@@ -129,6 +129,9 @@ COMMIT_FENCES = {
     "organization_membership_outbox": "org_membership_outbox_commit_issuer_fence",
 }
 SECURITY_FUNCTIONS = (
+    "company_configuration.guard_org_actor_epoch_revision()",
+    "company_configuration.require_org_actor_grant_epoch("
+    "text,uuid,bigint,text,text,uuid,text,text)",
     "company_configuration.require_org_issuer_commit_fence(text,text)",
     "company_configuration.guard_org_issuer_commit_fence()",
     "company_configuration.guard_company_command_issuer()",
@@ -140,6 +143,8 @@ SECURITY_FUNCTIONS = (
     "company_configuration.guard_org_membership_issuer()",
 )
 AUTHORITY_SOURCES = (
+    "company_configuration.require_org_actor_grant_epoch("
+    "text,uuid,bigint,text,text,uuid,text,text)",
     "company_configuration.require_org_issuer_commit_fence(text,text)",
     "company_configuration.guard_company_command_issuer()",
     "company_configuration.require_org_registry_issuer(text)",
@@ -337,7 +342,11 @@ def audit(conn: Any, claims: tuple[Claim, ...]) -> list[str]:
                 )
                 check(permitted is False, f"{permission} table grant: {role} -> {table}")
         # All emitter allowlists and tenant role bindings must be owner-only.
-        for managed in ("company_configuration.tenant_role_bindings", *ISSUER_TABLES.values()):
+        for managed in (
+            "company_configuration.tenant_role_bindings",
+            "company_configuration.organization_actor_grant_epochs",
+            *ISSUER_TABLES.values(),
+        ):
             for privilege in ("INSERT", "UPDATE", "DELETE", "TRUNCATE"):
                 check(
                     _one(conn, "SELECT has_table_privilege(%s,%s,%s)",
@@ -355,6 +364,21 @@ def audit(conn: Any, claims: tuple[Claim, ...]) -> list[str]:
                     execute is expected,
                     f"EXECUTE {'missing' if expected else 'exposed'}: {role} -> {func}",
                 )
+    # Only business SQL issuers may consult owner-projected actor grant epochs.
+    epoch_func = (
+        "company_configuration.require_org_actor_grant_epoch("
+        "text,uuid,bigint,text,text,uuid,text,text)"
+    )
+    for claim in claims:
+        can_check = _one(
+            conn, "SELECT has_function_privilege(%s,%s,'EXECUTE')",
+            claim.role, epoch_func,
+        )
+        check(
+            can_check is (claim.family != "runtime"),
+            f"actor-grant epoch function EXECUTE isolation: {claim.role}",
+        )
+
     issuers = [c for c in claims if c.family != "runtime"]
     for runtime in (c for c in claims if c.family == "runtime"):
         for issuer in issuers:

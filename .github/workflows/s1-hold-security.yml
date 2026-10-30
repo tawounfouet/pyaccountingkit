@@ -1,0 +1,44 @@
+name: S1 HOLD_SECURITY quarantine qualification (R&D only)
+
+on:
+  pull_request:
+    paths:
+      - 'src/pyaccountingkit/company_configuration/infrastructure/postgres/migrations/**'
+      - 'tests/integration/company_configuration/test_s1_hold_security_0030_postgres.py'
+      - '.github/workflows/s1-hold-security.yml'
+  workflow_dispatch:
+
+jobs:
+  quarantine-pg16:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.11', '3.12']
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: cc_s1_hold
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d cc_s1_hold"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      CC_PG_ADMIN_DSN: postgresql://postgres:postgres@localhost:5432/cc_s1_hold
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install candidate and PostgreSQL dependencies
+        run: python -m pip install -e '.[dev,postgres,iam]'
+      - name: Apply additive migrations 0001-0030 to disposable PG16
+        run: python -m pyaccountingkit.company_configuration.infrastructure.postgres.migrate
+      - name: Validate 15 fail-closed SQL surfaces
+        run: python -m pytest -q tests/integration/company_configuration/test_s1_hold_security_0030_postgres.py -rs
+      - name: Ruff S1 smoke tests
+        run: python -m ruff check tests/integration/company_configuration/test_s1_hold_security_0030_postgres.py

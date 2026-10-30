@@ -47,8 +47,9 @@ from pyaccountingkit.company_configuration.infrastructure.postgres.organization_
 
 ADMIN = os.getenv("CC_PG_ADMIN_DSN")
 APP = os.getenv("CC_PG_DSN")
+LIFECYCLE_WRITER = os.getenv("CC_PG_ORG_LIFECYCLE_WRITER_DSN")
 pytestmark = pytest.mark.skipif(
-    not (ADMIN and APP),
+    not (ADMIN and APP and LIFECYCLE_WRITER),
     reason="ORG-5b1 requires dedicated ephemeral PostgreSQL tenant roles",
 )
 NOW = datetime(2026, 10, 30, 9, tzinfo=UTC)
@@ -139,7 +140,7 @@ def counts():
 
 def test_direct_valid_company_transition_without_evidence_fails_at_commit():
     subject = company()
-    with pytest.raises(psycopg.errors.CheckViolation, match="requires matching"):
+    with pytest.raises(psycopg.errors.InsufficientPrivilege):
         with psycopg.connect(APP) as conn:
             conn.execute(
                 "INSERT INTO company_configuration.organizational_company_revisions "
@@ -152,7 +153,7 @@ def test_direct_valid_company_transition_without_evidence_fails_at_commit():
 
 def test_direct_valid_site_transition_without_evidence_fails_at_commit():
     subject = site()
-    with pytest.raises(psycopg.errors.CheckViolation, match="requires matching"):
+    with pytest.raises(psycopg.errors.InsufficientPrivilege):
         with psycopg.connect(APP) as conn:
             conn.execute(
                 "INSERT INTO "
@@ -167,7 +168,7 @@ def test_direct_valid_site_transition_without_evidence_fails_at_commit():
 def test_lifecycle_with_audit_and_outbox_but_without_request_is_rejected():
     subject = company()
     audit_id, event_id = uuid4(), uuid4()
-    with pytest.raises(psycopg.errors.CheckViolation, match="requires matching"):
+    with pytest.raises(psycopg.errors.InsufficientPrivilege):
         with psycopg.connect(APP) as conn:
             conn.execute(
                 "INSERT INTO company_configuration.organizational_company_revisions "
@@ -199,7 +200,7 @@ def test_lifecycle_with_audit_and_outbox_but_without_request_is_rejected():
 def test_inconsistent_event_status_cannot_be_used_as_proof():
     subject = company()
     audit_id, event_id = uuid4(), uuid4()
-    with pytest.raises(psycopg.errors.CheckViolation, match="requires matching"):
+    with pytest.raises(psycopg.errors.InsufficientPrivilege):
         with psycopg.connect(APP) as conn:
             conn.execute(
                 "INSERT INTO company_configuration.organizational_company_revisions "
@@ -239,7 +240,8 @@ def test_inconsistent_event_status_cannot_be_used_as_proof():
 def test_normal_authorized_application_transaction_still_commits_three_proofs():
     subject = company()
     service = OrganizationLifecycleService(
-        lambda: PostgresOrganizationLifecycleUnitOfWork(APP), Allow(), FixedClock(),
+        lambda: PostgresOrganizationLifecycleUnitOfWork(LIFECYCLE_WRITER),
+        Allow(), FixedClock(),
     )
     actor = TrustedPrincipal("operator", "tenant-a")
     command = TransitionCompany(

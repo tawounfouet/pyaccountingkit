@@ -410,3 +410,66 @@ with psycopg.connect(admin_dsn, autocommit=True) as conn:
         "company_configuration.organization_lifecycle_outbox "
         "FROM cc_runtime_a,cc_runtime_b"
     )
+
+    # ORG-5b3c3: native membership issuer is separate from ordinary runtime,
+    # registration, and lifecycle identities. Testing credentials only.
+    membership_func = (
+        "company_configuration.register_membership_revision_controlled("
+        "text,uuid,integer,uuid,uuid,text,boolean,date,date,timestamptz,"
+        "text,text,text,text,text,uuid,uuid,text)"
+    )
+    for role, tenant in (
+        ("cc_org_membership_writer_a", "tenant-a"),
+        ("cc_org_membership_writer_b", "tenant-b"),
+    ):
+        conn.execute(
+            sql.SQL(
+                "CREATE ROLE {} LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE "
+                "NOINHERIT NOREPLICATION NOBYPASSRLS PASSWORD {}"
+            ).format(sql.Identifier(role), sql.Literal("cc_testing_only"))
+        )
+        conn.execute(
+            sql.SQL("GRANT USAGE ON SCHEMA company_configuration TO {}").format(
+                sql.Identifier(role)
+            )
+        )
+        conn.execute(
+            sql.SQL("GRANT EXECUTE ON FUNCTION company_configuration.bound_tenant() TO {}")
+            .format(sql.Identifier(role))
+        )
+        # Domain read + 0021 deferred membership evidence guard; absolutely no
+        # table INSERT, UPDATE or DELETE for this scoped writer identity.
+        conn.execute(
+            sql.SQL(
+                "GRANT SELECT ON company_configuration.legal_entities, "
+                "company_configuration.organizational_companies, "
+                "company_configuration.organizational_company_revisions, "
+                "company_configuration.organizational_membership_revisions, "
+                "company_configuration.organization_membership_requests, "
+                "company_configuration.organization_membership_audit, "
+                "company_configuration.organization_membership_outbox TO {}"
+            ).format(sql.Identifier(role))
+        )
+        conn.execute(
+            sql.SQL("GRANT EXECUTE ON FUNCTION " + membership_func + " TO {}")
+            .format(sql.Identifier(role))
+        )
+        conn.execute(
+            "INSERT INTO company_configuration.tenant_role_bindings "
+            "(login_role,tenant_id) VALUES (%s,%s)", (role, tenant),
+        )
+        conn.execute(
+            "INSERT INTO company_configuration.organization_membership_command_issuers "
+            "(login_role,tenant_id) VALUES (%s,%s)", (role, tenant),
+        )
+
+    # Defense in depth: revoked runtime INSERT plus permanent owner-guarded
+    # SQL INSERT triggers in 0025, including all three evidence tables.
+    conn.execute(
+        "REVOKE INSERT ON "
+        "company_configuration.organizational_membership_revisions, "
+        "company_configuration.organization_membership_requests, "
+        "company_configuration.organization_membership_audit, "
+        "company_configuration.organization_membership_outbox "
+        "FROM cc_runtime_a,cc_runtime_b"
+    )

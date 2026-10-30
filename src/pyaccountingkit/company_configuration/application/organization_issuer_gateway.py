@@ -124,7 +124,8 @@ class SignedCommandVerifierPort(Protocol):
 class LiveIssuerAuthorizationPort(Protocol):
     def require(
         self, *, issuer: str, principal: TrustedPrincipal,
-        action: str, target_id: UUID,
+        action: str, target_id: UUID, request_id: str,
+        correlation_id: str, request_digest: str, command_nonce: UUID,
     ) -> None: ...
 
 
@@ -185,6 +186,9 @@ class OrganizationTrustedIssuerGateway:
             self._authorization.require(
                 issuer=envelope.issuer, principal=principal,
                 action=identity.action, target_id=identity.target_id,
+                request_id=identity.request_id,
+                correlation_id=identity.correlation_id,
+                request_digest=identity.digest, command_nonce=envelope.nonce,
             )
             # Do not use a process-local set in a deployed gateway. Consume is
             # durable/atomic; service-level idempotency still handles fresh

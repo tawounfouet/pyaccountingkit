@@ -1,10 +1,10 @@
-"""ORG-5b3b: deny ordinary runtime SQL registration and forged Company evidence.
+"""ORG-5b3b Company cutover: direct SQL and forged evidence must fail closed.
 
-The ordinary tenant runtime role can currently manufacture an internally
-consistent Company registration + request/audit/outbox without passing the
-Application Service. These tests deliberately lock down *the observed risk*;
-future ORG-5b3 remediation must replace these positive exploit assertions
-with DENIAL assertions. They never persist a forged audit trail.
+The legacy ORG-5b3a red-team baseline showed that a tenant runtime credential
+could forge a consistent Company + audit/outbox chain. Migration 0022 changes
+these expected-success attack checks into required DENIAL assertions. Only
+independently provisioned issuer logins can execute the controlled command.
+No claim is made about production IAM or individual actor attestation.
 """
 
 import os
@@ -17,8 +17,9 @@ psycopg = pytest.importorskip("psycopg")
 RUNTIME_A = os.getenv("CC_PG_DSN")
 pytestmark = pytest.mark.skipif(
     not RUNTIME_A,
-    reason="ORG-5b3a threat baseline requires isolated tenant PostgreSQL CI roles",
+    reason="ORG-5b3b requires ephemeral tenant-bound PostgreSQL test roles",
 )
+
 
 def test_runtime_login_lacks_company_insert_and_controlled_execute():
     """The ordinary SQL runtime cannot directly INSERT Company rows."""

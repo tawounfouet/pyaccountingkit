@@ -37,8 +37,8 @@ from pyaccountingkit.company_configuration.domain.shared.identifiers import (  #
 from pyaccountingkit.company_configuration.domain.shared.references import (  # noqa: E402
     JurisdictionCode,
 )
-from pyaccountingkit.company_configuration.infrastructure.postgres.organization import (  # noqa: E402
-    PostgresOrganizationRepository,
+from tests.integration.company_configuration.org_test_seed import (  # noqa: E402
+    EvidencedOrganizationSeed as PostgresOrganizationRepository,
 )
 from pyaccountingkit.company_configuration.infrastructure.postgres.organization_lifecycle import (  # noqa: E402
     PostgresOrganizationLifecycleUnitOfWork,

@@ -69,14 +69,31 @@ BEGIN
        OR p_actor_id IS NULL OR p_action IS NULL OR p_target_id IS NULL
        OR p_authority_issuer IS NULL OR p_decision_sha256 IS NULL
        OR NOT (
-           EXISTS(SELECT 1 FROM company_configuration.organization_company_command_issuers
-                  WHERE login_role=session_user AND tenant_id=p_tenant AND enabled)
-           OR EXISTS(SELECT 1 FROM company_configuration.organization_registry_command_issuers
-                     WHERE login_role=session_user AND tenant_id=p_tenant AND enabled)
-           OR EXISTS(SELECT 1 FROM company_configuration.organization_lifecycle_command_issuers
-                     WHERE login_role=session_user AND tenant_id=p_tenant AND enabled)
-           OR EXISTS(SELECT 1 FROM company_configuration.organization_membership_command_issuers
-                     WHERE login_role=session_user AND tenant_id=p_tenant AND enabled)
+           (p_action='organization.company.register'
+            AND EXISTS(
+                SELECT 1 FROM company_configuration.organization_company_command_issuers
+                WHERE login_role=session_user AND tenant_id=p_tenant AND enabled
+            ))
+           OR (p_action IN (
+                   'organization.establishment.register',
+                   'organization.legal_identifier.register'
+               ) AND EXISTS(
+                   SELECT 1 FROM company_configuration.organization_registry_command_issuers
+                   WHERE login_role=session_user AND tenant_id=p_tenant AND enabled
+               ))
+           OR (p_action IN (
+                   'organization.company.transition',
+                   'organization.establishment.transition'
+               ) AND EXISTS(
+                   SELECT 1 FROM company_configuration.organization_lifecycle_command_issuers
+                   WHERE login_role=session_user AND tenant_id=p_tenant AND enabled
+               ))
+           OR (p_action IN (
+                   'organization.membership.assign', 'organization.membership.end'
+               ) AND EXISTS(
+                   SELECT 1 FROM company_configuration.organization_membership_command_issuers
+                   WHERE login_role=session_user AND tenant_id=p_tenant AND enabled
+               ))
        ) THEN
         RAISE EXCEPTION 'Independent tenant-bound SQL issuer required for actor epoch fence'
             USING ERRCODE='42501';

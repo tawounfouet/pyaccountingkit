@@ -86,6 +86,9 @@ from pyaccountingkit.company_configuration.infrastructure.iam.organization_live_
     HttpsSignedOrganizationGrantSource,
     SignedLiveGrantTrust,
 )
+from pyaccountingkit.company_configuration.infrastructure.postgres import (  # noqa: E402
+    organization_registration,
+)
 from pyaccountingkit.company_configuration.infrastructure.postgres.organization_lifecycle import (  # noqa: E402
     PostgresOrganizationLifecycleUnitOfWork,
 )
@@ -95,9 +98,8 @@ from pyaccountingkit.company_configuration.infrastructure.postgres.organization_
 from pyaccountingkit.company_configuration.infrastructure.postgres.organization_nonce import (  # noqa: E402
     PostgresDurableCommandNonceStore,
 )
-from pyaccountingkit.company_configuration.infrastructure.postgres import (  # noqa: E402
-    organization_registration,
-)
+
+RegistrationUoW = organization_registration.PostgresOrganizationRegistrationUnitOfWork
 
 ADMIN = os.getenv("CC_PG_ADMIN_DSN")
 RUNTIME = os.getenv("CC_PG_DSN")
@@ -191,12 +193,12 @@ class Harness:
         )
         auth = DomainGrant()
         registration = OrganizationRegistrationService(
-            lambda: organization_registration.PostgresOrganizationRegistrationUnitOfWork(RUNTIME),
+            lambda: RegistrationUoW(RUNTIME),
             auth, Clock(),
-            company_uow_factory=lambda: organization_registration.PostgresOrganizationRegistrationUnitOfWork(
+            company_uow_factory=lambda: RegistrationUoW(
                 WRITERS["company"]
             ),
-            registry_uow_factory=lambda: organization_registration.PostgresOrganizationRegistrationUnitOfWork(
+            registry_uow_factory=lambda: RegistrationUoW(
                 WRITERS["registry"]
             ),
         )
@@ -417,9 +419,9 @@ def test_revocation_after_signed_positive_decision_before_sql_commit_is_not_atom
     # Override the executor's Company service only, with the same real
     # issuer-only SQL identity and injected after-write precommit hook.
     registration = OrganizationRegistrationService(
-        lambda: organization_registration.PostgresOrganizationRegistrationUnitOfWork(RUNTIME),
+        lambda: RegistrationUoW(RUNTIME),
         DomainGrant(), Clock(),
-        company_uow_factory=lambda: organization_registration.PostgresOrganizationRegistrationUnitOfWork(
+        company_uow_factory=lambda: RegistrationUoW(
             WRITERS["company"], before_commit=revoke_before_commit,
         ),
     )

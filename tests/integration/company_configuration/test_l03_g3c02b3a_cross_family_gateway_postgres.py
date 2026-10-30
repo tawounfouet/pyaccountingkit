@@ -442,3 +442,181 @@ def test_revocation_after_signed_positive_decision_before_sql_commit_is_not_atom
     with pytest.raises(PermissionDenied):
         h.run(command)
     assert counts() == second
+
+# G3-C02b3b1 SQL-side *issuer* revocation, NOT external human IAM fencing.
+# The deferred trigger must observe owner-committed disablement before COMMIT.
+@pytest.mark.parametrize("family,index", (
+    ("company", 0), ("registry", 1), ("lifecycle", 3), ("membership", 5),
+))
+def test_owner_revokes_independent_sql_issuer_before_commit_rolls_back_all_evidence(
+    family, index,
+):
+    h = Harness()
+    commands = build_commands()
+    if family in ("lifecycle", "membership"):
+        # Prerequisite Company goes through the same signed IAM/SQL gateway.
+        h.run(commands[0])
+    before = counts()
+    actor_role = {
+        "company": "cc_org_company_writer_a",
+        "registry": "cc_org_registry_writer_a",
+        "lifecycle": "cc_org_lifecycle_writer_a",
+        "membership": "cc_org_membership_writer_a",
+    }[family]
+    issuer_table = "company_configuration.organization_" + family + "_command_issuers"
+    callback_calls = []
+
+    def revoke_sql_login_before_commit():
+        # This runs AFTER controlled SQL DML but BEFORE its transaction COMMIT.
+        # Owner-maintained issuer authorization is authoritative only in this DB.
+        with psycopg.connect(ADMIN) as owner:
+            owner.execute(
+                "UPDATE " + issuer_table +
+                " SET enabled=false WHERE login_role=%s AND tenant_id=%s",
+                (actor_role, "tenant-a"),
+            )
+        callback_calls.append(True)
+
+    auth = DomainGrant()
+    if family in ("company", "registry"):
+        service = OrganizationRegistrationService(
+            lambda: RegistrationUoW(RUNTIME), auth, Clock(),
+            company_uow_factory=lambda: RegistrationUoW(
+                WRITERS["company"],
+                before_commit=revoke_sql_login_before_commit
+                if family == "company" else None,
+            ),
+            registry_uow_factory=lambda: RegistrationUoW(
+                WRITERS["registry"],
+                before_commit=revoke_sql_login_before_commit
+                if family == "registry" else None,
+            ),
+        )
+        executor = OrganizationServiceExecutor(
+            registration=service, lifecycle=object(), membership=object(),
+        )
+    elif family == "lifecycle":
+        service = OrganizationLifecycleService(
+            lambda: PostgresOrganizationLifecycleUnitOfWork(
+                WRITERS["lifecycle"], before_commit=revoke_sql_login_before_commit,
+            ), auth, Clock(),
+        )
+        executor = OrganizationServiceExecutor(
+            registration=object(), lifecycle=service, membership=object(),
+        )
+    else:
+        service = OrganizationMembershipService(
+            lambda: PostgresOrganizationMembershipUnitOfWork(
+                WRITERS["membership"], before_commit=revoke_sql_login_before_commit,
+            ), auth, Clock(),
+        )
+        executor = OrganizationServiceExecutor(
+            registration=object(), lifecycle=object(), membership=service,
+        )
+    h.gateway._executor = executor
+    signed = h.sign(commands[index])
+    try:
+        with pytest.raises(psycopg.errors.InsufficientPrivilege):
+            h.gateway.execute(commands[index], signed_evidence=signed)
+        assert callback_calls == [True]
+        after = counts()
+        # PostgreSQL rolls back target, request, audit, outbox as ONE tx.
+        assert all(
+            after[table] == before[table] for table in TABLES[:-1]
+        ), (family, before, after)
+        # Separate nonce transaction remains burned on failed business COMMIT.
+        assert after["organization_command_nonces"] == (
+            before["organization_command_nonces"] + 1
+        )
+        # Even if the owner later re-enables SQL issuer, the same signed JTI
+        # remains spent; do not allow it to retry after the SQL error.
+    finally:
+        with psycopg.connect(ADMIN) as owner:
+            owner.execute(
+                "UPDATE " + issuer_table +
+                " SET enabled=true WHERE login_role=%s AND tenant_id=%s",
+                (actor_role, "tenant-a"),
+            )
+    with pytest.raises(PermissionDenied):
+        h.gateway.execute(commands[index], signed_evidence=signed)
+    assert counts() == after
+
+
+def test_sql_revocation_update_cannot_overtake_locked_positive_commit():
+    """A COMMIT guard row lock orders SQL issuer revocation vs SQL commit.
+
+    Explicitly fire all deferred constraint triggers before UoW commit, then
+    show that an independent owner UPDATE cannot overtake the held SHARE row
+    lock. This proves PostgreSQL ordering, never remote IAM revocation SLAs.
+    """
+    h = Harness()
+    command = build_commands()[0]
+    holder = []
+    events = []
+
+    def verify_late_fence_lock():
+        # Called after all controlled Company DML; force the normally deferred
+        # authorization fence now. FOR SHARE is held until the SQL transaction
+        # commits or rolls back.
+        holder[-1]._conn.execute("SET CONSTRAINTS ALL IMMEDIATE")
+        with psycopg.connect(ADMIN) as owner:
+            owner.execute("SET LOCAL lock_timeout = '200ms'")
+            with pytest.raises(psycopg.errors.LockNotAvailable):
+                owner.execute(
+                    "UPDATE company_configuration.organization_company_command_issuers "
+                    "SET enabled=false WHERE login_role='cc_org_company_writer_a'"
+                )
+            owner.rollback()
+        events.append("revocation-blocked-before-commit")
+
+    def company_uow():
+        uow = RegistrationUoW(
+            WRITERS["company"], before_commit=verify_late_fence_lock,
+        )
+        holder.append(uow)
+        return uow
+
+    svc = OrganizationRegistrationService(
+        lambda: RegistrationUoW(RUNTIME), DomainGrant(), Clock(),
+        company_uow_factory=company_uow,
+    )
+    h.gateway._executor = OrganizationServiceExecutor(
+        registration=svc, lifecycle=object(), membership=object(),
+    )
+    receipt = h.run(command)
+    assert receipt.revision == 1
+    assert events == ["revocation-blocked-before-commit"]
+    assert counts()["organizational_companies"] == 1
+    # Revocation can be committed AFTER the transaction releases SHARE locks.
+    with psycopg.connect(ADMIN) as owner:
+        owner.execute(
+            "UPDATE company_configuration.organization_company_command_issuers "
+            "SET enabled=false WHERE login_role='cc_org_company_writer_a'"
+        )
+    try:
+        # Fresh attestation and positive test IAM decision cannot bypass the
+        # independently owner-disabled SQL issuer. It does consume a fresh JTI.
+        before = counts()
+        with pytest.raises(psycopg.errors.InsufficientPrivilege):
+            h.run(RegisterCompany(
+                Company(
+                    CompanyId.new(), "tenant-a", "Blocked after issuer revoke",
+                    CompanyKind.GROUP, JurisdictionCode("FR"),
+                ), "second-request", "second-correlation", "approved",
+            ))
+        after = counts()
+        assert after["organizational_companies"] == before[
+            "organizational_companies"
+        ]
+        assert after["organization_command_requests"] == before[
+            "organization_command_requests"
+        ]
+        assert after["organization_command_nonces"] == before[
+            "organization_command_nonces"
+        ] + 1
+    finally:
+        with psycopg.connect(ADMIN) as owner:
+            owner.execute(
+                "UPDATE company_configuration.organization_company_command_issuers "
+                "SET enabled=true WHERE login_role='cc_org_company_writer_a'"
+            )

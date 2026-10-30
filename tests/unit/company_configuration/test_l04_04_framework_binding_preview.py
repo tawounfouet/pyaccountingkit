@@ -13,7 +13,6 @@ from pyaccountingkit.company_configuration.application.accounting_book_framework
     PreviewBookFrameworkBinding,
 )
 from pyaccountingkit.company_configuration.application.accounting_books import (
-    BookDraftNotFound,
     BookDraftPermissionDenied,
     BookDraftService,
     ProposeBookDraft,
@@ -21,7 +20,6 @@ from pyaccountingkit.company_configuration.application.accounting_books import (
 from pyaccountingkit.company_configuration.application.ports import TrustedPrincipal
 from pyaccountingkit.company_configuration.domain.accounting_books import (
     AccountingBookDraft,
-    BookAssignmentAmbiguous,
     BookAssignmentCandidate,
     BookAssignmentMissing,
     BookAssignmentPurpose,
@@ -53,8 +51,8 @@ from pyaccountingkit.company_configuration.domain.shared.references import (
 from pyaccountingkit.company_configuration.infrastructure import (
     accounting_book_frameworks_memory,
 )
-from pyaccountingkit.company_configuration.infrastructure.accounting_book_assignments_memory import (
-    MemoryBookAssignmentCandidates,
+from pyaccountingkit.company_configuration.infrastructure import (
+    accounting_book_assignments_memory,
 )
 from pyaccountingkit.company_configuration.infrastructure.accounting_books_memory import (
     MemoryBookAuthorization,
@@ -65,6 +63,9 @@ from pyaccountingkit.company_configuration.infrastructure.accounting_books_memor
 
 FrameworkCatalog = accounting_book_frameworks_memory.MemoryBookFrameworkCandidates
 NormativeFake = accounting_book_frameworks_memory.MemoryNormativeFrameworkAvailability
+MemoryBookAssignmentCandidates = (
+    accounting_book_assignments_memory.MemoryBookAssignmentCandidates
+)
 
 
 def book(
@@ -314,7 +315,7 @@ def test_orphan_binding_and_foreign_book_scope_fail_closed():
 
 def test_malicious_framework_reader_cannot_leak_foreign_scope():
     b = book()
-    service, principal, _, store = run(b)
+    _, principal, _, store = run(b)
     access = MemoryBookAuthorization()
     access.grant(
         principal=principal, action="book.framework.preview", scope=b.scope

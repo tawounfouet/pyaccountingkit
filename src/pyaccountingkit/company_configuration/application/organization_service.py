@@ -17,12 +17,13 @@ from ..domain.shared.effective_interval import EffectiveInterval
 from ..domain.shared.errors import VersionConflict
 from ..domain.shared.identifiers import MembershipId
 from .organization_commands import AssignOrganizationMembership, EndOrganizationMembership
+from .organization_membership_evidence import (
+    MembershipChangeReceipt,
+    MembershipTransactionEvidence,
+)
 from .ports import (
-    AuditRecord,
     AuthorizationPort,
-    ChangeReceipt,
     ClockPort,
-    PendingEvent,
     TrustedPrincipal,
     UnitOfWork,
 )
@@ -41,6 +42,15 @@ class OrganizationMembershipPort(Protocol):
 
 class OrganizationMembershipUnitOfWork(UnitOfWork, Protocol):
     org_memberships: OrganizationMembershipPort
+
+    def lookup_membership_request(
+        self, *, actor_id: str, scope: ConfigurationScope,
+        action: str, key: str,
+    ) -> tuple[str, MembershipChangeReceipt] | None: ...
+
+    def append_membership_evidence(
+        self, *, scope: ConfigurationScope, evidence: MembershipTransactionEvidence,
+    ) -> None: ...
 
 
 class OrganizationMembershipService:
@@ -80,8 +90,8 @@ class OrganizationMembershipService:
     def _idempotent(
         uow: OrganizationMembershipUnitOfWork, *, principal: TrustedPrincipal,
         scope: ConfigurationScope, action: str, key: str, digest: str,
-    ) -> ChangeReceipt | None:
-        record = uow.lookup_request(
+    ) -> MembershipChangeReceipt | None:
+        record = uow.lookup_membership_request(
             actor_id=principal.actor_id, scope=scope, action=action, key=key
         )
         if record is None:
@@ -92,36 +102,31 @@ class OrganizationMembershipService:
         return receipt
 
     def _commit(
-        self, *, uow: OrganizationMembershipUnitOfWork, principal: TrustedPrincipal,
-        scope: ConfigurationScope, action: str, key: str, digest: str,
-        revision: int, previous_revision: int, correlation_id: str, reason: str,
-        recorded_at: datetime,
-    ) -> ChangeReceipt:
-        receipt = ChangeReceipt(
-            entity_id=scope.legal_entity_id, revision=revision,
+        self, *, uow: OrganizationMembershipUnitOfWork,
+        principal: TrustedPrincipal, scope: ConfigurationScope,
+        action: str, key: str, digest: str,
+        membership: OrganizationMembership,
+        correlation_id: str, reason: str,
+    ) -> MembershipChangeReceipt:
+        receipt = MembershipChangeReceipt(
+            membership_id=membership.id, company_id=scope.company_id,
+            legal_entity_id=scope.legal_entity_id, revision=membership.revision,
             correlation_id=correlation_id, audit_id=str(uuid4()), event_id=str(uuid4()),
         )
-        uow.append_audit(AuditRecord(
-            record_id=receipt.audit_id, actor_id=principal.actor_id,
-            action=action, scope=scope, entity_id=scope.legal_entity_id,
-            before_revision=previous_revision, after_revision=revision,
-            reason=reason, correlation_id=correlation_id, recorded_at=recorded_at,
-        ))
-        uow.append_outbox(PendingEvent(
-            event_id=receipt.event_id, event_type=action, schema_version=1,
-            scope=scope, entity_id=scope.legal_entity_id,
-            revision=revision, correlation_id=correlation_id, recorded_at=recorded_at,
-        ))
-        uow.save_request(
-            actor_id=principal.actor_id, scope=scope, action=action,
-            key=key, digest=digest, receipt=receipt,
+        uow.append_membership_evidence(
+            scope=scope,
+            evidence=MembershipTransactionEvidence(
+                membership=membership, receipt=receipt,
+                actor_id=principal.actor_id, action=action,
+                request_key=key, request_digest=digest, reason=reason,
+            ),
         )
         uow.commit()
         return receipt
 
     def assign(
         self, command: AssignOrganizationMembership, *, principal: TrustedPrincipal
-    ) -> ChangeReceipt:
+    ) -> MembershipChangeReceipt:
         if not isinstance(command, AssignOrganizationMembership):
             raise TypeError("Expected AssignOrganizationMembership command")
         scope, action = command.scope, "organization.membership.assign"
@@ -154,14 +159,13 @@ class OrganizationMembershipService:
             uow.org_memberships.append(scope=scope, membership=membership)
             return self._commit(
                 uow=uow, principal=principal, scope=scope, action=action,
-                key=command.request_id, digest=digest, revision=1,
-                previous_revision=0, correlation_id=command.correlation_id,
-                reason=command.reason, recorded_at=now,
+                key=command.request_id, digest=digest, membership=membership,
+                correlation_id=command.correlation_id, reason=command.reason,
             )
 
     def end(
         self, command: EndOrganizationMembership, *, principal: TrustedPrincipal
-    ) -> ChangeReceipt:
+    ) -> MembershipChangeReceipt:
         if not isinstance(command, EndOrganizationMembership):
             raise TypeError("Expected EndOrganizationMembership command")
         scope, action = command.scope, "organization.membership.end"
@@ -192,8 +196,6 @@ class OrganizationMembershipService:
             uow.org_memberships.append(scope=scope, membership=revised)
             return self._commit(
                 uow=uow, principal=principal, scope=scope, action=action,
-                key=command.request_id, digest=digest, revision=revised.revision,
-                previous_revision=current.revision,
+                key=command.request_id, digest=digest, membership=revised,
                 correlation_id=command.correlation_id, reason=command.reason,
-                recorded_at=now,
             )

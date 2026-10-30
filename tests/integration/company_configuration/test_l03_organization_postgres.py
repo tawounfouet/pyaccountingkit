@@ -56,7 +56,10 @@ def clean_organization_database():
     # Do NOT truncate legacy legal_entities: test FK/parent compatibility.
     with psycopg.connect(ADMIN) as conn:
         conn.execute(
-            "TRUNCATE company_configuration.organizational_membership_revisions,"
+            "TRUNCATE company_configuration.organization_membership_requests,"
+                " company_configuration.organization_membership_audit,"
+                " company_configuration.organization_membership_outbox,"
+                " company_configuration.organizational_membership_revisions,"
             "company_configuration.organizational_legal_identifiers,"
             "company_configuration.organizational_establishments,"
             "company_configuration.organizational_companies"
@@ -64,7 +67,10 @@ def clean_organization_database():
     yield
     with psycopg.connect(ADMIN) as conn:
         conn.execute(
-            "TRUNCATE company_configuration.organizational_membership_revisions,"
+            "TRUNCATE company_configuration.organization_membership_requests,"
+                " company_configuration.organization_membership_audit,"
+                " company_configuration.organization_membership_outbox,"
+                " company_configuration.organizational_membership_revisions,"
             "company_configuration.organizational_legal_identifiers,"
             "company_configuration.organizational_establishments,"
             "company_configuration.organizational_companies"

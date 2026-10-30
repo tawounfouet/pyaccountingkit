@@ -50,7 +50,7 @@ from pyaccountingkit.company_configuration.infrastructure.memory import (  # noq
 from pyaccountingkit.company_configuration.infrastructure.postgres.adapter import (  # noqa: E402
     PostgresUnitOfWork,
 )
-from tests.integration.company_configuration.org_test_seed import (  # noqa: E402
+from org_test_seed import (  # noqa: E402
     EvidencedOrganizationSeed as PostgresOrganizationRepository,
 )
 

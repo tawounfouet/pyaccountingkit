@@ -17,6 +17,19 @@ from .candidate_snapshots import (
     InvalidBookCandidateVersion,
     select_book_candidate_version,
 )
+from .dependency_receipts import (
+    BookDependencyAmbiguous,
+    BookDependencyCandidateReadReceipt,
+    BookDependencyClaim,
+    BookDependencyDeclaration,
+    BookDependencyDigestMismatch,
+    BookDependencyKind,
+    BookDependencyMissing,
+    BookDependencyRef,
+    BookDependencyUnavailable,
+    InvalidBookDependency,
+    preview_book_dependency_completeness,
+)
 from .framework_bindings import (
     BookFrameworkPreview,
     FrameworkBindingAmbiguous,
@@ -46,6 +59,17 @@ from .normative_history import (
 )
 
 __all__ = [
+    "BookDependencyAmbiguous",
+    "BookDependencyCandidateReadReceipt",
+    "BookDependencyClaim",
+    "BookDependencyDeclaration",
+    "BookDependencyDigestMismatch",
+    "BookDependencyKind",
+    "BookDependencyMissing",
+    "BookDependencyRef",
+    "BookDependencyUnavailable",
+    "InvalidBookDependency",
+    "preview_book_dependency_completeness",
     "BookCandidateVersionAmbiguous",
     "BookCandidateVersionMissing",
     "BookConfigurationCandidateSnapshot",

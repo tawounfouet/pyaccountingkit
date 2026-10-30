@@ -253,3 +253,96 @@ def test_command_guards_refuse_untyped_or_stale_values():
             expected_revision=True, source_ref="ref", request_id="req",
             correlation_id="corr", reason="test",
         )
+
+
+def test_direct_valid_membership_insert_without_evidence_fails_at_commit():
+    scope, membership_id, _, _, clock, _ = setup()
+    with pytest.raises(psycopg.errors.CheckViolation, match="Membership revision requires"):
+        with psycopg.connect(RUNTIME_A) as conn:
+            conn.execute(
+                "INSERT INTO company_configuration.organizational_membership_revisions "
+                "(tenant_id,membership_id,revision,company_id,legal_entity_id,"
+                "kind,exclusive,valid_from,recorded_at,source_ref) "
+                "VALUES (%s,%s,1,%s,%s,'ADMINISTRATIVE',true,%s,%s,'direct')",
+                (
+                    scope.tenant_id, membership_id.value, scope.company_id.value,
+                    scope.legal_entity_id.value, date(2026, 1, 1), clock.instant,
+                ),
+            )
+    assert evidence_counts() == (0, 0, 0, 0)
+
+
+def test_direct_membership_revision_without_evidence_rolls_back():
+    scope, membership_id, actor, _, clock, service = setup()
+    service.assign(assign(scope, membership_id), principal=actor)
+    clock.instant += timedelta(days=1)
+    with pytest.raises(psycopg.errors.CheckViolation, match="Membership revision requires"):
+        with psycopg.connect(RUNTIME_A) as conn:
+            conn.execute(
+                "INSERT INTO company_configuration.organizational_membership_revisions "
+                "(tenant_id,membership_id,revision,company_id,legal_entity_id,"
+                "kind,exclusive,valid_from,valid_to,recorded_at,source_ref) "
+                "VALUES (%s,%s,2,%s,%s,'ADMINISTRATIVE',true,%s,%s,%s,'direct')",
+                (
+                    scope.tenant_id, membership_id.value, scope.company_id.value,
+                    scope.legal_entity_id.value, date(2026, 1, 1),
+                    date(2026, 3, 1), clock.instant,
+                ),
+            )
+    assert evidence_counts() == (1, 1, 1, 1)
+
+
+def test_direct_membership_receipt_without_linked_audit_outbox_fails():
+    scope, membership_id, _, _, clock, _ = setup()
+    with pytest.raises(psycopg.errors.CheckViolation, match="Membership revision requires"):
+        with psycopg.connect(RUNTIME_A) as conn:
+            conn.execute(
+                "INSERT INTO company_configuration.organizational_membership_revisions "
+                "(tenant_id,membership_id,revision,company_id,legal_entity_id,"
+                "kind,exclusive,valid_from,recorded_at,source_ref) "
+                "VALUES (%s,%s,1,%s,%s,'ADMINISTRATIVE',true,%s,%s,'direct')",
+                (
+                    scope.tenant_id, membership_id.value, scope.company_id.value,
+                    scope.legal_entity_id.value, date(2026, 1, 1), clock.instant,
+                ),
+            )
+            conn.execute(
+                "INSERT INTO company_configuration.organization_membership_requests "
+                "(tenant_id,actor_id,action,request_key,request_digest,membership_id,"
+                "company_id,legal_entity_id,revision,correlation_id,audit_id,event_id)"
+                " VALUES (%s,'untrusted','organization.membership.assign',"
+                "'direct',%s,%s,%s,%s,1,'corr',%s,%s)",
+                (
+                    scope.tenant_id, "a" * 64, membership_id.value,
+                    scope.company_id.value, scope.legal_entity_id.value,
+                    uuid4(), uuid4(),
+                ),
+            )
+    assert evidence_counts() == (0, 0, 0, 0)
+
+
+def test_membership_outbox_has_unambiguous_typed_target_identity():
+    scope, membership_id, principal, _, _, service = setup()
+    receipt = service.assign(assign(scope, membership_id), principal=principal)
+    assert receipt.membership_id == membership_id
+    with psycopg.connect(RUNTIME_A) as conn:
+        audit = conn.execute(
+            "SELECT membership_id,company_id,legal_entity_id,after_revision "
+            "FROM company_configuration.organization_membership_audit "
+            "WHERE record_id=%s",
+            (receipt.audit_id,),
+        ).fetchone()
+        event = conn.execute(
+            "SELECT membership_id,company_id,legal_entity_id,revision,kind,"
+            "exclusive,valid_from,valid_to FROM "
+            "company_configuration.organization_membership_outbox "
+            "WHERE event_id=%s", (receipt.event_id,),
+        ).fetchone()
+    assert audit == (
+        membership_id.value, scope.company_id.value, scope.legal_entity_id.value, 1,
+    )
+    assert event == (
+        membership_id.value, scope.company_id.value, scope.legal_entity_id.value,
+        1, "ADMINISTRATIVE", True, date(2026, 1, 1), None,
+    )
+    assert evidence_counts() == (1, 1, 1, 1)

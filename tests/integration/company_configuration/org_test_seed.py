@@ -31,11 +31,11 @@ from pyaccountingkit.company_configuration.domain.shared.accounting_scope import
 from pyaccountingkit.company_configuration.infrastructure.postgres import (
     organization_registration,
 )
-from pyaccountingkit.company_configuration.infrastructure.postgres.adapter import (
-    PostgresUnitOfWork,
-)
 from pyaccountingkit.company_configuration.infrastructure.postgres.organization import (
     PostgresOrganizationRepository,
+)
+from pyaccountingkit.company_configuration.infrastructure.postgres.organization_membership import (
+    PostgresOrganizationMembershipUnitOfWork,
 )
 
 
@@ -149,7 +149,15 @@ class EvidencedOrganizationSeed:
             request_digest=sha256(str(uuid4()).encode()).hexdigest(),
             reason="test setup only",
         )
-        with PostgresUnitOfWork(self._dsn) as uow:
+        # CI fixture: issuer credential mapping is independent of the normal
+        # L02 tenant writer and never used outside test-only setup.
+        if self._dsn == os.getenv("CC_PG_DSN"):
+            issuer_dsn = os.getenv("CC_PG_ORG_MEMBERSHIP_WRITER_DSN") or self._dsn
+        elif self._dsn == os.getenv("CC_PG_DSN_B"):
+            issuer_dsn = os.getenv("CC_PG_ORG_MEMBERSHIP_WRITER_DSN_B") or self._dsn
+        else:
+            issuer_dsn = self._dsn
+        with PostgresOrganizationMembershipUnitOfWork(issuer_dsn) as uow:
             uow.org_memberships.append(scope=scope, membership=item)
             uow.append_membership_evidence(scope=scope, evidence=evidence)
             uow.commit()

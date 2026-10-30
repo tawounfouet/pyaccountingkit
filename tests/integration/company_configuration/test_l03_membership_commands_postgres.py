@@ -51,15 +51,17 @@ from pyaccountingkit.company_configuration.domain.shared.references import (  # 
 from pyaccountingkit.company_configuration.infrastructure.memory import (  # noqa: E402
     MemoryAuthorization,
 )
-from pyaccountingkit.company_configuration.infrastructure.postgres.adapter import (  # noqa: E402
-    PostgresUnitOfWork,
+from pyaccountingkit.company_configuration.infrastructure.postgres.organization_membership import (  # noqa: E402
+    PostgresOrganizationMembershipUnitOfWork,
 )
 
 ADMIN = os.getenv("CC_PG_ADMIN_DSN")
 RUNTIME_A = os.getenv("CC_PG_DSN")
 RUNTIME_B = os.getenv("CC_PG_DSN_B")
+MEMBER_WRITER_A = os.getenv("CC_PG_ORG_MEMBERSHIP_WRITER_DSN")
+MEMBER_WRITER_B = os.getenv("CC_PG_ORG_MEMBERSHIP_WRITER_DSN_B")
 pytestmark = pytest.mark.skipif(
-    not (ADMIN and RUNTIME_A and RUNTIME_B),
+    not (ADMIN and RUNTIME_A and RUNTIME_B and MEMBER_WRITER_A and MEMBER_WRITER_B),
     reason="ORG-4 integration requires dedicated PostgreSQL CI test roles",
 )
 
@@ -106,6 +108,7 @@ def setup(*, tenant="tenant-a", before_commit=None):
     company_id, entity_id, membership_id = CompanyId.new(), LegalEntityId.new(), MembershipId.new()
     scope = ConfigurationScope(tenant, company_id, entity_id)
     runtime = RUNTIME_B if tenant == "tenant-b" else RUNTIME_A
+    issuer = MEMBER_WRITER_B if tenant == "tenant-b" else MEMBER_WRITER_A
     principal = TrustedPrincipal("operator", tenant)
     with psycopg.connect(ADMIN) as conn:
         conn.execute(
@@ -123,7 +126,9 @@ def setup(*, tenant="tenant-a", before_commit=None):
         authorization.grant(actor_id=principal.actor_id, action=action, scope=scope)
     clock = MutableClock(datetime(2026, 4, 1, tzinfo=UTC))
     service = OrganizationMembershipService(
-        lambda: PostgresUnitOfWork(runtime, before_commit=before_commit),
+        lambda: PostgresOrganizationMembershipUnitOfWork(
+            issuer, before_commit=before_commit,
+        ),
         authorization, clock,
     )
     return scope, membership_id, principal, authorization, clock, service
@@ -257,7 +262,7 @@ def test_command_guards_refuse_untyped_or_stale_values():
 
 def test_direct_valid_membership_insert_without_evidence_fails_at_commit():
     scope, membership_id, _, _, clock, _ = setup()
-    with pytest.raises(psycopg.errors.CheckViolation, match="Membership revision requires"):
+    with pytest.raises(psycopg.errors.InsufficientPrivilege):
         with psycopg.connect(RUNTIME_A) as conn:
             conn.execute(
                 "INSERT INTO company_configuration.organizational_membership_revisions "
@@ -276,7 +281,7 @@ def test_direct_membership_revision_without_evidence_rolls_back():
     scope, membership_id, actor, _, clock, service = setup()
     service.assign(assign(scope, membership_id), principal=actor)
     clock.instant += timedelta(days=1)
-    with pytest.raises(psycopg.errors.CheckViolation, match="Membership revision requires"):
+    with pytest.raises(psycopg.errors.InsufficientPrivilege):
         with psycopg.connect(RUNTIME_A) as conn:
             conn.execute(
                 "INSERT INTO company_configuration.organizational_membership_revisions "
@@ -294,7 +299,7 @@ def test_direct_membership_revision_without_evidence_rolls_back():
 
 def test_direct_membership_receipt_without_linked_audit_outbox_fails():
     scope, membership_id, _, _, clock, _ = setup()
-    with pytest.raises(psycopg.errors.CheckViolation, match="Membership revision requires"):
+    with pytest.raises(psycopg.errors.InsufficientPrivilege):
         with psycopg.connect(RUNTIME_A) as conn:
             conn.execute(
                 "INSERT INTO company_configuration.organizational_membership_revisions "

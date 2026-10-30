@@ -278,3 +278,80 @@ def test_other_tenant_and_unbound_role_cannot_read_evidence():
             conn.execute(
                 "DELETE FROM company_configuration.organization_command_audit"
             )
+
+
+def test_direct_company_insert_without_evidence_rejected_at_commit():
+    subject = company()
+    with pytest.raises(psycopg.errors.CheckViolation, match="requires matching"):
+        with psycopg.connect(APP) as conn:
+            conn.execute(
+                "INSERT INTO company_configuration.organizational_companies "
+                "(tenant_id,company_id,name,kind,home_country,status,revision) "
+                "VALUES (%s,%s,%s,%s,%s,%s,1)",
+                (
+                    subject.tenant_id, subject.id.value, subject.name,
+                    subject.kind.value, subject.home_country.value,
+                    subject.status.value,
+                ),
+            )
+    assert counts() == (0, 0, 0, 0, 0, 0)
+
+
+def test_direct_establishment_insert_without_evidence_rejected_at_commit():
+    legal_id = seed_legal()
+    subject = Establishment(
+        EstablishmentId.new(), "tenant-a", legal_id, "Unrecorded",
+        JurisdictionCode("FR"), EffectiveInterval(date(2026, 1, 1)),
+    )
+    with pytest.raises(psycopg.errors.CheckViolation, match="requires matching"):
+        with psycopg.connect(APP) as conn:
+            conn.execute(
+                "INSERT INTO company_configuration.organizational_establishments "
+                "(tenant_id,establishment_id,legal_entity_id,name,country,"
+                "valid_from,status,revision) "
+                "VALUES (%s,%s,%s,%s,%s,%s,%s,1)",
+                (
+                    subject.tenant_id, subject.id.value, legal_id.value,
+                    subject.name, subject.country.value, subject.valid.start,
+                    subject.status.value,
+                ),
+            )
+    assert counts() == (0, 0, 0, 0, 0, 0)
+
+
+def test_direct_legal_identifier_insert_without_evidence_rejected_at_commit():
+    legal_id = seed_legal()
+    with pytest.raises(psycopg.errors.CheckViolation, match="requires matching"):
+        with psycopg.connect(APP) as conn:
+            conn.execute(
+                "INSERT INTO company_configuration.organizational_legal_identifiers "
+                "(tenant_id,identifier_id,legal_entity_id,scheme,value,issuer,"
+                "jurisdiction,valid_from,source_ref) "
+                "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                (
+                    "tenant-a", uuid4(), legal_id.value, "SIREN", "123456789",
+                    "INSEE", "FR", date(2026, 1, 1), "unverified",
+                ),
+            )
+    assert counts() == (0, 0, 0, 0, 0, 0)
+
+
+def test_direct_registration_cannot_commit_with_only_a_request():
+    subject = company()
+    with pytest.raises(psycopg.errors.CheckViolation, match="requires matching"):
+        with psycopg.connect(APP) as conn:
+            conn.execute(
+                "INSERT INTO company_configuration.organizational_companies "
+                "(tenant_id,company_id,name,kind,home_country,status,revision) "
+                "VALUES (%s,%s,'Direct','GROUP','FR','DRAFT',1)",
+                ("tenant-a", subject.id.value),
+            )
+            conn.execute(
+                "INSERT INTO company_configuration.organization_command_requests "
+                "(tenant_id,actor_id,action,request_key,request_digest,target_kind,"
+                "target_id,revision,correlation_id,audit_id,event_id) "
+                "VALUES ('tenant-a','untrusted','organization.company.register',"
+                "'untrusted-key',%s,'COMPANY',%s,1,'correlation',%s,%s)",
+                ("a" * 64, subject.id.value, uuid4(), uuid4()),
+            )
+    assert counts() == (0, 0, 0, 0, 0, 0)

@@ -75,6 +75,16 @@ class AccountStatusCandidateId(_UUIDIdentifier):
 
 
 @dataclass(frozen=True, slots=True)
+class CompanyChartCandidateVersionId(_UUIDIdentifier):
+    """Unpublished chart version candidate, NOT CompanyChartVersion publication."""
+
+
+@dataclass(frozen=True, slots=True)
+class BookChartBindingCandidateId(_UUIDIdentifier):
+    """Identity of a dated, unapproved book-to-chart-version intention."""
+
+
+@dataclass(frozen=True, slots=True)
 class ConfigurationDraftId(_UUIDIdentifier):
     """Stable identity of an unpublished configuration draft."""
 

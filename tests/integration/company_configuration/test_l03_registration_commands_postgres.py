@@ -346,9 +346,9 @@ def test_direct_legal_identifier_insert_without_evidence_rejected_at_commit():
     assert counts() == (0, 0, 0, 0, 0, 0)
 
 
-def test_direct_registration_cannot_commit_with_only_a_request():
+def test_direct_company_registration_denied_even_before_partial_request():
     subject = company()
-    with pytest.raises(psycopg.errors.CheckViolation, match="requires matching"):
+    with pytest.raises(psycopg.errors.InsufficientPrivilege):
         with psycopg.connect(APP) as conn:
             conn.execute(
                 "INSERT INTO company_configuration.organizational_companies "

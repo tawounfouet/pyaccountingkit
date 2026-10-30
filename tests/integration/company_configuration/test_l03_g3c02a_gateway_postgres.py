@@ -161,8 +161,10 @@ def test_signed_gateway_commits_once_and_rejects_replays_and_revocation():
     registration = OrganizationRegistrationService(
         lambda: organization_registration.PostgresOrganizationRegistrationUnitOfWork(RUNTIME),
         DDDGrants(), Clock(),
-        company_uow_factory=lambda: organization_registration.PostgresOrganizationRegistrationUnitOfWork(
-            COMPANY_WRITER
+        company_uow_factory=lambda: (
+            organization_registration.PostgresOrganizationRegistrationUnitOfWork(
+                COMPANY_WRITER
+            )
         ),
     )
     grants, nonce = LiveGrants(), NonceTestDouble()

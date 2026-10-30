@@ -41,8 +41,8 @@ from pyaccountingkit.company_configuration.domain.shared.effective_interval impo
 )
 from pyaccountingkit.company_configuration.domain.shared.identifiers import (
     AccountHierarchyEdgeId,
-    AccountStatusCandidateId,
     AccountingBookId,
+    AccountStatusCandidateId,
     BookChartBindingCandidateId,
     CompanyAccountId,
     CompanyChartCandidateVersionId,

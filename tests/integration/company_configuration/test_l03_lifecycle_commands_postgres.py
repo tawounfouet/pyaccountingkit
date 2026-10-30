@@ -27,6 +27,8 @@ from pyaccountingkit.company_configuration.domain.organization.model import (  #
     CompanyStatus,
     Establishment,
     EstablishmentStatus,
+    MembershipKind,
+    OrganizationMembership,
 )
 from pyaccountingkit.company_configuration.domain.shared.effective_interval import (  # noqa: E402
     EffectiveInterval,
@@ -39,6 +41,7 @@ from pyaccountingkit.company_configuration.domain.shared.identifiers import (  #
     CompanyId,
     EstablishmentId,
     LegalEntityId,
+    MembershipId,
 )
 from pyaccountingkit.company_configuration.domain.shared.references import (  # noqa: E402
     JurisdictionCode,
@@ -298,3 +301,165 @@ def test_direct_sql_cannot_forge_invalid_transition_or_mutate_history():
             "SELECT count(*) FROM company_configuration.organization_lifecycle_outbox"
         ).fetchone()[0] == 0
     assert lifecycle_evidence_counts() == (1, 1, 1)
+
+
+def _make_affiliation(org, *, start=date(2026, 1, 1), recorded=None):
+    return OrganizationMembership(
+        MembershipId.new(), "tenant-a", org.id, LegalEntityId.new(),
+        MembershipKind.ADMINISTRATIVE, True,
+        EffectiveInterval(start), recorded or datetime(2026, 10, 20, tzinfo=UTC),
+        "G3-approved-evidence",
+    )
+
+
+def _inactive_company():
+    org, actor, _, clock, service = setup()
+    service.transition_company(
+        company_change(org, CompanyStatus.ACTIVE), principal=actor,
+    )
+    clock.instant += timedelta(seconds=1)
+    service.transition_company(
+        company_change(org, CompanyStatus.INACTIVE, expected=2, key="to-inactive"),
+        principal=actor,
+    )
+    clock.instant += timedelta(seconds=1)
+    return org, actor, clock, service
+
+
+def test_g3_archive_rejects_open_affiliation_and_preserves_evidence():
+    org, actor, clock, svc = _inactive_company()
+    legal = LegalEntityId.new()
+    with psycopg.connect(ADMIN) as conn:
+        conn.execute(
+            "INSERT INTO company_configuration.legal_entities "
+            "(tenant_id,company_id,entity_id,legal_name,jurisdiction,"
+            "functional_currency,revision) VALUES (%s,%s,%s,%s,%s,%s,1)",
+            ("tenant-a", uuid4(), legal.value, "Affiliated legal", "FR", "EUR"),
+        )
+    first = OrganizationMembership(
+        MembershipId.new(), "tenant-a", org.id, legal,
+        MembershipKind.ADMINISTRATIVE, True,
+        EffectiveInterval(date(2026, 1, 1)),
+        clock.instant, "board-affiliation",
+    )
+    store = PostgresOrganizationRepository(APP)
+    store.append_membership(first)
+    before = lifecycle_evidence_counts()
+    with pytest.raises(psycopg.errors.CheckViolation, match="Cannot archive"):
+        svc.transition_company(
+            company_change(org, CompanyStatus.ARCHIVED, expected=3, key="archive"),
+            principal=actor,
+        )
+    assert counts("organizational_company_revisions") == 2
+    assert lifecycle_evidence_counts() == before
+    # Validity is half-open: ending by the recorded UTC archival date
+    # removes the live/future affiliation without erasing historical revisions.
+    clock.instant += timedelta(seconds=1)
+    store.append_membership(
+        first.end(
+            effective_end=clock.instant.date(),
+            recorded_at=clock.instant,
+            source_ref="cessation-registered",
+            expected_revision=1,
+        )
+    )
+    clock.instant += timedelta(seconds=1)
+    archived = svc.transition_company(
+        company_change(org, CompanyStatus.ARCHIVED, expected=3, key="archive"),
+        principal=actor,
+    )
+    assert archived.revision == 4
+    assert lifecycle_evidence_counts() == (3, 3, 3)
+    assert counts("organizational_membership_revisions") == 2
+
+
+def test_g3_archived_company_rejects_new_membership_direct_sql():
+    org, actor, clock, svc = _inactive_company()
+    svc.transition_company(
+        company_change(org, CompanyStatus.ARCHIVED, expected=3, key="archive"),
+        principal=actor,
+    )
+    legal = LegalEntityId.new()
+    with psycopg.connect(ADMIN) as conn:
+        conn.execute(
+            "INSERT INTO company_configuration.legal_entities "
+            "(tenant_id,company_id,entity_id,legal_name,jurisdiction,"
+            "functional_currency,revision) VALUES (%s,%s,%s,%s,%s,%s,1)",
+            ("tenant-a", uuid4(), legal.value, "Legal", "FR", "EUR"),
+        )
+    membership = OrganizationMembership(
+        MembershipId.new(), "tenant-a", org.id, legal,
+        MembershipKind.ADMINISTRATIVE, True,
+        EffectiveInterval(date(2027, 1, 1)),
+        clock.instant, "backdated-claim",
+    )
+    with pytest.raises(psycopg.errors.CheckViolation, match="archived company"):
+        PostgresOrganizationRepository(APP).append_membership(membership)
+    assert counts("organizational_membership_revisions") == 0
+
+
+def test_g3_concurrent_archive_and_membership_cannot_both_commit():
+    org, actor, clock, svc = _inactive_company()
+    legal = LegalEntityId.new()
+    with psycopg.connect(ADMIN) as conn:
+        conn.execute(
+            "INSERT INTO company_configuration.legal_entities "
+            "(tenant_id,company_id,entity_id,legal_name,jurisdiction,"
+            "functional_currency,revision) VALUES (%s,%s,%s,%s,%s,%s,1)",
+            ("tenant-a", uuid4(), legal.value, "Legal", "FR", "EUR"),
+        )
+    affiliation = OrganizationMembership(
+        MembershipId.new(), "tenant-a", org.id, legal,
+        MembershipKind.ADMINISTRATIVE, True,
+        EffectiveInterval(date(2026, 1, 1)),
+        clock.instant, "company-affiliation",
+    )
+
+    def race(worker):
+        try:
+            if worker == "archive":
+                svc.transition_company(
+                    company_change(org, CompanyStatus.ARCHIVED, expected=3, key="archive"),
+                    principal=actor,
+                )
+            else:
+                PostgresOrganizationRepository(APP).append_membership(affiliation)
+            return "accepted"
+        except psycopg.errors.CheckViolation:
+            return "rejected"
+
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        outcomes = list(pool.map(race, ("archive", "membership")))
+    assert sorted(outcomes) == ["accepted", "rejected"]
+    archived = counts("organizational_company_revisions") == 3
+    open_member = counts("organizational_membership_revisions") == 1
+    assert archived != open_member
+
+
+def test_g3_direct_sql_archival_is_also_guarded():
+    org, _, clock, _ = _inactive_company()
+    legal = LegalEntityId.new()
+    with psycopg.connect(ADMIN) as conn:
+        conn.execute(
+            "INSERT INTO company_configuration.legal_entities "
+            "(tenant_id,company_id,entity_id,legal_name,jurisdiction,"
+            "functional_currency,revision) VALUES (%s,%s,%s,%s,%s,%s,1)",
+            ("tenant-a", uuid4(), legal.value, "Legal", "FR", "EUR"),
+        )
+    PostgresOrganizationRepository(APP).append_membership(
+        OrganizationMembership(
+            MembershipId.new(), "tenant-a", org.id, legal,
+            MembershipKind.OPERATIONAL, True,
+            EffectiveInterval(date(2027, 1, 1)), clock.instant,
+            "future-affiliation",
+        )
+    )
+    with psycopg.connect(APP) as conn:
+        with pytest.raises(psycopg.errors.CheckViolation, match="Cannot archive"):
+            conn.execute(
+                "INSERT INTO company_configuration.organizational_company_revisions "
+                "(tenant_id,company_id,revision,status,recorded_at,source_ref) "
+                "VALUES (%s,%s,4,'ARCHIVED',%s,'direct-sql')",
+                ("tenant-a", org.id.value, clock.instant),
+            )
+    assert counts("organizational_company_revisions") == 2

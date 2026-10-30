@@ -38,7 +38,32 @@ from .model import (
     require_unique_chart_code,
 )
 
+from .versions_bindings import (
+    BookChartBindingCandidate,
+    BookChartCandidateAmbiguous,
+    BookChartCandidateMissing,
+    BookChartCandidateReadReceipt,
+    BookChartPurpose,
+    ChartCandidateDigestMismatch,
+    ChartFrameworkClaimMismatch,
+    CompanyChartVersionCandidate,
+    InvalidBookChartBinding,
+    InvalidChartCandidateVersion,
+    preview_book_chart_candidate,
+)
+
 __all__ = [
+    "BookChartBindingCandidate",
+    "BookChartCandidateAmbiguous",
+    "BookChartCandidateMissing",
+    "BookChartCandidateReadReceipt",
+    "BookChartPurpose",
+    "ChartCandidateDigestMismatch",
+    "ChartFrameworkClaimMismatch",
+    "CompanyChartVersionCandidate",
+    "InvalidBookChartBinding",
+    "InvalidChartCandidateVersion",
+    "preview_book_chart_candidate",
     "AccountBookabilityCandidateDenied",
     "AccountBookabilityCandidatePreview",
     "AccountStatusCandidate",

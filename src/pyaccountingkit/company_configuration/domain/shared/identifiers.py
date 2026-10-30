@@ -70,6 +70,11 @@ class NormativeStatementId(_UUIDIdentifier):
 
 
 @dataclass(frozen=True, slots=True)
+class BookCandidateVersionId(_UUIDIdentifier):
+    """Unpublished L04 R&D component version, not an approved publication."""
+
+
+@dataclass(frozen=True, slots=True)
 class ConfigurationDraftId(_UUIDIdentifier):
     """Stable identity of an unpublished configuration draft."""
 

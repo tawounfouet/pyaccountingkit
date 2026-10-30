@@ -57,8 +57,9 @@ from pyaccountingkit.company_configuration.infrastructure.postgres.organization_
 ADMIN = os.getenv("CC_PG_ADMIN_DSN")
 APP = os.getenv("CC_PG_DSN")
 OTHER = os.getenv("CC_PG_DSN_B")
+LIFECYCLE_WRITER = os.getenv("CC_PG_ORG_LIFECYCLE_WRITER_DSN")
 pytestmark = pytest.mark.skipif(
-    not (ADMIN and APP and OTHER),
+    not (ADMIN and APP and OTHER and LIFECYCLE_WRITER),
     reason="ORG-4c requires ephemeral PostgreSQL 16 tenant-bound CI roles",
 )
 
@@ -124,7 +125,9 @@ def setup(*, before_commit=None):
         auth.grant(principal, action)
     clock = Clock()
     svc = OrganizationLifecycleService(
-        lambda: PostgresOrganizationLifecycleUnitOfWork(APP, before_commit=before_commit),
+        lambda: PostgresOrganizationLifecycleUnitOfWork(
+            LIFECYCLE_WRITER, before_commit=before_commit,
+        ),
         auth, clock,
     )
     return org, principal, auth, clock, svc
@@ -287,7 +290,7 @@ def test_concurrent_identical_transition_returns_same_receipt():
 def test_direct_sql_cannot_forge_invalid_transition_or_mutate_history():
     org, actor, _, _, svc = setup()
     with psycopg.connect(APP) as conn:
-        with pytest.raises(psycopg.errors.CheckViolation):
+        with pytest.raises(psycopg.errors.InsufficientPrivilege):
             conn.execute(
                 "INSERT INTO company_configuration.organizational_company_revisions "
                 "(tenant_id,company_id,revision,status,recorded_at,source_ref) "
@@ -459,7 +462,7 @@ def test_g3_direct_sql_archival_is_also_guarded():
         )
     )
     with psycopg.connect(APP) as conn:
-        with pytest.raises(psycopg.errors.CheckViolation, match="Cannot archive"):
+        with pytest.raises(psycopg.errors.InsufficientPrivilege):
             conn.execute(
                 "INSERT INTO company_configuration.organizational_company_revisions "
                 "(tenant_id,company_id,revision,status,recorded_at,source_ref) "

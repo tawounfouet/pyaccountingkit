@@ -135,13 +135,19 @@ def _counts():
 
 def test_signed_gateway_commits_once_and_rejects_replays_and_revocation():
     with psycopg.connect(ADMIN) as conn:
+        # Truncate parents and FK-bound membership children in ONE statement.
+        # No CASCADE: preserve unrelated L02 fixture and migration contract.
         conn.execute(
             "TRUNCATE company_configuration.organization_command_requests,"
             "company_configuration.organization_command_audit,"
-            "company_configuration.organization_command_outbox"
-        )
-        conn.execute(
-            "TRUNCATE company_configuration.organizational_companies"
+            "company_configuration.organization_command_outbox,"
+            "company_configuration.organization_membership_requests,"
+            "company_configuration.organization_membership_audit,"
+            "company_configuration.organization_membership_outbox,"
+            "company_configuration.organizational_membership_revisions,"
+            "company_configuration.organizational_establishments,"
+            "company_configuration.organizational_legal_identifiers,"
+            "company_configuration.organizational_companies"
         )
 
     key = Ed25519PrivateKey.generate()

@@ -140,7 +140,7 @@ def _recorded_versions(dsn: str):
         ).fetchall()
 
 
-def test_upgrade_0013_to_0021_is_atomic_preserves_records_and_is_idempotent(
+def test_upgrade_0013_to_0022_is_atomic_preserves_records_and_is_idempotent(
     isolated_database,
 ):
     dsn = isolated_database()
@@ -153,7 +153,7 @@ def test_upgrade_0013_to_0021_is_atomic_preserves_records_and_is_idempotent(
     before = _recorded_versions(dsn)
     assert len(before) == 13
     assert migrate.apply_migrations(dsn) == names[13:]
-    assert len(_recorded_versions(dsn)) == 21
+    assert len(_recorded_versions(dsn)) == 22
     assert _recorded_versions(dsn)[:13] == before
     _assert_preserved_evidence(dsn, ids)
     with psycopg.connect(dsn) as conn:
@@ -171,7 +171,7 @@ def test_failed_migration_is_fully_rolled_back_and_rerun_works(
     isolated_database, monkeypatch, tmp_path,
 ):
     dsn = isolated_database()
-    assert len(migrate.apply_migrations(dsn)) == 21
+    assert len(migrate.apply_migrations(dsn)) == 22
     prior = _recorded_versions(dsn)
     for filename, source in _migration_entries():
         (tmp_path / filename).write_text(source, encoding="utf-8")
@@ -197,7 +197,7 @@ def test_unrecognized_future_and_noncontiguous_applied_history_fail_closed(
     isolated_database,
 ):
     dsn = isolated_database()
-    assert len(migrate.apply_migrations(dsn)) == 21
+    assert len(migrate.apply_migrations(dsn)) == 22
     expected = _recorded_versions(dsn)
     with psycopg.connect(dsn) as conn:
         conn.execute(
@@ -226,7 +226,7 @@ def test_checksum_drift_rejected_without_touching_schema(
     isolated_database, monkeypatch, tmp_path,
 ):
     dsn = isolated_database()
-    assert len(migrate.apply_migrations(dsn)) == 21
+    assert len(migrate.apply_migrations(dsn)) == 22
     original = _recorded_versions(dsn)
     for filename, source in _migration_entries():
         (tmp_path / filename).write_text(source, encoding="utf-8")
@@ -247,8 +247,8 @@ def test_concurrent_fresh_migration_applies_each_script_exactly_once(
     dsn = isolated_database()
     with ThreadPoolExecutor(max_workers=2) as executor:
         results = list(executor.map(migrate.apply_migrations, (dsn, dsn)))
-    assert sorted(len(result) for result in results) == [0, 21]
-    assert len(_recorded_versions(dsn)) == 21
+    assert sorted(len(result) for result in results) == [0, 22]
+    assert len(_recorded_versions(dsn)) == 22
 
 
 def _run_pg_tool(binary: str, dsn: str, args: list[str]) -> None:
@@ -272,7 +272,7 @@ def test_real_custom_dump_restores_all_migration_history_and_evidence(
 ):
     source = isolated_database()
     restored = isolated_database()
-    assert len(migrate.apply_migrations(source)) == 21
+    assert len(migrate.apply_migrations(source)) == 22
     ids = _seed_legacy_evidence(source)
     expected_history = _recorded_versions(source)
     archive = tmp_path / "company_configuration.dump"

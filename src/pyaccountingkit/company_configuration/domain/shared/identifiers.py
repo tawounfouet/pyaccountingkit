@@ -55,6 +55,16 @@ class AccountingBookId(_UUIDIdentifier):
 
 
 @dataclass(frozen=True, slots=True)
+class CompanyChartId(_UUIDIdentifier):
+    """Stable identity of an unpublished company chart, not its code."""
+
+
+@dataclass(frozen=True, slots=True)
+class CompanyAccountId(_UUIDIdentifier):
+    """Stable identity of a company account, separate from its code."""
+
+
+@dataclass(frozen=True, slots=True)
 class ConfigurationDraftId(_UUIDIdentifier):
     """Stable identity of an unpublished configuration draft."""
 

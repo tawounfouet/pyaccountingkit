@@ -17,6 +17,17 @@ from .framework_bindings import (
     ReferenceFrameworkBindingCandidate,
     preview_reference_framework_binding,
 )
+from .normative_history import (
+    InvalidNormativeStatement,
+    NormativeDeclaration,
+    NormativeReferenceHistoricalPreview,
+    NormativeReferenceStatement,
+    NormativeSourceCode,
+    NormativeStatementAmbiguous,
+    NormativeStatementMissing,
+    NormativeStatementUnavailable,
+    preview_normative_reference_history,
+)
 from .model import (
     AccountingBookConflict,
     AccountingBookDraft,
@@ -26,6 +37,15 @@ from .model import (
 )
 
 __all__ = [
+    "InvalidNormativeStatement",
+    "NormativeDeclaration",
+    "NormativeReferenceHistoricalPreview",
+    "NormativeReferenceStatement",
+    "NormativeSourceCode",
+    "NormativeStatementAmbiguous",
+    "NormativeStatementMissing",
+    "NormativeStatementUnavailable",
+    "preview_normative_reference_history",
     "BookFrameworkPreview",
     "FrameworkBindingAmbiguous",
     "FrameworkBindingMissing",

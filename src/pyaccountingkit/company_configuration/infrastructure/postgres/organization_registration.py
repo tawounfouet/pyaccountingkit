@@ -1,7 +1,8 @@
 """ORG-4b PostgreSQL UoW: new company/site/registry row and evidence atomically.
 
-A tenant-bound runtime DSN is mandatory, NOT a schema-owner DSN. Uses the
-same tenant advisory locking namespace as L02's transactional commands.
+Company registration requires an independently provisioned SQL issuer DSN,
+not the ordinary API runtime credential. Other registration kinds retain their
+legacy tenant runtime DSN pending ORG-5b3c. No schema-owner DSN is permitted.
 """
 
 from collections.abc import Callable
@@ -31,6 +32,8 @@ class PostgresOrganizationRegistrationUnitOfWork:
         self._conn: psycopg.Connection | None = None
         self._tenant: str | None = None
         self._committed = False
+        self._pending_company: Company | None = None
+        self._pending_company_evidence: OrganizationEvidence | None = None
 
     def __enter__(self) -> "PostgresOrganizationRegistrationUnitOfWork":
         if self._conn is not None:
@@ -82,20 +85,13 @@ class PostgresOrganizationRegistrationUnitOfWork:
         return row["request_digest"].strip(), receipt
 
     def insert_company(self, company: Company) -> None:
+        """Stage Company data for the controlled, single-statement SQL command."""
         if not isinstance(company, Company):
             raise InvalidOrganization("Typed company required")
         self._bind(company.tenant_id)
-        self._conn.execute(
-            "INSERT INTO company_configuration.organizational_companies "
-            "(tenant_id,company_id,name,kind,home_country,base_currency,status,revision) "
-            "VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",
-            (
-                company.tenant_id, company.id.value, company.name, company.kind.value,
-                company.home_country.value,
-                company.base_currency.value if company.base_currency else None,
-                company.status.value, company.revision,
-            ),
-        )
+        if self._pending_company is not None:
+            raise InvalidOrganization("Only one Company registration per transaction")
+        self._pending_company = company
 
     def insert_establishment(self, site: Establishment) -> None:
         if not isinstance(site, Establishment):
@@ -137,6 +133,17 @@ class PostgresOrganizationRegistrationUnitOfWork:
             raise InvalidOrganization("Typed command evidence required")
         r = evidence.receipt
         self._bind(r.tenant_id)
+        if r.target_kind is OrganizationTargetKind.COMPANY:
+            if (
+                self._pending_company is None
+                or self._pending_company.id.value != r.target_id
+                or self._pending_company.tenant_id != r.tenant_id
+                or evidence.action != "organization.company.register"
+                or self._pending_company_evidence is not None
+            ):
+                raise InvalidOrganization("Company evidence must match staged Company")
+            self._pending_company_evidence = evidence
+            return
         self._conn.execute(
             "INSERT INTO company_configuration.organization_command_audit "
             "(record_id,tenant_id,actor_id,action,target_kind,target_id,"
@@ -176,6 +183,27 @@ class PostgresOrganizationRegistrationUnitOfWork:
     def commit(self) -> None:
         if self._conn is None or self._committed or self._tenant is None:
             raise RuntimeError("Cannot commit empty or closed registration transaction")
+        if self._pending_company is not None:
+            item = self._pending_company
+            evidence = self._pending_company_evidence
+            if evidence is None:
+                raise InvalidOrganization("Company requires matching evidence")
+            receipt = evidence.receipt
+            # The SQL function owns the atomic domain + request/audit/outbox
+            # transaction; the ordinary runtime role has no EXECUTE grant.
+            self._conn.execute(
+                "SELECT company_configuration.register_company_controlled("
+                "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                (
+                    item.tenant_id, item.id.value, item.name, item.kind.value,
+                    item.home_country.value,
+                    item.base_currency.value if item.base_currency else None,
+                    item.status.value, item.revision, evidence.actor_id,
+                    evidence.request_key, evidence.request_digest,
+                    receipt.correlation_id, receipt.audit_id, receipt.event_id,
+                    evidence.reason, evidence.recorded_at,
+                ),
+            )
         if self._before_commit is not None:
             self._before_commit()
         self._conn.commit()

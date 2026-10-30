@@ -5,6 +5,7 @@ bare PostgresOrganizationRepository INSERT fixtures in positive SQL tests.
 A test fixture actor is NOT a production trusted or authenticated principal.
 """
 
+import os
 from datetime import UTC, datetime
 from hashlib import sha256
 from uuid import UUID, uuid4
@@ -69,7 +70,15 @@ class EvidencedOrganizationSeed:
             sha256(str(uuid4()).encode()).hexdigest(), "test setup only",
             datetime.now(UTC), company_id, legal_entity_id,
         )
-        with organization_registration.PostgresOrganizationRegistrationUnitOfWork(self._dsn) as uow:
+        # A Company must be created through the separately provisioned SQL issuer.
+        # Other organization fixtures retain their legacy tenant role.
+        dsn = self._dsn
+        if kind is OrganizationTargetKind.COMPANY:
+            if self._dsn == os.getenv("CC_PG_DSN"):
+                dsn = os.getenv("CC_PG_ORG_COMPANY_WRITER_DSN") or self._dsn
+            elif self._dsn == os.getenv("CC_PG_DSN_B"):
+                dsn = os.getenv("CC_PG_ORG_COMPANY_WRITER_DSN_B") or self._dsn
+        with organization_registration.PostgresOrganizationRegistrationUnitOfWork(dsn) as uow:
             insert(uow)
             uow.append_evidence(evidence)
             uow.commit()

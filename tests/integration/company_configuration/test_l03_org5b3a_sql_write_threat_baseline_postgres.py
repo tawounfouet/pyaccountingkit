@@ -1,14 +1,13 @@
-"""ORG-5b3a RED-TEAM BASELINE: prove known SQL authority gap, not protection.
+"""ORG-5b3b Company cutover: direct SQL and forged evidence must fail closed.
 
-The ordinary tenant runtime role can currently manufacture an internally
-consistent Company registration + request/audit/outbox without passing the
-Application Service. These tests deliberately lock down *the observed risk*;
-future ORG-5b3 remediation must replace these positive exploit assertions
-with DENIAL assertions. They never persist a forged audit trail.
+The legacy ORG-5b3a red-team baseline showed that a tenant runtime credential
+could forge a consistent Company + audit/outbox chain. Migration 0022 changes
+these expected-success attack checks into required DENIAL assertions. Only
+independently provisioned issuer logins can execute the controlled command.
+No claim is made about production IAM or individual actor attestation.
 """
 
 import os
-from datetime import UTC, datetime
 from uuid import uuid4
 
 import pytest
@@ -18,96 +17,106 @@ psycopg = pytest.importorskip("psycopg")
 RUNTIME_A = os.getenv("CC_PG_DSN")
 pytestmark = pytest.mark.skipif(
     not RUNTIME_A,
-    reason="ORG-5b3a threat baseline requires isolated tenant PostgreSQL CI roles",
-)
-
-SENSITIVE_TABLES = (
-    "organizational_companies",
-    "organization_command_requests",
-    "organization_command_audit",
-    "organization_command_outbox",
-    "organizational_membership_revisions",
-    "organization_membership_requests",
-    "organization_membership_audit",
-    "organization_membership_outbox",
-    "organizational_company_revisions",
-    "organization_lifecycle_requests",
-    "organization_lifecycle_audit",
-    "organization_lifecycle_outbox",
+    reason="ORG-5b3b requires ephemeral tenant-bound PostgreSQL test roles",
 )
 
 
-def test_runtime_login_still_has_broad_organization_insert_grants():
-    """Known-open ORG-5b3 risk: write and evidence authority are not separated."""
+def test_runtime_login_lacks_company_insert_and_controlled_execute():
+    """The ordinary SQL runtime cannot directly INSERT Company rows."""
     with psycopg.connect(RUNTIME_A) as conn:
-        for table in SENSITIVE_TABLES:
-            can_insert = conn.execute(
-                "SELECT has_table_privilege(current_user, %s, 'INSERT')",
-                ("company_configuration." + table,),
-            ).fetchone()[0]
-            assert can_insert, (
-                f"ORG-5b3 attack baseline changed for {table}: "
-                "replace positive exposure proof with a negative security gate"
-            )
+        assert conn.execute(
+            "SELECT has_table_privilege(current_user, "
+            "'company_configuration.organizational_companies', 'INSERT')"
+        ).fetchone()[0] is False
+        assert conn.execute(
+            "SELECT has_function_privilege(current_user, %s, 'EXECUTE')",
+            (
+                "company_configuration.register_company_controlled("
+                "text,uuid,text,text,text,text,text,integer,text,text,text,text,"
+                "uuid,uuid,text,timestamptz)",
+            ),
+        ).fetchone()[0] is False
 
 
-def test_runtime_login_can_forge_complete_company_registration_evidence():
-    """An internally consistent fabricated triple passes the COMMIT guard.
-
-    SET CONSTRAINTS ALL IMMEDIATE fires the deferred COMMIT-time checks while
-    the surrounding transaction is explicitly rolled back: zero forged rows
-    survive even if a test fails.
-    """
-    company_id, audit_id, event_id = uuid4(), uuid4(), uuid4()
-    recorded_at = datetime(2026, 10, 30, 8, 0, tzinfo=UTC)
-    actor = "red-team-fabricated-actor"
-    action = "organization.company.register"
-    correlation = "red-team-not-attested"
-    with psycopg.connect(RUNTIME_A) as conn:
-        try:
+def test_forged_company_registration_and_evidence_are_denied():
+    """Both direct Company DML and forged Company evidence fail closed."""
+    company_id = uuid4()
+    with pytest.raises(psycopg.errors.InsufficientPrivilege):
+        with psycopg.connect(RUNTIME_A) as conn:
             conn.execute(
                 "INSERT INTO company_configuration.organizational_companies "
                 "(tenant_id,company_id,name,kind,home_country,status,revision) "
                 "VALUES ('tenant-a',%s,'Threat proof','GROUP','FR','DRAFT',1)",
                 (company_id,),
             )
+    with pytest.raises(psycopg.errors.InsufficientPrivilege):
+        with psycopg.connect(RUNTIME_A) as conn:
             conn.execute(
                 "INSERT INTO company_configuration.organization_command_requests "
                 "(tenant_id,actor_id,action,request_key,request_digest,target_kind,"
                 "target_id,revision,correlation_id,audit_id,event_id) "
-                "VALUES ('tenant-a',%s,%s,%s,%s,'COMPANY',%s,1,%s,%s,%s)",
-                (
-                    actor, action, "red-team-" + str(company_id), "0" * 64,
-                    company_id, correlation, audit_id, event_id,
-                ),
+                "VALUES ('tenant-a','forged','organization.company.register',"
+                "%s,%s,'COMPANY',%s,1,'forged-correlation',%s,%s)",
+                ("forged-" + str(company_id), "0" * 64, company_id, uuid4(), uuid4()),
             )
+
+
+def test_independent_issuer_cannot_directly_insert_company_or_evidence():
+    """Controlled writer has a dedicated SQL RPC, not arbitrary table INSERT."""
+    dsn = os.getenv("CC_PG_ORG_COMPANY_WRITER_DSN")
+    if not dsn:
+        pytest.skip("CI-only independent Company issuer DSN not configured")
+    with psycopg.connect(dsn) as conn:
+        for table in (
+            "organizational_companies", "organization_command_requests",
+            "organization_command_audit", "organization_command_outbox",
+        ):
+            assert conn.execute(
+                "SELECT has_table_privilege(current_user, %s, 'INSERT')",
+                ("company_configuration." + table,),
+            ).fetchone()[0] is False
+
+
+
+def test_ordinary_runtime_cannot_set_role_into_issuer():
+    """No role membership or SET ROLE path from ordinary runtime to issuer."""
+    with pytest.raises(psycopg.errors.InsufficientPrivilege):
+        with psycopg.connect(RUNTIME_A) as conn:
+            conn.execute("SET ROLE cc_org_company_writer_a")
+
+
+def test_revoked_issuer_binding_immediately_denies_controlled_command():
+    """Administrator-owned issuer binding can stop new registrations."""
+    admin = os.getenv("CC_PG_ADMIN_DSN")
+    writer = os.getenv("CC_PG_ORG_COMPANY_WRITER_DSN")
+    if not (admin and writer):
+        pytest.skip("Requires independent issuer and CI administrator roles")
+    with psycopg.connect(admin) as conn:
+        conn.execute(
+            "UPDATE company_configuration.organization_company_command_issuers "
+            "SET enabled=false WHERE login_role=%s",
+            ("cc_org_company_writer_a",),
+        )
+    try:
+        with pytest.raises(psycopg.errors.InsufficientPrivilege):
+            with psycopg.connect(writer) as conn:
+                conn.execute(
+                    "SELECT company_configuration.register_company_controlled("
+                    "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                    (
+                        "tenant-a", uuid4(), "Revoked", "GROUP", "FR", None,
+                        "DRAFT", 1, "untrusted-actor", "revoked-" + str(uuid4()),
+                        "a" * 64, "revoked-correlation", uuid4(), uuid4(),
+                        "revoked authority", "2026-10-30T08:00:00Z",
+                    ),
+                )
+    finally:
+        with psycopg.connect(admin) as conn:
             conn.execute(
-                "INSERT INTO company_configuration.organization_command_audit "
-                "(record_id,tenant_id,actor_id,action,target_kind,target_id,"
-                "company_id,legal_entity_id,before_revision,after_revision,"
-                "reason,correlation_id,recorded_at) "
-                "VALUES (%s,'tenant-a',%s,%s,'COMPANY',%s,%s,NULL,0,1,"
-                "'forged',%s,%s)",
-                (audit_id, actor, action, company_id, company_id, correlation, recorded_at),
+                "UPDATE company_configuration.organization_company_command_issuers "
+                "SET enabled=true WHERE login_role=%s",
+                ("cc_org_company_writer_a",),
             )
-            conn.execute(
-                "INSERT INTO company_configuration.organization_command_outbox "
-                "(event_id,tenant_id,event_type,schema_version,target_kind,target_id,"
-                "company_id,legal_entity_id,revision,correlation_id,recorded_at) "
-                "VALUES (%s,'tenant-a',%s,1,'COMPANY',%s,%s,NULL,1,%s,%s)",
-                (event_id, action, company_id, company_id, correlation, recorded_at),
-            )
-            # Materially exercise all currently deferred SQL constraint triggers.
-            conn.execute("SET CONSTRAINTS ALL IMMEDIATE")
-            count = conn.execute(
-                "SELECT count(*) FROM company_configuration.organizational_companies "
-                "WHERE tenant_id='tenant-a' AND company_id=%s",
-                (company_id,),
-            ).fetchone()[0]
-            assert count == 1, "The threat proof requires a validated domain row"
-        finally:
-            # Intentional rollback, even on successful red-team demonstration.
-            conn.rollback()
 
 
 def test_cross_tenant_injection_is_still_denied_by_session_role_binding():

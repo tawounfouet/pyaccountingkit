@@ -1,0 +1,334 @@
+{
+  "schema": "pyaccountingkit.company_configuration.l04_adr_register.v1",
+  "as_of": "2026-10-30",
+  "scope": "L04 ACCOUNTING BOOKS / R&D ONLY",
+  "baseline": {
+    "main_sha": "acdee98ca2736d79e17174f510ac767defd90db8",
+    "l04_07_head_sha": "2d0b2e67592e4aa90ec58c73c0a3336cf9d0ce81",
+    "stacked_draft_prs": [
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80
+    ],
+    "source": "GitHub pull-request HEAD and exact-head CI; unmerged"
+  },
+  "gate_assertions": {
+    "G0": "PENDING_REVIEW",
+    "G1": "PENDING_REVIEW",
+    "G2": "PENDING_REVIEW",
+    "G3": "HOLD_SECURITY",
+    "G4": "NOT_APPROVED",
+    "C10": "NOT_IMPLEMENTED"
+  },
+  "evidence_slices": [
+    {
+      "milestone": "L04-01",
+      "spec_file": "docs/company_configuration/L04_01_ACCOUNTING_BOOKS_DOMAIN_KERNEL.md",
+      "test_file": "tests/unit/company_configuration/test_l04_accounting_books_domain.py",
+      "draft_pr": 74,
+      "qualification": "RND_TECHNICALLY_QUALIFIED_NOT_RELEASED"
+    },
+    {
+      "milestone": "L04-02",
+      "spec_file": "docs/company_configuration/L04_02_ACCOUNTING_BOOKS_USE_CASES_PORTS_AND_MEMORY_UOW.md",
+      "test_file": "tests/unit/company_configuration/test_l04_02_accounting_books_application.py",
+      "draft_pr": 75,
+      "qualification": "RND_TECHNICALLY_QUALIFIED_NOT_RELEASED"
+    },
+    {
+      "milestone": "L04-03",
+      "spec_file": "docs/company_configuration/L04_03_BOOK_ADR_01_OWNERSHIP_ASSIGNMENT_AND_PREVIEW.md",
+      "test_file": "tests/unit/company_configuration/test_l04_03_book_assignment_preview.py",
+      "draft_pr": 76,
+      "qualification": "RND_TECHNICALLY_QUALIFIED_NOT_RELEASED"
+    },
+    {
+      "milestone": "L04-04",
+      "spec_file": "docs/company_configuration/L04_04_REFERENCE_FRAMEWORK_BINDINGS_AND_DETERMINISTIC_PREVIEW.md",
+      "test_file": "tests/unit/company_configuration/test_l04_04_framework_binding_preview.py",
+      "draft_pr": 77,
+      "qualification": "RND_TECHNICALLY_QUALIFIED_NOT_RELEASED"
+    },
+    {
+      "milestone": "L04-05",
+      "spec_file": "docs/company_configuration/L04_05_NORMATIVE_REGISTRY_AND_BITEMPORAL_CLAIMS_CONTRACTS.md",
+      "test_file": "tests/unit/company_configuration/test_l04_05_normative_history_preview.py",
+      "draft_pr": 78,
+      "qualification": "RND_TECHNICALLY_QUALIFIED_NOT_RELEASED"
+    },
+    {
+      "milestone": "L04-06",
+      "spec_file": "docs/company_configuration/L04_06_IMMUTABLE_BOOK_CANDIDATE_VERSIONS_AND_BITEMPORAL_SNAPSHOTS.md",
+      "test_file": "tests/unit/company_configuration/test_l04_06_bitemporal_candidate_snapshots.py",
+      "draft_pr": 79,
+      "qualification": "RND_TECHNICALLY_QUALIFIED_NOT_RELEASED"
+    },
+    {
+      "milestone": "L04-07",
+      "spec_file": "docs/company_configuration/L04_07_DEPENDENCY_VALIDATION_AND_READ_RECEIPTS.md",
+      "test_file": "tests/unit/company_configuration/test_l04_07_book_dependency_read_receipts.py",
+      "draft_pr": 80,
+      "qualification": "RND_TECHNICALLY_QUALIFIED_NOT_RELEASED"
+    }
+  ],
+  "canonical_id_corrections": {
+    "BOOK-ADR-03": "Multi-books: parallel / adjustments / hybrid, NOT normative registry authority",
+    "BOOK-ADR-07": "Versioned normative framework reference",
+    "L04-NORM-AUTH-01": "Independent normative source/provider authority is a NEW local placeholder decision; not an approved upstream BOOK-ADR number",
+    "TMP-ADR-03": "Canonicalization algorithm and schema; does NOT confer cryptographic authority"
+  },
+  "decisions": [
+    {
+      "id": "BOOK-ADR-01",
+      "canonical_spec": "12_COMPANY_CONFIGURATION_ACCOUNTING_BOOKS_AND_REFERENCE_FRAMEWORKS.md §20",
+      "question": "Book ownership across legal entities",
+      "alternatives": "Dedicated entity book / controlled N:M sharing",
+      "proposed_owner_role": "Accounting + Legal + Security",
+      "required_before": "G4",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null
+    },
+    {
+      "id": "BOOK-ADR-02",
+      "canonical_spec": "12_COMPANY_CONFIGURATION_ACCOUNTING_BOOKS_AND_REFERENCE_FRAMEWORKS.md §20",
+      "question": "Where a reference framework is bound",
+      "alternatives": "Book field / dated binding",
+      "proposed_owner_role": "Accounting + Architecture",
+      "required_before": "G4",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null
+    },
+    {
+      "id": "BOOK-ADR-03",
+      "canonical_spec": "12_COMPANY_CONFIGURATION_ACCOUNTING_BOOKS_AND_REFERENCE_FRAMEWORKS.md §20",
+      "question": "Multi-book projection strategy",
+      "alternatives": "Parallel / adjustments / hybrid",
+      "proposed_owner_role": "Accounting + Projection",
+      "required_before": "G4",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null
+    },
+    {
+      "id": "BOOK-ADR-04",
+      "canonical_spec": "12_COMPANY_CONFIGURATION_ACCOUNTING_BOOKS_AND_REFERENCE_FRAMEWORKS.md §20",
+      "question": "Namespace and uniqueness of book codes",
+      "alternatives": "Tenant / company / legal entity",
+      "proposed_owner_role": "Accounting + Data Architecture",
+      "required_before": "G4",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null
+    },
+    {
+      "id": "BOOK-ADR-05",
+      "canonical_spec": "12_COMPANY_CONFIGURATION_ACCOUNTING_BOOKS_AND_REFERENCE_FRAMEWORKS.md §20",
+      "question": "Book currency and conversion ownership",
+      "alternatives": "One explicit book currency / multiple / external FX",
+      "proposed_owner_role": "Accounting + Treasury",
+      "required_before": "G4",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null
+    },
+    {
+      "id": "BOOK-ADR-06",
+      "canonical_spec": "12_COMPANY_CONFIGURATION_ACCOUNTING_BOOKS_AND_REFERENCE_FRAMEWORKS.md §20",
+      "question": "Calendar sharing between books",
+      "alternatives": "Exclusive calendar / dated binding",
+      "proposed_owner_role": "Accounting + Calendar Owner",
+      "required_before": "G6",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null
+    },
+    {
+      "id": "BOOK-ADR-07",
+      "canonical_spec": "12_COMPANY_CONFIGURATION_ACCOUNTING_BOOKS_AND_REFERENCE_FRAMEWORKS.md §20",
+      "question": "Normative reference versions",
+      "alternatives": "Mutable alias / version-pinned reference",
+      "proposed_owner_role": "Normative Layer + Accounting",
+      "required_before": "G4",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null
+    },
+    {
+      "id": "BOOK-ADR-08",
+      "canonical_spec": "12_COMPANY_CONFIGURATION_ACCOUNTING_BOOKS_AND_REFERENCE_FRAMEWORKS.md §20",
+      "question": "Derived books and adjustment relationships",
+      "alternatives": "Copied books / explicit acyclic adjustments",
+      "proposed_owner_role": "Accounting + Projection",
+      "required_before": "G4",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null
+    },
+    {
+      "id": "BOOK-ADR-09",
+      "canonical_spec": "12_COMPANY_CONFIGURATION_ACCOUNTING_BOOKS_AND_REFERENCE_FRAMEWORKS.md §20",
+      "question": "Published snapshot representation",
+      "alternatives": "Embedded / immutable refs / hybrid with digest",
+      "proposed_owner_role": "Architecture + Governance",
+      "required_before": "G9",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null
+    },
+    {
+      "id": "BOOK-ADR-10",
+      "canonical_spec": "12_COMPANY_CONFIGURATION_ACCOUNTING_BOOKS_AND_REFERENCE_FRAMEWORKS.md §20",
+      "question": "Normative and chart transition policy",
+      "alternatives": "Replace / dated transition and qualification",
+      "proposed_owner_role": "Accounting + Normative Layer",
+      "required_before": "G9",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null
+    },
+    {
+      "id": "TMP-ADR-01",
+      "canonical_spec": "18_COMPANY_CONFIGURATION_VERSIONING_TEMPORALITY_AND_SNAPSHOTS.md §18",
+      "question": "Bitemporal persistence strategy",
+      "alternatives": "Native temporal storage / append-only log and projections",
+      "proposed_owner_role": "Data Architecture",
+      "required_before": "G9",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null
+    },
+    {
+      "id": "TMP-ADR-02",
+      "canonical_spec": "18_COMPANY_CONFIGURATION_VERSIONING_TEMPORALITY_AND_SNAPSHOTS.md §18",
+      "question": "Version granularity and atomic publication bundle",
+      "alternatives": "Object / subdomain / publication bundle",
+      "proposed_owner_role": "DDD Architecture",
+      "required_before": "G9",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null
+    },
+    {
+      "id": "TMP-ADR-03",
+      "canonical_spec": "18_COMPANY_CONFIGURATION_VERSIONING_TEMPORALITY_AND_SNAPSHOTS.md §18",
+      "question": "Canonicalization schema and algorithm",
+      "alternatives": "Versioned JSON and digest specification",
+      "proposed_owner_role": "Security + Architecture",
+      "required_before": "G9",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null
+    },
+    {
+      "id": "TMP-ADR-04",
+      "canonical_spec": "18_COMPANY_CONFIGURATION_VERSIONING_TEMPORALITY_AND_SNAPSHOTS.md §18",
+      "question": "Integrity evidence",
+      "alternatives": "Hash / digital signature / both",
+      "proposed_owner_role": "Security + Governance",
+      "required_before": "G9",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null
+    },
+    {
+      "id": "TMP-ADR-05",
+      "canonical_spec": "18_COMPANY_CONFIGURATION_VERSIONING_TEMPORALITY_AND_SNAPSHOTS.md §18",
+      "question": "Snapshot materialization",
+      "alternatives": "Eager / demand-only / hybrid",
+      "proposed_owner_role": "Runtime + Governance",
+      "required_before": "G9",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null
+    },
+    {
+      "id": "TMP-ADR-06",
+      "canonical_spec": "18_COMPANY_CONFIGURATION_VERSIONING_TEMPORALITY_AND_SNAPSHOTS.md §18",
+      "question": "Overlap and inheritance resolution",
+      "alternatives": "Explicit conflict policy / precedence",
+      "proposed_owner_role": "Accounting + Architecture",
+      "required_before": "G9",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null
+    },
+    {
+      "id": "TMP-ADR-07",
+      "canonical_spec": "18_COMPANY_CONFIGURATION_VERSIONING_TEMPORALITY_AND_SNAPSHOTS.md §18",
+      "question": "Retroactive correction rights",
+      "alternatives": "Explicit approval and recorded correction",
+      "proposed_owner_role": "Accounting + Governance",
+      "required_before": "G9",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null
+    },
+    {
+      "id": "TMP-ADR-08",
+      "canonical_spec": "18_COMPANY_CONFIGURATION_VERSIONING_TEMPORALITY_AND_SNAPSHOTS.md §18",
+      "question": "Cache consistency and degradation",
+      "alternatives": "Fail-closed / bounded stale",
+      "proposed_owner_role": "Runtime + SRE",
+      "required_before": "G10",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null
+    },
+    {
+      "id": "TMP-ADR-09",
+      "canonical_spec": "18_COMPANY_CONFIGURATION_VERSIONING_TEMPORALITY_AND_SNAPSHOTS.md §18",
+      "question": "Retention and archival of evidence",
+      "alternatives": "Regulatory retention and verified recovery",
+      "proposed_owner_role": "Compliance + Security",
+      "required_before": "G9",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null
+    },
+    {
+      "id": "TMP-ADR-10",
+      "canonical_spec": "18_COMPANY_CONFIGURATION_VERSIONING_TEMPORALITY_AND_SNAPSHOTS.md §18",
+      "question": "Historical snapshot compatibility",
+      "alternatives": "Schema version migration / replay reader",
+      "proposed_owner_role": "Architecture + Runtime",
+      "required_before": "G10",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null
+    },
+    {
+      "id": "L04-NORM-AUTH-01",
+      "canonical_spec": "12_COMPANY_CONFIGURATION_ACCOUNTING_BOOKS_AND_REFERENCE_FRAMEWORKS.md §3, §7; 18_COMPANY_CONFIGURATION_VERSIONING_TEMPORALITY_AND_SNAPSHOTS.md §3",
+      "question": "Which independently verified normative provider proves source identity, legal scope, effective dates and version digest?",
+      "alternatives": "Authenticated official sources / validated issuer registry; test allowlists are insufficient",
+      "proposed_owner_role": "Normative Layer Owner + Legal + Security",
+      "required_before": "G4",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null
+    },
+    {
+      "id": "L04-DEP-CARD-01",
+      "canonical_spec": "12_COMPANY_CONFIGURATION_ACCOUNTING_BOOKS_AND_REFERENCE_FRAMEWORKS.md §5.2; 13_COMPANY_CONFIGURATION_CHART_OF_ACCOUNTS_AND_ACCOUNT_MAPPING.md §6",
+      "question": "What are mandatory, optional, and multi-valued dependency bindings by book purpose, jurisdiction and date?",
+      "alternatives": "Fixed R&D five-slot profile is NOT the production cardinality policy",
+      "proposed_owner_role": "Accounting + Chart + Calendar + Policy Owners",
+      "required_before": "G4",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null
+    },
+    {
+      "id": "L04-C10-CONTRACT-01",
+      "canonical_spec": "10_COMPANY_CONFIGURATION_INTEGRATION_CONTRACTS.md; 18_COMPANY_CONFIGURATION_VERSIONING_TEMPORALITY_AND_SNAPSHOTS.md §12",
+      "question": "What is the independently verified immutable published read-receipt contract for consumers?",
+      "alternatives": "Versioned published snapshot, consumer schema, digest and security proof",
+      "proposed_owner_role": "Runtime Resolution + Accounting + API",
+      "required_before": "G10",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null
+    },
+    {
+      "id": "SEC-G3-71",
+      "canonical_spec": "GitHub issue #71 (live security blocker); 19_COMPANY_CONFIGURATION_SECURITY_AUTHORIZATION_AND_AUDIT_MODEL.md",
+      "question": "How is signed actor command paired non-bypassably with independent live IAM authorization at SQL COMMIT?",
+      "alternatives": "Requires security design, test and independent approval; no memory fake qualifies",
+      "proposed_owner_role": "Security + IAM + DBA",
+      "required_before": "G3",
+      "decision_status": "BLOCKED_HOLD_SECURITY",
+      "signed_decision_ref": null
+    }
+  ],
+  "constraints": [
+    "NO_MERGE_NO_RELEASE",
+    "NO_SQL_MIGRATION_OR_PRIVILEGED_ISSUER",
+    "NO_C10_PUBLISHED_READ_RECEIPT",
+    "NO_IAM_OR_LEGAL_ATTESTATION_FROM_TEST_FAKES",
+    "NO_LEDGER_POSTING_OR_ACCOUNT_ELIGIBILITY",
+    "SHA256_CHECKSUM_IS_NOT_SIGNATURE"
+  ]
+}

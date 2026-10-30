@@ -119,7 +119,7 @@ def _check_point(
     *, edges: tuple[AccountHierarchyEdgeCandidate, ...], point: date
 ) -> None:
     """At each change point, each view must be an acyclic forest."""
-    for view in {edge.view for edge in edges}:
+    for view in sorted({edge.view for edge in edges}, key=lambda item: item.value):
         relevant = (
             edge for edge in edges
             if edge.view == view and edge.effective.contains(point)

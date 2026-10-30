@@ -287,3 +287,63 @@ with psycopg.connect(admin_dsn, autocommit=True) as conn:
         "REVOKE INSERT ON company_configuration.organizational_companies "
         "FROM cc_runtime_a,cc_runtime_b"
     )
+
+    # ORG-5b3c1: separate registry command issuer from ordinary runtime and
+    # from the Company issuer. Ephemeral CI credentials only, not production IAM.
+    registry_functions = (
+        "company_configuration.register_establishment_controlled("
+        "text,uuid,uuid,text,text,date,date,text,integer,text,text,text,text,"
+        "uuid,uuid,text,timestamptz)",
+        "company_configuration.register_legal_identifier_controlled("
+        "text,uuid,uuid,text,text,text,text,date,date,text,text,text,text,text,"
+        "uuid,uuid,text,timestamptz)",
+    )
+    for role, tenant in (
+        ("cc_org_registry_writer_a", "tenant-a"),
+        ("cc_org_registry_writer_b", "tenant-b"),
+    ):
+        conn.execute(
+            sql.SQL(
+                "CREATE ROLE {} LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE "
+                "NOINHERIT NOREPLICATION NOBYPASSRLS PASSWORD {}"
+            ).format(sql.Identifier(role), sql.Literal("cc_testing_only"))
+        )
+        conn.execute(
+            sql.SQL("GRANT USAGE ON SCHEMA company_configuration TO {}").format(
+                sql.Identifier(role)
+            )
+        )
+        conn.execute(
+            sql.SQL("GRANT EXECUTE ON FUNCTION company_configuration.bound_tenant() TO {}")
+            .format(sql.Identifier(role))
+        )
+        conn.execute(
+            sql.SQL(
+                "GRANT SELECT ON company_configuration.organization_command_requests, "
+                "company_configuration.organization_command_audit, "
+                "company_configuration.organization_command_outbox TO {}"
+            ).format(sql.Identifier(role))
+        )
+        for func in registry_functions:
+            conn.execute(
+                sql.SQL("GRANT EXECUTE ON FUNCTION " + func + " TO {}").format(
+                    sql.Identifier(role)
+                )
+            )
+        conn.execute(
+            "INSERT INTO company_configuration.tenant_role_bindings "
+            "(login_role,tenant_id) VALUES (%s,%s)", (role, tenant),
+        )
+        conn.execute(
+            "INSERT INTO company_configuration.organization_registry_command_issuers "
+            "(login_role,tenant_id) VALUES (%s,%s)", (role, tenant),
+        )
+
+    # Ordinary SQL credentials must not directly create any registration target.
+    # They retain evidence SELECT for existing read paths, but evidence INSERT
+    # with either registry target_kind is rejected by migration 0023 guard.
+    conn.execute(
+        "REVOKE INSERT ON company_configuration.organizational_establishments, "
+        "company_configuration.organizational_legal_identifiers "
+        "FROM cc_runtime_a,cc_runtime_b"
+    )

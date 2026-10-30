@@ -10,11 +10,17 @@ from uuid import UUID
 import psycopg
 from psycopg.rows import dict_row
 
+from ...application.organization_membership_evidence import (
+    MembershipChangeReceipt,
+    MembershipTransactionEvidence,
+)
 from ...application.ports import AuditRecord, ChangeReceipt, PendingEvent
 from ...domain.organization.entities import LegalEntity
+from ...domain.organization.model import MembershipKind, OrganizationMembership
 from ...domain.shared.accounting_scope import ConfigurationScope
+from ...domain.shared.effective_interval import EffectiveInterval
 from ...domain.shared.errors import InvalidScope, VersionConflict
-from ...domain.shared.identifiers import CompanyId, LegalEntityId
+from ...domain.shared.identifiers import CompanyId, LegalEntityId, MembershipId
 from ...domain.shared.references import CurrencyCode, JurisdictionCode
 from .tenant_boundary import require_tenant_connection
 
@@ -98,6 +104,7 @@ class PostgresUnitOfWork:
             raise RuntimeError("UnitOfWork cannot be entered twice")
         self._connection = psycopg.connect(self._dsn, row_factory=dict_row)
         self.entities = PostgresLegalEntityRepository(self)
+        self.org_memberships = PostgresOrganizationMembershipRepository(self)
         return self
 
     def __exit__(self, exc_type: object, exc: object, tb: object) -> None:
@@ -187,6 +194,84 @@ class PostgresUnitOfWork:
              event.revision, event.correlation_id, event.recorded_at),
         )
 
+    def lookup_membership_request(
+        self, *, actor_id: str, scope: ConfigurationScope, action: str, key: str,
+    ) -> tuple[str, MembershipChangeReceipt] | None:
+        """MembershipId-based request; never return L02 LegalEntity receipts."""
+        self._bind_scope(scope)
+        row = self._connection.execute(
+            "SELECT request_digest,membership_id,company_id,legal_entity_id,"
+            "revision,correlation_id,audit_id,event_id "
+            "FROM company_configuration.organization_membership_requests "
+            "WHERE tenant_id=%s AND actor_id=%s AND action=%s AND request_key=%s",
+            (scope.tenant_id, actor_id, action, key),
+        ).fetchone()
+        if row is None:
+            return None
+        return row["request_digest"].strip(), MembershipChangeReceipt(
+            membership_id=MembershipId(row["membership_id"]),
+            company_id=CompanyId(row["company_id"]),
+            legal_entity_id=LegalEntityId(row["legal_entity_id"]),
+            revision=row["revision"],
+            correlation_id=row["correlation_id"],
+            audit_id=str(row["audit_id"]), event_id=str(row["event_id"]),
+        )
+
+    def append_membership_evidence(
+        self, *, scope: ConfigurationScope, evidence: MembershipTransactionEvidence,
+    ) -> None:
+        """Evidence and affiliation must commit together in the bound transaction."""
+        self._bind_scope(scope)
+        if not isinstance(evidence, MembershipTransactionEvidence):
+            raise InvalidScope("Typed membership transaction evidence required")
+        m, r = evidence.membership, evidence.receipt
+        if (
+            m.tenant_id != scope.tenant_id
+            or m.company_id != scope.company_id
+            or m.legal_entity_id != scope.legal_entity_id
+            or r.company_id != scope.company_id
+            or r.legal_entity_id != scope.legal_entity_id
+        ):
+            raise InvalidScope("Membership evidence is outside the transaction scope")
+        self._connection.execute(
+            "INSERT INTO company_configuration.organization_membership_audit "
+            "(record_id,tenant_id,actor_id,action,membership_id,company_id,"
+            "legal_entity_id,before_revision,after_revision,valid_from,valid_to,"
+            "source_ref,reason,correlation_id,recorded_at) "
+            "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+            (
+                UUID(r.audit_id), m.tenant_id, evidence.actor_id, evidence.action,
+                m.id.value, m.company_id.value, m.legal_entity_id.value,
+                m.revision-1, m.revision, m.valid.start, m.valid.end,
+                m.source_ref, evidence.reason, r.correlation_id, m.recorded_at,
+            ),
+        )
+        self._connection.execute(
+            "INSERT INTO company_configuration.organization_membership_outbox "
+            "(event_id,tenant_id,event_type,schema_version,membership_id,company_id,"
+            "legal_entity_id,revision,kind,exclusive,valid_from,valid_to,"
+            "source_ref,correlation_id,recorded_at) "
+            "VALUES (%s,%s,%s,1,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+            (
+                UUID(r.event_id), m.tenant_id, evidence.action, m.id.value,
+                m.company_id.value, m.legal_entity_id.value, m.revision,
+                m.kind.value, m.exclusive, m.valid.start, m.valid.end,
+                m.source_ref, r.correlation_id, m.recorded_at,
+            ),
+        )
+        self._connection.execute(
+            "INSERT INTO company_configuration.organization_membership_requests "
+            "(tenant_id,actor_id,action,request_key,request_digest,membership_id,"
+            "company_id,legal_entity_id,revision,correlation_id,audit_id,event_id) "
+            "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+            (
+                m.tenant_id, evidence.actor_id, evidence.action,
+                evidence.request_key, evidence.request_digest,
+                m.id.value, m.company_id.value, m.legal_entity_id.value,
+                m.revision, r.correlation_id, UUID(r.audit_id), UUID(r.event_id),
+            ),
+        )
+
     def commit(self) -> None:
         if self._connection is None or self._committed or self._scope is None:
             raise RuntimeError("Cannot commit an empty or closed UnitOfWork")
@@ -194,3 +279,63 @@ class PostgresUnitOfWork:
             self._before_commit()
         self._connection.commit()
         self._committed = True
+
+
+class PostgresOrganizationMembershipRepository:
+    """Same-connection membership writer, never a separate commit or SQL session.
+
+    The parent and overlap guards are enforced by migration 0015. The UoW
+    uses the same scope lock for request replay, membership writes and evidence.
+    """
+
+    def __init__(self, uow: PostgresUnitOfWork) -> None:
+        self._uow = uow
+
+    def latest(
+        self, *, scope: ConfigurationScope, membership_id: MembershipId
+    ) -> OrganizationMembership | None:
+        self._uow._bind_scope(scope)
+        if not isinstance(membership_id, MembershipId):
+            raise InvalidScope("Typed membership id required")
+        row = self._uow._connection.execute(
+            "SELECT membership_id,tenant_id,company_id,legal_entity_id,kind,"
+            "exclusive,valid_from,valid_to,recorded_at,source_ref,revision "
+            "FROM company_configuration.organizational_membership_revisions "
+            "WHERE tenant_id=%s AND company_id=%s AND legal_entity_id=%s "
+            "AND membership_id=%s ORDER BY revision DESC LIMIT 1",
+            (scope.tenant_id, scope.company_id.value,
+             scope.legal_entity_id.value, membership_id.value),
+        ).fetchone()
+        if row is None:
+            return None
+        return OrganizationMembership(
+            MembershipId(row["membership_id"]), row["tenant_id"],
+            CompanyId(row["company_id"]), LegalEntityId(row["legal_entity_id"]),
+            MembershipKind(row["kind"]), row["exclusive"],
+            EffectiveInterval(row["valid_from"], row["valid_to"]),
+            row["recorded_at"], row["source_ref"], row["revision"],
+        )
+
+    def append(
+        self, *, scope: ConfigurationScope, membership: OrganizationMembership
+    ) -> None:
+        self._uow._bind_scope(scope)
+        if (
+            not isinstance(membership, OrganizationMembership)
+            or membership.tenant_id != scope.tenant_id
+            or membership.company_id != scope.company_id
+            or membership.legal_entity_id != scope.legal_entity_id
+        ):
+            raise InvalidScope("Membership must match transaction's exact scope")
+        self._uow._connection.execute(
+            "INSERT INTO company_configuration.organizational_membership_revisions "
+            "(tenant_id,membership_id,revision,company_id,legal_entity_id,"
+            "kind,exclusive,valid_from,valid_to,recorded_at,source_ref) "
+            "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+            (
+                membership.tenant_id, membership.id.value, membership.revision,
+                membership.company_id.value, membership.legal_entity_id.value,
+                membership.kind.value, membership.exclusive, membership.valid.start,
+                membership.valid.end, membership.recorded_at, membership.source_ref,
+            ),
+        )

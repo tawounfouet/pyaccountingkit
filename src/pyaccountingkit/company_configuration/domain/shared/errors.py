@@ -40,3 +40,15 @@ class InvalidTransition(DomainError):
 
 class InvalidLegalEntity(DomainError):
     code = "INVALID_LEGAL_ENTITY"
+
+
+class InvalidOrganization(DomainError):
+    code = "INVALID_ORGANIZATION"
+
+
+class OrganizationConflict(DomainError):
+    code = "ORGANIZATION_CONFLICT"
+
+
+class AmbiguousOrganization(DomainError):
+    code = "AMBIGUOUS_ORGANIZATION"

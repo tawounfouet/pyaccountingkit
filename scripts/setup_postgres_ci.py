@@ -60,6 +60,42 @@ with psycopg.connect(admin_dsn, autocommit=True) as conn:
                     "company_configuration.authorization_denials TO {}"
                 ).format(sql.Identifier(role))
             )
+            conn.execute(
+                sql.SQL(
+                    "GRANT SELECT, INSERT ON "
+                    "company_configuration.organizational_companies, "
+                    "company_configuration.organizational_establishments, "
+                    "company_configuration.organizational_legal_identifiers, "
+                    "company_configuration.organizational_membership_revisions "
+                    "TO {}"
+                ).format(sql.Identifier(role))
+            )
+            conn.execute(
+                sql.SQL(
+                    "GRANT SELECT, INSERT ON "
+                    "company_configuration.organization_command_requests, "
+                    "company_configuration.organization_command_audit, "
+                    "company_configuration.organization_command_outbox TO {}"
+                ).format(sql.Identifier(role))
+            )
+            conn.execute(
+                sql.SQL(
+                    "GRANT SELECT, INSERT ON "
+                    "company_configuration.organizational_company_revisions, "
+                    "company_configuration.organizational_establishment_revisions, "
+                    "company_configuration.organization_lifecycle_requests, "
+                    "company_configuration.organization_lifecycle_audit, "
+                    "company_configuration.organization_lifecycle_outbox TO {}"
+                ).format(sql.Identifier(role))
+            )
+            conn.execute(
+                sql.SQL(
+                    "GRANT SELECT, INSERT ON "
+                    "company_configuration.organization_membership_requests, "
+                    "company_configuration.organization_membership_audit, "
+                    "company_configuration.organization_membership_outbox TO {}"
+                ).format(sql.Identifier(role))
+            )
         elif category == "dispatcher":
             conn.execute(
                 sql.SQL("GRANT SELECT ON company_configuration.outbox_events TO {}")
@@ -84,6 +120,15 @@ with psycopg.connect(admin_dsn, autocommit=True) as conn:
                 ).format(sql.Identifier(role))
             )
         elif category == "unbound":
+            conn.execute(
+                sql.SQL(
+                    "GRANT SELECT ON company_configuration.organization_command_outbox TO {}"
+                ).format(sql.Identifier(role))
+            )
+            conn.execute(
+                sql.SQL("GRANT SELECT ON company_configuration.organizational_companies TO {}")
+                .format(sql.Identifier(role))
+            )
             conn.execute(
                 sql.SQL("GRANT SELECT ON company_configuration.legal_entities TO {}")
                 .format(sql.Identifier(role))
@@ -189,3 +234,300 @@ with psycopg.connect(admin_dsn, autocommit=True) as conn:
         "uuid,uuid,text,text,text,text,text,text,timestamptz) "
         "TO cc_iam_approval_writer"
     )
+
+    # ORG-5b3b: independently provisioned issuer login; ordinary runtime roles
+    # are NEVER members and cannot SET ROLE into it. CI-only test credentials.
+    company_function = (
+        "company_configuration.register_company_controlled("
+        "text,uuid,text,text,text,text,text,integer,text,text,text,text,"
+        "uuid,uuid,text,timestamptz)"
+    )
+    for role, tenant in (
+        ("cc_org_company_writer_a", "tenant-a"),
+        ("cc_org_company_writer_b", "tenant-b"),
+    ):
+        conn.execute(
+            sql.SQL(
+                "CREATE ROLE {} LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE "
+                "NOINHERIT NOREPLICATION NOBYPASSRLS PASSWORD {}"
+            ).format(sql.Identifier(role), sql.Literal("cc_testing_only"))
+        )
+        conn.execute(
+            sql.SQL("GRANT USAGE ON SCHEMA company_configuration TO {}").format(
+                sql.Identifier(role)
+            )
+        )
+        conn.execute(
+            sql.SQL(
+                "GRANT SELECT ON company_configuration.organization_command_requests, "
+                "company_configuration.organization_command_audit, "
+                "company_configuration.organization_command_outbox TO {}"
+            ).format(sql.Identifier(role))
+        )
+        conn.execute(
+            sql.SQL("GRANT EXECUTE ON FUNCTION company_configuration.bound_tenant() TO {}")
+            .format(sql.Identifier(role))
+        )
+        conn.execute(
+            sql.SQL("GRANT EXECUTE ON FUNCTION " + company_function + " TO {}")
+            .format(sql.Identifier(role))
+        )
+        conn.execute(
+            "INSERT INTO company_configuration.tenant_role_bindings "
+            "(login_role,tenant_id) VALUES (%s,%s)", (role, tenant),
+        )
+        conn.execute(
+            "INSERT INTO company_configuration.organization_company_command_issuers "
+            "(login_role,tenant_id) VALUES (%s,%s)", (role, tenant),
+        )
+
+    # New ordinary runtime sessions can read Company history, but cannot
+    # write Company registrations, nor execute the controlled command function.
+    conn.execute(
+        "REVOKE INSERT ON company_configuration.organizational_companies "
+        "FROM cc_runtime_a,cc_runtime_b"
+    )
+
+    # ORG-5b3c1: separate registry command issuer from ordinary runtime and
+    # from the Company issuer. Ephemeral CI credentials only, not production IAM.
+    registry_functions = (
+        "company_configuration.register_establishment_controlled("
+        "text,uuid,uuid,text,text,date,date,text,integer,text,text,text,text,"
+        "uuid,uuid,text,timestamptz)",
+        "company_configuration.register_legal_identifier_controlled("
+        "text,uuid,uuid,text,text,text,text,date,date,text,text,text,text,text,"
+        "uuid,uuid,text,timestamptz)",
+    )
+    for role, tenant in (
+        ("cc_org_registry_writer_a", "tenant-a"),
+        ("cc_org_registry_writer_b", "tenant-b"),
+    ):
+        conn.execute(
+            sql.SQL(
+                "CREATE ROLE {} LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE "
+                "NOINHERIT NOREPLICATION NOBYPASSRLS PASSWORD {}"
+            ).format(sql.Identifier(role), sql.Literal("cc_testing_only"))
+        )
+        conn.execute(
+            sql.SQL("GRANT USAGE ON SCHEMA company_configuration TO {}").format(
+                sql.Identifier(role)
+            )
+        )
+        conn.execute(
+            sql.SQL("GRANT EXECUTE ON FUNCTION company_configuration.bound_tenant() TO {}")
+            .format(sql.Identifier(role))
+        )
+        conn.execute(
+            sql.SQL(
+                "GRANT SELECT ON company_configuration.organization_command_requests, "
+                "company_configuration.organization_command_audit, "
+                "company_configuration.organization_command_outbox TO {}"
+            ).format(sql.Identifier(role))
+        )
+        for func in registry_functions:
+            conn.execute(
+                sql.SQL("GRANT EXECUTE ON FUNCTION " + func + " TO {}").format(
+                    sql.Identifier(role)
+                )
+            )
+        conn.execute(
+            "INSERT INTO company_configuration.tenant_role_bindings "
+            "(login_role,tenant_id) VALUES (%s,%s)", (role, tenant),
+        )
+        conn.execute(
+            "INSERT INTO company_configuration.organization_registry_command_issuers "
+            "(login_role,tenant_id) VALUES (%s,%s)", (role, tenant),
+        )
+
+    # Ordinary SQL credentials must not directly create any registration target.
+    # They retain evidence SELECT for existing read paths, but evidence INSERT
+    # with either registry target_kind is rejected by migration 0023 guard.
+    conn.execute(
+        "REVOKE INSERT ON company_configuration.organizational_establishments, "
+        "company_configuration.organizational_legal_identifiers "
+        "FROM cc_runtime_a,cc_runtime_b"
+    )
+
+    # ORG-5b3c2: lifecycle issuer identities are independent of both runtime
+    # and the registration issuers. CI-only credentials; production IAM absent.
+    lifecycle_func = (
+        "company_configuration.transition_organization_controlled("
+        "text,text,uuid,integer,text,text,timestamptz,text,text,text,text,text,"
+        "uuid,uuid,text)"
+    )
+    for role, tenant in (
+        ("cc_org_lifecycle_writer_a", "tenant-a"),
+        ("cc_org_lifecycle_writer_b", "tenant-b"),
+    ):
+        conn.execute(
+            sql.SQL(
+                "CREATE ROLE {} LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE "
+                "NOINHERIT NOREPLICATION NOBYPASSRLS PASSWORD {}"
+            ).format(sql.Identifier(role), sql.Literal("cc_testing_only"))
+        )
+        conn.execute(
+            sql.SQL("GRANT USAGE ON SCHEMA company_configuration TO {}").format(
+                sql.Identifier(role)
+            )
+        )
+        conn.execute(
+            sql.SQL("GRANT EXECUTE ON FUNCTION company_configuration.bound_tenant() TO {}")
+            .format(sql.Identifier(role))
+        )
+        # Read-only projections and deferred commit guard support.
+        conn.execute(
+            sql.SQL(
+                "GRANT SELECT ON company_configuration.organizational_companies, "
+                "company_configuration.organizational_establishments, "
+                "company_configuration.organizational_company_revisions, "
+                "company_configuration.organizational_establishment_revisions, "
+                "company_configuration.organization_lifecycle_requests, "
+                "company_configuration.organization_lifecycle_audit, "
+                "company_configuration.organization_lifecycle_outbox TO {}"
+            ).format(sql.Identifier(role))
+        )
+        conn.execute(
+            sql.SQL("GRANT EXECUTE ON FUNCTION " + lifecycle_func + " TO {}")
+            .format(sql.Identifier(role))
+        )
+        conn.execute(
+            "INSERT INTO company_configuration.tenant_role_bindings "
+            "(login_role,tenant_id) VALUES (%s,%s)", (role, tenant),
+        )
+        conn.execute(
+            "INSERT INTO company_configuration.organization_lifecycle_command_issuers "
+            "(login_role,tenant_id) VALUES (%s,%s)", (role, tenant),
+        )
+
+    # Runtime can still SELECT its own lifecycle records through FORCE RLS,
+    # but can no longer INSERT even a coherent forged transition+evidence.
+    conn.execute(
+        "REVOKE INSERT ON "
+        "company_configuration.organizational_company_revisions, "
+        "company_configuration.organizational_establishment_revisions, "
+        "company_configuration.organization_lifecycle_requests, "
+        "company_configuration.organization_lifecycle_audit, "
+        "company_configuration.organization_lifecycle_outbox "
+        "FROM cc_runtime_a,cc_runtime_b"
+    )
+
+    # ORG-5b3c3: native membership issuer is separate from ordinary runtime,
+    # registration, and lifecycle identities. Testing credentials only.
+    membership_func = (
+        "company_configuration.register_membership_revision_controlled("
+        "text,uuid,integer,uuid,uuid,text,boolean,date,date,timestamptz,"
+        "text,text,text,text,text,uuid,uuid,text)"
+    )
+    for role, tenant in (
+        ("cc_org_membership_writer_a", "tenant-a"),
+        ("cc_org_membership_writer_b", "tenant-b"),
+    ):
+        conn.execute(
+            sql.SQL(
+                "CREATE ROLE {} LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE "
+                "NOINHERIT NOREPLICATION NOBYPASSRLS PASSWORD {}"
+            ).format(sql.Identifier(role), sql.Literal("cc_testing_only"))
+        )
+        conn.execute(
+            sql.SQL("GRANT USAGE ON SCHEMA company_configuration TO {}").format(
+                sql.Identifier(role)
+            )
+        )
+        conn.execute(
+            sql.SQL("GRANT EXECUTE ON FUNCTION company_configuration.bound_tenant() TO {}")
+            .format(sql.Identifier(role))
+        )
+        # Domain read + 0021 deferred membership evidence guard; absolutely no
+        # table INSERT, UPDATE or DELETE for this scoped writer identity.
+        conn.execute(
+            sql.SQL(
+                "GRANT SELECT ON company_configuration.legal_entities, "
+                "company_configuration.organizational_companies, "
+                "company_configuration.organizational_company_revisions, "
+                "company_configuration.organizational_membership_revisions, "
+                "company_configuration.organization_membership_requests, "
+                "company_configuration.organization_membership_audit, "
+                "company_configuration.organization_membership_outbox TO {}"
+            ).format(sql.Identifier(role))
+        )
+        conn.execute(
+            sql.SQL("GRANT EXECUTE ON FUNCTION " + membership_func + " TO {}")
+            .format(sql.Identifier(role))
+        )
+        conn.execute(
+            "INSERT INTO company_configuration.tenant_role_bindings "
+            "(login_role,tenant_id) VALUES (%s,%s)", (role, tenant),
+        )
+        conn.execute(
+            "INSERT INTO company_configuration.organization_membership_command_issuers "
+            "(login_role,tenant_id) VALUES (%s,%s)", (role, tenant),
+        )
+
+    # Defense in depth: revoked runtime INSERT plus permanent owner-guarded
+    # SQL INSERT triggers in 0025, including all three evidence tables.
+    conn.execute(
+        "REVOKE INSERT ON "
+        "company_configuration.organizational_membership_revisions, "
+        "company_configuration.organization_membership_requests, "
+        "company_configuration.organization_membership_audit, "
+        "company_configuration.organization_membership_outbox "
+        "FROM cc_runtime_a,cc_runtime_b"
+    )
+
+    # G3-C02b1: CI-only nonce consumers, isolated from ordinary runtime and
+    # every SQL business issuer. No direct table privileges, no role inheritance.
+    nonce_function = (
+        "company_configuration.consume_organization_command_nonce("
+        "text,text,uuid,timestamptz)"
+    )
+    for role, tenant in (
+        ("cc_org_nonce_consumer_a", "tenant-a"),
+        ("cc_org_nonce_consumer_b", "tenant-b"),
+    ):
+        conn.execute(
+            sql.SQL(
+                "CREATE ROLE {} LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE "
+                "NOINHERIT NOREPLICATION NOBYPASSRLS PASSWORD {}"
+            ).format(sql.Identifier(role), sql.Literal("cc_testing_only"))
+        )
+        conn.execute(
+            sql.SQL("GRANT USAGE ON SCHEMA company_configuration TO {}").format(
+                sql.Identifier(role)
+            )
+        )
+        conn.execute(
+            sql.SQL(
+                "GRANT EXECUTE ON FUNCTION company_configuration.bound_tenant() TO {}"
+            ).format(sql.Identifier(role))
+        )
+        conn.execute(
+            sql.SQL("GRANT EXECUTE ON FUNCTION " + nonce_function + " TO {}").format(
+                sql.Identifier(role)
+            )
+        )
+        conn.execute(
+            "INSERT INTO company_configuration.tenant_role_bindings "
+            "(login_role,tenant_id) VALUES (%s,%s)", (role, tenant),
+        )
+        conn.execute(
+            "INSERT INTO company_configuration.organization_nonce_consumers "
+            "(login_role,tenant_id) VALUES (%s,%s)", (role, tenant),
+        )
+
+    # G3-C02b3b2a: only the four tenant-bound SQL issuer families may call
+    # the actor epoch SHARE-lock primitive, never an ordinary runtime or nonce
+    # principal. CI-only grant table fixture rows are owner-provisioned.
+    epoch_func = (
+        "company_configuration.require_org_actor_grant_epoch("
+        "text,uuid,bigint,text,text,uuid,text,text)"
+    )
+    for role in (
+        "cc_org_company_writer_a", "cc_org_company_writer_b",
+        "cc_org_registry_writer_a", "cc_org_registry_writer_b",
+        "cc_org_lifecycle_writer_a", "cc_org_lifecycle_writer_b",
+        "cc_org_membership_writer_a", "cc_org_membership_writer_b",
+    ):
+        conn.execute(
+            sql.SQL("GRANT EXECUTE ON FUNCTION " + epoch_func + " TO {}")
+            .format(sql.Identifier(role))
+        )

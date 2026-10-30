@@ -1,0 +1,131 @@
+"""ORG-5b3b Company cutover: direct SQL and forged evidence must fail closed.
+
+The legacy ORG-5b3a red-team baseline showed that a tenant runtime credential
+could forge a consistent Company + audit/outbox chain. Migration 0022 changes
+these expected-success attack checks into required DENIAL assertions. Only
+independently provisioned issuer logins can execute the controlled command.
+No claim is made about production IAM or individual actor attestation.
+"""
+
+import os
+from uuid import uuid4
+
+import pytest
+
+psycopg = pytest.importorskip("psycopg")
+
+RUNTIME_A = os.getenv("CC_PG_DSN")
+pytestmark = pytest.mark.skipif(
+    not RUNTIME_A,
+    reason="ORG-5b3b requires ephemeral tenant-bound PostgreSQL test roles",
+)
+
+
+def test_runtime_login_lacks_company_insert_and_controlled_execute():
+    """The ordinary SQL runtime cannot directly INSERT Company rows."""
+    with psycopg.connect(RUNTIME_A) as conn:
+        assert conn.execute(
+            "SELECT has_table_privilege(current_user, "
+            "'company_configuration.organizational_companies', 'INSERT')"
+        ).fetchone()[0] is False
+        assert conn.execute(
+            "SELECT has_function_privilege(current_user, %s, 'EXECUTE')",
+            (
+                "company_configuration.register_company_controlled("
+                "text,uuid,text,text,text,text,text,integer,text,text,text,text,"
+                "uuid,uuid,text,timestamptz)",
+            ),
+        ).fetchone()[0] is False
+
+
+def test_forged_company_registration_and_evidence_are_denied():
+    """Both direct Company DML and forged Company evidence fail closed."""
+    company_id = uuid4()
+    with pytest.raises(psycopg.errors.InsufficientPrivilege):
+        with psycopg.connect(RUNTIME_A) as conn:
+            conn.execute(
+                "INSERT INTO company_configuration.organizational_companies "
+                "(tenant_id,company_id,name,kind,home_country,status,revision) "
+                "VALUES ('tenant-a',%s,'Threat proof','GROUP','FR','DRAFT',1)",
+                (company_id,),
+            )
+    with pytest.raises(psycopg.errors.InsufficientPrivilege):
+        with psycopg.connect(RUNTIME_A) as conn:
+            conn.execute(
+                "INSERT INTO company_configuration.organization_command_requests "
+                "(tenant_id,actor_id,action,request_key,request_digest,target_kind,"
+                "target_id,revision,correlation_id,audit_id,event_id) "
+                "VALUES ('tenant-a','forged','organization.company.register',"
+                "%s,%s,'COMPANY',%s,1,'forged-correlation',%s,%s)",
+                ("forged-" + str(company_id), "0" * 64, company_id, uuid4(), uuid4()),
+            )
+
+
+def test_independent_issuer_cannot_directly_insert_company_or_evidence():
+    """Controlled writer has a dedicated SQL RPC, not arbitrary table INSERT."""
+    dsn = os.getenv("CC_PG_ORG_COMPANY_WRITER_DSN")
+    if not dsn:
+        pytest.skip("CI-only independent Company issuer DSN not configured")
+    with psycopg.connect(dsn) as conn:
+        for table in (
+            "organizational_companies", "organization_command_requests",
+            "organization_command_audit", "organization_command_outbox",
+        ):
+            assert conn.execute(
+                "SELECT has_table_privilege(current_user, %s, 'INSERT')",
+                ("company_configuration." + table,),
+            ).fetchone()[0] is False
+
+
+
+def test_ordinary_runtime_cannot_set_role_into_issuer():
+    """No role membership or SET ROLE path from ordinary runtime to issuer."""
+    with pytest.raises(psycopg.errors.InsufficientPrivilege):
+        with psycopg.connect(RUNTIME_A) as conn:
+            conn.execute("SET ROLE cc_org_company_writer_a")
+
+
+def test_revoked_issuer_binding_immediately_denies_controlled_command():
+    """Administrator-owned issuer binding can stop new registrations."""
+    admin = os.getenv("CC_PG_ADMIN_DSN")
+    writer = os.getenv("CC_PG_ORG_COMPANY_WRITER_DSN")
+    if not (admin and writer):
+        pytest.skip("Requires independent issuer and CI administrator roles")
+    with psycopg.connect(admin) as conn:
+        conn.execute(
+            "UPDATE company_configuration.organization_company_command_issuers "
+            "SET enabled=false WHERE login_role=%s",
+            ("cc_org_company_writer_a",),
+        )
+    try:
+        with pytest.raises(psycopg.errors.InsufficientPrivilege):
+            with psycopg.connect(writer) as conn:
+                conn.execute(
+                    "SELECT company_configuration.register_company_controlled("
+                    "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                    (
+                        "tenant-a", uuid4(), "Revoked", "GROUP", "FR", None,
+                        "DRAFT", 1, "untrusted-actor", "revoked-" + str(uuid4()),
+                        "a" * 64, "revoked-correlation", uuid4(), uuid4(),
+                        "revoked authority", "2026-10-30T08:00:00Z",
+                    ),
+                )
+    finally:
+        with psycopg.connect(admin) as conn:
+            conn.execute(
+                "UPDATE company_configuration.organization_company_command_issuers "
+                "SET enabled=true WHERE login_role=%s",
+                ("cc_org_company_writer_a",),
+            )
+
+
+def test_cross_tenant_injection_is_still_denied_by_session_role_binding():
+    """Prove the existing RLS boundary; its success does NOT authenticate actors."""
+    with pytest.raises(psycopg.errors.InsufficientPrivilege):
+        with psycopg.connect(RUNTIME_A) as conn:
+            conn.execute(
+                "INSERT INTO company_configuration.organizational_companies "
+                "(tenant_id,company_id,name,kind,home_country,status,revision) "
+                "VALUES ('tenant-b',%s,'Cross tenant','GROUP','FR','DRAFT',1)",
+                (uuid4(),),
+            )

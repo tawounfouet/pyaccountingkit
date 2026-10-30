@@ -259,7 +259,9 @@ with psycopg.connect(admin_dsn, autocommit=True) as conn:
         )
         conn.execute(
             sql.SQL(
-                "GRANT SELECT ON company_configuration.organization_command_requests TO {}"
+                "GRANT SELECT ON company_configuration.organization_command_requests, "
+                "company_configuration.organization_command_audit, "
+                "company_configuration.organization_command_outbox TO {}"
             ).format(sql.Identifier(role))
         )
         conn.execute(

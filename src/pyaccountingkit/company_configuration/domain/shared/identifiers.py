@@ -65,6 +65,16 @@ class CompanyAccountId(_UUIDIdentifier):
 
 
 @dataclass(frozen=True, slots=True)
+class AccountHierarchyEdgeId(_UUIDIdentifier):
+    """Draft hierarchy relation identity, never an account or chart identity."""
+
+
+@dataclass(frozen=True, slots=True)
+class AccountStatusCandidateId(_UUIDIdentifier):
+    """Identity of an unpublished candidate account-status interval."""
+
+
+@dataclass(frozen=True, slots=True)
 class ConfigurationDraftId(_UUIDIdentifier):
     """Stable identity of an unpublished configuration draft."""
 

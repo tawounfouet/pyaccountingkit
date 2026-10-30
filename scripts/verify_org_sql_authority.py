@@ -345,6 +345,7 @@ def audit(conn: Any, claims: tuple[Claim, ...]) -> list[str]:
         for managed in (
             "company_configuration.tenant_role_bindings",
             "company_configuration.organization_actor_grant_epochs",
+            "company_configuration.organization_actor_grant_decision_receipts",
             *ISSUER_TABLES.values(),
         ):
             for privilege in ("INSERT", "UPDATE", "DELETE", "TRUNCATE"):

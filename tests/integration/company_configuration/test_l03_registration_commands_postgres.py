@@ -48,9 +48,12 @@ ADMIN = os.getenv("CC_PG_ADMIN_DSN")
 APP = os.getenv("CC_PG_DSN")
 OTHER = os.getenv("CC_PG_DSN_B")
 COMPANY_WRITER = os.getenv("CC_PG_ORG_COMPANY_WRITER_DSN")
+COMPANY_WRITER_B = os.getenv("CC_PG_ORG_COMPANY_WRITER_DSN_B")
+REGISTRY_WRITER = os.getenv("CC_PG_ORG_REGISTRY_WRITER_DSN")
+REGISTRY_WRITER_B = os.getenv("CC_PG_ORG_REGISTRY_WRITER_DSN_B")
 UNBOUND = os.getenv("CC_PG_UNBOUND_DSN")
 pytestmark = pytest.mark.skipif(
-    not all((ADMIN, APP, OTHER, UNBOUND, COMPANY_WRITER)),
+    not all((ADMIN, APP, OTHER, UNBOUND, COMPANY_WRITER, REGISTRY_WRITER)),
     reason="ORG-4b requires PostgreSQL 16 CI and tenant runtime credentials",
 )
 
@@ -115,7 +118,15 @@ def service(*, before_commit=None, dsn=APP, tenant="tenant-a"):
         authorizer, FixedClock(),
         company_uow_factory=lambda: (
             organization_registration.PostgresOrganizationRegistrationUnitOfWork(
-                COMPANY_WRITER if dsn == APP else dsn,
+                COMPANY_WRITER if dsn == APP else (COMPANY_WRITER_B if dsn == OTHER else dsn),
+                before_commit=before_commit,
+            )
+        ),
+        registry_uow_factory=lambda: (
+            organization_registration.PostgresOrganizationRegistrationUnitOfWork(
+                REGISTRY_WRITER if dsn == APP else (
+                    REGISTRY_WRITER_B if dsn == OTHER else dsn
+                ),
                 before_commit=before_commit,
             )
         ),
@@ -307,13 +318,13 @@ def test_direct_company_insert_without_evidence_rejected_at_commit():
     assert counts() == (0, 0, 0, 0, 0, 0)
 
 
-def test_direct_establishment_insert_without_evidence_rejected_at_commit():
+def test_direct_establishment_insert_denied_before_commit():
     legal_id = seed_legal()
     subject = Establishment(
         EstablishmentId.new(), "tenant-a", legal_id, "Unrecorded",
         JurisdictionCode("FR"), EffectiveInterval(date(2026, 1, 1)),
     )
-    with pytest.raises(psycopg.errors.CheckViolation, match="requires matching"):
+    with pytest.raises(psycopg.errors.InsufficientPrivilege):
         with psycopg.connect(APP) as conn:
             conn.execute(
                 "INSERT INTO company_configuration.organizational_establishments "
@@ -329,9 +340,9 @@ def test_direct_establishment_insert_without_evidence_rejected_at_commit():
     assert counts() == (0, 0, 0, 0, 0, 0)
 
 
-def test_direct_legal_identifier_insert_without_evidence_rejected_at_commit():
+def test_direct_legal_identifier_insert_denied_before_commit():
     legal_id = seed_legal()
-    with pytest.raises(psycopg.errors.CheckViolation, match="requires matching"):
+    with pytest.raises(psycopg.errors.InsufficientPrivilege):
         with psycopg.connect(APP) as conn:
             conn.execute(
                 "INSERT INTO company_configuration.organizational_legal_identifiers "

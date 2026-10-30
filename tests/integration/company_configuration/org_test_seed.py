@@ -70,14 +70,26 @@ class EvidencedOrganizationSeed:
             sha256(str(uuid4()).encode()).hexdigest(), "test setup only",
             datetime.now(UTC), company_id, legal_entity_id,
         )
-        # A Company must be created through the separately provisioned SQL issuer.
-        # Other organization fixtures retain their legacy tenant role.
-        dsn = self._dsn
-        if kind is OrganizationTargetKind.COMPANY:
-            if self._dsn == os.getenv("CC_PG_DSN"):
-                dsn = os.getenv("CC_PG_ORG_COMPANY_WRITER_DSN") or self._dsn
-            elif self._dsn == os.getenv("CC_PG_DSN_B"):
-                dsn = os.getenv("CC_PG_ORG_COMPANY_WRITER_DSN_B") or self._dsn
+        # Explicit test-only mapping from ordinary runtime tenant DSN to the
+        # separately provisioned issuer for this registration target kind.
+        env_by_kind = {
+            OrganizationTargetKind.COMPANY: (
+                "CC_PG_ORG_COMPANY_WRITER_DSN", "CC_PG_ORG_COMPANY_WRITER_DSN_B"
+            ),
+            OrganizationTargetKind.ESTABLISHMENT: (
+                "CC_PG_ORG_REGISTRY_WRITER_DSN", "CC_PG_ORG_REGISTRY_WRITER_DSN_B"
+            ),
+            OrganizationTargetKind.LEGAL_IDENTIFIER: (
+                "CC_PG_ORG_REGISTRY_WRITER_DSN", "CC_PG_ORG_REGISTRY_WRITER_DSN_B"
+            ),
+        }
+        writer_a, writer_b = env_by_kind[kind]
+        if self._dsn == os.getenv("CC_PG_DSN"):
+            dsn = os.getenv(writer_a) or self._dsn
+        elif self._dsn == os.getenv("CC_PG_DSN_B"):
+            dsn = os.getenv(writer_b) or self._dsn
+        else:
+            dsn = self._dsn
         with organization_registration.PostgresOrganizationRegistrationUnitOfWork(dsn) as uow:
             insert(uow)
             uow.append_evidence(evidence)

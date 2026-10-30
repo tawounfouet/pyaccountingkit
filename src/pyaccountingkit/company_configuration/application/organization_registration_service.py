@@ -33,9 +33,11 @@ class OrganizationRegistrationService:
         clock: ClockPort | None = None,
         *,
         company_uow_factory: Callable[[], OrganizationRegistrationUnitOfWork] | None = None,
+        registry_uow_factory: Callable[[], OrganizationRegistrationUnitOfWork] | None = None,
     ) -> None:
         self._uow_factory = uow_factory
         self._company_uow_factory = company_uow_factory
+        self._registry_uow_factory = registry_uow_factory
         self._authorization = authorization
         self._clock = clock if clock is not None else SystemClock()
 
@@ -56,14 +58,13 @@ class OrganizationRegistrationService:
             "legal_entity_id": str(legal_entity_id) if legal_entity_id else None,
             "reason": reason, "correlation_id": correlation_id, "payload": payload,
         }).hex_sha256
-        # Company creation cannot fall back to the broad runtime writer.
-        # Its independently provisioned SQL issuer is an explicit composition
-        # dependency, never derived from a caller-supplied actor/tenant.
-        factory = (
-            self._company_uow_factory
-            if kind is OrganizationTargetKind.COMPANY and self._company_uow_factory is not None
-            else self._uow_factory
-        )
+        # Each registration family may be composed with a separately provisioned
+        # SQL issuer. A runtime DSN cannot substitute for either issuer in PG.
+        # Keep the generic port for non-PostgreSQL implementations.
+        if kind is OrganizationTargetKind.COMPANY:
+            factory = self._company_uow_factory or self._uow_factory
+        else:
+            factory = self._registry_uow_factory or self._uow_factory
         with factory() as uow:
             prior = uow.lookup(
                 tenant_id=tenant_id, actor_id=principal.actor_id,

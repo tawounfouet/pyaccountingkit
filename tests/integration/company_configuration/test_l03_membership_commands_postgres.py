@@ -50,8 +50,8 @@ from pyaccountingkit.company_configuration.infrastructure.memory import (  # noq
 from pyaccountingkit.company_configuration.infrastructure.postgres.adapter import (  # noqa: E402
     PostgresUnitOfWork,
 )
-from pyaccountingkit.company_configuration.infrastructure.postgres.organization import (  # noqa: E402
-    PostgresOrganizationRepository,
+from tests.integration.company_configuration.org_test_seed import (  # noqa: E402
+    EvidencedOrganizationSeed as PostgresOrganizationRepository,
 )
 
 ADMIN = os.getenv("CC_PG_ADMIN_DSN")

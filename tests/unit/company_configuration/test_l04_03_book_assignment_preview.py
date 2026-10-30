@@ -46,14 +46,18 @@ from pyaccountingkit.company_configuration.domain.shared.references import (
     CurrencyCode,
     ReferenceFrameworkRef,
 )
-from pyaccountingkit.company_configuration.infrastructure.accounting_book_assignments_memory import (
-    MemoryBookAssignmentCandidates,
+from pyaccountingkit.company_configuration.infrastructure import (
+    accounting_book_assignments_memory,
 )
 from pyaccountingkit.company_configuration.infrastructure.accounting_books_memory import (
     MemoryBookAuthorization,
     MemoryBookStore,
     MemoryCompanyEntityMembership,
     memory_book_uow_factory,
+)
+
+MemoryBookAssignmentCandidates = (
+    accounting_book_assignments_memory.MemoryBookAssignmentCandidates
 )
 
 

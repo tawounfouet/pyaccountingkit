@@ -66,15 +66,19 @@ def test_disabled_registration_evidence_guard_fails_posture_audit():
 
 
 def test_wrong_tenant_binding_fails_without_sql_mutation():
-    wrong = parse_claims(
+    """A self-declared tenant assignment does not override SQL role binding."""
+    swapped = parse_claims(
         ["cc_runtime_a:tenant-a", "cc_runtime_b:tenant-b"],
         [
             f"{family}:cc_org_{family}_writer_{suffix}:{tenant}"
             for family in ("company", "registry", "lifecycle", "membership")
-            for suffix, tenant in (("a", "tenant-a"), ("b", "tenant-b"))
-            if not (family == "company" and suffix == "a")
-        ] + ["company:cc_org_company_writer_a:tenant-b"],
+            for suffix, tenant in (
+                (("b" if family == "company" else "a"), "tenant-a"),
+                (("a" if family == "company" else "b"), "tenant-b"),
+            )
+        ],
     )
-    # This is an intentionally invalid *input claim*. The parser refuses
-    # duplicate family/tenant assignments instead of silently ignoring it.
-    assert wrong  # validity is further checked by role/tenant SQL policy.
+    with psycopg.connect(ADMIN) as conn:
+        findings = audit(conn, swapped)
+    assert any("bound_tenant role/tenant mismatch: cc_org_company_writer" in x
+               for x in findings)

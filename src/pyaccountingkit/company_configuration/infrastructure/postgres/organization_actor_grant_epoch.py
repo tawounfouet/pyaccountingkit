@@ -6,7 +6,6 @@ is NOT identity attestation or proof of a real IAM grant.
 """
 
 from dataclasses import dataclass
-from datetime import datetime
 from re import fullmatch
 from uuid import UUID
 

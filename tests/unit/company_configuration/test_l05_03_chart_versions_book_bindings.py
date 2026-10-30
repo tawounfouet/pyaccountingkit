@@ -51,7 +51,6 @@ from pyaccountingkit.company_configuration.domain.shared.identifiers import (
     LegalEntityId,
 )
 from pyaccountingkit.company_configuration.domain.shared.references import (
-    CurrencyCode,
     ReferenceFrameworkRef,
 )
 from pyaccountingkit.company_configuration.infrastructure.chart_candidate_preview_memory import (

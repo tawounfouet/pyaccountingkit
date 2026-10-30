@@ -91,7 +91,7 @@ class NonceTestDouble:
     def __init__(self):
         self.used = set()
 
-    def consume(self, *, issuer, nonce, expires_at):
+    def consume(self, *, tenant_id, issuer, nonce, expires_at):
         if (issuer, nonce) in self.used:
             return False
         self.used.add((issuer, nonce))

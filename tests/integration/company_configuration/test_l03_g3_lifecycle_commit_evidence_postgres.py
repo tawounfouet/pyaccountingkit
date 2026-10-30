@@ -40,7 +40,7 @@ from pyaccountingkit.company_configuration.domain.shared.references import (  # 
 from pyaccountingkit.company_configuration.infrastructure.postgres.organization_lifecycle import (  # noqa: E402
     PostgresOrganizationLifecycleUnitOfWork,
 )
-from tests.integration.company_configuration.org_test_seed import (  # noqa: E402
+from org_test_seed import (  # noqa: E402
     EvidencedOrganizationSeed as PostgresOrganizationRepository,
 )
 

@@ -64,7 +64,7 @@ def _bootstrap_at_0013(dsn: str) -> list[str]:
     """Simulate a pre-0014 deployment from its immutable historical SQL bytes."""
     entries = _migration_entries()
     assert [name[:4] for name, _ in entries] == [
-        f"{ordinal:04}" for ordinal in range(1, 20)
+        f"{ordinal:04}" for ordinal in range(1, 21)
     ]
     with psycopg.connect(dsn) as conn:
         with conn.transaction():
@@ -140,7 +140,7 @@ def _recorded_versions(dsn: str):
         ).fetchall()
 
 
-def test_upgrade_0013_to_0019_is_atomic_preserves_records_and_is_idempotent(
+def test_upgrade_0013_to_0020_is_atomic_preserves_records_and_is_idempotent(
     isolated_database,
 ):
     dsn = isolated_database()
@@ -153,7 +153,7 @@ def test_upgrade_0013_to_0019_is_atomic_preserves_records_and_is_idempotent(
     before = _recorded_versions(dsn)
     assert len(before) == 13
     assert migrate.apply_migrations(dsn) == names[13:]
-    assert len(_recorded_versions(dsn)) == 19
+    assert len(_recorded_versions(dsn)) == 20
     assert _recorded_versions(dsn)[:13] == before
     _assert_preserved_evidence(dsn, ids)
     with psycopg.connect(dsn) as conn:
@@ -171,11 +171,11 @@ def test_failed_migration_is_fully_rolled_back_and_rerun_works(
     isolated_database, monkeypatch, tmp_path,
 ):
     dsn = isolated_database()
-    assert len(migrate.apply_migrations(dsn)) == 19
+    assert len(migrate.apply_migrations(dsn)) == 20
     prior = _recorded_versions(dsn)
     for filename, source in _migration_entries():
         (tmp_path / filename).write_text(source, encoding="utf-8")
-    bad_file = tmp_path / "0020_injected_failure.sql"
+    bad_file = tmp_path / "0021_injected_failure.sql"
     bad_file.write_text(
         "CREATE TABLE company_configuration.uncommitted_test_table (id integer);"
         "DO $$ BEGIN RAISE EXCEPTION 'fnd-c04 injected failure'; END $$;",
@@ -197,20 +197,20 @@ def test_unrecognized_future_and_noncontiguous_applied_history_fail_closed(
     isolated_database,
 ):
     dsn = isolated_database()
-    assert len(migrate.apply_migrations(dsn)) == 19
+    assert len(migrate.apply_migrations(dsn)) == 20
     expected = _recorded_versions(dsn)
     with psycopg.connect(dsn) as conn:
         conn.execute(
             "INSERT INTO company_configuration.schema_migrations "
             "(filename,sha256) VALUES (%s,%s)",
-            ("0020_future.sql", "0" * 64),
+            ("0021_future.sql", "0" * 64),
         )
     with pytest.raises(RuntimeError, match="Unknown already-applied"):
         migrate.apply_migrations(dsn)
     with psycopg.connect(dsn) as conn:
         conn.execute(
             "DELETE FROM company_configuration.schema_migrations "
-            "WHERE filename='0020_future.sql'"
+            "WHERE filename='0021_future.sql'"
         )
     assert _recorded_versions(dsn) == expected
     with psycopg.connect(dsn) as conn:
@@ -226,7 +226,7 @@ def test_checksum_drift_rejected_without_touching_schema(
     isolated_database, monkeypatch, tmp_path,
 ):
     dsn = isolated_database()
-    assert len(migrate.apply_migrations(dsn)) == 19
+    assert len(migrate.apply_migrations(dsn)) == 20
     original = _recorded_versions(dsn)
     for filename, source in _migration_entries():
         (tmp_path / filename).write_text(source, encoding="utf-8")
@@ -247,8 +247,8 @@ def test_concurrent_fresh_migration_applies_each_script_exactly_once(
     dsn = isolated_database()
     with ThreadPoolExecutor(max_workers=2) as executor:
         results = list(executor.map(migrate.apply_migrations, (dsn, dsn)))
-    assert sorted(len(result) for result in results) == [0, 19]
-    assert len(_recorded_versions(dsn)) == 19
+    assert sorted(len(result) for result in results) == [0, 20]
+    assert len(_recorded_versions(dsn)) == 20
 
 
 def _run_pg_tool(binary: str, dsn: str, args: list[str]) -> None:
@@ -272,7 +272,7 @@ def test_real_custom_dump_restores_all_migration_history_and_evidence(
 ):
     source = isolated_database()
     restored = isolated_database()
-    assert len(migrate.apply_migrations(source)) == 19
+    assert len(migrate.apply_migrations(source)) == 20
     ids = _seed_legacy_evidence(source)
     expected_history = _recorded_versions(source)
     archive = tmp_path / "company_configuration.dump"

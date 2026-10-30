@@ -65,6 +65,11 @@ class FrameworkBindingId(_UUIDIdentifier):
 
 
 @dataclass(frozen=True, slots=True)
+class NormativeStatementId(_UUIDIdentifier):
+    """Identity of an external-source declaration (not of a normative rule)."""
+
+
+@dataclass(frozen=True, slots=True)
 class ConfigurationDraftId(_UUIDIdentifier):
     """Stable identity of an unpublished configuration draft."""
 

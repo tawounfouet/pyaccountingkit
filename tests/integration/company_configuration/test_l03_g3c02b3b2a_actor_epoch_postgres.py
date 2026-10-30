@@ -13,12 +13,12 @@ import pytest
 psycopg = pytest.importorskip("psycopg")
 
 from pyaccountingkit.company_configuration.infrastructure.postgres import (  # noqa: E402
+    organization_actor_grant_epoch,
     tenant_boundary,
 )
-from pyaccountingkit.company_configuration.infrastructure.postgres.organization_actor_grant_epoch import (  # noqa: E402
-    ActorGrantEpochReference,
-    PostgresActorGrantEpochFence,
-)
+
+ActorGrantEpochReference = organization_actor_grant_epoch.ActorGrantEpochReference
+PostgresActorGrantEpochFence = organization_actor_grant_epoch.PostgresActorGrantEpochFence
 
 ADMIN = os.getenv("CC_PG_ADMIN_DSN")
 COMPANY = os.getenv("CC_PG_ORG_COMPANY_WRITER_DSN")

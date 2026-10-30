@@ -95,8 +95,8 @@ from pyaccountingkit.company_configuration.infrastructure.postgres.organization_
 from pyaccountingkit.company_configuration.infrastructure.postgres.organization_nonce import (  # noqa: E402
     PostgresDurableCommandNonceStore,
 )
-from pyaccountingkit.company_configuration.infrastructure.postgres.organization_registration import (  # noqa: E402
-    PostgresOrganizationRegistrationUnitOfWork,
+from pyaccountingkit.company_configuration.infrastructure.postgres import (  # noqa: E402
+    organization_registration,
 )
 
 ADMIN = os.getenv("CC_PG_ADMIN_DSN")
@@ -172,7 +172,8 @@ class Harness:
         self.command_key = Ed25519PrivateKey.generate()
         decision_key = Ed25519PrivateKey.generate()
         self.iam = DecisionHttpStub(decision_key)
-        public = lambda key: key.public_key().public_bytes(Encoding.Raw, PublicFormat.Raw)
+        def public(key):
+            return key.public_key().public_bytes(Encoding.Raw, PublicFormat.Raw)
         verifier = PinnedOrganizationCommandVerifier(
             OrganizationCommandTrust(
                 issuer="trusted-iam", audience="org-gateway",
@@ -190,12 +191,12 @@ class Harness:
         )
         auth = DomainGrant()
         registration = OrganizationRegistrationService(
-            lambda: PostgresOrganizationRegistrationUnitOfWork(RUNTIME),
+            lambda: organization_registration.PostgresOrganizationRegistrationUnitOfWork(RUNTIME),
             auth, Clock(),
-            company_uow_factory=lambda: PostgresOrganizationRegistrationUnitOfWork(
+            company_uow_factory=lambda: organization_registration.PostgresOrganizationRegistrationUnitOfWork(
                 WRITERS["company"]
             ),
-            registry_uow_factory=lambda: PostgresOrganizationRegistrationUnitOfWork(
+            registry_uow_factory=lambda: organization_registration.PostgresOrganizationRegistrationUnitOfWork(
                 WRITERS["registry"]
             ),
         )
@@ -416,9 +417,9 @@ def test_revocation_after_signed_positive_decision_before_sql_commit_is_not_atom
     # Override the executor's Company service only, with the same real
     # issuer-only SQL identity and injected after-write precommit hook.
     registration = OrganizationRegistrationService(
-        lambda: PostgresOrganizationRegistrationUnitOfWork(RUNTIME),
+        lambda: organization_registration.PostgresOrganizationRegistrationUnitOfWork(RUNTIME),
         DomainGrant(), Clock(),
-        company_uow_factory=lambda: PostgresOrganizationRegistrationUnitOfWork(
+        company_uow_factory=lambda: organization_registration.PostgresOrganizationRegistrationUnitOfWork(
             WRITERS["company"], before_commit=revoke_before_commit,
         ),
     )

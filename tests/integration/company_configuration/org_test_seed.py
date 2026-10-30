@@ -5,9 +5,9 @@ bare PostgresOrganizationRepository INSERT fixtures in positive SQL tests.
 A test fixture actor is NOT a production trusted or authenticated principal.
 """
 
+import os
 from datetime import UTC, datetime
 from hashlib import sha256
-import os
 from uuid import UUID, uuid4
 
 from pyaccountingkit.company_configuration.application.organization_membership_evidence import (

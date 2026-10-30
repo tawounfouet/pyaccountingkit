@@ -1,6 +1,7 @@
 """G3-C02a real SQL: independently signed actor → auth gate → SQL issuer.
 
-The signing key, grant source and service wiring here are TEST FIXTURES.
+The signing key, independently signed IAM decision HTTP stub and service
+wiring here are TEST FIXTURES; the full authorization adapter is real.
 The nonce store is now real PostgreSQL (G3-C02b1), not a fake local set.
 This still does not prove deployment isolation or real human IAM.
 """
@@ -44,9 +45,16 @@ from pyaccountingkit.company_configuration.domain.shared.identifiers import Comp
 from pyaccountingkit.company_configuration.domain.shared.references import (  # noqa: E402
     JurisdictionCode,
 )
+from pyaccountingkit.company_configuration.infrastructure.iam.http_revocation_source import (  # noqa: E402
+    IamHttpResponse,
+)
 from pyaccountingkit.company_configuration.infrastructure.iam.organization_command_evidence import (  # noqa: E402
     OrganizationCommandTrust,
     PinnedOrganizationCommandVerifier,
+)
+from pyaccountingkit.company_configuration.infrastructure.iam.organization_live_grants import (  # noqa: E402
+    HttpsSignedOrganizationGrantSource,
+    SignedLiveGrantTrust,
 )
 from pyaccountingkit.company_configuration.infrastructure.postgres import (  # noqa: E402
     organization_nonce,
@@ -77,17 +85,39 @@ class DDDGrants:
             raise PermissionDenied("Independent DDD grant required")
 
 
-class LiveGrants:
-    def __init__(self):
-        self.enabled = True
+class SignedIamDecisionTransport:
+    """Fake remote IAM over an injected transport; no real external service."""
 
-    def require(self, *, issuer, principal, action, target_id):
-        if not self.enabled or (
-            issuer, principal.actor_id, principal.tenant_id, action
-        ) != (
-            "trusted-iam", "verified-actor", "tenant-a", "organization.company.register",
-        ):
-            raise PermissionDenied("Current grant revoked")
+    def __init__(self, private):
+        self.private = private
+        self.revoked = False
+        self.calls = []
+
+    def request(self, method, url, headers, body, timeout):
+        assert method == "POST"
+        request = json.loads(body)
+        self.calls.append(request)
+        epoch = int(NOW.timestamp())
+        claims = {
+            **request,
+            "iss": "independent-decision-iam",
+            "aud": "org-issuer-gateway-decision",
+            "kind": "organization.authorization.decision",
+            "allowed": not self.revoked,
+            "revoked": self.revoked,
+            "grant_id": str(uuid4()),
+            "grant_version": 2,
+            "iat": epoch, "nbf": epoch, "exp": epoch + 20,
+        }
+        h = _b64(json.dumps({
+            "alg": "EdDSA", "typ": "JWT", "kid": "decision-ephemeral",
+        }).encode())
+        p = _b64(json.dumps(claims).encode())
+        signed = f"{h}.{p}"
+        return IamHttpResponse(
+            200, "application/jose",
+            (signed + "." + _b64(self.private.sign(signed.encode()))).encode(),
+        )
 
 
 def _b64(data):
@@ -167,7 +197,19 @@ def test_signed_gateway_commits_once_and_rejects_replays_and_revocation():
             )
         ),
     )
-    grants = LiveGrants()
+    decision_key = Ed25519PrivateKey.generate()
+    decision_public = decision_key.public_key().public_bytes(Encoding.Raw, PublicFormat.Raw)
+    decision_transport = SignedIamDecisionTransport(decision_key)
+    grants = HttpsSignedOrganizationGrantSource(
+        origin="https://independent-iam.example.net",
+        service_token="ephemeral-test-only",
+        trust=SignedLiveGrantTrust(
+            issuer="independent-decision-iam",
+            audience="org-issuer-gateway-decision",
+            keys={"decision-ephemeral": decision_public},
+        ),
+        transport=decision_transport, clock=Clock(),
+    )
     nonce = organization_nonce.PostgresDurableCommandNonceStore(NONCE_WRITER)
     gateway = OrganizationTrustedIssuerGateway(
         verifier=verifier, authorization=grants, nonce_store=nonce,
@@ -202,7 +244,7 @@ def test_signed_gateway_commits_once_and_rejects_replays_and_revocation():
     assert _counts() == (1, 1, 1, 1)
     assert _nonce_count() == 2
 
-    grants.enabled = False
+    decision_transport.revoked = True
     with pytest.raises(PermissionDenied):
         gateway.execute(command, signed_evidence=token(key, command))
     assert _counts() == (1, 1, 1, 1)

@@ -58,7 +58,6 @@ from pyaccountingkit.company_configuration.infrastructure.chart_candidate_previe
     MemoryChartCandidateVersions,
 )
 
-
 JAN = datetime(2026, 1, 1, tzinfo=UTC)
 MAR = datetime(2026, 3, 1, tzinfo=UTC)
 FEB = datetime(2026, 2, 1, tzinfo=UTC)

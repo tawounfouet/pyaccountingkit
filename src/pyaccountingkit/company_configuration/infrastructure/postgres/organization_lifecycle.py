@@ -4,6 +4,7 @@ Reuse 0016 tenant-bound one-connection UoW/lock, with distinct 0017 evidence.
 """
 
 from datetime import datetime
+from uuid import UUID
 
 from ...application.organization_lifecycle import LifecycleEvidence, LifecycleReceipt
 from ...application.organization_registration import OrganizationTargetKind
@@ -21,7 +22,19 @@ from .organization_registration import PostgresOrganizationRegistrationUnitOfWor
 
 
 class PostgresOrganizationLifecycleUnitOfWork(PostgresOrganizationRegistrationUnitOfWork):
-    """All reads, history inserts and three evidence inserts share one transaction."""
+    """Stage lifecycle revision and evidence for independently scoped SQL commit.
+
+    This UoW uses a tenant-bound lifecycle issuer DSN, not a runtime login;
+    one controlled SQL command atomically appends all four records.
+    """
+
+    def __init__(self, dsn: str, *, before_commit=None) -> None:
+        super().__init__(dsn, before_commit=before_commit)
+        self._pending_lifecycle: (
+            tuple[OrganizationTargetKind, str, UUID, int, str, datetime, str] | None
+        ) = None
+        self._pending_lifecycle_evidence: LifecycleEvidence | None = None
+
 
     def lookup(
         self, *, tenant_id: str, actor_id: str, action: str, request_key: str,
@@ -94,68 +107,71 @@ class PostgresOrganizationLifecycleUnitOfWork(PostgresOrganizationRegistrationUn
         self, company: Company, *, recorded_at: datetime, source_ref: str,
     ) -> None:
         self._bind(company.tenant_id)
-        self._conn.execute(
-            "INSERT INTO company_configuration.organizational_company_revisions "
-            "(tenant_id,company_id,revision,status,recorded_at,source_ref) "
-            "VALUES (%s,%s,%s,%s,%s,%s)",
-            (
-                company.tenant_id, company.id.value, company.revision,
-                company.status.value, recorded_at, source_ref,
-            ),
+        self._stage(
+            OrganizationTargetKind.COMPANY, company.tenant_id, company.id.value,
+            company.revision, company.status.value, recorded_at, source_ref,
         )
 
     def append_establishment(
         self, site: Establishment, *, recorded_at: datetime, source_ref: str,
     ) -> None:
         self._bind(site.tenant_id)
-        self._conn.execute(
-            "INSERT INTO company_configuration.organizational_establishment_revisions "
-            "(tenant_id,establishment_id,revision,status,recorded_at,source_ref) "
-            "VALUES (%s,%s,%s,%s,%s,%s)",
-            (
-                site.tenant_id, site.id.value, site.revision, site.status.value,
-                recorded_at, source_ref,
-            ),
+        self._stage(
+            OrganizationTargetKind.ESTABLISHMENT, site.tenant_id, site.id.value,
+            site.revision, site.status.value, recorded_at, source_ref,
+        )
+
+    def _stage(
+        self, kind: OrganizationTargetKind, tenant: str, target: UUID,
+        revision: int, status: str, instant: datetime, source_ref: str,
+    ) -> None:
+        if self._pending_lifecycle is not None:
+            raise RuntimeError("Only one lifecycle transition per transaction")
+        self._pending_lifecycle = (
+            kind, tenant, target, revision, status, instant, source_ref,
         )
 
     def append_evidence(self, record: LifecycleEvidence) -> None:
+        if not isinstance(record, LifecycleEvidence):
+            raise TypeError("Typed LifecycleEvidence required")
         receipt = record.receipt
         self._bind(receipt.tenant_id)
+        pending = self._pending_lifecycle
+        if pending is None or self._pending_lifecycle_evidence is not None:
+            raise RuntimeError("Lifecycle revision must precede unique evidence")
+        kind, tenant, target, revision, status, instant, _ = pending
+        action = (
+            "organization.company.transition"
+            if kind is OrganizationTargetKind.COMPANY
+            else "organization.establishment.transition"
+        )
+        if (
+            receipt.target_kind is not kind
+            or receipt.tenant_id != tenant or receipt.target_id != target
+            or receipt.revision != revision or record.action != action
+            or record.to_status != status or record.recorded_at != instant
+            or record.before_revision != revision - 1
+        ):
+            raise RuntimeError("Lifecycle evidence must match staged revision")
+        self._pending_lifecycle_evidence = record
+
+    def commit(self) -> None:
+        pending = self._pending_lifecycle
+        evidence = self._pending_lifecycle_evidence
+        if pending is None or evidence is None or self._conn is None:
+            raise RuntimeError("Lifecycle commit requires revision and evidence")
+        kind, tenant, target, revision, status, instant, source_ref = pending
+        receipt = evidence.receipt
+        # SQL checks actual previous state/revision and original session login
+        # before one atomic revision + request/audit/outbox transaction.
         self._conn.execute(
-            "INSERT INTO company_configuration.organization_lifecycle_audit "
-            "(record_id,tenant_id,actor_id,action,target_kind,target_id,"
-            "before_revision,after_revision,from_status,to_status,reason,"
-            "correlation_id,recorded_at) VALUES "
-            "(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+            "SELECT company_configuration.transition_organization_controlled("
+            "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
             (
-                receipt.audit_id, receipt.tenant_id, record.actor_id, record.action,
-                receipt.target_kind.value, receipt.target_id,
-                record.before_revision, receipt.revision, record.from_status,
-                record.to_status, record.reason, receipt.correlation_id,
-                record.recorded_at,
+                tenant, kind.value, target, revision, evidence.from_status, status,
+                instant, source_ref, evidence.actor_id, evidence.request_key,
+                evidence.request_digest, receipt.correlation_id, receipt.audit_id,
+                receipt.event_id, evidence.reason,
             ),
         )
-        self._conn.execute(
-            "INSERT INTO company_configuration.organization_lifecycle_outbox "
-            "(event_id,tenant_id,event_type,schema_version,target_kind,target_id,"
-            "revision,from_status,to_status,correlation_id,recorded_at) VALUES "
-            "(%s,%s,%s,1,%s,%s,%s,%s,%s,%s,%s)",
-            (
-                receipt.event_id, receipt.tenant_id, record.action,
-                receipt.target_kind.value, receipt.target_id, receipt.revision,
-                record.from_status, record.to_status, receipt.correlation_id,
-                record.recorded_at,
-            ),
-        )
-        self._conn.execute(
-            "INSERT INTO company_configuration.organization_lifecycle_requests "
-            "(tenant_id,actor_id,action,request_key,request_digest,target_kind,"
-            "target_id,revision,correlation_id,audit_id,event_id) VALUES "
-            "(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-            (
-                receipt.tenant_id, record.actor_id, record.action,
-                record.request_key, record.request_digest, receipt.target_kind.value,
-                receipt.target_id, receipt.revision, receipt.correlation_id,
-                receipt.audit_id, receipt.event_id,
-            ),
-        )
+        super().commit()

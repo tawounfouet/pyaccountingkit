@@ -347,3 +347,66 @@ with psycopg.connect(admin_dsn, autocommit=True) as conn:
         "company_configuration.organizational_legal_identifiers "
         "FROM cc_runtime_a,cc_runtime_b"
     )
+
+    # ORG-5b3c2: lifecycle issuer identities are independent of both runtime
+    # and the registration issuers. CI-only credentials; production IAM absent.
+    lifecycle_func = (
+        "company_configuration.transition_organization_controlled("
+        "text,text,uuid,integer,text,text,timestamptz,text,text,text,text,text,"
+        "uuid,uuid,text)"
+    )
+    for role, tenant in (
+        ("cc_org_lifecycle_writer_a", "tenant-a"),
+        ("cc_org_lifecycle_writer_b", "tenant-b"),
+    ):
+        conn.execute(
+            sql.SQL(
+                "CREATE ROLE {} LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE "
+                "NOINHERIT NOREPLICATION NOBYPASSRLS PASSWORD {}"
+            ).format(sql.Identifier(role), sql.Literal("cc_testing_only"))
+        )
+        conn.execute(
+            sql.SQL("GRANT USAGE ON SCHEMA company_configuration TO {}").format(
+                sql.Identifier(role)
+            )
+        )
+        conn.execute(
+            sql.SQL("GRANT EXECUTE ON FUNCTION company_configuration.bound_tenant() TO {}")
+            .format(sql.Identifier(role))
+        )
+        # Read-only projections and deferred commit guard support.
+        conn.execute(
+            sql.SQL(
+                "GRANT SELECT ON company_configuration.organizational_companies, "
+                "company_configuration.organizational_establishments, "
+                "company_configuration.organizational_company_revisions, "
+                "company_configuration.organizational_establishment_revisions, "
+                "company_configuration.organization_lifecycle_requests, "
+                "company_configuration.organization_lifecycle_audit, "
+                "company_configuration.organization_lifecycle_outbox TO {}"
+            ).format(sql.Identifier(role))
+        )
+        conn.execute(
+            sql.SQL("GRANT EXECUTE ON FUNCTION " + lifecycle_func + " TO {}")
+            .format(sql.Identifier(role))
+        )
+        conn.execute(
+            "INSERT INTO company_configuration.tenant_role_bindings "
+            "(login_role,tenant_id) VALUES (%s,%s)", (role, tenant),
+        )
+        conn.execute(
+            "INSERT INTO company_configuration.organization_lifecycle_command_issuers "
+            "(login_role,tenant_id) VALUES (%s,%s)", (role, tenant),
+        )
+
+    # Runtime can still SELECT its own lifecycle records through FORCE RLS,
+    # but can no longer INSERT even a coherent forged transition+evidence.
+    conn.execute(
+        "REVOKE INSERT ON "
+        "company_configuration.organizational_company_revisions, "
+        "company_configuration.organizational_establishment_revisions, "
+        "company_configuration.organization_lifecycle_requests, "
+        "company_configuration.organization_lifecycle_audit, "
+        "company_configuration.organization_lifecycle_outbox "
+        "FROM cc_runtime_a,cc_runtime_b"
+    )

@@ -19,11 +19,11 @@ from ...application.organization_issuer_gateway import ACTIONS
 from ...application.service import PermissionDenied
 from .organization_live_grants import (
     _FIELDS,
+    SignedLiveGrantTrust,
     _canonical,
     _int,
     _object,
     _text,
-    SignedLiveGrantTrust,
 )
 
 

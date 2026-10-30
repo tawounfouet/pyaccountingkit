@@ -226,8 +226,8 @@ def test_inconsistent_event_status_cannot_be_used_as_proof():
                 "(tenant_id,actor_id,action,request_key,request_digest,target_kind,"
                 "target_id,revision,correlation_id,audit_id,event_id) "
                 "VALUES ('tenant-a','untrusted','organization.company.transition',"
-                "'direct','%s','COMPANY',%s,2,'corr',%s,%s)" % ("a" * 64),
-                (subject.id.value, audit_id, event_id),
+                "'direct',%s,'COMPANY',%s,2,'corr',%s,%s)",
+                ("a" * 64, subject.id.value, audit_id, event_id),
             )
     assert counts() == (0, 0, 0, 0, 0)
 

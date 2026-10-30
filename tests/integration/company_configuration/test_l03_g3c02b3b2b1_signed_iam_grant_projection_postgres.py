@@ -19,7 +19,8 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import (  # noqa: E402
     Ed25519PrivateKey,
 )
 from cryptography.hazmat.primitives.serialization import (  # noqa: E402
-    Encoding, PublicFormat,
+    Encoding,
+    PublicFormat,
 )
 
 from pyaccountingkit.company_configuration.application.service import (  # noqa: E402

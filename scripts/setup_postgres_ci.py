@@ -513,3 +513,21 @@ with psycopg.connect(admin_dsn, autocommit=True) as conn:
             "INSERT INTO company_configuration.organization_nonce_consumers "
             "(login_role,tenant_id) VALUES (%s,%s)", (role, tenant),
         )
+
+    # G3-C02b3b2a: only the four tenant-bound SQL issuer families may call
+    # the actor epoch SHARE-lock primitive, never an ordinary runtime or nonce
+    # principal. CI-only grant table fixture rows are owner-provisioned.
+    epoch_func = (
+        "company_configuration.require_org_actor_grant_epoch("
+        "text,uuid,bigint,text,text,uuid,text,text)"
+    )
+    for role in (
+        "cc_org_company_writer_a", "cc_org_company_writer_b",
+        "cc_org_registry_writer_a", "cc_org_registry_writer_b",
+        "cc_org_lifecycle_writer_a", "cc_org_lifecycle_writer_b",
+        "cc_org_membership_writer_a", "cc_org_membership_writer_b",
+    ):
+        conn.execute(
+            sql.SQL("GRANT EXECUTE ON FUNCTION " + epoch_func + " TO {}")
+            .format(sql.Identifier(role))
+        )

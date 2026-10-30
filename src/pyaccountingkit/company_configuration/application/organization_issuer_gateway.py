@@ -213,14 +213,21 @@ class OrganizationServiceExecutor:
         self, *, action: str, command: object, principal: TrustedPrincipal,
     ) -> object:
         cases = {
-            "organization.company.register": self._registration.register_company,
-            "organization.establishment.register": self._registration.register_establishment,
-            "organization.legal_identifier.register": self._registration.register_legal_identifier,
-            "organization.company.transition": self._lifecycle.transition_company,
-            "organization.establishment.transition": self._lifecycle.transition_establishment,
-            "organization.membership.assign": self._membership.assign,
-            "organization.membership.end": self._membership.end,
+            "organization.company.register": (self._registration, "register_company"),
+            "organization.establishment.register": (
+                self._registration, "register_establishment",
+            ),
+            "organization.legal_identifier.register": (
+                self._registration, "register_legal_identifier",
+            ),
+            "organization.company.transition": (self._lifecycle, "transition_company"),
+            "organization.establishment.transition": (
+                self._lifecycle, "transition_establishment",
+            ),
+            "organization.membership.assign": (self._membership, "assign"),
+            "organization.membership.end": (self._membership, "end"),
         }
         if action != ACTIONS.get(type(command)) or action not in cases:
             raise PermissionDenied("Unsupported or mismatched organization operation")
-        return cases[action](command, principal=principal)
+        service, method = cases[action]
+        return getattr(service, method)(command, principal=principal)

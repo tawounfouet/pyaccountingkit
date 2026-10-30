@@ -360,7 +360,7 @@ def test_invalid_identifier_scope_date_provenance_and_typed_reference():
     with pytest.raises(InvalidFrameworkBinding):
         request(b, as_of=datetime(2026, 1, 1))
     with pytest.raises(InvalidFrameworkBinding):
-        request(b, purpose="STATUTORY")
+        PreviewBookFrameworkBinding(b.scope, "STATUTORY", date(2026, 1, 1))
     with pytest.raises(InvalidFrameworkBinding):
         PreviewBookFrameworkBinding(
             replace(b.scope, book_id=None),

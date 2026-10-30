@@ -11,13 +11,13 @@ RETURNS trigger LANGUAGE plpgsql SET search_path=pg_catalog,pg_temp AS $$
 DECLARE
     expected_action text;
     expected_kind text;
-    target_id uuid;
+    v_target_uuid uuid;
     previous_status text;
 BEGIN
     IF TG_TABLE_NAME = 'organizational_company_revisions' THEN
         expected_action := 'organization.company.transition';
         expected_kind := 'COMPANY';
-        target_id := NEW.company_id;
+        v_target_uuid := NEW.company_id;
         IF NEW.revision = 2 THEN
             SELECT c.status INTO previous_status
             FROM company_configuration.organizational_companies c
@@ -31,7 +31,7 @@ BEGIN
     ELSIF TG_TABLE_NAME = 'organizational_establishment_revisions' THEN
         expected_action := 'organization.establishment.transition';
         expected_kind := 'ESTABLISHMENT';
-        target_id := NEW.establishment_id;
+        v_target_uuid := NEW.establishment_id;
         IF NEW.revision = 2 THEN
             SELECT e.status INTO previous_status
             FROM company_configuration.organizational_establishments e
@@ -59,7 +59,7 @@ BEGIN
         WHERE request.tenant_id=NEW.tenant_id
           AND request.action=expected_action
           AND request.target_kind=expected_kind
-          AND request.target_id=target_id
+          AND request.target_id=v_target_uuid
           AND request.revision=NEW.revision
           AND audit.tenant_id=request.tenant_id
           AND audit.actor_id=request.actor_id

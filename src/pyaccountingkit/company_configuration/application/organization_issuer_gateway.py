@@ -129,7 +129,9 @@ class LiveIssuerAuthorizationPort(Protocol):
 
 
 class DurableNoncePort(Protocol):
-    def consume(self, *, issuer: str, nonce: UUID, expires_at: datetime) -> bool:
+    def consume(
+        self, *, tenant_id: str, issuer: str, nonce: UUID, expires_at: datetime,
+    ) -> bool:
         """Atomic cluster-wide consume; False on duplicate or backend failure."""
         ...
 
@@ -188,6 +190,7 @@ class OrganizationTrustedIssuerGateway:
             # durable/atomic; service-level idempotency still handles fresh
             # signed attestations sharing the same request_id.
             if not self._nonce_store.consume(
+                tenant_id=identity.tenant_id,
                 issuer=envelope.issuer, nonce=envelope.nonce,
                 expires_at=envelope.expires_at,
             ):

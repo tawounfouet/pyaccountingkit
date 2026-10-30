@@ -32,6 +32,8 @@ jobs:
       CC_PG_ORG_COMPANY_WRITER_DSN_B: postgresql://cc_org_company_writer_b:cc_testing_only@localhost:5432/cc_test
       CC_PG_ORG_REGISTRY_WRITER_DSN: postgresql://cc_org_registry_writer_a:cc_testing_only@localhost:5432/cc_test
       CC_PG_ORG_REGISTRY_WRITER_DSN_B: postgresql://cc_org_registry_writer_b:cc_testing_only@localhost:5432/cc_test
+      CC_PG_ORG_LIFECYCLE_WRITER_DSN: postgresql://cc_org_lifecycle_writer_a:cc_testing_only@localhost:5432/cc_test
+      CC_PG_ORG_LIFECYCLE_WRITER_DSN_B: postgresql://cc_org_lifecycle_writer_b:cc_testing_only@localhost:5432/cc_test
       CC_PG_DISPATCH_DSN: postgresql://cc_dispatcher_a:cc_testing_only@localhost:5432/cc_test
       CC_PG_DISPATCH_DSN_B: postgresql://cc_dispatcher_b:cc_testing_only@localhost:5432/cc_test
       CC_PG_INBOX_DSN: postgresql://cc_inbox_a:cc_testing_only@localhost:5432/cc_test

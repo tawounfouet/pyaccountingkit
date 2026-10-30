@@ -60,5 +60,18 @@ jobs:
         run: python scripts/setup_postgres_ci.py
       - name: Run mandatory PostgreSQL integration suite
         run: python -m pytest -q tests/integration/company_configuration -rs
+      - name: Qualify L03 G3-C01 SQL authority posture (read-only)
+        run: |
+          python scripts/verify_org_sql_authority.py \
+            --runtime cc_runtime_a:tenant-a \
+            --runtime cc_runtime_b:tenant-b \
+            --issuer company:cc_org_company_writer_a:tenant-a \
+            --issuer company:cc_org_company_writer_b:tenant-b \
+            --issuer registry:cc_org_registry_writer_a:tenant-a \
+            --issuer registry:cc_org_registry_writer_b:tenant-b \
+            --issuer lifecycle:cc_org_lifecycle_writer_a:tenant-a \
+            --issuer lifecycle:cc_org_lifecycle_writer_b:tenant-b \
+            --issuer membership:cc_org_membership_writer_a:tenant-a \
+            --issuer membership:cc_org_membership_writer_b:tenant-b
       - name: Check all Python style
         run: python -m ruff check src tests scripts

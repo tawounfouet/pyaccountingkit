@@ -73,7 +73,7 @@ class AtomicNonceMock:
         self.used = set()
         self.available = True
 
-    def consume(self, *, issuer, nonce, expires_at):
+    def consume(self, *, tenant_id, issuer, nonce, expires_at):
         if not self.available:
             return False
         if (issuer, nonce) in self.used:

@@ -21,13 +21,13 @@ from pyaccountingkit.company_configuration.domain.accounting_books import (
     BookAssignmentMissing,
     BookAssignmentPurpose,
     BookCode,
+    InvalidNormativeStatement,
     NormativeDeclaration,
     NormativeReferenceStatement,
     NormativeSourceCode,
     NormativeStatementAmbiguous,
     NormativeStatementMissing,
     NormativeStatementUnavailable,
-    InvalidNormativeStatement,
     ReferenceFrameworkBindingCandidate,
     preview_normative_reference_history,
 )
@@ -51,10 +51,8 @@ from pyaccountingkit.company_configuration.domain.shared.references import (
     ReferenceFrameworkRef,
 )
 from pyaccountingkit.company_configuration.infrastructure import (
+    accounting_book_assignments_memory,
     accounting_book_normative_history_memory,
-)
-from pyaccountingkit.company_configuration.infrastructure.accounting_book_assignments_memory import (
-    MemoryBookAssignmentCandidates,
 )
 from pyaccountingkit.company_configuration.infrastructure.accounting_book_frameworks_memory import (
     MemoryBookFrameworkCandidates,
@@ -67,6 +65,9 @@ from pyaccountingkit.company_configuration.infrastructure.accounting_books_memor
 )
 
 ClaimsMemory = accounting_book_normative_history_memory.MemoryNormativeReferenceClaims
+MemoryBookAssignmentCandidates = (
+    accounting_book_assignments_memory.MemoryBookAssignmentCandidates
+)
 SOURCE = NormativeSourceCode("TEST_SOURCE")
 DAY = date(2026, 2, 15)
 JAN = datetime(2026, 1, 1, tzinfo=UTC)
@@ -375,7 +376,7 @@ def test_memory_reader_uses_exact_reference_source_and_never_saves():
 
 def test_malicious_reader_leaking_another_source_fails_closed():
     book = make_book()
-    svc, actor, store, access, members = create_service(
+    _, actor, store, access, members = create_service(
         book, (statement(book),)
     )
 

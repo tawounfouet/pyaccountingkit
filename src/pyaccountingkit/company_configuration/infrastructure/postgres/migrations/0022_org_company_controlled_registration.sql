@@ -18,8 +18,11 @@ SET search_path=pg_catalog,pg_temp AS $$
 DECLARE v_tenant text;
 DECLARE v_kind text;
 BEGIN
-    v_kind := CASE WHEN TG_TABLE_NAME='organizational_companies'
-                   THEN 'COMPANY' ELSE NEW.target_kind END;
+    IF TG_TABLE_NAME='organizational_companies' THEN
+        v_kind := 'COMPANY';
+    ELSE
+        v_kind := NEW.target_kind;
+    END IF;
     IF v_kind IS DISTINCT FROM 'COMPANY' THEN
         RETURN NEW;
     END IF;

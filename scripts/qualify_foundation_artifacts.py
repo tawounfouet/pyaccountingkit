@@ -20,7 +20,7 @@ WHEEL_MIGRATIONS = (
     "pyaccountingkit/company_configuration/infrastructure/postgres/migrations"
 )
 EXPECTED_VERSION = "0.0.0"
-EXPECTED_MIGRATION_NUMBERS = tuple(range(1, 20))
+EXPECTED_MIGRATION_NUMBERS = tuple(range(1, 21))
 REQUIRED_MODULES = (
     "pyaccountingkit/__init__.py",
     "pyaccountingkit/company_configuration/__init__.py",

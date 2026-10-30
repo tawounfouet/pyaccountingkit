@@ -9,6 +9,10 @@ import pytest
 
 psycopg = pytest.importorskip("psycopg")
 
+from org_test_seed import (  # noqa: E402
+    EvidencedOrganizationSeed as PostgresOrganizationRepository,
+)
+
 from pyaccountingkit.company_configuration.application.organization_lifecycle import (  # noqa: E402
     TransitionCompany,
     TransitionEstablishment,
@@ -45,9 +49,6 @@ from pyaccountingkit.company_configuration.domain.shared.identifiers import (  #
 )
 from pyaccountingkit.company_configuration.domain.shared.references import (  # noqa: E402
     JurisdictionCode,
-)
-from pyaccountingkit.company_configuration.infrastructure.postgres.organization import (  # noqa: E402
-    PostgresOrganizationRepository,
 )
 from pyaccountingkit.company_configuration.infrastructure.postgres.organization_lifecycle import (  # noqa: E402
     PostgresOrganizationLifecycleUnitOfWork,

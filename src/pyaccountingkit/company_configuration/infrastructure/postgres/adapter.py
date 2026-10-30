@@ -10,6 +10,10 @@ from uuid import UUID
 import psycopg
 from psycopg.rows import dict_row
 
+from ...application.organization_membership_evidence import (
+    MembershipChangeReceipt,
+    MembershipTransactionEvidence,
+)
 from ...application.ports import AuditRecord, ChangeReceipt, PendingEvent
 from ...domain.organization.entities import LegalEntity
 from ...domain.organization.model import MembershipKind, OrganizationMembership
@@ -188,6 +192,84 @@ class PostgresUnitOfWork:
             (UUID(event.event_id), event.scope.tenant_id, event.scope.company_id.value,
              event.entity_id.value, event.event_type, event.schema_version,
              event.revision, event.correlation_id, event.recorded_at),
+        )
+
+    def lookup_membership_request(
+        self, *, actor_id: str, scope: ConfigurationScope, action: str, key: str,
+    ) -> tuple[str, MembershipChangeReceipt] | None:
+        """MembershipId-based request; never return L02 LegalEntity receipts."""
+        self._bind_scope(scope)
+        row = self._connection.execute(
+            "SELECT request_digest,membership_id,company_id,legal_entity_id,"
+            "revision,correlation_id,audit_id,event_id "
+            "FROM company_configuration.organization_membership_requests "
+            "WHERE tenant_id=%s AND actor_id=%s AND action=%s AND request_key=%s",
+            (scope.tenant_id, actor_id, action, key),
+        ).fetchone()
+        if row is None:
+            return None
+        return row["request_digest"].strip(), MembershipChangeReceipt(
+            membership_id=MembershipId(row["membership_id"]),
+            company_id=CompanyId(row["company_id"]),
+            legal_entity_id=LegalEntityId(row["legal_entity_id"]),
+            revision=row["revision"],
+            correlation_id=row["correlation_id"],
+            audit_id=str(row["audit_id"]), event_id=str(row["event_id"]),
+        )
+
+    def append_membership_evidence(
+        self, *, scope: ConfigurationScope, evidence: MembershipTransactionEvidence,
+    ) -> None:
+        """Evidence and affiliation must commit together in the bound transaction."""
+        self._bind_scope(scope)
+        if not isinstance(evidence, MembershipTransactionEvidence):
+            raise InvalidScope("Typed membership transaction evidence required")
+        m, r = evidence.membership, evidence.receipt
+        if (
+            m.tenant_id != scope.tenant_id
+            or m.company_id != scope.company_id
+            or m.legal_entity_id != scope.legal_entity_id
+            or r.company_id != scope.company_id
+            or r.legal_entity_id != scope.legal_entity_id
+        ):
+            raise InvalidScope("Membership evidence is outside the transaction scope")
+        self._connection.execute(
+            "INSERT INTO company_configuration.organization_membership_audit "
+            "(record_id,tenant_id,actor_id,action,membership_id,company_id,"
+            "legal_entity_id,before_revision,after_revision,valid_from,valid_to,"
+            "source_ref,reason,correlation_id,recorded_at) "
+            "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+            (
+                UUID(r.audit_id), m.tenant_id, evidence.actor_id, evidence.action,
+                m.id.value, m.company_id.value, m.legal_entity_id.value,
+                m.revision-1, m.revision, m.valid.start, m.valid.end,
+                m.source_ref, evidence.reason, r.correlation_id, m.recorded_at,
+            ),
+        )
+        self._connection.execute(
+            "INSERT INTO company_configuration.organization_membership_outbox "
+            "(event_id,tenant_id,event_type,schema_version,membership_id,company_id,"
+            "legal_entity_id,revision,kind,exclusive,valid_from,valid_to,"
+            "source_ref,correlation_id,recorded_at) "
+            "VALUES (%s,%s,%s,1,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+            (
+                UUID(r.event_id), m.tenant_id, evidence.action, m.id.value,
+                m.company_id.value, m.legal_entity_id.value, m.revision,
+                m.kind.value, m.exclusive, m.valid.start, m.valid.end,
+                m.source_ref, r.correlation_id, m.recorded_at,
+            ),
+        )
+        self._connection.execute(
+            "INSERT INTO company_configuration.organization_membership_requests "
+            "(tenant_id,actor_id,action,request_key,request_digest,membership_id,"
+            "company_id,legal_entity_id,revision,correlation_id,audit_id,event_id) "
+            "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+            (
+                m.tenant_id, evidence.actor_id, evidence.action,
+                evidence.request_key, evidence.request_digest,
+                m.id.value, m.company_id.value, m.legal_entity_id.value,
+                m.revision, r.correlation_id, UUID(r.audit_id), UUID(r.event_id),
+            ),
         )
 
     def commit(self) -> None:

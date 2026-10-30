@@ -31,11 +31,11 @@ from pyaccountingkit.company_configuration.domain.shared.accounting_scope import
 from pyaccountingkit.company_configuration.infrastructure.postgres import (
     organization_registration,
 )
-from pyaccountingkit.company_configuration.infrastructure.postgres.organization_membership import (
-    PostgresOrganizationMembershipUnitOfWork,
-)
 from pyaccountingkit.company_configuration.infrastructure.postgres.organization import (
     PostgresOrganizationRepository,
+)
+from pyaccountingkit.company_configuration.infrastructure.postgres.organization_membership import (
+    PostgresOrganizationMembershipUnitOfWork,
 )
 
 

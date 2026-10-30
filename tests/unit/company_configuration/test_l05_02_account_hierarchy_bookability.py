@@ -491,7 +491,7 @@ def test_status_candidate_fields_are_typed_and_frozen():
         {"status": "PROPOSED_ENABLED"},
         {"effective": "2026"},
         {"source_ref": " bad "},
-        {"scope": replace(ch.scope, tenant_id="other ")},
+        {"scope": replace(ch.scope, book_id=AccountingBookId.new())},
     )
     for change in changes:
         with pytest.raises((InvalidAccountStatusCandidate, ValueError)):

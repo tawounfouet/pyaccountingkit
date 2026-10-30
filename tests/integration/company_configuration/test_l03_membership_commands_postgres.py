@@ -148,8 +148,10 @@ def evidence_counts():
         return tuple(
             conn.execute("SELECT count(*) FROM company_configuration." + table).fetchone()[0]
             for table in (
-                "organizational_membership_revisions", "idempotency_requests",
-                "audit_records", "outbox_events",
+                "organizational_membership_revisions",
+                "organization_membership_requests",
+                "organization_membership_audit",
+                "organization_membership_outbox",
             )
         )
 
@@ -157,7 +159,8 @@ def evidence_counts():
 def test_assign_is_atomic_and_replay_creates_no_duplicate_evidence():
     scope, mid, actor, _, clock, svc = setup()
     first = svc.assign(assign(scope, mid), principal=actor)
-    assert first.entity_id == scope.legal_entity_id and first.revision == 1
+    assert first.membership_id == mid and first.legal_entity_id == scope.legal_entity_id
+    assert first.revision == 1
     assert evidence_counts() == (1, 1, 1, 1)
     clock.instant += timedelta(days=1)
     second = svc.assign(assign(scope, mid), principal=actor)

@@ -7,7 +7,7 @@ vault/owner projection credential certification. No DDD issuer wiring yet.
 import base64
 import json
 import os
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, datetime
 from uuid import uuid4
 
 import pytest
@@ -25,18 +25,24 @@ from cryptography.hazmat.primitives.serialization import (  # noqa: E402
 from pyaccountingkit.company_configuration.application.service import (  # noqa: E402
     PermissionDenied,
 )
-from pyaccountingkit.company_configuration.infrastructure.iam.organization_grant_projection import (  # noqa: E402
-    GrantProjectionConflict,
-    PinnedIamGrantProjectionVerifier,
-    PostgresVerifiedIamGrantProjector,
+from pyaccountingkit.company_configuration.infrastructure.iam import (  # noqa: E402
+    organization_grant_projection,
+    organization_live_grants,
 )
-from pyaccountingkit.company_configuration.infrastructure.iam.organization_live_grants import (  # noqa: E402
-    SignedLiveGrantTrust,
+from pyaccountingkit.company_configuration.infrastructure.postgres import (  # noqa: E402
+    organization_actor_grant_epoch,
 )
-from pyaccountingkit.company_configuration.infrastructure.postgres.organization_actor_grant_epoch import (  # noqa: E402
-    ActorGrantEpochReference,
-    PostgresActorGrantEpochFence,
+
+GrantProjectionConflict = organization_grant_projection.GrantProjectionConflict
+PinnedIamGrantProjectionVerifier = (
+    organization_grant_projection.PinnedIamGrantProjectionVerifier
 )
+PostgresVerifiedIamGrantProjector = (
+    organization_grant_projection.PostgresVerifiedIamGrantProjector
+)
+SignedLiveGrantTrust = organization_live_grants.SignedLiveGrantTrust
+ActorGrantEpochReference = organization_actor_grant_epoch.ActorGrantEpochReference
+PostgresActorGrantEpochFence = organization_actor_grant_epoch.PostgresActorGrantEpochFence
 
 ADMIN = os.getenv("CC_PG_ADMIN_DSN")
 COMPANY = os.getenv("CC_PG_ORG_COMPANY_WRITER_DSN")
@@ -259,16 +265,14 @@ def test_same_version_or_scope_change_is_denied_without_partial_receipt():
     f = ProjectionFixture()
     assert f.project(f.token())
     for event in (
-        f.token(), f.token(grant_version=1),
+        f.token(grant_version=1),
         f.token(grant_version=2, sub="other-actor"),
         f.token(grant_version=2, target_id=str(uuid4())),
         f.token(grant_version=2, action="organization.membership.assign"),
     ):
-        # Same-key duplicate JWS is an idempotent no-op; all new events must
-        # have a strictly higher grant version with exactly the same scope.
-        if f.project(event) is False:
-            continue
-        pytest.fail("Unexpected grant revision was applied")
+        # New decisions cannot reapply the same epoch or rewrite grant scope.
+        with pytest.raises(GrantProjectionConflict):
+            f.project(event)
     assert (_count(RECEIPTS), _count(EPOCHS)) == (1, 1)
 
 

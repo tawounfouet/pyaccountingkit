@@ -234,3 +234,54 @@ with psycopg.connect(admin_dsn, autocommit=True) as conn:
         "uuid,uuid,text,text,text,text,text,text,timestamptz) "
         "TO cc_iam_approval_writer"
     )
+
+    # ORG-5b3b: independently provisioned issuer login; ordinary runtime roles
+    # are NEVER members and cannot SET ROLE into it. CI-only test credentials.
+    company_function = (
+        "company_configuration.register_company_controlled("
+        "text,uuid,text,text,text,text,text,integer,text,text,text,text,"
+        "uuid,uuid,text,timestamptz)"
+    )
+    for role, tenant in (
+        ("cc_org_company_writer_a", "tenant-a"),
+        ("cc_org_company_writer_b", "tenant-b"),
+    ):
+        conn.execute(
+            sql.SQL(
+                "CREATE ROLE {} LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE "
+                "NOINHERIT NOREPLICATION NOBYPASSRLS PASSWORD {}"
+            ).format(sql.Identifier(role), sql.Literal("cc_testing_only"))
+        )
+        conn.execute(
+            sql.SQL("GRANT USAGE ON SCHEMA company_configuration TO {}").format(
+                sql.Identifier(role)
+            )
+        )
+        conn.execute(
+            sql.SQL(
+                "GRANT SELECT ON company_configuration.organization_command_requests TO {}"
+            ).format(sql.Identifier(role))
+        )
+        conn.execute(
+            sql.SQL("GRANT EXECUTE ON FUNCTION company_configuration.bound_tenant() TO {}")
+            .format(sql.Identifier(role))
+        )
+        conn.execute(
+            sql.SQL("GRANT EXECUTE ON FUNCTION " + company_function + " TO {}")
+            .format(sql.Identifier(role))
+        )
+        conn.execute(
+            "INSERT INTO company_configuration.tenant_role_bindings "
+            "(login_role,tenant_id) VALUES (%s,%s)", (role, tenant),
+        )
+        conn.execute(
+            "INSERT INTO company_configuration.organization_company_command_issuers "
+            "(login_role,tenant_id) VALUES (%s,%s)", (role, tenant),
+        )
+
+    # New ordinary runtime sessions can read Company history, but cannot
+    # write Company registrations, nor execute the controlled command function.
+    conn.execute(
+        "REVOKE INSERT ON company_configuration.organizational_companies "
+        "FROM cc_runtime_a,cc_runtime_b"
+    )

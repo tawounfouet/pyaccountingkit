@@ -22,6 +22,7 @@ from cryptography.hazmat.primitives.serialization import (  # noqa: E402
     Encoding,
     PublicFormat,
 )
+
 from pyaccountingkit.company_configuration.application.organization_issuer_gateway import (  # noqa: E402
     OrganizationServiceExecutor,
     OrganizationTrustedIssuerGateway,
@@ -46,8 +47,8 @@ from pyaccountingkit.company_configuration.infrastructure.iam.organization_comma
     OrganizationCommandTrust,
     PinnedOrganizationCommandVerifier,
 )
-from pyaccountingkit.company_configuration.infrastructure.postgres.organization_registration import (  # noqa: E402
-    PostgresOrganizationRegistrationUnitOfWork,
+from pyaccountingkit.company_configuration.infrastructure.postgres import (  # noqa: E402
+    organization_registration,
 )
 
 ADMIN = os.getenv("CC_PG_ADMIN_DSN")
@@ -152,9 +153,9 @@ def test_signed_gateway_commits_once_and_rejects_replays_and_revocation():
         )
     )
     registration = OrganizationRegistrationService(
-        lambda: PostgresOrganizationRegistrationUnitOfWork(RUNTIME),
+        lambda: organization_registration.PostgresOrganizationRegistrationUnitOfWork(RUNTIME),
         DDDGrants(), Clock(),
-        company_uow_factory=lambda: PostgresOrganizationRegistrationUnitOfWork(
+        company_uow_factory=lambda: organization_registration.PostgresOrganizationRegistrationUnitOfWork(
             COMPANY_WRITER
         ),
     )

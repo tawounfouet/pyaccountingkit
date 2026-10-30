@@ -9,6 +9,10 @@ from datetime import UTC, datetime
 from hashlib import sha256
 from uuid import UUID, uuid4
 
+from pyaccountingkit.company_configuration.application.organization_membership_evidence import (
+    MembershipChangeReceipt,
+    MembershipTransactionEvidence,
+)
 from pyaccountingkit.company_configuration.application.organization_registration import (
     OrganizationEvidence,
     OrganizationRegistrationReceipt,
@@ -18,9 +22,16 @@ from pyaccountingkit.company_configuration.domain.organization.model import (
     Company,
     Establishment,
     LegalIdentifier,
+    OrganizationMembership,
+)
+from pyaccountingkit.company_configuration.domain.shared.accounting_scope import (
+    ConfigurationScope,
 )
 from pyaccountingkit.company_configuration.infrastructure.postgres import (
     organization_registration,
+)
+from pyaccountingkit.company_configuration.infrastructure.postgres.adapter import (
+    PostgresUnitOfWork,
 )
 from pyaccountingkit.company_configuration.infrastructure.postgres.organization import (
     PostgresOrganizationRepository,
@@ -95,10 +106,32 @@ class EvidencedOrganizationSeed:
         )
         return target_id
 
-    def append_membership(self, item) -> None:
-        # ORG-5b2a does not yet cover membership-specific evidence; preserve
-        # explicit existing SQL/domain tests for that separate increment.
-        self._legacy.append_membership(item)
+    def append_membership(self, item: OrganizationMembership) -> None:
+        """Proof-bearing test fixture, including intentional negative SQL cases."""
+        if not isinstance(item, OrganizationMembership):
+            raise TypeError("Typed OrganizationMembership required")
+        scope = ConfigurationScope(
+            item.tenant_id, item.company_id, item.legal_entity_id,
+        )
+        action = (
+            "organization.membership.assign" if item.revision == 1
+            else "organization.membership.end"
+        )
+        receipt = MembershipChangeReceipt(
+            membership_id=item.id, company_id=item.company_id,
+            legal_entity_id=item.legal_entity_id, revision=item.revision,
+            correlation_id=str(uuid4()), audit_id=str(uuid4()), event_id=str(uuid4()),
+        )
+        evidence = MembershipTransactionEvidence(
+            membership=item, receipt=receipt, actor_id="test-only-seed",
+            action=action, request_key=str(uuid4()),
+            request_digest=sha256(str(uuid4()).encode()).hexdigest(),
+            reason="test setup only",
+        )
+        with PostgresUnitOfWork(self._dsn) as uow:
+            uow.org_memberships.append(scope=scope, membership=item)
+            uow.append_membership_evidence(scope=scope, evidence=evidence)
+            uow.commit()
 
     def memberships_at(self, **kwargs):
         return self._legacy.memberships_at(**kwargs)

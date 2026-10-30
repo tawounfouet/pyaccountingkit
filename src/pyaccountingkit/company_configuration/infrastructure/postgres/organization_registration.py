@@ -1,8 +1,9 @@
 """ORG-4b PostgreSQL UoW: new company/site/registry row and evidence atomically.
 
 Company registration requires an independently provisioned SQL issuer DSN,
-not the ordinary API runtime credential. Other registration kinds retain their
-legacy tenant runtime DSN pending ORG-5b3c. No schema-owner DSN is permitted.
+not the ordinary API runtime credential. Establishment and LegalIdentifier
+registration have their own independently provisioned issuer DSN (ORG-5b3c1).
+No schema-owner DSN is permitted.
 """
 
 from collections.abc import Callable
@@ -34,6 +35,9 @@ class PostgresOrganizationRegistrationUnitOfWork:
         self._committed = False
         self._pending_company: Company | None = None
         self._pending_company_evidence: OrganizationEvidence | None = None
+        self._pending_establishment: Establishment | None = None
+        self._pending_identifier: tuple[UUID, LegalIdentifier] | None = None
+        self._pending_registry_evidence: OrganizationEvidence | None = None
 
     def __enter__(self) -> "PostgresOrganizationRegistrationUnitOfWork":
         if self._conn is not None:
@@ -94,20 +98,13 @@ class PostgresOrganizationRegistrationUnitOfWork:
         self._pending_company = company
 
     def insert_establishment(self, site: Establishment) -> None:
+        """Stage the object for an independently authorized atomic SQL command."""
         if not isinstance(site, Establishment):
             raise InvalidOrganization("Typed establishment required")
         self._bind(site.tenant_id)
-        self._conn.execute(
-            "INSERT INTO company_configuration.organizational_establishments "
-            "(tenant_id,establishment_id,legal_entity_id,name,country,"
-            "valid_from,valid_to,status,revision) "
-            "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-            (
-                site.tenant_id, site.id.value, site.legal_entity_id.value,
-                site.name, site.country.value, site.valid.start, site.valid.end,
-                site.status.value, site.revision,
-            ),
-        )
+        if self._pending_establishment is not None or self._pending_identifier is not None:
+            raise InvalidOrganization("Only one registry registration per transaction")
+        self._pending_establishment = site
 
     def insert_legal_identifier(
         self, identifier_id: UUID, identifier: LegalIdentifier,
@@ -115,18 +112,9 @@ class PostgresOrganizationRegistrationUnitOfWork:
         if type(identifier_id) is not UUID or not isinstance(identifier, LegalIdentifier):
             raise InvalidOrganization("Typed legal identifier registration required")
         self._bind(identifier.tenant_id)
-        self._conn.execute(
-            "INSERT INTO company_configuration.organizational_legal_identifiers "
-            "(tenant_id,identifier_id,legal_entity_id,scheme,value,issuer,"
-            "jurisdiction,valid_from,valid_to,source_ref) "
-            "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-            (
-                identifier.tenant_id, identifier_id, identifier.legal_entity_id.value,
-                identifier.scheme, identifier.value, identifier.issuer,
-                identifier.jurisdiction.value, identifier.valid.start,
-                identifier.valid.end, identifier.source_ref,
-            ),
-        )
+        if self._pending_establishment is not None or self._pending_identifier is not None:
+            raise InvalidOrganization("Only one registry registration per transaction")
+        self._pending_identifier = (identifier_id, identifier)
 
     def append_evidence(self, evidence: OrganizationEvidence) -> None:
         if not isinstance(evidence, OrganizationEvidence):
@@ -144,41 +132,31 @@ class PostgresOrganizationRegistrationUnitOfWork:
                 raise InvalidOrganization("Company evidence must match staged Company")
             self._pending_company_evidence = evidence
             return
-        self._conn.execute(
-            "INSERT INTO company_configuration.organization_command_audit "
-            "(record_id,tenant_id,actor_id,action,target_kind,target_id,"
-            "company_id,legal_entity_id,before_revision,after_revision,reason,"
-            "correlation_id,recorded_at) "
-            "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,0,%s,%s,%s,%s)",
-            (
-                r.audit_id, r.tenant_id, evidence.actor_id, evidence.action,
-                r.target_kind.value, r.target_id, evidence.company_id,
-                evidence.legal_entity_id, r.revision, evidence.reason,
-                r.correlation_id, evidence.recorded_at,
-            ),
-        )
-        self._conn.execute(
-            "INSERT INTO company_configuration.organization_command_outbox "
-            "(event_id,tenant_id,event_type,schema_version,target_kind,target_id,"
-            "company_id,legal_entity_id,revision,correlation_id,recorded_at) "
-            "VALUES (%s,%s,%s,1,%s,%s,%s,%s,%s,%s,%s)",
-            (
-                r.event_id, r.tenant_id, evidence.action, r.target_kind.value,
-                r.target_id, evidence.company_id, evidence.legal_entity_id,
-                r.revision, r.correlation_id, evidence.recorded_at,
-            ),
-        )
-        self._conn.execute(
-            "INSERT INTO company_configuration.organization_command_requests "
-            "(tenant_id,actor_id,action,request_key,request_digest,target_kind,"
-            "target_id,revision,correlation_id,audit_id,event_id) "
-            "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-            (
-                r.tenant_id, evidence.actor_id, evidence.action,
-                evidence.request_key, evidence.request_digest, r.target_kind.value,
-                r.target_id, r.revision, r.correlation_id, r.audit_id, r.event_id,
-            ),
-        )
+        if r.target_kind is OrganizationTargetKind.ESTABLISHMENT:
+            site = self._pending_establishment
+            if (
+                site is None or site.id.value != r.target_id
+                or site.tenant_id != r.tenant_id
+                or site.legal_entity_id.value != evidence.legal_entity_id
+                or evidence.company_id is not None
+                or evidence.action != "organization.establishment.register"
+                or self._pending_registry_evidence is not None
+            ):
+                raise InvalidOrganization("Establishment evidence must match staged object")
+        elif r.target_kind is OrganizationTargetKind.LEGAL_IDENTIFIER:
+            pending = self._pending_identifier
+            if (
+                pending is None or pending[0] != r.target_id
+                or pending[1].tenant_id != r.tenant_id
+                or pending[1].legal_entity_id.value != evidence.legal_entity_id
+                or evidence.company_id is not None
+                or evidence.action != "organization.legal_identifier.register"
+                or self._pending_registry_evidence is not None
+            ):
+                raise InvalidOrganization("LegalIdentifier evidence must match staged object")
+        else:
+            raise InvalidOrganization("Unknown registration evidence type")
+        self._pending_registry_evidence = evidence
 
     def commit(self) -> None:
         if self._conn is None or self._committed or self._tenant is None:
@@ -200,6 +178,42 @@ class PostgresOrganizationRegistrationUnitOfWork:
                     item.base_currency.value if item.base_currency else None,
                     item.status.value, item.revision, evidence.actor_id,
                     evidence.request_key, evidence.request_digest,
+                    receipt.correlation_id, receipt.audit_id, receipt.event_id,
+                    evidence.reason, evidence.recorded_at,
+                ),
+            )
+        if self._pending_establishment is not None:
+            site = self._pending_establishment
+            evidence = self._pending_registry_evidence
+            if evidence is None:
+                raise InvalidOrganization("Establishment requires matching evidence")
+            receipt = evidence.receipt
+            self._conn.execute(
+                "SELECT company_configuration.register_establishment_controlled("
+                "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                (
+                    site.tenant_id, site.id.value, site.legal_entity_id.value,
+                    site.name, site.country.value, site.valid.start,
+                    site.valid.end, site.status.value, site.revision,
+                    evidence.actor_id, evidence.request_key, evidence.request_digest,
+                    receipt.correlation_id, receipt.audit_id, receipt.event_id,
+                    evidence.reason, evidence.recorded_at,
+                ),
+            )
+        if self._pending_identifier is not None:
+            identifier_id, item = self._pending_identifier
+            evidence = self._pending_registry_evidence
+            if evidence is None:
+                raise InvalidOrganization("LegalIdentifier requires matching evidence")
+            receipt = evidence.receipt
+            self._conn.execute(
+                "SELECT company_configuration.register_legal_identifier_controlled("
+                "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                (
+                    item.tenant_id, identifier_id, item.legal_entity_id.value,
+                    item.scheme, item.value, item.issuer, item.jurisdiction.value,
+                    item.valid.start, item.valid.end, item.source_ref,
+                    evidence.actor_id, evidence.request_key, evidence.request_digest,
                     receipt.correlation_id, receipt.audit_id, receipt.event_id,
                     evidence.reason, evidence.recorded_at,
                 ),

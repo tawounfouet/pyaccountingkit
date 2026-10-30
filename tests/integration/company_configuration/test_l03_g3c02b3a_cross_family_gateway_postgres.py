@@ -375,7 +375,7 @@ def test_all_seven_signed_org_commands_use_exact_sql_issuer_and_atomic_evidence(
         ] + 1
         for table in expected_rows[index]:
             assert after[table] == baseline[table] + 1, (index, table, after)
-        assert after["organization_command_nonces"] == index + 1
+        assert after["organization_command_nonces"] == 2 * index + 1
         # Replay with the same signed JTI is rejected *before* domain SQL.
         with pytest.raises(PermissionDenied):
             h.gateway.execute(command, signed_evidence=signed)
@@ -384,7 +384,7 @@ def test_all_seven_signed_org_commands_use_exact_sql_issuer_and_atomic_evidence(
         # domain receipt and burns a new nonce, but duplicates no SQL evidence.
         assert h.run(command) == receipt
         after_replay = counts()
-        assert after_replay["organization_command_nonces"] == index + 2
+        assert after_replay["organization_command_nonces"] == 2 * index + 2
         for table in TABLES[:-1]:
             assert after_replay[table] == after[table]
         # Real signed IAM negative decision: do not burn nonce or mutate SQL.

@@ -227,7 +227,7 @@ class PostgresVerifiedIamGrantProjector:
                     "INSERT INTO company_configuration.organization_actor_grant_epochs "
                     "(grant_id,tenant_id,actor_id,action,target_id,authority_issuer,"
                     "grant_version,enabled,valid_until,decision_sha256,source_event_id) "
-                    "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                    "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                     (
                         snapshot.grant_id, snapshot.tenant_id, snapshot.actor_id,
                         snapshot.action, snapshot.target_id, snapshot.authority_issuer,

@@ -13,8 +13,8 @@ from ..domain.accounting_books import (
     BookAssignmentMissing,
     BookAssignmentPurpose,
     BookFrameworkPreview,
-    ReferenceFrameworkBindingCandidate,
     InvalidFrameworkBinding,
+    ReferenceFrameworkBindingCandidate,
     preview_applicable_book_drafts,
     preview_reference_framework_binding,
 )

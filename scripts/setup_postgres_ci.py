@@ -473,3 +473,43 @@ with psycopg.connect(admin_dsn, autocommit=True) as conn:
         "company_configuration.organization_membership_outbox "
         "FROM cc_runtime_a,cc_runtime_b"
     )
+
+    # G3-C02b1: CI-only nonce consumers, isolated from ordinary runtime and
+    # every SQL business issuer. No direct table privileges, no role inheritance.
+    nonce_function = (
+        "company_configuration.consume_organization_command_nonce("
+        "text,text,uuid,timestamptz)"
+    )
+    for role, tenant in (
+        ("cc_org_nonce_consumer_a", "tenant-a"),
+        ("cc_org_nonce_consumer_b", "tenant-b"),
+    ):
+        conn.execute(
+            sql.SQL(
+                "CREATE ROLE {} LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE "
+                "NOINHERIT NOREPLICATION NOBYPASSRLS PASSWORD {}"
+            ).format(sql.Identifier(role), sql.Literal("cc_testing_only"))
+        )
+        conn.execute(
+            sql.SQL("GRANT USAGE ON SCHEMA company_configuration TO {}").format(
+                sql.Identifier(role)
+            )
+        )
+        conn.execute(
+            sql.SQL(
+                "GRANT EXECUTE ON FUNCTION company_configuration.bound_tenant() TO {}"
+            ).format(sql.Identifier(role))
+        )
+        conn.execute(
+            sql.SQL("GRANT EXECUTE ON FUNCTION " + nonce_function + " TO {}").format(
+                sql.Identifier(role)
+            )
+        )
+        conn.execute(
+            "INSERT INTO company_configuration.tenant_role_bindings "
+            "(login_role,tenant_id) VALUES (%s,%s)", (role, tenant),
+        )
+        conn.execute(
+            "INSERT INTO company_configuration.organization_nonce_consumers "
+            "(login_role,tenant_id) VALUES (%s,%s)", (role, tenant),
+        )

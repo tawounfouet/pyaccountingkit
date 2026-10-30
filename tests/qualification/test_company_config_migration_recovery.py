@@ -175,7 +175,7 @@ def test_failed_migration_is_fully_rolled_back_and_rerun_works(
     prior = _recorded_versions(dsn)
     for filename, source in _migration_entries():
         (tmp_path / filename).write_text(source, encoding="utf-8")
-    bad_file = tmp_path / "0030_injected_failure.sql"
+    bad_file = tmp_path / "0031_injected_failure.sql"
     bad_file.write_text(
         "CREATE TABLE company_configuration.uncommitted_test_table (id integer);"
         "DO $$ BEGIN RAISE EXCEPTION 'fnd-c04 injected failure'; END $$;",
@@ -203,14 +203,14 @@ def test_unrecognized_future_and_noncontiguous_applied_history_fail_closed(
         conn.execute(
             "INSERT INTO company_configuration.schema_migrations "
             "(filename,sha256) VALUES (%s,%s)",
-            ("0030_future.sql", "0" * 64),
+            ("0031_future.sql", "0" * 64),
         )
     with pytest.raises(RuntimeError, match="Unknown already-applied"):
         migrate.apply_migrations(dsn)
     with psycopg.connect(dsn) as conn:
         conn.execute(
             "DELETE FROM company_configuration.schema_migrations "
-            "WHERE filename='0030_future.sql'"
+            "WHERE filename='0031_future.sql'"
         )
     assert _recorded_versions(dsn) == expected
     with psycopg.connect(dsn) as conn:

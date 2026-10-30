@@ -1,7 +1,8 @@
 """G3-C02a real SQL: independently signed actor → auth gate → SQL issuer.
 
-The signing key, nonce state and service wiring here are TEST FIXTURES, not a
-deployed distinct IAM/gateway host or production nonce/credential service.
+The signing key, grant source and service wiring here are TEST FIXTURES.
+The nonce store is now real PostgreSQL (G3-C02b1), not a fake local set.
+This still does not prove deployment isolation or real human IAM.
 """
 
 import base64
@@ -48,17 +49,19 @@ from pyaccountingkit.company_configuration.infrastructure.iam.organization_comma
     PinnedOrganizationCommandVerifier,
 )
 from pyaccountingkit.company_configuration.infrastructure.postgres import (  # noqa: E402
+    organization_nonce,
     organization_registration,
 )
 
 ADMIN = os.getenv("CC_PG_ADMIN_DSN")
 RUNTIME = os.getenv("CC_PG_DSN")
 COMPANY_WRITER = os.getenv("CC_PG_ORG_COMPANY_WRITER_DSN")
+NONCE_WRITER = os.getenv("CC_PG_ORG_NONCE_CONSUMER_DSN")
 pytestmark = pytest.mark.skipif(
-    not (ADMIN and RUNTIME and COMPANY_WRITER),
+    not (ADMIN and RUNTIME and COMPANY_WRITER and NONCE_WRITER),
     reason="G3-C02a gateway/SQL positive integration needs isolated CI identities",
 )
-NOW = datetime(2026, 10, 30, 12, tzinfo=UTC)
+NOW = datetime.now(UTC)
 
 
 class Clock:
@@ -85,17 +88,6 @@ class LiveGrants:
             "trusted-iam", "verified-actor", "tenant-a", "organization.company.register",
         ):
             raise PermissionDenied("Current grant revoked")
-
-
-class NonceTestDouble:
-    def __init__(self):
-        self.used = set()
-
-    def consume(self, *, tenant_id, issuer, nonce, expires_at):
-        if (issuer, nonce) in self.used:
-            return False
-        self.used.add((issuer, nonce))
-        return True
 
 
 def _b64(data):
@@ -133,6 +125,13 @@ def _counts():
         )
 
 
+def _nonce_count():
+    with psycopg.connect(ADMIN) as conn:
+        return conn.execute(
+            "SELECT count(*) FROM company_configuration.organization_command_nonces"
+        ).fetchone()[0]
+
+
 def test_signed_gateway_commits_once_and_rejects_replays_and_revocation():
     with psycopg.connect(ADMIN) as conn:
         # Truncate parents and FK-bound membership children in ONE statement.
@@ -147,7 +146,8 @@ def test_signed_gateway_commits_once_and_rejects_replays_and_revocation():
             "company_configuration.organizational_membership_revisions,"
             "company_configuration.organizational_establishments,"
             "company_configuration.organizational_legal_identifiers,"
-            "company_configuration.organizational_companies"
+            "company_configuration.organizational_companies,"
+            "company_configuration.organization_command_nonces"
         )
 
     key = Ed25519PrivateKey.generate()
@@ -167,7 +167,8 @@ def test_signed_gateway_commits_once_and_rejects_replays_and_revocation():
             )
         ),
     )
-    grants, nonce = LiveGrants(), NonceTestDouble()
+    grants = LiveGrants()
+    nonce = organization_nonce.PostgresDurableCommandNonceStore(NONCE_WRITER)
     gateway = OrganizationTrustedIssuerGateway(
         verifier=verifier, authorization=grants, nonce_store=nonce,
         executor=OrganizationServiceExecutor(
@@ -184,20 +185,25 @@ def test_signed_gateway_commits_once_and_rejects_replays_and_revocation():
     with pytest.raises(PermissionDenied):
         gateway.execute(command, signed_evidence=bad_token)
     assert _counts() == (0, 0, 0, 0)
+    assert _nonce_count() == 0
 
     signed = token(key, command)
     receipt = gateway.execute(command, signed_evidence=signed)
     assert receipt.revision == 1
     assert _counts() == (1, 1, 1, 1)
+    assert _nonce_count() == 1
 
     with pytest.raises(PermissionDenied):
         gateway.execute(command, signed_evidence=signed)
     assert _counts() == (1, 1, 1, 1)
+    assert _nonce_count() == 1
 
     assert gateway.execute(command, signed_evidence=token(key, command)) == receipt
     assert _counts() == (1, 1, 1, 1)
+    assert _nonce_count() == 2
 
     grants.enabled = False
     with pytest.raises(PermissionDenied):
         gateway.execute(command, signed_evidence=token(key, command))
     assert _counts() == (1, 1, 1, 1)
+    assert _nonce_count() == 2

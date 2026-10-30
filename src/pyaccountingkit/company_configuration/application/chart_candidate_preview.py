@@ -13,7 +13,6 @@ from ..domain.chart_of_accounts.versions_bindings import (
     preview_book_chart_candidate,
 )
 from ..domain.shared.accounting_scope import ConfigurationScope
-from ..domain.shared.identifiers import CompanyChartCandidateVersionId
 from .ports import AuthorizationPort, TrustedPrincipal
 
 

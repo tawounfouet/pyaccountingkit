@@ -19,11 +19,11 @@ from pyaccountingkit.company_configuration.domain.organization.model import (
     Establishment,
     LegalIdentifier,
 )
-from pyaccountingkit.company_configuration.infrastructure.postgres.organization import (
-    PostgresOrganizationRepository,
-)
 from pyaccountingkit.company_configuration.infrastructure.postgres import (
     organization_registration,
+)
+from pyaccountingkit.company_configuration.infrastructure.postgres.organization import (
+    PostgresOrganizationRepository,
 )
 
 

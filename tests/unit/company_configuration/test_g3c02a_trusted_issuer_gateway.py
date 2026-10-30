@@ -60,7 +60,10 @@ class LiveGrants:
         self.allowed = True
         self.calls = []
 
-    def require(self, *, issuer, principal, action, target_id):
+    def require(
+        self, *, issuer, principal, action, target_id, request_id,
+        correlation_id, request_digest, command_nonce,
+    ):
         self.calls.append((issuer, principal.actor_id, principal.tenant_id, action, target_id))
         if not self.allowed:
             raise PermissionDenied("Revoked grant")

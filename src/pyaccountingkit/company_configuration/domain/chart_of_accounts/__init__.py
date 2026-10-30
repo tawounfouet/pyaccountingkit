@@ -37,7 +37,6 @@ from .model import (
     require_unique_account_code,
     require_unique_chart_code,
 )
-
 from .versions_bindings import (
     BookChartBindingCandidate,
     BookChartCandidateAmbiguous,

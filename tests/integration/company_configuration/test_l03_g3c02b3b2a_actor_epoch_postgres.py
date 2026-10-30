@@ -12,6 +12,9 @@ import pytest
 
 psycopg = pytest.importorskip("psycopg")
 
+from pyaccountingkit.company_configuration.infrastructure.postgres import (  # noqa: E402
+    tenant_boundary,
+)
 from pyaccountingkit.company_configuration.infrastructure.postgres.organization_actor_grant_epoch import (  # noqa: E402
     ActorGrantEpochReference,
     PostgresActorGrantEpochFence,
@@ -82,12 +85,22 @@ def bump_epoch(ref, *, enabled=False):
 
 
 def test_owner_projected_exact_scope_authorizes_all_four_issuer_families():
-    ref = reference()
-    provision(ref)
     fence = PostgresActorGrantEpochFence()
-    for dsn in (COMPANY, REGISTRY, LIFECYCLE, MEMBERSHIP):
+    for dsn, action in (
+        (COMPANY, "organization.company.register"),
+        (REGISTRY, "organization.establishment.register"),
+        (LIFECYCLE, "organization.company.transition"),
+        (MEMBERSHIP, "organization.membership.assign"),
+    ):
+        ref = replace(reference(), action=action)
+        provision(ref)
         with psycopg.connect(dsn) as conn:
             assert fence.require(connection=conn, reference=ref) is None
+        # Even if the current grant is valid, wrong SQL issuer family fails.
+        other_dsn = REGISTRY if dsn == COMPANY else COMPANY
+        with pytest.raises(psycopg.errors.InsufficientPrivilege):
+            with psycopg.connect(other_dsn) as conn:
+                fence.require(connection=conn, reference=ref)
 
 
 @pytest.mark.parametrize("mismatch", [
@@ -207,7 +220,7 @@ def test_runtime_nonce_and_other_tenant_issuer_have_no_actor_grant_authority():
         with pytest.raises(psycopg.errors.InsufficientPrivilege):
             with psycopg.connect(dsn) as conn:
                 fence.require(connection=conn, reference=ref)
-    with pytest.raises(psycopg.errors.InsufficientPrivilege):
+    with pytest.raises(tenant_boundary.TenantConnectionMismatch):
         with psycopg.connect(OTHER_COMPANY) as conn:
             fence.require(connection=conn, reference=ref)
 

@@ -77,6 +77,48 @@ def test_independent_issuer_cannot_directly_insert_company_or_evidence():
             ).fetchone()[0] is False
 
 
+
+def test_ordinary_runtime_cannot_set_role_into_issuer():
+    """No role membership or SET ROLE path from ordinary runtime to issuer."""
+    with pytest.raises(psycopg.errors.InsufficientPrivilege):
+        with psycopg.connect(RUNTIME_A) as conn:
+            conn.execute("SET ROLE cc_org_company_writer_a")
+
+
+def test_revoked_issuer_binding_immediately_denies_controlled_command():
+    """Administrator-owned issuer binding can stop new registrations."""
+    admin = os.getenv("CC_PG_ADMIN_DSN")
+    writer = os.getenv("CC_PG_ORG_COMPANY_WRITER_DSN")
+    if not (admin and writer):
+        pytest.skip("Requires independent issuer and CI administrator roles")
+    with psycopg.connect(admin) as conn:
+        conn.execute(
+            "UPDATE company_configuration.organization_company_command_issuers "
+            "SET enabled=false WHERE login_role=%s",
+            ("cc_org_company_writer_a",),
+        )
+    try:
+        with pytest.raises(psycopg.errors.InsufficientPrivilege):
+            with psycopg.connect(writer) as conn:
+                conn.execute(
+                    "SELECT company_configuration.register_company_controlled("
+                    "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                    (
+                        "tenant-a", uuid4(), "Revoked", "GROUP", "FR", None,
+                        "DRAFT", 1, "untrusted-actor", "revoked-" + str(uuid4()),
+                        "a" * 64, "revoked-correlation", uuid4(), uuid4(),
+                        "revoked authority", "2026-10-30T08:00:00Z",
+                    ),
+                )
+    finally:
+        with psycopg.connect(admin) as conn:
+            conn.execute(
+                "UPDATE company_configuration.organization_company_command_issuers "
+                "SET enabled=true WHERE login_role=%s",
+                ("cc_org_company_writer_a",),
+            )
+
+
 def test_cross_tenant_injection_is_still_denied_by_session_role_binding():
     """Prove the existing RLS boundary; its success does NOT authenticate actors."""
     with pytest.raises(psycopg.errors.InsufficientPrivilege):

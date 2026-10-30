@@ -10,7 +10,6 @@ from pathlib import Path
 
 import pytest
 
-
 ROOT = Path(__file__).resolve().parents[3]
 BASE = ROOT / "docs" / "company_configuration"
 REGISTER = BASE / "L04_08_ADR_REGISTER.json"

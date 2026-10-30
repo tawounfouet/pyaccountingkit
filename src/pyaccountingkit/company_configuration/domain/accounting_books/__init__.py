@@ -8,6 +8,15 @@ from .assignments import (
     InvalidBookAssignment,
     preview_applicable_book_drafts,
 )
+from .candidate_snapshots import (
+    BookCandidateVersionAmbiguous,
+    BookCandidateVersionMissing,
+    BookConfigurationCandidateSnapshot,
+    BookConfigurationCandidateVersion,
+    CandidateSnapshotDigestMismatch,
+    InvalidBookCandidateVersion,
+    select_book_candidate_version,
+)
 from .framework_bindings import (
     BookFrameworkPreview,
     FrameworkBindingAmbiguous,
@@ -37,6 +46,13 @@ from .normative_history import (
 )
 
 __all__ = [
+    "BookCandidateVersionAmbiguous",
+    "BookCandidateVersionMissing",
+    "BookConfigurationCandidateSnapshot",
+    "BookConfigurationCandidateVersion",
+    "CandidateSnapshotDigestMismatch",
+    "InvalidBookCandidateVersion",
+    "select_book_candidate_version",
     "InvalidNormativeStatement",
     "NormativeDeclaration",
     "NormativeReferenceHistoricalPreview",

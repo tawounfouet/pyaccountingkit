@@ -163,10 +163,23 @@ def test_issuer_cross_tenant_rejected_before_parent_lookup():
 
 
 def test_failed_forged_transitions_leave_no_lifecycle_evidence():
+    """An unauthorized SQL command must change none of the five SQL tables."""
     with psycopg.connect(ADMIN) as conn:
-        for table in TABLES:
-            assert conn.execute(
+        before = tuple(
+            conn.execute(
                 "SELECT count(*) FROM company_configuration." + table
-            ).fetchone()[0] >= 0
-    # This verifies privileges; transaction-level rollback is separately
-    # covered by test_l03_lifecycle_commands_postgres.py.
+            ).fetchone()[0]
+            for table in TABLES
+        )
+    with pytest.raises(psycopg.errors.InsufficientPrivilege):
+        with psycopg.connect(RUNTIME_A) as conn:
+            sql, args = _call()
+            conn.execute(sql, args)
+    with psycopg.connect(ADMIN) as conn:
+        after = tuple(
+            conn.execute(
+                "SELECT count(*) FROM company_configuration." + table
+            ).fetchone()[0]
+            for table in TABLES
+        )
+    assert after == before

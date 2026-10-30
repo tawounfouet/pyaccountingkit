@@ -9,6 +9,10 @@ import pytest
 
 psycopg = pytest.importorskip("psycopg")
 
+from org_test_seed import (  # noqa: E402
+    EvidencedOrganizationSeed as PostgresOrganizationRepository,
+)
+
 from pyaccountingkit.company_configuration.domain.organization import (  # noqa: E402
     Company,
     CompanyKind,
@@ -31,9 +35,6 @@ from pyaccountingkit.company_configuration.domain.shared.references import (  # 
 )
 from pyaccountingkit.company_configuration.infrastructure.postgres.tenant_boundary import (  # noqa: E402
     TenantConnectionMismatch,
-)
-from org_test_seed import (  # noqa: E402
-    EvidencedOrganizationSeed as PostgresOrganizationRepository,
 )
 
 ADMIN = os.getenv("CC_PG_ADMIN_DSN")

@@ -116,7 +116,21 @@ GUARDS = {
         ("org_membership_outbox_issuer_guard", "guard_org_membership_issuer"),
     ),
 }
+# G3-C02b3b1: deferrable row guards must run on COMMIT, not merely INSERT.
+COMMIT_FENCES = {
+    "organization_command_requests": "org_cmd_request_commit_issuer_fence",
+    "organization_command_audit": "org_cmd_audit_commit_issuer_fence",
+    "organization_command_outbox": "org_cmd_outbox_commit_issuer_fence",
+    "organization_lifecycle_requests": "org_lifecycle_request_commit_issuer_fence",
+    "organization_lifecycle_audit": "org_lifecycle_audit_commit_issuer_fence",
+    "organization_lifecycle_outbox": "org_lifecycle_outbox_commit_issuer_fence",
+    "organization_membership_requests": "org_membership_request_commit_issuer_fence",
+    "organization_membership_audit": "org_membership_audit_commit_issuer_fence",
+    "organization_membership_outbox": "org_membership_outbox_commit_issuer_fence",
+}
 SECURITY_FUNCTIONS = (
+    "company_configuration.require_org_issuer_commit_fence(text,text)",
+    "company_configuration.guard_org_issuer_commit_fence()",
     "company_configuration.guard_company_command_issuer()",
     "company_configuration.require_org_registry_issuer(text)",
     "company_configuration.guard_org_registry_issuer()",
@@ -126,6 +140,7 @@ SECURITY_FUNCTIONS = (
     "company_configuration.guard_org_membership_issuer()",
 )
 AUTHORITY_SOURCES = (
+    "company_configuration.require_org_issuer_commit_fence(text,text)",
     "company_configuration.guard_company_command_issuer()",
     "company_configuration.require_org_registry_issuer(text)",
     "company_configuration.require_org_lifecycle_issuer(text)",
@@ -253,6 +268,26 @@ def audit(conn: Any, claims: tuple[Claim, ...]) -> list[str]:
                 and found[1] & 7 == 7 and found[2] == expected_proc,
                 f"required enabled BEFORE INSERT ROW guard missing: {table}.{trigger}",
             )
+
+    for table, trigger in COMMIT_FENCES.items():
+        found = conn.execute(
+            "SELECT t.tgenabled,t.tgtype,t.tgdeferrable,t.tginitdeferred,p.proname "
+            "FROM pg_catalog.pg_trigger t "
+            "JOIN pg_catalog.pg_class c ON c.oid=t.tgrelid "
+            "JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace "
+            "JOIN pg_catalog.pg_proc p ON p.oid=t.tgfoid "
+            "WHERE n.nspname='company_configuration' AND c.relname=%s "
+            "AND t.tgname=%s AND NOT t.tgisinternal",
+            (table, trigger),
+        ).fetchone()
+        check(
+            found is not None and found[0] in ("O", "A")
+            and found[1] & 7 == 5 and found[2] is True
+            and found[3] is True
+            and found[4] == "guard_org_issuer_commit_fence",
+            f"required DEFERRABLE INITIALLY DEFERRED issuer COMMIT guard missing: "
+            f"{table}.{trigger}",
+        )
 
     for claim in claims:
         role, tenant, family = claim.role, claim.tenant, claim.family

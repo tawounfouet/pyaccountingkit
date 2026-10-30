@@ -49,10 +49,8 @@ from pyaccountingkit.company_configuration.domain.shared.references import (
     ReferenceFrameworkRef,
 )
 from pyaccountingkit.company_configuration.infrastructure import (
-    accounting_book_frameworks_memory,
-)
-from pyaccountingkit.company_configuration.infrastructure import (
     accounting_book_assignments_memory,
+    accounting_book_frameworks_memory,
 )
 from pyaccountingkit.company_configuration.infrastructure.accounting_books_memory import (
     MemoryBookAuthorization,

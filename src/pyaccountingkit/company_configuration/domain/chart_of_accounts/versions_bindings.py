@@ -16,6 +16,7 @@ from ..shared.errors import DomainError
 from ..shared.identifiers import (
     BookChartBindingCandidateId,
     CompanyChartCandidateVersionId,
+    CompanyChartId,
 )
 from ..shared.references import ReferenceFrameworkRef
 from .bookability import AccountStatusCandidate
@@ -228,7 +229,7 @@ class BookChartBindingCandidate:
     id: BookChartBindingCandidateId
     book_scope: ConfigurationScope
     purpose: BookChartPurpose
-    chart_id: object
+    chart_id: CompanyChartId
     chart_version_id: CompanyChartCandidateVersionId
     declared_book_framework: ReferenceFrameworkRef
     effective: EffectiveInterval
@@ -236,8 +237,6 @@ class BookChartBindingCandidate:
     source_ref: str
 
     def __post_init__(self) -> None:
-        from ..shared.identifiers import CompanyChartId
-
         if not isinstance(self.id, BookChartBindingCandidateId):
             raise InvalidBookChartBinding("Typed binding candidate ID required")
         if not isinstance(self.book_scope, ConfigurationScope) or (

@@ -208,7 +208,7 @@ class PostgresOrganizationRegistrationUnitOfWork:
             receipt = evidence.receipt
             self._conn.execute(
                 "SELECT company_configuration.register_legal_identifier_controlled("
-                "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                 (
                     item.tenant_id, identifier_id, item.legal_entity_id.value,
                     item.scheme, item.value, item.issuer, item.jurisdiction.value,

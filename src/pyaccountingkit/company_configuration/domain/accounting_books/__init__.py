@@ -24,8 +24,28 @@ from .model import (
     InvalidAccountingBook,
     require_unique_book_code,
 )
+from .normative_history import (
+    InvalidNormativeStatement,
+    NormativeDeclaration,
+    NormativeReferenceHistoricalPreview,
+    NormativeReferenceStatement,
+    NormativeSourceCode,
+    NormativeStatementAmbiguous,
+    NormativeStatementMissing,
+    NormativeStatementUnavailable,
+    preview_normative_reference_history,
+)
 
 __all__ = [
+    "InvalidNormativeStatement",
+    "NormativeDeclaration",
+    "NormativeReferenceHistoricalPreview",
+    "NormativeReferenceStatement",
+    "NormativeSourceCode",
+    "NormativeStatementAmbiguous",
+    "NormativeStatementMissing",
+    "NormativeStatementUnavailable",
+    "preview_normative_reference_history",
     "BookFrameworkPreview",
     "FrameworkBindingAmbiguous",
     "FrameworkBindingMissing",

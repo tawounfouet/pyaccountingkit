@@ -22,8 +22,8 @@ from pyaccountingkit.company_configuration.domain.organization.model import (
 from pyaccountingkit.company_configuration.infrastructure.postgres.organization import (
     PostgresOrganizationRepository,
 )
-from pyaccountingkit.company_configuration.infrastructure.postgres.organization_registration import (
-    PostgresOrganizationRegistrationUnitOfWork,
+from pyaccountingkit.company_configuration.infrastructure.postgres import (
+    organization_registration,
 )
 
 
@@ -58,7 +58,7 @@ class EvidencedOrganizationSeed:
             sha256(str(uuid4()).encode()).hexdigest(), "test setup only",
             datetime.now(UTC), company_id, legal_entity_id,
         )
-        with PostgresOrganizationRegistrationUnitOfWork(self._dsn) as uow:
+        with organization_registration.PostgresOrganizationRegistrationUnitOfWork(self._dsn) as uow:
             insert(uow)
             uow.append_evidence(evidence)
             uow.commit()

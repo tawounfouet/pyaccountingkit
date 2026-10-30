@@ -75,6 +75,11 @@ class BookCandidateVersionId(_UUIDIdentifier):
 
 
 @dataclass(frozen=True, slots=True)
+class BookDependencyClaimId(_UUIDIdentifier):
+    """Local R&D dependency claim ID, not a certified external registry ID."""
+
+
+@dataclass(frozen=True, slots=True)
 class ConfigurationDraftId(_UUIDIdentifier):
     """Stable identity of an unpublished configuration draft."""
 

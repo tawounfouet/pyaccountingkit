@@ -37,6 +37,7 @@ from pyaccountingkit.company_configuration.domain.shared.effective_interval impo
 from pyaccountingkit.company_configuration.domain.shared.identifiers import (
     AccountHierarchyEdgeId,
     AccountStatusCandidateId,
+    AccountingBookId,
     CompanyAccountId,
     CompanyChartId,
     CompanyId,
@@ -316,10 +317,7 @@ def test_edge_fields_are_strictly_typed():
         {"view": "TREE"},
         {"effective": "2026-01-01"},
         {"source_ref": " invalid "},
-        {"scope": replace(ch.scope, book_id=__import__(
-            "pyaccountingkit.company_configuration.domain.shared.identifiers",
-            fromlist=["AccountingBookId"],
-        ).AccountingBookId.new())},
+        {"scope": replace(ch.scope, book_id=AccountingBookId.new())},
     ):
         with pytest.raises(InvalidAccountHierarchy):
             replace(one, **changes)

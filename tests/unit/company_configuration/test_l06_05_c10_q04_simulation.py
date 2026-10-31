@@ -14,7 +14,6 @@ from pyaccountingkit.company_configuration.application.fiscal_c10_q04_simulation
     AUTHORITY,
     SCHEMA_VERSION,
     InvalidPeriodStatusSimulation,
-    ObservedLockWireCandidate,
     SimulatedPeriodStatusQuery,
     UntrustedPeriodStatusForPosting,
     inspect_simulated_period_status_wire,

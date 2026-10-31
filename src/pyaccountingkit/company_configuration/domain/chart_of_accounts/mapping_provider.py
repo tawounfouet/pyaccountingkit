@@ -102,10 +102,17 @@ class MappingProviderRequirementCandidate:
             _contains_knowledge(self.mapping_set.knowledge, self.knowledge)
         ):
             raise InvalidMappingCandidate("Provider requirement exceeds mapping-set windows")
-        sources = {a.id for a in self.mapping_set.source_chart.accounts}
-        targets = {a.id for a in self.mapping_set.target_chart.accounts}
-        if self.source_account_id not in sources or not set(self.target_account_ids) <= targets:
+        sources = {a.id: a for a in self.mapping_set.source_chart.accounts}
+        targets = {a.id: a for a in self.mapping_set.target_chart.accounts}
+        if self.source_account_id not in sources or not set(self.target_account_ids) <= targets.keys():
             raise InvalidMappingCandidate("Provider requirement account absent in pinned charts")
+        for account in (sources[self.source_account_id], *(
+            targets[account_id] for account_id in self.target_account_ids
+        )):
+            if not _contains_period(account.effective, self.effective):
+                raise InvalidMappingCandidate(
+                    "Provider requirement extends beyond referenced account validity"
+                )
         if any(
             m.source_account_id == self.source_account_id
             and m.effective.overlaps(self.effective)

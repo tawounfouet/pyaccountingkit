@@ -73,6 +73,8 @@ def test_explicit_candidate_and_never_posting_authority():
     assert result.eligible_for_posting is False
     with pytest.raises(FrozenInstanceError):
         result.eligible_for_posting = True
+    with pytest.raises(InvalidPolicyCandidate, match="never authorize posting"):
+        replace(result, eligible_for_posting=True)
 
 
 @pytest.mark.parametrize("bad", ["", " ", "bad", "A B", " A", "ÉX", "A" * 49, 5])

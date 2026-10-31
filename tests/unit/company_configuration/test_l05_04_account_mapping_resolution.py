@@ -35,8 +35,8 @@ from pyaccountingkit.company_configuration.domain.shared.effective_interval impo
     KnowledgeInterval,
 )
 from pyaccountingkit.company_configuration.domain.shared.identifiers import (
-    AccountMappingCandidateId,
     AccountingBookId,
+    AccountMappingCandidateId,
     CompanyAccountId,
     CompanyChartCandidateVersionId,
     CompanyChartId,
@@ -455,7 +455,6 @@ def test_untyped_scope_dates_and_catalog_are_rejected():
 
 def test_duplicate_or_non_typed_catalog_is_rejected():
     ctx = fixture()
-    mset = mapping_set(ctx, definitions(ctx))
     with pytest.raises(InvalidMappingCandidate, match="non-mapping set"):
         resolve(ctx, ("bad",), ctx[3])
 

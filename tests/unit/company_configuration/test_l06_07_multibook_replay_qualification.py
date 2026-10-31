@@ -6,6 +6,7 @@ from datetime import UTC, date, datetime, timedelta, timezone
 import pytest
 
 from pyaccountingkit.company_configuration.application.fiscal_c10_q04_simulation import (
+    InvalidPeriodStatusSimulation,
     UntrustedPeriodStatusForPosting,
     reject_simulated_status_for_posting,
 )
@@ -466,13 +467,13 @@ def test_report_digest_and_evidence_mutation_rejected():
 
 def test_query_validation_requires_typed_book_date_and_aware_cutoff():
     fixtures, queries = scenario()
-    with pytest.raises(Exception):
+    with pytest.raises(InvalidPeriodStatusSimulation):
         BookReplayQueryCandidate(
             replace(fixtures[0].book_scope, book_id=None), DAY, FEB
         )
-    with pytest.raises(Exception):
+    with pytest.raises(InvalidPeriodStatusSimulation):
         BookReplayQueryCandidate(queries[0].book_scope, datetime(2027, 2, 15), FEB)
-    with pytest.raises(Exception):
+    with pytest.raises(InvalidPeriodStatusSimulation):
         BookReplayQueryCandidate(queries[0].book_scope, DAY, datetime(2027, 2, 1))
 
 

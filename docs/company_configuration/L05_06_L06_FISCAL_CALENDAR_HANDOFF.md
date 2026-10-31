@@ -85,6 +85,11 @@ The source §21 labels these candidate domain lots `CAL-L1..CAL-L7`; the L06 eng
 
 These roles are suggested reviewers, not signed owners. **No ADR is ratified by this file.**
 
+### Exact source trace for historical replay and close-vs-posting
+
+- **`CAL-INV-10` / `CAL-SC-09`**: the real close-versus-posting concurrency guarantee is **NOT IMPLEMENTED**; a preflight `OPEN` read does not authorize a later Ledger COMMIT.
+- **`CAL-SC-13`**: missing historical CalendarVersion must produce a typed error, never resolve the most recent version; L06-01 does not implement even candidate replay yet.
+
 ## 5. Important technical risk: check-then-commit is unsafe
 
 The source §10 explicitly illustrates that between `GetPeriodStatus` and `JournalEntry` COMMIT, a concurrent close operation can make an earlier `OPEN` observation stale. A naïve network `check()` followed by SQL `insert()` **does not prevent posting into a newly closed period**.

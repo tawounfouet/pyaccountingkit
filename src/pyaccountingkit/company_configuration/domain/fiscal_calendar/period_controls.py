@@ -393,8 +393,11 @@ class PeriodControlCandidateDiagnostic:
             raise InvalidPeriodControlCandidate("Fabricated/stale selected state")
         active = tuple(
             sorted(
-                (l for l in self.locks if l.active and l.knowledge.contains(known_at)),
-                key=lambda l: str(l.id),
+                (
+                    item for item in self.locks
+                    if item.active and item.knowledge.contains(known_at)
+                ),
+                key=lambda item: str(item.id),
             )
         )
         declarations = tuple(

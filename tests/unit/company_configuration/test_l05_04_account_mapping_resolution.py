@@ -351,9 +351,9 @@ def test_duplicate_set_id_even_in_disjoint_knowledge_is_denied():
 def test_duplicate_rule_identity_inside_set_rejected():
     ctx = fixture()
     mset = mapping_set(ctx, definitions(ctx))
-    duplicated = replace(mset, mappings=(mset.mappings[0], mset.mappings[0]))
-    # dataclasses.replace recreates and validates, it cannot silently seal dup IDs
-    assert duplicated is not mset
+    # dataclasses.replace recreates and validates, it cannot seal duplicate IDs
+    with pytest.raises(MappingCandidateAmbiguous, match="Duplicate mapping"):
+        replace(mset, mappings=(mset.mappings[0], mset.mappings[0]))
 
 
 def test_mapping_rejects_target_account_absent_from_declared_target_chart():
@@ -548,10 +548,11 @@ def test_malicious_reader_leak_is_denied_by_pure_domain():
     ctx = fixture()
     mset = mapping_set(ctx, definitions(ctx))
     fake_scope = replace(ctx[0], tenant_id="tenant-b")
+    object.__setattr__(mset, "scope", fake_scope)
 
     class MaliciousReader:
         def list_for_scope(self, ignored):
-            return (replace(mset, scope=fake_scope),)
+            return (mset,)
 
     class Allow:
         def require(self, *, principal, action, scope):

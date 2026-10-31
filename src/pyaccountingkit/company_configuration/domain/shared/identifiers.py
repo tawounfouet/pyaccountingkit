@@ -80,6 +80,21 @@ class BookCalendarAssignmentCandidateId(_UUIDIdentifier):
 
 
 @dataclass(frozen=True, slots=True)
+class PeriodStateCandidateId(_UUIDIdentifier):
+    """Identity of an unsigned historical period-state observation."""
+
+
+@dataclass(frozen=True, slots=True)
+class PeriodLockCandidateId(_UUIDIdentifier):
+    """Identity of one unverified period-lock observation stream."""
+
+
+@dataclass(frozen=True, slots=True)
+class PeriodTransitionCandidateId(_UUIDIdentifier):
+    """Identity of one non-executing period-transition declaration."""
+
+
+@dataclass(frozen=True, slots=True)
 class ConfigurationDraftId(_UUIDIdentifier):
     """Stable identity of an unpublished configuration draft."""
 

@@ -33,6 +33,32 @@ from .mapping import (
     MappingSetVersionCandidate,
     resolve_account_mapping_candidate,
 )
+from .mapping_conditions import (
+    ConditionalMappingCandidateResolution,
+    InvalidMappingCondition,
+    MappingConditionProfileCandidate,
+    MappingFact,
+    MappingFactKey,
+    MappingPredicate,
+    MappingRuleCondition,
+    MissingMappingFact,
+    PredicateOperator,
+    resolve_conditional_mapping_candidate,
+)
+from .mapping_coverage import (
+    AccountMappingCoverageRow,
+    CoverageDisposition,
+    MappingCoverageCandidateReport,
+    MappingCoverageExceptionCandidate,
+    preview_mapping_coverage_candidate,
+)
+from .mapping_provider import (
+    MappingProviderRequired,
+    MappingProviderRequirementCandidate,
+    ProviderCapability,
+    SpecializedMappingProviderContract,
+    require_specialized_provider_candidate,
+)
 from .model import (
     AccountClassificationCode,
     AccountCode,
@@ -64,6 +90,26 @@ from .versions_bindings import (
 )
 
 __all__ = [
+    "ConditionalMappingCandidateResolution",
+    "InvalidMappingCondition",
+    "MappingConditionProfileCandidate",
+    "MappingFact",
+    "MappingFactKey",
+    "MappingPredicate",
+    "MappingRuleCondition",
+    "MissingMappingFact",
+    "PredicateOperator",
+    "resolve_conditional_mapping_candidate",
+    "AccountMappingCoverageRow",
+    "CoverageDisposition",
+    "MappingCoverageCandidateReport",
+    "MappingCoverageExceptionCandidate",
+    "preview_mapping_coverage_candidate",
+    "MappingProviderRequired",
+    "MappingProviderRequirementCandidate",
+    "ProviderCapability",
+    "SpecializedMappingProviderContract",
+    "require_specialized_provider_candidate",
     "AccountMappingCandidate",
     "AccountMappingCandidateResolution",
     "InvalidMappingCandidate",

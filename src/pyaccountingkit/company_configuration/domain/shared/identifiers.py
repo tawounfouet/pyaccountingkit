@@ -70,6 +70,16 @@ class AccountingPeriodId(_UUIDIdentifier):
 
 
 @dataclass(frozen=True, slots=True)
+class CalendarCandidateVersionId(_UUIDIdentifier):
+    """Unpublished fiscal calendar candidate version (not a published version)."""
+
+
+@dataclass(frozen=True, slots=True)
+class BookCalendarAssignmentCandidateId(_UUIDIdentifier):
+    """Unapproved, dated book-to-fiscal-calendar-version association."""
+
+
+@dataclass(frozen=True, slots=True)
 class ConfigurationDraftId(_UUIDIdentifier):
     """Stable identity of an unpublished configuration draft."""
 

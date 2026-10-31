@@ -162,7 +162,9 @@ class CalendarPublicationRequestCandidate:
         if not isinstance(self.effective, EffectiveInterval) or not _covers(
             self.calendar_version.effective, self.effective
         ):
-            raise InvalidCalendarPublicationIntent("Publication intent exceeds version validity")
+            raise InvalidCalendarPublicationIntent(
+                "Publication intent exceeds version validity"
+            )
         if not _aware(self.requested_at) or not self.calendar_version.knowledge.contains(
             self.requested_at
         ):
@@ -355,7 +357,9 @@ def preview_calendar_publication_contract(
         if item.scope != request.scope:
             raise InvalidCalendarPublicationIntent("Foreign scope in publication intent catalog")
         if item.idempotency_key == request.idempotency_key:
-            raise CalendarPublicationIntentConflict("Idempotency key collision needs commit authority")
+            raise CalendarPublicationIntentConflict(
+                "Idempotency key collision needs commit authority"
+            )
         if (
             item.calendar_version.calendar.id == request.calendar_version.calendar.id
             and item.effective.overlaps(request.effective)

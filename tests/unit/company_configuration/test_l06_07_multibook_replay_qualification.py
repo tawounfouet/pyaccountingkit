@@ -310,11 +310,11 @@ def test_unassigned_book_fails_closed_even_when_other_book_resolves():
 def test_historical_version_missing_never_falls_back_to_later_version():
     fixtures, queries = scenario()
     old_assignment, new_assignment = fixtures[0].assignments
-    revised = replace(
-        fixtures[0], assignments=(old_assignment, new_assignment),
-        versions=(fixtures[0].versions[1],),
-    )
     with pytest.raises(InvalidMultiBookCandidate, match="Missing exact"):
+        revised = replace(
+            fixtures[0], assignments=(old_assignment, new_assignment),
+            versions=(fixtures[0].versions[1],),
+        )
         qualify((revised, fixtures[1]), queries)
 
 
@@ -340,14 +340,19 @@ def test_cross_tenant_entity_or_company_book_fixture_fails_closed():
         replace(fixtures[1].book_scope, legal_entity_id=LegalEntityId.new()),
         replace(fixtures[1].book_scope, company_id=CompanyId.new()),
     ):
-        altered = replace(fixtures[1], book_scope=scope,
-                          assignments=tuple(replace(a, book_scope=scope)
-                                            for a in fixtures[1].assignments),
-                          states=tuple(replace(s, book_scope=scope)
-                                       for s in fixtures[1].states),
-                          locks=tuple(replace(item, book_scope=scope)
-                                      for item in fixtures[1].locks))
         with pytest.raises(InvalidMultiBookCandidate):
+            altered = replace(
+                fixtures[1], book_scope=scope,
+                assignments=tuple(
+                    replace(item, book_scope=scope) for item in fixtures[1].assignments
+                ),
+                states=tuple(
+                    replace(item, book_scope=scope) for item in fixtures[1].states
+                ),
+                locks=tuple(
+                    replace(item, book_scope=scope) for item in fixtures[1].locks
+                ),
+            )
             qualify((fixtures[0], altered), queries)
 
 
@@ -481,7 +486,7 @@ def test_wrong_fixture_or_query_catalog_shape_rejected():
         qualify((fixtures[0], "raw"), queries)
     with pytest.raises(InvalidMultiBookCandidate, match="Typed historical query"):
         qualify(fixtures, (queries[0], "raw", queries[2]))
-    with pytest.raises(InvalidMultiBookCandidate, match="at least two"):
+    with pytest.raises(InvalidMultiBookCandidate, match="At least two"):
         qualify((fixtures[0],), queries)
     with pytest.raises(InvalidMultiBookCandidate, match="completeness"):
         qualify(fixtures, queries, completeness="DECLARED_COMPLETE_RND")

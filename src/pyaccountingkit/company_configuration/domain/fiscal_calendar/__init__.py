@@ -21,7 +21,6 @@ from .model import (
     preview_ordinary_period_candidate,
     validate_fiscal_structure,
 )
-
 from .versions_assignments import (
     BookCalendarAssignmentCandidate,
     BookCalendarCandidateAmbiguous,

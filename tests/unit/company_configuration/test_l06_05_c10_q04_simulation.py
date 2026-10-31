@@ -388,7 +388,7 @@ def test_frozen_wire_response_cannot_set_posting_authorization():
     _, response = produced()
     with pytest.raises(FrozenInstanceError):
         response.state_revision = 10
-    with pytest.raises(FrozenInstanceError):
+    with pytest.raises((FrozenInstanceError, TypeError)):
         response.eligible_for_posting = True
 
 

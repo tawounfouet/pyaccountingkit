@@ -235,7 +235,9 @@ class PeriodTransitionDeclarationCandidate:
                 self.actor_ref, self.reason, self.source_ref
             )
         ):
-            raise InvalidPeriodControlCandidate("Aware declaration and source/reason/actor required")
+            raise InvalidPeriodControlCandidate(
+            "Aware declaration and source/reason/actor required"
+        )
 
 
 def _state_manifest(item: PeriodStateObservationCandidate) -> dict[str, object]:

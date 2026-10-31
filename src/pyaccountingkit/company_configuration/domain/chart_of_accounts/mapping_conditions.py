@@ -8,6 +8,7 @@ from dataclasses import dataclass, field
 from datetime import date, datetime
 from enum import Enum
 
+from ..shared.effective_interval import EffectiveInterval, KnowledgeInterval
 from ..shared.identifiers import AccountMappingCandidateId, CompanyAccountId
 from .mapping import (
     MappingCandidateAmbiguous,
@@ -132,14 +133,12 @@ class MappingConditionProfileCandidate:
 
     mapping_set: MappingSetVersionCandidate
     rules: tuple[MappingRuleCondition, ...]
-    effective: object
-    knowledge: object
+    effective: EffectiveInterval
+    knowledge: KnowledgeInterval
     source_ref: str
     content_digest: str = field(init=False)
 
     def __post_init__(self) -> None:
-        from ..shared.effective_interval import EffectiveInterval, KnowledgeInterval
-
         if not isinstance(self.mapping_set, MappingSetVersionCandidate):
             raise InvalidMappingCondition("Typed mapping set candidate required")
         if not isinstance(self.rules, tuple) or any(

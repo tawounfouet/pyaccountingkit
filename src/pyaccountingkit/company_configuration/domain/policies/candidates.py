@@ -166,6 +166,10 @@ class PolicyCandidatePreview:
     known_at: datetime
     eligible_for_posting: bool = False
 
+    def __post_init__(self) -> None:
+        if self.eligible_for_posting is not False:
+            raise InvalidPolicyCandidate("Candidate previews can never authorize posting")
+
 
 def preview_policy_candidate(
     *,

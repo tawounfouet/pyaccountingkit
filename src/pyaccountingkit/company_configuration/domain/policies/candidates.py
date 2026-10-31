@@ -91,7 +91,8 @@ class PolicyCandidateDraft:
     def __post_init__(self) -> None:
         if not isinstance(self.id, PolicyCandidateId) or not isinstance(self.code, PolicyCode):
             raise InvalidPolicyCandidate("Typed policy ID and PolicyCode required")
-        if not isinstance(self.topic, PolicyTopic) or not isinstance(self.effective, EffectiveInterval):
+        if (not isinstance(self.topic, PolicyTopic)
+                or not isinstance(self.effective, EffectiveInterval)):
             raise InvalidPolicyCandidate("Typed policy topic and valid interval required")
         _entity_scope(self.scope)
         _claim(self.framework_claim)

@@ -1,0 +1,225 @@
+{
+  "schema": "l06-07-candidate-coverage-inventory-v1",
+  "as_of": "2026-10-31",
+  "status": "RND_TRACEABILITY_NOT_G6_APPROVAL",
+  "source": "14_COMPANY_CONFIGURATION_FISCAL_CALENDAR_AND_PERIOD_MANAGEMENT.md sections 12,16,17,20,21",
+  "ci_status": "PENDING_EXACT_HEAD",
+  "invariants": [
+    {
+      "id": "CAL-INV-01",
+      "requirement": "Intervalle [start,end) valide",
+      "status": "CANDIDATE_PARTIAL",
+      "rnd_evidence": "L06-01 structural date checks; no persisted calendar"
+    },
+    {
+      "id": "CAL-INV-02",
+      "requirement": "Pas de chevauchement ordinaire",
+      "status": "CANDIDATE_PARTIAL",
+      "rnd_evidence": "L06-01 entire-catalog validation; no DB exclusion"
+    },
+    {
+      "id": "CAL-INV-03",
+      "requirement": "Une période par book/date",
+      "status": "CANDIDATE_PARTIAL",
+      "rnd_evidence": "L06-02 exact assignment plus L06-07 multi-book replay; no verified published Book"
+    },
+    {
+      "id": "CAL-INV-04",
+      "requirement": "Posting conditionné au statut/locks",
+      "status": "NOT_IMPLEMENTED_LIVE",
+      "rnd_evidence": "L06-05 always rejects posting; no live guard"
+    },
+    {
+      "id": "CAL-INV-05",
+      "requirement": "Transition autorisée avec version attendue",
+      "status": "NOT_IMPLEMENTED_LIVE",
+      "rnd_evidence": "L06-03 unsigned declarations only"
+    },
+    {
+      "id": "CAL-INV-06",
+      "requirement": "Réouverture approuvée et auditée",
+      "status": "NOT_IMPLEMENTED_LIVE",
+      "rnd_evidence": "No executable reopening"
+    },
+    {
+      "id": "CAL-INV-07",
+      "requirement": "Publication immuable",
+      "status": "NOT_IMPLEMENTED_LIVE",
+      "rnd_evidence": "L06-04 uncommitted intent; local SHA only"
+    },
+    {
+      "id": "CAL-INV-08",
+      "requirement": "Replay historique avec version fixée",
+      "status": "CANDIDATE_PARTIAL",
+      "rnd_evidence": "L06-02 as_of/known_at replay and L06-07 multi-book fixture"
+    },
+    {
+      "id": "CAL-INV-09",
+      "requirement": "Pas de fallback silencieux",
+      "status": "CANDIDATE_PARTIAL",
+      "rnd_evidence": "L06-02 exact historical version; absence errors"
+    },
+    {
+      "id": "CAL-INV-10",
+      "requirement": "Contrôle final protégé contre concurrence",
+      "status": "NOT_IMPLEMENTED_LIVE",
+      "rnd_evidence": "L06-06 symbolic only, no SQL COMMIT test"
+    },
+    {
+      "id": "CAL-INV-11",
+      "requirement": "Période spéciale explicitement ciblée",
+      "status": "CANDIDATE_PARTIAL",
+      "rnd_evidence": "L06-01 explicit typed ID; no real approval"
+    },
+    {
+      "id": "CAL-INV-12",
+      "requirement": "Audit des changements de lock",
+      "status": "NOT_IMPLEMENTED_LIVE",
+      "rnd_evidence": "L06-03 observations, no durable signed audit"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "CAL-SC-01",
+      "requirement": "Exercice de 12 périodes sans chevauchement",
+      "status": "CANDIDATE_PARTIAL",
+      "rnd_evidence": "L06-01 test fixture, normative acceptance absent"
+    },
+    {
+      "id": "CAL-SC-02",
+      "requirement": "Exercice décalé compatible juridiction",
+      "status": "CANDIDATE_PARTIAL",
+      "rnd_evidence": "L06-01 and L06-07 April–March fixture, no legal signoff"
+    },
+    {
+      "id": "CAL-SC-03",
+      "requirement": "Chevauchement ordinaire refusé",
+      "status": "CANDIDATE_PARTIAL",
+      "rnd_evidence": "L06-01 structural negative tests"
+    },
+    {
+      "id": "CAL-SC-04",
+      "requirement": "Trou interdit sous couverture continue",
+      "status": "CANDIDATE_PARTIAL",
+      "rnd_evidence": "L06-01 coverage policy negative tests"
+    },
+    {
+      "id": "CAL-SC-05",
+      "requirement": "PCG et IFRS avec calendriers indépendants",
+      "status": "CANDIDATE_PARTIAL",
+      "rnd_evidence": "L06-07 names unverified; independent candidate resolution only"
+    },
+    {
+      "id": "CAL-SC-06",
+      "requirement": "Poster en période OPEN sous contrôles",
+      "status": "NOT_IMPLEMENTED_LIVE",
+      "rnd_evidence": "L06-05 simulation always denies"
+    },
+    {
+      "id": "CAL-SC-07",
+      "requirement": "Posting refusé sur CLOSED",
+      "status": "NOT_IMPLEMENTED_LIVE",
+      "rnd_evidence": "L06-05 denial simulation, not real Ledger"
+    },
+    {
+      "id": "CAL-SC-08",
+      "requirement": "Posting refusé sous lock spécifique",
+      "status": "NOT_IMPLEMENTED_LIVE",
+      "rnd_evidence": "L06-05 observed locks not authoritative"
+    },
+    {
+      "id": "CAL-SC-09",
+      "requirement": "Clôture entre résolution et COMMIT",
+      "status": "NOT_IMPLEMENTED_LIVE",
+      "rnd_evidence": "L06-06 symbolic ordering only, no SQL fencing"
+    },
+    {
+      "id": "CAL-SC-10",
+      "requirement": "Réouverture sans approbation refusée",
+      "status": "NOT_IMPLEMENTED_LIVE",
+      "rnd_evidence": "No reopen command"
+    },
+    {
+      "id": "CAL-SC-11",
+      "requirement": "Réouverture approuvée avec audit",
+      "status": "NOT_IMPLEMENTED_LIVE",
+      "rnd_evidence": "No signed approvals or durable audit"
+    },
+    {
+      "id": "CAL-SC-12",
+      "requirement": "Rejeu snapshot original identique",
+      "status": "CANDIDATE_PARTIAL",
+      "rnd_evidence": "L06-07 replay and digest determinism tests"
+    },
+    {
+      "id": "CAL-SC-13",
+      "requirement": "Snapshot historique manquant",
+      "status": "CANDIDATE_PARTIAL",
+      "rnd_evidence": "L06-07 missing historical candidate version refusal"
+    },
+    {
+      "id": "CAL-SC-14",
+      "requirement": "Période spéciale sans droit refusée",
+      "status": "CANDIDATE_PARTIAL",
+      "rnd_evidence": "L06-01 explicit ID; actual authorization unimplemented"
+    },
+    {
+      "id": "CAL-SC-15",
+      "requirement": "Deux fermetures concurrentes",
+      "status": "NOT_IMPLEMENTED_LIVE",
+      "rnd_evidence": "L06-06 symbolic sequence, no parallel SQL"
+    },
+    {
+      "id": "CAL-SC-16",
+      "requirement": "Notification fermeture retardée",
+      "status": "NOT_IMPLEMENTED_LIVE",
+      "rnd_evidence": "L06-06 symbolic ignored event, no real Outbox"
+    },
+    {
+      "id": "CAL-SC-17",
+      "requirement": "Modification version publiée refusée",
+      "status": "NOT_IMPLEMENTED_LIVE",
+      "rnd_evidence": "L06-04 proposed version only; no published immutability"
+    },
+    {
+      "id": "CAL-SC-18",
+      "requirement": "Date hors exercice",
+      "status": "CANDIDATE_PARTIAL",
+      "rnd_evidence": "L06-01 structural refusal"
+    },
+    {
+      "id": "CAL-SC-19",
+      "requirement": "Book sans affectation",
+      "status": "CANDIDATE_PARTIAL",
+      "rnd_evidence": "L06-07 unassigned book denial, no live Book"
+    },
+    {
+      "id": "CAL-SC-20",
+      "requirement": "Audit clôture/réouverture",
+      "status": "NOT_IMPLEMENTED_LIVE",
+      "rnd_evidence": "No durable auditable transition/reopen"
+    }
+  ],
+  "open_adrs": [
+    "ADR-CAL-01",
+    "ADR-CAL-02",
+    "ADR-CAL-03",
+    "ADR-CAL-04",
+    "ADR-CAL-05",
+    "ADR-CAL-06",
+    "ADR-CAL-07",
+    "ADR-CAL-08",
+    "ADR-CAL-09",
+    "ADR-CAL-10"
+  ],
+  "required_live_proofs": [
+    "independently verified signed IAM issuer/actor at SQL COMMIT (issue #71)",
+    "approved/immutable CalendarVersion and verified AccountingBook/PCG/IFRS normative frameworks",
+    "authoritative C10-Q04/period state and complete applicable locks",
+    "real PostgreSQL/ledger close-versus-post COMMIT fencing and concurrency tests",
+    "atomic publication + audit + Outbox and replay/migration restore",
+    "multi-subledger Revenue/AR Purchasing/AP FixedAssets Payroll end-to-end tests"
+  ],
+  "production_gate": "G6_NOT_APPROVED",
+  "candidate_e2e": "NO_LIVE_E2E"
+}

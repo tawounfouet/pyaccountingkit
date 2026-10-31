@@ -488,7 +488,7 @@ def test_coverage_conflicts_and_priority_are_only_structural():
 
 
 def test_coverage_digest_is_deterministic_independent_of_rule_order():
-    ms, *_ = sample(pair_count=1)
+    ms, *_ = sample(pair_count=2)
     original = preview_mapping_coverage_candidate(
         mapping_set=ms, as_of=DAY, known_at=FEB
     )

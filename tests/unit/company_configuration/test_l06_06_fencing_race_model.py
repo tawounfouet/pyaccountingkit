@@ -3,10 +3,12 @@
 from dataclasses import FrozenInstanceError, replace
 from datetime import UTC, date, datetime
 from itertools import permutations
+from uuid import uuid4
 
 import pytest
 
 from pyaccountingkit.company_configuration.application.fiscal_c10_q04_simulation import (
+    ObservedLockWireCandidate,
     SimulatedPeriodStatusResponse,
     UntrustedPeriodStatusForPosting,
 )
@@ -193,6 +195,16 @@ def test_every_non_open_state_is_denied_in_symbolic_model(status):
         SymbolicRaceOutcome.MODEL_REJECTED_NON_OPEN
     )
     assert_no_real_authority(proof)
+
+
+def test_observed_lock_must_not_be_treated_as_authorized_posting_scope():
+    lock = ObservedLockWireCandidate(str(uuid4()), "JOURNAL_LOCK", "SALES")
+    response, initial, token = inputs(source(locks=(lock,)))
+    trace = model(response, initial, token, POST)
+    assert trace.observations[0].outcome is (
+        SymbolicRaceOutcome.MODEL_REJECTED_UNVERIFIED_LOCKS
+    )
+    assert_no_real_authority(trace)
 
 
 def test_incomplete_candidate_lock_catalog_is_not_a_commit_proof():

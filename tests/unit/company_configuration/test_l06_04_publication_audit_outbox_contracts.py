@@ -472,7 +472,7 @@ def test_no_publisher_sql_outbox_writer_and_legacy_fourteen_migrations_unchanged
         for method in ("publish", "approve", "commit", "emit", "insert"):
             assert not hasattr(module, method)
     migrations = (
-        Path(publication_intents.__file__).resolve().parents[1]
+        Path(publication_intents.__file__).resolve().parents[2]
         / "infrastructure" / "postgres" / "migrations"
     )
     assert len(tuple(migrations.glob("*.sql"))) == 14

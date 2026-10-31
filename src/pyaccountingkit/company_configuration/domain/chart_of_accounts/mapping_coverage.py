@@ -178,6 +178,7 @@ def preview_mapping_coverage_candidate(
             active_providers[item.source_account_id] = item
 
     active_exceptions: dict[CompanyAccountId, MappingCoverageExceptionCandidate] = {}
+    source_accounts = {a.id: a for a in mapping_set.source_chart.accounts}
     exception_manifest = []
     for item in exceptions:
         if not isinstance(item, MappingCoverageExceptionCandidate):
@@ -187,6 +188,35 @@ def preview_mapping_coverage_candidate(
             or item.source_account_id not in source_ids
         ):
             raise InvalidMappingCandidate("Foreign exception or unknown source")
+        if not (
+            mapping_set.effective.start <= item.effective.start
+            and (
+                mapping_set.effective.end is None
+                or (
+                    item.effective.end is not None
+                    and item.effective.end <= mapping_set.effective.end
+                )
+            )
+            and source_accounts[item.source_account_id].effective.start
+            <= item.effective.start
+            and (
+                source_accounts[item.source_account_id].effective.end is None
+                or (
+                    item.effective.end is not None
+                    and item.effective.end
+                    <= source_accounts[item.source_account_id].effective.end
+                )
+            )
+            and mapping_set.knowledge.start <= item.knowledge.start
+            and (
+                mapping_set.knowledge.end is None
+                or (
+                    item.knowledge.end is not None
+                    and item.knowledge.end <= mapping_set.knowledge.end
+                )
+            )
+        ):
+            raise InvalidMappingCandidate("Coverage exception exceeds scope time windows")
         exception_manifest.append({
             "set_id": str(item.mapping_set_version_id),
             "account_id": str(item.source_account_id),

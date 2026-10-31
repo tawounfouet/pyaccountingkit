@@ -18,7 +18,7 @@ from ..domain.chart_of_accounts.mapping_coverage import (
 )
 from ..domain.chart_of_accounts.mapping_provider import MappingProviderRequirementCandidate
 from ..domain.shared.accounting_scope import ConfigurationScope
-from ..domain.shared.identifiers import CompanyAccountId
+from ..domain.shared.identifiers import CompanyAccountId, MappingSetCandidateVersionId
 from .ports import AuthorizationPort, TrustedPrincipal
 
 
@@ -41,13 +41,11 @@ class MappingDiagnosticsCandidateReader(Protocol):
 @dataclass(frozen=True, slots=True)
 class MappingDiagnosticsCandidateQuery:
     scope: ConfigurationScope
-    mapping_set_version_id: object
+    mapping_set_version_id: MappingSetCandidateVersionId
     as_of: date
     known_at: datetime
 
     def __post_init__(self) -> None:
-        from ..domain.shared.identifiers import MappingSetCandidateVersionId
-
         if not isinstance(self.scope, ConfigurationScope) or self.scope.book_id is not None:
             raise InvalidMappingCandidate("Entity-level diagnostics scope required")
         if not isinstance(self.mapping_set_version_id, MappingSetCandidateVersionId):

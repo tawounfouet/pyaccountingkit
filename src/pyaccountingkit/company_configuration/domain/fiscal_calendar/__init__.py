@@ -22,7 +22,28 @@ from .model import (
     validate_fiscal_structure,
 )
 
+from .versions_assignments import (
+    BookCalendarAssignmentCandidate,
+    BookCalendarCandidateAmbiguous,
+    BookCalendarCandidateMissing,
+    BookCalendarCandidateReadReceipt,
+    CalendarCandidateDigestMismatch,
+    CalendarVersionCandidate,
+    InvalidBookCalendarAssignment,
+    InvalidCalendarCandidateVersion,
+    preview_book_calendar_candidate,
+)
+
 __all__ = [
+    "BookCalendarAssignmentCandidate",
+    "BookCalendarCandidateAmbiguous",
+    "BookCalendarCandidateMissing",
+    "BookCalendarCandidateReadReceipt",
+    "CalendarCandidateDigestMismatch",
+    "CalendarVersionCandidate",
+    "InvalidBookCalendarAssignment",
+    "InvalidCalendarCandidateVersion",
+    "preview_book_calendar_candidate",
     "AccountingPeriodDraft",
     "CalendarCode",
     "CalendarCoveragePolicy",

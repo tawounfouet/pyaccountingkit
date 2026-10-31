@@ -293,7 +293,10 @@ def test_duplicate_context_keys_are_refused():
 
 def test_canonical_conditions_and_receipt_ignore_input_order_and_timezone():
     ms, a, *_ = sample()
-    p = profile(ms, (predicate("A"), predicate("B", key=MappingFactKey.ACTIVITY)), ())
+    p = profile(
+        ms, (predicate("A"), predicate("B", key=MappingFactKey.ACTIVITY)),
+        (predicate("OTHER"),)
+    )
     reordered = replace(
         p, rules=tuple(reversed(p.rules))
     )
@@ -314,13 +317,13 @@ def test_future_knowledge_profile_rejected_without_backfilling():
 
 
 def test_tampered_profile_or_nested_mapping_digest_refused():
-    ms, a, *_ = sample()
+    ms, a, *_ = sample(pair_count=1)
     p = profile(ms)
     receipt = run(p, a)
     object.__setattr__(p.rules[0], "source_ref", "tampered")
     with pytest.raises(MappingCandidateDigestMismatch):
         receipt.verify_integrity()
-    ms2, a2, *_ = sample()
+    ms2, a2, *_ = sample(pair_count=1)
     p2 = profile(ms2)
     receipt2 = run(p2, a2)
     object.__setattr__(ms2.mappings[0], "source_ref", "tampered")
@@ -332,8 +335,12 @@ def test_original_known_vs_restated_conditional_proposals_do_not_rewrite_history
     ms, a, *_ = sample()
     old_set = replace(ms, knowledge=KnowledgeInterval(JAN, MAR))
     new_set = replace(ms, knowledge=KnowledgeInterval(MAR))
-    old = profile(old_set, (predicate("RETAIL"),), ())
-    new = profile(new_set, (), (predicate("RETAIL"),))
+    old = profile(
+        old_set, (predicate("RETAIL"),), (predicate("OTHER"),)
+    )
+    new = profile(
+        new_set, (predicate("OTHER"),), (predicate("RETAIL"),)
+    )
     ctx = (MappingFact(MappingFactKey.SEGMENT, "RETAIL"),)
     before = run(old, a, ctx, known_at=FEB)
     after = run(new, a, ctx, known_at=MAR)

@@ -55,6 +55,21 @@ class AccountingBookId(_UUIDIdentifier):
 
 
 @dataclass(frozen=True, slots=True)
+class FiscalCalendarId(_UUIDIdentifier):
+    """Stable identity of a proposed fiscal calendar, not its public code."""
+
+
+@dataclass(frozen=True, slots=True)
+class FiscalYearId(_UUIDIdentifier):
+    """Stable identity of a proposed fiscal year, not its display label."""
+
+
+@dataclass(frozen=True, slots=True)
+class AccountingPeriodId(_UUIDIdentifier):
+    """Stable identity of an ordinary or adjustment candidate period."""
+
+
+@dataclass(frozen=True, slots=True)
 class ConfigurationDraftId(_UUIDIdentifier):
     """Stable identity of an unpublished configuration draft."""
 

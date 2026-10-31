@@ -298,7 +298,8 @@ def test_future_effective_mapping_is_never_defaulted_to_current():
 def test_future_mapping_set_is_unavailable_for_earlier_business_day():
     ctx = fixture()
     mset = mapping_set(
-        ctx, definitions(ctx), effective=EffectiveInterval(JUL),
+        ctx, ((ctx[3], ctx[5], {"effective": EffectiveInterval(JUL)}),),
+        effective=EffectiveInterval(JUL),
     )
     with pytest.raises(MappingCandidateMissing, match="mapping-set"):
         resolve(ctx, (mset,), ctx[3])
@@ -388,7 +389,7 @@ def test_mapping_rejects_wrong_chart_version_ids_or_mapping_set_identity():
 def test_mapping_scope_and_version_cross_tenant_fail_closed():
     ctx = fixture()
     bad_scope = replace(ctx[0], legal_entity_id=LegalEntityId.new())
-    with pytest.raises(InvalidMappingCandidate, match="scope"):
+    with pytest.raises(InvalidMappingCandidate, match="Cross-tenant/entity"):
         mapping_set(ctx, definitions(ctx), scope=bad_scope)
     mset = mapping_set(ctx, definitions(ctx))
     with pytest.raises(InvalidMappingCandidate, match="scope"):

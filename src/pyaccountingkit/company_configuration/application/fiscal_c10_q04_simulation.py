@@ -21,8 +21,11 @@ from ..domain.fiscal_calendar.period_controls import (
 from ..domain.shared.accounting_scope import ConfigurationScope
 from ..domain.shared.errors import DomainError
 from ..domain.shared.identifiers import (
+    AccountingBookId,
     AccountingPeriodId,
     CalendarCandidateVersionId,
+    CompanyId,
+    LegalEntityId,
 )
 
 SCHEMA_VERSION = "l06-05-c10-q04-simulation-v0"
@@ -316,11 +319,6 @@ def inspect_simulated_period_status_wire(
     ):
         raise InvalidPeriodStatusSimulation("Invalid lock wire shape")
     try:
-        from ..shared.identifiers import (
-            AccountingBookId,
-            CompanyId,
-            LegalEntityId,
-        )
         book_scope = ConfigurationScope(
             parsed["tenant_id"],
             CompanyId.parse(parsed["company_id"]),
@@ -354,6 +352,8 @@ def inspect_simulated_period_status_wire(
     if candidate.content_digest != parsed["content_digest"]:
         raise InvalidPeriodStatusSimulation("Candidate wire checksum mismatch")
     candidate.matches_query(query)
+    if wire != candidate.to_wire():
+        raise InvalidPeriodStatusSimulation("Noncanonical or duplicated wire keys")
     return candidate
 
 

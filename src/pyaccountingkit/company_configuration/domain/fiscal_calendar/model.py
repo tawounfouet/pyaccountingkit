@@ -321,7 +321,7 @@ def validate_fiscal_structure(
         if not items:
             raise PeriodCandidateMissing("Fiscal year has no ordinary period")
         items.sort(key=lambda p: p.effective.start)
-        for left, right in zip(items, items[1:]):
+        for left, right in zip(items, items[1:], strict=False):
             if left.effective.overlaps(right.effective):
                 raise FiscalStructureConflict("Overlapping ordinary periods")
             if left.ordinal >= right.ordinal:
@@ -332,7 +332,7 @@ def validate_fiscal_structure(
                 items[0].effective.start != year.effective.start
                 or items[-1].effective.end != year.effective.end
                 or any(a.effective.end != z.effective.start
-                       for a, z in zip(items, items[1:]))
+                       for a, z in zip(items, items[1:], strict=False))
             ):
                 raise FiscalStructureConflict("Required continuous year coverage is missing")
 

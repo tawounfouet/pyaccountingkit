@@ -13,12 +13,11 @@ from pyaccountingkit.company_configuration.application.fiscal_c10_q04_simulation
 from pyaccountingkit.company_configuration.application.fiscal_fencing_race_model_rnd import (
     MODEL_SCHEMA,
     InvalidSymbolicFenceTrace,
-    SymbolicFenceRaceDiagnostic,
+    SymbolicFenceTraceTampered,
     SymbolicPeriodControl,
     SymbolicPreflightObservation,
     SymbolicRaceOutcome,
     SymbolicRaceStep,
-    SymbolicFenceTraceTampered,
     UnverifiedPostingFenceGate,
     refuse_symbolic_fence_for_posting,
     simulate_symbolic_close_post_race,

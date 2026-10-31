@@ -279,7 +279,9 @@ class BookCalendarCandidateReadReceipt:
             or not a.knowledge.contains(self.known_at)
             or not v.knowledge.contains(self.known_at)
         ):
-            raise InvalidBookCalendarAssignment("Assignment/calendar version scope or time mismatch")
+            raise InvalidBookCalendarAssignment(
+                "Assignment/calendar version scope or time mismatch"
+            )
         if self.adjustment_period_id is None:
             expected = preview_ordinary_period_candidate(
                 calendar=v.calendar, years=v.years, periods=v.periods,

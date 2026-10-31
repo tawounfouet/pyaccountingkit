@@ -95,6 +95,21 @@ class PeriodTransitionCandidateId(_UUIDIdentifier):
 
 
 @dataclass(frozen=True, slots=True)
+class CalendarPublicationIntentId(_UUIDIdentifier):
+    """An unapproved calendar-publication request, never a publication ID."""
+
+
+@dataclass(frozen=True, slots=True)
+class CalendarAuditIntentId(_UUIDIdentifier):
+    """An uncommitted audit-intent identity, not durable audit evidence."""
+
+
+@dataclass(frozen=True, slots=True)
+class CalendarOutboxIntentId(_UUIDIdentifier):
+    """An uncommitted Outbox-intent identity, not a delivered event."""
+
+
+@dataclass(frozen=True, slots=True)
 class ConfigurationDraftId(_UUIDIdentifier):
     """Stable identity of an unpublished configuration draft."""
 

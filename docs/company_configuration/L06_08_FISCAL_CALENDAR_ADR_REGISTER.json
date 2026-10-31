@@ -1,0 +1,366 @@
+{
+  "schema_version": "l06-08-adr-register-v1",
+  "register_id": "PYACCOUNTINGKIT-COMPANYCONFIG-L06",
+  "reviewed_on": "2026-10-31",
+  "source_paths": [
+    "14_COMPANY_CONFIGURATION_FISCAL_CALENDAR_AND_PERIOD_MANAGEMENT.md §20–21",
+    "17_COMPANY_CONFIGURATION_CONFIGURATION_LIFECYCLE_AND_GOVERNANCE.md §§7–12",
+    "18_COMPANY_CONFIGURATION_VERSIONING_TEMPORALITY_AND_SNAPSHOTS.md",
+    "19_COMPANY_CONFIGURATION_SECURITY_AUTHORIZATION_AND_AUDIT_MODEL.md",
+    "10_COMPANY_CONFIGURATION_INTEGRATION_CONTRACTS.md C10-Q04"
+  ],
+  "scope": "ENGINEERING_RND_NON_BINDING",
+  "all_decisions_unapproved": true,
+  "security_issue": {
+    "number": 71,
+    "state": "OPEN"
+  },
+  "gates": {
+    "G0": "PENDING_REVIEW",
+    "G1": "PENDING_REVIEW",
+    "G2": "PENDING_REVIEW",
+    "G3": "HOLD_SECURITY",
+    "G4": "NOT_APPROVED",
+    "G5": "NOT_APPROVED",
+    "G6": "NOT_APPROVED"
+  },
+  "decision_count": 10,
+  "adrs": [
+    {
+      "id": "ADR-CAL-01",
+      "title": "Calendrier partagé ou par book",
+      "status": "OPEN",
+      "priority": "HIGH",
+      "accountable_roles": [
+        "Accounting Architect",
+        "Domain Owner",
+        "Legal/Normative Reviewer"
+      ],
+      "options": [
+        "Calendrier détenu par book",
+        "Définition partagée, affectation explicite versionnée par book",
+        "Organisation racine avec héritage implicite"
+      ],
+      "non_binding_recommendation": "Étudier une définition partageable uniquement par affectation book/version unique et datée; interdire l'héritage implicite.",
+      "tradeoffs_and_risks": "La réutilisation économise des définitions mais exige une isolation des statuts et locks par book.",
+      "evidence_prs": [
+        89,
+        94
+      ],
+      "acceptance_criteria": [
+        "Décider ownership / cardinalités et périmètres",
+        "Prouver unicité book+date+known_at avec contrainte persistée",
+        "Tester réaffectation et non-fuite de statut/lock PCG–IFRS"
+      ],
+      "blocks_live": [
+        "G6 publication",
+        "G10 consumers"
+      ],
+      "decision_record": null,
+      "approver_signoff": null
+    },
+    {
+      "id": "ADR-CAL-02",
+      "title": "Frontière agrégat définition et état",
+      "status": "OPEN",
+      "priority": "HIGH",
+      "accountable_roles": [
+        "Domain Architect",
+        "Persistence Architect",
+        "Accounting Owner"
+      ],
+      "options": [
+        "Agrégat unique calendrier+état",
+        "Séparer version de définition et contrôles de périodes",
+        "Agrégat unique par book et période"
+      ],
+      "non_binding_recommendation": "Étudier la séparation de définition immuable et état mutable, avec un protocole d'intégrité transactionnelle explicite.",
+      "tradeoffs_and_risks": "Séparer favorise scalabilité et historique, mais exige cohérence des références et ACL.",
+      "evidence_prs": [
+        88,
+        90,
+        91
+      ],
+      "acceptance_criteria": [
+        "Choisir ownership états/locks/transitions",
+        "Fixer frontières transactionnelles et locks SQL",
+        "Qualifier atomicité historique/audit/outbox"
+      ],
+      "blocks_live": [
+        "G6 publication",
+        "G6 state workflow"
+      ],
+      "decision_record": null,
+      "approver_signoff": null
+    },
+    {
+      "id": "ADR-CAL-03",
+      "title": "Ajustements: modèle et sélection",
+      "status": "OPEN",
+      "priority": "HIGH",
+      "accountable_roles": [
+        "Accounting Approver",
+        "Normative Layer Owner",
+        "Runtime Owner"
+      ],
+      "options": [
+        "Périodes ordinaires et ajustements séparés",
+        "Périodes avec kind et sélection explicite",
+        "Pseudo-période annuelle de clôture"
+      ],
+      "non_binding_recommendation": "Garder l'identité typée et la sélection explicite des périodes ADJUSTMENT; règles d'éligibilité et droits par norme à décider.",
+      "tradeoffs_and_risks": "Risque de comptabilisation d'ajustements sans droits, double interprétation des dates et conventions PCG/IFRS/OHADA.",
+      "evidence_prs": [
+        88,
+        89
+      ],
+      "acceptance_criteria": [
+        "Validation des juridictions/référentiels et période 13/ADJ",
+        "Contrat de référence au book et à l'ordinaire cible",
+        "Cas négatifs sans permission ni fallback"
+      ],
+      "blocks_live": [
+        "G6 special periods",
+        "G10 consumers"
+      ],
+      "decision_record": null,
+      "approver_signoff": null
+    },
+    {
+      "id": "ADR-CAL-04",
+      "title": "Granularité des locks",
+      "status": "OPEN",
+      "priority": "CRITICAL",
+      "accountable_roles": [
+        "Accounting Operations",
+        "Security Architect",
+        "Execution Owner"
+      ],
+      "options": [
+        "Lock global au book",
+        "Locks book+journal+source+operation",
+        "Politique dynamique par taxonomie de postings"
+      ],
+      "non_binding_recommendation": "Étudier des locks orthogonaux et explicitement applicables, mais exiger un inventaire complet autoritatif au moment du COMMIT.",
+      "tradeoffs_and_risks": "Un lock scoped mal interprété entraîne déni indu ou posting interdit; lecture staleable insuffisante.",
+      "evidence_prs": [
+        90,
+        92,
+        93
+      ],
+      "acceptance_criteria": [
+        "Définir taxonomie de lock et opération/journal/source",
+        "Choisir règles de priorité, exceptions et fail-closed",
+        "Tester autorité, inventaire complet et contention SQL"
+      ],
+      "blocks_live": [
+        "G6 posting guard",
+        "G10 C10-Q04"
+      ],
+      "decision_record": null,
+      "approver_signoff": null
+    },
+    {
+      "id": "ADR-CAL-05",
+      "title": "Workflow SOFT_CLOSED/CLOSED/ARCHIVED",
+      "status": "OPEN",
+      "priority": "HIGH",
+      "accountable_roles": [
+        "Accounting Operations",
+        "Accounting Architect",
+        "Auditor"
+      ],
+      "options": [
+        "Statuts simplifiés OPEN/CLOSED",
+        "Workflow complet avec SOFT_CLOSED et ARCHIVED",
+        "Statuts distincts par juridiction et book"
+      ],
+      "non_binding_recommendation": "Conserver la liste comme candidate; ne pas déduire posting éligible de OPEN sans lock ni politique.",
+      "tradeoffs_and_risks": "Transitions multiples et décisions de soft close rendent l'audit et la gouvernance sensibles.",
+      "evidence_prs": [
+        90,
+        93
+      ],
+      "acceptance_criteria": [
+        "Approuver graphe de transitions et droits par rôle",
+        "Spécifier soft-close et archivage/irréversibilité",
+        "Tests de transition CAS, événements et audit immuable"
+      ],
+      "blocks_live": [
+        "G6 state workflow"
+      ],
+      "decision_record": null,
+      "approver_signoff": null
+    },
+    {
+      "id": "ADR-CAL-06",
+      "title": "Réouverture et dérogations",
+      "status": "OPEN",
+      "priority": "CRITICAL",
+      "accountable_roles": [
+        "Accounting Approver",
+        "Security Owner",
+        "Audit Owner"
+      ],
+      "options": [
+        "Réouverture à simple motif",
+        "Workflow d'approbation séparé avec SoD et expiration",
+        "Dérogation temporaire ciblée et exceptionnelle"
+      ],
+      "non_binding_recommendation": "Étudier une autorisation distincte, motivée, bornée, à approbations indépendantes et revalidation au COMMIT.",
+      "tradeoffs_and_risks": "Le dossier L06-03 ne contient que déclarations non exécutantes; aucun approveur authentifié.",
+      "evidence_prs": [
+        90,
+        91
+      ],
+      "acceptance_criteria": [
+        "Documenter rôle/SoD, motifs, quorum, durée, révocation",
+        "Signer et relier approval exact digest/period/actor",
+        "Prouver réouverture et posting sans contournement ni audit perdu"
+      ],
+      "blocks_live": [
+        "G6 reopening",
+        "Security #71"
+      ],
+      "decision_record": null,
+      "approver_signoff": null
+    },
+    {
+      "id": "ADR-CAL-07",
+      "title": "Autorité clôture et posting guard",
+      "status": "OPEN",
+      "priority": "BLOCKER",
+      "accountable_roles": [
+        "Security Architect",
+        "Ledger/Execution Owner",
+        "Domain Architect"
+      ],
+      "options": [
+        "Company Configuration autorité de contrôle, Ledger enforce",
+        "Ledger propriétaire de statut/lock",
+        "Protocole coordonné inter-services"
+      ],
+      "non_binding_recommendation": "Définir l'autorité unique et la frontière de garde COMMIT; clarifier la référence source 'ADR-CC-007' contre le registre global 'ADR-CC-07' qui ne décrit pas ce sujet.",
+      "tradeoffs_and_risks": "Risque critique : consultation C10 et commande Ledger décorrélées, acteur/issuer signé indisponible, contournement des droits.",
+      "evidence_prs": [
+        90,
+        92,
+        93
+      ],
+      "acceptance_criteria": [
+        "Réconcilier les références ADR-CC-007/ADR-CC-07 avec décision documentée",
+        "Tracer propriétaire de vérité, signataire, ACL et responsabilité COMMIT",
+        "Prouver aucune insertion sans décision d'acteur/issuer indépendante"
+      ],
+      "blocks_live": [
+        "G3 security issue #71",
+        "G6 commit",
+        "G10"
+      ],
+      "decision_record": null,
+      "approver_signoff": null
+    },
+    {
+      "id": "ADR-CAL-08",
+      "title": "Stratégie sérialisation / fencing",
+      "status": "OPEN",
+      "priority": "BLOCKER",
+      "accountable_roles": [
+        "Persistence Architect",
+        "Ledger/Execution Owner",
+        "Security Reviewer"
+      ],
+      "options": [
+        "Transaction même DB avec verrouillage partagé",
+        "Fencing token monotone vérifié au COMMIT",
+        "Protocole distribué coordonné et prouvé"
+      ],
+      "non_binding_recommendation": "Sélectionner après ADR-CAL-07 un mécanisme unique vérifiable avec deux véritables writers concurrents; les traces L06-06 sont seulement symboliques.",
+      "tradeoffs_and_risks": "Les stratégies multistore sans atomicité peuvent exposer une fenêtre TOCTOU même avec CI verte.",
+      "evidence_prs": [
+        93
+      ],
+      "acceptance_criteria": [
+        "Choisir isolation, lock order, retries, timeouts, rollback",
+        "Exécuter deux connexions SQL et barrières close/post dans deux ordres",
+        "Démontrer aucun journal après clôture, y compris crash et redelivery"
+      ],
+      "blocks_live": [
+        "G6 CAL-INV-10",
+        "G6 CAL-SC-09",
+        "Security #71"
+      ],
+      "decision_record": null,
+      "approver_signoff": null
+    },
+    {
+      "id": "ADR-CAL-09",
+      "title": "Sémantique bitemporelle des périodes",
+      "status": "OPEN",
+      "priority": "HIGH",
+      "accountable_roles": [
+        "Temporal Data Architect",
+        "Accounting Reviewer",
+        "Runtime Owner"
+      ],
+      "options": [
+        "Versions immuables et intervalles effectifs/connus",
+        "Correction in-place avec journal d'audit",
+        "Append-only avec supersession et snapshots signés"
+      ],
+      "non_binding_recommendation": "Privilégier un historique append-only et des snapshots immuables, sans confondre known_at du rejeu et contrôle actuel au COMMIT.",
+      "tradeoffs_and_risks": "Le rejeu R&D ne prouve pas snapshots SQL ni provenance signée; rétroactivité et fuseaux doivent être arbitré.",
+      "evidence_prs": [
+        89,
+        90,
+        94
+      ],
+      "acceptance_criteria": [
+        "Définir recorded_at/published_at/as_of/known_at/commit_at",
+        "Contrainte d'exclusion et reprise après correction rétroactive",
+        "Signer/qualifier replay, absence de fallback et rétention des snapshots"
+      ],
+      "blocks_live": [
+        "G6 replay",
+        "G9 governance",
+        "G10 consumers"
+      ],
+      "decision_record": null,
+      "approver_signoff": null
+    },
+    {
+      "id": "ADR-CAL-10",
+      "title": "Règles calendaires par référentiel et juridiction",
+      "status": "OPEN",
+      "priority": "HIGH",
+      "accountable_roles": [
+        "Accounting Normative Expert",
+        "Accounting Owner",
+        "RuleSet Owner"
+      ],
+      "options": [
+        "Contraintes configurées par juridiction",
+        "Contraintes par framework PCG/IFRS/OHADA",
+        "Combinaison juridiction×book×référentiel avec résolution versionnée"
+      ],
+      "non_binding_recommendation": "Exiger validation normative indépendante des durées/périodes d'ajustement et des collisions de référentiels; ne pas prendre les noms PCG_RND/IFRS_RND pour des attestations.",
+      "tradeoffs_and_risks": "Le cœur accepte exercices décalés et variabilité mais n'atteste aucune conformité légale.",
+      "evidence_prs": [
+        88,
+        94
+      ],
+      "acceptance_criteria": [
+        "Définir matrice des conventions par pays et framework",
+        "Séparer contrat de Normative Layer des règles métier locales",
+        "Tester P01..P13/4-4-5/ADJ avec avis comptable et règles versionnées"
+      ],
+      "blocks_live": [
+        "G6 normative",
+        "G7 policies",
+        "G10 consumers"
+      ],
+      "decision_record": null,
+      "approver_signoff": null
+    }
+  ]
+}

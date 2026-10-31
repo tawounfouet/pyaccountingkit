@@ -1,0 +1,285 @@
+{
+  "schema_version": "l06-08-consolidated-evidence-v1",
+  "as_of": "2026-10-31",
+  "scope": "RND_TECHNICAL_ONLY",
+  "main_baseline_sha": "acdee98ca2736d79e17174f510ac767defd90db8",
+  "stack": "PR#88(main) -> #89 -> #90 -> #91 -> #92 -> #93 -> #94 -> #95(consolidation)",
+  "verified_prs": [
+    {
+      "lot": "L06-01",
+      "pr": 88,
+      "pr_state": "OPEN_DRAFT_UNMERGED",
+      "sha": "3003192495d0ff25e9b7a0dc3f6267157cd3a6a9",
+      "rnd_scope": "Structural calendar/year/period kernel",
+      "ci_status": "4_OF_4_WORKFLOWS_SUCCESS_AT_EXACT_SHA",
+      "python_311": {
+        "passed": 346,
+        "skipped": 19
+      },
+      "python_312": {
+        "passed": 346,
+        "skipped": 19
+      },
+      "postgres_311": {
+        "passed": 134
+      },
+      "postgres_312": {
+        "passed": 134
+      },
+      "migration_recovery_311": {
+        "passed": 6
+      },
+      "migration_recovery_312": {
+        "passed": 6
+      },
+      "original_foundation_sql_migration_count": 14,
+      "workflow_run_ids": {
+        "python_ci": 41175089074,
+        "postgresql_foundation": 41175088928,
+        "migration_recovery": 41175088911,
+        "standalone_package": 41175088929
+      }
+    },
+    {
+      "lot": "L06-02",
+      "pr": 89,
+      "pr_state": "OPEN_DRAFT_UNMERGED",
+      "sha": "56693940883543d533c0b8ec7af83f351a927d83",
+      "rnd_scope": "Candidate version and book-assignment as-of/known-at",
+      "ci_status": "4_OF_4_WORKFLOWS_SUCCESS_AT_EXACT_SHA",
+      "python_311": {
+        "passed": 378,
+        "skipped": 19
+      },
+      "python_312": {
+        "passed": 378,
+        "skipped": 19
+      },
+      "postgres_311": {
+        "passed": 134
+      },
+      "postgres_312": {
+        "passed": 134
+      },
+      "migration_recovery_311": {
+        "passed": 6
+      },
+      "migration_recovery_312": {
+        "passed": 6
+      },
+      "original_foundation_sql_migration_count": 14,
+      "workflow_run_ids": {
+        "python_ci": 41176091401,
+        "postgresql_foundation": 41176091413,
+        "migration_recovery": 41176091385,
+        "standalone_package": 41176091387
+      }
+    },
+    {
+      "lot": "L06-03",
+      "pr": 90,
+      "pr_state": "OPEN_DRAFT_UNMERGED",
+      "sha": "4762b5d218275dbf29d1b674a4ba8d54f20f8f12",
+      "rnd_scope": "Non-authoritative period state/lock/transition diagnostic",
+      "ci_status": "4_OF_4_WORKFLOWS_SUCCESS_AT_EXACT_SHA",
+      "python_311": {
+        "passed": 422,
+        "skipped": 19
+      },
+      "python_312": {
+        "passed": 422,
+        "skipped": 19
+      },
+      "postgres_311": {
+        "passed": 134
+      },
+      "postgres_312": {
+        "passed": 134
+      },
+      "migration_recovery_311": {
+        "passed": 6
+      },
+      "migration_recovery_312": {
+        "passed": 6
+      },
+      "original_foundation_sql_migration_count": 14,
+      "workflow_run_ids": {
+        "python_ci": 41177375485,
+        "postgresql_foundation": 41177375540,
+        "migration_recovery": 41177375517,
+        "standalone_package": 41177375510
+      }
+    },
+    {
+      "lot": "L06-04",
+      "pr": 91,
+      "pr_state": "OPEN_DRAFT_UNMERGED",
+      "sha": "8356d756accc580e5f4b81313a318edd54b34eba",
+      "rnd_scope": "Publication/audit/Outbox uncommitted intents",
+      "ci_status": "4_OF_4_WORKFLOWS_SUCCESS_AT_EXACT_SHA",
+      "python_311": {
+        "passed": 457,
+        "skipped": 19
+      },
+      "python_312": {
+        "passed": 457,
+        "skipped": 19
+      },
+      "postgres_311": {
+        "passed": 134
+      },
+      "postgres_312": {
+        "passed": 134
+      },
+      "migration_recovery_311": {
+        "passed": 6
+      },
+      "migration_recovery_312": {
+        "passed": 6
+      },
+      "original_foundation_sql_migration_count": 14,
+      "workflow_run_ids": {
+        "python_ci": 41178228009,
+        "postgresql_foundation": 41178227985,
+        "migration_recovery": 41178228027,
+        "standalone_package": 41178228000
+      }
+    },
+    {
+      "lot": "L06-05",
+      "pr": 92,
+      "pr_state": "OPEN_DRAFT_UNMERGED",
+      "sha": "b1fc7014afe040b7f34de06f09823a233046cd10",
+      "rnd_scope": "C10-Q04 non-authoritative wire/consumer simulation",
+      "ci_status": "4_OF_4_WORKFLOWS_SUCCESS_AT_EXACT_SHA",
+      "python_311": {
+        "passed": 498,
+        "skipped": 19
+      },
+      "python_312": {
+        "passed": 498,
+        "skipped": 19
+      },
+      "postgres_311": {
+        "passed": 134
+      },
+      "postgres_312": {
+        "passed": 134
+      },
+      "migration_recovery_311": {
+        "passed": 6
+      },
+      "migration_recovery_312": {
+        "passed": 6
+      },
+      "original_foundation_sql_migration_count": 14,
+      "workflow_run_ids": {
+        "python_ci": 41178958912,
+        "postgresql_foundation": 41178958918,
+        "migration_recovery": 41178959018,
+        "standalone_package": 41178958902
+      }
+    },
+    {
+      "lot": "L06-06",
+      "pr": 93,
+      "pr_state": "OPEN_DRAFT_UNMERGED",
+      "sha": "0c87bc0be811e65a483564bf45cc63481bee4d8c",
+      "rnd_scope": "Symbolic fencing: not concurrent SQL",
+      "ci_status": "4_OF_4_WORKFLOWS_SUCCESS_AT_EXACT_SHA",
+      "python_311": {
+        "passed": 528,
+        "skipped": 19
+      },
+      "python_312": {
+        "passed": 528,
+        "skipped": 19
+      },
+      "postgres_311": {
+        "passed": 134
+      },
+      "postgres_312": {
+        "passed": 134
+      },
+      "migration_recovery_311": {
+        "passed": 6
+      },
+      "migration_recovery_312": {
+        "passed": 6
+      },
+      "original_foundation_sql_migration_count": 14,
+      "workflow_run_ids": {
+        "python_ci": 41179641062,
+        "postgresql_foundation": 41179641057,
+        "migration_recovery": 41179641144,
+        "standalone_package": 41179641034
+      }
+    },
+    {
+      "lot": "L06-07",
+      "pr": 94,
+      "pr_state": "OPEN_DRAFT_UNMERGED",
+      "sha": "f695eb70280a0c7449d45278405bddd0a4473f73",
+      "rnd_scope": "Multi-book candidate replay and CAL invariant/scenario matrix",
+      "ci_status": "4_OF_4_WORKFLOWS_SUCCESS_AT_EXACT_SHA",
+      "python_311": {
+        "passed": 560,
+        "skipped": 19
+      },
+      "python_312": {
+        "passed": 560,
+        "skipped": 19
+      },
+      "postgres_311": {
+        "passed": 134
+      },
+      "postgres_312": {
+        "passed": 134
+      },
+      "migration_recovery_311": {
+        "passed": 6
+      },
+      "migration_recovery_312": {
+        "passed": 6
+      },
+      "original_foundation_sql_migration_count": 14,
+      "workflow_run_ids": {
+        "python_ci": 41180422169,
+        "postgresql_foundation": 41180422213,
+        "migration_recovery": 41180422272,
+        "standalone_package": 41180422160
+      }
+    }
+  ],
+  "source_traceability": {
+    "invariant_count": 12,
+    "scenario_count": 20,
+    "matrix_path": "docs/company_configuration/L06_07_CAL_INVARIANTS_AND_SCENARIOS_COVERAGE.json",
+    "matrix_source_status": "RND_TRACEABILITY_NOT_G6_APPROVAL",
+    "matrix_stale_field": "The prior source matrix retains ci_status=PENDING_EXACT_HEAD; superseding evidence is PR#94 qualification comment and this register; do not silently rewrite historical evidence."
+  },
+  "adr_register_path": "docs/company_configuration/L06_08_FISCAL_CALENDAR_ADR_REGISTER.json",
+  "adr_count": 10,
+  "adr_status": "ALL_OPEN",
+  "security_issue": {
+    "number": 71,
+    "state": "OPEN"
+  },
+  "gates": {
+    "G0": "PENDING_REVIEW",
+    "G1": "PENDING_REVIEW",
+    "G2": "PENDING_REVIEW",
+    "G3": "HOLD_SECURITY",
+    "G4": "NOT_APPROVED",
+    "G5": "NOT_APPROVED",
+    "G6": "NOT_APPROVED"
+  },
+  "no_new_sql_migration": true,
+  "publication_actual": false,
+  "real_get_period_status": false,
+  "real_ledger_posting": false,
+  "real_post_close_sql_fencing": false,
+  "real_multibook_e2e": false,
+  "g6_approved": false,
+  "live_acceptance": false
+}

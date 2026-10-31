@@ -85,6 +85,16 @@ class BookChartBindingCandidateId(_UUIDIdentifier):
 
 
 @dataclass(frozen=True, slots=True)
+class MappingSetCandidateVersionId(_UUIDIdentifier):
+    """Unpublished, bitemporal mapping set candidate version."""
+
+
+@dataclass(frozen=True, slots=True)
+class AccountMappingCandidateId(_UUIDIdentifier):
+    """Identity of one account-to-account mapping candidate rule."""
+
+
+@dataclass(frozen=True, slots=True)
 class ConfigurationDraftId(_UUIDIdentifier):
     """Stable identity of an unpublished configuration draft."""
 

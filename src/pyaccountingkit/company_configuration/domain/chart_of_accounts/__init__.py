@@ -21,6 +21,18 @@ from .hierarchy import (
     preview_account_hierarchy,
     validate_candidate_account_hierarchy,
 )
+from .mapping import (
+    AccountMappingCandidate,
+    AccountMappingCandidateResolution,
+    InvalidMappingCandidate,
+    MappingCandidateAmbiguous,
+    MappingCandidateDigestMismatch,
+    MappingCandidateMissing,
+    MappingKind,
+    MappingPrecedencePolicy,
+    MappingSetVersionCandidate,
+    resolve_account_mapping_candidate,
+)
 from .model import (
     AccountClassificationCode,
     AccountCode,
@@ -52,6 +64,16 @@ from .versions_bindings import (
 )
 
 __all__ = [
+    "AccountMappingCandidate",
+    "AccountMappingCandidateResolution",
+    "InvalidMappingCandidate",
+    "MappingCandidateAmbiguous",
+    "MappingCandidateDigestMismatch",
+    "MappingCandidateMissing",
+    "MappingKind",
+    "MappingPrecedencePolicy",
+    "MappingSetVersionCandidate",
+    "resolve_account_mapping_candidate",
     "BookChartBindingCandidate",
     "BookChartCandidateAmbiguous",
     "BookChartCandidateMissing",

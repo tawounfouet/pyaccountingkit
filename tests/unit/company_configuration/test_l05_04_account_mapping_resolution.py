@@ -164,6 +164,15 @@ def test_direct_one_to_one_is_exactly_one_account_not_financial_operation():
     res.verify_integrity()
 
 
+def test_mapping_set_digest_is_independent_of_input_order():
+    ctx = fixture()
+    _, _, _, a, b, x, y = ctx
+    mset = mapping_set(ctx, ((a, x, {}), (b, y, {})))
+    reversed_catalog = replace(mset, mappings=tuple(reversed(mset.mappings)))
+    assert reversed_catalog.content_digest == mset.content_digest
+    assert reversed_catalog.canonical_manifest() == mset.canonical_manifest()
+
+
 def test_n_to_one_uses_explicit_semantics_without_posting_or_aggregation_amounts():
     ctx = fixture()
     _, _, _, a, b, x, _ = ctx

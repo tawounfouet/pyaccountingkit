@@ -70,7 +70,8 @@ def _entity_scope(scope: ConfigurationScope) -> None:
 
 
 def _book_scope(scope: ConfigurationScope) -> None:
-    if not isinstance(scope, ConfigurationScope) or not isinstance(scope.book_id, AccountingBookId):
+    if (not isinstance(scope, ConfigurationScope)
+            or not isinstance(scope.book_id, AccountingBookId)):
         raise InvalidPolicyCandidate("Assignment requires an explicit typed book scope")
 
 

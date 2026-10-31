@@ -479,15 +479,15 @@ def test_fabricated_disposition_lock_and_state_rejected():
 def test_immutable_observations_and_no_mutation_methods():
     receipt, _, _ = fixture()
     s = state(receipt)
-    l = lock(receipt)
+    observed_lock = lock(receipt)
     t = transition(receipt)
     with pytest.raises(FrozenInstanceError):
         s.status = PeriodStatusCandidate.CLOSED
     with pytest.raises(FrozenInstanceError):
-        l.active = False
+        observed_lock.active = False
     with pytest.raises(FrozenInstanceError):
         t.reason = "tampered"
-    for obj in (s, l, t):
+    for obj in (s, observed_lock, t):
         for name in ("close", "open", "reopen", "post", "apply", "commit", "publish"):
             assert not hasattr(obj, name)
 

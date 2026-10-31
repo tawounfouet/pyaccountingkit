@@ -172,7 +172,9 @@ class CalendarPublicationRequestCandidate:
         if self.expected_content_digest != self.calendar_version.content_digest:
             raise InvalidCalendarPublicationIntent("Candidate version digest precondition failed")
         if not _key(self.idempotency_key) or not _key(self.correlation_id):
-            raise InvalidCalendarPublicationIntent("Canonical idempotency/correlation keys required")
+            raise InvalidCalendarPublicationIntent(
+                "Canonical idempotency/correlation keys required"
+            )
         if not _text(self.reason) or not _text(self.source_ref):
             raise InvalidCalendarPublicationIntent("Nonempty canonical reason/source required")
         if self.expected_prior_version_id is not None and not isinstance(

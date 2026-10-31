@@ -1,0 +1,516 @@
+{
+  "schema": "pyaccountingkit.company_configuration.l05_rnd_gap_register.v1",
+  "as_of": "2026-10-31",
+  "canonical_sources": [
+    "13_COMPANY_CONFIGURATION_CHART_OF_ACCOUNTS_AND_ACCOUNT_MAPPING.md §§11,19,20,21,22",
+    "14_COMPANY_CONFIGURATION_FISCAL_CALENDAR_AND_PERIOD_MANAGEMENT.md §§5-12,16,20,21",
+    "10_COMPANY_CONFIGURATION_INTEGRATION_CONTRACTS.md",
+    "17_COMPANY_CONFIGURATION_CONFIGURATION_LIFECYCLE_AND_GOVERNANCE.md",
+    "18_COMPANY_CONFIGURATION_VERSIONING_TEMPORALITY_AND_SNAPSHOTS.md"
+  ],
+  "scope_label": "RND_STATIC_EVIDENCE_CATALOG_NOT_PRODUCTION_SIGNOFF",
+  "baseline": {
+    "base_main_sha": "acdee98ca2736d79e17174f510ac767defd90db8",
+    "parent_l05_05_pr": 86,
+    "parent_head_sha": "191a9429239b88a064029cfb1869d8c16ac77be4",
+    "stacked_draft_prs": [
+      82,
+      83,
+      84,
+      85,
+      86
+    ],
+    "sql_migrations_unchanged_count": 14,
+    "package_version_status": "0.0.0_UNPUBLISHED_PLACEHOLDER"
+  },
+  "gate_assertions": {
+    "G0": "PENDING_REVIEW",
+    "G1": "PENDING_REVIEW",
+    "G2": "PENDING_REVIEW",
+    "G3": "HOLD_SECURITY",
+    "G4": "NOT_APPROVED",
+    "G5": "NOT_APPROVED",
+    "C10": "NOT_IMPLEMENTED"
+  },
+  "security_blocker": {
+    "github_issue": 71,
+    "state_at_baseline": "OPEN",
+    "summary": "Independently signed live actor command+issuer decision at SQL COMMIT remains unproven; R&D test grants are not authority"
+  },
+  "evidence_slices": [
+    {
+      "milestone": "L05-01",
+      "title": "Chart & Account Domain",
+      "draft_pr": 82,
+      "qualified_head_sha": "bc89639cac777e37cd002c141f526b20e2c81d28",
+      "qualification": "RND_TECHNICALLY_QUALIFIED_NOT_RELEASED",
+      "spec_file": "docs/company_configuration/L05_01_CHART_AND_ACCOUNT_DOMAIN_KERNEL.md",
+      "test_file": "tests/unit/company_configuration/test_l05_01_chart_account_domain.py"
+    },
+    {
+      "milestone": "L05-02",
+      "title": "Temporal Hierarchy & Bookability",
+      "draft_pr": 83,
+      "qualified_head_sha": "6ff7cf7300c42e58547a845555fb1c0ab8b23836",
+      "qualification": "RND_TECHNICALLY_QUALIFIED_NOT_RELEASED",
+      "spec_file": "docs/company_configuration/L05_02_ACCOUNT_HIERARCHY_CYCLE_AND_BOOKABILITY_RULES.md",
+      "test_file": "tests/unit/company_configuration/test_l05_02_account_hierarchy_bookability.py"
+    },
+    {
+      "milestone": "L05-03",
+      "title": "Chart Version & Book Binding Candidates",
+      "draft_pr": 84,
+      "qualified_head_sha": "33a0ef64040138649c3213280754d06dd2345e07",
+      "qualification": "RND_TECHNICALLY_QUALIFIED_NOT_RELEASED",
+      "spec_file": "docs/company_configuration/L05_03_CHART_CANDIDATE_VERSIONS_AND_BOOK_BINDINGS.md",
+      "test_file": "tests/unit/company_configuration/test_l05_03_chart_versions_book_bindings.py"
+    },
+    {
+      "milestone": "L05-04",
+      "title": "MappingSet & Account Mapping Resolution",
+      "draft_pr": 85,
+      "qualified_head_sha": "25fea2b6831ffd1fa927dc831923648d65dd3275",
+      "qualification": "RND_TECHNICALLY_QUALIFIED_NOT_RELEASED",
+      "spec_file": "docs/company_configuration/L05_04_MAPPING_SET_AND_ACCOUNT_MAPPING_RESOLUTION.md",
+      "test_file": "tests/unit/company_configuration/test_l05_04_account_mapping_resolution.py"
+    },
+    {
+      "milestone": "L05-05",
+      "title": "Conditional Mapping, Provider Intent & Coverage",
+      "draft_pr": 86,
+      "qualified_head_sha": "191a9429239b88a064029cfb1869d8c16ac77be4",
+      "qualification": "RND_TECHNICALLY_QUALIFIED_NOT_RELEASED",
+      "spec_file": "docs/company_configuration/L05_05_CONDITIONAL_MAPPING_SPECIALIZED_PROVIDER_AND_COVERAGE.md",
+      "test_file": "tests/unit/company_configuration/test_l05_05_mapping_conditions_providers_coverage.py"
+    }
+  ],
+  "canonical_adrs": [
+    {
+      "id": "ADR-COA-01",
+      "question": "Propriété du chart",
+      "source_section": "13 §21",
+      "options": "Entité / book / chart partagé + binding",
+      "proposed_owner_role": "Accounting & Architecture",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null,
+      "selected_option": null
+    },
+    {
+      "id": "ADR-COA-02",
+      "question": "Granularité des agrégats",
+      "source_section": "13 §21",
+      "options": "Chart contenant comptes / comptes indépendants",
+      "proposed_owner_role": "DDD & Persistence",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null,
+      "selected_option": null
+    },
+    {
+      "id": "ADR-COA-03",
+      "question": "Stratégie de versionnement",
+      "source_section": "13 §21",
+      "options": "Snapshots complets / révisions + manifeste",
+      "proposed_owner_role": "Governance & Data",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null,
+      "selected_option": null
+    },
+    {
+      "id": "ADR-COA-04",
+      "question": "Hiérarchie",
+      "source_section": "13 §21",
+      "options": "Arbre unique / vues hiérarchiques multiples",
+      "proposed_owner_role": "Accounting & Reporting",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null,
+      "selected_option": null
+    },
+    {
+      "id": "ADR-COA-05",
+      "question": "Mapping 1:N",
+      "source_section": "13 §21",
+      "options": "Interdit / conditionnel / provider spécialisé",
+      "proposed_owner_role": "Accounting & Projection",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null,
+      "selected_option": null
+    },
+    {
+      "id": "ADR-COA-06",
+      "question": "Priorité des mappings",
+      "source_section": "13 §21",
+      "options": "Spécificité + priorité / règles explicites par scope",
+      "proposed_owner_role": "Accounting & Runtime",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null,
+      "selected_option": null
+    },
+    {
+      "id": "ADR-COA-07",
+      "question": "Références normatives",
+      "source_section": "13 §21",
+      "options": "Obligatoires / facultatives selon référentiel",
+      "proposed_owner_role": "Normative Layer & Legal",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null,
+      "selected_option": null
+    },
+    {
+      "id": "ADR-COA-08",
+      "question": "Gestion de la couverture",
+      "source_section": "13 §21",
+      "options": "Totale / partielle autorisée et déclarée",
+      "proposed_owner_role": "Accounting & Risk",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null,
+      "selected_option": null
+    },
+    {
+      "id": "ADR-COA-09",
+      "question": "Gouvernance des changements",
+      "source_section": "13 §21",
+      "options": "Publication indépendante / manifeste global",
+      "proposed_owner_role": "Governance & Architecture",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null,
+      "selected_option": null
+    },
+    {
+      "id": "ADR-COA-10",
+      "question": "Persistance temporelle",
+      "source_section": "13 §21",
+      "options": "Historisation native / tables versionnées",
+      "proposed_owner_role": "Data & Security",
+      "decision_status": "OPEN_UNAPPROVED",
+      "signed_decision_ref": null,
+      "selected_option": null
+    }
+  ],
+  "source_invariants": [
+    {
+      "id": "COA-INV-01",
+      "source_rule": "Identité de chart unique et stable",
+      "source_section": "13 §11",
+      "status": "RND_LOCAL_PARTIAL",
+      "evidence_milestone": "L05-01",
+      "proof_boundary": "Tested R&D candidate-domain prerequisite only; no production/provider authorization"
+    },
+    {
+      "id": "COA-INV-02",
+      "source_rule": "Code de compte unique dans chart/version/scope applicable",
+      "source_section": "13 §11",
+      "status": "RND_LOCAL_PARTIAL",
+      "evidence_milestone": "L05-01",
+      "proof_boundary": "Tested R&D candidate-domain prerequisite only; no production/provider authorization"
+    },
+    {
+      "id": "COA-INV-03",
+      "source_rule": "Code conservé comme chaîne sans perte de zéros",
+      "source_section": "13 §11",
+      "status": "RND_LOCAL_PARTIAL",
+      "evidence_milestone": "L05-01",
+      "proof_boundary": "Tested R&D candidate-domain prerequisite only; no production/provider authorization"
+    },
+    {
+      "id": "COA-INV-04",
+      "source_rule": "Aucun compte imputable sans chart publié applicable",
+      "source_section": "13 §11",
+      "status": "NOT_IMPLEMENTED",
+      "evidence_milestone": null,
+      "proof_boundary": "No corresponding production guarantee or proof"
+    },
+    {
+      "id": "COA-INV-05",
+      "source_rule": "Compte non imputable ne reçoit pas nouvelle écriture",
+      "source_section": "13 §11",
+      "status": "RND_LOCAL_PARTIAL",
+      "evidence_milestone": "L05-02",
+      "proof_boundary": "Tested R&D candidate-domain prerequisite only; no production/provider authorization"
+    },
+    {
+      "id": "COA-INV-06",
+      "source_rule": "Pas de cycle dans hiérarchie publiée",
+      "source_section": "13 §11",
+      "status": "RND_LOCAL_PARTIAL",
+      "evidence_milestone": "L05-02",
+      "proof_boundary": "Tested R&D candidate-domain prerequisite only; no production/provider authorization"
+    },
+    {
+      "id": "COA-INV-07",
+      "source_rule": "Pas de parents multiples en vue arborescente",
+      "source_section": "13 §11",
+      "status": "RND_LOCAL_PARTIAL",
+      "evidence_milestone": "L05-02",
+      "proof_boundary": "Tested R&D candidate-domain prerequisite only; no production/provider authorization"
+    },
+    {
+      "id": "COA-INV-08",
+      "source_rule": "Book à affectation non ambiguë pour scope/date",
+      "source_section": "13 §11",
+      "status": "RND_LOCAL_PARTIAL",
+      "evidence_milestone": "L05-03",
+      "proof_boundary": "Tested R&D candidate-domain prerequisite only; no production/provider authorization"
+    },
+    {
+      "id": "COA-INV-09",
+      "source_rule": "Comptes de mapping dans versions désignées",
+      "source_section": "13 §11",
+      "status": "RND_LOCAL_PARTIAL",
+      "evidence_milestone": "L05-04",
+      "proof_boundary": "Tested R&D candidate-domain prerequisite only; no production/provider authorization"
+    },
+    {
+      "id": "COA-INV-10",
+      "source_rule": "Mapping obligatoire résolu déterministement",
+      "source_section": "13 §11",
+      "status": "RND_LOCAL_PARTIAL",
+      "evidence_milestone": "L05-04",
+      "proof_boundary": "Tested R&D candidate-domain prerequisite only; no production/provider authorization"
+    },
+    {
+      "id": "COA-INV-11",
+      "source_rule": "Mapping 1:N n'alloue pas sans règle spécialisée",
+      "source_section": "13 §11",
+      "status": "RND_LOCAL_PARTIAL",
+      "evidence_milestone": "L05-05",
+      "proof_boundary": "Tested R&D candidate-domain prerequisite only; no production/provider authorization"
+    },
+    {
+      "id": "COA-INV-12",
+      "source_rule": "Version publiée immuable",
+      "source_section": "13 §11",
+      "status": "NOT_IMPLEMENTED",
+      "evidence_milestone": null,
+      "proof_boundary": "No corresponding production guarantee or proof"
+    },
+    {
+      "id": "COA-INV-13",
+      "source_rule": "Résolution conserve version, dates, provenance",
+      "source_section": "13 §11",
+      "status": "RND_LOCAL_PARTIAL",
+      "evidence_milestone": "L05-03",
+      "proof_boundary": "Tested R&D candidate-domain prerequisite only; no production/provider authorization"
+    },
+    {
+      "id": "COA-INV-14",
+      "source_rule": "Compte retiré conservé dans historique durable",
+      "source_section": "13 §11",
+      "status": "NOT_IMPLEMENTED",
+      "evidence_milestone": null,
+      "proof_boundary": "No corresponding production guarantee or proof"
+    },
+    {
+      "id": "COA-INV-15",
+      "source_rule": "Inter-books sans double posting implicite",
+      "source_section": "13 §11",
+      "status": "NOT_IMPLEMENTED",
+      "evidence_milestone": null,
+      "proof_boundary": "No corresponding production guarantee or proof"
+    },
+    {
+      "id": "COA-INV-16",
+      "source_rule": "Référentiel chart compatible avec book",
+      "source_section": "13 §11",
+      "status": "RND_LOCAL_PARTIAL",
+      "evidence_milestone": "L05-03",
+      "proof_boundary": "Tested R&D candidate-domain prerequisite only; no production/provider authorization"
+    },
+    {
+      "id": "COA-INV-17",
+      "source_rule": "Intervalles temporels incompatibles rejetés",
+      "source_section": "13 §11",
+      "status": "RND_LOCAL_PARTIAL",
+      "evidence_milestone": "L05-01",
+      "proof_boundary": "Tested R&D candidate-domain prerequisite only; no production/provider authorization"
+    },
+    {
+      "id": "COA-INV-18",
+      "source_rule": "Modification sensible autorisée et auditée",
+      "source_section": "13 §11",
+      "status": "NOT_IMPLEMENTED",
+      "evidence_milestone": null,
+      "proof_boundary": "No corresponding production guarantee or proof"
+    }
+  ],
+  "source_scenarios": [
+    {
+      "id": "COA-S01",
+      "scenario": "Créer chart brouillon valide",
+      "source_section": "13 §19",
+      "status": "RND_LOCAL_PARTIAL",
+      "evidence_milestone": "L05-01",
+      "proof_boundary": "Synthetic candidate test, not production E2E"
+    },
+    {
+      "id": "COA-S02",
+      "scenario": "Dupliquer un code de compte dans même version",
+      "source_section": "13 §19",
+      "status": "RND_LOCAL_PARTIAL",
+      "evidence_milestone": "L05-01",
+      "proof_boundary": "Synthetic candidate test, not production E2E"
+    },
+    {
+      "id": "COA-S03",
+      "scenario": "Code 00123 sérialisé/relu intact",
+      "source_section": "13 §19",
+      "status": "RND_LOCAL_PARTIAL",
+      "evidence_milestone": "L05-01",
+      "proof_boundary": "Synthetic candidate test, not production E2E"
+    },
+    {
+      "id": "COA-S04",
+      "scenario": "Imputer compte de regroupement",
+      "source_section": "13 §19",
+      "status": "RND_LOCAL_PARTIAL",
+      "evidence_milestone": "L05-02",
+      "proof_boundary": "Synthetic candidate test, not production E2E"
+    },
+    {
+      "id": "COA-S05",
+      "scenario": "Cycle hiérarchique",
+      "source_section": "13 §19",
+      "status": "RND_LOCAL_PARTIAL",
+      "evidence_milestone": "L05-02",
+      "proof_boundary": "Synthetic candidate test, not production E2E"
+    },
+    {
+      "id": "COA-S06",
+      "scenario": "Publication atomique chart invalide",
+      "source_section": "13 §19",
+      "status": "NOT_IMPLEMENTED",
+      "evidence_milestone": null,
+      "proof_boundary": "Not implemented/verified as real integration"
+    },
+    {
+      "id": "COA-S07",
+      "scenario": "Affectations chart concurrentes au book",
+      "source_section": "13 §19",
+      "status": "RND_LOCAL_PARTIAL",
+      "evidence_milestone": "L05-03",
+      "proof_boundary": "Synthetic candidate test, not production E2E"
+    },
+    {
+      "id": "COA-S08",
+      "scenario": "Mapping N:1 local vers groupe",
+      "source_section": "13 §19",
+      "status": "RND_LOCAL_PARTIAL",
+      "evidence_milestone": "L05-04",
+      "proof_boundary": "Synthetic candidate test, not production E2E"
+    },
+    {
+      "id": "COA-S09",
+      "scenario": "Mapping vers 2 cibles sans discriminant",
+      "source_section": "13 §19",
+      "status": "RND_LOCAL_PARTIAL",
+      "evidence_milestone": "L05-04",
+      "proof_boundary": "Synthetic candidate test, not production E2E"
+    },
+    {
+      "id": "COA-S10",
+      "scenario": "Mapping 1:N demande allocation spécialisée",
+      "source_section": "13 §19",
+      "status": "RND_LOCAL_PARTIAL",
+      "evidence_milestone": "L05-05",
+      "proof_boundary": "Synthetic candidate test, not production E2E"
+    },
+    {
+      "id": "COA-S11",
+      "scenario": "Changement de chart au 1er janvier",
+      "source_section": "13 §19",
+      "status": "RND_LOCAL_PARTIAL",
+      "evidence_milestone": "L05-03",
+      "proof_boundary": "Synthetic candidate test, not production E2E"
+    },
+    {
+      "id": "COA-S12",
+      "scenario": "Replay historique version/digest original",
+      "source_section": "13 §19",
+      "status": "RND_LOCAL_PARTIAL",
+      "evidence_milestone": "L05-03",
+      "proof_boundary": "Synthetic candidate test, not production E2E"
+    },
+    {
+      "id": "COA-S13",
+      "scenario": "Retirer compte mouvementé, conserver historique",
+      "source_section": "13 §19",
+      "status": "NOT_IMPLEMENTED",
+      "evidence_milestone": null,
+      "proof_boundary": "Not implemented/verified as real integration"
+    },
+    {
+      "id": "COA-S14",
+      "scenario": "Multi-books PCG et IFRS réels",
+      "source_section": "13 §19",
+      "status": "NOT_IMPLEMENTED",
+      "evidence_milestone": null,
+      "proof_boundary": "Not implemented/verified as real integration"
+    },
+    {
+      "id": "COA-S15",
+      "scenario": "Filiale SYSCOHADA et mapping groupe réel",
+      "source_section": "13 §19",
+      "status": "NOT_IMPLEMENTED",
+      "evidence_milestone": null,
+      "proof_boundary": "Not implemented/verified as real integration"
+    },
+    {
+      "id": "COA-S16",
+      "scenario": "Publications simultanées conflictuelles",
+      "source_section": "13 §19",
+      "status": "NOT_IMPLEMENTED",
+      "evidence_milestone": null,
+      "proof_boundary": "Not implemented/verified as real integration"
+    },
+    {
+      "id": "COA-S17",
+      "scenario": "Accès autre entité sans autorisation et audit",
+      "source_section": "13 §19",
+      "status": "RND_LOCAL_PARTIAL",
+      "evidence_milestone": "L05-03",
+      "proof_boundary": "Synthetic candidate test, not production E2E"
+    },
+    {
+      "id": "COA-S18",
+      "scenario": "Snapshot absent/digest incompatible",
+      "source_section": "13 §19",
+      "status": "RND_LOCAL_PARTIAL",
+      "evidence_milestone": "L05-03",
+      "proof_boundary": "Synthetic candidate test, not production E2E"
+    },
+    {
+      "id": "COA-S19",
+      "scenario": "Mapping vers compte cible retiré",
+      "source_section": "13 §19",
+      "status": "NOT_IMPLEMENTED",
+      "evidence_milestone": null,
+      "proof_boundary": "Not implemented/verified as real integration"
+    },
+    {
+      "id": "COA-S20",
+      "scenario": "Deux projections pour deux books sans doublon",
+      "source_section": "13 §19",
+      "status": "NOT_IMPLEMENTED",
+      "evidence_milestone": null,
+      "proof_boundary": "Not implemented/verified as real integration"
+    }
+  ],
+  "cut_constraints": [
+    "NO_MERGE_NO_RELEASE",
+    "NO_SQL_MIGRATION_OR_PRIVILEGED_ISSUER",
+    "NO_C10_GET_ACCOUNT_ELIGIBILITY_OR_POSTING",
+    "NO_PUBLISHED_CHART_OR_BOOK_BINDING",
+    "NO_LEDGER_POSTING_OR_MONETARY_ALLOCATION",
+    "NO_IAM_OR_LEGAL_ATTESTATION_FROM_TEST_FAKES",
+    "NO_SIGNED_ADR_CLAIMS",
+    "SHA256_CHECKSUM_IS_NOT_SIGNATURE"
+  ],
+  "next_domain": {
+    "milestone": "L06-01",
+    "name": "Fiscal Calendar & Period Value Objects and Domain Kernel R&D",
+    "approved": false,
+    "source_adr_prefix": "ADR-CAL-",
+    "expected_source_adrs": 10,
+    "c10_period_query": "C10-Q04",
+    "blocking_consistency_risk": "Close-vs-posting TOCTOU requires proven atomic/fencing protection; read-only previews cannot substitute"
+  }
+}

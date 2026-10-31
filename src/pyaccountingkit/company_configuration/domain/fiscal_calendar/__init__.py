@@ -21,6 +21,21 @@ from .model import (
     preview_ordinary_period_candidate,
     validate_fiscal_structure,
 )
+from .period_controls import (
+    InvalidPeriodControlCandidate,
+    ObservationCompleteness,
+    PeriodControlCandidateAmbiguous,
+    PeriodControlCandidateDiagnostic,
+    PeriodControlCandidateDigestMismatch,
+    PeriodControlCandidateMissing,
+    PeriodControlDiagnosticDisposition,
+    PeriodLockObservationCandidate,
+    PeriodLockScopeCandidate,
+    PeriodStateObservationCandidate,
+    PeriodStatusCandidate,
+    PeriodTransitionDeclarationCandidate,
+    preview_period_controls_candidate,
+)
 from .versions_assignments import (
     BookCalendarAssignmentCandidate,
     BookCalendarCandidateAmbiguous,
@@ -34,6 +49,19 @@ from .versions_assignments import (
 )
 
 __all__ = [
+    "InvalidPeriodControlCandidate",
+    "ObservationCompleteness",
+    "PeriodControlCandidateAmbiguous",
+    "PeriodControlCandidateDiagnostic",
+    "PeriodControlCandidateDigestMismatch",
+    "PeriodControlCandidateMissing",
+    "PeriodControlDiagnosticDisposition",
+    "PeriodLockObservationCandidate",
+    "PeriodLockScopeCandidate",
+    "PeriodStateObservationCandidate",
+    "PeriodStatusCandidate",
+    "PeriodTransitionDeclarationCandidate",
+    "preview_period_controls_candidate",
     "BookCalendarAssignmentCandidate",
     "BookCalendarCandidateAmbiguous",
     "BookCalendarCandidateMissing",
